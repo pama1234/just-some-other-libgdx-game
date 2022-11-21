@@ -1,0 +1,70 @@
+{
+  // 使用 IntelliSense 了解相关属性。 
+  // 悬停以查看现有属性的描述。
+  // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Launch Screen0003",
+      "request": "launch",
+      "mainClass": "pama1234.gdx.game.app.Screen0003",
+      "projectName": "just-another-particle-system-core"
+    },
+    {
+      "type": "java",
+      "name": "Launch MyNettyClientTest",
+      "request": "launch",
+      "mainClass": "pama1234.gdx.game.app.server.net.MyNettyClientTest",
+      "projectName": "just-another-particle-system-server"
+    },
+    {
+      "type": "java",
+      "name": "Launch MyNettyServer",
+      "request": "launch",
+      "mainClass": "pama1234.gdx.game.app.server.net.MyNettyServer",
+      "projectName": "just-another-particle-system-server"
+    },
+    {
+      "type": "java",
+      "name": "Launch Tools",
+      "request": "launch",
+      "mainClass": "pama1234.math.Tools",
+      "projectName": "just-another-particle-system-server"
+    },
+    {
+      "type": "java",
+      "name": "Launch Current File",
+      "request": "launch",
+      "mainClass": "${file}"
+    },
+    {
+      "type": "java",
+      "name": "Launch HeadlessLauncher",
+      "request": "launch",
+      "mainClass": "pama1234.gdx.game.app.headless.HeadlessLauncher",
+      "projectName": "just-another-particle-system-headless"
+    },
+    {
+      "type": "java",
+      "name": "Launch Lwjgl3Launcher",
+      "request": "launch",
+      "mainClass": "pama1234.gdx.game.app.lwjgl3.Lwjgl3Launcher",
+      "projectName": "just-another-particle-system-lwjgl3"
+      // ,"vmArgs": "-Dcom.aparapi.enableShowGeneratedOpenCL=true"
+    },
+    {
+      "type": "java",
+      "name": "Launch ServerLauncher",
+      "request": "launch",
+      "mainClass": "pama1234.gdx.game.app.server.ServerLauncher",
+      "projectName": "just-another-particle-system-server"
+    },
+    {
+      "type": "java",
+      "name": "Launch Server2D",
+      "request": "launch",
+      "mainClass": "pama1234.gdx.game.app.server.with2d.Server2D"
+    }
+  ]
+}

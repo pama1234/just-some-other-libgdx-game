@@ -1,0 +1,1 @@
+include 'headless', 'android', 'lwjgl3', 'core', 'server'
