@@ -21,23 +21,31 @@ public class CellGroupGenerator3D{
     CellGroup3D group;
     int[] colors;
     float boxR;
-    boxR=40;
-    int cellType=64;
+    boxR=256;
+    int cellType=16;
     colors=new int[cellType];
     // colorMode(HSB);
     for(int i=0;i<colors.length;i++) colors[i]=Tools.hsbColor((float)i/colors.length*255,0xff,0xff);
     // colorMode(RGB);
-    int range=(int)(boxR*16/cellType);
+    // int range=(int)(boxR*16/cellType);
+    int range=1024/cellType;
     int arraySize=range*cellType;
     int[] type=new int[arraySize];
     for(int i=0;i<type.length;i++) type[i]=i/range;
     float[][][] core=new float[cellType][cellType][3];
     for(int i=0;i<core.length;i++) {
       for(int j=0;j<core[i].length;j++) {
-        core[i][j][Var.G]=random(-Var.DIST,Var.DIST)/4;
+        // core[i][j][Var.G]=random(-Var.DIST,Var.DIST)/16;
+        // core[i][j][Var.G]=random(-Var.DIST,Var.DIST)/4;
+        core[i][j][Var.G]=random(-Var.DIST,Var.DIST)/8;
         //        core[i][j][MultipleTypeForceUpdate.G]=random(-CellGroup.DIST,CellGroup.DIST);
-        core[i][j][Var.MIN]=random(0,Var.DIST*4);
-        core[i][j][Var.MAX]=random(Var.DIST*4,Var.DIST*8);
+        // core[i][j][Var.MIN]=random(0,Var.DIST*4);
+        // core[i][j][Var.MAX]=random(Var.DIST*4,Var.DIST*8);
+        // core[i][j][Var.MIN]=random(0,Var.DIST*40);
+        // core[i][j][Var.MAX]=random(Var.DIST*40,Var.DIST*80);
+        float trn=random(Var.DIST*20,Var.DIST*140);
+        core[i][j][Var.MIN]=random(0,trn);
+        core[i][j][Var.MAX]=random(trn,Var.DIST*160);
       }
     }
     group=new CellGroup3D(arraySize,boxR,type,core,colors);
@@ -56,7 +64,7 @@ public class CellGroupGenerator3D{
     CellGroup3D group;
     int[] colors;
     float boxR;
-    boxR=1024;
+    boxR=512;//1024 //TODO
     float[][] miniCore=new float[][] {
       {0,1,-1,-1,0,0,0,0,0,0,0,1},
       {1,0,1,-1,-1,0,0,0,0,0,0,0},
@@ -88,7 +96,7 @@ public class CellGroupGenerator3D{
     // colorMode(HSB);
     for(int i=0;i<colors.length;i++) colors[i]=Tools.hsbColor((float)i/cellType*255,0xff,0xff);
     // colorMode(RGB);
-    int amount=1024;
+    int amount=128;//1024
     int arraySize=amount*cellType;
     int[] type=new int[arraySize];
     for(int i=0;i<type.length;i++) type[i]=i/amount;

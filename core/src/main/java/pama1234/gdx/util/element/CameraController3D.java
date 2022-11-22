@@ -11,6 +11,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 
 import pama1234.gdx.util.app.UtilScreen3D;
+import pama1234.gdx.util.info.TouchInfo;
 import pama1234.math.physics.PathVar;
 
 public class CameraController3D extends CameraController{
@@ -87,11 +88,30 @@ public class CameraController3D extends CameraController{
   }
   @Override
   public void mouseDragged() {
-    if(p.mouse.right||(p.isAndroid&&p.mouse.x>p.width/2)) moveView();
+    if(p.mouse.right) moveView();
+  }
+  @Override
+  public void touchMoved(TouchInfo info) {
+    if(p.isAndroid&&info.x>p.width/2) moveView(info.dx,info.dy);
   }
   public void moveView() {
-    h.des-=(p.mouse.dx/pcam.viewportWidth)*viewSpeed;
-    v.des-=-(p.mouse.dy/pcam.viewportHeight)*viewSpeed;
+    // h.des-=(p.mouse.dx/pcam.viewportWidth)*viewSpeed;
+    // v.des-=-(p.mouse.dy/pcam.viewportHeight)*viewSpeed;
+    // if(h.des>=PI2) {
+    //   h.des-=PI2;
+    //   h.pos-=PI2;
+    // }
+    // if(h.des<0) {
+    //   h.des+=PI2;
+    //   h.pos+=PI2;
+    // }
+    // if(v.des<=-PI) v.des=0.005f-PI;
+    // if(v.des>=0) v.des=-0.005f;
+    moveView(p.mouse.dx,p.mouse.dy);
+  }
+  public void moveView(float dx,float dy) {
+    h.des-=(dx/pcam.viewportWidth)*viewSpeed;
+    v.des-=-(dy/pcam.viewportHeight)*viewSpeed;
     if(h.des>=PI2) {
       h.des-=PI2;
       h.pos-=PI2;

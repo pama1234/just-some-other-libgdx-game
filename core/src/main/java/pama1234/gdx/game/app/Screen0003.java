@@ -8,6 +8,7 @@ import static pama1234.math.UtilMath.pow;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
@@ -19,7 +20,6 @@ import pama1234.gdx.util.app.UtilScreen;
 import pama1234.gdx.util.app.UtilScreen3D;
 import pama1234.gdx.util.element.Graphics;
 import pama1234.gdx.util.entity.Entity;
-import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
 
 /**
@@ -105,18 +105,89 @@ public class Screen0003 extends UtilScreen3D{
   //     super.display();
   //   }
   // }
+  @FunctionalInterface
+  public interface ExecuteF{
+    public void execute();
+  }
   public abstract class Button extends Entity{
-    public Button(UtilScreen p) {
+    TouchInfo touch;
+    ExecuteF press,clickStart,clickEnd;
+    public Button(UtilScreen p,ExecuteF press,ExecuteF clickStart,ExecuteF clickEnd) {
       super(p);
+      this.press=press;
+      this.clickStart=clickStart;
+      this.clickEnd=clickEnd;
+    }
+    // public Button(UtilScreen p) {
+    //   super(p);
+    // }
+    @Override
+    public void display() {}
+    @Override
+    public void update() {
+      if(touch!=null) press();
+    }
+    public abstract void displayScreen();
+    public abstract boolean inButton(float x,float y);
+    public void press() {
+      press.execute();
+    }
+    public void clickStart() {
+      clickStart.execute();
+    }
+    public void clickEnd() {
+      clickEnd.execute();
+    }
+    @Override
+    public void touchStarted(TouchInfo info) {
+      if(inButton(info.sx,info.sy)) {
+        touch=info;
+        clickStart();
+      }
+    }
+    @Override
+    public void touchEnded(TouchInfo info) {
+      if(touch==info) {
+        touch=null;
+        clickEnd();
+      }else if(inButton(info.sx,info.sy)&&inButton(info.x,info.y)) clickEnd();
+    }
+  }
+  @FunctionalInterface
+  public interface GetFloat{
+    public float get();
+  }
+  public class TextButton extends Button{
+    String text;
+    // int x,y,w,h;
+    GetFloat x,y,w,h;
+    public TextButton(UtilScreen p,ExecuteF press,ExecuteF clickStart,ExecuteF clickEnd,String text,GetFloat x,GetFloat y) {
+      this(p,press,clickStart,clickEnd,text,x,y,()->bu,()->bu);
+    }
+    public TextButton(UtilScreen p,ExecuteF press,ExecuteF clickStart,ExecuteF clickEnd,String text,GetFloat x,GetFloat y,GetFloat w,GetFloat h) {
+      super(p,press,clickStart,clickEnd);
+      this.text=text;
+      this.x=x;
+      this.y=y;
+      this.w=w;
+      this.h=h;
     }
     @Override
     public void display() {}
-    public abstract void displayScreen();
-    public abstract boolean inButton(float x,float y);
-    public abstract void execute();
     @Override
-    public void touchEnded(TouchInfo info) {
-      if(inButton(info.sx,info.sy)&&inButton(info.x,info.y)) execute();
+    public void displayScreen() {
+      final float tx=x.get(),ty=y.get(),tw=w.get(),th=h.get();
+      textColor(0);
+      fill(171,204,156);
+      rect(tx,ty,tw,th);
+      fill(191,224,176);
+      triangle(tx,ty,tx+tw,ty,tx,ty+th);
+      fill(211,244,196);
+      rect(tx+pus,ty+pus,tw-pus*2,th-pus*2);
+      text(text,tx+(bu-pus*8)/2f,ty+(bu-pus*16)/2f);
+    }
+    public boolean inButton(float xIn,float yIn) {
+      return inBox(xIn,yIn,x.get(),y.get(),w.get(),h.get());
     }
   }
   public int tgsizeF(int k) {
@@ -129,6 +200,7 @@ public class Screen0003 extends UtilScreen3D{
     backgroundColor(0);
     textColor(255);
     CellGroupGenerator3D gen=new CellGroupGenerator3D(0,0);
+    // group=gen.randomGenerate();
     group=gen.GenerateFromMiniCore();
     // playerCenter=new PlayerCenter<Player3D>();
     noStroke();
@@ -211,27 +283,40 @@ public class Screen0003 extends UtilScreen3D{
         // }};,
         // new Button(this,new Sprite(buttonsG.texture,0,0,tu,tu)) {
         // },
-        new Button(this) {
-          @Override
-          public void displayScreen() {
-            // System.out.println("abc");
-            textColor(0);
-            fill(211,244,196);
-            rect(0,0,bu,bu);
-            text("Z",0,0);
-            // noFill();
-            // doStroke();
-            // stroke(255);
-          }
-          @Override
-          public boolean inButton(float x,float y) {
-            return inBox(x,y,0,0,bu,bu);
-          }
-          @Override
-          public void execute() {
-            doUpdate=!doUpdate;
-          }
-        }
+        new TextButton(this,()-> {},()-> {},()-> {
+          inputProcessor.keyDown(Input.Keys.Z);
+          inputProcessor.keyUp(Input.Keys.Z);
+        },"Z",()->bu*0.5f,()->bu*0.5f),
+        new TextButton(this,()-> {},()-> {
+          inputProcessor.keyDown(Input.Keys.W);
+        },()-> {
+          inputProcessor.keyUp(Input.Keys.W);
+        },"W",()->bu*2.5f,()->height-bu*2.5f),
+        new TextButton(this,()-> {},()-> {
+          inputProcessor.keyDown(Input.Keys.S);
+        },()-> {
+          inputProcessor.keyUp(Input.Keys.S);
+        },"S",()->bu*2.5f,()->height-bu*1.5f),
+        new TextButton(this,()-> {},()-> {
+          inputProcessor.keyDown(Input.Keys.A);
+        },()-> {
+          inputProcessor.keyUp(Input.Keys.A);
+        },"A",()->bu*1.5f,()->height-bu*1.5f),
+        new TextButton(this,()-> {},()-> {
+          inputProcessor.keyDown(Input.Keys.D);
+        },()-> {
+          inputProcessor.keyUp(Input.Keys.D);
+        },"D",()->bu*3.5f,()->height-bu*1.5f),
+        new TextButton(this,()-> {},()-> {
+          inputProcessor.keyDown(Input.Keys.SPACE);
+        },()-> {
+          inputProcessor.keyUp(Input.Keys.SPACE);
+        },"↑",()->bu*0.5f,()->height-bu*2.5f),
+        new TextButton(this,()-> {},()-> {
+          inputProcessor.keyDown(Input.Keys.SHIFT_LEFT);
+        },()-> {
+          inputProcessor.keyUp(Input.Keys.SHIFT_LEFT);
+        },"↓",()->bu*0.5f,()->height-bu*1.5f)
       };
       for(int i=0;i<buttons.length;i++) center.add.add(buttons[i]);
     }
@@ -303,7 +388,7 @@ public class Screen0003 extends UtilScreen3D{
   public void frameResized() {
     // println(u);
     // strokeWeight(u);
-    bu=pus*16;
+    bu=pus*24;
   }
   @Override
   public void keyPressed(char key,int keyCode) {
@@ -317,12 +402,16 @@ public class Screen0003 extends UtilScreen3D{
       if(cam3d.viewSpeed<0) cam3d.viewSpeed=0;
     }
     if(key=='R') {
+      float tmd=multDist;
       multDist+=1/4f;
       if(multDist>8) multDist=8;
+      cam.point.set(cam.point.des.x/tmd*multDist,cam.point.des.y/tmd*multDist,cam.point.des.z/tmd*multDist);
     }
     if(key=='F') {
+      float tmd=multDist;
       multDist-=1/4f;
       if(multDist<1/4f) multDist=1/4f;
+      cam.point.set(cam.point.des.x/tmd*multDist,cam.point.des.y/tmd*multDist,cam.point.des.z/tmd*multDist);
     }
     if(key=='H') displayHint=!displayHint;
     if(key=='N') {

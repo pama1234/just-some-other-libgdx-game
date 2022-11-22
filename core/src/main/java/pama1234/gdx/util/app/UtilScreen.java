@@ -76,8 +76,8 @@ public abstract class UtilScreen implements Screen,InputListener,LifecycleListen
   public int pus;
   public boolean stop;
   //---
-  public boolean isAndroid=true;
-  // boolean isAndroid=Gdx.app.getType()==ApplicationType.Android;//TODO
+  // public boolean isAndroid=true;
+  public boolean isAndroid=Gdx.app.getType()==ApplicationType.Android;//TODO
   @Override
   public void init() {}
   public abstract void setup();

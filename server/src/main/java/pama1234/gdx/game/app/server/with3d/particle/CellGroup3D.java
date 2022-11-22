@@ -5,10 +5,12 @@ import com.aparapi.device.Device;
 import com.aparapi.exception.CompileFailedException;
 import com.aparapi.internal.kernel.KernelManager;
 
+import pama1234.gdx.game.app.server.particle.Var;
 import pama1234.gdx.util.entity.ServerEntity;
 
 public class CellGroup3D extends ServerEntity{
-  public static final int SIZE=2,DIST=SIZE*2;
+  //TODO
+  public static final int SIZE=Var.SIZE,DIST=Var.DIST;
   public final int size;
   public final float[] posX,posY,posZ,velX,velY,velZ;
   public final int[] type;
