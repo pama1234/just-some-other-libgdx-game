@@ -2,23 +2,25 @@ package pama1234.gdx.game.app;
 
 import static com.badlogic.gdx.math.MathUtils.log;
 import static com.badlogic.gdx.math.MathUtils.map;
+import static pama1234.math.Tools.inBox;
 import static pama1234.math.UtilMath.dist;
 import static pama1234.math.UtilMath.pow;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.badlogic.gdx.math.Vector3;
 
 import pama1234.gdx.game.app.server.with3d.particle.CellGroup3D;
 import pama1234.gdx.game.app.server.with3d.particle.CellGroupGenerator3D;
+import pama1234.gdx.util.app.UtilScreen;
 import pama1234.gdx.util.app.UtilScreen3D;
 import pama1234.gdx.util.element.Graphics;
-//vscode add ,"vmArgs": "-Dcom.aparapi.enableShowGeneratedOpenCL=true" to launch.json
+import pama1234.gdx.util.entity.Entity;
+import pama1234.gdx.util.info.MouseInfo;
+import pama1234.gdx.util.info.TouchInfo;
 
 /**
  * 3D 粒子系统
@@ -63,6 +65,11 @@ public class Screen0003 extends UtilScreen3D{
   };
   Decal dhint;
   Decal logo;
+  // final int tu=16;
+  Button[] buttons;
+  int bu;
+  // Graphics buttonsG;
+  // Texture buttonsT;
   public static class GraphicsData{
     public Graphics g;
     public TextureRegion tr;
@@ -77,6 +84,39 @@ public class Screen0003 extends UtilScreen3D{
     public DecalData(Decal g,int layer) {
       this.decal=g;
       this.layer=layer;
+    }
+  }
+  // public abstract class Button extends SpriteEntity{
+  //   public Button(UtilScreen p,Sprite s) {
+  //     super(p,s);
+  //     // new Sprite
+  //   }
+  //   public Button(UtilScreen p,TextureRegion s) {
+  //     this(p,new Sprite(s));
+  //     // new Sprite
+  //   }
+  //   @Override
+  //   public void frameResized(int w,int h) {
+  //     s.setScale(tu/u);
+  //   }
+  //   @Override
+  //   public void display() {}
+  //   public void displayWithCam() {
+  //     super.display();
+  //   }
+  // }
+  public abstract class Button extends Entity{
+    public Button(UtilScreen p) {
+      super(p);
+    }
+    @Override
+    public void display() {}
+    public abstract void displayScreen();
+    public abstract boolean inButton(float x,float y);
+    public abstract void execute();
+    @Override
+    public void touchEnded(TouchInfo info) {
+      if(inButton(info.sx,info.sy)&&inButton(info.x,info.y)) execute();
     }
   }
   public int tgsizeF(int k) {
@@ -113,8 +153,6 @@ public class Screen0003 extends UtilScreen3D{
       graphicsList.get(0).add(0*ts+i,new GraphicsData(tg,tr));
       for(int j=0;j<tsize;j++) {
         Decal td=Decal.newDecal(CellGroup3D.DIST,CellGroup3D.DIST,tr,true);
-        // td.setTextureRegion(tr);
-        // decals.get(k).add(i*1+j,td);
         decals.add(i*tsize+j,new DecalData(td,0));
       }
     }
@@ -123,10 +161,6 @@ public class Screen0003 extends UtilScreen3D{
       // k++;
       // decals.add(k,new ArrayList<Decal>(ts));
       for(int i=0;i<ts;i++) {
-        // int gsize=tsizelist[k-1];
-        // int gsize=(int)(2*pow(k+1,1.9f));
-        // int tgsize=gsize*(k+1);
-        // int tgsize=pow(gsize,(k+2));
         int tgsize=tgsizeF(k);
         Graphics tg=new Graphics(this,tgsize*2,tgsize*2);
         tg.beginDraw();
@@ -154,15 +188,53 @@ public class Screen0003 extends UtilScreen3D{
       }
     };
     updateCell.start();
-    //--- TODO
+    //TODO
     Graphics tg=new Graphics(this,360,16*hint.length);
     tg.beginDraw();
     for(int i=0;i<hint.length;i++) text(hint[i],0,16*i);
     tg.endDraw();
     TextureRegion tr=new TextureRegion(tg.texture);
     dhint=Decal.newDecal(tr,true);
-    logo=Decal.newDecal(256,256,new TextureRegion(new Texture(Gdx.files.internal("logo/logo.png"))),true);
+    logo=Decal.newDecal(256,256,new TextureRegion(loadTexture("logo/logo.png")),true);
     logo.setPosition(0,-512,0);
+    //TODO
+    if(isAndroid) {
+      // final int tu=constrain((int)u,4,64)*4;
+      // buttonsG=new Graphics(this,tu*5,tu*4);
+      // buttonsG.beginDraw();
+      // // triangle(0,0,0,tu,tu,0);
+      // text("Z",0,0);
+      // buttonsG.endDraw();
+      // buttonsT=loadTexture("touchCtrl/buttons.png");
+      buttons=new Button[] {
+        // new Button(this,new Sprite(new TextureRegion(buttonsT))) {
+        // }};,
+        // new Button(this,new Sprite(buttonsG.texture,0,0,tu,tu)) {
+        // },
+        new Button(this) {
+          @Override
+          public void displayScreen() {
+            // System.out.println("abc");
+            textColor(0);
+            fill(211,244,196);
+            rect(0,0,bu,bu);
+            text("Z",0,0);
+            // noFill();
+            // doStroke();
+            // stroke(255);
+          }
+          @Override
+          public boolean inButton(float x,float y) {
+            return inBox(x,y,0,0,bu,bu);
+          }
+          @Override
+          public void execute() {
+            doUpdate=!doUpdate;
+          }
+        }
+      };
+      for(int i=0;i<buttons.length;i++) center.add.add(buttons[i]);
+    }
   }
   @Override
   public void update() {}
@@ -183,17 +255,8 @@ public class Screen0003 extends UtilScreen3D{
     // return (int)constrain(map(log(dist,logn),-logViewDist,logViewDist,layerSize,0),0,layerSize-1);
   }
   public static void main(String[] args) {
-    // System.out.println(log(1,logn));
-    // System.out.println(log(2,logn));
-    // System.out.println(log(viewDist/2,logn));
-    // System.out.println(log(viewDist,logn));
-    // System.out.println((int)map(log(1,logn),0,logViewDist,layerSize,0));
-    // System.out.println((int)map(log(2,logn),0,logViewDist,layerSize,0));
-    // System.out.println((int)map(log(viewDist/2,logn),0,logViewDist,layerSize,0));
-    // System.out.println((int)map(log(viewDist,logn),0,logViewDist,layerSize,0));
     pow(1,1);
     log(1,1);
-    // System.out.println(pow(2,1));
   }
   @Override
   public void display() {
@@ -228,9 +291,20 @@ public class Screen0003 extends UtilScreen3D{
     // withScreen();
     // text("moveSpeed "+cam3d.moveSpeed,0,0);
     // text("viewSpeed "+cam3d.viewSpeed,0,u);
+    if(isAndroid) {
+      withScreen();
+      // image(buttonsG.texture,0,0);
+      // rect(0,0,u,u*4);
+      // text("Z",16,16);
+      for(int i=0;i<buttons.length;i++) buttons[i].displayScreen();
+    }
   }
   @Override
-  public void frameResized() {}
+  public void frameResized() {
+    // println(u);
+    // strokeWeight(u);
+    bu=pus*16;
+  }
   @Override
   public void keyPressed(char key,int keyCode) {
     if(key=='Z') doUpdate=!doUpdate;

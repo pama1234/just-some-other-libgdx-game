@@ -87,7 +87,7 @@ public class CameraController3D extends CameraController{
   }
   @Override
   public void mouseDragged() {
-    if(p.mouse.right) moveView();
+    if(p.mouse.right||(p.isAndroid&&p.mouse.x>p.width/2)) moveView();
   }
   public void moveView() {
     h.des-=(p.mouse.dx/pcam.viewportWidth)*viewSpeed;

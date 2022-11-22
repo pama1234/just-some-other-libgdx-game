@@ -2,11 +2,11 @@ package pama1234.gdx.util.entity;
 
 import com.badlogic.gdx.graphics.g2d.Sprite;
 
-import pama1234.gdx.util.app.UtilScreen2D;
+import pama1234.gdx.util.app.UtilScreen;
 
 public abstract class SpriteEntity extends Entity{
   public Sprite s;
-  public SpriteEntity(UtilScreen2D p,Sprite s) {
+  public SpriteEntity(UtilScreen p,Sprite s) {
     super(p);
     this.s=s;
   }

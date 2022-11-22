@@ -71,9 +71,13 @@ public abstract class UtilScreen implements Screen,InputListener,LifecycleListen
   public ServerEntityCenter<ServerEntityListener> serverCenter;
   public UtilInputProcesser inputProcessor;
   public Random rng=new Random();
-  public float u,pu;
+  // public float u,pu;
+  public float u;
   public int pus;
   public boolean stop;
+  //---
+  public boolean isAndroid=true;
+  // boolean isAndroid=Gdx.app.getType()==ApplicationType.Android;//TODO
   @Override
   public void init() {}
   public abstract void setup();
@@ -121,7 +125,7 @@ public abstract class UtilScreen implements Screen,InputListener,LifecycleListen
     if(Gdx.app.getType()==ApplicationType.Android) u=min(w,h)/8;
     else u=min(w,h)/16;
     pus=max(1,floor(u/16f));
-    pu=pus*16;
+    // pu=pus*16;
     // camResizeEvent(w,h);
     cam.preResizeEvent(w,h);
     // System.out.println("a");
@@ -182,6 +186,9 @@ public abstract class UtilScreen implements Screen,InputListener,LifecycleListen
   public void touchMoved(TouchInfo info) {}
   public void strokeWeight(float in) {
     Gdx.gl.glLineWidth(strokeWeight=in);
+  }
+  public Texture loadTexture(String in) {
+    return new Texture(Gdx.files.internal(in));
   }
   public void image(Texture in,float x,float y) {
     imageBatch.begin();
@@ -331,6 +338,16 @@ public abstract class UtilScreen implements Screen,InputListener,LifecycleListen
     }
     if(stroke) {
       // rStroke.circle(x,y,z,s,seg);
+      rStroke.flush();
+    }
+  }
+  public void triangle(float x1,float y1,float x2,float y2,float x3,float y3) {
+    if(fill) {
+      rFill.triangle(x1,y1,x2,y2,x3,y3);
+      rFill.flush();
+    }
+    if(stroke) {
+      rStroke.triangle(x1,y1,x2,y2,x3,y3);
       rStroke.flush();
     }
   }
