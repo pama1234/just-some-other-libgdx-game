@@ -5,10 +5,11 @@ import pama1234.gdx.game.app.server.with2d.Player2D;
 import pama1234.gdx.game.app.server.with2d.particle.CellGroup2D;
 import pama1234.gdx.game.app.server.with2d.particle.CellGroupGenerator2D;
 import pama1234.gdx.util.app.UtilScreen2D;
+
 /**
- * 2D 粒子系统
- * 警告：未维护
+ * 2D 粒子系统 警告：未维护
  */
+@Deprecated
 public class Screen0002 extends UtilScreen2D{
   CellGroup2D group;
   PlayerCenter<Player2D> playerCenter;

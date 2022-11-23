@@ -86,25 +86,6 @@ public class Screen0003 extends UtilScreen3D{
       this.layer=layer;
     }
   }
-  // public abstract class Button extends SpriteEntity{
-  //   public Button(UtilScreen p,Sprite s) {
-  //     super(p,s);
-  //     // new Sprite
-  //   }
-  //   public Button(UtilScreen p,TextureRegion s) {
-  //     this(p,new Sprite(s));
-  //     // new Sprite
-  //   }
-  //   @Override
-  //   public void frameResized(int w,int h) {
-  //     s.setScale(tu/u);
-  //   }
-  //   @Override
-  //   public void display() {}
-  //   public void displayWithCam() {
-  //     super.display();
-  //   }
-  // }
   @FunctionalInterface
   public interface ExecuteF{
     public void execute();
@@ -118,9 +99,6 @@ public class Screen0003 extends UtilScreen3D{
       this.clickStart=clickStart;
       this.clickEnd=clickEnd;
     }
-    // public Button(UtilScreen p) {
-    //   super(p);
-    // }
     @Override
     public void display() {}
     @Override
@@ -267,22 +245,11 @@ public class Screen0003 extends UtilScreen3D{
     tg.endDraw();
     TextureRegion tr=new TextureRegion(tg.texture);
     dhint=Decal.newDecal(tr,true);
-    logo=Decal.newDecal(256,256,new TextureRegion(loadTexture("logo/logo.png")),true);
+    logo=Decal.newDecal(256,256,new TextureRegion(loadTexture("logo/logo-ingame.png")),true);
     logo.setPosition(0,-512,0);
     //TODO
     if(isAndroid) {
-      // final int tu=constrain((int)u,4,64)*4;
-      // buttonsG=new Graphics(this,tu*5,tu*4);
-      // buttonsG.beginDraw();
-      // // triangle(0,0,0,tu,tu,0);
-      // text("Z",0,0);
-      // buttonsG.endDraw();
-      // buttonsT=loadTexture("touchCtrl/buttons.png");
       buttons=new Button[] {
-        // new Button(this,new Sprite(new TextureRegion(buttonsT))) {
-        // }};,
-        // new Button(this,new Sprite(buttonsG.texture,0,0,tu,tu)) {
-        // },
         new TextButton(this,()-> {},()-> {},()-> {
           inputProcessor.keyDown(Input.Keys.Z);
           inputProcessor.keyUp(Input.Keys.Z);

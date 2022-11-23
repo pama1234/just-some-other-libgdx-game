@@ -2,7 +2,6 @@ package pama1234.gdx.util.app;
 
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -14,7 +13,6 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.IntArray;
 
 import pama1234.gdx.util.element.CameraController3D;
-import pama1234.gdx.util.element.MultiChunkFont;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.gdx.util.input.UtilInputProcesser;
@@ -32,24 +30,7 @@ public abstract class UtilScreen3D extends UtilScreen{
     cam=cam3d=new CameraController3D(this,0,0,0,1,0,Gdx.app.getType()==ApplicationType.Desktop?640:160);
     fontBatch=new SpriteBatch();
     imageBatch=new SpriteBatch();
-    font=new MultiChunkFont(new FileHandle[] {
-      Gdx.files.internal("unifont/0/unifont-0.fnt"),
-      Gdx.files.internal("unifont/1/unifont-1.fnt"),
-      Gdx.files.internal("unifont/2/unifont-2.fnt"),
-      Gdx.files.internal("unifont/3/unifont-3.fnt"),
-      Gdx.files.internal("unifont/4/unifont-4.fnt"),
-      Gdx.files.internal("unifont/5/unifont-5.fnt"),
-      Gdx.files.internal("unifont/6/unifont-6.fnt"),
-      Gdx.files.internal("unifont/7/unifont-7.fnt"),
-      Gdx.files.internal("unifont/8/unifont-8.fnt"),
-      Gdx.files.internal("unifont/9/unifont-9.fnt"),
-      Gdx.files.internal("unifont/10/unifont-10.fnt"),
-      Gdx.files.internal("unifont/11/unifont-11.fnt"),
-      Gdx.files.internal("unifont/12/unifont-12.fnt"),
-      Gdx.files.internal("unifont/13/unifont-13.fnt"),
-      null,
-      Gdx.files.internal("unifont/15/unifont-15.fnt"),
-    },true);
+    font=genMultiChunkFont();
     font.fontBatch=fontBatch;
     textColor=new Color(0,0,0,1);
     font.color(textColor);

@@ -25,16 +25,16 @@ android {
 	}
 	packagingOptions {
 		//无法理解的屎山+1
-		merge "win/libgcc_s_seh_x86_64.dll"
-		merge "win/libstdc++-6_x86.dll"
-		merge "win/libgcc_s_sjlj_x86.dll"
-		merge "win/libstdc++-6_x86_64.dll"
-		merge "win/libaparapi_x86_64.dll"
-		merge "win/libaparapi_x86.dll"
-		merge "osx/libaparapi_x86_64.dylib"
-		merge "javax/vecmath/ExceptionStrings.properties"
-		merge "library.properties"
-		merge "rootdoc.txt"
+		// merge "win/libgcc_s_seh_x86_64.dll"
+		// merge "win/libstdc++-6_x86.dll"
+		// merge "win/libgcc_s_sjlj_x86.dll"
+		// merge "win/libstdc++-6_x86_64.dll"
+		// merge "win/libaparapi_x86_64.dll"
+		// merge "win/libaparapi_x86.dll"
+		// merge "osx/libaparapi_x86_64.dylib"
+		// merge "javax/vecmath/ExceptionStrings.properties"
+		// merge "library.properties"
+		// merge "rootdoc.txt"
 		// Preventing from license violations (more or less):
 		pickFirst 'META-INF/LICENSE.txt'
 		pickFirst 'META-INF/LICENSE'

@@ -8,12 +8,9 @@ import pama1234.gdx.launcher.MainApp;
 /** Launches the desktop (LWJGL3) application. */
 public class Lwjgl3Launcher{
 	public static void main(String[] args) {
-		// System.out.println(System.getProperties());
-		// System.setProperty("com.amd.aparapi.enableShowGeneratedOpenCL","true");
 		createApplication();
 	}
 	private static Lwjgl3Application createApplication() {
-		// return new Lwjgl3Application(new SimpleDecalTest(),getDefaultConfiguration());
 		return new Lwjgl3Application(new MainApp(),getDefaultConfiguration());
 	}
 	private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
@@ -27,7 +24,8 @@ public class Lwjgl3Launcher{
 		//// You may also need to configure GPU drivers to fully disable Vsync; this can cause screen tearing.
 		configuration.setWindowedMode(640,480);
 		// configuration.setFullscreenMode(Lwjgl3ApplicationConfiguration.getDisplayMode());
-		configuration.setWindowIcon("libgdx128.png","libgdx64.png","libgdx32.png","libgdx16.png");
+		// configuration.setWindowIcon("libgdx128.png","libgdx64.png","libgdx32.png","libgdx16.png");
+		configuration.setWindowIcon("logo/logo128.png","logo/logo64.png","logo/logo32.png","logo/logo16.png");
 		return configuration;
 	}
 }

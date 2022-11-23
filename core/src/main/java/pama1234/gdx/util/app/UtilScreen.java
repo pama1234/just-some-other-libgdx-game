@@ -9,6 +9,7 @@ import java.util.Random;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -99,6 +100,26 @@ public abstract class UtilScreen implements Screen,InputListener,LifecycleListen
     inputProcessor.display();
     endDraw();
     frameCount++;
+  }
+  public MultiChunkFont genMultiChunkFont() {
+    return new MultiChunkFont(new FileHandle[] {
+      Gdx.files.internal("unifont/0/unifont-0.fnt"),
+      Gdx.files.internal("unifont/1/unifont-1.fnt"),
+      Gdx.files.internal("unifont/2/unifont-2.fnt"),
+      Gdx.files.internal("unifont/3/unifont-3.fnt"),
+      Gdx.files.internal("unifont/4/unifont-4.fnt"),
+      Gdx.files.internal("unifont/5/unifont-5.fnt"),
+      Gdx.files.internal("unifont/6/unifont-6.fnt"),
+      Gdx.files.internal("unifont/7/unifont-7.fnt"),
+      Gdx.files.internal("unifont/8/unifont-8.fnt"),
+      Gdx.files.internal("unifont/9/unifont-9.fnt"),
+      Gdx.files.internal("unifont/10/unifont-10.fnt"),
+      Gdx.files.internal("unifont/11/unifont-11.fnt"),
+      Gdx.files.internal("unifont/12/unifont-12.fnt"),
+      Gdx.files.internal("unifont/13/unifont-13.fnt"),
+      null,
+      Gdx.files.internal("unifont/15/unifont-15.fnt"),
+    },true);
   }
   public void beginDraw() {
     rFill.begin(ShapeType.Filled);
