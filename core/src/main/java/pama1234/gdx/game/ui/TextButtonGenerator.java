@@ -4,10 +4,15 @@ import com.badlogic.gdx.Input;
 
 import pama1234.gdx.game.app.Screen0003;
 
-public class TextButtonUtil{
+public class TextButtonGenerator{
   /**
-   * @param p
-   * @return T Z H X C N M R F sU sD ------------ ↑ W ↓ A S D
+   * @param p <br/>
+   *          _T _Z _H __ <br/>
+   *          _X _C _N _M <br/>
+   *          _R _F sU sD <br/>
+   *          ----------- <br/>
+   *          _↑ _W __ __ <br/>
+   *          _↓ _A _S _D <br/>
    */
   public static Button[] genButtons(Screen0003 p) {
     return new Button[] {
@@ -23,6 +28,11 @@ public class TextButtonUtil{
         p.inputProcessor.keyDown(Input.Keys.H);
         p.inputProcessor.keyUp(Input.Keys.H);
       },"H",p::getButtonUnitLength,()->p.bu*2.5f,()->p.bu*0.5f),
+      new TextButton(p,true,()->p.fullSettings,()-> {},()-> {},()-> {
+        p.inputProcessor.keyDown(Input.Keys.I);
+        p.inputProcessor.keyUp(Input.Keys.I);
+      },"I",p::getButtonUnitLength,()->p.bu*3.5f,()->p.bu*0.5f),
+      //--------------------------------------------------------------------
       new TextButton(p,true,()->p.fullSettings,()-> {},()-> {},()-> {
         p.inputProcessor.keyDown(Input.Keys.X);
         p.inputProcessor.keyUp(Input.Keys.X);

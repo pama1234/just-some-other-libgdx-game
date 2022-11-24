@@ -2,27 +2,46 @@ package pama1234.gdx.game.app;
 
 import static com.badlogic.gdx.math.MathUtils.log;
 import static com.badlogic.gdx.math.MathUtils.map;
+import static pama1234.gdx.game.ui.InfoGenerator.info;
 import static pama1234.math.UtilMath.dist;
 import static pama1234.math.UtilMath.pow;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Net.Protocol;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.net.ServerSocket;
+import com.badlogic.gdx.net.ServerSocketHints;
+import com.badlogic.gdx.net.SocketHints;
 
 import pama1234.gdx.game.app.server.with3d.particle.CellGroup3D;
 import pama1234.gdx.game.app.server.with3d.particle.CellGroupGenerator3D;
+import pama1234.gdx.game.net.ServerInfo;
+import pama1234.gdx.game.net.SocketData;
 import pama1234.gdx.game.ui.Button;
-import pama1234.gdx.game.ui.TextButtonUtil;
+import pama1234.gdx.game.ui.TextButtonGenerator;
 import pama1234.gdx.util.app.UtilScreen3D;
 import pama1234.gdx.util.element.Graphics;
+import pama1234.gdx.util.wrapper.Center;
 
 /**
  * 3D 粒子系统
  */
 public class Screen0003 extends UtilScreen3D{
+  ServerInfo serverInfo;
+  //---
+  ServerSocket serverSocket;
+  Center<SocketData> centerS;
+  //---
+  SocketData client;
+  //---
+  Thread serverT,acceptT,clientT;
+  //---
   public CellGroup3D group;
   // PlayerCenter<Player3D> playerCenter;
   public ArrayList<ArrayList<GraphicsData>> graphicsList;
@@ -37,34 +56,13 @@ public class Screen0003 extends UtilScreen3D{
   public static final int gsize=8;
   public float multDist=1;
   public boolean displayHint=true;
-  public String[] hint=new String[] {
-    "粒子不会撞墙啦！",
-    "规则是很经典的贪吃蛇！",
-    "将来会做成可爱的联机游戏！",
-    "aparapi可能无法工作",
-    "本程序需要java17运行",
-    "采用并行计算！修了很久很久的算法哦",
-    "经过测试，在1050Ti上可流畅运行1024*12个粒子",
-    "采用异步计算（和渲染！！用户视角不易卡顿",
-    "透明贴图渲染会有问题，请在阅读后关闭提示",
-    "以下功能请通过测试得出用法",
-    "WASD和空格和shift移动视角",
-    "安卓版T打开全部设置",
-    "滚轮调整视角速度",
-    "右键或alt或esc更改鼠标功能",
-    "RF调整位置倍数",
-    "Z暂停时间，XC控制鼠标灵敏度",
-    "NM调整视野范围，谨慎操作",
-    "H关闭提示，改粒子数据需要改动源代码才行",
-    "pama1234出品，谢谢观看",
-    "————在很久之后，他终于把半自制的3D框架写好啦"
-  };
-  public Decal dhint;
+  public Decal infoD;
   public Decal logo;
   // final int tu=16;
   public Button[] buttons;
   public int bu;
   public boolean fullSettings;
+  public boolean configInfo;
   // Graphics buttonsG;
   // Texture buttonsT;
   public static class GraphicsData{
@@ -95,6 +93,55 @@ public class Screen0003 extends UtilScreen3D{
     CellGroupGenerator3D gen=new CellGroupGenerator3D(0,0);
     // group=gen.randomGenerate();
     group=gen.GenerateFromMiniCore();
+    //---
+    serverInfo=new ServerInfo("127.0.0.1",12347);
+    centerS=new Center<>();
+    //---
+    SocketHints tsh=new SocketHints();
+    tsh.keepAlive=true;
+    tsh.performancePrefConnectionTime=0;
+    tsh.performancePrefLatency=2;
+    tsh.performancePrefBandwidth=1;
+    //---
+    ServerSocketHints tssh=new ServerSocketHints();
+    serverSocket=Gdx.net.newServerSocket(Protocol.TCP,"127.0.0.1",12347,tssh);
+    acceptT=new Thread(()-> {
+      while(!stop) centerS.add.add(new SocketData(serverSocket.accept(tsh)));
+    });
+    acceptT.start();
+    //---
+    serverT=new Thread(()-> {
+      while(!stop) {
+        synchronized(centerS.list) {
+          // synchronized(group) {
+          for(SocketData i:centerS.list) {
+            try {
+              i.o.write(new byte[] {(byte)((frameCount>>24)&0xff),(byte)((frameCount>>16)&0xff),(byte)((frameCount>>8)&0xff),(byte)(frameCount&0xff)});
+            }catch(IOException e) {
+              e.printStackTrace();
+            }
+          }
+          // }
+        }
+      }
+    });
+    serverT.start();
+    //---
+    client=new SocketData(Gdx.net.newClientSocket(Protocol.TCP,"127.0.0.1",12347,tsh));
+    //---
+    clientT=new Thread(()-> {
+      byte[] td=new byte[4];
+      while(!stop) {
+        try {
+          int ti=client.i.readNBytes(td,0,4);
+          // println(ti+" "+Arrays.toString(td)+" "+ByteUtil.byteToInt(td));
+        }catch(Exception e) {
+          e.printStackTrace();
+        }
+      }
+    });
+    clientT.start();
+    //---
     // playerCenter=new PlayerCenter<Player3D>();
     noStroke();
     // graphicsList=new ArrayList<>(group.colors.length);
@@ -154,17 +201,17 @@ public class Screen0003 extends UtilScreen3D{
     };
     updateCell.start();
     //TODO
-    Graphics tg=new Graphics(this,360,16*hint.length);
+    Graphics tg=new Graphics(this,360,16*info.length);
     tg.beginDraw();
-    for(int i=0;i<hint.length;i++) text(hint[i],0,16*i);
+    for(int i=0;i<info.length;i++) text(info[i],0,16*i);
     tg.endDraw();
     TextureRegion tr=new TextureRegion(tg.texture);
-    dhint=Decal.newDecal(tr,true);
+    infoD=Decal.newDecal(tr,true);
     logo=Decal.newDecal(256,256,new TextureRegion(loadTexture("logo/logo-ingame.png")),true);
     logo.setPosition(0,-512,0);
     //TODO
     if(isAndroid) {
-      buttons=TextButtonUtil.genButtons(this);
+      buttons=TextButtonGenerator.genButtons(this);
       for(int i=0;i<buttons.length;i++) center.add.add(buttons[i]);
     }
   }
@@ -172,7 +219,9 @@ public class Screen0003 extends UtilScreen3D{
     return bu;
   }
   @Override
-  public void update() {}
+  public void update() {
+    centerS.refresh();
+  }
   public boolean isVisible(Camera cam,Decal in,float r) {
     return cam.frustum.sphereInFrustum(in.getPosition(),r);
   }
@@ -219,7 +268,7 @@ public class Screen0003 extends UtilScreen3D{
         decal(td);
       }
     }
-    if(displayHint) decal(dhint);
+    if(displayHint) decal(infoD);
     logo.lookAt(cam.camera.position,cam.camera.up);
     decal(logo);
     flushDecal();
@@ -230,19 +279,21 @@ public class Screen0003 extends UtilScreen3D{
       withScreen();
       // beginBlend();
       for(int i=0;i<buttons.length;i++) buttons[i].displayScreen();
-      if(fullSettings) {
-        beginBlend();
-        fill(127,191);
-        textColor(255,191);
-        final float tx=width/2f+pus,ty=bu*0.5f+pus;
-        rect(tx,ty,pu*9+pus*2,pu*4+pus*2);
-        text("移动速度   "+cam3d.moveSpeed,tx+pus,ty+pus);
-        text("视角灵敏度 "+cam3d.viewSpeed,tx+pus,ty+pus+pu);
-        text("视野距离   "+viewDist,tx+pus,ty+pus+pu*2);
-        text("位置缩放   "+multDist,tx+pus,ty+pus+pu*3);
-      }
-      endBlend();
+      // endBlend();
     }
+    if(configInfo) {
+      beginBlend();
+      fill(127,191);
+      textColor(255,191);
+      final float tx=width/2f+pus,ty=bu*0.5f+pus;
+      rect(tx,ty,pu*9+pus*2,pu*5+pus*2);
+      text("移动速度   "+cam3d.moveSpeed,tx+pus,ty+pus);
+      text("视角灵敏度 "+cam3d.viewSpeed,tx+pus,ty+pus+pu);
+      text("视野距离   "+viewDist,tx+pus,ty+pus+pu*2);
+      text("位置缩放   "+multDist,tx+pus,ty+pus+pu*3);
+      text(serverInfo.toString(),tx+pus,ty+pus+pu*4);
+    }
+    endBlend();
   }
   @Override
   public void frameResized() {
@@ -281,11 +332,16 @@ public class Screen0003 extends UtilScreen3D{
       if(viewDist>2048) viewDist=2048;
     }
     if(isAndroid&&key=='T') fullSettings=!fullSettings;//TODO
+    if(key=='I') configInfo=!configInfo;
   }
   @Override
   public void dispose() {
     super.dispose();
     updateCell.interrupt();
     if((!updateCell.isInterrupted())||(updateCell.isAlive())) updateCell.stop();
+    serverSocket.dispose();
+    centerS.refresh();
+    for(SocketData i:centerS.list) i.s.dispose();
+    client.s.dispose();
   }
 }

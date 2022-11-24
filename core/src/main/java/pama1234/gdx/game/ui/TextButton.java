@@ -34,11 +34,13 @@ public class TextButton extends Button{
     if(!active.get()) return;
     final float tx=x.get(),ty=y.get(),tw=w.get(),th=h.get();
     if(touch!=null) {
-      p.fill(127,240);
-      p.textColor(255,240);
+      // p.fill(127,240);
+      p.fill(94,203,234,200);
+      p.textColor(255,220);
     }else {
       p.fill(127,191);
-      p.textColor(255,191);
+      // p.fill(94,203,234,191);
+      p.textColor(255,200);
     }
     p.beginBlend();//TODO
     p.rect(tx+p.pus,ty+p.pus,tw-p.pus*2,th-p.pus*2);
