@@ -4,8 +4,6 @@ import static pama1234.math.UtilMath.avg;
 import static pama1234.math.UtilMath.dist;
 import static pama1234.math.UtilMath.round;
 
-import com.badlogic.gdx.Application.ApplicationType;
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.math.Vector2;
@@ -36,7 +34,8 @@ public class CameraController2D extends CameraController{
   public void touchStarted(TouchInfo info) {
     if(!activeDrag) return;
     if(p.touchCount==1) {
-      if(info.button==Buttons.RIGHT||Gdx.app.getType()==ApplicationType.Android) active=true;
+      if(info.button==Buttons.RIGHT||p.isAndroid) active=true;
+      // if(info.button==Buttons.RIGHT||Gdx.app.getType()==ApplicationType.Android) active=true;
       else return;
       a=info;
       scx=point.pos.x;

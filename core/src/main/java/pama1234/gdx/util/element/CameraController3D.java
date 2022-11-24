@@ -18,8 +18,9 @@ public class CameraController3D extends CameraController{
   public PerspectiveCamera pcam;
   PathVar h=new PathVar(PI/2*3,0.5f),v=new PathVar(-PI/2f,0.5f);
   public float moveSpeed=1;
-  public float viewSpeed=1;
+  public float viewSpeed=1.5f;
   public boolean grabCursor;
+  public int coolingCount;
   public CameraController3D(UtilScreen3D p,float x,float y,float z,float s,float r,float frameU) {
     super(p,x,y,z);
     camera=pcam=new PerspectiveCamera(60,640,640);
@@ -87,26 +88,19 @@ public class CameraController3D extends CameraController{
     pcam.viewportHeight=h;
   }
   @Override
-  public void mouseDragged() {
-    if(p.mouse.right) moveView();
+  public void mouseDragged() {//TODO
+    if(!grabCursor&&!p.isAndroid&&p.mouse.right) moveView();
   }
   @Override
   public void touchMoved(TouchInfo info) {
-    if(p.isAndroid&&info.x>p.width/2) moveView(info.dx,info.dy);
+    if(coolingCount>0) coolingCount--;
+    else if(!grabCursor&&p.isAndroid&&info.x>p.width/2) moveView(info.dx,info.dy);
+  }
+  @Override
+  public void touchStarted(TouchInfo info) {
+    if(!grabCursor&&p.isAndroid&&info.x>p.width/2) coolingCount=1;
   }
   public void moveView() {
-    // h.des-=(p.mouse.dx/pcam.viewportWidth)*viewSpeed;
-    // v.des-=-(p.mouse.dy/pcam.viewportHeight)*viewSpeed;
-    // if(h.des>=PI2) {
-    //   h.des-=PI2;
-    //   h.pos-=PI2;
-    // }
-    // if(h.des<0) {
-    //   h.des+=PI2;
-    //   h.pos+=PI2;
-    // }
-    // if(v.des<=-PI) v.des=0.005f-PI;
-    // if(v.des>=0) v.des=-0.005f;
     moveView(p.mouse.dx,p.mouse.dy);
   }
   public void moveView(float dx,float dy) {

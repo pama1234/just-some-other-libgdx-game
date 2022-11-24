@@ -2,27 +2,23 @@ package pama1234.gdx.game.app;
 
 import static com.badlogic.gdx.math.MathUtils.log;
 import static com.badlogic.gdx.math.MathUtils.map;
-import static pama1234.math.Tools.inBox;
 import static pama1234.math.UtilMath.dist;
 import static pama1234.math.UtilMath.pow;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.badlogic.gdx.math.Vector3;
 
 import pama1234.gdx.game.app.server.with3d.particle.CellGroup3D;
 import pama1234.gdx.game.app.server.with3d.particle.CellGroupGenerator3D;
-import pama1234.gdx.util.app.UtilScreen;
+import pama1234.gdx.game.ui.Button;
+import pama1234.gdx.game.ui.TextButton;
 import pama1234.gdx.util.app.UtilScreen3D;
 import pama1234.gdx.util.element.Graphics;
-import pama1234.gdx.util.entity.Entity;
-import pama1234.gdx.util.info.TouchInfo;
 
 /**
  * 3D 粒子系统
@@ -36,8 +32,6 @@ public class Screen0003 extends UtilScreen3D{
   boolean doUpdate;
   Thread updateCell;
   Vector3 posCache=new Vector3();
-  // static final float viewDist=512;
-  // static final float viewDist=1024;
   float viewDist=1024;
   // static final float logn=32,logViewDist=log(viewDist,logn/4);
   static final int layerSize=3;
@@ -56,6 +50,7 @@ public class Screen0003 extends UtilScreen3D{
     "透明贴图渲染会有问题，请在阅读后关闭提示",
     "以下功能请通过测试得出用法",
     "WASD和空格和shift移动视角",
+    "安卓版T打开全部设置",
     "滚轮调整视角速度",
     "右键或alt或esc更改鼠标功能",
     "RF调整位置倍数",
@@ -70,6 +65,7 @@ public class Screen0003 extends UtilScreen3D{
   // final int tu=16;
   Button[] buttons;
   int bu;
+  boolean fullSettings;
   // Graphics buttonsG;
   // Texture buttonsT;
   public static class GraphicsData{
@@ -86,91 +82,6 @@ public class Screen0003 extends UtilScreen3D{
     public DecalData(Decal g,int layer) {
       this.decal=g;
       this.layer=layer;
-    }
-  }
-  @FunctionalInterface
-  public interface ExecuteF{
-    public void execute();
-  }
-  public abstract class Button extends Entity{
-    TouchInfo touch;
-    ExecuteF press,clickStart,clickEnd;
-    public Button(UtilScreen p,ExecuteF press,ExecuteF clickStart,ExecuteF clickEnd) {
-      super(p);
-      this.press=press;
-      this.clickStart=clickStart;
-      this.clickEnd=clickEnd;
-    }
-    @Override
-    public void display() {}
-    @Override
-    public void update() {
-      if(touch!=null) press();
-    }
-    public abstract void displayScreen();
-    public abstract boolean inButton(float x,float y);
-    public void press() {
-      press.execute();
-    }
-    public void clickStart() {
-      clickStart.execute();
-    }
-    public void clickEnd() {
-      clickEnd.execute();
-    }
-    @Override
-    public void touchStarted(TouchInfo info) {
-      if(inButton(info.sx,info.sy)) {
-        touch=info;
-        clickStart();
-      }
-    }
-    @Override
-    public void touchEnded(TouchInfo info) {
-      if(touch==info) {
-        touch=null;
-        clickEnd();
-      }else if(inButton(info.sx,info.sy)&&inButton(info.x,info.y)) clickEnd();
-    }
-  }
-  @FunctionalInterface
-  public interface GetFloat{
-    public float get();
-  }
-  public class TextButton extends Button{
-    String text;
-    // int x,y,w,h;
-    GetFloat x,y,w,h;
-    public TextButton(UtilScreen p,ExecuteF press,ExecuteF clickStart,ExecuteF clickEnd,String text,GetFloat x,GetFloat y) {
-      this(p,press,clickStart,clickEnd,text,x,y,()->bu,()->bu);
-    }
-    public TextButton(UtilScreen p,ExecuteF press,ExecuteF clickStart,ExecuteF clickEnd,String text,GetFloat x,GetFloat y,GetFloat w,GetFloat h) {
-      super(p,press,clickStart,clickEnd);
-      this.text=text;
-      this.x=x;
-      this.y=y;
-      this.w=w;
-      this.h=h;
-    }
-    @Override
-    public void display() {}
-    @Override
-    public void displayScreen() {
-      final float tx=x.get(),ty=y.get(),tw=w.get(),th=h.get();
-      // fill(171,204,156);
-      // rect(tx,ty,tw,th);
-      // fill(191,224,176);
-      // triangle(tx,ty,tx+tw,ty,tx,ty+th);
-      // fill(211,244,196,191);
-      // Gdx.gl.glEnable(GL20.GL_BLEND);
-      beginBlend();//TODO
-      fill(127,127);
-      rect(tx+pus,ty+pus,tw-pus*2,th-pus*2);
-      textColor(255,127);
-      text(text,tx+(bu-pus*8)/2f,ty+(bu-pus*16)/2f);
-    }
-    public boolean inButton(float xIn,float yIn) {
-      return inBox(xIn,yIn,x.get(),y.get(),w.get(),h.get());
     }
   }
   public int tgsizeF(int k) {
@@ -254,44 +165,90 @@ public class Screen0003 extends UtilScreen3D{
     logo.setPosition(0,-512,0);
     //TODO
     if(isAndroid) {
-      buttons=new Button[] {
-        new TextButton(this,()-> {},()-> {},()-> {
-          inputProcessor.keyDown(Input.Keys.Z);
-          inputProcessor.keyUp(Input.Keys.Z);
-        },"Z",()->bu*0.5f,()->bu*0.5f),
-        new TextButton(this,()-> {},()-> {
-          inputProcessor.keyDown(Input.Keys.W);
-        },()-> {
-          inputProcessor.keyUp(Input.Keys.W);
-        },"W",()->bu*2.5f,()->height-bu*2.5f),
-        new TextButton(this,()-> {},()-> {
-          inputProcessor.keyDown(Input.Keys.S);
-        },()-> {
-          inputProcessor.keyUp(Input.Keys.S);
-        },"S",()->bu*2.5f,()->height-bu*1.5f),
-        new TextButton(this,()-> {},()-> {
-          inputProcessor.keyDown(Input.Keys.A);
-        },()-> {
-          inputProcessor.keyUp(Input.Keys.A);
-        },"A",()->bu*1.5f,()->height-bu*1.5f),
-        new TextButton(this,()-> {},()-> {
-          inputProcessor.keyDown(Input.Keys.D);
-        },()-> {
-          inputProcessor.keyUp(Input.Keys.D);
-        },"D",()->bu*3.5f,()->height-bu*1.5f),
-        new TextButton(this,()-> {},()-> {
-          inputProcessor.keyDown(Input.Keys.SPACE);
-        },()-> {
-          inputProcessor.keyUp(Input.Keys.SPACE);
-        },"↑",()->bu*0.5f,()->height-bu*2.5f),
-        new TextButton(this,()-> {},()-> {
-          inputProcessor.keyDown(Input.Keys.SHIFT_LEFT);
-        },()-> {
-          inputProcessor.keyUp(Input.Keys.SHIFT_LEFT);
-        },"↓",()->bu*0.5f,()->height-bu*1.5f)
-      };
+      buttons=genButtons();
       for(int i=0;i<buttons.length;i++) center.add.add(buttons[i]);
     }
+  }
+  public int getButtonUnitLength() {
+    return bu;
+  }
+  public Button[] genButtons() {
+    return new Button[] {
+      new TextButton(this,true,()->true,()-> {},()-> {},()-> {
+        fullSettings=!fullSettings;
+      },"T",this::getButtonUnitLength,()->bu*0.5f,()->bu*0.5f),
+      new TextButton(this,true,()->true,()-> {},()-> {},()-> {
+        inputProcessor.keyDown(Input.Keys.Z);
+        inputProcessor.keyUp(Input.Keys.Z);
+      },"Z",this::getButtonUnitLength,()->bu*1.5f,()->bu*0.5f),
+      //--------------------------------------------------------------------
+      new TextButton(this,true,()->fullSettings,()-> {},()-> {},()-> {
+        inputProcessor.keyDown(Input.Keys.H);
+        inputProcessor.keyUp(Input.Keys.H);
+      },"H",this::getButtonUnitLength,()->bu*2.5f,()->bu*0.5f),
+      new TextButton(this,true,()->fullSettings,()-> {},()-> {},()-> {
+        inputProcessor.keyDown(Input.Keys.X);
+        inputProcessor.keyUp(Input.Keys.X);
+      },"X",this::getButtonUnitLength,()->bu*0.5f,()->bu*1.5f),
+      new TextButton(this,true,()->fullSettings,()-> {},()-> {},()-> {
+        inputProcessor.keyDown(Input.Keys.C);
+        inputProcessor.keyUp(Input.Keys.C);
+      },"C",this::getButtonUnitLength,()->bu*1.5f,()->bu*1.5f),
+      new TextButton(this,true,()->fullSettings,()-> {},()-> {},()-> {
+        inputProcessor.keyDown(Input.Keys.N);
+        inputProcessor.keyUp(Input.Keys.N);
+      },"N",this::getButtonUnitLength,()->bu*2.5f,()->bu*1.5f),
+      new TextButton(this,true,()->fullSettings,()-> {},()-> {},()-> {
+        inputProcessor.keyDown(Input.Keys.M);
+        inputProcessor.keyUp(Input.Keys.M);
+      },"M",this::getButtonUnitLength,()->bu*3.5f,()->bu*1.5f),
+      new TextButton(this,true,()->fullSettings,()-> {},()-> {},()-> {
+        inputProcessor.keyDown(Input.Keys.R);
+        inputProcessor.keyUp(Input.Keys.R);
+      },"R",this::getButtonUnitLength,()->bu*0.5f,()->bu*2.5f),
+      new TextButton(this,true,()->fullSettings,()-> {},()-> {},()-> {
+        inputProcessor.keyDown(Input.Keys.F);
+        inputProcessor.keyUp(Input.Keys.F);
+      },"F",this::getButtonUnitLength,()->bu*1.5f,()->bu*2.5f),
+      new TextButton(this,false,()->fullSettings,()-> {},()-> {},()-> {
+        inputProcessor.scrolled(0,-1);
+      },"sU",this::getButtonUnitLength,()->bu*2.5f,()->bu*2.5f),
+      new TextButton(this,false,()->fullSettings,()-> {},()-> {},()-> {
+        inputProcessor.scrolled(0,1);
+      },"sD",this::getButtonUnitLength,()->bu*3.5f,()->bu*2.5f),
+      //--------------------------------------------------------------------
+      new TextButton(this,true,()->true,()-> {},()-> {
+        inputProcessor.keyDown(Input.Keys.W);
+      },()-> {
+        inputProcessor.keyUp(Input.Keys.W);
+      },"W",this::getButtonUnitLength,()->bu*2.5f,()->height-bu*2.5f),
+      new TextButton(this,true,()->true,()-> {},()-> {
+        inputProcessor.keyDown(Input.Keys.S);
+      },()-> {
+        inputProcessor.keyUp(Input.Keys.S);
+      },"S",this::getButtonUnitLength,()->bu*2.5f,()->height-bu*1.5f),
+      new TextButton(this,true,()->true,()-> {},()-> {
+        inputProcessor.keyDown(Input.Keys.A);
+      },()-> {
+        inputProcessor.keyUp(Input.Keys.A);
+      },"A",this::getButtonUnitLength,()->bu*1.5f,()->height-bu*1.5f),
+      new TextButton(this,true,()->true,()-> {},()-> {
+        inputProcessor.keyDown(Input.Keys.D);
+      },()-> {
+        inputProcessor.keyUp(Input.Keys.D);
+      },"D",this::getButtonUnitLength,()->bu*3.5f,()->height-bu*1.5f),
+      //--------------------------------------------------------------------
+      new TextButton(this,true,()->true,()-> {},()-> {
+        inputProcessor.keyDown(Input.Keys.SPACE);
+      },()-> {
+        inputProcessor.keyUp(Input.Keys.SPACE);
+      },"↑",this::getButtonUnitLength,()->bu*0.5f,()->height-bu*2.5f),
+      new TextButton(this,true,()->true,()-> {},()-> {
+        inputProcessor.keyDown(Input.Keys.SHIFT_LEFT);
+      },()-> {
+        inputProcessor.keyUp(Input.Keys.SHIFT_LEFT);
+      },"↓",this::getButtonUnitLength,()->bu*0.5f,()->height-bu*1.5f)
+    };
   }
   @Override
   public void update() {}
@@ -350,20 +307,23 @@ public class Screen0003 extends UtilScreen3D{
     // text("viewSpeed "+cam3d.viewSpeed,0,u);
     if(isAndroid) {
       withScreen();
-      // image(buttonsG.texture,0,0);
-      // rect(0,0,u,u*4);
-      // text("Z",16,16);
-      // Gdx.gl.glEnable(GL20.GL_BLEND);
-      beginBlend();
+      // beginBlend();
       for(int i=0;i<buttons.length;i++) buttons[i].displayScreen();
+      if(fullSettings) {
+        beginBlend();
+        // final float tx=bu*0.5f+pus,ty=bu*2.5f+pus;
+        final float tx=width/2f+pus,ty=bu*0.5f+pus;
+        rect(tx,ty,pu*9+pus*2,pu*4+pus*2);
+        text("移动速度   "+cam3d.moveSpeed,tx+pus,ty+pus);
+        text("视角灵敏度 "+cam3d.viewSpeed,tx+pus,ty+pus+pu);
+        text("视野距离   "+viewDist,tx+pus,ty+pus+pu*2);
+        text("位置缩放   "+multDist,tx+pus,ty+pus+pu*3);
+      }
       endBlend();
-      // Gdx.gl.glDisable(GL20.GL_BLEND);
     }
   }
   @Override
   public void frameResized() {
-    // println(u);
-    // strokeWeight(u);
     bu=pus*24;
   }
   @Override
@@ -398,6 +358,7 @@ public class Screen0003 extends UtilScreen3D{
       viewDist*=2;
       if(viewDist>2048) viewDist=2048;
     }
+    if(isAndroid&&key=='T') fullSettings=!fullSettings;//TODO
   }
   @Override
   public void dispose() {

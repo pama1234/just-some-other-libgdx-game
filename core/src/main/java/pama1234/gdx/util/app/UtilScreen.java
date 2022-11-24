@@ -72,13 +72,15 @@ public abstract class UtilScreen implements Screen,InputListener,LifecycleListen
   public ServerEntityCenter<ServerEntityListener> serverCenter;
   public UtilInputProcesser inputProcessor;
   public Random rng=new Random();
-  // public float u,pu;
   public float u;
+  /** text unit length */
+  public float pu;
+  // public float u;
   public int pus;
   public boolean stop;
   //---
-  // public boolean isAndroid=true;
-  public boolean isAndroid=Gdx.app.getType()==ApplicationType.Android;//TODO
+  public boolean isAndroid=true;
+  // public boolean isAndroid=Gdx.app.getType()==ApplicationType.Android;//TODO
   @Override
   public void init() {}
   public abstract void setup();
@@ -146,7 +148,7 @@ public abstract class UtilScreen implements Screen,InputListener,LifecycleListen
     if(Gdx.app.getType()==ApplicationType.Android) u=min(w,h)/8;
     else u=min(w,h)/16;
     pus=max(1,floor(u/16f));
-    // pu=pus*16;
+    pu=pus*16;
     // camResizeEvent(w,h);
     cam.preResizeEvent(w,h);
     // System.out.println("a");
