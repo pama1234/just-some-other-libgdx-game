@@ -5,9 +5,11 @@ import pama1234.math.Tools;
 import pama1234.math.hash.Random2f;
 
 public class CellGroupGenerator3D{
-  Random2f rng;
-  float seed;
-  float count;
+  public Random2f rng;
+  public float seed;
+  public  float count;
+  //---
+  public int celltypeOut,amountOut,arraySizeOut;//TODO
   public CellGroupGenerator3D(float seed1,float seed2) {
     this.seed=seed1;
     rng=new Random2f(seed2);
@@ -91,13 +93,13 @@ public class CellGroupGenerator3D{
         // core[i][j][Var.MAX]=Var.DIST*72;
       }
     }
-    int cellType=core.length;
+    int cellType=celltypeOut=core.length;
     colors=new int[cellType];
     // colorMode(HSB);
     for(int i=0;i<colors.length;i++) colors[i]=Tools.hsbColor((float)i/cellType*255,0xff,0xff);
     // colorMode(RGB);
-    int amount=128;//1024
-    int arraySize=amount*cellType;
+    int amount=amountOut=128;//1024
+    int arraySize=arraySizeOut=amount*cellType;
     int[] type=new int[arraySize];
     for(int i=0;i<type.length;i++) type[i]=i/amount;
     group=new CellGroup3D(arraySize,boxR,type,core,colors);
