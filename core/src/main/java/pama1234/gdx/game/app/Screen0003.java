@@ -7,7 +7,6 @@ import static pama1234.math.UtilMath.pow;
 
 import java.util.ArrayList;
 
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
@@ -16,7 +15,7 @@ import com.badlogic.gdx.math.Vector3;
 import pama1234.gdx.game.app.server.with3d.particle.CellGroup3D;
 import pama1234.gdx.game.app.server.with3d.particle.CellGroupGenerator3D;
 import pama1234.gdx.game.ui.Button;
-import pama1234.gdx.game.ui.TextButton;
+import pama1234.gdx.game.ui.TextButtonUtil;
 import pama1234.gdx.util.app.UtilScreen3D;
 import pama1234.gdx.util.element.Graphics;
 
@@ -24,21 +23,21 @@ import pama1234.gdx.util.element.Graphics;
  * 3D 粒子系统
  */
 public class Screen0003 extends UtilScreen3D{
-  CellGroup3D group;
+  public CellGroup3D group;
   // PlayerCenter<Player3D> playerCenter;
-  ArrayList<ArrayList<GraphicsData>> graphicsList;
-  ArrayList<DecalData> decals;
+  public ArrayList<ArrayList<GraphicsData>> graphicsList;
+  public ArrayList<DecalData> decals;
   // boolean doUpdate=true;//TODO
-  boolean doUpdate;
-  Thread updateCell;
-  Vector3 posCache=new Vector3();
-  float viewDist=1024;
+  public boolean doUpdate;
+  public Thread updateCell;
+  public Vector3 posCache=new Vector3();
+  public float viewDist=1024;
   // static final float logn=32,logViewDist=log(viewDist,logn/4);
-  static final int layerSize=3;
-  static final int gsize=8;
-  float multDist=1;
-  boolean displayHint=true;
-  String[] hint=new String[] {
+  public static final int layerSize=3;
+  public static final int gsize=8;
+  public float multDist=1;
+  public boolean displayHint=true;
+  public String[] hint=new String[] {
     "粒子不会撞墙啦！",
     "规则是很经典的贪吃蛇！",
     "将来会做成可爱的联机游戏！",
@@ -60,12 +59,12 @@ public class Screen0003 extends UtilScreen3D{
     "pama1234出品，谢谢观看",
     "————在很久之后，他终于把半自制的3D框架写好啦"
   };
-  Decal dhint;
-  Decal logo;
+  public Decal dhint;
+  public Decal logo;
   // final int tu=16;
-  Button[] buttons;
-  int bu;
-  boolean fullSettings;
+  public Button[] buttons;
+  public int bu;
+  public boolean fullSettings;
   // Graphics buttonsG;
   // Texture buttonsT;
   public static class GraphicsData{
@@ -165,90 +164,12 @@ public class Screen0003 extends UtilScreen3D{
     logo.setPosition(0,-512,0);
     //TODO
     if(isAndroid) {
-      buttons=genButtons();
+      buttons=TextButtonUtil.genButtons(this);
       for(int i=0;i<buttons.length;i++) center.add.add(buttons[i]);
     }
   }
   public int getButtonUnitLength() {
     return bu;
-  }
-  public Button[] genButtons() {
-    return new Button[] {
-      new TextButton(this,true,()->true,()-> {},()-> {},()-> {
-        fullSettings=!fullSettings;
-      },"T",this::getButtonUnitLength,()->bu*0.5f,()->bu*0.5f),
-      new TextButton(this,true,()->true,()-> {},()-> {},()-> {
-        inputProcessor.keyDown(Input.Keys.Z);
-        inputProcessor.keyUp(Input.Keys.Z);
-      },"Z",this::getButtonUnitLength,()->bu*1.5f,()->bu*0.5f),
-      //--------------------------------------------------------------------
-      new TextButton(this,true,()->fullSettings,()-> {},()-> {},()-> {
-        inputProcessor.keyDown(Input.Keys.H);
-        inputProcessor.keyUp(Input.Keys.H);
-      },"H",this::getButtonUnitLength,()->bu*2.5f,()->bu*0.5f),
-      new TextButton(this,true,()->fullSettings,()-> {},()-> {},()-> {
-        inputProcessor.keyDown(Input.Keys.X);
-        inputProcessor.keyUp(Input.Keys.X);
-      },"X",this::getButtonUnitLength,()->bu*0.5f,()->bu*1.5f),
-      new TextButton(this,true,()->fullSettings,()-> {},()-> {},()-> {
-        inputProcessor.keyDown(Input.Keys.C);
-        inputProcessor.keyUp(Input.Keys.C);
-      },"C",this::getButtonUnitLength,()->bu*1.5f,()->bu*1.5f),
-      new TextButton(this,true,()->fullSettings,()-> {},()-> {},()-> {
-        inputProcessor.keyDown(Input.Keys.N);
-        inputProcessor.keyUp(Input.Keys.N);
-      },"N",this::getButtonUnitLength,()->bu*2.5f,()->bu*1.5f),
-      new TextButton(this,true,()->fullSettings,()-> {},()-> {},()-> {
-        inputProcessor.keyDown(Input.Keys.M);
-        inputProcessor.keyUp(Input.Keys.M);
-      },"M",this::getButtonUnitLength,()->bu*3.5f,()->bu*1.5f),
-      new TextButton(this,true,()->fullSettings,()-> {},()-> {},()-> {
-        inputProcessor.keyDown(Input.Keys.R);
-        inputProcessor.keyUp(Input.Keys.R);
-      },"R",this::getButtonUnitLength,()->bu*0.5f,()->bu*2.5f),
-      new TextButton(this,true,()->fullSettings,()-> {},()-> {},()-> {
-        inputProcessor.keyDown(Input.Keys.F);
-        inputProcessor.keyUp(Input.Keys.F);
-      },"F",this::getButtonUnitLength,()->bu*1.5f,()->bu*2.5f),
-      new TextButton(this,false,()->fullSettings,()-> {},()-> {},()-> {
-        inputProcessor.scrolled(0,-1);
-      },"sU",this::getButtonUnitLength,()->bu*2.5f,()->bu*2.5f),
-      new TextButton(this,false,()->fullSettings,()-> {},()-> {},()-> {
-        inputProcessor.scrolled(0,1);
-      },"sD",this::getButtonUnitLength,()->bu*3.5f,()->bu*2.5f),
-      //--------------------------------------------------------------------
-      new TextButton(this,true,()->true,()-> {},()-> {
-        inputProcessor.keyDown(Input.Keys.W);
-      },()-> {
-        inputProcessor.keyUp(Input.Keys.W);
-      },"W",this::getButtonUnitLength,()->bu*2.5f,()->height-bu*2.5f),
-      new TextButton(this,true,()->true,()-> {},()-> {
-        inputProcessor.keyDown(Input.Keys.S);
-      },()-> {
-        inputProcessor.keyUp(Input.Keys.S);
-      },"S",this::getButtonUnitLength,()->bu*2.5f,()->height-bu*1.5f),
-      new TextButton(this,true,()->true,()-> {},()-> {
-        inputProcessor.keyDown(Input.Keys.A);
-      },()-> {
-        inputProcessor.keyUp(Input.Keys.A);
-      },"A",this::getButtonUnitLength,()->bu*1.5f,()->height-bu*1.5f),
-      new TextButton(this,true,()->true,()-> {},()-> {
-        inputProcessor.keyDown(Input.Keys.D);
-      },()-> {
-        inputProcessor.keyUp(Input.Keys.D);
-      },"D",this::getButtonUnitLength,()->bu*3.5f,()->height-bu*1.5f),
-      //--------------------------------------------------------------------
-      new TextButton(this,true,()->true,()-> {},()-> {
-        inputProcessor.keyDown(Input.Keys.SPACE);
-      },()-> {
-        inputProcessor.keyUp(Input.Keys.SPACE);
-      },"↑",this::getButtonUnitLength,()->bu*0.5f,()->height-bu*2.5f),
-      new TextButton(this,true,()->true,()-> {},()-> {
-        inputProcessor.keyDown(Input.Keys.SHIFT_LEFT);
-      },()-> {
-        inputProcessor.keyUp(Input.Keys.SHIFT_LEFT);
-      },"↓",this::getButtonUnitLength,()->bu*0.5f,()->height-bu*1.5f)
-    };
   }
   @Override
   public void update() {}
@@ -311,7 +232,8 @@ public class Screen0003 extends UtilScreen3D{
       for(int i=0;i<buttons.length;i++) buttons[i].displayScreen();
       if(fullSettings) {
         beginBlend();
-        // final float tx=bu*0.5f+pus,ty=bu*2.5f+pus;
+        fill(127,191);
+        textColor(255,191);
         final float tx=width/2f+pus,ty=bu*0.5f+pus;
         rect(tx,ty,pu*9+pus*2,pu*4+pus*2);
         text("移动速度   "+cam3d.moveSpeed,tx+pus,ty+pus);

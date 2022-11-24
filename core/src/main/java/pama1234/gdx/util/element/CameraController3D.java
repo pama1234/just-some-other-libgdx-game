@@ -93,8 +93,8 @@ public class CameraController3D extends CameraController{
   }
   @Override
   public void touchMoved(TouchInfo info) {
-    if(coolingCount>0) coolingCount--;
-    else if(!grabCursor&&p.isAndroid&&info.x>p.width/2) moveView(info.dx,info.dy);
+    // if(coolingCount>0) coolingCount--; else 
+    if(!grabCursor&&p.isAndroid&&info.x>p.width/2) moveView(info.dx,info.dy);
   }
   @Override
   public void touchStarted(TouchInfo info) {
@@ -104,6 +104,10 @@ public class CameraController3D extends CameraController{
     moveView(p.mouse.dx,p.mouse.dy);
   }
   public void moveView(float dx,float dy) {
+    if(coolingCount>0) {
+      coolingCount--;
+      return;
+    }
     h.des-=(dx/pcam.viewportWidth)*viewSpeed;
     v.des-=-(dy/pcam.viewportHeight)*viewSpeed;
     if(h.des>=PI2) {
@@ -129,6 +133,7 @@ public class CameraController3D extends CameraController{
   }
   @Override
   public void keyPressed(char key,int keyCode) {
+    coolingCount=1;
     if(keyCode==ALT_LEFT) Gdx.input.setCursorCatched(grabCursor=!grabCursor);
     if(keyCode==ESCAPE) Gdx.input.setCursorCatched(grabCursor=false);
   }
