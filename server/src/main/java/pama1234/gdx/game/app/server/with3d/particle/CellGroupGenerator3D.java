@@ -64,7 +64,7 @@ public class CellGroupGenerator3D{
     CellGroup3D group;
     int[] colors;
     float boxR;
-    boxR=512;//1024 //TODO
+    boxR=256;//1024 //TODO
     float[][] miniCore=new float[][] {
       {0,1,-1,-1,0,0,0,0,0,0,0,1},
       {1,0,1,-1,-1,0,0,0,0,0,0,0},
@@ -101,7 +101,7 @@ public class CellGroupGenerator3D{
     int[] type=new int[arraySize];
     for(int i=0;i<type.length;i++) type[i]=i/amount;
     group=new CellGroup3D(arraySize,boxR,type,core,colors);
-    float randR=boxR/4;
+    float randR=boxR/2;
     for(int i=0;i<group.size;i++) {
       group.posX[i]=random(-randR,randR);
       group.posY[i]=random(-randR,randR);

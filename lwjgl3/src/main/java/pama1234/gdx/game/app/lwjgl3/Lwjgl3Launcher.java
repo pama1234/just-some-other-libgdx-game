@@ -25,7 +25,7 @@ public class Lwjgl3Launcher{
 		configuration.setWindowedMode(640,480);
 		// configuration.setFullscreenMode(Lwjgl3ApplicationConfiguration.getDisplayMode());
 		// configuration.setWindowIcon("libgdx128.png","libgdx64.png","libgdx32.png","libgdx16.png");
-		configuration.setWindowIcon("logo/logo128.png","logo/logo64.png","logo/logo32.png","logo/logo16.png");
+		configuration.setWindowIcon("icon/icon128.png","icon/icon64.png","icon/icon32.png","icon/icon16.png");
 		return configuration;
 	}
 }

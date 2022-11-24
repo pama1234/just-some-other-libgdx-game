@@ -259,8 +259,8 @@ public abstract class UtilScreen implements Screen,InputListener,LifecycleListen
   public void textColor(int in) {
     textColor(in,in,in);
   }
-  public void textColor(int alpha,int gray) {
-    textColor.set(alpha/255f,alpha/255f,alpha/255f,gray/255f);
+  public void textColor(int gray,int alpha) {
+    textColor.set(gray/255f,gray/255f,gray/255f,alpha/255f);
     font.color(textColor);
   }
   public void rect(float x,float y,float w,float h) {
@@ -326,7 +326,7 @@ public abstract class UtilScreen implements Screen,InputListener,LifecycleListen
   public void doStroke() {
     stroke=true;
   }
-  public void beginBlend() {
+  public void beginBlend() {//TODO
     Gdx.gl.glEnable(GL20.GL_BLEND);
     Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA,GL20.GL_ONE_MINUS_SRC_ALPHA);
   }

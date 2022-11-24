@@ -8,8 +8,10 @@ import static pama1234.math.UtilMath.pow;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.badlogic.gdx.math.Vector3;
@@ -155,13 +157,16 @@ public class Screen0003 extends UtilScreen3D{
     @Override
     public void displayScreen() {
       final float tx=x.get(),ty=y.get(),tw=w.get(),th=h.get();
-      textColor(0);
-      fill(171,204,156);
-      rect(tx,ty,tw,th);
-      fill(191,224,176);
-      triangle(tx,ty,tx+tw,ty,tx,ty+th);
-      fill(211,244,196);
+      // fill(171,204,156);
+      // rect(tx,ty,tw,th);
+      // fill(191,224,176);
+      // triangle(tx,ty,tx+tw,ty,tx,ty+th);
+      // fill(211,244,196,191);
+      // Gdx.gl.glEnable(GL20.GL_BLEND);
+      beginBlend();//TODO
+      fill(127,127);
       rect(tx+pus,ty+pus,tw-pus*2,th-pus*2);
+      textColor(255,127);
       text(text,tx+(bu-pus*8)/2f,ty+(bu-pus*16)/2f);
     }
     public boolean inButton(float xIn,float yIn) {
@@ -348,7 +353,11 @@ public class Screen0003 extends UtilScreen3D{
       // image(buttonsG.texture,0,0);
       // rect(0,0,u,u*4);
       // text("Z",16,16);
+      // Gdx.gl.glEnable(GL20.GL_BLEND);
+      beginBlend();
       for(int i=0;i<buttons.length;i++) buttons[i].displayScreen();
+      endBlend();
+      // Gdx.gl.glDisable(GL20.GL_BLEND);
     }
   }
   @Override
