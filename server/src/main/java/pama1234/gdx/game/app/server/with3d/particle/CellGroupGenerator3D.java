@@ -66,7 +66,7 @@ public class CellGroupGenerator3D{
     CellGroup3D group;
     int[] colors;
     float boxR;
-    boxR=256;//1024 //TODO
+    boxR=512;//1024 //256 //TODO
     float[][] miniCore=new float[][] {
       {0,1,-1,-1,0,0,0,0,0,0,0,1},
       {1,0,1,-1,-1,0,0,0,0,0,0,0},
@@ -98,7 +98,7 @@ public class CellGroupGenerator3D{
     // colorMode(HSB);
     for(int i=0;i<colors.length;i++) colors[i]=Tools.hsbColor((float)i/cellType*255,0xff,0xff);
     // colorMode(RGB);
-    int amount=amountOut=128;//1024
+    int amount=amountOut=1024;//1024 //128
     int arraySize=arraySizeOut=amount*cellType;
     int[] type=new int[arraySize];
     for(int i=0;i<type.length;i++) type[i]=i/amount;

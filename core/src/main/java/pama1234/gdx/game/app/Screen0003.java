@@ -127,7 +127,7 @@ public class Screen0003 extends UtilScreen3D{
     });
     acceptT.start();
     //---
-    System.out.println(cellData.length+" "+group.size);
+    // System.out.println(cellData.length+" "+group.size);
     serverT=new Thread(()-> {
       byte[] outData=new byte[20];
       while(!stop) {
