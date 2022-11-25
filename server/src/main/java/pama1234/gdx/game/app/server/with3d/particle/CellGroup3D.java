@@ -9,7 +9,7 @@ import pama1234.gdx.game.app.server.particle.Var;
 import pama1234.gdx.util.entity.ServerEntity;
 
 public class CellGroup3D extends ServerEntity{
-  //TODO
+  @Deprecated
   public static final int SIZE=Var.SIZE,DIST=Var.DIST;
   public final int size;
   public final float[] posX,posY,posZ,velX,velY,velZ;

@@ -1,18 +1,18 @@
 package pama1234.gdx.game.app.server.with3d;
 
 import pama1234.gdx.game.app.server.UtilServer;
-import pama1234.gdx.game.app.server.game.PlayerCenter;
+import pama1234.gdx.game.app.server.game.ServerPlayerCenter;
 import pama1234.gdx.game.app.server.with3d.particle.CellGroup3D;
 import pama1234.gdx.game.app.server.with3d.particle.CellGroupGenerator3D;
 
 public class Server3D extends UtilServer{
   CellGroup3D group;
-  PlayerCenter<Player3D> playerCenter;
+  ServerPlayerCenter<ServerPlayer3D> playerCenter;
   @Override
   public void init() {
     CellGroupGenerator3D gen=new CellGroupGenerator3D(0,0);
     group=gen.GenerateFromMiniCore();
-    playerCenter=new PlayerCenter<Player3D>();
+    playerCenter=new ServerPlayerCenter<ServerPlayer3D>();
   }
   @Override
   public void update() {

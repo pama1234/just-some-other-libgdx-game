@@ -12,7 +12,7 @@ import pama1234.math.Tools;
 import pama1234.math.physics.PathPoint3D;
 import pama1234.math.physics.PathVar;
 
-public abstract class CameraController extends Entity{
+public abstract class CameraController extends Entity<UtilScreen>{
   public Camera camera;
   // public PathPoint point;
   public PathPoint3D point;

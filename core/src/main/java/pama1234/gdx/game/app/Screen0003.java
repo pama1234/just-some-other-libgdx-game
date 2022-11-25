@@ -18,8 +18,8 @@ import com.badlogic.gdx.net.ServerSocket;
 import com.badlogic.gdx.net.ServerSocketHints;
 import com.badlogic.gdx.net.SocketHints;
 
-import pama1234.gdx.game.app.server.game.PlayerCenter;
-import pama1234.gdx.game.app.server.with3d.Player3D;
+import pama1234.gdx.game.app.server.particle.Var;
+import pama1234.gdx.game.app.server.with3d.ServerPlayer3D;
 import pama1234.gdx.game.app.server.with3d.particle.CellGroup3D;
 import pama1234.gdx.game.app.server.with3d.particle.CellGroupGenerator3D;
 import pama1234.gdx.game.net.CellData;
@@ -30,6 +30,9 @@ import pama1234.gdx.game.net.SocketData;
 import pama1234.gdx.game.ui.Button;
 import pama1234.gdx.game.ui.ConfigInfo;
 import pama1234.gdx.game.ui.TextButtonGenerator;
+import pama1234.gdx.game.util.ClientPlayer3D;
+import pama1234.gdx.game.util.ClientPlayerCenter3D;
+import pama1234.gdx.util.FileUtil;
 import pama1234.gdx.util.app.UtilScreen3D;
 import pama1234.gdx.util.element.Graphics;
 import pama1234.gdx.util.wrapper.Center;
@@ -51,7 +54,8 @@ public class Screen0003 extends UtilScreen3D{
   public Thread serverT,acceptT,clientT;
   //---
   public CellGroup3D group;
-  PlayerCenter<Player3D> playerCenter;
+  public ClientPlayerCenter3D playerCenter;
+  public ClientPlayer3D yourself;
   public ArrayList<ArrayList<GraphicsData>> graphicsList;
   public ArrayList<DecalData> decals;
   // boolean doUpdate=true;//TODO
@@ -106,7 +110,8 @@ public class Screen0003 extends UtilScreen3D{
     // serverTypeData=new int[gen.arraySizeOut];
     cellData=new CellData[gen.arraySizeOut];
     for(int i=0;i<cellData.length;i++) cellData[i]=new CellData();
-    playerCenter=new PlayerCenter<Player3D>();
+    playerCenter=new ClientPlayerCenter3D(this);
+    yourself=new ClientPlayer3D(this,0,0,-320);
     //---
     serverInfo=new ServerInfo("192.168.2.105",12347);
     centerSocket=new Center<>();
@@ -148,7 +153,7 @@ public class Screen0003 extends UtilScreen3D{
       TextureRegion tr=new TextureRegion(tg.texture);
       graphicsList.get(0).add(0*ts+i,new GraphicsData(tg,tr));
       for(int j=0;j<tsize;j++) {
-        Decal td=Decal.newDecal(CellGroup3D.DIST,CellGroup3D.DIST,tr,true);
+        Decal td=Decal.newDecal(Var.DIST,Var.DIST,tr,true);
         decals.add(i*tsize+j,new DecalData(td,0));
         // decals.add(i*tsize+j,new DecalData(td,i,0));
       }
@@ -192,7 +197,7 @@ public class Screen0003 extends UtilScreen3D{
     tg.endDraw();
     TextureRegion tr=new TextureRegion(tg.texture);
     infoD=Decal.newDecal(tr,true);
-    logo=Decal.newDecal(256,256,new TextureRegion(loadTexture("logo/logo-ingame.png")),true);
+    logo=Decal.newDecal(256,256,new TextureRegion(FileUtil.loadTexture("logo/logo-ingame.png")),true);
     logo.setPosition(0,-512,0);
     //TODO
     if(isAndroid) {
@@ -200,6 +205,8 @@ public class Screen0003 extends UtilScreen3D{
       for(Button e:buttons) centerScreen.add.add(e);
     }
     centerScreen.add.add(configInfo=new ConfigInfo(this));
+    centerCam.add.add(playerCenter);
+    centerCam.add.add(yourself);
   }
   public int getButtonUnitLength() {
     return bu;
@@ -242,7 +249,7 @@ public class Screen0003 extends UtilScreen3D{
       final DecalData tdd=decals.get(i);
       final Decal td=tdd.decal;
       if(tdist>viewDist) continue;
-      if(!isVisible(cam.camera,td,CellGroup3D.DIST/2)) continue;
+      if(!isVisible(cam.camera,td,Var.DIST/2)) continue;
       final int tlf=layerF(tdist);
       if(tlf!=tdd.layer) {
         tdd.layer=tlf;
@@ -261,7 +268,7 @@ public class Screen0003 extends UtilScreen3D{
       final DecalData tdd=decals.get(cellData[i].id);
       final Decal td=tdd.decal;
       if(tdist>viewDist) continue;
-      if(!isVisible(cam.camera,td,CellGroup3D.DIST/2)) continue;
+      if(!isVisible(cam.camera,td,Var.DIST/2)) continue;
       final int tlf=layerF(tdist);
       if(tlf!=tdd.layer) {
         tdd.layer=tlf;

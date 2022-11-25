@@ -17,10 +17,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.IntArray;
-import com.badlogic.gdx.utils.ScreenUtils;
 
 import pama1234.gdx.util.element.CameraController;
 import pama1234.gdx.util.element.MultiChunkFont;
@@ -167,6 +165,7 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
   public void strokeWeight(float in) {
     Gdx.gl.glLineWidth(strokeWeight=in);
   }
+  @Deprecated //use FileUtil instead
   public Texture loadTexture(String in) {
     return new Texture(Gdx.files.internal(in));
   }

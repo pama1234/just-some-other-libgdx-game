@@ -1,14 +1,14 @@
 package pama1234.gdx.game.app.server.with2d;
 
 import pama1234.gdx.game.app.server.UtilServer;
-import pama1234.gdx.game.app.server.game.PlayerCenter;
+import pama1234.gdx.game.app.server.game.ServerPlayerCenter;
 import pama1234.gdx.game.app.server.with2d.net.WorldInfo2D;
 import pama1234.gdx.game.app.server.with2d.particle.CellGroup2D;
 import pama1234.gdx.game.app.server.with2d.particle.CellGroupGenerator2D;
 
 public class Server2D extends UtilServer{
   public CellGroup2D group;
-  public PlayerCenter<Player2D> playerCenter;
+  public ServerPlayerCenter<Player2D> playerCenter;
   //---
   // public NettyServer2DImpl nettyServer;
   public WorldInfo2D worldInfo;
@@ -17,7 +17,7 @@ public class Server2D extends UtilServer{
   public void init() {
     CellGroupGenerator2D gen=new CellGroupGenerator2D(0,0);
     group=gen.GenerateFromMiniCore();
-    playerCenter=new PlayerCenter<Player2D>();
+    playerCenter=new ServerPlayerCenter<Player2D>();
     //---
     // nettyServer=new NettyServer2DImpl(12347);
     // new Thread(nettyServer).start();

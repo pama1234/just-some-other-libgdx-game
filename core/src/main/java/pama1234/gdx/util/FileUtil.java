@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class Files{
+public class FileUtil{
   public static Texture loadTexture(String in) {
     Texture out=new Texture(Gdx.files.internal(in),Format.RGBA4444,false);
     out.setFilter(TextureFilter.Linear,TextureFilter.Nearest);
