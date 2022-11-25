@@ -5,10 +5,12 @@ import java.io.OutputStream;
 
 import com.badlogic.gdx.net.Socket;
 
+import pama1234.gdx.game.net.NetUtil.NetState;
+
 public class SocketData{
   // public int authCooling;//TODO server only
   //---
-  public int state=1;//TODO why avoiding state 0???
+  public NetState state;//TODO why avoiding state 0???
   public String name;//TODO replace with FullToken data class
   //---
   public Socket s;

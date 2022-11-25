@@ -1,12 +1,15 @@
 package pama1234.gdx.game.net.client;
 
+import static pama1234.gdx.game.net.NetUtil.intToState;
 import static pama1234.gdx.game.net.NetUtil.readNBytes;
+import static pama1234.gdx.game.net.NetUtil.NetState.DataTransfer;
 
 import java.io.IOException;
 
 import pama1234.data.ByteUtil;
 import pama1234.gdx.game.app.Screen0003;
 import pama1234.gdx.game.net.SocketData;
+import pama1234.gdx.game.net.NetUtil.NetState;
 
 public class ClientDataReadThread extends Thread{
   public Screen0003 p;
@@ -29,7 +32,7 @@ public class ClientDataReadThread extends Thread{
         // state=ByteUtil.byteToInt(readNBytes(inData,0,4),0);
         // readSize=ByteUtil.byteToInt(readNBytes(inData,0,4),0);
         doF(inData,
-          ByteUtil.byteToInt(readNBytes(dataSocket,inData,0,4),0),
+          intToState(ByteUtil.byteToInt(readNBytes(dataSocket,inData,0,4),0)),
           ByteUtil.byteToInt(readNBytes(dataSocket,inData,0,4),0));
         // doF(inData,state,readSize);
         // }
@@ -38,20 +41,20 @@ public class ClientDataReadThread extends Thread{
       }
     }
   }
-  public void doF(byte[] inData,int state,int readSize) throws IOException {
+  public void doF(byte[] inData,NetState state,int readSize) throws IOException {
     System.out.println("ClientRead state="+state+" readSize="+readSize);
     // p.println(state,readSize);
     switch(state) {
-      case 1: {
+      case Authentication: {
         if(readSize!=4) throw new RuntimeException("state 0 readSize!=4 "+readSize);//TODO
         readNBytes(dataSocket,inData,0,readSize);
         // System.out.println(ByteUtil.byteToInt(inData,0));
-        dataSocket.state=1;
+        dataSocket.state=DataTransfer;
         // p.println("e.state=0");//TODO
         // p.println(inData);
       }
         break;
-      case 2: {
+      case DataTransfer: {
         if(readSize!=p.cellData.length) throw new RuntimeException("state 1 readSize!=p.cellData.length "+readSize+" "+p.cellData.length);//TODO
         for(int i=0;i<readSize;i++) {
           readNBytes(dataSocket,inData,0,inData.length);
@@ -64,9 +67,7 @@ public class ClientDataReadThread extends Thread{
       }
         break;
       default:
-        int ti=dataSocket.state;
-        dataSocket.state=1;
-        throw new RuntimeException("state err="+ti);
+        throw new RuntimeException("state err="+state);
     }
   }
 }

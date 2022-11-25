@@ -37,7 +37,7 @@ public class ServerDataWriteThread extends Thread{
     System.out.println("ServerWrite state="+e.state);
     // if(e.state==1)
     switch(e.state) {
-      case 1: {
+      case Authentication: {
         // System.out.println("abc");
         // if(e.authCooling>0) {
         //   e.authCooling--;
@@ -51,7 +51,7 @@ public class ServerDataWriteThread extends Thread{
         // p.sleep(200);
       }
         break;
-      case 2: {
+      case DataTransfer: {
         writeHeader(e,outData,p.group.size);
         // p.println(1,p.group.size);
         for(int i=0;i<p.group.size;i++) {
@@ -66,9 +66,7 @@ public class ServerDataWriteThread extends Thread{
       }
         break;
       default:
-        int ti=e.state;
-        e.state=1;
-        throw new RuntimeException("state err="+ti);
+        throw new RuntimeException("state err="+e.state);
     }
   }
 }
