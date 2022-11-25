@@ -1,16 +1,20 @@
-package pama1234.gdx.game.net;
+package pama1234.gdx.game.net.server;
+
+import static pama1234.gdx.game.net.NetUtil.readNBytes;
 
 import java.io.IOException;
 
 import pama1234.data.ByteUtil;
 import pama1234.gdx.game.app.Screen0007;
+import pama1234.gdx.game.net.SocketData;
 import pama1234.gdx.game.util.ClientPlayer3D;
 
-@Deprecated
-public class ServerReadThreadDepc extends Thread{
+public class ServerDataReadThread extends Thread{
   public Screen0007 p;
-  public ServerReadThreadDepc(Screen0007 p) {
+  public SocketData dataSocket;
+  public ServerDataReadThread(Screen0007 p,SocketData dataSocket) {
     this.p=p;
+    this.dataSocket=dataSocket;
   }
   @Override
   public void run() {
@@ -18,20 +22,17 @@ public class ServerReadThreadDepc extends Thread{
     while(!p.stop) {
       synchronized(p.socketCenter.list) {
         // synchronized(p.group) {
-        for(SocketData e:p.socketCenter.list) {
-          try {
-            doF(e,inData,
-              ByteUtil.byteToInt(readNBytes(e,inData,0,4),0),
-              ByteUtil.byteToInt(readNBytes(e,inData,0,4),0));
-          }catch(IOException e1) {
-            e1.printStackTrace();
-          }
+        try {
+          doF(dataSocket,inData,
+            ByteUtil.byteToInt(readNBytes(dataSocket,inData,0,4),0),
+            ByteUtil.byteToInt(readNBytes(dataSocket,inData,0,4),0));
+        }catch(IOException e1) {
+          e1.printStackTrace();
         }
-        // }
       }
+      // }
     }
   }
-  // public void doF(byte[] inData,int state,int readSize) throws IOException {
   public void doF(SocketData e,byte[] inData,int state,int readSize) throws IOException {
     System.out.println("ServerRead state="+state+" readSize="+readSize);
     if(state!=e.state) {
@@ -48,7 +49,7 @@ public class ServerReadThreadDepc extends Thread{
       }
         break;
       case 2: {
-        readNBytes(e,inData,0,12);
+          readNBytes(e,inData,0,12);
         ClientPlayer3D tp=p.playerCenter.hashMap.get(e.name);
         tp.point.des.set(
           ByteUtil.byteToFloat(inData,0),
@@ -61,11 +62,5 @@ public class ServerReadThreadDepc extends Thread{
         e.state=1;
         throw new RuntimeException("state err="+ti);
     }
-  }
-  public byte[] readNBytes(SocketData e,byte[] out,int offset,int size) throws IOException {
-    int ti=0;
-    while(ti==0) ti=e.i.readNBytes(out,offset,size);
-    if(ti!=size) throw new RuntimeException("ti!=size "+ti+" "+size);
-    return out;
   }
 }

@@ -1,4 +1,4 @@
-package pama1234.gdx.game.net;
+package pama1234.gdx.game.net.client;
 
 import static pama1234.gdx.game.net.NetUtil.readNBytes;
 
@@ -6,13 +6,14 @@ import java.io.IOException;
 
 import pama1234.data.ByteUtil;
 import pama1234.gdx.game.app.Screen0003;
+import pama1234.gdx.game.net.SocketData;
 
 public class ClientDataReadThread extends Thread{
   public Screen0003 p;
-  public SocketData e;
-  public ClientDataReadThread(Screen0003 p,SocketData e) {
+  public SocketData dataSocket;
+  public ClientDataReadThread(Screen0003 p,SocketData dataSocket) {
     this.p=p;
-    this.e=e;
+    this.dataSocket=dataSocket;
   }
   @Override
   public void run() {
@@ -28,8 +29,8 @@ public class ClientDataReadThread extends Thread{
         // state=ByteUtil.byteToInt(readNBytes(inData,0,4),0);
         // readSize=ByteUtil.byteToInt(readNBytes(inData,0,4),0);
         doF(inData,
-          ByteUtil.byteToInt(readNBytes(e,inData,0,4),0),
-          ByteUtil.byteToInt(readNBytes(e,inData,0,4),0));
+          ByteUtil.byteToInt(readNBytes(dataSocket,inData,0,4),0),
+          ByteUtil.byteToInt(readNBytes(dataSocket,inData,0,4),0));
         // doF(inData,state,readSize);
         // }
       }catch(Exception e) {
@@ -43,9 +44,9 @@ public class ClientDataReadThread extends Thread{
     switch(state) {
       case 1: {
         if(readSize!=4) throw new RuntimeException("state 0 readSize!=4 "+readSize);//TODO
-        readNBytes(e,inData,0,readSize);
+        readNBytes(dataSocket,inData,0,readSize);
         // System.out.println(ByteUtil.byteToInt(inData,0));
-        e.state=1;
+        dataSocket.state=1;
         // p.println("e.state=0");//TODO
         // p.println(inData);
       }
@@ -53,7 +54,7 @@ public class ClientDataReadThread extends Thread{
       case 2: {
         if(readSize!=p.cellData.length) throw new RuntimeException("state 1 readSize!=p.cellData.length "+readSize+" "+p.cellData.length);//TODO
         for(int i=0;i<readSize;i++) {
-          readNBytes(e,inData,0,inData.length);
+          readNBytes(dataSocket,inData,0,inData.length);
           p.cellData[i].id=ByteUtil.byteToInt(inData,0);
           p.cellData[i].type=ByteUtil.byteToInt(inData,4);
           p.cellData[i].x=ByteUtil.byteToFloat(inData,8);
@@ -63,14 +64,9 @@ public class ClientDataReadThread extends Thread{
       }
         break;
       default:
-        int ti=e.state;
-        e.state=1;
+        int ti=dataSocket.state;
+        dataSocket.state=1;
         throw new RuntimeException("state err="+ti);
     }
   }
-  // public byte[] readNBytes(byte[] out,int offset,int size) throws IOException {
-  //   int ti=0;
-  //   while(ti==0) ti=e.i.readNBytes(out,offset,size);
-  //   return out;
-  // }
 }

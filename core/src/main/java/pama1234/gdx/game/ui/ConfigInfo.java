@@ -25,7 +25,7 @@ public class ConfigInfo extends Entity<Screen0003>{
     p.text("视角灵敏度 "+p.cam3d.viewSpeed,tx+p.pus,ty+p.pus+p.pu);
     p.text("视野距离   "+p.viewDist,tx+p.pus,ty+p.pus+p.pu*2);
     p.text("位置缩放   "+p.multDist,tx+p.pus,ty+p.pus+p.pu*3);
-    p.text(p.serverInfo.toString(),tx+p.pus,ty+p.pus+p.pu*4);
+    p.text(p.dataServerInfo.toString(),tx+p.pus,ty+p.pus+p.pu*4);
     p.endBlend();
   }
 }

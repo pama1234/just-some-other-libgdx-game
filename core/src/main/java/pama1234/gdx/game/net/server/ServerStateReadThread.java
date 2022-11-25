@@ -1,4 +1,4 @@
-package pama1234.gdx.game.net;
+package pama1234.gdx.game.net.server;
 
 import static pama1234.gdx.game.net.NetUtil.readNBytes;
 
@@ -6,14 +6,15 @@ import java.io.IOException;
 
 import pama1234.data.ByteUtil;
 import pama1234.gdx.game.app.Screen0007;
+import pama1234.gdx.game.net.SocketData;
 import pama1234.gdx.game.util.ClientPlayer3D;
 
-public class ServerDataReadThread extends Thread{
+public class ServerStateReadThread extends Thread{
   public Screen0007 p;
-  public SocketData e;
-  public ServerDataReadThread(Screen0007 p,SocketData e) {
+  public SocketData stateSocket;
+  public ServerStateReadThread(Screen0007 p,SocketData stateSocket) {
     this.p=p;
-    this.e=e;
+    this.stateSocket=stateSocket;
   }
   @Override
   public void run() {
@@ -22,9 +23,9 @@ public class ServerDataReadThread extends Thread{
       synchronized(p.socketCenter.list) {
         // synchronized(p.group) {
         try {
-          doF(e,inData,
-            ByteUtil.byteToInt(readNBytes(e,inData,0,4),0),
-            ByteUtil.byteToInt(readNBytes(e,inData,0,4),0));
+          doF(stateSocket,inData,
+            ByteUtil.byteToInt(readNBytes(stateSocket,inData,0,4),0),
+            ByteUtil.byteToInt(readNBytes(stateSocket,inData,0,4),0));
         }catch(IOException e1) {
           e1.printStackTrace();
         }
@@ -49,7 +50,7 @@ public class ServerDataReadThread extends Thread{
       }
         break;
       case 2: {
-          readNBytes(e,inData,0,12);
+        readNBytes(e,inData,0,12);
         ClientPlayer3D tp=p.playerCenter.hashMap.get(e.name);
         tp.point.des.set(
           ByteUtil.byteToFloat(inData,0),
@@ -63,10 +64,4 @@ public class ServerDataReadThread extends Thread{
         throw new RuntimeException("state err="+ti);
     }
   }
-  // public byte[] readNBytes(SocketData e,byte[] out,int offset,int size) throws IOException {
-  //   int ti=0;
-  //   while(ti==0) ti=e.i.readNBytes(out,offset,size);
-  //   if(ti!=size) throw new RuntimeException("ti!=size "+ti+" "+size);
-  //   return out;
-  // }
 }

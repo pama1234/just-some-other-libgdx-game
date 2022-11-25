@@ -11,19 +11,21 @@ import com.badlogic.gdx.net.SocketHints;
 import pama1234.gdx.game.app.server.with3d.particle.CellGroup3D;
 import pama1234.gdx.game.app.server.with3d.particle.CellGroupGenerator3D;
 import pama1234.gdx.game.net.ServerInfo;
-import pama1234.gdx.game.net.ServerDataReadThread;
-import pama1234.gdx.game.net.ServerDataWriteThread;
 import pama1234.gdx.game.net.SocketData;
+import pama1234.gdx.game.net.server.ServerDataReadThread;
+import pama1234.gdx.game.net.server.ServerDataWriteThread;
+import pama1234.gdx.game.net.server.ServerStateReadThread;
+import pama1234.gdx.game.net.server.ServerStateWriteThread;
 import pama1234.gdx.game.util.ClientPlayerCenter3D;
 import pama1234.gdx.util.app.UtilScreen3D;
 import pama1234.gdx.util.wrapper.Center;
 
 public class Screen0007 extends UtilScreen3D{
-  public ServerInfo serverInfo;
+  public ServerInfo dataServerInfo,stateServerInfo;
   //---
-  public ServerSocket serverSocket;
+  public ServerSocket serverDataSocket,serverStateSocket;
   public Center<SocketData> socketCenter;
-  public Thread acceptT;
+  public Thread acceptDataThread,acceptStateThread;
   public LinkedList<Thread> serverReadT,serverWriteT;
   //---
   public CellGroup3D group;
@@ -33,7 +35,8 @@ public class Screen0007 extends UtilScreen3D{
   public ClientPlayerCenter3D playerCenter;
   @Override
   public void setup() {
-    serverInfo=new ServerInfo("192.168.2.105",12347);
+    dataServerInfo=new ServerInfo("192.168.2.105",12347);
+    stateServerInfo=new ServerInfo("192.168.2.105",12346);
     // serverInfo=new ServerInfo("127.0.0.1",12347);
     //---
     CellGroupGenerator3D gen=new CellGroupGenerator3D(0,0);
@@ -55,13 +58,31 @@ public class Screen0007 extends UtilScreen3D{
     tssh.performancePrefConnectionTime=0;
     tssh.performancePrefLatency=2;
     tssh.performancePrefBandwidth=1;
-    serverSocket=Gdx.net.newServerSocket(Protocol.TCP,serverInfo.addr,serverInfo.port,tssh);
+    serverDataSocket=Gdx.net.newServerSocket(Protocol.TCP,dataServerInfo.addr,dataServerInfo.port,tssh);
+    serverStateSocket=Gdx.net.newServerSocket(Protocol.TCP,stateServerInfo.addr,stateServerInfo.port,tssh);
     socketCenter=new Center<>();
     // sleep(10000);
-    acceptT=new Thread(()-> {
+    acceptStateThread=new Thread(()-> {
       while(!stop) {
         // synchronized(centerSocket.add) {
-        SocketData tsd=new SocketData(serverSocket.accept(tsh));
+        SocketData tsd=new SocketData(serverStateSocket.accept(tsh));
+        socketCenter.add.add(tsd);
+        //---
+        ServerStateWriteThread tswt=new ServerStateWriteThread(Screen0007.this,tsd);
+        tswt.start();
+        serverWriteT.add(tswt);
+        //---
+        ServerStateReadThread tsrt=new ServerStateReadThread(Screen0007.this,tsd);
+        tsrt.start();
+        serverReadT.add(tsrt);
+        // }
+      }
+    });
+    //---
+    acceptDataThread=new Thread(()-> {
+      while(!stop) {
+        // synchronized(centerSocket.add) {
+        SocketData tsd=new SocketData(serverDataSocket.accept(tsh));
         socketCenter.add.add(tsd);
         //---
         ServerDataWriteThread tswt=new ServerDataWriteThread(Screen0007.this,tsd);
@@ -74,9 +95,7 @@ public class Screen0007 extends UtilScreen3D{
         // }
       }
     });
-    acceptT.start();
-    // (serverWriteT=new ServerWriteThread(Screen0007.this)).start();
-    // (serverReadT=new ServerReadThread(Screen0007.this)).start();
+    acceptDataThread.start();
     //---
     updateCell=new Thread() {
       @Override
@@ -104,7 +123,7 @@ public class Screen0007 extends UtilScreen3D{
     super.dispose();
     updateCell.interrupt();
     if((!updateCell.isInterrupted())||(updateCell.isAlive())) updateCell.stop();
-    serverSocket.dispose();
+    serverDataSocket.dispose();
     socketCenter.refresh();
     for(SocketData i:socketCenter.list) i.s.dispose();
   }

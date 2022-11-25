@@ -1,4 +1,4 @@
-package pama1234.gdx.game.net;
+package pama1234.gdx.game.net.server;
 
 import static pama1234.gdx.game.net.NetUtil.writeHeader;
 
@@ -6,31 +6,32 @@ import java.io.IOException;
 
 import pama1234.data.ByteUtil;
 import pama1234.gdx.game.app.Screen0007;
+import pama1234.gdx.game.net.SocketData;
 
 public class ServerDataWriteThread extends Thread{
   public Screen0007 p;
-  public SocketData e;
-  public ServerDataWriteThread(Screen0007 p,SocketData e) {
+  public SocketData dataSocket;
+  public ServerDataWriteThread(Screen0007 p,SocketData dataSocket) {
     this.p=p;
-    this.e=e;
+    this.dataSocket=dataSocket;
   }
   @Override
   public void run() {
     byte[] outData=new byte[20];
     while(!p.stop) {
-      p.socketCenter.refresh();
-      synchronized(p.socketCenter.list) {
-        synchronized(p.group) {
-          for(SocketData e:p.socketCenter.list) {
-            try {
-              doF(e,outData);
-            }catch(IOException exception) {
-              exception.printStackTrace();
-            }
-          }
+      // p.socketCenter.refresh();
+      // synchronized(p.socketCenter.list) {
+      synchronized(p.group) {
+        // for(SocketData e:p.socketCenter.list) {
+        try {
+          doF(dataSocket,outData);
+        }catch(IOException exception) {
+          exception.printStackTrace();
         }
+        // }
       }
     }
+    // }
   }
   public void doF(SocketData e,byte[] outData) throws IOException {
     System.out.println("ServerWrite state="+e.state);
@@ -70,12 +71,4 @@ public class ServerDataWriteThread extends Thread{
         throw new RuntimeException("state err="+ti);
     }
   }
-  // public void writeHeader(SocketData e,byte[] outData,int state,int size) throws IOException {
-  //   e.o.write(ByteUtil.intToByte(state,outData,0),0,4);
-  //   e.o.write(ByteUtil.intToByte(size,outData,0),0,4);
-  //   e.o.flush();
-  // }
-  // public void writeHeader(SocketData e,byte[] outData,int size) throws IOException {
-  //   writeHeader(e,outData,e.state,4);
-  // }
 }
