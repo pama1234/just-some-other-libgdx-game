@@ -6,7 +6,7 @@ import pama1234.gdx.util.app.UtilScreen;
 import pama1234.gdx.util.entity.Entity;
 import pama1234.gdx.util.info.TouchInfo;
 
-public abstract class Button extends Entity{
+public abstract class Button extends Entity<UtilScreen>{
   // boolean active;//TODO
   GetBoolean active;
   TouchInfo touch;
@@ -18,13 +18,13 @@ public abstract class Button extends Entity{
     this.clickStart=clickStart;
     this.clickEnd=clickEnd;
   }
-  @Override
-  public void display() {}
+  // @Override
+  // public void display() {}
   @Override
   public void update() {
     if(touch!=null) press();
   }
-  public abstract void displayScreen();
+  // public abstract void displayScreen();
   public abstract boolean inButton(float x,float y);
   public void press() {
     if(active.get()) press.execute();

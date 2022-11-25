@@ -6,7 +6,6 @@ import static pama1234.gdx.game.ui.InfoGenerator.info;
 import static pama1234.math.UtilMath.dist;
 import static pama1234.math.UtilMath.pow;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
@@ -19,36 +18,40 @@ import com.badlogic.gdx.net.ServerSocket;
 import com.badlogic.gdx.net.ServerSocketHints;
 import com.badlogic.gdx.net.SocketHints;
 
-import pama1234.data.ByteUtil;
+import pama1234.gdx.game.app.server.game.PlayerCenter;
+import pama1234.gdx.game.app.server.with3d.Player3D;
 import pama1234.gdx.game.app.server.with3d.particle.CellGroup3D;
 import pama1234.gdx.game.app.server.with3d.particle.CellGroupGenerator3D;
 import pama1234.gdx.game.net.CellData;
+import pama1234.gdx.game.net.ClientThread;
 import pama1234.gdx.game.net.ServerInfo;
+import pama1234.gdx.game.net.ServerThread;
 import pama1234.gdx.game.net.SocketData;
 import pama1234.gdx.game.ui.Button;
+import pama1234.gdx.game.ui.ConfigInfo;
 import pama1234.gdx.game.ui.TextButtonGenerator;
 import pama1234.gdx.util.app.UtilScreen3D;
 import pama1234.gdx.util.element.Graphics;
 import pama1234.gdx.util.wrapper.Center;
 
 /**
- * 3D 粒子系统
+ * 3D 粒子系统 客户端
  */
 public class Screen0003 extends UtilScreen3D{
-  ServerInfo serverInfo;
+  public ServerInfo serverInfo;
   //---
-  ServerSocket serverSocket;
-  Center<SocketData> centerS;
+  public ServerSocket serverSocket;
+  public Center<SocketData> centerSocket;
   //---
-  SocketData client;
+  public SocketData client;
   // int[] serverTypeData;
   // float[][] serverVecData;
-  volatile CellData[] cellData;
+  public volatile CellData[] cellData;
   //---
-  Thread serverT,acceptT,clientT;
+  public Thread serverT,acceptT,clientT;
   //---
   public CellGroup3D group;
-  // PlayerCenter<Player3D> playerCenter;
+  PlayerCenter<Player3D> playerCenter;
   public ArrayList<ArrayList<GraphicsData>> graphicsList;
   public ArrayList<DecalData> decals;
   // boolean doUpdate=true;//TODO
@@ -67,8 +70,9 @@ public class Screen0003 extends UtilScreen3D{
   public Button[] buttons;
   public int bu;
   public boolean fullSettings;
-  public boolean configInfo;
+  // public boolean configInfo;
   public boolean tempTest;//TODO
+  public ConfigInfo configInfo;
   // Graphics buttonsG;
   // Texture buttonsT;
   public static class GraphicsData{
@@ -107,12 +111,11 @@ public class Screen0003 extends UtilScreen3D{
     group=gen.GenerateFromMiniCore();
     // serverTypeData=new int[gen.arraySizeOut];
     cellData=new CellData[gen.arraySizeOut];
-    for(int i=0;i<cellData.length;i++) {
-      cellData[i]=new CellData();
-    }
+    for(int i=0;i<cellData.length;i++) cellData[i]=new CellData();
+    playerCenter=new PlayerCenter<Player3D>();
     //---
     serverInfo=new ServerInfo("192.168.2.105",12347);
-    centerS=new Center<>();
+    centerSocket=new Center<>();
     //---
     SocketHints tsh=new SocketHints();
     tsh.keepAlive=true;
@@ -123,67 +126,13 @@ public class Screen0003 extends UtilScreen3D{
     ServerSocketHints tssh=new ServerSocketHints();
     serverSocket=Gdx.net.newServerSocket(Protocol.TCP,serverInfo.addr,serverInfo.port,tssh);
     acceptT=new Thread(()-> {
-      while(!stop) centerS.add.add(new SocketData(serverSocket.accept(tsh)));
+      while(!stop) centerSocket.add.add(new SocketData(serverSocket.accept(tsh)));
     });
     acceptT.start();
     //---
-    // System.out.println(cellData.length+" "+group.size);
-    serverT=new Thread(()-> {
-      byte[] outData=new byte[20];
-      while(!stop) {
-        synchronized(centerS.list) {
-          synchronized(group) {
-            for(SocketData e:centerS.list) {
-              try {
-                // i.o.write(new byte[] {(byte)((frameCount>>24)&0xff),(byte)((frameCount>>16)&0xff),(byte)((frameCount>>8)&0xff),(byte)(frameCount&0xff)});
-                for(int i=0;i<group.size;i++) {
-                  ByteUtil.intToByte(i,outData);
-                  ByteUtil.intToByte(group.type[i],outData,4);
-                  ByteUtil.floatToByte(group.x(i),outData,8);
-                  ByteUtil.floatToByte(group.y(i),outData,12);
-                  ByteUtil.floatToByte(group.z(i),outData,16);
-                  e.o.write(outData);
-                }
-                e.o.flush();
-              }catch(IOException exception) {
-                exception.printStackTrace();
-              }
-            }
-          }
-        }
-      }
-    });
-    serverT.start();
-    //---
+    (serverT=new ServerThread(this)).start();
     client=new SocketData(Gdx.net.newClientSocket(Protocol.TCP,serverInfo.addr,serverInfo.port,tsh));
-    //---
-    clientT=new Thread(()-> {
-      // byte[] td=new byte[4];
-      byte[] inData=new byte[20];
-      int ti;
-      while(!stop) {
-        try {
-          // int ti=client.i.readNBytes(td,0,4);
-          // println(ti+" "+Arrays.toString(td)+" "+ByteUtil.byteToInt(td));
-          // synchronized(cellData) {
-          for(int i=0;i<cellData.length;i++) {
-            ti=0;
-            while(ti==0) ti=client.i.readNBytes(inData,0,inData.length);
-            cellData[i].id=ByteUtil.byteToInt(inData);
-            cellData[i].type=ByteUtil.byteToInt(inData,4);
-            cellData[i].x=ByteUtil.byteToFloat(inData,8);
-            cellData[i].y=ByteUtil.byteToFloat(inData,12);
-            cellData[i].z=ByteUtil.byteToFloat(inData,16);
-          }
-          // }
-        }catch(Exception e) {
-          e.printStackTrace();
-        }
-      }
-    });
-    clientT.start();
-    //---
-    // playerCenter=new PlayerCenter<Player3D>();
+    (clientT=new ClientThread(this)).start();
     noStroke();
     // graphicsList=new ArrayList<>(group.colors.length);
     graphicsList=new ArrayList<ArrayList<GraphicsData>>(layerSize);
@@ -254,15 +203,16 @@ public class Screen0003 extends UtilScreen3D{
     //TODO
     if(isAndroid) {
       buttons=TextButtonGenerator.genButtons(this);
-      for(int i=0;i<buttons.length;i++) center.add.add(buttons[i]);
+      for(Button e:buttons) centerScreen.add.add(e);
     }
+    centerScreen.add.add(configInfo=new ConfigInfo(this));
   }
   public int getButtonUnitLength() {
     return bu;
   }
   @Override
   public void update() {
-    centerS.refresh();
+    centerSocket.refresh();
   }
   public boolean isVisible(Camera cam,Decal in,float r) {
     return cam.frustum.sphereInFrustum(in.getPosition(),r);
@@ -350,25 +300,28 @@ public class Screen0003 extends UtilScreen3D{
     // withScreen();
     // text("moveSpeed "+cam3d.moveSpeed,0,0);
     // text("viewSpeed "+cam3d.viewSpeed,0,u);
-    if(isAndroid) {
-      withScreen();
-      // beginBlend();
-      for(int i=0;i<buttons.length;i++) buttons[i].displayScreen();
-      // endBlend();
-    }
-    if(configInfo) {
-      beginBlend();
-      fill(127,191);
-      textColor(255,191);
-      final float tx=width/2f+pus,ty=bu*0.5f+pus;
-      rect(tx,ty,pu*9+pus*2,pu*5+pus*2);
-      text("移动速度   "+cam3d.moveSpeed,tx+pus,ty+pus);
-      text("视角灵敏度 "+cam3d.viewSpeed,tx+pus,ty+pus+pu);
-      text("视野距离   "+viewDist,tx+pus,ty+pus+pu*2);
-      text("位置缩放   "+multDist,tx+pus,ty+pus+pu*3);
-      text(serverInfo.toString(),tx+pus,ty+pus+pu*4);
-    }
-    endBlend();
+    withScreen();
+    // if(isAndroid) {
+    //   withScreen();
+    //   beginBlend();
+    //   for(int i=0;i<buttons.length;i++) buttons[i].displayScreen();
+    //   endBlend();
+    // }
+    //---
+    // if(configInfo) {
+    //   // withScreen();
+    //   beginBlend();
+    //   fill(127,191);
+    //   textColor(255,191);
+    //   final float tx=width/2f+pus,ty=bu*0.5f+pus;
+    //   rect(tx,ty,pu*9+pus*2,pu*5+pus*2);
+    //   text("移动速度   "+cam3d.moveSpeed,tx+pus,ty+pus);
+    //   text("视角灵敏度 "+cam3d.viewSpeed,tx+pus,ty+pus+pu);
+    //   text("视野距离   "+viewDist,tx+pus,ty+pus+pu*2);
+    //   text("位置缩放   "+multDist,tx+pus,ty+pus+pu*3);
+    //   text(serverInfo.toString(),tx+pus,ty+pus+pu*4);
+    // }
+    // endBlend();
   }
   @Override
   public void frameResized() {
@@ -407,7 +360,7 @@ public class Screen0003 extends UtilScreen3D{
       if(viewDist>2048) viewDist=2048;
     }
     if(isAndroid&&key=='T') fullSettings=!fullSettings;//TODO
-    if(key=='I') configInfo=!configInfo;
+    // if(key=='I') configInfo=!configInfo;
     if(key=='P') tempTest=!tempTest;
   }
   @Override
@@ -416,8 +369,8 @@ public class Screen0003 extends UtilScreen3D{
     updateCell.interrupt();
     if((!updateCell.isInterrupted())||(updateCell.isAlive())) updateCell.stop();
     serverSocket.dispose();
-    centerS.refresh();
-    for(SocketData i:centerS.list) i.s.dispose();
+    centerSocket.refresh();
+    for(SocketData i:centerSocket.list) i.s.dispose();
     client.s.dispose();
   }
 }

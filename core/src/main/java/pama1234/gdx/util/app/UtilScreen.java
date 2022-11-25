@@ -68,7 +68,9 @@ public abstract class UtilScreen implements Screen,InputListener,LifecycleListen
   public ShapeRenderer rFill,rStroke;
   public boolean background=true;
   public Color backgroundColor;
-  public EntityCenter<EntityListener> center;
+  public EntityCenter<EntityListener> center,centerCam,centerScreen;
+  // public EntityCenter<EntityListener> centerCam;
+  // public EntityCenter<EntityListener> centerScreen;
   public ServerEntityCenter<ServerEntityListener> serverCenter;
   public UtilInputProcesser inputProcessor;
   public Random rng=new Random();
@@ -91,13 +93,16 @@ public abstract class UtilScreen implements Screen,InputListener,LifecycleListen
     for(TouchInfo i:touches) i.update(this);
     inputProcessor.update();
     center.update();
+    // centerScreen.update();
     serverCenter.update();
     update();
     beginDraw();
     if(background) background(backgroundColor);
     withCam();
-    center.display();
+    centerCam.display();
     serverCenter.display();
+    withScreen();
+    centerScreen.display();
     display();
     inputProcessor.display();
     endDraw();
@@ -154,6 +159,7 @@ public abstract class UtilScreen implements Screen,InputListener,LifecycleListen
     // System.out.println("a");
     screenCam.setToOrtho(flip,w,h);
     center.frameResized(w,h);
+    // centerScreen.frameResized(w,h);
     frameResized();
   }
   // public void camResizeEvent(int w,int h) {
@@ -164,10 +170,12 @@ public abstract class UtilScreen implements Screen,InputListener,LifecycleListen
   @Override
   public void pause() {
     center.pause();
+    // centerScreen.pause();
   }
   @Override
   public void resume() {
     center.resume();
+    // centerScreen.resume();
     serverCenter.resume();
   }
   @Override
@@ -179,6 +187,7 @@ public abstract class UtilScreen implements Screen,InputListener,LifecycleListen
     font.dispose();
     // fontGenerator.dispose();
     center.dispose();
+    // centerScreen.dispose();
     serverCenter.dispose();
   }
   @Override

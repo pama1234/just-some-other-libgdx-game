@@ -44,6 +44,8 @@ public abstract class UtilScreen2D extends UtilScreen{
     backgroundColor=new Color(1,1,1,0);
     center=new EntityCenter<>(this);
     center.list.add(cam);
+    center.list.add(centerCam=new EntityCenter<>(this));
+    center.list.add(centerScreen=new EntityCenter<>(this));
     serverCenter=new ServerEntityCenter<>();
     withCam();
     setup();

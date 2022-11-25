@@ -28,9 +28,7 @@ public class TextButton extends Button{
     this.h=h;
   }
   @Override
-  public void display() {}
-  @Override
-  public void displayScreen() {//TODO
+  public void display() {
     if(!active.get()) return;
     final float tx=x.get(),ty=y.get(),tw=w.get(),th=h.get();
     if(touch!=null) {
@@ -46,6 +44,23 @@ public class TextButton extends Button{
     p.rect(tx+p.pus,ty+p.pus,tw-p.pus*2,th-p.pus*2);
     p.text(text,tx+(tw+(textOffset?-p.pus*8:-p.pu))/2f,ty+(th-p.pu)/2f);
   }
+  // @Override
+  // public void displayScreen() {//TODO
+  //   if(!active.get()) return;
+  //   final float tx=x.get(),ty=y.get(),tw=w.get(),th=h.get();
+  //   if(touch!=null) {
+  //     // p.fill(127,240);
+  //     p.fill(94,203,234,200);
+  //     p.textColor(255,220);
+  //   }else {
+  //     p.fill(127,191);
+  //     // p.fill(94,203,234,191);
+  //     p.textColor(255,200);
+  //   }
+  //   p.beginBlend();//TODO
+  //   p.rect(tx+p.pus,ty+p.pus,tw-p.pus*2,th-p.pus*2);
+  //   p.text(text,tx+(tw+(textOffset?-p.pus*8:-p.pu))/2f,ty+(th-p.pu)/2f);
+  // }
   public boolean inButton(float xIn,float yIn) {
     return inBox(xIn,yIn,x.get(),y.get(),w.get(),h.get());
   }
