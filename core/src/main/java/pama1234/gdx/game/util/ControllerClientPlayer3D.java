@@ -11,6 +11,10 @@ public class ControllerClientPlayer3D extends ClientPlayer3D{
     super(p,x,y,z);
   }
   @Override
-  public void display() {
+  public void update() {
+    super.update();
+    // p.cam.point.set(x(),y(),z());
   }
+  @Override
+  public void display() {}
 }

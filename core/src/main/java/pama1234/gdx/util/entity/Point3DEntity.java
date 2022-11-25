@@ -20,15 +20,23 @@ public class Point3DEntity<T extends Point3D>extends Entity<UtilScreen>{
   public float y() {
     return point.y();
   }
+  public float z() {
+    return point.z();
+  }
   public int xInt() {
     return (int)Math.floor(point.pos.x);
   }
   public int yInt() {
     return (int)Math.floor(point.pos.y);
   }
+  public int zInt() {
+    return (int)Math.floor(point.pos.z);
+  }
+  @Deprecated
   public float mouseX() {
     return p.mouse.x-x();
   }
+  @Deprecated
   public float mouseY() {
     return p.mouse.y-y();
   }

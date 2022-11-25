@@ -14,28 +14,23 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.badlogic.gdx.math.Vector3;
-import com.badlogic.gdx.net.ServerSocket;
-import com.badlogic.gdx.net.ServerSocketHints;
 import com.badlogic.gdx.net.SocketHints;
 
 import pama1234.gdx.game.app.server.particle.Var;
-import pama1234.gdx.game.app.server.with3d.ServerPlayer3D;
-import pama1234.gdx.game.app.server.with3d.particle.CellGroup3D;
-import pama1234.gdx.game.app.server.with3d.particle.CellGroupGenerator3D;
 import pama1234.gdx.game.net.CellData;
-import pama1234.gdx.game.net.ClientThread;
+import pama1234.gdx.game.net.ClientReadThread;
+import pama1234.gdx.game.net.ClientWriteThread;
 import pama1234.gdx.game.net.ServerInfo;
-import pama1234.gdx.game.net.ServerThread;
 import pama1234.gdx.game.net.SocketData;
 import pama1234.gdx.game.ui.Button;
 import pama1234.gdx.game.ui.ConfigInfo;
 import pama1234.gdx.game.ui.TextButtonGenerator;
-import pama1234.gdx.game.util.ClientPlayer3D;
 import pama1234.gdx.game.util.ClientPlayerCenter3D;
+import pama1234.gdx.game.util.ControllerClientPlayer3D;
 import pama1234.gdx.util.FileUtil;
 import pama1234.gdx.util.app.UtilScreen3D;
 import pama1234.gdx.util.element.Graphics;
-import pama1234.gdx.util.wrapper.Center;
+import pama1234.math.Tools;
 
 /**
  * 3D 粒子系统 客户端
@@ -43,19 +38,19 @@ import pama1234.gdx.util.wrapper.Center;
 public class Screen0003 extends UtilScreen3D{
   public ServerInfo serverInfo;
   //---
-  public ServerSocket serverSocket;
-  public Center<SocketData> centerSocket;
+  // public ServerSocket serverSocket;
+  // public Center<SocketData> socketCenter;
   //---
   public SocketData client;
-  // int[] serverTypeData;
-  // float[][] serverVecData;
   public volatile CellData[] cellData;
   //---
-  public Thread serverT,acceptT,clientT;
+  public Thread acceptT,serverReadT,clientReadT,serverWriteT,clientWriteT;
+  // public Thread acceptT,serverReadT,clientReadT,serverWriteT,clientWriteT;
   //---
-  public CellGroup3D group;
+  // public CellGroup3D group;
+  @Deprecated
   public ClientPlayerCenter3D playerCenter;
-  public ClientPlayer3D yourself;
+  public ControllerClientPlayer3D yourself;
   public ArrayList<ArrayList<GraphicsData>> graphicsList;
   public ArrayList<DecalData> decals;
   // boolean doUpdate=true;//TODO
@@ -104,50 +99,82 @@ public class Screen0003 extends UtilScreen3D{
     cam.point.set(0,0,-320);
     backgroundColor(0);
     textColor(255);
-    CellGroupGenerator3D gen=new CellGroupGenerator3D(0,0);
-    // group=gen.randomGenerate();
-    group=gen.GenerateFromMiniCore();
+    // CellGroupGenerator3D gen=new CellGroupGenerator3D(0,0);
+    // // group=gen.randomGenerate();
+    // group=gen.GenerateFromMiniCore();
     // serverTypeData=new int[gen.arraySizeOut];
-    cellData=new CellData[gen.arraySizeOut];
+    // cellData=new CellData[gen.arraySizeOut];
+    cellData=new CellData[1024*12];
     for(int i=0;i<cellData.length;i++) cellData[i]=new CellData();
     playerCenter=new ClientPlayerCenter3D(this);
-    yourself=new ClientPlayer3D(this,0,0,-320);
+    yourself=new ControllerClientPlayer3D(this,cam.point);
     //---
     serverInfo=new ServerInfo("192.168.2.105",12347);
-    centerSocket=new Center<>();
+    // serverInfo=new ServerInfo("127.0.0.1",12347);
+    // socketCenter=new Center<>();
     //---
     SocketHints tsh=new SocketHints();
+    tsh.connectTimeout=10000;
+    tsh.socketTimeout=5000;
     tsh.keepAlive=true;
     tsh.performancePrefConnectionTime=0;
     tsh.performancePrefLatency=2;
     tsh.performancePrefBandwidth=1;
     //---
-    ServerSocketHints tssh=new ServerSocketHints();
-    serverSocket=Gdx.net.newServerSocket(Protocol.TCP,serverInfo.addr,serverInfo.port,tssh);
-    acceptT=new Thread(()-> {
-      while(!stop) centerSocket.add.add(new SocketData(serverSocket.accept(tsh)));
-    });
-    acceptT.start();
+    // ServerSocketHints tssh=new ServerSocketHints();//TODO
+    // serverSocket=Gdx.net.newServerSocket(Protocol.TCP,serverInfo.addr,serverInfo.port,tssh);
+    // // sleep(10000);
+    // acceptT=new Thread(()-> {
+    //   while(!stop) {
+    //     // synchronized(centerSocket.add) {
+    //     SocketData tsd=new SocketData(serverSocket.accept(tsh));
+    //     socketCenter.add.add(tsd);
+    //     // }
+    //   }
+    // });
+    // acceptT.start();
     //---
-    (serverT=new ServerThread(this)).start();
-    client=new SocketData(Gdx.net.newClientSocket(Protocol.TCP,serverInfo.addr,serverInfo.port,tsh));
-    (clientT=new ClientThread(this)).start();
+    // sleep(10000);
+    client=new SocketData("pama1234",Gdx.net.newClientSocket(Protocol.TCP,serverInfo.addr,serverInfo.port,tsh));
+    new Thread() {
+      public void run() {
+        while(!client.s.isConnected()) {
+          try {
+            sleep(200);
+          }catch(InterruptedException e) {
+            e.printStackTrace();
+          }
+        }
+        // println("new 4");
+        //TODO
+        // (serverWriteT=new ServerWriteThread(Screen0003.this)).start();
+        //---
+        (clientReadT=new ClientReadThread(Screen0003.this)).start();
+        (clientWriteT=new ClientWriteThread(Screen0003.this)).start();
+        //---
+        // (serverReadT=new ServerReadThread(Screen0003.this)).start();
+      }
+    }.start();
     noStroke();
     // graphicsList=new ArrayList<>(group.colors.length);
     graphicsList=new ArrayList<ArrayList<GraphicsData>>(layerSize);
-    decals=new ArrayList<>(group.size);
+    decals=new ArrayList<>(cellData.length);
     // decals=new ArrayList<ArrayList<Decal>>(tl);
-    final int ts=group.colors.length;
-    int tsize=group.size/ts;
+    // final int ts=group.colors.length;
+    // int tsize=group.size/ts;
+    final int ts=12;
+    int tsize=1024;
     // int[] tsizelist=new int[] {32,64,256,512};
+    int[] colors=new int[12];
+    for(int i=0;i<colors.length;i++) colors[i]=Tools.hsbColor((float)i/colors.length*255,0xff,0xff);
     graphicsList.add(0,new ArrayList<GraphicsData>(ts));
     for(int i=0;i<ts;i++) {
       int tgsize=tgsizeF(0);
       Graphics tg=new Graphics(this,tgsize*2,tgsize*2);
       tg.beginDraw();
-      fillHex(group.colors[i]&0x40ffffff);
+      fillHex(colors[i]&0x40ffffff);
       circle(tgsize,tgsize,tgsize);
-      fillHex(group.colors[i]);
+      fillHex(colors[i]);
       circle(tgsize,tgsize,tgsize/2);
       tg.endDraw();
       TextureRegion tr=new TextureRegion(tg.texture);
@@ -166,9 +193,9 @@ public class Screen0003 extends UtilScreen3D{
         int tgsize=tgsizeF(k);
         Graphics tg=new Graphics(this,tgsize*2,tgsize*2);
         tg.beginDraw();
-        fillHex(group.colors[i]&0x40ffffff);
+        fillHex(colors[i]&0x40ffffff);
         circle(tgsize,tgsize,tgsize);
-        fillHex(group.colors[i]);
+        fillHex(colors[i]);
         circle(tgsize,tgsize,tgsize/2);
         tg.endDraw();
         TextureRegion tr=new TextureRegion(tg.texture);
@@ -176,20 +203,20 @@ public class Screen0003 extends UtilScreen3D{
       }
     }
     // System.out.println(decals.size());
-    updateCell=new Thread() {
-      @Override
-      public void run() {
-        while(!stop) {
-          if(doUpdate) group.update();
-          else try {
-            sleep(1000);
-          }catch(InterruptedException e) {
-            e.printStackTrace();
-          }
-        }
-      }
-    };
-    updateCell.start();
+    // updateCell=new Thread() {
+    //   @Override
+    //   public void run() {
+    //     while(!stop) {
+    //       if(doUpdate) group.update();
+    //       else try {
+    //         sleep(1000);
+    //       }catch(InterruptedException e) {
+    //         e.printStackTrace();
+    //       }
+    //     }
+    //   }
+    // };
+    // updateCell.start();
     //TODO
     Graphics tg=new Graphics(this,360,16*info.length);
     tg.beginDraw();
@@ -213,7 +240,7 @@ public class Screen0003 extends UtilScreen3D{
   }
   @Override
   public void update() {
-    centerSocket.refresh();
+    // centerSocket.refresh();
   }
   public boolean isVisible(Camera cam,Decal in,float r) {
     return cam.frustum.sphereInFrustum(in.getPosition(),r);
@@ -241,26 +268,26 @@ public class Screen0003 extends UtilScreen3D{
     // Gdx.gl20.glDepthMask(false);
     // synchronized(group) {
     // synchronized(cellData) {
-    if(tempTest) for(int i=0;i<group.size;i++) {
-      float tx=group.x(i)*multDist;
-      float ty=group.y(i)*multDist;
-      float tz=group.z(i)*multDist;
-      float tdist=dist(tx,ty,tz,cam.x(),cam.y(),cam.z());
-      final DecalData tdd=decals.get(i);
-      final Decal td=tdd.decal;
-      if(tdist>viewDist) continue;
-      if(!isVisible(cam.camera,td,Var.DIST/2)) continue;
-      final int tlf=layerF(tdist);
-      if(tlf!=tdd.layer) {
-        tdd.layer=tlf;
-        td.setTextureRegion(graphicsList.get(tlf).get(group.type[i]).tr);
-      }
-      td.setPosition(tx,ty,tz);
-      td.lookAt(cam.camera.position,cam.camera.up);
-      td.setColor(1,1,1,colorF(tdist));
-      decal(td);
-    }
-    else for(int i=0;i<cellData.length;i++) {
+    // if(tempTest) for(int i=0;i<group.size;i++) {
+    //   float tx=group.x(i)*multDist;
+    //   float ty=group.y(i)*multDist;
+    //   float tz=group.z(i)*multDist;
+    //   float tdist=dist(tx,ty,tz,cam.x(),cam.y(),cam.z());
+    //   final DecalData tdd=decals.get(i);
+    //   final Decal td=tdd.decal;
+    //   if(tdist>viewDist) continue;
+    //   if(!isVisible(cam.camera,td,Var.DIST/2)) continue;
+    //   final int tlf=layerF(tdist);
+    //   if(tlf!=tdd.layer) {
+    //     tdd.layer=tlf;
+    //     td.setTextureRegion(graphicsList.get(tlf).get(group.type[i]).tr);
+    //   }
+    //   td.setPosition(tx,ty,tz);
+    //   td.lookAt(cam.camera.position,cam.camera.up);
+    //   td.setColor(1,1,1,colorF(tdist));
+    //   decal(td);
+    // }else
+    for(int i=0;i<cellData.length;i++) {
       float tx=cellData[i].x*multDist;
       float ty=cellData[i].y*multDist;
       float tz=cellData[i].z*multDist;
@@ -330,11 +357,11 @@ public class Screen0003 extends UtilScreen3D{
   public void dispose() {
     super.dispose();
     // System.out.println("abc");
-    updateCell.interrupt();
-    if((!updateCell.isInterrupted())||(updateCell.isAlive())) updateCell.stop();
-    serverSocket.dispose();
-    centerSocket.refresh();
-    for(SocketData i:centerSocket.list) i.s.dispose();
+    // updateCell.interrupt();
+    // if((!updateCell.isInterrupted())||(updateCell.isAlive())) updateCell.stop();
+    // serverSocket.dispose();
+    // socketCenter.refresh();
+    // for(SocketData i:socketCenter.list) i.s.dispose();
     client.s.dispose();
   }
 }

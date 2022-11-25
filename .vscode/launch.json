@@ -6,6 +6,21 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Launch Server",
+      "request": "launch",
+      "mainClass": "pama1234.gdx.game.app.lwjgl3.Lwjgl3LauncherServer",
+      "projectName": "just-another-particle-system-lwjgl3"
+    },
+    {
+      "type": "java",
+      "name": "Launch Client",
+      "request": "launch",
+      "mainClass": "pama1234.gdx.game.app.lwjgl3.Lwjgl3Launcher",
+      "projectName": "just-another-particle-system-lwjgl3"
+      // ,"vmArgs": "-Dcom.aparapi.enableShowGeneratedOpenCL=true"
+    },
+    {
+      "type": "java",
       "name": "Launch Screen0003",
       "request": "launch",
       "mainClass": "pama1234.gdx.game.app.Screen0003",
@@ -44,14 +59,6 @@
       "request": "launch",
       "mainClass": "pama1234.gdx.game.app.headless.HeadlessLauncher",
       "projectName": "just-another-particle-system-headless"
-    },
-    {
-      "type": "java",
-      "name": "Launch Lwjgl3Launcher",
-      "request": "launch",
-      "mainClass": "pama1234.gdx.game.app.lwjgl3.Lwjgl3Launcher",
-      "projectName": "just-another-particle-system-lwjgl3"
-      // ,"vmArgs": "-Dcom.aparapi.enableShowGeneratedOpenCL=true"
     },
     {
       "type": "java",

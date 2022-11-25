@@ -169,6 +169,13 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
   public Texture loadTexture(String in) {
     return new Texture(Gdx.files.internal(in));
   }
+  public void sleep(long i) {
+    try {
+      Thread.sleep(i);
+    }catch(InterruptedException e) {
+      e.printStackTrace();
+    }
+  }
   public float random(int max) {
     return rng.nextFloat()*max;
   }

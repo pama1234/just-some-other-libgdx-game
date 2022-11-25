@@ -6,6 +6,8 @@ import pama1234.gdx.util.entity.Point3DEntity;
 import pama1234.math.physics.PathPoint3D;
 
 public class ClientPlayer3D extends Point3DEntity<PathPoint3D>{
+  // public TokenData token;
+  public String name;
   public PlayerInfo3D info;
   public ClientPlayer3D(UtilScreen p,PathPoint3D in) {
     super(p,in);
