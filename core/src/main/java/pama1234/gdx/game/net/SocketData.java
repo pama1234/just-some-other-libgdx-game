@@ -14,10 +14,4 @@ public class SocketData{
     i=s.getInputStream();
     o=s.getOutputStream();
   }
-  @Deprecated //TODO
-  public SocketData(Socket s,InputStream i,OutputStream o) {
-    this.s=s;
-    this.i=i;
-    this.o=o;
-  }
 }

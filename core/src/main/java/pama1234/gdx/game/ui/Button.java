@@ -7,7 +7,6 @@ import pama1234.gdx.util.entity.Entity;
 import pama1234.gdx.util.info.TouchInfo;
 
 public abstract class Button extends Entity<UtilScreen>{
-  // boolean active;//TODO
   GetBoolean active;
   TouchInfo touch;
   ExecuteF press,clickStart,clickEnd;
@@ -24,16 +23,18 @@ public abstract class Button extends Entity<UtilScreen>{
   public void update() {
     if(touch!=null) press();
   }
-  // public abstract void displayScreen();
   public abstract boolean inButton(float x,float y);
+  public boolean active() {
+    return active.get();
+  }
   public void press() {
-    if(active.get()) press.execute();
+    if(active()) press.execute();
   }
   public void clickStart() {
-    if(active.get()) clickStart.execute();
+    if(active()) clickStart.execute();
   }
   public void clickEnd() {
-    if(active.get()) clickEnd.execute();
+    if(active()) clickEnd.execute();
   }
   @Override
   public void touchStarted(TouchInfo info) {

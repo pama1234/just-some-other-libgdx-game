@@ -83,19 +83,13 @@ public class Screen0003 extends UtilScreen3D{
       this.tr=tr;
     }
   }
-  public static class DecalData{
+  public static class DecalData{//TODO
     public Decal decal;
-    // public int type;//TODO
     public int layer;
     public DecalData(Decal g,int layer) {
       this.decal=g;
       this.layer=layer;
     }
-    // public DecalData(Decal g,int type,int layer) {
-    //   this.decal=g;
-    //   this.type=type;
-    //   this.layer=layer;
-    // }
   }
   public int tgsizeF(int k) {
     // return (int)pow(gsize,(k+2)*0.3f);
@@ -240,16 +234,11 @@ public class Screen0003 extends UtilScreen3D{
     // Gdx.gl20.glDepthMask(false);
     // synchronized(group) {
     // synchronized(cellData) {
-    // for(int i=0;i<group.size;i++) {
     if(tempTest) for(int i=0;i<group.size;i++) {
       float tx=group.x(i)*multDist;
       float ty=group.y(i)*multDist;
       float tz=group.z(i)*multDist;
-      // float tx=cellData[i].x*multDist;
-      // float ty=cellData[i].y*multDist;
-      // float tz=cellData[i].z*multDist;
       float tdist=dist(tx,ty,tz,cam.x(),cam.y(),cam.z());
-      // Decal td=decals.get(layerF(tdist)).get(i);
       final DecalData tdd=decals.get(i);
       final Decal td=tdd.decal;
       if(tdist>viewDist) continue;
@@ -258,7 +247,6 @@ public class Screen0003 extends UtilScreen3D{
       if(tlf!=tdd.layer) {
         tdd.layer=tlf;
         td.setTextureRegion(graphicsList.get(tlf).get(group.type[i]).tr);
-        // td.setTextureRegion(graphicsList.get(tlf).get(cellData[i].type).tr);
       }
       td.setPosition(tx,ty,tz);
       td.lookAt(cam.camera.position,cam.camera.up);
@@ -266,24 +254,17 @@ public class Screen0003 extends UtilScreen3D{
       decal(td);
     }
     else for(int i=0;i<cellData.length;i++) {
-      // float tx=group.x(i)*multDist;
-      // float ty=group.y(i)*multDist;
-      // float tz=group.z(i)*multDist;
       float tx=cellData[i].x*multDist;
       float ty=cellData[i].y*multDist;
       float tz=cellData[i].z*multDist;
       float tdist=dist(tx,ty,tz,cam.x(),cam.y(),cam.z());
-      // Decal td=decals.get(layerF(tdist)).get(i);
-      // System.out.println(cellData[i].id);
       final DecalData tdd=decals.get(cellData[i].id);
-      // if(tdd.type!=cellData[i].type) System.out.println(cellData[i].type+" "+tdd.type);
       final Decal td=tdd.decal;
       if(tdist>viewDist) continue;
       if(!isVisible(cam.camera,td,CellGroup3D.DIST/2)) continue;
       final int tlf=layerF(tdist);
       if(tlf!=tdd.layer) {
         tdd.layer=tlf;
-        // td.setTextureRegion(graphicsList.get(tlf).get(group.type[i]).tr);
         td.setTextureRegion(graphicsList.get(tlf).get(cellData[i].type).tr);
       }
       td.setPosition(tx,ty,tz);
@@ -297,31 +278,6 @@ public class Screen0003 extends UtilScreen3D{
     logo.lookAt(cam.camera.position,cam.camera.up);
     decal(logo);
     flushDecal();
-    // withScreen();
-    // text("moveSpeed "+cam3d.moveSpeed,0,0);
-    // text("viewSpeed "+cam3d.viewSpeed,0,u);
-    withScreen();
-    // if(isAndroid) {
-    //   withScreen();
-    //   beginBlend();
-    //   for(int i=0;i<buttons.length;i++) buttons[i].displayScreen();
-    //   endBlend();
-    // }
-    //---
-    // if(configInfo) {
-    //   // withScreen();
-    //   beginBlend();
-    //   fill(127,191);
-    //   textColor(255,191);
-    //   final float tx=width/2f+pus,ty=bu*0.5f+pus;
-    //   rect(tx,ty,pu*9+pus*2,pu*5+pus*2);
-    //   text("移动速度   "+cam3d.moveSpeed,tx+pus,ty+pus);
-    //   text("视角灵敏度 "+cam3d.viewSpeed,tx+pus,ty+pus+pu);
-    //   text("视野距离   "+viewDist,tx+pus,ty+pus+pu*2);
-    //   text("位置缩放   "+multDist,tx+pus,ty+pus+pu*3);
-    //   text(serverInfo.toString(),tx+pus,ty+pus+pu*4);
-    // }
-    // endBlend();
   }
   @Override
   public void frameResized() {
@@ -366,6 +322,7 @@ public class Screen0003 extends UtilScreen3D{
   @Override
   public void dispose() {
     super.dispose();
+    // System.out.println("abc");
     updateCell.interrupt();
     if((!updateCell.isInterrupted())||(updateCell.isAlive())) updateCell.stop();
     serverSocket.dispose();

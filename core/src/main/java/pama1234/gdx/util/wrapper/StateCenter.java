@@ -2,23 +2,23 @@ package pama1234.gdx.util.wrapper;
 
 import java.util.ArrayList;
 
-import pama1234.gdx.util.app.UtilScreen2D;
+import pama1234.gdx.util.app.UtilScreen;
 import pama1234.gdx.util.entity.Entity;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.gdx.util.listener.EntityListener;
 
-public class StateCenter<T extends EntityListener>extends Entity{
+public class StateCenter<T extends EntityListener>extends Entity<UtilScreen>{
   public final ArrayList<T> list=new ArrayList<T>();
   public int pointer;
-  public StateCenter(UtilScreen2D p) {
+  public StateCenter(UtilScreen p) {
     super(p);
   }
-  public StateCenter(UtilScreen2D p,T in) {
+  public StateCenter(UtilScreen p,T in) {
     this(p);
     list.add(in);
   }
-  public StateCenter(UtilScreen2D p,T[] in) {
+  public StateCenter(UtilScreen p,T[] in) {
     this(p);
     for(T i:in) list.add(i);
   }

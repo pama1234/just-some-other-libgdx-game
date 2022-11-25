@@ -1,14 +1,14 @@
 package pama1234.gdx.util.wrapper;
 
-import pama1234.gdx.util.app.UtilScreen2D;
+import pama1234.gdx.util.app.UtilScreen;
 import pama1234.gdx.util.entity.Entity;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
 
-public class LayeredEntityCenter extends Entity{
+public class LayeredEntityCenter extends Entity<UtilScreen>{
   public EntityCenter<?>[] list;
   public boolean reverseDisplay;
-  public LayeredEntityCenter(UtilScreen2D p,int size) {
+  public LayeredEntityCenter(UtilScreen p,int size) {
     super(p);
     list=new EntityCenter<?>[size];
   }

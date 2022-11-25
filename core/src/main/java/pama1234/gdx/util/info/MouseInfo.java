@@ -2,21 +2,21 @@ package pama1234.gdx.util.info;
 
 import com.badlogic.gdx.math.Vector3;
 
-import pama1234.gdx.util.app.UtilScreen;
+import pama1234.gdx.util.app.UtilScreenCore;
 import pama1234.math.Tools;
 
 public class MouseInfo{
-  public UtilScreen p;
+  public UtilScreenCore p;
   public boolean pressed,left,right,center;
   public int startTime,button=-1;
   public float sx,sy;
   public float px,py,x,y;
   public float dx,dy;
   public int ox,oy;
-  public MouseInfo(UtilScreen p) {
+  public MouseInfo(UtilScreenCore p) {
     this.p=p;
   }
-  public void update(UtilScreen p) {
+  public void update(UtilScreenCore p) {
     px=x;
     py=y;
     putRaw(ox,oy);

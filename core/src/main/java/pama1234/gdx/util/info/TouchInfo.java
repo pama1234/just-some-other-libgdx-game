@@ -2,10 +2,10 @@ package pama1234.gdx.util.info;
 
 import com.badlogic.gdx.math.Vector3;
 
-import pama1234.gdx.util.app.UtilScreen;
+import pama1234.gdx.util.app.UtilScreenCore;
 
 public class TouchInfo{
-  public UtilScreen p;
+  public UtilScreenCore p;
   public boolean active;
   public int startTime;
   public int pointer,button;
@@ -13,10 +13,10 @@ public class TouchInfo{
   public float dx,dy;
   public float px,py,x,y;
   public int ox,oy;
-  public TouchInfo(UtilScreen p) {
+  public TouchInfo(UtilScreenCore p) {
     this.p=p;
   }
-  public void update(UtilScreen p) {
+  public void update(UtilScreenCore p) {
     if(!active) return;
     px=x;
     py=y;

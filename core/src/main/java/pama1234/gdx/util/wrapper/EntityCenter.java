@@ -9,7 +9,7 @@ import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.gdx.util.listener.EntityListener;
 
-public class EntityCenter<T extends EntityListener>extends Entity{
+public class EntityCenter<T extends EntityListener>extends Entity<UtilScreen>{
   public final LinkedList<T> list=new LinkedList<T>(),
     add=new LinkedList<T>(),
     remove=new LinkedList<T>();

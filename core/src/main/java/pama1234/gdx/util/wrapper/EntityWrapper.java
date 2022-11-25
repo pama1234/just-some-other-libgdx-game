@@ -1,14 +1,14 @@
 package pama1234.gdx.util.wrapper;
 
-import pama1234.gdx.util.app.UtilScreen2D;
+import pama1234.gdx.util.app.UtilScreen;
 import pama1234.gdx.util.entity.Entity;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.gdx.util.listener.EntityListener;
 
-public class EntityWrapper<T extends EntityListener>extends Entity{
+public class EntityWrapper<T extends EntityListener>extends Entity<UtilScreen>{
   public final T content;
-  public EntityWrapper(UtilScreen2D p,T son) {
+  public EntityWrapper(UtilScreen p,T son) {
     super(p);
     this.content=son;
   }

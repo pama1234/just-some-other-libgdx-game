@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 
 import pama1234.gdx.util.app.UtilScreen;
 
-public abstract class SpriteEntity extends Entity{
+public abstract class SpriteEntity extends Entity<UtilScreen>{
   public Sprite s;
   public SpriteEntity(UtilScreen p,Sprite s) {
     super(p);
