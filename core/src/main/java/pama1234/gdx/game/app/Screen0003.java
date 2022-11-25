@@ -18,8 +18,8 @@ import com.badlogic.gdx.net.SocketHints;
 
 import pama1234.gdx.game.app.server.particle.Var;
 import pama1234.gdx.game.net.CellData;
-import pama1234.gdx.game.net.ClientReadThread;
-import pama1234.gdx.game.net.ClientWriteThread;
+import pama1234.gdx.game.net.ClientDataReadThread;
+import pama1234.gdx.game.net.ClientDataWriteThread;
 import pama1234.gdx.game.net.ServerInfo;
 import pama1234.gdx.game.net.SocketData;
 import pama1234.gdx.game.ui.Button;
@@ -149,8 +149,8 @@ public class Screen0003 extends UtilScreen3D{
         //TODO
         // (serverWriteT=new ServerWriteThread(Screen0003.this)).start();
         //---
-        (clientReadT=new ClientReadThread(Screen0003.this)).start();
-        (clientWriteT=new ClientWriteThread(Screen0003.this)).start();
+        (clientReadT=new ClientDataReadThread(Screen0003.this,client)).start();
+        (clientWriteT=new ClientDataWriteThread(Screen0003.this,client)).start();
         //---
         // (serverReadT=new ServerReadThread(Screen0003.this)).start();
       }

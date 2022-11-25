@@ -1,14 +1,18 @@
 package pama1234.gdx.game.net;
 
+import static pama1234.gdx.game.net.NetUtil.writeHeader;
+
 import java.io.IOException;
 
 import pama1234.data.ByteUtil;
 import pama1234.gdx.game.app.Screen0007;
 
-public class ServerWriteThread extends Thread{
+public class ServerDataWriteThread extends Thread{
   public Screen0007 p;
-  public ServerWriteThread(Screen0007 p) {
+  public SocketData e;
+  public ServerDataWriteThread(Screen0007 p,SocketData e) {
     this.p=p;
+    this.e=e;
   }
   @Override
   public void run() {
@@ -66,12 +70,12 @@ public class ServerWriteThread extends Thread{
         throw new RuntimeException("state err="+ti);
     }
   }
-  public void writeHeader(SocketData e,byte[] outData,int state,int size) throws IOException {
-    e.o.write(ByteUtil.intToByte(state,outData,0),0,4);
-    e.o.write(ByteUtil.intToByte(size,outData,0),0,4);
-    e.o.flush();
-  }
-  public void writeHeader(SocketData e,byte[] outData,int size) throws IOException {
-    writeHeader(e,outData,e.state,4);
-  }
+  // public void writeHeader(SocketData e,byte[] outData,int state,int size) throws IOException {
+  //   e.o.write(ByteUtil.intToByte(state,outData,0),0,4);
+  //   e.o.write(ByteUtil.intToByte(size,outData,0),0,4);
+  //   e.o.flush();
+  // }
+  // public void writeHeader(SocketData e,byte[] outData,int size) throws IOException {
+  //   writeHeader(e,outData,e.state,4);
+  // }
 }

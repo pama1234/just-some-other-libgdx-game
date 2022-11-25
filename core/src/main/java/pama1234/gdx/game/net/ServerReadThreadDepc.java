@@ -6,9 +6,10 @@ import pama1234.data.ByteUtil;
 import pama1234.gdx.game.app.Screen0007;
 import pama1234.gdx.game.util.ClientPlayer3D;
 
-public class ServerReadThread extends Thread{
+@Deprecated
+public class ServerReadThreadDepc extends Thread{
   public Screen0007 p;
-  public ServerReadThread(Screen0007 p) {
+  public ServerReadThreadDepc(Screen0007 p) {
     this.p=p;
   }
   @Override

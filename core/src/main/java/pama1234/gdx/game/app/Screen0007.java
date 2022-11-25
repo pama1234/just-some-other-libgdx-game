@@ -1,5 +1,7 @@
 package pama1234.gdx.game.app;
 
+import java.util.LinkedList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net.Protocol;
 import com.badlogic.gdx.net.ServerSocket;
@@ -9,8 +11,8 @@ import com.badlogic.gdx.net.SocketHints;
 import pama1234.gdx.game.app.server.with3d.particle.CellGroup3D;
 import pama1234.gdx.game.app.server.with3d.particle.CellGroupGenerator3D;
 import pama1234.gdx.game.net.ServerInfo;
-import pama1234.gdx.game.net.ServerReadThread;
-import pama1234.gdx.game.net.ServerWriteThread;
+import pama1234.gdx.game.net.ServerDataReadThread;
+import pama1234.gdx.game.net.ServerDataWriteThread;
 import pama1234.gdx.game.net.SocketData;
 import pama1234.gdx.game.util.ClientPlayerCenter3D;
 import pama1234.gdx.util.app.UtilScreen3D;
@@ -21,7 +23,8 @@ public class Screen0007 extends UtilScreen3D{
   //---
   public ServerSocket serverSocket;
   public Center<SocketData> socketCenter;
-  public Thread acceptT,serverReadT,serverWriteT;
+  public Thread acceptT;
+  public LinkedList<Thread> serverReadT,serverWriteT;
   //---
   public CellGroup3D group;
   public boolean doUpdate;
@@ -60,12 +63,20 @@ public class Screen0007 extends UtilScreen3D{
         // synchronized(centerSocket.add) {
         SocketData tsd=new SocketData(serverSocket.accept(tsh));
         socketCenter.add.add(tsd);
+        //---
+        ServerDataWriteThread tswt=new ServerDataWriteThread(Screen0007.this,tsd);
+        tswt.start();
+        serverWriteT.add(tswt);
+        //---
+        ServerDataReadThread tsrt=new ServerDataReadThread(Screen0007.this,tsd);
+        tsrt.start();
+        serverReadT.add(tsrt);
         // }
       }
     });
     acceptT.start();
-    (serverWriteT=new ServerWriteThread(Screen0007.this)).start();
-    (serverReadT=new ServerReadThread(Screen0007.this)).start();
+    // (serverWriteT=new ServerWriteThread(Screen0007.this)).start();
+    // (serverReadT=new ServerReadThread(Screen0007.this)).start();
     //---
     updateCell=new Thread() {
       @Override
