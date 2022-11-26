@@ -5,8 +5,8 @@ import java.io.IOException;
 import pama1234.data.ByteUtil;
 
 public class NetUtil{
-  public static final boolean debug=true;
-  // public static final boolean debug=false;
+  // public static final boolean debug=true;
+  public static final boolean debug=false;
   public static byte[] readNBytes(SocketData e,byte[] out,int offset,int size) throws IOException {
     int ti=0;
     while(ti==0) {

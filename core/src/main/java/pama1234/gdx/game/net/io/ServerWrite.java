@@ -52,7 +52,7 @@ public class ServerWrite extends Thread{
         writeServerHeader(e,outData,4);
         e.o.write(ByteUtil.intToByte(1234,outData,0),0,4);
         e.o.flush();
-        p.sleep(2000);
+        // p.sleep(2000);
         // e.authCooling=20000;
         // p.sleep(200);
       }

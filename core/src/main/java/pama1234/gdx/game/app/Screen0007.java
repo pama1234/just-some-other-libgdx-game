@@ -16,6 +16,9 @@ import pama1234.gdx.game.util.ClientPlayerCenter3D;
 import pama1234.gdx.util.app.UtilScreen3D;
 import pama1234.gdx.util.wrapper.Center;
 
+/**
+ * 暂时的服务器调试libgdx窗口
+ */
 public class Screen0007 extends UtilScreen3D{
   public ServerInfo dataServerInfo,stateServerInfo;
   //---
