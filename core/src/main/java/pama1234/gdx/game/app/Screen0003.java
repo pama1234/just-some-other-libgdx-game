@@ -22,8 +22,6 @@ import pama1234.gdx.game.net.ServerInfo;
 import pama1234.gdx.game.net.SocketData;
 import pama1234.gdx.game.net.client.ClientDataReadThread;
 import pama1234.gdx.game.net.client.ClientDataWriteThread;
-import pama1234.gdx.game.net.client.ClientStateReadThread;
-import pama1234.gdx.game.net.client.ClientStateWriteThread;
 import pama1234.gdx.game.ui.Button;
 import pama1234.gdx.game.ui.ConfigInfo;
 import pama1234.gdx.game.ui.TextButtonGenerator;
@@ -123,23 +121,23 @@ public class Screen0003 extends UtilScreen3D{
     tsh.performancePrefBandwidth=1;
     //---
     //---
-    // sleep(10000);
-    clientDataSocket=new SocketData("pama1234",Gdx.net.newClientSocket(Protocol.TCP,dataServerInfo.addr,dataServerInfo.port,tsh));
+    // sleep(10000);   
     clientStateSocket=new SocketData("pama1234",Gdx.net.newClientSocket(Protocol.TCP,stateServerInfo.addr,stateServerInfo.port,tsh));
+    clientDataSocket=new SocketData("pama1234",Gdx.net.newClientSocket(Protocol.TCP,dataServerInfo.addr,dataServerInfo.port,tsh));
     new Thread() {
       public void run() {
-        while(!clientDataSocket.s.isConnected()) {
+        while(!(clientDataSocket.s.isConnected()&&clientStateSocket.s.isConnected())) {
           try {
             sleep(200);
           }catch(InterruptedException e) {
             e.printStackTrace();
           }
         }
-        (clientReadT=new ClientStateReadThread(Screen0003.this,clientStateSocket)).start();
-        (clientWriteT=new ClientStateWriteThread(Screen0003.this,clientStateSocket)).start();
+        // (clientReadT=new ClientStateReadThread(Screen0003.this,clientStateSocket)).start();
+        // (clientWriteT=new ClientStateWriteThread(Screen0003.this,clientStateSocket)).start();
         //TODO
-        (clientReadT=new ClientDataReadThread(Screen0003.this,null,clientDataSocket)).start();
-        (clientWriteT=new ClientDataWriteThread(Screen0003.this,null,clientDataSocket)).start();
+        (clientReadT=new ClientDataReadThread(Screen0003.this,clientStateSocket,clientDataSocket)).start();
+        (clientWriteT=new ClientDataWriteThread(Screen0003.this,clientStateSocket,clientDataSocket)).start();
       }
     }.start();
     noStroke();

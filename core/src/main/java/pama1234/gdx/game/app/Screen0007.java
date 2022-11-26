@@ -14,8 +14,6 @@ import pama1234.gdx.game.net.ServerInfo;
 import pama1234.gdx.game.net.SocketData;
 import pama1234.gdx.game.net.server.ServerDataReadThread;
 import pama1234.gdx.game.net.server.ServerDataWriteThread;
-import pama1234.gdx.game.net.server.ServerStateReadThread;
-import pama1234.gdx.game.net.server.ServerStateWriteThread;
 import pama1234.gdx.game.util.ClientPlayerCenter3D;
 import pama1234.gdx.util.app.UtilScreen3D;
 import pama1234.gdx.util.wrapper.Center;
@@ -68,13 +66,13 @@ public class Screen0007 extends UtilScreen3D{
         SocketData tsd=new SocketData(serverStateSocket.accept(tsh));
         dataSocketCenter.add.add(tsd);
         //---
-        ServerStateWriteThread tswt=new ServerStateWriteThread(Screen0007.this,tsd);
-        tswt.start();
-        serverWriteT.add(tswt);
-        //---
-        ServerStateReadThread tsrt=new ServerStateReadThread(Screen0007.this,tsd);
-        tsrt.start();
-        serverReadT.add(tsrt);
+        // ServerStateWriteThread tswt=new ServerStateWriteThread(Screen0007.this,tsd);
+        // tswt.start();
+        // serverWriteT.add(tswt);
+        // //---
+        // ServerStateReadThread tsrt=new ServerStateReadThread(Screen0007.this,tsd);
+        // tsrt.start();
+        // serverReadT.add(tsrt);
         // }
       }
     });
