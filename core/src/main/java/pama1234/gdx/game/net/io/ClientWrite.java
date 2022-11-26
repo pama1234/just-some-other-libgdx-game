@@ -1,5 +1,6 @@
-package pama1234.gdx.game.net.client;
+package pama1234.gdx.game.net.io;
 
+import static pama1234.gdx.game.net.NetUtil.catchException;
 import static pama1234.gdx.game.net.NetUtil.writeHeader;
 import static pama1234.gdx.game.net.NetUtil.NetState.DataTransfer;
 
@@ -8,16 +9,15 @@ import java.net.SocketException;
 
 import pama1234.data.ByteUtil;
 import pama1234.gdx.game.app.Screen0003;
-import pama1234.gdx.game.net.NetUtil.NetState;
 import pama1234.gdx.game.net.SocketData;
 
 public class ClientWrite extends Thread{
   public Screen0003 p;
-  public SocketData socket;
-  public boolean stop;
+  public SocketData s;
+  // public boolean stop;
   public ClientWrite(Screen0003 p,SocketData dataSocket) {
     this.p=p;
-    this.socket=dataSocket;
+    this.s=dataSocket;
   }
   @Override
   public void run() {
@@ -26,49 +26,44 @@ public class ClientWrite extends Thread{
       try {
         doF(data);
       }catch(SocketException e1) {
-        catchException(e1);
+        catchException(e1,s);
       }catch(IOException e2) {
-        catchException(e2);
+        catchException(e2,s);
       }
     }
   }
-  public void catchException(Exception e) {
-    e.printStackTrace();
-    socket.state=NetState.Exception;
-    stop=true;
-  }
   public void doF(byte[] outData) throws IOException {
-    // System.out.println("ClientWrite state="+socket.state);
-    switch(socket.state) {
+    System.out.println("ClientWrite state="+s.state);
+    switch(s.state) {
       case Authentication: {
         // e.name
         // e.o.write(ByteUtil.intToByte(e.state,outData,0),0,4);
-        byte[] nameBytes=socket.name.getBytes();
-        writeHeader(socket,outData,nameBytes.length);
-        socket.o.write(nameBytes);
-        socket.o.flush();
-        socket.state=DataTransfer;
+        byte[] nameBytes=s.name.getBytes();
+        writeHeader(s,outData,nameBytes.length);
+        s.o.write(nameBytes);
+        s.o.flush();
+        s.state=DataTransfer;
         // p.println(Arrays.toString(nameBytes));
       }
         break;
       case DataTransfer: {
         // e.o.write(ByteUtil.intToByte(e.state,outData,0),0,4);
         // e.o.write(ByteUtil.intToByte(12,outData,0),0,4);
-        writeHeader(socket,outData,12);
+        writeHeader(s,outData,12);
         ByteUtil.floatToByte(p.yourself.x(),outData,0);
         ByteUtil.floatToByte(p.yourself.y(),outData,4);
         ByteUtil.floatToByte(p.yourself.z(),outData,8);
         // ByteUtil.floatToByte(p.yourself.x(),outData);
-        socket.o.write(outData,0,12);
-        socket.o.flush();
+        s.o.write(outData,0,12);
+        s.o.flush();
         p.sleep(40);
       }
         break;
       default:
-        throw new RuntimeException("state err="+socket.state);
+        throw new RuntimeException("state err="+s.state);
     }
   }
   public void dispose() {
-    stop=true;
+    s.stop=true;
   }
 }

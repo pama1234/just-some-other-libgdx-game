@@ -1,5 +1,6 @@
-package pama1234.gdx.game.net.client;
+package pama1234.gdx.game.net.io;
 
+import static pama1234.gdx.game.net.NetUtil.catchException;
 import static pama1234.gdx.game.net.NetUtil.intToState;
 import static pama1234.gdx.game.net.NetUtil.readNBytes;
 import static pama1234.gdx.game.net.NetUtil.NetState.Authentication;
@@ -14,11 +15,11 @@ import pama1234.gdx.game.net.SocketData;
 
 public class ClientRead extends Thread{
   public Screen0003 p;
-  public SocketData socket;
-  public boolean stop;
+  public SocketData s;
+  // public boolean stop;
   public ClientRead(Screen0003 p,SocketData dataSocket) {
     this.p=p;
-    this.socket=dataSocket;
+    this.s=dataSocket;
   }
   @Override
   public void run() {
@@ -26,7 +27,7 @@ public class ClientRead extends Thread{
     byte[] data=new byte[20];
     // int state;
     // int readSize;
-    while(!stop) {
+    while(!s.stop) {
       try {
         // int ti=client.i.readNBytes(td,0,4);
         // println(ti+" "+Arrays.toString(td)+" "+ByteUtil.byteToInt(td));
@@ -34,31 +35,26 @@ public class ClientRead extends Thread{
         // state=ByteUtil.byteToInt(readNBytes(inData,0,4),0);
         // readSize=ByteUtil.byteToInt(readNBytes(inData,0,4),0);
         doF(data,
-          intToState(ByteUtil.byteToInt(readNBytes(socket,data,0,4),0)),
-          ByteUtil.byteToInt(readNBytes(socket,data,0,4),0));
+          intToState(ByteUtil.byteToInt(readNBytes(s,data,0,4),0)),
+          ByteUtil.byteToInt(readNBytes(s,data,0,4),0));
         // doF(inData,state,readSize);
         // }
       }catch(SocketException e1) {
-        catchException(e1);
+        catchException(e1,s);
       }catch(IOException e2) {
-        catchException(e2);
+        catchException(e2,s);
       }
     }
   }
-  public void catchException(Exception e) {
-    e.printStackTrace();
-    socket.state=NetState.Exception;
-    stop=true;
-  }
   public void doF(byte[] inData,NetState state,int readSize) throws IOException {
-    // System.out.println("ClientRead state="+state+" readSize="+readSize);
+    System.out.println("ClientRead state="+state+" readSize="+readSize);
     // p.println(state,readSize);
     switch(state) {
       case Authentication: {
         if(readSize!=4) throw new RuntimeException("state 0 readSize!=4 "+readSize);//TODO
-        readNBytes(socket,inData,0,readSize);
+        readNBytes(s,inData,0,readSize);
         // System.out.println(ByteUtil.byteToInt(inData,0));
-        socket.state=Authentication;
+        s.state=Authentication;
         // p.println("e.state=0");//TODO
         // p.println(inData);
       }
@@ -66,7 +62,7 @@ public class ClientRead extends Thread{
       case DataTransfer: {
         if(readSize!=p.cellData.length) throw new RuntimeException("state DataTransfer readSize!=p.cellData.length "+readSize+" "+p.cellData.length);//TODO
         for(int i=0;i<readSize;i++) {
-          readNBytes(socket,inData,0,inData.length);
+          readNBytes(s,inData,0,inData.length);
           p.cellData[i].id=ByteUtil.byteToInt(inData,0);
           p.cellData[i].type=ByteUtil.byteToInt(inData,4);
           p.cellData[i].x=ByteUtil.byteToFloat(inData,8);
@@ -80,6 +76,6 @@ public class ClientRead extends Thread{
     }
   }
   public void dispose() {
-    stop=true;
+    s.stop=true;
   }
 }

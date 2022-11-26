@@ -20,8 +20,8 @@ import pama1234.gdx.game.app.server.particle.Var;
 import pama1234.gdx.game.net.CellData;
 import pama1234.gdx.game.net.ServerInfo;
 import pama1234.gdx.game.net.SocketData;
-import pama1234.gdx.game.net.client.ClientRead;
-import pama1234.gdx.game.net.client.ClientWrite;
+import pama1234.gdx.game.net.io.ClientRead;
+import pama1234.gdx.game.net.io.ClientWrite;
 import pama1234.gdx.game.ui.Button;
 import pama1234.gdx.game.ui.ConfigInfo;
 import pama1234.gdx.game.ui.TextButtonGenerator;
@@ -41,7 +41,7 @@ public class Screen0003 extends UtilScreen3D{
   // public ServerSocket serverSocket;
   // public Center<SocketData> socketCenter;
   //---
-  public SocketData clientDataSocket;
+  public SocketData clientSocket;
   public volatile CellData[] cellData;
   //---
   public Thread clientRead,clientWrite;
@@ -123,10 +123,10 @@ public class Screen0003 extends UtilScreen3D{
     //---
     // sleep(10000);   
     // clientStateSocket=new SocketData("pama1234",Gdx.net.newClientSocket(Protocol.TCP,stateServerInfo.addr,stateServerInfo.port,tsh));
-    clientDataSocket=new SocketData(yourself.name,Gdx.net.newClientSocket(Protocol.TCP,dataServerInfo.addr,dataServerInfo.port,tsh));
+    clientSocket=new SocketData(yourself.name,Gdx.net.newClientSocket(Protocol.TCP,dataServerInfo.addr,dataServerInfo.port,tsh));
     new Thread() {
       public void run() {
-        while(!clientDataSocket.s.isConnected()) {
+        while(!clientSocket.s.isConnected()) {
           try {
             sleep(200);
           }catch(InterruptedException e) {
@@ -136,8 +136,8 @@ public class Screen0003 extends UtilScreen3D{
         // (clientReadT=new ClientStateReadThread(Screen0003.this,clientStateSocket)).start();
         // (clientWriteT=new ClientStateWriteThread(Screen0003.this,clientStateSocket)).start();
         //TODO
-        (clientRead=new ClientRead(Screen0003.this,clientDataSocket)).start();
-        (clientWrite=new ClientWrite(Screen0003.this,clientDataSocket)).start();
+        (clientRead=new ClientRead(Screen0003.this,clientSocket)).start();
+        (clientWrite=new ClientWrite(Screen0003.this,clientSocket)).start();
       }
     }.start();
     noStroke();
@@ -299,6 +299,6 @@ public class Screen0003 extends UtilScreen3D{
   @Override
   public void dispose() {
     super.dispose();
-    clientDataSocket.s.dispose();
+    clientSocket.s.dispose();
   }
 }

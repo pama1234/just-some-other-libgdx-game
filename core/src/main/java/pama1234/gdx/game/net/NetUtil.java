@@ -38,4 +38,10 @@ public class NetUtil{
   public static void writeHeader(SocketData e,byte[] outData,int size) throws IOException {
     writeHeader(e,outData,e.state,size);
   }
+  public static void catchException(Exception e,SocketData s) {
+    // e.printStackTrace();
+    System.out.println(e);
+    s.state=NetState.Exception;
+    s.stop=true;
+  }
 }

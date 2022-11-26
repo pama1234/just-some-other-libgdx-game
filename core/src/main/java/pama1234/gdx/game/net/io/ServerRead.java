@@ -1,5 +1,6 @@
-package pama1234.gdx.game.net.server;
+package pama1234.gdx.game.net.io;
 
+import static pama1234.gdx.game.net.NetUtil.catchException;
 import static pama1234.gdx.game.net.NetUtil.intToState;
 import static pama1234.gdx.game.net.NetUtil.readNBytes;
 import static pama1234.gdx.game.net.NetUtil.NetState.DataTransfer;
@@ -15,37 +16,33 @@ import pama1234.gdx.game.util.ClientPlayer3D;
 
 public class ServerRead extends Thread{
   public Screen0007 p;
-  public SocketData socket;
-  public boolean stop;
+  public SocketData s;
+  // public boolean stop;
   public ServerRead(Screen0007 p,SocketData dataSocket) {
     this.p=p;
-    this.socket=dataSocket;
+    this.s=dataSocket;
   }
   @Override
   public void run() {
     byte[] data=new byte[12];
-    while(!stop) {
+    while(!s.stop) {
       synchronized(p.socketCenter.list) {
         // synchronized(p.group) {
         try {
-          doF(socket,data,
-            intToState(ByteUtil.byteToInt(readNBytes(socket,data,0,4),0)),
-            ByteUtil.byteToInt(readNBytes(socket,data,0,4),0));
+          doF(s,data,
+            intToState(ByteUtil.byteToInt(readNBytes(s,data,0,4),0)),
+            ByteUtil.byteToInt(readNBytes(s,data,0,4),0));
         }catch(SocketException e1) {
-          catchException(e1);
+          catchException(e1,s);
         }catch(IOException e2) {
-          catchException(e2);
+          catchException(e2,s);
         }
       }
     }
-  }
-  public void catchException(Exception e) {
-    e.printStackTrace();
-    socket.state=NetState.Exception;
-    stop=true;
+    p.serverReadPool.remove.add(this);
   }
   public void doF(SocketData e,byte[] inData,NetState state,int readSize) throws IOException {
-    // System.out.println("ServerRead state="+state+" readSize="+readSize);
+    System.out.println("ServerRead state="+state+" readSize="+readSize);
     if(state!=e.state) {
       System.out.println("state!=e.state "+state+" "+e.state);
       return;
@@ -82,6 +79,6 @@ public class ServerRead extends Thread{
     }
   }
   public void dispose() {
-    stop=true;
+    s.stop=true;
   }
 }

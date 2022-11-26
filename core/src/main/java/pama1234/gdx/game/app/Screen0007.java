@@ -10,8 +10,8 @@ import pama1234.gdx.game.app.server.with3d.particle.CellGroup3D;
 import pama1234.gdx.game.app.server.with3d.particle.CellGroupGenerator3D;
 import pama1234.gdx.game.net.ServerInfo;
 import pama1234.gdx.game.net.SocketData;
-import pama1234.gdx.game.net.server.ServerRead;
-import pama1234.gdx.game.net.server.ServerWrite;
+import pama1234.gdx.game.net.io.ServerRead;
+import pama1234.gdx.game.net.io.ServerWrite;
 import pama1234.gdx.game.util.ClientPlayerCenter3D;
 import pama1234.gdx.util.app.UtilScreen3D;
 import pama1234.gdx.util.wrapper.Center;
@@ -64,7 +64,7 @@ public class Screen0007 extends UtilScreen3D{
       while(!stop) {
         // synchronized(centerSocket.add) {
         SocketData socketData=new SocketData(serverDataSocket.accept(tsh));
-        System.out.println(socketData.s.getRemoteAddress());
+        // System.out.println(socketData.s.getRemoteAddress());
         socketCenter.add.add(socketData);
         //---
         ServerWrite serverWrite=new ServerWrite(Screen0007.this,socketData);
@@ -104,7 +104,18 @@ public class Screen0007 extends UtilScreen3D{
     updateCell.start();
   }
   @Override
-  public void update() {}
+  public void update() {
+    serverReadPool.refresh();
+    serverWritePool.refresh();
+    //---
+    for(SocketData i:socketCenter.list) {
+      if(i.stop) {
+        socketCenter.remove.add(i);
+        playerCenter.remove(i.name);
+      }
+    }
+    socketCenter.refresh();
+  }
   @Override
   public void display() {}
   @Override

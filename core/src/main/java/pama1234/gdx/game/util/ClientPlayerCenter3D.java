@@ -32,4 +32,11 @@ public class ClientPlayerCenter3D extends EntityCenter<ClientPlayer3D>{
   //     this.name=name;
   //   }
   // }
+  public void remove(String name) {
+    ClientPlayer3D tp=hashMap.get(name);
+    if(tp!=null) {
+      hashMap.remove(name);
+      remove.add(tp);
+    }else System.out.println("ClientPlayerCenter3D tp==null name="+name);
+  }
 }
