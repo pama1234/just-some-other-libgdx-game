@@ -1,30 +1,37 @@
 package pama1234.gdx.game.net.server;
 
+import static pama1234.gdx.game.net.NetUtil.intToState;
+import static pama1234.gdx.game.net.NetUtil.readNBytes;
 import static pama1234.gdx.game.net.NetUtil.writeHeader;
 
 import java.io.IOException;
 
 import pama1234.data.ByteUtil;
 import pama1234.gdx.game.app.Screen0007;
+import pama1234.gdx.game.net.NetUtil.NetState;
 import pama1234.gdx.game.net.SocketData;
 
 public class ServerDataWriteThread extends Thread{
   public Screen0007 p;
-  public SocketData dataSocket;
-  public ServerDataWriteThread(Screen0007 p,SocketData dataSocket) {
+  public SocketData stateSocket,dataSocket;
+  public ServerDataWriteThread(Screen0007 p,SocketData stateSocket,SocketData dataSocket) {
     this.p=p;
+    this.stateSocket=stateSocket;
     this.dataSocket=dataSocket;
   }
   @Override
   public void run() {
-    byte[] outData=new byte[20];
+    byte[] data=new byte[20];
     while(!p.stop) {
       // p.socketCenter.refresh();
       // synchronized(p.socketCenter.list) {
       synchronized(p.group) {
         // for(SocketData e:p.socketCenter.list) {
         try {
-          doF(dataSocket,outData);
+          doF(stateSocket,data,
+            intToState(ByteUtil.byteToInt(readNBytes(dataSocket,data,0,4),0)),
+            ByteUtil.byteToInt(readNBytes(dataSocket,data,0,4),0));
+          doF(dataSocket,data);
         }catch(IOException exception) {
           exception.printStackTrace();
         }
@@ -32,6 +39,19 @@ public class ServerDataWriteThread extends Thread{
       }
     }
     // }
+  }
+  public void doF(SocketData stateSocket,byte[] data,NetState state,int size) {
+    switch(state) {
+      case FinishedProcessing: {
+        // readNBytes(stateSocket,inData,0,readSize);
+        // stateSocket.state=state;
+      }
+        break;
+      default:
+        // int ti=stateSocket.state;
+        // stateSocket.state=1;
+        throw new RuntimeException("state err="+state);
+    }
   }
   public void doF(SocketData e,byte[] outData) throws IOException {
     System.out.println("ServerWrite state="+e.state);

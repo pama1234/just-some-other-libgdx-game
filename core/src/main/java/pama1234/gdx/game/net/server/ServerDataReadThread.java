@@ -2,6 +2,7 @@ package pama1234.gdx.game.net.server;
 
 import static pama1234.gdx.game.net.NetUtil.intToState;
 import static pama1234.gdx.game.net.NetUtil.readNBytes;
+import static pama1234.gdx.game.net.NetUtil.writeHeader;
 import static pama1234.gdx.game.net.NetUtil.NetState.DataTransfer;
 
 import java.io.IOException;
@@ -14,21 +15,24 @@ import pama1234.gdx.game.util.ClientPlayer3D;
 
 public class ServerDataReadThread extends Thread{
   public Screen0007 p;
-  public SocketData dataSocket;
-  public ServerDataReadThread(Screen0007 p,SocketData dataSocket) {
+  public SocketData stateSocket,dataSocket;
+  public ServerDataReadThread(Screen0007 p,SocketData stateSocket,SocketData dataSocket) {
     this.p=p;
+    this.stateSocket=stateSocket;
     this.dataSocket=dataSocket;
   }
   @Override
   public void run() {
-    byte[] inData=new byte[12];
+    byte[] data=new byte[12];
     while(!p.stop) {
-      synchronized(p.socketCenter.list) {
+      synchronized(p.dataSocketCenter.list) {
         // synchronized(p.group) {
         try {
-          doF(dataSocket,inData,
-            intToState(ByteUtil.byteToInt(readNBytes(dataSocket,inData,0,4),0)),
-            ByteUtil.byteToInt(readNBytes(dataSocket,inData,0,4),0));
+          doF(dataSocket,data,
+            intToState(ByteUtil.byteToInt(readNBytes(dataSocket,data,0,4),0)),
+            ByteUtil.byteToInt(readNBytes(dataSocket,data,0,4),0));
+          stateSocket.state=NetState.FinishedProcessing;
+          writeHeader(stateSocket,data,0);
         }catch(IOException e1) {
           e1.printStackTrace();
         }

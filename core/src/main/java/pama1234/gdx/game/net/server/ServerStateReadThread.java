@@ -21,7 +21,7 @@ public class ServerStateReadThread extends Thread{
   public void run() {
     byte[] inData=new byte[12];
     while(!p.stop) {
-      synchronized(p.socketCenter.list) {
+      synchronized(p.dataSocketCenter.list) {
         // synchronized(p.group) {
         try {
           doF(stateSocket,inData,

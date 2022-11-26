@@ -46,7 +46,7 @@ public class Screen0003 extends UtilScreen3D{
   public SocketData clientDataSocket,clientStateSocket;
   public volatile CellData[] cellData;
   //---
-  public Thread acceptT,clientReadT,clientWriteT;
+  public Thread clientReadT,clientWriteT;
   // public Thread acceptT,serverReadT,clientReadT,serverWriteT,clientWriteT;
   //---
   // public CellGroup3D group;
@@ -138,8 +138,8 @@ public class Screen0003 extends UtilScreen3D{
         (clientReadT=new ClientStateReadThread(Screen0003.this,clientStateSocket)).start();
         (clientWriteT=new ClientStateWriteThread(Screen0003.this,clientStateSocket)).start();
         //TODO
-        (clientReadT=new ClientDataReadThread(Screen0003.this,clientDataSocket)).start();
-        (clientWriteT=new ClientDataWriteThread(Screen0003.this,clientDataSocket)).start();
+        (clientReadT=new ClientDataReadThread(Screen0003.this,null,clientDataSocket)).start();
+        (clientWriteT=new ClientDataWriteThread(Screen0003.this,null,clientDataSocket)).start();
       }
     }.start();
     noStroke();

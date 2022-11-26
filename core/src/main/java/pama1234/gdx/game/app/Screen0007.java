@@ -24,7 +24,7 @@ public class Screen0007 extends UtilScreen3D{
   public ServerInfo dataServerInfo,stateServerInfo;
   //---
   public ServerSocket serverDataSocket,serverStateSocket;
-  public Center<SocketData> socketCenter;
+  public Center<SocketData> dataSocketCenter,stateSocketCenter;
   public Thread acceptDataThread,acceptStateThread;
   public LinkedList<Thread> serverReadT,serverWriteT;
   //---
@@ -60,13 +60,13 @@ public class Screen0007 extends UtilScreen3D{
     tssh.performancePrefBandwidth=1;
     serverDataSocket=Gdx.net.newServerSocket(Protocol.TCP,dataServerInfo.addr,dataServerInfo.port,tssh);
     serverStateSocket=Gdx.net.newServerSocket(Protocol.TCP,stateServerInfo.addr,stateServerInfo.port,tssh);
-    socketCenter=new Center<>();
+    dataSocketCenter=new Center<>();
     // sleep(10000);
     acceptStateThread=new Thread(()-> {
       while(!stop) {
         // synchronized(centerSocket.add) {
         SocketData tsd=new SocketData(serverStateSocket.accept(tsh));
-        socketCenter.add.add(tsd);
+        dataSocketCenter.add.add(tsd);
         //---
         ServerStateWriteThread tswt=new ServerStateWriteThread(Screen0007.this,tsd);
         tswt.start();
@@ -83,13 +83,13 @@ public class Screen0007 extends UtilScreen3D{
       while(!stop) {
         // synchronized(centerSocket.add) {
         SocketData tsd=new SocketData(serverDataSocket.accept(tsh));
-        socketCenter.add.add(tsd);
+        dataSocketCenter.add.add(tsd);
         //---
-        ServerDataWriteThread tswt=new ServerDataWriteThread(Screen0007.this,tsd);
+        ServerDataWriteThread tswt=new ServerDataWriteThread(Screen0007.this,null,tsd);
         tswt.start();
         serverWriteT.add(tswt);
         //---
-        ServerDataReadThread tsrt=new ServerDataReadThread(Screen0007.this,tsd);
+        ServerDataReadThread tsrt=new ServerDataReadThread(Screen0007.this,null,tsd);
         tsrt.start();
         serverReadT.add(tsrt);
         // }
@@ -124,7 +124,7 @@ public class Screen0007 extends UtilScreen3D{
     updateCell.interrupt();
     if((!updateCell.isInterrupted())||(updateCell.isAlive())) updateCell.stop();
     serverDataSocket.dispose();
-    socketCenter.refresh();
-    for(SocketData i:socketCenter.list) i.s.dispose();
+    dataSocketCenter.refresh();
+    for(SocketData i:dataSocketCenter.list) i.s.dispose();
   }
 }
