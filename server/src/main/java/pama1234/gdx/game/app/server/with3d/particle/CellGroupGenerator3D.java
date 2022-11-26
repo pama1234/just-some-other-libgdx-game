@@ -66,7 +66,7 @@ public class CellGroupGenerator3D{
     CellGroup3D group;
     int[] colors;
     float boxR;
-    boxR=512;//1024 //256 //TODO
+    boxR=256;//1024 //256 //TODO
     float[][] miniCore=new float[][] {
       {0,1,-1,-1,0,0,0,0,0,0,0,1},
       {1,0,1,-1,-1,0,0,0,0,0,0,0},

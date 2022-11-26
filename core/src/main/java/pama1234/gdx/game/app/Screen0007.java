@@ -76,7 +76,7 @@ public class Screen0007 extends UtilScreen3D{
         serverReadPool.add.add(serverRead);
         // }
       }
-    });
+    },"AcceptSocket");
     acceptSocket.start();
     // removeSocket=new Thread(()-> {
     //   while(!stop) {
@@ -88,7 +88,7 @@ public class Screen0007 extends UtilScreen3D{
     // });
     // removeSocket.start();
     //---
-    updateCell=new Thread() {
+    updateCell=new Thread("UpdateCell") {
       @Override
       public void run() {
         while(!stop) {

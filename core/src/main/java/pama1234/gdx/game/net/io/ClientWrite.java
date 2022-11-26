@@ -1,7 +1,8 @@
 package pama1234.gdx.game.net.io;
 
 import static pama1234.gdx.game.net.NetUtil.catchException;
-import static pama1234.gdx.game.net.NetUtil.writeHeader;
+import static pama1234.gdx.game.net.NetUtil.debug;
+import static pama1234.gdx.game.net.NetUtil.writeClientHeader;
 
 import java.io.IOException;
 import java.net.SocketException;
@@ -15,6 +16,7 @@ public class ClientWrite extends Thread{
   public SocketData s;
   // public boolean stop;
   public ClientWrite(Screen0003 p,SocketData dataSocket) {
+    super("ClientWrite "+dataSocket.s.getRemoteAddress());
     this.p=p;
     this.s=dataSocket;
   }
@@ -32,23 +34,23 @@ public class ClientWrite extends Thread{
     }
   }
   public void doF(byte[] outData) throws IOException {
-    System.out.println("ClientWrite state="+s.serverState);
-    switch(s.serverState) {
-      case ServerAuthentication: {
+    if(debug) System.out.println("ClientWrite state="+s.clientState);
+    switch(s.clientState) {
+      case ClientAuthentication: {
         // e.name
         // e.o.write(ByteUtil.intToByte(e.state,outData,0),0,4);
         byte[] nameBytes=s.name.getBytes();
-        writeHeader(s,outData,nameBytes.length);
+        writeClientHeader(s,outData,nameBytes.length);
         s.o.write(nameBytes);
         s.o.flush();
         // s.state=DataTransfer;
         // p.println(Arrays.toString(nameBytes));
       }
         break;
-      case ServerDataTransfer: {
+      case ClientDataTransfer: {
         // e.o.write(ByteUtil.intToByte(e.state,outData,0),0,4);
         // e.o.write(ByteUtil.intToByte(12,outData,0),0,4);
-        writeHeader(s,outData,12);
+        writeClientHeader(s,outData,12);
         ByteUtil.floatToByte(p.yourself.x(),outData,0);
         ByteUtil.floatToByte(p.yourself.y(),outData,4);
         ByteUtil.floatToByte(p.yourself.z(),outData,8);

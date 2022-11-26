@@ -19,7 +19,11 @@ public class ClientPlayerCenter3D extends EntityCenter<ClientPlayer3D>{
   }
   @Override
   public void refresh() {
-    for(ClientPlayer3D e:add) hashMap.put(e.name,e);
+    for(ClientPlayer3D e:add) {
+      if(hashMap.get(e.name)==null) hashMap.put(e.name,e);
+      else remove.add(e);
+    }
+    super.refresh();//TODO
     for(ClientPlayer3D e:remove) hashMap.remove(e.name);
     // for(ClientPlayer3D e:add) hashMap.put(e.token,e);
     // for(ClientPlayer3D e:remove) hashMap.remove(e.token);

@@ -1,7 +1,8 @@
 package pama1234.gdx.game.net.io;
 
 import static pama1234.gdx.game.net.NetUtil.catchException;
-import static pama1234.gdx.game.net.NetUtil.writeHeader;
+import static pama1234.gdx.game.net.NetUtil.debug;
+import static pama1234.gdx.game.net.NetUtil.writeServerHeader;
 
 import java.io.IOException;
 import java.net.SocketException;
@@ -15,6 +16,7 @@ public class ServerWrite extends Thread{
   public SocketData s;
   // public boolean stop;
   public ServerWrite(Screen0007 p,SocketData dataSocket) {
+    super("ServerWrite "+dataSocket.s.getRemoteAddress());
     this.p=p;
     this.s=dataSocket;
   }
@@ -38,16 +40,16 @@ public class ServerWrite extends Thread{
     p.serverWritePool.remove.add(this);
   }
   public void doF(SocketData e,byte[] outData) throws IOException {
-    System.out.println("ServerWrite state="+e.clientState);
+    if(debug) System.out.println("ServerWrite state="+e.serverState);
     // if(e.state==1)
-    switch(e.clientState) {
-      case ClientAuthentication: {
+    switch(e.serverState) {
+      case ServerAuthentication: {
         // System.out.println("abc");
         // if(e.authCooling>0) {
         //   e.authCooling--;
         //   return;
         // }
-        writeHeader(e,outData,4);
+        writeServerHeader(e,outData,4);
         e.o.write(ByteUtil.intToByte(1234,outData,0),0,4);
         e.o.flush();
         p.sleep(2000);
@@ -55,8 +57,8 @@ public class ServerWrite extends Thread{
         // p.sleep(200);
       }
         break;
-      case ClientDataTransfer: {
-        writeHeader(e,outData,p.group.size);
+      case ServerDataTransfer: {
+        writeServerHeader(e,outData,p.group.size);
         // p.println(1,p.group.size);
         for(int i=0;i<p.group.size;i++) {
           ByteUtil.intToByte(i,outData,0);

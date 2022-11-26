@@ -1,9 +1,9 @@
 package pama1234.gdx.game.net.io;
 
 import static pama1234.gdx.game.net.NetUtil.catchException;
+import static pama1234.gdx.game.net.NetUtil.debug;
 import static pama1234.gdx.game.net.NetUtil.readNBytes;
 import static pama1234.gdx.game.net.ServerState.ServerDataTransfer;
-import static pama1234.gdx.game.net.ServerState.intToState;
 
 import java.io.IOException;
 import java.net.SocketException;
@@ -11,7 +11,6 @@ import java.net.SocketException;
 import pama1234.data.ByteUtil;
 import pama1234.gdx.game.app.Screen0007;
 import pama1234.gdx.game.net.ClientState;
-import pama1234.gdx.game.net.ServerState;
 import pama1234.gdx.game.net.SocketData;
 import pama1234.gdx.game.util.ClientPlayer3D;
 
@@ -20,6 +19,7 @@ public class ServerRead extends Thread{
   public SocketData s;
   // public boolean stop;
   public ServerRead(Screen0007 p,SocketData dataSocket) {
+    super("ServerRead "+dataSocket.s.getRemoteAddress());
     this.p=p;
     this.s=dataSocket;
   }
@@ -31,7 +31,7 @@ public class ServerRead extends Thread{
         // synchronized(p.group) {
         try {
           doF(s,data,
-            intToState(ByteUtil.byteToInt(readNBytes(s,data,0,4),0)),
+            s.clientState=ClientState.intToState(ByteUtil.byteToInt(readNBytes(s,data,0,4),0)),
             ByteUtil.byteToInt(readNBytes(s,data,0,4),0));
         }catch(SocketException e1) {
           catchException(e1,s);
@@ -42,14 +42,14 @@ public class ServerRead extends Thread{
     }
     p.serverReadPool.remove.add(this);
   }
-  public void doF(SocketData e,byte[] inData,ServerState state,int readSize) throws IOException {
-    System.out.println("ServerRead state="+state+" readSize="+readSize);
-    if(state!=e.serverState) {
-      System.out.println("state!=e.state "+state+" "+e.clientState);
-      return;
-    }
+  public void doF(SocketData e,byte[] inData,ClientState state,int readSize) throws IOException {
+    if(debug) System.out.println("ServerRead state="+state+" readSize="+readSize);
+    // if(state!=e.clientState) {
+    //   System.out.println("state!=e.state "+state+" "+e.clientState);
+    //   return;
+    // }
     switch(state) {
-      case ServerAuthentication: {
+      case ClientAuthentication: {
         byte[] nameBytes=new byte[readSize];
         readNBytes(e,nameBytes,0,readSize);
         e.name=new String(nameBytes);
@@ -63,8 +63,8 @@ public class ServerRead extends Thread{
         // System.out.println(p.playerCenter.hashMap.get(e.name));
       }
         break;
-      case ServerDataTransfer: {
-        readNBytes(e,inData,0,12);
+      case ClientDataTransfer: {
+        readNBytes(e,inData,0,4*3);
         ClientPlayer3D tp=p.playerCenter.hashMap.get(e.name);
         if(tp==null) {
           e.clientState=ClientState.ClientAuthentication;
