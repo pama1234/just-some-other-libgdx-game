@@ -45,6 +45,7 @@ public class ClientWrite extends Thread{
         s.o.flush();
         // s.state=DataTransfer;
         // p.println(Arrays.toString(nameBytes));
+        p.sleep(200);
       }
         break;
       case ClientDataTransfer: {

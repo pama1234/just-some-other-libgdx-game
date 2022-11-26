@@ -5,10 +5,14 @@ import java.io.IOException;
 import pama1234.data.ByteUtil;
 
 public class NetUtil{
-  public static final boolean debug=false;
+  public static final boolean debug=true;
+  // public static final boolean debug=false;
   public static byte[] readNBytes(SocketData e,byte[] out,int offset,int size) throws IOException {
     int ti=0;
-    while(ti==0) ti=e.i.readNBytes(out,offset,size);
+    while(ti==0) {
+      if(e.stop) return out;
+      ti=e.i.readNBytes(out,offset,size);
+    }
     if(ti!=size) throw new RuntimeException("ti!=size "+ti+" "+size);
     return out;
   }
