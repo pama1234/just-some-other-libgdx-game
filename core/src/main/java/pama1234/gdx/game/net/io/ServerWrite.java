@@ -38,10 +38,10 @@ public class ServerWrite extends Thread{
     p.serverWritePool.remove.add(this);
   }
   public void doF(SocketData e,byte[] outData) throws IOException {
-    System.out.println("ServerWrite state="+e.state);
+    System.out.println("ServerWrite state="+e.clientState);
     // if(e.state==1)
-    switch(e.state) {
-      case Authentication: {
+    switch(e.clientState) {
+      case ClientAuthentication: {
         // System.out.println("abc");
         // if(e.authCooling>0) {
         //   e.authCooling--;
@@ -55,7 +55,7 @@ public class ServerWrite extends Thread{
         // p.sleep(200);
       }
         break;
-      case DataTransfer: {
+      case ClientDataTransfer: {
         writeHeader(e,outData,p.group.size);
         // p.println(1,p.group.size);
         for(int i=0;i<p.group.size;i++) {
@@ -70,7 +70,7 @@ public class ServerWrite extends Thread{
       }
         break;
       default:
-        throw new RuntimeException("state err="+e.state);
+        throw new RuntimeException("state err="+e.clientState);
     }
   }
   public void dispose() {

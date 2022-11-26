@@ -32,9 +32,9 @@ public class ClientWrite extends Thread{
     }
   }
   public void doF(byte[] outData) throws IOException {
-    System.out.println("ClientWrite state="+s.state);
-    switch(s.state) {
-      case Authentication: {
+    System.out.println("ClientWrite state="+s.serverState);
+    switch(s.serverState) {
+      case ServerAuthentication: {
         // e.name
         // e.o.write(ByteUtil.intToByte(e.state,outData,0),0,4);
         byte[] nameBytes=s.name.getBytes();
@@ -45,7 +45,7 @@ public class ClientWrite extends Thread{
         // p.println(Arrays.toString(nameBytes));
       }
         break;
-      case DataTransfer: {
+      case ServerDataTransfer: {
         // e.o.write(ByteUtil.intToByte(e.state,outData,0),0,4);
         // e.o.write(ByteUtil.intToByte(12,outData,0),0,4);
         writeHeader(s,outData,12);
@@ -59,7 +59,7 @@ public class ClientWrite extends Thread{
       }
         break;
       default:
-        throw new RuntimeException("state err="+s.state);
+        throw new RuntimeException("state err="+s.serverState);
     }
   }
   public void dispose() {
