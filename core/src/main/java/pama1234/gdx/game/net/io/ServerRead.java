@@ -56,6 +56,7 @@ public class ServerRead extends Thread{
         e.state=DataTransfer;
         p.playerCenter.add.add(new ClientPlayer3D(p,e.name,0,0,0));
         p.playerCenter.refresh();
+        System.out.println("Auth "+e.name);
         // System.out.println(p.playerCenter.list.getFirst());
         // System.out.println(p.playerCenter.hashMap.size());
         // System.out.println(p.playerCenter.hashMap.get(e.name));

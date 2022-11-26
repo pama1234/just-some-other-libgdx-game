@@ -2,7 +2,6 @@ package pama1234.gdx.game.net.io;
 
 import static pama1234.gdx.game.net.NetUtil.catchException;
 import static pama1234.gdx.game.net.NetUtil.writeHeader;
-import static pama1234.gdx.game.net.NetUtil.NetState.DataTransfer;
 
 import java.io.IOException;
 import java.net.SocketException;
@@ -42,7 +41,7 @@ public class ClientWrite extends Thread{
         writeHeader(s,outData,nameBytes.length);
         s.o.write(nameBytes);
         s.o.flush();
-        s.state=DataTransfer;
+        // s.state=DataTransfer;
         // p.println(Arrays.toString(nameBytes));
       }
         break;

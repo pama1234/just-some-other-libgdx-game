@@ -112,6 +112,8 @@ public class Screen0007 extends UtilScreen3D{
       if(i.stop) {
         socketCenter.remove.add(i);
         playerCenter.remove(i.name);
+        System.out.println("Disconnect "+i.name);
+        i.dispose();
       }
     }
     socketCenter.refresh();
@@ -127,7 +129,7 @@ public class Screen0007 extends UtilScreen3D{
     if((!updateCell.isInterrupted())||(updateCell.isAlive())) updateCell.stop();
     serverDataSocket.dispose();
     socketCenter.refresh();
-    for(SocketData i:socketCenter.list) i.s.dispose();
+    for(SocketData i:socketCenter.list) i.dispose();
     for(ServerRead i:serverReadPool.list) i.dispose();
     for(ServerWrite i:serverWritePool.list) i.dispose();
   }

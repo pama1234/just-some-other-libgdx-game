@@ -74,6 +74,9 @@ public class Screen0003 extends UtilScreen3D{
   public ConfigInfo configInfo;
   // Graphics buttonsG;
   // Texture buttonsT;
+  public int tempCellSize=128;
+  public int tempColorSize=12;
+  public int tempSize=tempCellSize*tempColorSize;
   public static class GraphicsData{
     public Graphics g;
     public TextureRegion tr;
@@ -104,7 +107,7 @@ public class Screen0003 extends UtilScreen3D{
     // group=gen.GenerateFromMiniCore();
     // serverTypeData=new int[gen.arraySizeOut];
     // cellData=new CellData[gen.arraySizeOut];
-    cellData=new CellData[1024*12];
+    cellData=new CellData[tempSize];
     for(int i=0;i<cellData.length;i++) cellData[i]=new CellData();
     playerCenter=new ClientPlayerCenter3D(this);
     yourself=new ControllerClientPlayer3D(this,"pama1234",cam.point);
@@ -143,9 +146,9 @@ public class Screen0003 extends UtilScreen3D{
     noStroke();
     graphicsList=new ArrayList<ArrayList<GraphicsData>>(layerSize);
     decals=new ArrayList<>(cellData.length);
-    final int ts=12;
-    int tsize=1024;
-    int[] colors=new int[12];
+    final int ts=tempColorSize;
+    int tsize=tempCellSize;
+    int[] colors=new int[tempColorSize];
     for(int i=0;i<colors.length;i++) colors[i]=Tools.hsbColor((float)i/colors.length*255,0xff,0xff);
     graphicsList.add(0,new ArrayList<GraphicsData>(ts));
     for(int i=0;i<ts;i++) {
@@ -205,6 +208,7 @@ public class Screen0003 extends UtilScreen3D{
   @Override
   public void update() {
     // centerSocket.refresh();
+    if(clientSocket.stop) clientSocket.dispose();
   }
   public boolean isVisible(Camera cam,Decal in,float r) {
     return cam.frustum.sphereInFrustum(in.getPosition(),r);
@@ -299,6 +303,6 @@ public class Screen0003 extends UtilScreen3D{
   @Override
   public void dispose() {
     super.dispose();
-    clientSocket.s.dispose();
+    clientSocket.dispose();
   }
 }

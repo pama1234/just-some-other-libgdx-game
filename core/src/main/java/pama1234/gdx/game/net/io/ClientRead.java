@@ -4,6 +4,7 @@ import static pama1234.gdx.game.net.NetUtil.catchException;
 import static pama1234.gdx.game.net.NetUtil.intToState;
 import static pama1234.gdx.game.net.NetUtil.readNBytes;
 import static pama1234.gdx.game.net.NetUtil.NetState.Authentication;
+import static pama1234.gdx.game.net.NetUtil.NetState.DataTransfer;
 
 import java.io.IOException;
 import java.net.SocketException;
@@ -60,6 +61,7 @@ public class ClientRead extends Thread{
       }
         break;
       case DataTransfer: {
+        s.state=DataTransfer;
         if(readSize!=p.cellData.length) throw new RuntimeException("state DataTransfer readSize!=p.cellData.length "+readSize+" "+p.cellData.length);//TODO
         for(int i=0;i<readSize;i++) {
           readNBytes(s,inData,0,inData.length);
