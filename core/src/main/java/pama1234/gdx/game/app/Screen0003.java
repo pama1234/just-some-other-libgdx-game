@@ -20,8 +20,8 @@ import pama1234.gdx.game.app.server.particle.Var;
 import pama1234.gdx.game.net.CellData;
 import pama1234.gdx.game.net.ServerInfo;
 import pama1234.gdx.game.net.SocketData;
-import pama1234.gdx.game.net.client.ClientDataReadThread;
-import pama1234.gdx.game.net.client.ClientDataWriteThread;
+import pama1234.gdx.game.net.client.ClientRead;
+import pama1234.gdx.game.net.client.ClientWrite;
 import pama1234.gdx.game.ui.Button;
 import pama1234.gdx.game.ui.ConfigInfo;
 import pama1234.gdx.game.ui.TextButtonGenerator;
@@ -41,10 +41,10 @@ public class Screen0003 extends UtilScreen3D{
   // public ServerSocket serverSocket;
   // public Center<SocketData> socketCenter;
   //---
-  public SocketData clientDataSocket,clientStateSocket;
+  public SocketData clientDataSocket;
   public volatile CellData[] cellData;
   //---
-  public Thread clientReadT,clientWriteT;
+  public Thread clientRead,clientWrite;
   // public Thread acceptT,serverReadT,clientReadT,serverWriteT,clientWriteT;
   //---
   // public CellGroup3D group;
@@ -107,10 +107,10 @@ public class Screen0003 extends UtilScreen3D{
     cellData=new CellData[1024*12];
     for(int i=0;i<cellData.length;i++) cellData[i]=new CellData();
     playerCenter=new ClientPlayerCenter3D(this);
-    yourself=new ControllerClientPlayer3D(this,cam.point);
+    yourself=new ControllerClientPlayer3D(this,"pama1234",cam.point);
     //---
     dataServerInfo=new ServerInfo("192.168.2.105",12347);
-    stateServerInfo=new ServerInfo("192.168.2.105",12346);
+    // stateServerInfo=new ServerInfo("192.168.2.105",12346);
     //---
     SocketHints tsh=new SocketHints();
     tsh.connectTimeout=10000;
@@ -122,11 +122,11 @@ public class Screen0003 extends UtilScreen3D{
     //---
     //---
     // sleep(10000);   
-    clientStateSocket=new SocketData("pama1234",Gdx.net.newClientSocket(Protocol.TCP,stateServerInfo.addr,stateServerInfo.port,tsh));
-    clientDataSocket=new SocketData("pama1234",Gdx.net.newClientSocket(Protocol.TCP,dataServerInfo.addr,dataServerInfo.port,tsh));
+    // clientStateSocket=new SocketData("pama1234",Gdx.net.newClientSocket(Protocol.TCP,stateServerInfo.addr,stateServerInfo.port,tsh));
+    clientDataSocket=new SocketData(yourself.name,Gdx.net.newClientSocket(Protocol.TCP,dataServerInfo.addr,dataServerInfo.port,tsh));
     new Thread() {
       public void run() {
-        while(!(clientDataSocket.s.isConnected()&&clientStateSocket.s.isConnected())) {
+        while(!clientDataSocket.s.isConnected()) {
           try {
             sleep(200);
           }catch(InterruptedException e) {
@@ -136,8 +136,8 @@ public class Screen0003 extends UtilScreen3D{
         // (clientReadT=new ClientStateReadThread(Screen0003.this,clientStateSocket)).start();
         // (clientWriteT=new ClientStateWriteThread(Screen0003.this,clientStateSocket)).start();
         //TODO
-        (clientReadT=new ClientDataReadThread(Screen0003.this,clientStateSocket,clientDataSocket)).start();
-        (clientWriteT=new ClientDataWriteThread(Screen0003.this,clientStateSocket,clientDataSocket)).start();
+        (clientRead=new ClientRead(Screen0003.this,clientDataSocket)).start();
+        (clientWrite=new ClientWrite(Screen0003.this,clientDataSocket)).start();
       }
     }.start();
     noStroke();

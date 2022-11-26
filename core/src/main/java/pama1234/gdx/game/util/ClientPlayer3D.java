@@ -9,11 +9,12 @@ public class ClientPlayer3D extends Point3DEntity<PathPoint3D>{
   // public TokenData token;
   public String name;
   public PlayerInfo3D info;
-  public ClientPlayer3D(UtilScreen p,PathPoint3D in) {
+  public ClientPlayer3D(UtilScreen p,String name,PathPoint3D in) {
     super(p,in);
+    this.name=name;
   }
-  public ClientPlayer3D(UtilScreen p,float x,float y,float z) {
-    super(p,new PathPoint3D(x,y,z));
+  public ClientPlayer3D(UtilScreen p,String name,float x,float y,float z) {
+    this(p,name,new PathPoint3D(x,y,z));
   }
   @Override
   public void display() {}

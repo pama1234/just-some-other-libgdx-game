@@ -11,12 +11,17 @@ public class NetUtil{
     FinishedProcessing,
     ProtocolVersion,
     Authentication,
-    DataTransfer;
+    DataTransfer,
+    Exception;
   }
   public static int stateToInt(NetState in) {
     return in.ordinal();
   }
   public static NetState intToState(int in) {
+    if(in<0||in>netStateArray.length) {
+      System.out.println("intToState in="+in);
+      return NetState.Exception;
+    }
     return netStateArray[in];
   }
   public static byte[] readNBytes(SocketData e,byte[] out,int offset,int size) throws IOException {
@@ -31,6 +36,6 @@ public class NetUtil{
     e.o.flush();
   }
   public static void writeHeader(SocketData e,byte[] outData,int size) throws IOException {
-    writeHeader(e,outData,e.state,4);
+    writeHeader(e,outData,e.state,size);
   }
 }

@@ -10,7 +10,7 @@ import pama1234.gdx.game.net.NetUtil.NetState;
 public class SocketData{
   // public int authCooling;//TODO server only
   //---
-  public NetState state;//TODO why avoiding state 0???
+  public NetState state=NetState.Authentication;//TODO why avoiding state 0???
   public String name;//TODO replace with FullToken data class
   //---
   public Socket s;

@@ -1,60 +1,47 @@
 package pama1234.gdx.game.net.server;
 
-import static pama1234.gdx.game.net.NetUtil.intToState;
-import static pama1234.gdx.game.net.NetUtil.readNBytes;
 import static pama1234.gdx.game.net.NetUtil.writeHeader;
 
 import java.io.IOException;
+import java.net.SocketException;
 
 import pama1234.data.ByteUtil;
 import pama1234.gdx.game.app.Screen0007;
 import pama1234.gdx.game.net.NetUtil.NetState;
 import pama1234.gdx.game.net.SocketData;
 
-public class ServerDataWriteThread extends Thread{
+public class ServerWrite extends Thread{
   public Screen0007 p;
-  public SocketData stateSocket,dataSocket;
-  public ServerDataWriteThread(Screen0007 p,SocketData stateSocket,SocketData dataSocket) {
+  public SocketData socket;
+  public boolean stop;
+  public ServerWrite(Screen0007 p,SocketData dataSocket) {
     this.p=p;
-    this.stateSocket=stateSocket;
-    this.dataSocket=dataSocket;
+    this.socket=dataSocket;
   }
   @Override
   public void run() {
     byte[] data=new byte[20];
-    while(!p.stop) {
+    while(!stop) {
       // p.socketCenter.refresh();
       // synchronized(p.socketCenter.list) {
       synchronized(p.group) {
         // for(SocketData e:p.socketCenter.list) {
         try {
-          doF(stateSocket,data,
-            intToState(ByteUtil.byteToInt(readNBytes(dataSocket,data,0,4),0)),
-            ByteUtil.byteToInt(readNBytes(dataSocket,data,0,4),0));
-          doF(dataSocket,data);
-        }catch(IOException exception) {
-          exception.printStackTrace();
+          doF(socket,data);
+        }catch(SocketException e1) {
+          catchException(e1);
+        }catch(IOException e2) {
+          catchException(e2);
         }
-        // }
-      }
+      }}
     }
-    // }
-  }
-  public void doF(SocketData stateSocket,byte[] data,NetState state,int size) {
-    switch(state) {
-      case FinishedProcessing: {
-        // readNBytes(stateSocket,inData,0,readSize);
-        // stateSocket.state=state;
-      }
-        break;
-      default:
-        // int ti=stateSocket.state;
-        // stateSocket.state=1;
-        throw new RuntimeException("state err="+state);
+    public void catchException(Exception e) {
+      e.printStackTrace();
+      socket.state=NetState.Exception;
+      stop=true;
     }
-  }
   public void doF(SocketData e,byte[] outData) throws IOException {
-    System.out.println("ServerWrite state="+e.state);
+    // System.out.println("ServerWrite state="+e.state);
     // if(e.state==1)
     switch(e.state) {
       case Authentication: {
@@ -88,5 +75,8 @@ public class ServerDataWriteThread extends Thread{
       default:
         throw new RuntimeException("state err="+e.state);
     }
+  }
+  public void dispose() {
+    stop=true;
   }
 }
