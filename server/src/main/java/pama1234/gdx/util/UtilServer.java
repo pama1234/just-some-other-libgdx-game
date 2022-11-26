@@ -1,4 +1,4 @@
-package pama1234.gdx.game.app.server;
+package pama1234.gdx.util;
 
 
 import java.util.Random;

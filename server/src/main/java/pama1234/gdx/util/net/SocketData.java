@@ -1,10 +1,8 @@
-package pama1234.gdx.game.net;
+package pama1234.gdx.util.net;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
-import com.badlogic.gdx.net.Socket;
 
 public class SocketData{
   // public int authCooling;//TODO server only
@@ -14,16 +12,16 @@ public class SocketData{
   public ServerState serverState=ServerState.ServerAuthentication;//TODO why avoiding state 0???
   public String name;//TODO replace with FullToken data class
   //---
-  public Socket s;
+  public SocketInterface s;
   public InputStream i;
   public OutputStream o;
-  public SocketData(String name,Socket s) {
+  public SocketData(String name,SocketInterface s) {
     this.name=name;
     this.s=s;
     i=s.getInputStream();
     o=s.getOutputStream();
   }
-  public SocketData(Socket s) {
+  public SocketData(SocketInterface s) {
     this.s=s;
     i=s.getInputStream();
     o=s.getOutputStream();

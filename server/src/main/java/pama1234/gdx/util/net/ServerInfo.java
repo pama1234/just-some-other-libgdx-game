@@ -1,4 +1,4 @@
-package pama1234.gdx.game.net;
+package pama1234.gdx.util.net;
 
 public class ServerInfo{
   public String addr;

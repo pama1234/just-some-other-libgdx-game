@@ -10,8 +10,9 @@ import com.badlogic.gdx.net.ServerSocketHints;
 import com.badlogic.gdx.net.SocketHints;
 
 import pama1234.data.ByteUtil;
-import pama1234.gdx.game.net.SocketData;
+import pama1234.gdx.game.net.SocketWrapper;
 import pama1234.gdx.util.app.UtilScreen3D;
+import pama1234.gdx.util.net.SocketData;
 import pama1234.gdx.util.wrapper.Center;
 
 public class Screen0006 extends UtilScreen3D{
@@ -34,7 +35,7 @@ public class Screen0006 extends UtilScreen3D{
     ServerSocketHints tssh=new ServerSocketHints();
     serverSocket=Gdx.net.newServerSocket(Protocol.TCP,"127.0.0.1",12347,tssh);
     acceptT=new Thread(()-> {
-      while(!stop) centerS.add.add(new SocketData(serverSocket.accept(tsh)));
+      while(!stop) centerS.add.add(new SocketData(new SocketWrapper(serverSocket.accept(tsh))));
     });
     acceptT.start();
     //---
@@ -53,7 +54,7 @@ public class Screen0006 extends UtilScreen3D{
     });
     serverT.start();
     //---
-    client=new SocketData(Gdx.net.newClientSocket(Protocol.TCP,"127.0.0.1",12347,tsh));
+    client=new SocketData(new SocketWrapper(Gdx.net.newClientSocket(Protocol.TCP,"127.0.0.1",12347,tsh)));
     //---
     clientT=new Thread(()-> {
       byte[] td=new byte[4];

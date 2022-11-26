@@ -1,10 +1,10 @@
 package pama1234.gdx.game.app.server.with2d;
 
-import pama1234.gdx.game.app.server.UtilServer;
 import pama1234.gdx.game.app.server.game.ServerPlayerCenter;
 import pama1234.gdx.game.app.server.with2d.net.WorldInfo2D;
 import pama1234.gdx.game.app.server.with2d.particle.CellGroup2D;
 import pama1234.gdx.game.app.server.with2d.particle.CellGroupGenerator2D;
+import pama1234.gdx.util.UtilServer;
 
 public class Server2D extends UtilServer{
   public CellGroup2D group;

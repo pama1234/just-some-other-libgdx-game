@@ -1,4 +1,4 @@
-package pama1234.gdx.game.app.server;
+package pama1234.gdx.game.app.server.launcher;
 
 import pama1234.gdx.game.app.server.with2d.Server2D;
 

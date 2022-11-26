@@ -8,12 +8,13 @@ import com.badlogic.gdx.net.SocketHints;
 
 import pama1234.gdx.game.app.server.with3d.particle.CellGroup3D;
 import pama1234.gdx.game.app.server.with3d.particle.CellGroupGenerator3D;
-import pama1234.gdx.game.net.ServerInfo;
-import pama1234.gdx.game.net.SocketData;
+import pama1234.gdx.game.net.SocketWrapper;
 import pama1234.gdx.game.net.io.ServerRead;
 import pama1234.gdx.game.net.io.ServerWrite;
 import pama1234.gdx.game.util.ClientPlayerCenter3D;
 import pama1234.gdx.util.app.UtilScreen3D;
+import pama1234.gdx.util.net.ServerInfo;
+import pama1234.gdx.util.net.SocketData;
 import pama1234.gdx.util.wrapper.Center;
 
 /**
@@ -66,7 +67,7 @@ public class Screen0007 extends UtilScreen3D{
     acceptSocket=new Thread(()-> {
       while(!stop) {
         // synchronized(centerSocket.add) {
-        SocketData socketData=new SocketData(serverDataSocket.accept(tsh));
+        SocketData socketData=new SocketData(new SocketWrapper(serverDataSocket.accept(tsh)));
         // System.out.println(socketData.s.getRemoteAddress());
         socketCenter.add.add(socketData);
         //---

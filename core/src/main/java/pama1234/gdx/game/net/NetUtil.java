@@ -3,6 +3,9 @@ package pama1234.gdx.game.net;
 import java.io.IOException;
 
 import pama1234.data.ByteUtil;
+import pama1234.gdx.util.net.ClientState;
+import pama1234.gdx.util.net.ServerState;
+import pama1234.gdx.util.net.SocketData;
 
 public class NetUtil{
   // public static final boolean debug=true;

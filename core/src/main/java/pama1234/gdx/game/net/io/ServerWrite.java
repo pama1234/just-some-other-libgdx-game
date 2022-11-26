@@ -9,7 +9,7 @@ import java.net.SocketException;
 
 import pama1234.data.ByteUtil;
 import pama1234.gdx.game.app.Screen0007;
-import pama1234.gdx.game.net.SocketData;
+import pama1234.gdx.util.net.SocketData;
 
 public class ServerWrite extends Thread{
   public Screen0007 p;
