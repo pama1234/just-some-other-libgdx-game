@@ -1,8 +1,7 @@
-package pama1234.gdx.game.app.server.with3d;
+package pama1234.gdx.game.app.server.game;
 
-import pama1234.gdx.game.app.server.game.ServerPlayerCenter;
-import pama1234.gdx.game.app.server.with3d.particle.CellGroup3D;
-import pama1234.gdx.game.app.server.with3d.particle.CellGroupGenerator3D;
+import pama1234.gdx.game.app.server.game.particle.CellGroup3D;
+import pama1234.gdx.game.app.server.game.particle.CellGroupGenerator3D;
 import pama1234.gdx.util.UtilServer;
 
 public class Server3D extends UtilServer{
@@ -10,7 +9,7 @@ public class Server3D extends UtilServer{
   public boolean doUpdate=true;
   public Thread updateCell;
   //---
-  ServerPlayerCenter<ServerPlayer3D> playerCenter;
+  ServerPlayerCenter playerCenter;
   @Override
   public void init() {
     CellGroupGenerator3D gen=new CellGroupGenerator3D(0,0);
@@ -32,7 +31,7 @@ public class Server3D extends UtilServer{
     };
     updateCell.start();
     //---
-    playerCenter=new ServerPlayerCenter<ServerPlayer3D>();
+    playerCenter=new ServerPlayerCenter();
   }
   @Override
   public void update() {

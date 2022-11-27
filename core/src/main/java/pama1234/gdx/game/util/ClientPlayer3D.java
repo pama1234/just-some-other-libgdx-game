@@ -1,6 +1,6 @@
 package pama1234.gdx.game.util;
 
-import pama1234.gdx.game.app.server.with3d.net.PlayerInfo3D;
+import pama1234.gdx.game.app.server.game.net.PlayerInfo3D;
 import pama1234.gdx.util.app.UtilScreen;
 import pama1234.gdx.util.entity.Point3DEntity;
 import pama1234.math.physics.PathPoint3D;

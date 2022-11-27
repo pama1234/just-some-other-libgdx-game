@@ -1,25 +1,25 @@
 package pama1234.gdx.game.net.io;
 
-import static pama1234.gdx.game.net.NetUtil.catchException;
-import static pama1234.gdx.game.net.NetUtil.debug;
-import static pama1234.gdx.game.net.NetUtil.readNBytes;
-import static pama1234.gdx.util.net.ClientState.ClientAuthentication;
+import static pama1234.gdx.game.app.server.game.net.NetUtil.catchException;
+import static pama1234.gdx.game.app.server.game.net.NetUtil.debug;
+import static pama1234.gdx.game.app.server.game.net.NetUtil.readNBytes;
+import static pama1234.gdx.game.app.server.game.net.state.ClientState.ClientAuthentication;
 
 import java.io.IOException;
 import java.net.SocketException;
 import java.util.Arrays;
 
 import pama1234.data.ByteUtil;
-import pama1234.gdx.game.app.Screen0003;
-import pama1234.gdx.util.net.ClientState;
-import pama1234.gdx.util.net.ServerState;
-import pama1234.gdx.util.net.SocketData;
+import pama1234.gdx.game.app.server.game.net.ClientCore;
+import pama1234.gdx.game.app.server.game.net.SocketData;
+import pama1234.gdx.game.app.server.game.net.state.ClientState;
+import pama1234.gdx.game.app.server.game.net.state.ServerState;
 
 public class ClientRead extends Thread{
-  public Screen0003 p;
+  public ClientCore p;
   public SocketData s;
   // public boolean stop;
-  public ClientRead(Screen0003 p,SocketData dataSocket) {
+  public ClientRead(ClientCore p,SocketData dataSocket) {
     super("ClientRead "+dataSocket.s.getRemoteAddress());
     this.p=p;
     this.s=dataSocket;

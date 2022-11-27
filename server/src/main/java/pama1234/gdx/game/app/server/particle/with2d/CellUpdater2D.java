@@ -1,4 +1,4 @@
-package pama1234.gdx.game.app.server.with2d.particle;
+package pama1234.gdx.game.app.server.particle.with2d;
 
 import com.aparapi.Kernel;
 

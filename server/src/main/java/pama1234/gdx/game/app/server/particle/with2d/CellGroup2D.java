@@ -1,32 +1,29 @@
-package pama1234.gdx.game.app.server.with3d.particle;
+package pama1234.gdx.game.app.server.particle.with2d;
 
 import com.aparapi.Range;
 import com.aparapi.device.Device;
 import com.aparapi.exception.CompileFailedException;
 import com.aparapi.internal.kernel.KernelManager;
 
-import pama1234.gdx.game.app.server.particle.Var;
 import pama1234.gdx.util.entity.ServerEntity;
 
-public class CellGroup3D extends ServerEntity{
-  @Deprecated
-  public static final int SIZE=Var.SIZE,DIST=Var.DIST;
+public class CellGroup2D extends ServerEntity{
+  public static final int SIZE=2,DIST=SIZE*2;//TODO change to non static
   public final int size;
-  public final float[] posX,posY,posZ,velX,velY,velZ;
+  public final float[] posX,posY,velX,velY;
   public final int[] type;
   public final float[][][] forceMatrix;
   public final int[] colors;
   public final Range r,rSquare;
-  public final CellUpdater3D updater;
-  public final CellSquareUpdater3D squareUpdater;
-  // public boolean completeUpdate;
-  public CellGroup3D(int size,float boxR,int[] type,float[][][] core,int[] colors) {
+  public final CellUpdater2D updater;
+  public final CellSquareUpdater2D squareUpdater;
+  public CellGroup2D(int size,float boxR,int[] type,float[][][] core,int[] colors) {
     this(0.8f,boxR,size,type,core,colors);
   }
-  public CellGroup3D(int size,int[] type,float[][][] core,int[] colors) {
+  public CellGroup2D(int size,int[] type,float[][][] core,int[] colors) {
     this(0.8f,160,size,type,core,colors);
   }
-  public CellGroup3D(float f,float boxR,int size,int[] type,float[][][] core,int[] colors) {
+  public CellGroup2D(float f,float boxR,int size,int[] type,float[][][] core,int[] colors) {
     KernelManager kernelManager=KernelManager.instance();
     Device bestDevice=kernelManager.bestDevice();
     //---
@@ -37,26 +34,24 @@ public class CellGroup3D extends ServerEntity{
     //---
     posX=new float[size];
     posY=new float[size];
-    posZ=new float[size];
     //--
     velX=new float[size];
     velY=new float[size];
-    velZ=new float[size];
     //---
     r=Range.create(size);
     rSquare=Range.create(size*size);
     //---
-    updater=new CellUpdater3D(
-      posX,posY,posZ,
-      velX,velY,velZ,
+    updater=new CellUpdater2D(
+      posX,posY,
+      velX,velY,
       f,
       -boxR,-boxR,-boxR,
       boxR,boxR,boxR);
-    squareUpdater=new CellSquareUpdater3D(
-      posX,posY,posZ,
-      velX,velY,velZ,
-      DIST,DIST/3,//TODO
-      size,type,core,boxR/2,boxR/2,boxR/2);
+    squareUpdater=new CellSquareUpdater2D(
+      posX,posY,
+      velX,velY,
+      DIST,DIST/4,
+      size,type,core);
     //---
     try {
       updater.compile(bestDevice);
@@ -88,9 +83,6 @@ public class CellGroup3D extends ServerEntity{
   }
   public float y(int p) {
     return posY[p];
-  }
-  public float z(int p) {
-    return posZ[p];
   }
   public int color(int p) {
     return colors[type[p]];

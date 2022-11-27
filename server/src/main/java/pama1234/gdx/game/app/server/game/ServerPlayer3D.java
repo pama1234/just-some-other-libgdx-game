@@ -1,11 +1,10 @@
-package pama1234.gdx.game.app.server.with3d;
+package pama1234.gdx.game.app.server.game;
 
-import pama1234.gdx.game.app.server.game.Player;
-import pama1234.gdx.game.app.server.with3d.net.PlayerInfo3D;
+import pama1234.gdx.game.app.server.game.net.PlayerInfo3D;
 import pama1234.gdx.util.entity.ServerPoint3DEntity;
 import pama1234.math.physics.PathPoint3D;
 
-public class ServerPlayer3D extends ServerPoint3DEntity<PathPoint3D> implements Player{
+public class ServerPlayer3D extends ServerPoint3DEntity<PathPoint3D>{
   public PlayerInfo3D info;
   public ServerPlayer3D() {
     super(null);//TODO

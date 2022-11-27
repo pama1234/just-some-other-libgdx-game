@@ -1,15 +1,15 @@
 package pama1234.gdx.game.net.io;
 
-import static pama1234.gdx.game.net.NetUtil.catchException;
-import static pama1234.gdx.game.net.NetUtil.debug;
-import static pama1234.gdx.game.net.NetUtil.writeClientHeader;
+import static pama1234.gdx.game.app.server.game.net.NetUtil.catchException;
+import static pama1234.gdx.game.app.server.game.net.NetUtil.debug;
+import static pama1234.gdx.game.app.server.game.net.NetUtil.writeClientHeader;
 
 import java.io.IOException;
 import java.net.SocketException;
 
 import pama1234.data.ByteUtil;
 import pama1234.gdx.game.app.Screen0003;
-import pama1234.gdx.util.net.SocketData;
+import pama1234.gdx.game.app.server.game.net.SocketData;
 
 public class ClientWrite extends Thread{
   public Screen0003 p;
@@ -23,7 +23,7 @@ public class ClientWrite extends Thread{
   @Override
   public void run() {
     byte[] data=new byte[12];
-    while(!p.stop) {
+    while(!s.stop) {
       try {
         doF(data);
       }catch(SocketException e1) {
@@ -45,7 +45,7 @@ public class ClientWrite extends Thread{
         s.o.flush();
         // s.state=DataTransfer;
         // p.println(Arrays.toString(nameBytes));
-        // p.sleep(1000);
+        p.sleep(1000);
       }
         break;
       case ClientDataTransfer: {

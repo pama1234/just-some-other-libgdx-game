@@ -6,15 +6,15 @@ import com.badlogic.gdx.net.ServerSocket;
 import com.badlogic.gdx.net.ServerSocketHints;
 import com.badlogic.gdx.net.SocketHints;
 
-import pama1234.gdx.game.app.server.with3d.particle.CellGroup3D;
-import pama1234.gdx.game.app.server.with3d.particle.CellGroupGenerator3D;
+import pama1234.gdx.game.app.server.game.net.SocketData;
+import pama1234.gdx.game.app.server.game.particle.CellGroup3D;
+import pama1234.gdx.game.app.server.game.particle.CellGroupGenerator3D;
 import pama1234.gdx.game.net.SocketWrapper;
 import pama1234.gdx.game.net.io.ServerRead;
 import pama1234.gdx.game.net.io.ServerWrite;
 import pama1234.gdx.game.util.ClientPlayerCenter3D;
 import pama1234.gdx.util.app.UtilScreen3D;
 import pama1234.gdx.util.net.ServerInfo;
-import pama1234.gdx.util.net.SocketData;
 import pama1234.gdx.util.wrapper.Center;
 
 /**

@@ -1,15 +1,15 @@
 package pama1234.gdx.game.net.io;
 
-import static pama1234.gdx.game.net.NetUtil.catchException;
-import static pama1234.gdx.game.net.NetUtil.debug;
-import static pama1234.gdx.game.net.NetUtil.writeServerHeader;
+import static pama1234.gdx.game.app.server.game.net.NetUtil.catchException;
+import static pama1234.gdx.game.app.server.game.net.NetUtil.debug;
+import static pama1234.gdx.game.app.server.game.net.NetUtil.writeServerHeader;
 
 import java.io.IOException;
 import java.net.SocketException;
 
 import pama1234.data.ByteUtil;
 import pama1234.gdx.game.app.Screen0007;
-import pama1234.gdx.util.net.SocketData;
+import pama1234.gdx.game.app.server.game.net.SocketData;
 
 public class ServerWrite extends Thread{
   public Screen0007 p;

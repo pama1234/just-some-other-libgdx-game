@@ -1,4 +1,4 @@
-package pama1234.gdx.util.net;
+package pama1234.gdx.game.app.server.game.net.state;
 
 public enum ServerState{
   ServerProcessing,

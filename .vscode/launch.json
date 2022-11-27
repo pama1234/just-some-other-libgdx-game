@@ -6,14 +6,14 @@
   "configurations": [
     {
       "type": "java",
-      "name": "Launch Server",
+      "name": "Server",
       "request": "launch",
       "mainClass": "pama1234.gdx.game.app.lwjgl3.Lwjgl3LauncherServer",
       "projectName": "just-another-particle-system-lwjgl3"
     },
     {
       "type": "java",
-      "name": "Launch Client",
+      "name": "Client",
       "request": "launch",
       "mainClass": "pama1234.gdx.game.app.lwjgl3.Lwjgl3Launcher",
       "projectName": "just-another-particle-system-lwjgl3"

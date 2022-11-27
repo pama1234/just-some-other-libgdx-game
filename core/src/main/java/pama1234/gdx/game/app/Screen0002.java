@@ -1,9 +1,7 @@
 package pama1234.gdx.game.app;
 
-import pama1234.gdx.game.app.server.game.ServerPlayerCenter;
-import pama1234.gdx.game.app.server.with2d.Player2D;
-import pama1234.gdx.game.app.server.with2d.particle.CellGroup2D;
-import pama1234.gdx.game.app.server.with2d.particle.CellGroupGenerator2D;
+import pama1234.gdx.game.app.server.particle.with2d.CellGroup2D;
+import pama1234.gdx.game.app.server.particle.with2d.CellGroupGenerator2D;
 import pama1234.gdx.util.app.UtilScreen2D;
 
 /**
@@ -12,18 +10,18 @@ import pama1234.gdx.util.app.UtilScreen2D;
 @Deprecated
 public class Screen0002 extends UtilScreen2D{
   CellGroup2D group;
-  ServerPlayerCenter<Player2D> playerCenter;
+  // ServerPlayerCenter<Player2D> playerCenter;
   @Override
   public void setup() {
     CellGroupGenerator2D gen=new CellGroupGenerator2D(0,0);
     group=gen.GenerateFromMiniCore();
-    playerCenter=new ServerPlayerCenter<Player2D>();
+    // playerCenter=new ServerPlayerCenter<Player2D>();
     noStroke();
   }
   @Override
   public void update() {
     group.update();
-    playerCenter.update();
+    // playerCenter.update();
   }
   @Override
   public void display() {

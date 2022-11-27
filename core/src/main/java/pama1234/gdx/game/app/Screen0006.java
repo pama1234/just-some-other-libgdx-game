@@ -10,9 +10,9 @@ import com.badlogic.gdx.net.ServerSocketHints;
 import com.badlogic.gdx.net.SocketHints;
 
 import pama1234.data.ByteUtil;
+import pama1234.gdx.game.app.server.game.net.SocketData;
 import pama1234.gdx.game.net.SocketWrapper;
 import pama1234.gdx.util.app.UtilScreen3D;
-import pama1234.gdx.util.net.SocketData;
 import pama1234.gdx.util.wrapper.Center;
 
 public class Screen0006 extends UtilScreen3D{

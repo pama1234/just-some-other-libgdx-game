@@ -1,8 +1,12 @@
-package pama1234.gdx.util.net;
+package pama1234.gdx.game.app.server.game.net;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+
+import pama1234.gdx.game.app.server.game.net.state.ClientState;
+import pama1234.gdx.game.app.server.game.net.state.ServerState;
+import pama1234.gdx.util.net.SocketInterface;
 
 public class SocketData{
   // public int authCooling;//TODO server only

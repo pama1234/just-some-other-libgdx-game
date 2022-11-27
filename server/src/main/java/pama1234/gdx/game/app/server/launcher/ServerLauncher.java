@@ -1,9 +1,9 @@
 package pama1234.gdx.game.app.server.launcher;
 
-import pama1234.gdx.game.app.server.with2d.Server2D;
+import pama1234.gdx.game.app.server.game.Server3D;
 
 public class ServerLauncher{
 	public static void main(String[] args) {
-		new Server2D().run();
+		new Server3D().run();
 	}
 }

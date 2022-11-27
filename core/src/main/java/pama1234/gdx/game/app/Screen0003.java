@@ -16,6 +16,8 @@ import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.net.SocketHints;
 
+import pama1234.gdx.game.app.server.game.net.ClientCore;
+import pama1234.gdx.game.app.server.game.net.SocketData;
 import pama1234.gdx.game.app.server.particle.Var;
 import pama1234.gdx.game.net.SocketWrapper;
 import pama1234.gdx.game.net.io.ClientRead;
@@ -28,9 +30,7 @@ import pama1234.gdx.game.util.ControllerClientPlayer3D;
 import pama1234.gdx.util.FileUtil;
 import pama1234.gdx.util.app.UtilScreen3D;
 import pama1234.gdx.util.element.Graphics;
-import pama1234.gdx.util.net.CellData;
 import pama1234.gdx.util.net.ServerInfo;
-import pama1234.gdx.util.net.SocketData;
 import pama1234.math.Tools;
 
 /**
@@ -43,7 +43,8 @@ public class Screen0003 extends UtilScreen3D{
   // public Center<SocketData> socketCenter;
   //---
   public SocketData clientSocket;
-  public volatile CellData[] cellData;
+  // public volatile CellData[] cellData;
+  public ClientCore clientCore;
   //---
   public Thread clientRead,clientWrite;
   // public Thread acceptT,serverReadT,clientReadT,serverWriteT,clientWriteT;
@@ -108,8 +109,9 @@ public class Screen0003 extends UtilScreen3D{
     // group=gen.GenerateFromMiniCore();
     // serverTypeData=new int[gen.arraySizeOut];
     // cellData=new CellData[gen.arraySizeOut];
-    cellData=new CellData[tempSize];
-    for(int i=0;i<cellData.length;i++) cellData[i]=new CellData();
+    clientCore=new ClientCore(tempSize);
+    // cellData=new CellData[tempSize];
+    // for(int i=0;i<cellData.length;i++) cellData[i]=new CellData();
     playerCenter=new ClientPlayerCenter3D(this);
     yourself=new ControllerClientPlayer3D(this,"pama1234",cam.point);
     //---
@@ -140,13 +142,13 @@ public class Screen0003 extends UtilScreen3D{
         // (clientReadT=new ClientStateReadThread(Screen0003.this,clientStateSocket)).start();
         // (clientWriteT=new ClientStateWriteThread(Screen0003.this,clientStateSocket)).start();
         //TODO
-        (clientRead=new ClientRead(Screen0003.this,clientSocket)).start();
+        (clientRead=new ClientRead(clientCore,clientSocket)).start();
         (clientWrite=new ClientWrite(Screen0003.this,clientSocket)).start();
       }
     }.start();
     noStroke();
     graphicsList=new ArrayList<ArrayList<GraphicsData>>(layerSize);
-    decals=new ArrayList<>(cellData.length);
+    decals=new ArrayList<>(clientCore.cellData.length);
     final int ts=tempColorSize;
     int tsize=tempCellSize;
     int[] colors=new int[tempColorSize];
@@ -236,19 +238,19 @@ public class Screen0003 extends UtilScreen3D{
     // Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
     // Gdx.gl20.glDepthMask(false);
     // synchronized(cellData) {
-    for(int i=0;i<cellData.length;i++) {
-      float tx=cellData[i].x*multDist;
-      float ty=cellData[i].y*multDist;
-      float tz=cellData[i].z*multDist;
+    for(int i=0;i<clientCore.cellData.length;i++) {
+      float tx=clientCore.cellData[i].x*multDist;
+      float ty=clientCore.cellData[i].y*multDist;
+      float tz=clientCore.cellData[i].z*multDist;
       float tdist=dist(tx,ty,tz,cam.x(),cam.y(),cam.z());
-      final DecalData tdd=decals.get(cellData[i].id);
+      final DecalData tdd=decals.get(clientCore.cellData[i].id);
       final Decal td=tdd.decal;
       if(tdist>viewDist) continue;
       if(!isVisible(cam.camera,td,Var.DIST/2)) continue;
       final int tlf=layerF(tdist);
       if(tlf!=tdd.layer) {
         tdd.layer=tlf;
-        td.setTextureRegion(graphicsList.get(tlf).get(cellData[i].type).tr);
+        td.setTextureRegion(graphicsList.get(tlf).get(clientCore.cellData[i].type).tr);
       }
       td.setPosition(tx,ty,tz);
       td.lookAt(cam.camera.position,cam.camera.up);
