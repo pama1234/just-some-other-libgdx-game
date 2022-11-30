@@ -1,11 +1,9 @@
-package pama1234.gdx.game.net;
+package pama1234.gdx.util.net;
 
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-
-import com.badlogic.gdx.net.Socket;
-
-import pama1234.gdx.util.net.SocketInterface;
+import java.net.Socket;
 
 public class SocketWrapper implements SocketInterface{
   public Socket data;
@@ -18,18 +16,27 @@ public class SocketWrapper implements SocketInterface{
   }
   @Override
   public InputStream getInputStream() {
-    return data.getInputStream();
+    try {
+      return data.getInputStream();
+    }catch(IOException e) {
+      e.printStackTrace();
+      throw new RuntimeException(e);
+    }
   }
   @Override
   public OutputStream getOutputStream() {
-    return data.getOutputStream();
+    try {
+      return data.getOutputStream();
+    }catch(IOException e) {
+      e.printStackTrace();
+      throw new RuntimeException(e);
+    }
   }
   @Override
   public String getRemoteAddress() {
-    return data.getRemoteAddress();
+    return data.getInetAddress().getHostName();
   }
   @Override
-  public void dispose() {
-    data.dispose();
+  public void dispose() {//TODO
   }
 }

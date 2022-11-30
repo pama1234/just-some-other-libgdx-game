@@ -1,4 +1,4 @@
-package pama1234.gdx.game.net.io;
+package pama1234.gdx.game.app.server.game.net.io;
 
 import static pama1234.gdx.game.app.server.game.net.NetUtil.catchException;
 import static pama1234.gdx.game.app.server.game.net.NetUtil.debug;
@@ -8,14 +8,14 @@ import java.io.IOException;
 import java.net.SocketException;
 
 import pama1234.data.ByteUtil;
-import pama1234.gdx.game.app.Screen0007;
+import pama1234.gdx.game.app.server.game.net.ServerCore;
 import pama1234.gdx.game.app.server.game.net.SocketData;
 
 public class ServerWrite extends Thread{
-  public Screen0007 p;
+  public ServerCore p;
   public SocketData s;
   // public boolean stop;
-  public ServerWrite(Screen0007 p,SocketData dataSocket) {
+  public ServerWrite(ServerCore p,SocketData dataSocket) {
     super("ServerWrite "+dataSocket.s.getRemoteAddress());
     this.p=p;
     this.s=dataSocket;

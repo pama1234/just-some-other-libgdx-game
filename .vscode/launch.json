@@ -6,10 +6,18 @@
   "configurations": [
     {
       "type": "java",
-      "name": "Server",
+      "name": "Server3D",
+      "request": "launch",
+      "mainClass": "pama1234.gdx.game.app.server.game.Server3D",
+      "projectName": "just-another-particle-system-server"
+    },
+    {
+      "type": "java",
+      "name": "GDX Server",
       "request": "launch",
       "mainClass": "pama1234.gdx.game.app.lwjgl3.Lwjgl3LauncherServer",
       "projectName": "just-another-particle-system-lwjgl3"
+      // ,"vmArgs": "-Dcom.aparapi.enableShowGeneratedOpenCL=true"
     },
     {
       "type": "java",
@@ -17,7 +25,6 @@
       "request": "launch",
       "mainClass": "pama1234.gdx.game.app.lwjgl3.Lwjgl3Launcher",
       "projectName": "just-another-particle-system-lwjgl3"
-      // ,"vmArgs": "-Dcom.aparapi.enableShowGeneratedOpenCL=true"
     },
     {
       "type": "java",

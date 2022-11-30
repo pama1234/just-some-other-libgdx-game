@@ -6,13 +6,14 @@ import com.badlogic.gdx.net.ServerSocket;
 import com.badlogic.gdx.net.ServerSocketHints;
 import com.badlogic.gdx.net.SocketHints;
 
+import pama1234.gdx.game.app.server.game.ServerPlayerCenter3D;
+import pama1234.gdx.game.app.server.game.net.ServerCore;
 import pama1234.gdx.game.app.server.game.net.SocketData;
+import pama1234.gdx.game.app.server.game.net.io.ServerRead;
+import pama1234.gdx.game.app.server.game.net.io.ServerWrite;
 import pama1234.gdx.game.app.server.game.particle.CellGroup3D;
 import pama1234.gdx.game.app.server.game.particle.CellGroupGenerator3D;
-import pama1234.gdx.game.net.SocketWrapper;
-import pama1234.gdx.game.net.io.ServerRead;
-import pama1234.gdx.game.net.io.ServerWrite;
-import pama1234.gdx.game.util.ClientPlayerCenter3D;
+import pama1234.gdx.game.net.SocketWrapperGDX;
 import pama1234.gdx.util.app.UtilScreen3D;
 import pama1234.gdx.util.net.ServerInfo;
 import pama1234.gdx.util.wrapper.Center;
@@ -21,19 +22,22 @@ import pama1234.gdx.util.wrapper.Center;
  * 暂时的服务器调试libgdx窗口
  */
 public class Screen0007 extends UtilScreen3D{
-  public ServerInfo dataServerInfo,stateServerInfo;
+  // public ServerInfo dataServerInfo,stateServerInfo;
+  public ServerInfo dataServerInfo;
   //---
-  public ServerSocket serverDataSocket;
+  public ServerSocket serverSocket;
   public Center<SocketData> socketCenter;
-  public Thread acceptSocket,removeSocket;
+  public Thread acceptSocket;
+  // public Thread acceptSocket,removeSocket;//TODO
   public Center<ServerRead> serverReadPool;
   public Center<ServerWrite> serverWritePool;
+  public ServerCore serverCore;
   //---
   public CellGroup3D group;
   public boolean doUpdate=true;
   public Thread updateCell;
   //---
-  public ClientPlayerCenter3D playerCenter;
+  public ServerPlayerCenter3D playerCenter;
   @Override
   public void setup() {
     dataServerInfo=new ServerInfo("192.168.2.105",12347);
@@ -44,7 +48,7 @@ public class Screen0007 extends UtilScreen3D{
     // group=gen.randomGenerate();
     group=gen.GenerateFromMiniCore();
     //---
-    playerCenter=new ClientPlayerCenter3D(this);
+    playerCenter=new ServerPlayerCenter3D();
     //---
     SocketHints tsh=new SocketHints();
     tsh.connectTimeout=10000;
@@ -59,23 +63,24 @@ public class Screen0007 extends UtilScreen3D{
     tssh.performancePrefConnectionTime=0;
     tssh.performancePrefLatency=2;
     tssh.performancePrefBandwidth=1;
-    serverDataSocket=Gdx.net.newServerSocket(Protocol.TCP,dataServerInfo.addr,dataServerInfo.port,tssh);
+    serverSocket=Gdx.net.newServerSocket(Protocol.TCP,dataServerInfo.addr,dataServerInfo.port,tssh);
     // serverStateSocket=Gdx.net.newServerSocket(Protocol.TCP,stateServerInfo.addr,stateServerInfo.port,tssh);
     socketCenter=new Center<>();
     serverReadPool=new Center<>();
     serverWritePool=new Center<>();
+    serverCore=new ServerCore(socketCenter,serverReadPool,serverWritePool,group,playerCenter);
     acceptSocket=new Thread(()-> {
       while(!stop) {
         // synchronized(centerSocket.add) {
-        SocketData socketData=new SocketData(new SocketWrapper(serverDataSocket.accept(tsh)));
+        SocketData socketData=new SocketData(new SocketWrapperGDX(serverSocket.accept(tsh)));
         // System.out.println(socketData.s.getRemoteAddress());
         socketCenter.add.add(socketData);
         //---
-        ServerWrite serverWrite=new ServerWrite(Screen0007.this,socketData);
+        ServerWrite serverWrite=new ServerWrite(serverCore,socketData);
         serverWrite.start();
         serverWritePool.add.add(serverWrite);
         //---
-        ServerRead serverRead=new ServerRead(Screen0007.this,socketData);
+        ServerRead serverRead=new ServerRead(serverCore,socketData);
         serverRead.start();
         serverReadPool.add.add(serverRead);
         // }
@@ -131,7 +136,7 @@ public class Screen0007 extends UtilScreen3D{
     super.dispose();
     updateCell.interrupt();
     if((!updateCell.isInterrupted())||(updateCell.isAlive())) updateCell.stop();
-    serverDataSocket.dispose();
+    serverSocket.dispose();
     socketCenter.refresh();
     for(SocketData i:socketCenter.list) i.dispose();
     for(ServerRead i:serverReadPool.list) i.dispose();

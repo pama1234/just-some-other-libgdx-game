@@ -1,4 +1,4 @@
-package pama1234.gdx.game.net.io;
+package pama1234.gdx.game.app.server.game.net.io;
 
 import static pama1234.gdx.game.app.server.game.net.NetUtil.catchException;
 import static pama1234.gdx.game.app.server.game.net.NetUtil.debug;
@@ -9,16 +9,16 @@ import java.io.IOException;
 import java.net.SocketException;
 
 import pama1234.data.ByteUtil;
-import pama1234.gdx.game.app.Screen0007;
+import pama1234.gdx.game.app.server.game.ServerPlayer3D;
+import pama1234.gdx.game.app.server.game.net.ServerCore;
 import pama1234.gdx.game.app.server.game.net.SocketData;
 import pama1234.gdx.game.app.server.game.net.state.ClientState;
-import pama1234.gdx.game.util.ClientPlayer3D;
 
 public class ServerRead extends Thread{
-  public Screen0007 p;
+  public ServerCore p;
   public SocketData s;
   // public boolean stop;
-  public ServerRead(Screen0007 p,SocketData dataSocket) {
+  public ServerRead(ServerCore p,SocketData dataSocket) {
     super("ServerRead "+dataSocket.s.getRemoteAddress());
     this.p=p;
     this.s=dataSocket;
@@ -55,7 +55,7 @@ public class ServerRead extends Thread{
         e.name=new String(nameBytes);
         // System.out.println("e.name "+e.name);
         e.serverState=ServerDataTransfer;
-        p.playerCenter.add.add(new ClientPlayer3D(p,e.name,0,0,0));
+        p.playerCenter.add.add(new ServerPlayer3D(p,e.name,0,0,0));
         p.playerCenter.refresh();
         System.out.println("Auth "+e.name);
         // System.out.println(p.playerCenter.list.getFirst());
@@ -65,7 +65,7 @@ public class ServerRead extends Thread{
         break;
       case ClientDataTransfer: {
         readNBytes(e,inData,0,4*3);
-        ClientPlayer3D tp=p.playerCenter.hashMap.get(e.name);
+        ServerPlayer3D tp=p.playerCenter.hashMap.get(e.name);
         if(tp==null) {
           e.clientState=ClientState.ClientAuthentication;
           return;
