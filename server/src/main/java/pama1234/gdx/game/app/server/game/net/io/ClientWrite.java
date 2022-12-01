@@ -1,4 +1,4 @@
-package pama1234.gdx.game.net.io;
+package pama1234.gdx.game.app.server.game.net.io;
 
 import static pama1234.gdx.game.app.server.game.net.NetUtil.catchException;
 import static pama1234.gdx.game.app.server.game.net.NetUtil.debug;
@@ -8,14 +8,14 @@ import java.io.IOException;
 import java.net.SocketException;
 
 import pama1234.data.ByteUtil;
-import pama1234.gdx.game.app.Screen0003;
+import pama1234.gdx.game.app.server.game.net.ClientCore;
 import pama1234.gdx.game.app.server.game.net.SocketData;
 
 public class ClientWrite extends Thread{
-  public Screen0003 p;
+  public ClientCore p;
   public SocketData s;
   // public boolean stop;
-  public ClientWrite(Screen0003 p,SocketData dataSocket) {
+  public ClientWrite(ClientCore p,SocketData dataSocket) {
     super("ClientWrite "+dataSocket.s.getRemoteAddress());
     this.p=p;
     this.s=dataSocket;

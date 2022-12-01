@@ -18,10 +18,10 @@ import com.badlogic.gdx.net.SocketHints;
 
 import pama1234.gdx.game.app.server.game.net.ClientCore;
 import pama1234.gdx.game.app.server.game.net.SocketData;
+import pama1234.gdx.game.app.server.game.net.io.ClientRead;
+import pama1234.gdx.game.app.server.game.net.io.ClientWrite;
 import pama1234.gdx.game.app.server.particle.Var;
 import pama1234.gdx.game.net.SocketWrapperGDX;
-import pama1234.gdx.game.net.io.ClientRead;
-import pama1234.gdx.game.net.io.ClientWrite;
 import pama1234.gdx.game.ui.Button;
 import pama1234.gdx.game.ui.ConfigInfo;
 import pama1234.gdx.game.ui.TextButtonGenerator;
@@ -53,6 +53,7 @@ public class Screen0003 extends UtilScreen3D{
   @Deprecated
   public ClientPlayerCenter3D playerCenter;
   public ControllerClientPlayer3D yourself;
+  // public ServerPlayer3D yourself;
   public ArrayList<ArrayList<GraphicsData>> graphicsList;
   public ArrayList<DecalData> decals;
   // boolean doUpdate=true;//TODO
@@ -109,11 +110,13 @@ public class Screen0003 extends UtilScreen3D{
     // group=gen.GenerateFromMiniCore();
     // serverTypeData=new int[gen.arraySizeOut];
     // cellData=new CellData[gen.arraySizeOut];
-    clientCore=new ClientCore(tempSize);
+    clientCore=new ClientCore(tempSize,"pama1234");
     // cellData=new CellData[tempSize];
     // for(int i=0;i<cellData.length;i++) cellData[i]=new CellData();
     playerCenter=new ClientPlayerCenter3D(this);
-    yourself=new ControllerClientPlayer3D(this,"pama1234",cam.point);
+    // yourself=new ControllerClientPlayer3D(this,"pama1234",cam.point);
+    yourself=new ControllerClientPlayer3D(this,clientCore.yourself);
+    // yourself=new ServerPlayer3D("pama1234",0,0,0);
     //---
     dataServerInfo=new ServerInfo("192.168.2.105",12347);
     // stateServerInfo=new ServerInfo("192.168.2.105",12346);
@@ -129,7 +132,7 @@ public class Screen0003 extends UtilScreen3D{
     //---
     // sleep(10000);   
     // clientStateSocket=new SocketData("pama1234",Gdx.net.newClientSocket(Protocol.TCP,stateServerInfo.addr,stateServerInfo.port,tsh));
-    clientSocket=new SocketData(yourself.name,new SocketWrapperGDX(Gdx.net.newClientSocket(Protocol.TCP,dataServerInfo.addr,dataServerInfo.port,tsh)));
+    clientSocket=new SocketData(yourself.data.name,new SocketWrapperGDX(Gdx.net.newClientSocket(Protocol.TCP,dataServerInfo.addr,dataServerInfo.port,tsh)));
     new Thread() {
       public void run() {
         while(!clientSocket.s.isConnected()) {
@@ -143,7 +146,7 @@ public class Screen0003 extends UtilScreen3D{
         // (clientWriteT=new ClientStateWriteThread(Screen0003.this,clientStateSocket)).start();
         //TODO
         (clientRead=new ClientRead(clientCore,clientSocket)).start();
-        (clientWrite=new ClientWrite(Screen0003.this,clientSocket)).start();
+        (clientWrite=new ClientWrite(clientCore,clientSocket)).start();
       }
     }.start();
     noStroke();
@@ -203,7 +206,7 @@ public class Screen0003 extends UtilScreen3D{
     }
     centerScreen.add.add(configInfo=new ConfigInfo(this));
     centerCam.add.add(playerCenter);
-    centerCam.add.add(yourself);
+    centerCam.add.add(yourself);//TODO
   }
   public int getButtonUnitLength() {
     return bu;

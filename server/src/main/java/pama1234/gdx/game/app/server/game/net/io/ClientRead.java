@@ -1,4 +1,4 @@
-package pama1234.gdx.game.net.io;
+package pama1234.gdx.game.app.server.game.net.io;
 
 import static pama1234.gdx.game.app.server.game.net.NetUtil.catchException;
 import static pama1234.gdx.game.app.server.game.net.NetUtil.debug;
