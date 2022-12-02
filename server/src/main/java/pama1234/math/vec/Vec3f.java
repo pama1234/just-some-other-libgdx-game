@@ -7,6 +7,7 @@ import javax.vecmath.Vector3f;
 import pama1234.data.nio.ByteBufferData;
 import pama1234.math.Tools;
 import pama1234.math.UtilMath;
+import pama1234.math.mat.Mat4f;
 
 public class Vec3f extends Vector3f implements ByteBufferData{
   private static final long serialVersionUID=8654339263948261774L;
@@ -96,6 +97,36 @@ public class Vec3f extends Vector3f implements ByteBufferData{
     final float temp=x;
     x=x*UtilMath.cos(dir)-y*UtilMath.sin(dir);
     y=temp*UtilMath.sin(dir)+y*UtilMath.cos(dir);
+  }
+  public final float dot(float xIn,float yIn,float zIn) {
+    return this.x*xIn+this.y*yIn+this.z*zIn;
+  }
+  public void nor() {
+    final float lenSq=this.lenSq();
+    if(lenSq==0f||lenSq==1f) return;
+    this.scl(1f/(float)Math.sqrt(lenSq));
+  }
+  @Deprecated
+  public float len2() {
+    return lengthSquared();
+  }
+  public float lenSq() {
+    return lengthSquared();
+  }
+  public void scl(float scalar) {
+    this.set(this.x*scalar,this.y*scalar,this.z*scalar);
+  }
+  public void crs(Vec3f in) {
+    this.set(this.y*in.z-this.z*in.y,this.z*in.x-this.x*in.z,this.x*in.y-this.y*in.x);
+  }
+  public void crs(float x,float y,float z) {
+    this.set(this.y*z-this.z*y,this.z*x-this.x*z,this.x*y-this.y*x);
+  }
+  public void mul(final Mat4f matrix) {
+    final float l_mat[]=matrix.val;
+    this.set(x*l_mat[Mat4f.M00]+y*l_mat[Mat4f.M01]+z*l_mat[Mat4f.M02]+l_mat[Mat4f.M03],
+      x*l_mat[Mat4f.M10]+y*l_mat[Mat4f.M11]+z*l_mat[Mat4f.M12]+l_mat[Mat4f.M13],
+      x*l_mat[Mat4f.M20]+y*l_mat[Mat4f.M21]+z*l_mat[Mat4f.M22]+l_mat[Mat4f.M23]);
   }
   @Override
   public String toString() {

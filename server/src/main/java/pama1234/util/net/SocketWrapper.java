@@ -34,7 +34,7 @@ public class SocketWrapper implements SocketInterface{
   }
   @Override
   public String getRemoteAddress() {
-    return data.getInetAddress().getHostName();
+    return data.getInetAddress().getHostAddress();
   }
   @Override
   public void dispose() {//TODO

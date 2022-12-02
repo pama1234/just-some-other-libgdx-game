@@ -16,8 +16,8 @@ import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.net.SocketHints;
 
-import pama1234.game.app.server.game.net.ClientCore;
 import pama1234.game.app.server.game.net.SocketData;
+import pama1234.game.app.server.game.net.data.ClientCore;
 import pama1234.game.app.server.game.net.io.ClientRead;
 import pama1234.game.app.server.game.net.io.ClientWrite;
 import pama1234.game.app.server.particle.Var;
@@ -208,6 +208,7 @@ public class Screen0003 extends UtilScreen3D{
     centerScreen.add.add(configInfo=new ConfigInfo(this));
     centerCam.add.add(playerCenter);
     centerCam.add.add(yourself);//TODO
+    updateViewDist();
   }
   public int getButtonUnitLength() {
     return bu;
@@ -216,9 +217,6 @@ public class Screen0003 extends UtilScreen3D{
   public void update() {
     // centerSocket.refresh();
     if(clientSocket.stop) clientSocket.dispose();
-  }
-  public boolean isVisible(Camera cam,Decal in,float r) {
-    return cam.frustum.sphereInFrustum(in.getPosition(),r);
   }
   public float colorF(float in) {
     in/=viewDist/2;
@@ -233,9 +231,11 @@ public class Screen0003 extends UtilScreen3D{
     return out;
     // return (int)constrain(map(log(dist,logn),-logViewDist,logViewDist,layerSize,0),0,layerSize-1);
   }
-  public static void main(String[] args) {
-    pow(1,1);
-    log(1,1);
+  public void updateViewDist() {
+    cam3d.camera.far=viewDist;
+  }
+  public boolean isVisible(Camera cam,Decal in,float r) {
+    return cam.frustum.sphereInFrustum(in.getPosition(),r);
   }
   @Override
   public void display() {
@@ -249,7 +249,7 @@ public class Screen0003 extends UtilScreen3D{
       float tdist=dist(tx,ty,tz,cam.x(),cam.y(),cam.z());
       final DecalData tdd=decals.get(clientCore.cellData[i].id);
       final Decal td=tdd.decal;
-      if(tdist>viewDist) continue;
+      // if(tdist>viewDist) continue;
       if(!isVisible(cam.camera,td,Var.DIST/2)) continue;
       final int tlf=layerF(tdist);
       if(tlf!=tdd.layer) {
@@ -298,10 +298,12 @@ public class Screen0003 extends UtilScreen3D{
     if(key=='N') {
       viewDist/=2;
       if(viewDist<2) viewDist=2;
+      updateViewDist();
     }
     if(key=='M') {
       viewDist*=2;
       if(viewDist>2048) viewDist=2048;
+      updateViewDist();
     }
     if(isAndroid&&key=='T') fullSettings=!fullSettings;//TODO
     // if(key=='I') configInfo=!configInfo;
@@ -311,5 +313,9 @@ public class Screen0003 extends UtilScreen3D{
   public void dispose() {
     super.dispose();
     clientSocket.dispose();
+  }
+  public static void main(String[] args) {
+    pow(1,1);
+    log(1,1);
   }
 }

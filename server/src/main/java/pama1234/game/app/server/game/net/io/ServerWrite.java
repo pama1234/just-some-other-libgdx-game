@@ -8,13 +8,12 @@ import java.io.IOException;
 import java.net.SocketException;
 
 import pama1234.data.ByteUtil;
-import pama1234.game.app.server.game.net.ServerCore;
 import pama1234.game.app.server.game.net.SocketData;
+import pama1234.game.app.server.game.net.data.ServerCore;
 
 public class ServerWrite extends Thread{
   public ServerCore p;
   public SocketData s;
-  // public boolean stop;
   public ServerWrite(ServerCore p,SocketData dataSocket) {
     super("ServerWrite "+dataSocket.s.getRemoteAddress());
     this.p=p;
@@ -24,10 +23,7 @@ public class ServerWrite extends Thread{
   public void run() {
     byte[] data=new byte[20];
     while(!s.stop) {
-      // p.socketCenter.refresh();
-      // synchronized(p.socketCenter.list) {
       synchronized(p.group) {
-        // for(SocketData e:p.socketCenter.list) {
         try {
           doF(s,data);
         }catch(SocketException e1) {
@@ -44,17 +40,9 @@ public class ServerWrite extends Thread{
     // if(e.state==1)
     switch(e.serverState) {
       case ServerAuthentication: {
-        // System.out.println("abc");
-        // if(e.authCooling>0) {
-        //   e.authCooling--;
-        //   return;
-        // }
         writeServerHeader(e,outData,4);
         e.o.write(ByteUtil.intToByte(1234,outData,0),0,4);
         e.o.flush();
-        // p.sleep(2000);
-        // e.authCooling=20000;
-        // p.sleep(200);
       }
         break;
       case ServerDataTransfer: {

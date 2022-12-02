@@ -7,8 +7,8 @@ import com.badlogic.gdx.net.ServerSocketHints;
 import com.badlogic.gdx.net.SocketHints;
 
 import pama1234.game.app.server.game.ServerPlayerCenter3D;
-import pama1234.game.app.server.game.net.ServerCore;
 import pama1234.game.app.server.game.net.SocketData;
+import pama1234.game.app.server.game.net.data.ServerCore;
 import pama1234.game.app.server.game.net.io.ServerRead;
 import pama1234.game.app.server.game.net.io.ServerWrite;
 import pama1234.game.app.server.game.particle.CellGroup3D;

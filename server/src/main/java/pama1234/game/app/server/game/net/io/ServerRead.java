@@ -10,14 +10,13 @@ import java.net.SocketException;
 
 import pama1234.data.ByteUtil;
 import pama1234.game.app.server.game.ServerPlayer3D;
-import pama1234.game.app.server.game.net.ServerCore;
 import pama1234.game.app.server.game.net.SocketData;
+import pama1234.game.app.server.game.net.data.ServerCore;
 import pama1234.game.app.server.game.net.state.ClientState;
 
 public class ServerRead extends Thread{
   public ServerCore p;
   public SocketData s;
-  // public boolean stop;
   public ServerRead(ServerCore p,SocketData dataSocket) {
     super("ServerRead "+dataSocket.s.getRemoteAddress());
     this.p=p;
@@ -25,10 +24,9 @@ public class ServerRead extends Thread{
   }
   @Override
   public void run() {
-    byte[] data=new byte[12];
+    byte[] data=new byte[128];
     while(!s.stop) {
       synchronized(p.socketCenter.list) {
-        // synchronized(p.group) {
         try {
           doF(s,data,
             s.clientState=ClientState.intToState(ByteUtil.byteToInt(readNBytes(s,data,0,4),0)),
@@ -44,24 +42,15 @@ public class ServerRead extends Thread{
   }
   public void doF(SocketData e,byte[] inData,ClientState state,int readSize) throws IOException {
     if(debug) System.out.println("ServerRead state="+state+" readSize="+readSize);
-    // if(state!=e.clientState) {
-    //   System.out.println("state!=e.state "+state+" "+e.clientState);
-    //   return;
-    // }
     switch(state) {
       case ClientAuthentication: {
         byte[] nameBytes=new byte[readSize];
         readNBytes(e,nameBytes,0,readSize);
         e.name=new String(nameBytes);
-        // System.out.println("e.name "+e.name);
         e.serverState=ServerDataTransfer;
         p.playerCenter.add.add(new ServerPlayer3D(e.name,0,0,0));//TODO ?
-        // p.playerCenter.add.add(new ServerPlayer3D(p,e.name,0,0,0));
         p.playerCenter.refresh();
         System.out.println("Auth "+e.name);
-        // System.out.println(p.playerCenter.list.getFirst());
-        // System.out.println(p.playerCenter.hashMap.size());
-        // System.out.println(p.playerCenter.hashMap.get(e.name));
       }
         break;
       case ClientDataTransfer: {

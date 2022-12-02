@@ -3,6 +3,10 @@ package pama1234.math;
 public class UtilMath{
   static public final float radDeg=(float)(180./Math.PI);
   static public final float degRad=(float)(Math.PI/180.);
+  static public final float PI=(float)Math.PI;
+  static public final float PI2=PI*2;
+  static public final float HALF_PI=PI/2;
+  static public final float FLOAT_ROUNDING_ERROR=0.000001f; // 32 bits
   public static int min(int a,int b) {
     return a<b?a:b;
   }
@@ -100,5 +104,86 @@ public class UtilMath{
   }
   public static int pow(int in,int n) {
     return (int)Math.pow(in,n);
+  }
+  public static float dot(float x,float y,float z,float x2,float y2,float z2) {
+    return x*x2+y*y2+z*z2;
+  }
+  public static float atanUnchecked(double i) {
+    // We use double precision internally, because some constants need double precision.
+    double n=Math.abs(i);
+    // c uses the "equally-good" formulation that permits n to be from 0 to almost infinity.
+    double c=(n-1.0)/(n+1.0);
+    // The approximation needs 6 odd powers of c.
+    double c2=c*c;
+    double c3=c*c2;
+    double c5=c3*c2;
+    double c7=c5*c2;
+    double c9=c7*c2;
+    double c11=c9*c2;
+    return (float)Math.copySign((Math.PI*0.25)
+      +(0.99997726*c-0.33262347*c3+0.19354346*c5-0.11643287*c7+0.05265332*c9-0.0117212*c11),i);
+  }
+  public static float atan2(float y,float x) {
+    float n=y/x;
+    if(n!=n) n=(y==x?1f:-1f); // if both y and x are infinite, n would be NaN
+    else if(n-n!=n-n) x=0f; // if n is infinite, y is infinitely larger than x.
+    if(x>0) return atanUnchecked(n);
+    else if(x<0) {
+      if(y>=0) return atanUnchecked(n)+PI;
+      return atanUnchecked(n)-PI;
+    }else if(y>0) return x+HALF_PI;
+    else if(y<0) return x-HALF_PI;
+    return x+y; // returns 0 for 0,0 or NaN if either y or x is NaN
+  }
+  public static float clamp(float value,float min,float max) {
+    if(value<min) return min;
+    if(value>max) return max;
+    return value;
+  }
+  static public boolean nearEqual(float a,float b) {
+    return Math.abs(a-b)<=FLOAT_ROUNDING_ERROR;
+  }
+  public static boolean nearZero(float in) {
+    return Math.abs(in)<=FLOAT_ROUNDING_ERROR;
+  }
+  static public boolean nearEqual(float a,float b,float c) {
+    return Math.abs(a-b)<=c;
+  }
+  public static boolean nearZero(float in,float c) {
+    return Math.abs(in)<=c;
+  }
+  public static int floatToIntBits(float value) {
+    return Float.floatToIntBits(value);
+  }
+  public static int floatToRawIntBits(float value) {
+    return Float.floatToRawIntBits(value);
+  }
+  /**
+   * Converts the color from a float ABGR encoding to an int ABGR encoding. The alpha is expanded
+   * from 0-254 in the float encoding (see {@link #intToFloatColor(int)}) to 0-255, which means
+   * converting from int to float and back to int can be lossy.
+   */
+  public static int floatToIntColor(float value) {
+    int intBits=Float.floatToRawIntBits(value);
+    intBits|=(int)((intBits>>>24)*(255f/254f))<<24;
+    return intBits;
+  }
+  /**
+   * Encodes the ABGR int color as a float. The alpha is compressed to use only even numbers
+   * between 0-254 to avoid using bits in the NaN range (see {@link Float#intBitsToFloat(int)}
+   * javadocs). Rendering which uses colors encoded as floats should expand the 0-254 back to
+   * 0-255, else colors cannot be fully opaque.
+   */
+  public static float intToFloatColor(int value) {
+    return Float.intBitsToFloat(value&0xfeffffff);
+  }
+  public static float intBitsToFloat(int value) {
+    return Float.intBitsToFloat(value);
+  }
+  public static long doubleToLongBits(double value) {
+    return Double.doubleToLongBits(value);
+  }
+  public static double longBitsToDouble(long value) {
+    return Double.longBitsToDouble(value);
   }
 }
