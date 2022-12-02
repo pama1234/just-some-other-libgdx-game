@@ -7,7 +7,7 @@ import com.badlogic.gdx.InputProcessor;
 import pama1234.gdx.util.app.UtilScreen;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
-import pama1234.gdx.util.listener.EssentialListener;
+import pama1234.util.listener.EssentialListener;
 
 public class UtilInputProcesser implements EssentialListener,InputProcessor{
   public UtilScreen p;

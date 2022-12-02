@@ -2,6 +2,7 @@ package pama1234.gdx.util.listener;
 
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
+import pama1234.util.listener.ServerEntityListener;
 
 public interface EntityListener extends ServerEntityListener,InputListener{
   default void display() {}

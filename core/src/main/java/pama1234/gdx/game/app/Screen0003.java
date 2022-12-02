@@ -16,11 +16,11 @@ import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.net.SocketHints;
 
-import pama1234.gdx.game.app.server.game.net.ClientCore;
-import pama1234.gdx.game.app.server.game.net.SocketData;
-import pama1234.gdx.game.app.server.game.net.io.ClientRead;
-import pama1234.gdx.game.app.server.game.net.io.ClientWrite;
-import pama1234.gdx.game.app.server.particle.Var;
+import pama1234.game.app.server.game.net.ClientCore;
+import pama1234.game.app.server.game.net.SocketData;
+import pama1234.game.app.server.game.net.io.ClientRead;
+import pama1234.game.app.server.game.net.io.ClientWrite;
+import pama1234.game.app.server.particle.Var;
 import pama1234.gdx.game.net.SocketWrapperGDX;
 import pama1234.gdx.game.ui.Button;
 import pama1234.gdx.game.ui.ConfigInfo;
@@ -30,8 +30,8 @@ import pama1234.gdx.game.util.ControllerClientPlayer3D;
 import pama1234.gdx.util.FileUtil;
 import pama1234.gdx.util.app.UtilScreen3D;
 import pama1234.gdx.util.element.Graphics;
-import pama1234.gdx.util.net.ServerInfo;
 import pama1234.math.Tools;
+import pama1234.util.net.ServerInfo;
 
 /**
  * 3D 粒子系统 客户端
@@ -65,7 +65,8 @@ public class Screen0003 extends UtilScreen3D{
   public static final int layerSize=3;
   public static final int gsize=8;
   public float multDist=1;
-  public boolean displayHint=true;
+  public boolean displayHint;
+  // public boolean displayHint=true;
   public Decal infoD;
   public Decal logo;
   // final int tu=16;
@@ -110,7 +111,7 @@ public class Screen0003 extends UtilScreen3D{
     // group=gen.GenerateFromMiniCore();
     // serverTypeData=new int[gen.arraySizeOut];
     // cellData=new CellData[gen.arraySizeOut];
-    clientCore=new ClientCore(tempSize,"pama1234");
+    clientCore=new ClientCore(tempSize,"pama"+String.format("%04d",(int)(random(0,10000))));
     // cellData=new CellData[tempSize];
     // for(int i=0;i<cellData.length;i++) cellData[i]=new CellData();
     playerCenter=new ClientPlayerCenter3D(this);

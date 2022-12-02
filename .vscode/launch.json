@@ -8,7 +8,7 @@
       "type": "java",
       "name": "Server3D",
       "request": "launch",
-      "mainClass": "pama1234.gdx.game.app.server.game.Server3D",
+      "mainClass": "pama1234.game.app.server.game.Server3D",
       "projectName": "just-another-particle-system-server"
     },
     {

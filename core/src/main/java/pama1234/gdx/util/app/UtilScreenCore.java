@@ -27,10 +27,10 @@ import pama1234.gdx.util.info.TouchInfo;
 import pama1234.gdx.util.input.UtilInputProcesser;
 import pama1234.gdx.util.listener.EntityListener;
 import pama1234.gdx.util.listener.InputListener;
-import pama1234.gdx.util.listener.LifecycleListener;
-import pama1234.gdx.util.listener.ServerEntityListener;
 import pama1234.gdx.util.wrapper.EntityCenter;
-import pama1234.gdx.util.wrapper.ServerEntityCenter;
+import pama1234.util.listener.LifecycleListener;
+import pama1234.util.listener.ServerEntityListener;
+import pama1234.util.wrapper.ServerEntityCenter;
 
 public abstract class UtilScreenCore implements Screen,InputListener,LifecycleListener{
   public final float fontGridSize=4;

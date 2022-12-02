@@ -14,7 +14,7 @@ import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.gdx.util.input.UtilInputProcesser;
 import pama1234.gdx.util.wrapper.EntityCenter;
-import pama1234.gdx.util.wrapper.ServerEntityCenter;
+import pama1234.util.wrapper.ServerEntityCenter;
 
 public abstract class UtilScreen2D extends UtilScreen{
   public CameraController2D cam2d;//TODO do we need this?

@@ -6,20 +6,20 @@ import com.badlogic.gdx.net.ServerSocket;
 import com.badlogic.gdx.net.ServerSocketHints;
 import com.badlogic.gdx.net.SocketHints;
 
-import pama1234.gdx.game.app.server.game.ServerPlayerCenter3D;
-import pama1234.gdx.game.app.server.game.net.ServerCore;
-import pama1234.gdx.game.app.server.game.net.SocketData;
-import pama1234.gdx.game.app.server.game.net.io.ServerRead;
-import pama1234.gdx.game.app.server.game.net.io.ServerWrite;
-import pama1234.gdx.game.app.server.game.particle.CellGroup3D;
-import pama1234.gdx.game.app.server.game.particle.CellGroupGenerator3D;
+import pama1234.game.app.server.game.ServerPlayerCenter3D;
+import pama1234.game.app.server.game.net.ServerCore;
+import pama1234.game.app.server.game.net.SocketData;
+import pama1234.game.app.server.game.net.io.ServerRead;
+import pama1234.game.app.server.game.net.io.ServerWrite;
+import pama1234.game.app.server.game.particle.CellGroup3D;
+import pama1234.game.app.server.game.particle.CellGroupGenerator3D;
 import pama1234.gdx.game.net.SocketWrapperGDX;
 import pama1234.gdx.util.app.UtilScreen3D;
-import pama1234.gdx.util.net.ServerInfo;
-import pama1234.gdx.util.wrapper.Center;
+import pama1234.util.net.ServerInfo;
+import pama1234.util.wrapper.Center;
 
 /**
- * 暂时的服务器调试libgdx窗口
+ * 服务器调试libgdx窗口 未维护
  */
 public class Screen0007 extends UtilScreen3D{
   // public ServerInfo dataServerInfo,stateServerInfo;

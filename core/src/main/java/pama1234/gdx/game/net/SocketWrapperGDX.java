@@ -5,7 +5,7 @@ import java.io.OutputStream;
 
 import com.badlogic.gdx.net.Socket;
 
-import pama1234.gdx.util.net.SocketInterface;
+import pama1234.util.net.SocketInterface;
 
 public class SocketWrapperGDX implements SocketInterface{
   public Socket data;
