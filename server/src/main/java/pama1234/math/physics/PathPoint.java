@@ -26,6 +26,11 @@ public class PathPoint extends Point implements ByteBufferData{
     pos=new Vec2f(a,b);
     des=new Vec2f(pos);
   }
+  public PathPoint(float a,float b,float fIn) {
+    pos=new Vec2f(a,b);
+    des=new Vec2f(pos);
+    f=fIn;
+  }
   public PathPoint(float a,float b,float c,float d) {
     pos=new Vec2f(a,b);
     des=new Vec2f(c,d);

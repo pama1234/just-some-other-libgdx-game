@@ -133,7 +133,7 @@ public class Screen0003 extends UtilScreen3D{
     //---
     // sleep(10000);   
     // clientStateSocket=new SocketData("pama1234",Gdx.net.newClientSocket(Protocol.TCP,stateServerInfo.addr,stateServerInfo.port,tsh));
-    clientSocket=new SocketData(yourself.data.name,new SocketWrapperGDX(Gdx.net.newClientSocket(Protocol.TCP,dataServerInfo.addr,dataServerInfo.port,tsh)));
+    clientSocket=new SocketData(yourself.data.name(),new SocketWrapperGDX(Gdx.net.newClientSocket(Protocol.TCP,dataServerInfo.addr,dataServerInfo.port,tsh)));
     new Thread() {
       public void run() {
         while(!clientSocket.s.isConnected()) {
@@ -143,8 +143,6 @@ public class Screen0003 extends UtilScreen3D{
             e.printStackTrace();
           }
         }
-        // (clientReadT=new ClientStateReadThread(Screen0003.this,clientStateSocket)).start();
-        // (clientWriteT=new ClientStateWriteThread(Screen0003.this,clientStateSocket)).start();
         //TODO
         (clientRead=new ClientRead(clientCore,clientSocket)).start();
         (clientWrite=new ClientWrite(clientCore,clientSocket)).start();

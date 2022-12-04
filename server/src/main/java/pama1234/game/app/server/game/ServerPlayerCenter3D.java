@@ -19,11 +19,11 @@ public class ServerPlayerCenter3D extends ServerEntityCenter<ServerPlayer3D>{
   @Override
   public void refresh() {
     for(ServerPlayer3D e:add) {
-      if(hashMap.get(e.name)==null) hashMap.put(e.name,e);
+      if(hashMap.get(e.name())==null) hashMap.put(e.name(),e);
       else remove.add(e);
     }
     super.refresh();//TODO
-    for(ServerPlayer3D e:remove) hashMap.remove(e.name);
+    for(ServerPlayer3D e:remove) hashMap.remove(e.name());
     // for(ClientPlayer3D e:add) hashMap.put(e.token,e);
     // for(ClientPlayer3D e:remove) hashMap.remove(e.token);
     super.refresh();

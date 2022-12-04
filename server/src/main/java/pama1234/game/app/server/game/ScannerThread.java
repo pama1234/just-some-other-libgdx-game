@@ -13,6 +13,7 @@ public class ScannerThread extends Thread{
   }
   @Override
   public void run() {
+    System.out.println("just-another-particle-system v0.1 server");
     while(!p.stop) {
       String in=scanner.nextLine();
       String[] data=in.replaceAll("^\"","").split("\"?( |$)(?=(([^\"]*\"){2})*[^\"]*$)\"?");//TODO faster
@@ -40,7 +41,7 @@ public class ScannerThread extends Thread{
           break;
         default:
           // System.out.println("["+data[0]+"]");
-          System.out.println("type help to display help menu");
+          System.out.println("type help to display help menu.");
           System.out.println("输入 help 显示帮助文档");
           break;
       }

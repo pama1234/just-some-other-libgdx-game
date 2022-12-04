@@ -12,11 +12,13 @@ import com.badlogic.gdx.graphics.PerspectiveCamera;
 
 import pama1234.gdx.util.app.UtilScreen3D;
 import pama1234.gdx.util.info.TouchInfo;
+import pama1234.math.physics.PathPoint;
 import pama1234.math.physics.PathVar;
 
 public class CameraController3D extends CameraController{
   public PerspectiveCamera pcam;
-  PathVar h=new PathVar(PI/2*3,0.5f),v=new PathVar(-PI/2f,0.5f);
+  // public PathVar h=new PathVar(PI/2*3,0.5f),v=new PathVar(-PI/2f,0.5f);
+  public PathPoint viewDir=new PathPoint(PI/2*3,-PI/2f,0.5f);
   public float moveSpeed=1;
   public float viewSpeed=1.5f;
   public boolean grabCursor;
@@ -33,12 +35,13 @@ public class CameraController3D extends CameraController{
   @Override
   public void update() {
     point.update();
-    h.update();
-    v.update();
-    final float sinV=sin(v.pos),
-      cosV=cos(v.pos),
-      sinH=sin(h.pos),
-      cosH=cos(h.pos);
+    // h.update();
+    // v.update();
+    viewDir.update();
+    final float sinV=sin(viewDir.pos.y),
+      cosV=cos(viewDir.pos.y),
+      sinH=sin(viewDir.pos.x),
+      cosH=cos(viewDir.pos.x);
     float dx=0,dz=0;
     float tx=point.des.x,
       ty=point.des.y,
@@ -108,18 +111,18 @@ public class CameraController3D extends CameraController{
       coolingCount--;
       return;
     }
-    h.des-=(dx/pcam.viewportWidth)*viewSpeed;
-    v.des-=-(dy/pcam.viewportHeight)*viewSpeed;
-    if(h.des>=PI2) {
-      h.des-=PI2;
-      h.pos-=PI2;
+    viewDir.des.x-=(dx/pcam.viewportWidth)*viewSpeed;
+    viewDir.des.y-=-(dy/pcam.viewportHeight)*viewSpeed;
+    if(viewDir.des.x>=PI2) {
+      viewDir.des.x-=PI2;
+      viewDir.pos.x-=PI2;
     }
-    if(h.des<0) {
-      h.des+=PI2;
-      h.pos+=PI2;
+    if(viewDir.des.x<0) {
+      viewDir.des.x+=PI2;
+      viewDir.pos.x+=PI2;
     }
-    if(v.des<=-PI) v.des=0.005f-PI;
-    if(v.des>=0) v.des=-0.005f;
+    if(viewDir.des.y<=-PI) viewDir.des.y=0.005f-PI;
+    if(viewDir.des.y>=0) viewDir.des.y=-0.005f;
   }
   @Override
   public void mouseMoved() {
