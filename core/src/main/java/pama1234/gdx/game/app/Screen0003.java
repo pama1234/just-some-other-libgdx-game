@@ -258,7 +258,8 @@ public class Screen0003 extends UtilScreen3D{
       }
       td.setPosition(tx,ty,tz);
       td.lookAt(cam.camera.position,cam.camera.up);
-      td.setColor(1,1,1,colorF(tdist));
+      float colorF=colorF(tdist);
+      td.setColor(colorF,colorF,colorF,1);
       decal(td);
     }
     // }

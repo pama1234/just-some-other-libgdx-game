@@ -17,7 +17,7 @@ public class Server3D extends UtilServer{
   public boolean doUpdate=true;
   public Thread updateCell;
   //---
-  ServerPlayerCenter3D playerCenter;
+  public ServerPlayerCenter3D playerCenter;
   //---
   public ServerInfo dataServerInfo;
   public ServerSocketData serverSocket;
@@ -26,6 +26,9 @@ public class Server3D extends UtilServer{
   public Center<ServerWrite> serverWritePool;
   public Thread acceptSocket;
   public ServerCore serverCore;
+  //---
+  // public Scanner scanner;
+  public ScannerThread scannerThread;
   @Override
   public void init() {
     CellGroupGenerator3D gen=new CellGroupGenerator3D(0,0);
@@ -73,10 +76,14 @@ public class Server3D extends UtilServer{
       }
     },"AcceptSocket");
     acceptSocket.start();
+    //---
+    scannerThread=new ScannerThread(this);
+    scannerThread.start();
   }
   @Override
   public void update() {
-    group.update();
+    // group.update();
+    // if(doUpdate) group.update();
     playerCenter.update();
   }
   @Override
