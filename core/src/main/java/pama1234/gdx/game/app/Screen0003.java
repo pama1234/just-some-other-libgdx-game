@@ -51,14 +51,14 @@ public class Screen0003 extends ScreenCore{
   //---
   // public CellGroup3D group;
   @Deprecated
-  public ClientPlayerCenter3D playerCenter;
+  public ClientPlayerCenter3D playerCenter;//TODO
   public ControllerClientPlayer3D yourself;
   // public ServerPlayer3D yourself;
   public ArrayList<ArrayList<GraphicsData>> graphicsList;
   public ArrayList<DecalData> decals;
   // boolean doUpdate=true;//TODO
   public boolean doUpdate;
-  public Thread updateCell;
+  // public Thread updateCell;
   public Vector3 posCache=new Vector3();
   // public float viewDist=1024;//TODO
   // static final float logn=32,logViewDist=log(viewDist,logn/4);
