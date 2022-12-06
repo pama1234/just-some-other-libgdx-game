@@ -7,17 +7,17 @@
   "configurations": [
     {
       "type": "java",
-      "name": "Launch CheckSum",
-      "request": "launch",
-      "mainClass": "pama1234.game.app.server.game.CheckSum",
-      "projectName": "just-another-particle-system-server"
-    },
-    {
-      "type": "java",
       "name": "Server3D",
       "request": "launch",
       "mainClass": "pama1234.game.app.server.game.Server3D",
       "projectName": "just-another-particle-system-server"
+    },
+    {
+      "type": "java",
+      "name": "Client",
+      "request": "launch",
+      "mainClass": "pama1234.gdx.game.app.lwjgl3.Lwjgl3Launcher",
+      "projectName": "just-another-particle-system-lwjgl3"
     },
     {
       "type": "java",
@@ -28,10 +28,10 @@
     },
     {
       "type": "java",
-      "name": "Client",
+      "name": "Launch CheckSum",
       "request": "launch",
-      "mainClass": "pama1234.gdx.game.app.lwjgl3.Lwjgl3Launcher",
-      "projectName": "just-another-particle-system-lwjgl3"
+      "mainClass": "pama1234.game.app.server.game.CheckSum",
+      "projectName": "just-another-particle-system-server"
     },
     {
       "type": "java",

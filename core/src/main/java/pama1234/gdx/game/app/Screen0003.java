@@ -28,7 +28,6 @@ import pama1234.gdx.game.ui.TextButtonGenerator;
 import pama1234.gdx.game.util.ClientPlayerCenter3D;
 import pama1234.gdx.game.util.ControllerClientPlayer3D;
 import pama1234.gdx.util.FileUtil;
-import pama1234.gdx.util.app.UtilScreen3D;
 import pama1234.gdx.util.element.Graphics;
 import pama1234.math.Tools;
 import pama1234.util.net.ServerInfo;
@@ -36,8 +35,8 @@ import pama1234.util.net.ServerInfo;
 /**
  * 3D 粒子系统 客户端
  */
-public class Screen0003 extends UtilScreen3D{
-  public ServerInfo dataServerInfo,stateServerInfo;
+public class Screen0003 extends ScreenCore{
+  // public ServerInfo dataServerInfo;
   //---
   // public ServerSocket serverSocket;
   // public Center<SocketData> socketCenter;
@@ -61,19 +60,19 @@ public class Screen0003 extends UtilScreen3D{
   public boolean doUpdate;
   public Thread updateCell;
   public Vector3 posCache=new Vector3();
-  public float viewDist=1024;
+  // public float viewDist=1024;//TODO
   // static final float logn=32,logViewDist=log(viewDist,logn/4);
   public static final int layerSize=3;
   public static final int gsize=8;
-  public float multDist=1;
+  // public float multDist=1;
   public boolean displayHint;
   // public boolean displayHint=true;
   public Decal infoD;
   public Decal logo;
   // final int tu=16;
-  public Button[] buttons;
-  public int bu;
-  public boolean fullSettings;
+  // public Button[] buttons;
+  // public int bu;
+  // public boolean fullSettings;
   // public boolean configInfo;
   public boolean tempTest;//TODO
   public ConfigInfo configInfo;
@@ -207,32 +206,32 @@ public class Screen0003 extends UtilScreen3D{
     centerScreen.add.add(configInfo=new ConfigInfo(this));
     centerCam.add.add(playerCenter);
     centerCam.add.add(yourself);//TODO
-    updateViewDist();
+    // updateViewDist();
   }
-  public int getButtonUnitLength() {
-    return bu;
-  }
+  // public int getButtonUnitLength() {
+  //   return bu;
+  // }
   @Override
   public void update() {
     // centerSocket.refresh();
     if(clientSocket.stop) clientSocket.dispose();
   }
   public float colorF(float in) {
-    in/=viewDist/2;
+    in/=cam3d.viewDist()/2;
     in=2-in;
     if(in>1) in=1;
     if(in<0) in=0;
     return in;
   }
   public int layerF(float dist) {
-    int out=(int)map(dist,0,viewDist,layerSize,0);
+    int out=(int)map(dist,0,cam3d.viewDist(),layerSize,0);
     if(out>=layerSize) out=layerSize-1;
     return out;
     // return (int)constrain(map(log(dist,logn),-logViewDist,logViewDist,layerSize,0),0,layerSize-1);
   }
-  public void updateViewDist() {
-    cam3d.camera.far=viewDist;
-  }
+  // public void updateViewDist() {
+  //   cam3d.camera.far=viewDist;
+  // }
   public boolean isVisible(Camera cam,Decal in,float r) {
     return cam.frustum.sphereInFrustum(in.getPosition(),r);
   }
@@ -295,15 +294,19 @@ public class Screen0003 extends UtilScreen3D{
       cam.point.set(cam.point.des.x/tmd*multDist,cam.point.des.y/tmd*multDist,cam.point.des.z/tmd*multDist);
     }
     if(key=='H') displayHint=!displayHint;
-    if(key=='N') {
-      viewDist/=2;
-      if(viewDist<2) viewDist=2;
-      updateViewDist();
+    if(key=='N') {//TODO
+      float tvd=cam3d.viewDist();
+      tvd/=2;
+      if(tvd<2) tvd=2;
+      cam3d.viewDist(tvd);
+      // updateViewDist();
     }
     if(key=='M') {
-      viewDist*=2;
-      if(viewDist>2048) viewDist=2048;
-      updateViewDist();
+      float tvd=cam3d.viewDist();
+      tvd*=2;
+      if(tvd>2048) tvd=2048;
+      cam3d.viewDist(tvd);
+      // updateViewDist();
     }
     if(isAndroid&&key=='T') fullSettings=!fullSettings;//TODO
     // if(key=='I') configInfo=!configInfo;

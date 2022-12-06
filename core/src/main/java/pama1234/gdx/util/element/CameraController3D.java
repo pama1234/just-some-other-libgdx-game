@@ -32,6 +32,12 @@ public class CameraController3D extends CameraController{
     rotate=new PathVar(r);
     this.frameU=frameU;
   }
+  public float viewDist() {
+    return pcam.far;
+  }
+  public void viewDist(float in) {
+    pcam.far=in;
+  }
   @Override
   public void update() {
     point.update();
