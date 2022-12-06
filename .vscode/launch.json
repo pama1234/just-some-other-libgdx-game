@@ -2,8 +2,16 @@
   // 使用 IntelliSense 了解相关属性。 
   // 悬停以查看现有属性的描述。
   // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+  // ,"vmArgs": "-Dcom.aparapi.enableShowGeneratedOpenCL=true"
   "version": "0.2.0",
   "configurations": [
+    {
+      "type": "java",
+      "name": "Launch CheckSum",
+      "request": "launch",
+      "mainClass": "pama1234.game.app.server.game.CheckSum",
+      "projectName": "just-another-particle-system-server"
+    },
     {
       "type": "java",
       "name": "Server3D",
@@ -17,7 +25,6 @@
       "request": "launch",
       "mainClass": "pama1234.gdx.game.app.lwjgl3.Lwjgl3LauncherServer",
       "projectName": "just-another-particle-system-lwjgl3"
-      // ,"vmArgs": "-Dcom.aparapi.enableShowGeneratedOpenCL=true"
     },
     {
       "type": "java",

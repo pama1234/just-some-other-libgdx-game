@@ -66,6 +66,16 @@ public class ServerRead extends Thread{
           ByteUtil.byteToFloat(inData,8));
       }
         break;
+      case ClientException: {}
+        break;
+      case ClientFinishedProcessing: {}
+        break;
+      case ClientProcessing: {}
+        break;
+      case ClientProtocolVersion: {}
+        break;
+      case ClientSendStringMessage: {}
+        break;
       default:
         throw new RuntimeException("state err="+state);
     }

@@ -60,6 +60,18 @@ public class ClientRead extends Thread{
         }
       }
         break;
+      case ServerException: {}
+        break;
+      case ServerFinishedProcessing: {}
+        break;
+      case ServerProcessing: {}
+        break;
+      case ServerProtocolVersion: {}
+        break;
+      case ServerSendSceneChange: {}
+        break;
+      case ServerSendStringMessage: {}
+        break;
       default:
         throw new RuntimeException("state err="+state);
     }

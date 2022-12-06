@@ -59,6 +59,18 @@ public class ServerWrite extends Thread{
         e.o.flush();
       }
         break;
+      case ServerException: {}
+        break;
+      case ServerFinishedProcessing: {}
+        break;
+      case ServerProcessing: {}
+        break;
+      case ServerProtocolVersion: {}
+        break;
+      case ServerSendSceneChange: {}
+        break;
+      case ServerSendStringMessage: {}
+        break;
       default:
         throw new RuntimeException("state err="+e.clientState);
     }

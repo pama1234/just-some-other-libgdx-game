@@ -9,6 +9,7 @@ import pama1234.game.app.server.game.net.state.ServerState;
 public class NetUtil{
   // public static final boolean debug=true;
   public static final boolean debug=false;
+  public static String protocolVersion="0.1";
   public static byte[] readNBytes(SocketData e,byte[] out,int offset,int size) throws IOException {
     int ti=0;
     while(ti==0) {

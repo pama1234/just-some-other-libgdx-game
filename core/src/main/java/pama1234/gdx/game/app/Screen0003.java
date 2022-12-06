@@ -46,7 +46,8 @@ public class Screen0003 extends UtilScreen3D{
   // public volatile CellData[] cellData;
   public ClientCore clientCore;
   //---
-  public Thread clientRead,clientWrite;
+  public ClientRead clientRead;
+  public ClientWrite clientWrite;
   // public Thread acceptT,serverReadT,clientReadT,serverWriteT,clientWriteT;
   //---
   // public CellGroup3D group;

@@ -6,7 +6,8 @@ public enum ClientState{
   ClientProtocolVersion,
   ClientAuthentication,
   ClientDataTransfer,
-  ClientException;
+  ClientException,
+  ClientSendStringMessage,;
   public static ClientState[] netStateArray=ClientState.values();
   public static int stateToInt(ClientState in) {
     return in.ordinal();

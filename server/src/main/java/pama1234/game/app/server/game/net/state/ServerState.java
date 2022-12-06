@@ -6,7 +6,9 @@ public enum ServerState{
   ServerProtocolVersion,
   ServerAuthentication,
   ServerDataTransfer,
-  ServerException;
+  ServerException,
+  ServerSendStringMessage,
+  ServerSendSceneChange,;
   public static ServerState[] netStateArray=ServerState.values();
   public static int stateToInt(ServerState in) {
     return in.ordinal();

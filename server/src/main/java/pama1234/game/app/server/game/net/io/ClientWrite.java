@@ -53,6 +53,16 @@ public class ClientWrite extends Thread{
         p.sleep(40);
       }
         break;
+      case ClientException: {}
+        break;
+      case ClientFinishedProcessing: {}
+        break;
+      case ClientProcessing: {}
+        break;
+      case ClientProtocolVersion: {}
+        break;
+      case ClientSendStringMessage: {}
+        break;
       default:
         throw new RuntimeException("state err="+s.serverState);
     }
