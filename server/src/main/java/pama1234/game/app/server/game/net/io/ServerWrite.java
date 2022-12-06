@@ -2,6 +2,7 @@ package pama1234.game.app.server.game.net.io;
 
 import static pama1234.game.app.server.game.net.NetUtil.catchException;
 import static pama1234.game.app.server.game.net.NetUtil.debug;
+import static pama1234.game.app.server.game.net.NetUtil.protocolVersion;
 import static pama1234.game.app.server.game.net.NetUtil.writeServerHeader;
 
 import java.io.IOException;
@@ -65,7 +66,13 @@ public class ServerWrite extends Thread{
         break;
       case ServerProcessing: {}
         break;
-      case ServerProtocolVersion: {}
+      case ServerProtocolVersion: {
+        byte[] nameBytes=protocolVersion.getBytes();
+        writeServerHeader(s,outData,nameBytes.length);
+        s.o.write(nameBytes);
+        s.o.flush();
+        p.sleep(1000);
+      }
         break;
       case ServerSendSceneChange: {}
         break;

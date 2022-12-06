@@ -2,6 +2,7 @@ package pama1234.game.app.server.game.net.io;
 
 import static pama1234.game.app.server.game.net.NetUtil.catchException;
 import static pama1234.game.app.server.game.net.NetUtil.debug;
+import static pama1234.game.app.server.game.net.NetUtil.protocolVersion;
 import static pama1234.game.app.server.game.net.NetUtil.writeClientHeader;
 
 import java.io.IOException;
@@ -59,7 +60,13 @@ public class ClientWrite extends Thread{
         break;
       case ClientProcessing: {}
         break;
-      case ClientProtocolVersion: {}
+      case ClientProtocolVersion: {
+        byte[] nameBytes=protocolVersion.getBytes();
+        writeClientHeader(s,outData,nameBytes.length);
+        s.o.write(nameBytes);
+        s.o.flush();
+        p.sleep(1000);
+      }
         break;
       case ClientSendStringMessage: {}
         break;

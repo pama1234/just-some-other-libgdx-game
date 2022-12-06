@@ -21,4 +21,12 @@ public class ServerCore{
     this.group=group;
     this.playerCenter=playerCenter;
   }
+  public void sleep(long in) {
+    try {
+      Thread.sleep(in);
+    }catch(InterruptedException e) {
+      e.printStackTrace();
+      throw new RuntimeException(e);//TODO
+    }
+  }
 }

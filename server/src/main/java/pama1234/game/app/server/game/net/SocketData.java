@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import pama1234.game.app.server.game.net.state.ClientState;
+import pama1234.game.app.server.game.net.state.SceneState;
 import pama1234.game.app.server.game.net.state.ServerState;
 import pama1234.util.net.SocketInterface;
 
@@ -12,8 +13,11 @@ public class SocketData{
   // public int authCooling;//TODO server only
   //---
   public boolean stop;
-  public ClientState clientState=ClientState.ClientAuthentication;
-  public ServerState serverState=ServerState.ServerAuthentication;//TODO why avoiding state 0???
+  // public ClientState clientState=ClientState.ClientAuthentication;
+  // public ServerState serverState=ServerState.ServerAuthentication;//TODO why avoiding state 0???
+  public ClientState clientState=ClientState.ClientProtocolVersion;
+  public ServerState serverState=ServerState.ServerProtocolVersion;
+  public SceneState sceneState=SceneState.JustParticleSystem;
   public String name;//TODO replace with FullToken data class
   //---
   public SocketInterface s;

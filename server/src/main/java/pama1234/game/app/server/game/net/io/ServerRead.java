@@ -2,6 +2,7 @@ package pama1234.game.app.server.game.net.io;
 
 import static pama1234.game.app.server.game.net.NetUtil.catchException;
 import static pama1234.game.app.server.game.net.NetUtil.debug;
+import static pama1234.game.app.server.game.net.NetUtil.protocolVersion;
 import static pama1234.game.app.server.game.net.NetUtil.readNBytes;
 import static pama1234.game.app.server.game.net.state.ServerState.ServerDataTransfer;
 
@@ -13,6 +14,7 @@ import pama1234.game.app.server.game.ServerPlayer3D;
 import pama1234.game.app.server.game.net.SocketData;
 import pama1234.game.app.server.game.net.data.ServerCore;
 import pama1234.game.app.server.game.net.state.ClientState;
+import pama1234.game.app.server.game.net.state.ServerState;
 
 public class ServerRead extends Thread{
   public ServerCore p;
@@ -72,7 +74,14 @@ public class ServerRead extends Thread{
         break;
       case ClientProcessing: {}
         break;
-      case ClientProtocolVersion: {}
+      case ClientProtocolVersion: {
+        byte[] nameBytes=new byte[readSize];
+        readNBytes(s,nameBytes,0,readSize);
+        String version=new String(nameBytes);
+        if(!version.equals(protocolVersion)) 
+        throw new RuntimeException("!version.equals(protocolVersion)"+version+" "+protocolVersion);
+        s.serverState=ServerState.ServerAuthentication;
+      }
         break;
       case ClientSendStringMessage: {}
         break;

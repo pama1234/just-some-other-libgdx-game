@@ -2,6 +2,7 @@ package pama1234.game.app.server.game.net.io;
 
 import static pama1234.game.app.server.game.net.NetUtil.catchException;
 import static pama1234.game.app.server.game.net.NetUtil.debug;
+import static pama1234.game.app.server.game.net.NetUtil.protocolVersion;
 import static pama1234.game.app.server.game.net.NetUtil.readNBytes;
 import static pama1234.game.app.server.game.net.state.ClientState.ClientAuthentication;
 
@@ -66,7 +67,14 @@ public class ClientRead extends Thread{
         break;
       case ServerProcessing: {}
         break;
-      case ServerProtocolVersion: {}
+      case ServerProtocolVersion: {
+        byte[] nameBytes=new byte[readSize];
+        readNBytes(s,nameBytes,0,readSize);
+        String version=new String(nameBytes);
+        if(!version.equals(protocolVersion)) 
+        throw new RuntimeException("!version.equals(protocolVersion)"+version+" "+protocolVersion);
+        s.clientState=ClientState.ClientAuthentication;
+      }
         break;
       case ServerSendSceneChange: {}
         break;
