@@ -8,7 +8,7 @@ android {
 		release {
 			// storeFile file('pama1234Release.jks')
 			// storePassword ''
-			// keyAlias 'pama'
+			// keyAlias 'xxx'
 			// keyPassword ''
 		}
 	}

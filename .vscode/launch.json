@@ -23,7 +23,7 @@
       "type": "java",
       "name": "Client",
       "request": "launch",
-      "mainClass": "pama1234.gdx.game.app.lwjgl3.Lwjgl3Launcher",
+      "mainClass": "pama1234.gdx.game.app.lwjgl3.Launcher",
       "projectName": "just-another-particle-system-lwjgl3"
     },
     {
