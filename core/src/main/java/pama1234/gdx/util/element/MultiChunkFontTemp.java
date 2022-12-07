@@ -4,17 +4,14 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.BitmapFontCache;
-import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.graphics.g2d.BitmapFont.Glyph;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 
-public class MultiChunkBitmapFont extends BitmapFont{//TODO
-  // public class MultiChunkBitmapFont{
+public class MultiChunkFontTemp{
   public FileHandle[] fontFile;
   public int length;
   public boolean loadOnDemand;
@@ -29,7 +26,7 @@ public class MultiChunkBitmapFont extends BitmapFont{//TODO
   public Color foreground=Color.WHITE,background=Color.BLACK;
   public float scale=1;
   // public Color foregroundColor;
-  public MultiChunkBitmapFont(FileHandle[] fontFile,boolean loadOnDemand) {
+  public MultiChunkFontTemp(FileHandle[] fontFile,boolean loadOnDemand) {
     this.fontFile=fontFile;
     length=fontFile.length;
     this.loadOnDemand=loadOnDemand;
@@ -159,148 +156,7 @@ public class MultiChunkBitmapFont extends BitmapFont{//TODO
   public void textScale(float in) {
     scale=in;
   }
-  // public void dispose() {
-  //   for(BitmapFont i:data) if(i!=null) i.dispose();
-  // }
-  @Override
   public void dispose() {
     for(BitmapFont i:data) if(i!=null) i.dispose();
-    super.dispose();
   }
-  @Override
-  public GlyphLayout draw(Batch batch,CharSequence str,float x,float y) {
-    return super.draw(batch,str,x,y);
-  }
-  @Override
-  public void draw(Batch batch,GlyphLayout layout,float x,float y) {
-    super.draw(batch,layout,x,y);
-  }
-  @Override
-  public GlyphLayout draw(Batch batch,CharSequence str,float x,float y,float targetWidth,int halign,boolean wrap) {
-    return super.draw(batch,str,x,y,targetWidth,halign,wrap);
-  }
-  @Override
-  public GlyphLayout draw(Batch batch,CharSequence str,float x,float y,int start,int end,float targetWidth,int halign,boolean wrap) {
-    return super.draw(batch,str,x,y,start,end,targetWidth,halign,wrap);
-  }
-  @Override
-  public GlyphLayout draw(Batch batch,CharSequence str,float x,float y,int start,int end,float targetWidth,int halign,boolean wrap,String truncate) {
-    return super.draw(batch,str,x,y,start,end,targetWidth,halign,wrap,truncate);
-  }
-  @Override
-  public float getAscent() {
-    return super.getAscent();
-  }
-  @Override
-  public BitmapFontCache getCache() {
-    return super.getCache();
-  }
-  @Override
-  public float getCapHeight() {
-    return super.getCapHeight();
-  }
-  @Override
-  public Color getColor() {
-    return super.getColor();
-  }
-  @Override
-  public BitmapFontData getData() {
-    return super.getData();
-  }
-  @Override
-  public float getDescent() {
-    return super.getDescent();
-  }
-  @Override
-  public float getLineHeight() {
-    return super.getLineHeight();
-  }
-  @Override
-  public TextureRegion getRegion() {
-    return super.getRegion();
-  }
-  @Override
-  public TextureRegion getRegion(int index) {
-    return super.getRegion(index);
-  }
-  @Override
-  public Array<TextureRegion> getRegions() {
-    return super.getRegions();
-  }
-  @Override
-  public float getScaleX() {
-    return super.getScaleX();
-  }
-  @Override
-  public float getScaleY() {
-    return super.getScaleY();
-  }
-  @Override
-  public float getSpaceXadvance() {
-    return super.getSpaceXadvance();
-  }
-  @Override
-  public float getXHeight() {
-    return super.getXHeight();
-  }
-  @Override
-  public boolean isFlipped() {
-    return super.isFlipped();
-  }
-  @Override
-  protected void load(BitmapFontData data) {
-    super.load(data);
-  }
-  @Override
-  public BitmapFontCache newFontCache() {
-    return super.newFontCache();
-  }
-  @Override
-  public boolean ownsTexture() {
-    return super.ownsTexture();
-  }
-  @Override
-  public void setColor(Color color) {
-    super.setColor(color);
-  }
-  @Override
-  public void setColor(float r,float g,float b,float a) {
-    super.setColor(r,g,b,a);
-  }
-  @Override
-  public void setFixedWidthGlyphs(CharSequence glyphs) {
-    super.setFixedWidthGlyphs(glyphs);
-  }
-  @Override
-  public void setOwnsTexture(boolean ownsTexture) {
-    super.setOwnsTexture(ownsTexture);
-  }
-  @Override
-  public void setUseIntegerPositions(boolean integer) {
-    super.setUseIntegerPositions(integer);
-  }
-  @Override
-  public boolean usesIntegerPositions() {
-    return super.usesIntegerPositions();
-  }
-  // @Override
-  // public String toString() {
-  //   return super.toString();
-  // }
-  // @Override
-  // protected Object clone() throws CloneNotSupportedException {
-  //   return super.clone();
-  // }
-  // @Override
-  // public boolean equals(Object obj) {
-  //   return super.equals(obj);
-  // }
-  // @Override
-  // protected void finalize() throws Throwable {
-  //   super.finalize();
-  // }
-  // @Override
-  // public int hashCode() {
-  //   return super.hashCode();
-  // }
 }

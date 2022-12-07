@@ -17,13 +17,16 @@ public class Screen0004 extends ScreenCore3D{
   @Override
   public void setup() {
     noStroke();
-    println(width,height);
+    // println(width,height);
     stage=new Stage(viewport=new ScalingViewport(Scaling.fit,width,height,screenCam),imageBatch);
     font.load(0);
-    tfs=new TextFieldStyle(font.data[0],color(0),
+    tfs=new TextFieldStyle(font,color(0),
+    // tfs=new TextFieldStyle(font.data[0],color(0),
       new DrawableEntity(this,(batch,x,y,w,h)-> {
-        fill(255,255,127,127);
-        rect(x,y,w<0.1f?2:w,h);
+        beginBlend();
+        fill(0,191);
+        rect(x,y,w<0.1f?pus:w,h);
+        endBlend();
       }),
       new DrawableEntity(this,(batch,x,y,w,h)-> {
         fill(127,255,255);
