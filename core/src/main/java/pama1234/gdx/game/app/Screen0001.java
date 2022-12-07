@@ -30,7 +30,7 @@ import pama1234.math.Tools;
 /**
  * 3D 粒子系统 单机模式
  */
-public class Screen0001 extends ScreenCore{
+public class Screen0001 extends ScreenCore3D{
   public CellGroup3D group;
   @Deprecated
   public ClientPlayerCenter3D playerCenter;//TODO
@@ -43,7 +43,6 @@ public class Screen0001 extends ScreenCore{
   public Thread updateCell;
   public Vector3 posCache=new Vector3();
   // public float viewDist=1024;//TODO
-  // static final float logn=32,logViewDist=log(viewDist,logn/4);
   public static final int layerSize=3;
   public static final int gsize=8;
   // public float multDist=1;
@@ -51,15 +50,8 @@ public class Screen0001 extends ScreenCore{
   // public boolean displayHint=true;
   public Decal infoD;
   public Decal logo;
-  // final int tu=16;
-  // public Button[] buttons;
-  // public int bu;
-  // public boolean fullSettings;
-  // public boolean configInfo;
   public boolean tempTest;//TODO
   public ConfigInfo configInfo;
-  // Graphics buttonsG;
-  // Texture buttonsT;
   public int tempCellSize=128;
   public int tempColorSize=12;
   public int tempSize=tempCellSize*tempColorSize;

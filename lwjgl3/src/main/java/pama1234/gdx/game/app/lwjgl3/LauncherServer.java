@@ -3,14 +3,14 @@ package pama1234.gdx.game.app.lwjgl3;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 
-import pama1234.gdx.launcher.MainApp0002;
+import pama1234.gdx.launcher.ServerApp;
 
-public class Lwjgl3LauncherServer{
+public class LauncherServer{
   public static void main(String[] args) {
     createApplication();
   }
   private static Lwjgl3Application createApplication() {
-    return new Lwjgl3Application(new MainApp0002(),getDefaultConfiguration());
+    return new Lwjgl3Application(new ServerApp(),getDefaultConfiguration());
   }
   private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
     Lwjgl3ApplicationConfiguration configuration=new Lwjgl3ApplicationConfiguration();

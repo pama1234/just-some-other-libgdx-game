@@ -8,33 +8,21 @@ import pama1234.gdx.util.app.UtilScreen;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.util.listener.EssentialListener;
+import pama1234.util.wrapper.Center;
 
 public class UtilInputProcesser implements EssentialListener,InputProcessor{
   public UtilScreen p;
-  // public TextureRegion[] move;
-  // public TextureRegion[] keyboard;
-  // public ProcesserGadget[] gadgets;
-  // public boolean coverButton;
+  public Center<InputProcessor> sub;
   public UtilInputProcesser(UtilScreen target) {
     this.p=target;
-    // gadgets=new ProcesserGadget[2];
-    // gadgets[0]=new MouseGadget(this);
-    // gadgets[1]=new KeyboardGadget(this);
-    // move=new TextureRegion[2];
-    // move[0]=p.loadTextureRegion("image/input0001.png");
-    // move[1]=p.loadTextureRegion("image/input0002.png");
+    sub=new Center<>();
   }
   @Override
-  public void display() {
-    // if(Gdx.app.getType()!=ApplicationType.Android) return;
-    // for(ProcesserGadget i:gadgets) i.update();
-    // p.withScreen();
-    // for(ProcesserGadget i:gadgets) i.display();
-    // p.image(move[coverButton?0:1],p.u/4,p.u/4,p.u,p.u);
-    // p.withCam();
-  }
+  public void display() {}
   @Override
-  public void update() {}
+  public void update() {
+    sub.refresh();
+  }
   @Override
   public boolean keyDown(int kc) {
     //    keyCount++;
@@ -45,6 +33,7 @@ public class UtilInputProcesser implements EssentialListener,InputProcessor{
     if(kc==Keys.ALT_LEFT||kc==Keys.ALT_RIGHT) p.alt=true;
     p.center.keyPressed(p.key=keyCodeToChar(kc),kc);
     p.keyPressed(p.key,p.keyCode=kc);
+    for(InputProcessor i:sub.list) if(i.keyDown(kc)) return true;
     return false;
   }
   public char keyCodeToChar(int kc) {
@@ -65,12 +54,14 @@ public class UtilInputProcesser implements EssentialListener,InputProcessor{
     //    keyPressed=keyCount>0;
     p.center.keyReleased(p.key=keyCodeToChar(kc),kc);
     p.keyReleased(p.key,p.keyCode=kc);
+    for(InputProcessor i:sub.list) if(i.keyUp(kc)) return true;
     return false;
   }
   @Override
   public boolean keyTyped(char character) {
     p.center.keyTyped(character);
     p.keyTyped(p.key=character);
+    for(InputProcessor i:sub.list) if(i.keyTyped(character)) return true;
     return false;
   }
   @Override
@@ -78,13 +69,6 @@ public class UtilInputProcesser implements EssentialListener,InputProcessor{
     p.touchCount++;
     TouchInfo info=p.touches[pointer];
     boolean flag=false;
-    // for(ProcesserGadget i:gadgets) {
-    //   if(Tools.inBox(screenX,screenY,i.x(),i.y(),i.w(),i.h())) {
-    //     flag=true;
-    //     i.pressed();
-    //     continue;
-    //   }
-    // }
     // if(flag=Tools.inBox(screenX,screenY,p.u/4,p.u/4,p.u,p.u)) coverButton=!coverButton;
     // if(coverButton) button=Buttons.RIGHT;
     // if(gadgets[0].state==1) button=Buttons.RIGHT;
@@ -122,6 +106,7 @@ public class UtilInputProcesser implements EssentialListener,InputProcessor{
       p.center.touchStarted(info);
       p.touchStarted(info);
     }
+    for(InputProcessor i:sub.list) if(i.touchDown(screenX,screenY,pointer,button)) return true;
     return false;
   }
   @Override
@@ -157,6 +142,7 @@ public class UtilInputProcesser implements EssentialListener,InputProcessor{
       p.mouseReleased(mouse);
     }
     p.touchCount--;
+    for(InputProcessor i:sub.list) if(i.touchUp(screenX,screenY,pointer,button)) return true;
     return false;
   }
   @Override
@@ -171,6 +157,7 @@ public class UtilInputProcesser implements EssentialListener,InputProcessor{
     info.putRaw(screenX,screenY);
     p.center.touchMoved(info);
     p.touchMoved(info);
+    for(InputProcessor i:sub.list) if(i.touchDragged(screenX,screenY,pointer)) return true;
     return false;
   }
   @Override
@@ -180,12 +167,14 @@ public class UtilInputProcesser implements EssentialListener,InputProcessor{
     p.mouse.putRaw(screenX,screenY);
     p.center.mouseMoved();
     p.mouseMoved();
+    for(InputProcessor i:sub.list) if(i.mouseMoved(screenX,screenY)) return true;
     return false;
   }
   @Override
   public boolean scrolled(float amountX,float amountY) {
     p.center.mouseWheel(amountX,amountY);
     p.mouseWheel(amountX,amountY);
+    for(InputProcessor i:sub.list) if(i.scrolled(amountX,amountY)) return true;
     return false;
   }
 }

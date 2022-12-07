@@ -2,7 +2,7 @@ package pama1234.gdx.game.ui;
 
 import com.badlogic.gdx.Input;
 
-import pama1234.gdx.game.app.ScreenCore;
+import pama1234.gdx.game.app.ScreenCore3D;
 
 public class TextButtonGenerator{
   /**
@@ -14,7 +14,7 @@ public class TextButtonGenerator{
    *          _↑ _W __ __ <br/>
    *          _↓ _A _S _D <br/>
    */
-  public static Button[] genButtons(ScreenCore p) {
+  public static Button[] genButtons(ScreenCore3D p) {
     return new Button[] {
       new TextButton(p,true,()->true,()-> {},()-> {},()-> {
         p.fullSettings=!p.fullSettings;

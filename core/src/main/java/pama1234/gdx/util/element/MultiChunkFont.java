@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 
+// public class MultiChunkFont extends BitmapFont{//TODO
 public class MultiChunkFont{
   public FileHandle[] fontFile;
   public int length;
@@ -35,10 +36,14 @@ public class MultiChunkFont{
     data=new BitmapFont[length];
     if(!loadOnDemand) {
       for(int i=0;i<fontFile.length;i++) {
-        data[i]=createBitmapFont(fontFile[i]);
+        // data[i]=createBitmapFont(fontFile[i]);
+        load(i);
         // loadedArea&=1<<i;
       }
     }
+  }
+  public void load(int in) {
+    data[in]=createBitmapFont(fontFile[in]);
   }
   public BitmapFont createBitmapFont(FileHandle fontFile) {
     BitmapFont out=fontFile==null?new BitmapFont(true):new BitmapFont(fontFile,true);
@@ -69,7 +74,8 @@ public class MultiChunkFont{
     int pos=in>>>digitShift;
     // if(!loadOnDemand&&((loadedArea>>pos)&1)==0) data[pos]=createBitmapFont(fontFile[pos]);
     if(loadOnDemand&&data[pos]==null) {
-      data[pos]=createBitmapFont(fontFile[pos]);
+      // data[pos]=createBitmapFont(fontFile[pos]);
+      load(pos);
       loadOnDemand=f0001();
     }
     BitmapFont font=data[pos];
@@ -100,7 +106,8 @@ public class MultiChunkFont{
         int pos=tc>>>digitShift;
         // if((!loadOnDemand)&&((loadedArea>>pos)&1)==0) {
         if(loadOnDemand&&data[pos]==null) {
-          data[pos]=createBitmapFont(fontFile[pos]);
+          // data[pos]=createBitmapFont(fontFile[pos]);
+          load(pos);
           loadOnDemand=f0001();
         }
         x=f0002(x,y,tc,pos);
@@ -138,9 +145,6 @@ public class MultiChunkFont{
     for(int i=0;i<length;i++) if(data[i]==null) return true;
     return false;
   }
-  public void dispose() {
-    for(BitmapFont i:data) if(i!=null) i.dispose();
-  }
   public interface TextStyleSupplier{
     public Color foreground(int x);
     // public Color background(int x);
@@ -153,4 +157,148 @@ public class MultiChunkFont{
   public void textScale(float in) {
     scale=in;
   }
+  public void dispose() {
+    for(BitmapFont i:data) if(i!=null) i.dispose();
+  }
+  // @Override
+  // public void dispose() {
+  //   for(BitmapFont i:data) if(i!=null) i.dispose();
+  //   super.dispose();
+  // }
+  // @Override
+  // public GlyphLayout draw(Batch batch,CharSequence str,float x,float y) {
+  //   return super.draw(batch,str,x,y);
+  // }
+  // @Override
+  // public void draw(Batch batch,GlyphLayout layout,float x,float y) {
+  //   super.draw(batch,layout,x,y);
+  // }
+  // @Override
+  // public GlyphLayout draw(Batch batch,CharSequence str,float x,float y,float targetWidth,int halign,boolean wrap) {
+  //   return super.draw(batch,str,x,y,targetWidth,halign,wrap);
+  // }
+  // @Override
+  // public GlyphLayout draw(Batch batch,CharSequence str,float x,float y,int start,int end,float targetWidth,int halign,boolean wrap) {
+  //   return super.draw(batch,str,x,y,start,end,targetWidth,halign,wrap);
+  // }
+  // @Override
+  // public GlyphLayout draw(Batch batch,CharSequence str,float x,float y,int start,int end,float targetWidth,int halign,boolean wrap,String truncate) {
+  //   return super.draw(batch,str,x,y,start,end,targetWidth,halign,wrap,truncate);
+  // }
+  // @Override
+  // public float getAscent() {
+  //   return super.getAscent();
+  // }
+  // @Override
+  // public BitmapFontCache getCache() {
+  //   return super.getCache();
+  // }
+  // @Override
+  // public float getCapHeight() {
+  //   return super.getCapHeight();
+  // }
+  // @Override
+  // public Color getColor() {
+  //   return super.getColor();
+  // }
+  // @Override
+  // public BitmapFontData getData() {
+  //   return super.getData();
+  // }
+  // @Override
+  // public float getDescent() {
+  //   return super.getDescent();
+  // }
+  // @Override
+  // public float getLineHeight() {
+  //   return super.getLineHeight();
+  // }
+  // @Override
+  // public TextureRegion getRegion() {
+  //   return super.getRegion();
+  // }
+  // @Override
+  // public TextureRegion getRegion(int index) {
+  //   return super.getRegion(index);
+  // }
+  // @Override
+  // public Array<TextureRegion> getRegions() {
+  //   return super.getRegions();
+  // }
+  // @Override
+  // public float getScaleX() {
+  //   return super.getScaleX();
+  // }
+  // @Override
+  // public float getScaleY() {
+  //   return super.getScaleY();
+  // }
+  // @Override
+  // public float getSpaceXadvance() {
+  //   return super.getSpaceXadvance();
+  // }
+  // @Override
+  // public float getXHeight() {
+  //   return super.getXHeight();
+  // }
+  // @Override
+  // public boolean isFlipped() {
+  //   return super.isFlipped();
+  // }
+  // @Override
+  // protected void load(BitmapFontData data) {
+  //   super.load(data);
+  // }
+  // @Override
+  // public BitmapFontCache newFontCache() {
+  //   return super.newFontCache();
+  // }
+  // @Override
+  // public boolean ownsTexture() {
+  //   return super.ownsTexture();
+  // }
+  // @Override
+  // public void setColor(Color color) {
+  //   super.setColor(color);
+  // }
+  // @Override
+  // public void setColor(float r,float g,float b,float a) {
+  //   super.setColor(r,g,b,a);
+  // }
+  // @Override
+  // public void setFixedWidthGlyphs(CharSequence glyphs) {
+  //   super.setFixedWidthGlyphs(glyphs);
+  // }
+  // @Override
+  // public void setOwnsTexture(boolean ownsTexture) {
+  //   super.setOwnsTexture(ownsTexture);
+  // }
+  // @Override
+  // public void setUseIntegerPositions(boolean integer) {
+  //   super.setUseIntegerPositions(integer);
+  // }
+  // @Override
+  // public String toString() {
+  //   return super.toString();
+  // }
+  // @Override
+  // public boolean usesIntegerPositions() {
+  //   return super.usesIntegerPositions();
+  // }
+  // @Override
+  // protected Object clone() throws CloneNotSupportedException {
+  //   return super.clone();
+  // }
+  // @Override
+  // public boolean equals(Object obj) {
+  //   return super.equals(obj);
+  // }
+  // @Override
+  // protected void finalize() throws Throwable {
+  //   super.finalize();
+  // }
+  // @Override
+  // public int hashCode() {
+  //   return super.hashCode();
+  // }
 }

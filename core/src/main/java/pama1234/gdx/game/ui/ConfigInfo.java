@@ -1,11 +1,11 @@
 package pama1234.gdx.game.ui;
 
-import pama1234.gdx.game.app.ScreenCore;
+import pama1234.gdx.game.app.ScreenCore3D;
 import pama1234.gdx.util.entity.Entity;
 
-public class ConfigInfo extends Entity<ScreenCore>{
+public class ConfigInfo extends Entity<ScreenCore3D>{
   public boolean active;
-  public ConfigInfo(ScreenCore p) {
+  public ConfigInfo(ScreenCore3D p) {
     super(p);
   }
   @Override
