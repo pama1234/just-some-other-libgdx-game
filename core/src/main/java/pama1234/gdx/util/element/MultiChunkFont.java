@@ -20,12 +20,12 @@ public class MultiChunkFont extends BitmapFont{//TODO
   // public int loadedArea;
   public BitmapFont[] data;
   public MultiChunkFontData mfontData;
-  public Array<TextureRegion> mregion;
+  public Array<TextureRegion> mregions;
   // public Array<TextureRegion> mregion=new Array<>();
   //---
   public SpriteBatch fontBatch;
   //---
-  public float size=16,defaultSize=16;
+  public float defaultSize=16,size=defaultSize;
   public Color foreground=Color.WHITE,background=Color.BLACK;
   public float scale=1;
   // public Color foregroundColor;
@@ -35,8 +35,8 @@ public class MultiChunkFont extends BitmapFont{//TODO
     mfontData.mfont=this;
     this.fontFile=fontFile;
     length=fontFile.length;
-    mregion=super.getRegions();
-    mregion.setSize(length);
+    mregions=super.getRegions();
+    mregions.setSize(length);
     this.loadOnDemand=loadOnDemand;
     digitShift=16-MathUtils.ceil(MathUtils.log2(length));
     if(digitShift>32) throw new RuntimeException("digitShift>32");
@@ -46,12 +46,25 @@ public class MultiChunkFont extends BitmapFont{//TODO
   }
   public void load(int in) {
     data[in]=createBitmapFont(fontFile[in]);
-    mregion.set(in,data[in].getRegion());
+    mregions.set(in,data[in].getRegion());
   }
   public BitmapFont createBitmapFont(FileHandle fontFile) {
     BitmapFont out=fontFile==null?new BitmapFont(true):new BitmapFont(fontFile,true);
     out.getRegion().getTexture().setFilter(TextureFilter.Nearest,TextureFilter.Nearest);
     out.getData().setScale(size/defaultSize);
+    // Glyph glyph=data[0].getData().getGlyph(' ');
+    // out.setFixedWidthGlyphs(null);
+    BitmapFontData data=out.getData();
+    int unit=(int)(size/2);
+    for(int i=0,end=out.getData().glyphs[0].length;i<end;i++) {
+      Glyph g=data.glyphs[0][i];
+      if(g==null) continue;
+      int tl=g.xadvance/unit;
+      g.xoffset+=(unit*tl-g.xadvance)/2;
+      g.xadvance=unit*tl;
+      g.kerning=null;
+      g.fixedWidth=true;
+    }
     return out;
   }
   public float size() {
@@ -169,11 +182,16 @@ public class MultiChunkFont extends BitmapFont{//TODO
   @Override
   public void dispose() {
     for(BitmapFont i:data) if(i!=null) i.dispose();
-    super.dispose();
+    // super.dispose();
+    // if(ownsTexture()) for(int i=0;i<mregions.size;i++) {
+    //   TextureRegion tr=mregions.get(i);
+    //   if(tr!=null) tr.getTexture().dispose();
+    // }
+    getRegion().getTexture().dispose();
   }
   @Override
   public Array<TextureRegion> getRegions() {//TODO
     // return super.getRegions();
-    return mregion;
+    return mregions;
   }
 }
