@@ -54,6 +54,7 @@ public abstract class UtilScreen3D extends UtilScreen{
     center.list.add(centerScreen=new EntityCenter<>(this));
     serverCenter=new ServerEntityCenter<>();
     withCam();
+    innerResize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
     setup();
   }
   //TODO this do nothing... strange

@@ -8,16 +8,19 @@ import com.badlogic.gdx.utils.reflect.ClassReflection;
 import pama1234.gdx.util.app.UtilScreen;
 import pama1234.gdx.util.entity.Entity;
 
-public abstract class DrawableEntity extends Entity<UtilScreen> implements Drawable{
+public class DrawableEntity extends Entity<UtilScreen> implements Drawable{
   public String name;
   public float leftWidth,rightWidth,topHeight,bottomHeight,minWidth,minHeight;
   //---
+  public DrawFunction f;
   public Batch b;//TODO
-  public DrawableEntity(UtilScreen p) {
+  public DrawableEntity(UtilScreen p,DrawFunction in) {
     super(p);
+    f=in;
   }
-  public DrawableEntity(UtilScreen p,Drawable drawable) {
+  public DrawableEntity(UtilScreen p,DrawFunction in,Drawable drawable) {
     super(p);
+    f=in;
     if(drawable instanceof BaseDrawable) name=((BaseDrawable)drawable).getName();
     leftWidth=drawable.getLeftWidth();
     rightWidth=drawable.getRightWidth();
@@ -26,10 +29,11 @@ public abstract class DrawableEntity extends Entity<UtilScreen> implements Drawa
     minWidth=drawable.getMinWidth();
     minHeight=drawable.getMinHeight();
   }
-  public abstract void f(Batch batch,float x,float y,float width,float height);
+  // public abstract void f(Batch batch,float x,float y,float width,float height);
   public void draw(Batch batch,float x,float y,float width,float height) {
     batch.end();//TODO
-    f(b,x,y,width,height);
+    f.draw(b,x,y,width,height);
+    // f(b,x,y,width,height);
     batch.begin();
   }
   public float getLeftWidth() {
@@ -87,5 +91,9 @@ public abstract class DrawableEntity extends Entity<UtilScreen> implements Drawa
   public String toString() {
     if(name==null) return ClassReflection.getSimpleName(getClass());
     return name;
+  }
+  @FunctionalInterface
+  public interface DrawFunction{
+    public void draw(Batch batch,float x,float y,float width,float height);
   }
 }

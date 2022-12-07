@@ -38,6 +38,7 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
   public int width,height;
   public int frameCount;
   public float frameRate;
+  // public float frameDelta;
   //---
   public boolean mouseMoved;
   public MouseInfo mouse;
@@ -123,19 +124,19 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
   public abstract Vector3 unproject(float x,float y);
   @Override
   public void resize(int w,int h) {
+    innerResize(w,h);
+    center.frameResized(w,h);
+    frameResized();
+  }
+  public void innerResize(int w,int h) {
     width=w;
     height=h;
     if(Gdx.app.getType()==ApplicationType.Android) u=min(w,h)/8;
     else u=min(w,h)/16;
     pus=max(1,floor(u/16f));
     pu=pus*16;
-    // camResizeEvent(w,h);
     cam.preResizeEvent(w,h);
-    // System.out.println("a");
     screenCam.setToOrtho(flip,w,h);
-    center.frameResized(w,h);
-    // centerScreen.frameResized(w,h);
-    frameResized();
   }
   // public void camResizeEvent(int w,int h) {
   //   cam.o.setToOrtho(flip,w,h);

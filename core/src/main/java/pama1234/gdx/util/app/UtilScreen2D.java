@@ -48,6 +48,7 @@ public abstract class UtilScreen2D extends UtilScreen{
     center.list.add(centerScreen=new EntityCenter<>(this));
     serverCenter=new ServerEntityCenter<>();
     withCam();
+    innerResize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
     setup();
   }
   public Vector3 unproject(float x,float y) {
