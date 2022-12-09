@@ -42,15 +42,20 @@ public class MultiChunkFont extends BitmapFont{//TODO
     if(digitShift>32) throw new RuntimeException("digitShift>32");
     data=new BitmapFont[length];
     data[0]=this;
-    if(!loadOnDemand) for(int i=0;i<fontFile.length;i++) load(i);
+    if(!loadOnDemand) for(int i=0;i<fontFile.length;i++) load0001(i);
   }
   public void load(int in) {
+    load0001(in);
+    loadOnDemand=f0001();
+  }
+  private void load0001(int in) {
     data[in]=createBitmapFont(fontFile[in]);
     mregions.set(in,data[in].getRegion());
   }
   public BitmapFont createBitmapFont(FileHandle fontFile) {
     BitmapFont out=fontFile==null?new BitmapFont(true):new BitmapFont(fontFile,true);
-    out.getRegion().getTexture().setFilter(TextureFilter.Nearest,TextureFilter.Nearest);
+    // out.getRegion().getTexture().setFilter(TextureFilter.Nearest,TextureFilter.Nearest);
+    out.getRegion().getTexture().setFilter(TextureFilter.Linear,TextureFilter.Nearest);
     out.getData().setScale(size/defaultSize);
     // Glyph glyph=data[0].getData().getGlyph(' ');
     // out.setFixedWidthGlyphs(null);
@@ -84,12 +89,7 @@ public class MultiChunkFont extends BitmapFont{//TODO
   }
   public void text(char in,float x,float y) {
     int pos=in>>>digitShift;
-    // if(!loadOnDemand&&((loadedArea>>pos)&1)==0) data[pos]=createBitmapFont(fontFile[pos]);
-    if(loadOnDemand&&data[pos]==null) {
-      // data[pos]=createBitmapFont(fontFile[pos]);
-      load(pos);
-      loadOnDemand=f0001();
-    }
+    if(loadOnDemand&&data[pos]==null) load(pos);
     BitmapFont font=data[pos];
     Array<TextureRegion> regions=font.getRegions();
     Glyph glyph=font.getData().getGlyph(in);
@@ -116,12 +116,7 @@ public class MultiChunkFont extends BitmapFont{//TODO
       for(int i=0;i<in.length();i++) {
         char tc=in.charAt(i);
         int pos=tc>>>digitShift;
-        // if((!loadOnDemand)&&((loadedArea>>pos)&1)==0) {
-        if(loadOnDemand&&data[pos]==null) {
-          // data[pos]=createBitmapFont(fontFile[pos]);
-          load(pos);
-          loadOnDemand=f0001();
-        }
+        if(loadOnDemand&&data[pos]==null) load(pos);
         x=f0002(x,y,tc,pos);
       }
     }
@@ -133,8 +128,12 @@ public class MultiChunkFont extends BitmapFont{//TODO
     // Glyph glyph=font.getData().getGlyph(ch);
     // return glyph;
     if(loadOnDemand&&data[pos]==null) load(pos);
+    if(pos==0) {
+      Glyph glyph=mfontData.getGlyphSuper(ch);
+      return glyph;
+    }
     Glyph glyph=data[pos].getData().getGlyph(ch);
-    glyph.page=pos;
+    glyph.page=pos;//TODO
     return glyph;
   }
   public float f0002(float x,float y,char tc,int pos) {
@@ -181,7 +180,10 @@ public class MultiChunkFont extends BitmapFont{//TODO
   }
   @Override
   public void dispose() {
-    for(BitmapFont i:data) if(i!=null) i.dispose();
+    for(int i=1;i<data.length;i++) {
+      final BitmapFont td=data[i];
+      if(td!=null) td.dispose();
+    }
     // super.dispose();
     // if(ownsTexture()) for(int i=0;i<mregions.size;i++) {
     //   TextureRegion tr=mregions.get(i);
@@ -193,5 +195,26 @@ public class MultiChunkFont extends BitmapFont{//TODO
   public Array<TextureRegion> getRegions() {//TODO
     // return super.getRegions();
     return mregions;
+  }
+  public float textLength(CharSequence in) {
+    float out=0;
+    for(int i=0;i<in.length();i++) {
+      char tc=in.charAt(i);
+      int pos=tc>>>digitShift;
+      if(loadOnDemand&&data[pos]==null) load(pos);
+      out=f0003(out,tc,pos);
+    }
+    return out;
+  }
+  public float f0003(float x,char tc,int pos) {
+    BitmapFont font=data[pos];
+    Glyph glyph=font.getData().getGlyph(tc);
+    if(glyph==null) {
+      System.out.println(tc+" "+(int)tc+" "+pos+" "+digitShift);
+      return 0;
+    }
+    x+=glyph.xadvance*scale;
+    // fontBatch.end();
+    return x;
   }
 }

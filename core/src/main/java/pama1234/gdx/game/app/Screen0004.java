@@ -1,11 +1,8 @@
 package pama1234.gdx.game.app;
 
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.VertexAttributes.Usage;
 import com.badlogic.gdx.graphics.g3d.Material;
 import com.badlogic.gdx.graphics.g3d.Model;
-import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
@@ -26,7 +23,6 @@ public class Screen0004 extends ScreenCore3D{
   Viewport viewport;
   TextField textField;
   //---
-  public ModelBatch modelBatch;
   public Model model;
   public ModelInstance instance;
   @Override
@@ -45,10 +41,13 @@ public class Screen0004 extends ScreenCore3D{
     inputProcessor.sub.add.add(stage);
     centerScreen.add.add(new ConfigInfo(this));
     //---
-    modelBatch=new ModelBatch();
     ModelBuilder modelBuilder=new ModelBuilder();
     model=modelBuilder.createBox(512,1152,128,
-      new Material(ColorAttribute.createDiffuse(Color.BLACK)),
+      new Material(
+        ColorAttribute.createDiffuse(color(0))
+      // TextureAttribute.createDiffuse(FileUtil.loadTexture("logo/logo-ingame.png"))
+      // new BlendingAttribute(GL20.GL_SRC_ALPHA,GL20.GL_ONE_MINUS_SRC_ALPHA)
+      ),
       Usage.Position|Usage.Normal);
     instance=new ModelInstance(model);
     // cam.camera=new OrthographicCamera();
@@ -61,12 +60,16 @@ public class Screen0004 extends ScreenCore3D{
   }
   @Override
   public void displayWithCam() {
-    // fill(0);
+    // fill(255,0,0);
     // // rect(-256,-256,512,512);
     // rect(-256,-576,512,1152);
-    modelBatch.begin(cam.camera);
-    modelBatch.render(instance);
-    modelBatch.end();
+    // modelBatch.begin(cam.camera);
+    // modelBatch.render(instance);
+    // modelBatch.end();
+    // circle(0,0,64);
+    model(instance);
+    flushModel();
+    // circle(0,-128,64);
   }
   @Override
   public void mousePressed(MouseInfo info) {

@@ -20,6 +20,7 @@ public abstract class UtilScreen2D extends UtilScreen{
   public CameraController2D cam2d;//TODO do we need this?
   @Override
   public void show() {
+    center=new EntityCenter<>(this);
     init();
     screenCam=new OrthographicCamera();
     cam=new CameraController2D(this,false,0,0,1,0,Gdx.app.getType()==ApplicationType.Desktop?640:160);
@@ -42,7 +43,6 @@ public abstract class UtilScreen2D extends UtilScreen{
     keyPressedArray=new IntArray(false,12);
     Gdx.input.setInputProcessor(inputProcessor=new UtilInputProcesser(this));
     backgroundColor=new Color(1,1,1,0);
-    center=new EntityCenter<>(this);
     center.list.add(cam);
     center.list.add(centerCam=new EntityCenter<>(this));
     center.list.add(centerScreen=new EntityCenter<>(this));

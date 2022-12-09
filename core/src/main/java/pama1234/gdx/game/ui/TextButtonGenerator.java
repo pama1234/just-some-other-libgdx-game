@@ -2,6 +2,7 @@ package pama1234.gdx.game.ui;
 
 import com.badlogic.gdx.Input;
 
+import pama1234.gdx.game.app.Screen0005;
 import pama1234.gdx.game.app.ScreenCore3D;
 
 public class TextButtonGenerator{
@@ -14,7 +15,26 @@ public class TextButtonGenerator{
    *          _↑ _W __ __ <br/>
    *          _↓ _A _S _D <br/>
    */
-  public static Button[] genButtons(ScreenCore3D p) {
+  public static Button[] genButtons_0002(Screen0005 p) {
+    return new Button[] {
+      new TextButton(p,true,()->true,()-> {},()-> {},()-> {
+        // p.fullSettings=!p.fullSettings;
+      },"开始游戏",p::getButtonUnitLength,()->p.width/8f*5.5f,()->p.height/4f),
+      new TextButton(p,true,()->true,()-> {},()-> {},()-> {
+        // p.fullSettings=!p.fullSettings;
+      },"　公告　",p::getButtonUnitLength,()->p.width/8f*5.5f,()->p.height/2f),
+    };
+  }
+  /**
+   * @param p <br/>
+   *          _T _Z _H __ <br/>
+   *          _X _C _N _M <br/>
+   *          _R _F sU sD <br/>
+   *          ----------- <br/>
+   *          _↑ _W __ __ <br/>
+   *          _↓ _A _S _D <br/>
+   */
+  public static Button[] genButtons_0001(ScreenCore3D p) {
     return new Button[] {
       new TextButton(p,true,()->true,()-> {},()-> {},()-> {
         p.fullSettings=!p.fullSettings;

@@ -125,7 +125,7 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
   @Override
   public void resize(int w,int h) {
     innerResize(w,h);
-    center.frameResized(w,h);
+    // serverCenter.frameResized(w,h);
     frameResized();
   }
   public void innerResize(int w,int h) {
@@ -137,6 +137,8 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
     pu=pus*16;
     cam.preResizeEvent(w,h);
     screenCam.setToOrtho(flip,w,h);
+    //---
+    center.frameResized(w,h);
   }
   // public void camResizeEvent(int w,int h) {
   //   cam.o.setToOrtho(flip,w,h);

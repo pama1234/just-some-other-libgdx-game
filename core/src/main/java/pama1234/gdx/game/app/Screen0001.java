@@ -155,7 +155,8 @@ public class Screen0001 extends ScreenCore3D{
     logo.setPosition(0,-512,0);
     //TODO
     if(isAndroid) {
-      buttons=TextButtonGenerator.genButtons(this);
+      // if(true) {
+      buttons=TextButtonGenerator.genButtons_0001(this);
       for(Button e:buttons) centerScreen.add.add(e);
     }
     centerScreen.add.add(configInfo=new ConfigInfo(this));
@@ -215,7 +216,7 @@ public class Screen0001 extends ScreenCore3D{
   public void display() {}
   @Override
   public void frameResized() {
-    bu=pus*24;
+    // super.frameResized();
   }
   @Override
   public void keyPressed(char key,int keyCode) {

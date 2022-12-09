@@ -15,6 +15,9 @@ public class MultiChunkFontData extends BitmapFontData{
     if(mfont==null) return super.getGlyph(ch);//TODO
     return mfont.getGlyph(ch);
   }
+  public Glyph getGlyphSuper(char ch) {
+    return super.getGlyph(ch);
+  }
   @Override
   public boolean hasGlyph(char ch) {
     // return super.hasGlyph(ch);//TODO
