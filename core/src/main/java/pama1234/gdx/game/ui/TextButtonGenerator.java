@@ -19,10 +19,11 @@ public class TextButtonGenerator{
     return new Button[] {
       new TextButton(p,true,()->true,()-> {},()-> {},()-> {
         // p.fullSettings=!p.fullSettings;
-      },"开始游戏",p::getButtonUnitLength,()->p.width/8f*5.5f,()->p.height/4f),
+      },"开始游戏",p::getButtonUnitLength,()->p.width/4f*3-p.pu*2.5f,()->p.height/4f),
       new TextButton(p,true,()->true,()-> {},()-> {},()-> {
         // p.fullSettings=!p.fullSettings;
-      },"　公告　",p::getButtonUnitLength,()->p.width/8f*5.5f,()->p.height/2f),
+      },"　公告　",p::getButtonUnitLength,()->p.width/4f*3-p.pu*2.5f,()->p.height/2f),
+      // },"公告",p::getButtonUnitLength,()->p.width/8f*5.5f,()->p.height/2f),
     };
   }
   /**

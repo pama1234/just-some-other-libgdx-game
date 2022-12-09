@@ -17,7 +17,10 @@ public class Screen0005 extends ScreenCore3D{
       public void display() {
         fill(0);
         // rect(width/8*5,0,width/4,frameCount<height?sq(frameCount):height);
-        rect(width/8*5,0,width/4,height);
+        rect(width/8f*5,0,width/4f,height);
+        fill(63);
+        rect(width/8f*5,height/4f,width/4f,bu);
+        rect(width/8f*5,height/2f,width/4f,bu);
       }
     });
     // System.out.println(Hiero.class);

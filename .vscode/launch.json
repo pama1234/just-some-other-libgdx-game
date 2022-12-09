@@ -7,13 +7,6 @@
   "configurations": [
     {
       "type": "java",
-      "name": "Launch FontGenerator",
-      "request": "launch",
-      "mainClass": "pama1234.gdx.game.app.lwjgl3.FontGenerator",
-      "projectName": "just-another-particle-system-lwjgl3"
-    },
-    {
-      "type": "java",
       "name": "Debug",
       "request": "launch",
       "mainClass": "pama1234.gdx.game.app.lwjgl3.LauncherDebug",

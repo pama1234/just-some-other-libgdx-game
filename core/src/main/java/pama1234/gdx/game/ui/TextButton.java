@@ -15,7 +15,7 @@ public class TextButton extends Button{
   GetInt bu;
   GetFloat x,y,w,h;
   public TextButton(UtilScreen p,boolean textOffset,GetBoolean active,ExecuteF press,ExecuteF clickStart,ExecuteF clickEnd,String text,GetInt bu,GetFloat x,GetFloat y) {
-    this(p,textOffset,active,press,clickStart,clickEnd,text,bu,x,y,null,bu::get);
+    this(p,textOffset,active,press,clickStart,clickEnd,text,bu,x,y,null,bu::get);//()->bu.get()*2);
     this.w=()->p.textLength(this.text)+(this.textOffset?p.pu:0);//TODO
   }
   public TextButton(UtilScreen p,boolean textOffset,GetBoolean active,ExecuteF press,ExecuteF clickStart,ExecuteF clickEnd,String text,GetInt bu,GetFloat x,GetFloat y,GetFloat w,GetFloat h) {
@@ -42,10 +42,12 @@ public class TextButton extends Button{
       p.textColor(255,200);
     }
     p.beginBlend();//TODO
-    p.rect(tx+p.pus,ty+p.pus,tw+(textOffset?-p.pus*3:p.pus),th-p.pus*2);
+    // p.rect(tx+p.pus,ty+p.pus,tw+(textOffset?-p.pus:p.pus),th-p.pus);
+    p.rect(tx+p.pus,ty,tw+(textOffset?-p.pus:p.pus),th);
     // float tl=tw-(textOffset?p.pu*3/2:p.pu);//TODO
     // p.text(text,tx+(tw-tl)/2f,ty+(th-p.pu)/2f);
-    p.text(text,tx+(textOffset?p.pu/2:p.pus*2),ty+(th-p.pu)/2f);
+    p.text(text,tx+(textOffset?p.pu/2:p.pus),ty+(th-p.pu)/2f-p.pus);
+    // p.text(text,tx+(textOffset?p.pu/2:p.pus),ty+(th-p.pu)/2f);
     // p.text(text,tx+(textOffset?(tw-p.pus*8)/2f:0),ty+(th-p.pu)/2f);
     p.endBlend();
   }
