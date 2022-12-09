@@ -236,7 +236,7 @@ public class Screen0003 extends ScreenCore3D{
     return cam.frustum.sphereInFrustum(in.getPosition(),r);
   }
   @Override
-  public void display() {
+  public void displayWithCam() {
     // Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
     // Gdx.gl20.glDepthMask(false);
     // synchronized(cellData) {
@@ -266,6 +266,8 @@ public class Screen0003 extends ScreenCore3D{
     decal(logo);
     flushDecal();
   }
+  @Override
+  public void display() {}
   @Override
   public void frameResized() {
     bu=pus*24;

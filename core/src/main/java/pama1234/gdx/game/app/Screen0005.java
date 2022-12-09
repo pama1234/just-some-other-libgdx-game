@@ -6,6 +6,8 @@ public class Screen0005 extends ScreenCore3D{
   @Override
   public void update() {}
   @Override
+  public void displayWithCam() {}
+  @Override
   public void display() {}
   @Override
   public void frameResized() {}

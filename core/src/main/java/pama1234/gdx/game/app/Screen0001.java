@@ -24,7 +24,6 @@ import pama1234.gdx.game.util.ClientPlayerCenter3D;
 import pama1234.gdx.game.util.ControllerClientPlayer3D;
 import pama1234.gdx.util.FileUtil;
 import pama1234.gdx.util.element.Graphics;
-import pama1234.gdx.util.entity.Entity;
 import pama1234.math.Tools;
 
 /**
@@ -162,40 +161,6 @@ public class Screen0001 extends ScreenCore3D{
     centerScreen.add.add(configInfo=new ConfigInfo(this));
     centerCam.add.add(playerCenter);
     centerCam.add.add(yourself);//TODO
-    centerCam.add.add(new Entity<Screen0001>(this) {//TODO
-      @Override
-      public void display() {
-        // Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
-        // Gdx.gl20.glDepthMask(false);
-        synchronized(group) {
-          for(int i=0;i<group.size;i++) {
-            float tx=group.x(i)*multDist;
-            float ty=group.y(i)*multDist;
-            float tz=group.z(i)*multDist;
-            float tdist=dist(tx,ty,tz,cam.x(),cam.y(),cam.z());
-            // Decal td=decals.get(layerF(tdist)).get(i);
-            final DecalData tdd=decals.get(i);
-            final Decal td=tdd.decal;
-            // if(tdist>viewDist) continue;
-            if(!isVisible(cam.camera,td,Var.DIST/2)) continue;
-            final int tlf=layerF(tdist);
-            if(tlf!=tdd.layer) {
-              tdd.layer=tlf;
-              td.setTextureRegion(graphicsList.get(tlf).get(group.type[i]).tr);
-            }
-            td.setPosition(tx,ty,tz);
-            td.lookAt(cam.camera.position,cam.camera.up);
-            td.setColor(1,1,1,colorF(tdist));
-            decal(td);
-          }
-        }
-        if(displayHint) decal(infoD);
-        logo.lookAt(cam.camera.position,cam.camera.up);
-        decal(logo);
-        flushDecal();
-      }
-    });
-    // updateViewDist();
   }
   @Override
   public void update() {}
@@ -214,6 +179,37 @@ public class Screen0001 extends ScreenCore3D{
   }
   public boolean isVisible(Camera cam,Decal in,float r) {
     return cam.frustum.sphereInFrustum(in.getPosition(),r);
+  }
+  @Override
+  public void displayWithCam() {
+    // Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
+    // Gdx.gl20.glDepthMask(false);
+    synchronized(group) {
+      for(int i=0;i<group.size;i++) {
+        float tx=group.x(i)*multDist;
+        float ty=group.y(i)*multDist;
+        float tz=group.z(i)*multDist;
+        float tdist=dist(tx,ty,tz,cam.x(),cam.y(),cam.z());
+        // Decal td=decals.get(layerF(tdist)).get(i);
+        final DecalData tdd=decals.get(i);
+        final Decal td=tdd.decal;
+        // if(tdist>viewDist) continue;
+        if(!isVisible(cam.camera,td,Var.DIST/2)) continue;
+        final int tlf=layerF(tdist);
+        if(tlf!=tdd.layer) {
+          tdd.layer=tlf;
+          td.setTextureRegion(graphicsList.get(tlf).get(group.type[i]).tr);
+        }
+        td.setPosition(tx,ty,tz);
+        td.lookAt(cam.camera.position,cam.camera.up);
+        td.setColor(1,1,1,colorF(tdist));
+        decal(td);
+      }
+    }
+    if(displayHint) decal(infoD);
+    logo.lookAt(cam.camera.position,cam.camera.up);
+    decal(logo);
+    flushDecal();
   }
   @Override
   public void display() {}

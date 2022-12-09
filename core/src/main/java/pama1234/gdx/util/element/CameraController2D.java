@@ -13,7 +13,7 @@ import pama1234.gdx.util.info.TouchInfo;
 import pama1234.math.physics.PathVar;
 
 public class CameraController2D extends CameraController{
-  public OrthographicCamera ocam;
+  // public OrthographicCamera ocam;
   // public PathPoint point;
   public Vector2 cache;
   public boolean pixelPerfect;

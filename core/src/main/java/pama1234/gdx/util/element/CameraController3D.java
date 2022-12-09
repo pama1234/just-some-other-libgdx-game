@@ -16,7 +16,8 @@ import pama1234.math.physics.PathPoint;
 import pama1234.math.physics.PathVar;
 
 public class CameraController3D extends CameraController{
-  public PerspectiveCamera pcam;
+  // public PerspectiveCamera pcam;
+  // public OrthographicCamera ocam;
   // public PathVar h=new PathVar(PI/2*3,0.5f),v=new PathVar(-PI/2f,0.5f);
   public PathPoint viewDir=new PathPoint(PI/2*3,-PI/2f,0.5f);
   public float moveSpeed=1;
@@ -25,18 +26,26 @@ public class CameraController3D extends CameraController{
   public int coolingCount;
   public CameraController3D(UtilScreen3D p,float x,float y,float z,float s,float r,float frameU) {
     super(p,x,y,z);
-    camera=pcam=new PerspectiveCamera(60,640,640);
-    pcam.near=0.1f;
-    pcam.far=3000f;
+    camera=pcam=new PerspectiveCamera(60,p.width,p.height);
+    // camera=new PerspectiveCamera(60,p.width,p.height);
+    // camera=new PerspectiveCamera(60,p.width,p.height);
+    initCamera();
     scale=new PathVar(s);
     rotate=new PathVar(r);
     this.frameU=frameU;
   }
+  public void initCamera() {
+    camera.near=0.1f;
+    camera.far=3000f;
+    //---
+    camera.viewportWidth=p.width;
+    camera.viewportHeight=p.height;
+  }
   public float viewDist() {
-    return pcam.far;
+    return camera.far;
   }
   public void viewDist(float in) {
-    pcam.far=in;
+    camera.far=in;
   }
   @Override
   public void update() {
@@ -86,15 +95,15 @@ public class CameraController3D extends CameraController{
     tx+=dx;
     tz+=dz;
     point.set(tx,ty,tz);
-    pcam.position.set(x,y,z);
-    pcam.up.set(0,-1,0);
-    pcam.lookAt(x+cosH*sinV,y+cosV,z+sinH*sinV);
-    pcam.update();
+    camera.position.set(x,y,z);
+    camera.up.set(0,-1,0);
+    camera.lookAt(x+cosH*sinV,y+cosV,z+sinH*sinV);
+    camera.update();
   }
   @Override
   public void preResizeEvent(int w,int h) {
-    pcam.viewportWidth=w;
-    pcam.viewportHeight=h;
+    camera.viewportWidth=w;
+    camera.viewportHeight=h;
   }
   @Override
   public void mouseDragged() {//TODO
@@ -117,8 +126,8 @@ public class CameraController3D extends CameraController{
       coolingCount--;
       return;
     }
-    viewDir.des.x-=(dx/pcam.viewportWidth)*viewSpeed;
-    viewDir.des.y-=-(dy/pcam.viewportHeight)*viewSpeed;
+    viewDir.des.x-=(dx/camera.viewportWidth)*viewSpeed;
+    viewDir.des.y-=-(dy/camera.viewportHeight)*viewSpeed;
     if(viewDir.des.x>=PI2) {
       viewDir.des.x-=PI2;
       viewDir.pos.x-=PI2;

@@ -14,8 +14,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import pama1234.gdx.util.info.TouchInfo;
 
 /**
- * UtilScreenCore -> UtilScreen
- * 此中间类主要放渲染相关的东东
+ * UtilScreenCore -> UtilScreen 此中间类主要放渲染相关的东东
  */
 public abstract class UtilScreen extends UtilScreenCore{
   @Override
@@ -31,8 +30,9 @@ public abstract class UtilScreen extends UtilScreenCore{
     beginDraw();
     if(background) background(backgroundColor);
     withCam();
-    centerCam.display();
     serverCenter.display();
+    centerCam.display();
+    displayWithCam();
     withScreen();
     centerScreen.display();
     display();
@@ -40,6 +40,7 @@ public abstract class UtilScreen extends UtilScreenCore{
     endDraw();
     frameCount++;
   }
+  public abstract void displayWithCam();
   public void image(Texture in,float x,float y) {
     imageBatch.begin();
     imageBatch.draw(in,x,y);

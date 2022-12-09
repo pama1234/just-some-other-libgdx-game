@@ -3,6 +3,8 @@ package pama1234.gdx.util.element;
 import static pama1234.math.UtilMath.min;
 
 import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.PerspectiveCamera;
 import com.badlogic.gdx.math.MathUtils;
 
 import pama1234.gdx.util.app.UtilScreen;
@@ -14,6 +16,9 @@ import pama1234.math.physics.PathVar;
 
 public abstract class CameraController extends Entity<UtilScreen>{
   public Camera camera;
+  public PerspectiveCamera pcam;
+  public OrthographicCamera ocam;
+  //---
   // public PathPoint point;
   public PathPoint3D point;
   public PathVar scale,rotate;

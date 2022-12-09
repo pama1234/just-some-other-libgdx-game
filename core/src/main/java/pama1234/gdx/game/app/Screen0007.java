@@ -129,6 +129,8 @@ public class Screen0007 extends UtilScreen3D{
     socketCenter.refresh();
   }
   @Override
+  public void displayWithCam() {}
+  @Override
   public void display() {}
   @Override
   public void frameResized() {}

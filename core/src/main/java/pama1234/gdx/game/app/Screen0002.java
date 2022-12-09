@@ -24,6 +24,8 @@ public class Screen0002 extends UtilScreen2D{
     // playerCenter.update();
   }
   @Override
+  public void displayWithCam() {}
+  @Override
   public void display() {
     int circleSeg=circleSeg(CellGroup2D.SIZE*cam.scale.pos*(1/cam.frameScale));
     for(int i=0;i<group.size;i++) {
