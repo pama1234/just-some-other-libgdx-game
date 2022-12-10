@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
 import pama1234.gdx.util.element.Graphics;
 import pama1234.gdx.util.listener.EntityListener;
+import pama1234.math.UtilMath;
 
 public class Screen0005 extends ScreenCore3D{
   public Graphics gbackground;
@@ -63,8 +64,10 @@ public class Screen0005 extends ScreenCore3D{
     // idata[0]=mouse.x;
     // idata[1]=mouse.y;
     // shader.setUniform4fv("iMouse",idata,0,4);
-    idata[0]=cam3d.viewDir.x();
-    idata[1]=cam3d.viewDir.y();
+    // idata[0]=(cam3d.viewDir.x()-UtilMath.PI)*2;
+    // idata[1]=(cam3d.viewDir.y()+UtilMath.PI)*2;
+    idata[0]=(cam3d.viewDir.x()-UtilMath.PI);
+    idata[1]=(cam3d.viewDir.y()+UtilMath.PI);
     // idata[0]=mouse.x/width;
     // idata[1]=mouse.y/height;
     shader.setUniform2fv("iCam",idata,0,2);

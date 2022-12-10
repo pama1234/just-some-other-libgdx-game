@@ -343,7 +343,8 @@ this function calculates it
 */
 vec3 get_camera_vector() {
     // return normalize(vec3(v_texCoords.x + iMouse.x / iResolution.x, v_texCoords.y + iMouse.y / iResolution.y, -1.0));
-    return normalize(vec3(v_texCoords.x - 0.5 + iCam.x, v_texCoords.y - 0.5 + iCam.y, -1.0));
+    // return normalize(vec3(v_texCoords.x - 0.5 + iCam.x, v_texCoords.y - 0.5 + iCam.y, -1.0));
+    return normalize(vec3(v_texCoords.x - 0.5, v_texCoords.y - 0.5, -1.0))+vec3(iCam, 0);
 }
 
 /*
