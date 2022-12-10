@@ -2,31 +2,27 @@ package pama1234.gdx.game.app;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField;
+import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 
+import pama1234.gdx.game.ui.CodeTextFieldStyle;
+import pama1234.gdx.game.ui.NormalOnscreenKeyboard;
 import pama1234.gdx.util.element.Graphics;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.listener.EntityListener;
 import pama1234.math.UtilMath;
 
 public class Screen0005 extends ScreenCore3D{
-  // public Stage stage;
-  // public Viewport viewport;
-  // public TextField textField;
+  public TextField textField;
   //---
   public Graphics gbackground;
   public ShaderProgram shader;
   public float[] idata=new float[7];
   @Override
   public void setup() {
-    // System.out.println(bu);
     noStroke();
     // background=false;
-    // buttons=TextButtonGenerator.genButtons_0002(this);
-    // for(Button e:buttons) centerScreen.add.add(e);
     gbackground=new Graphics(this,width,height);
-    // gbackground.beginDraw();
-    // background(255);
-    // gbackground.endDraw();
     ShaderProgram.pedantic=false;
     shader=new ShaderProgram(
       // Gdx.files.internal("shader/main0001/atmosphericScattering.vert"),
@@ -36,11 +32,11 @@ public class Screen0005 extends ScreenCore3D{
     // shader.bind();
     System.out.println(shader.getLog());
     font.load(0);
-    // textField=new TextField(shader.getLog().replace('\n',' '),new CodeTextFieldStyle(this));
-    // textField.setPosition(u,u);
-    // textField.setOnscreenKeyboard(new NormalOnscreenKeyboard());
-    // stage.addActor(textField);
-    String[] ts=shader.getLog().split("\n");
+    textField=new TextField(shader.getLog().replace('\n',' '),new CodeTextFieldStyle(this));
+    textField.setPosition(u,u);
+    textField.setOnscreenKeyboard(new NormalOnscreenKeyboard());
+    stage.addActor(textField);
+    // String[] ts=shader.getLog().split("\n");
     centerScreen.add.add(new EntityListener() {
       @Override
       public void display() {
@@ -49,30 +45,14 @@ public class Screen0005 extends ScreenCore3D{
         shaderUpdate();
         imageBatch.draw(gbackground.texture,0,0,width,height);
         imageBatch.end();
-        // image(gbackground.texture,0,0);
-        // imageBatch.flush();
         imageBatch.setShader(null);
-        // fill(0);
-        // // rect(width/8*5,0,width/4,frameCount<height?sq(frameCount):height);
-        // rect(width/8f*5,0,width/4f,height);
-        // fill(63);
-        // rect(width/8f*5,height/4f,width/4f,bu);
-        // rect(width/8f*5,height/2f,width/4f,bu);
-        fill(255);
-        // textSize(pu/4);
-        // text("abcd",0,0);
-        for(int i=0;i<ts.length;i++) text(ts[i],0,i*pu);
+        // fill(255);
+        // for(int i=0;i<ts.length;i++) text(ts[i],0,i*pu);
       }
     });
-    // System.out.println(Hiero.class);
   }
   @Override
   public void update() {
-    // System.out.println(mouse.x);
-    // System.out.println(mouse.y);
-    // idata[2]=0;
-    // idata[3]=0;
-    // stage.act();
     shaderUpdate();
   }
   public void shaderUpdate() {
@@ -89,20 +69,15 @@ public class Screen0005 extends ScreenCore3D{
     shader.setUniform2fv("iCam",idata,0,2);
   }
   @Override
-  public void mousePressed(MouseInfo info) {
-    // stage.setKeyboardFocus(null);
-  }
+  public void mousePressed(MouseInfo info) {}
   @Override
   public void displayWithCam() {}
   @Override
-  public void display() {
-    // stage.draw();
-  }
+  public void display() {}
   @Override
   public void frameResized() {
     gbackground.dispose();
     gbackground=new Graphics(this,width,height);
-    // super.frameResized();
     imageBatch.begin();
     imageBatch.setShader(shader);
     idata[4]=width;
@@ -111,14 +86,11 @@ public class Screen0005 extends ScreenCore3D{
     shader.setUniform3fv("iResolution",idata,4,3);
     imageBatch.end();
     //---
-    // viewport.setWorldSize(width,height);
-    // viewport.update(width,height);
+    textField.setPosition(u,u);
     //---
-    // textField.setPosition(u,u);
-    // //---
-    // textField.setSize(width/3f,pu);
-    // TextFieldStyle tfs=textField.getStyle();
-    // tfs.font.getData().setScale(pus);
-    // textField.setStyle(tfs);//TODO libgdx is shit
+    textField.setSize(width/3f,pu);
+    TextFieldStyle tfs=textField.getStyle();
+    tfs.font.getData().setScale(pus);
+    textField.setStyle(tfs);//TODO libgdx is shit
   }
 }

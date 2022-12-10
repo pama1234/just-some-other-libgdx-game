@@ -39,8 +39,6 @@ public abstract class ScreenCore3D extends UtilScreen3D{
         bu=pus*24;
         viewport.setWorldSize(width,height);
         viewport.update(width,height);
-        // System.out.println("ScreenCore3D.init().new EntityListener() {...}.frameResized()");
-        // System.out.println(bu);
       }
     });
     centerScreen.list.add(new EntityListener() {
@@ -53,8 +51,4 @@ public abstract class ScreenCore3D extends UtilScreen3D{
   public int getButtonUnitLength() {
     return bu;
   }
-  // @Override
-  // public void frameResized() {
-  //   bu=pus*24;
-  // }
 }

@@ -15,8 +15,6 @@ import pama1234.gdx.game.ui.NormalOnscreenKeyboard;
 import pama1234.gdx.util.info.MouseInfo;
 
 public class Screen0004 extends ScreenCore3D{
-  // Stage stage;
-  // Viewport viewport;
   TextField textField;
   //---
   public Model model;
@@ -26,7 +24,6 @@ public class Screen0004 extends ScreenCore3D{
     cam.point.set(0,0,-320);
     noStroke();
     // font.getData().markupEnabled=true;
-    // stage=new Stage(viewport=new ScalingViewport(Scaling.fit,width,height,screenCam),imageBatch);
     font.load(0);
     textField=new TextField("1234",new CodeTextFieldStyle(this));
     textField.setPosition(u,u);
@@ -51,8 +48,6 @@ public class Screen0004 extends ScreenCore3D{
   }
   @Override
   public void update() {
-    // stage.act();
-    // textField.act(frameRate);
   }
   @Override
   public void displayWithCam() {
@@ -69,18 +64,12 @@ public class Screen0004 extends ScreenCore3D{
   }
   @Override
   public void mousePressed(MouseInfo info) {
-    // stage.setKeyboardFocus(textField);
-    // stage.setKeyboardFocus(null);
   }
   @Override
   public void display() {
-    // stage.draw();
   }
   @Override
   public void frameResized() {
-    // viewport.setWorldSize(width,height);
-    // viewport.update(width,height);
-    //---
     textField.setPosition(u,u);
     //---
     textField.setSize(width/3f,pu);
