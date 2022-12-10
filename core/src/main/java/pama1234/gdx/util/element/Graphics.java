@@ -40,4 +40,8 @@ public class Graphics{
   //TODO
   @Deprecated
   public void resize() {}
+  public void dispose() {
+    buffer.dispose();
+    texture.dispose();
+  }
 }
