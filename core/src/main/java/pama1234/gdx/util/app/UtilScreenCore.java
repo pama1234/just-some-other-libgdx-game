@@ -131,7 +131,7 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
   public void innerResize(int w,int h) {
     width=w;
     height=h;
-    if(Gdx.app.getType()==ApplicationType.Android) u=min(w,h)/8;
+    if(isAndroid) u=min(w,h)/8;
     else u=min(w,h)/16;
     pus=max(1,floor(u/16f));
     pu=pus*16;

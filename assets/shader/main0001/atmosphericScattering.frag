@@ -32,6 +32,7 @@ uniform vec3 iResolution;
 #define ABSORPTION_FALLOFF 4e3 /* how much the absorption decreases the further away it gets from the maximum height */
 // and the steps (more looks better, but is slower)
 // the primary step has the most effect on looks
+#ifdef HW_PERFORMANCE
 #if HW_PERFORMANCE==0
 // edit these if you are on mobile
 #define PRIMARY_STEPS 12 
@@ -40,6 +41,10 @@ uniform vec3 iResolution;
 // and these on desktop
 #define PRIMARY_STEPS 32 /* primary steps, affects quality the most */
 #define LIGHT_STEPS 8 /* light steps, how much steps in the light direction are taken */
+#endif
+# else
+#define PRIMARY_STEPS 12 /* primary steps, affects quality the most */
+#define LIGHT_STEPS 4 /* light steps, how much steps in the light direction are taken */
 #endif
 
 // camera mode, 0 is on the ground, 1 is in space, 2 is moving, 3 is moving from ground to space

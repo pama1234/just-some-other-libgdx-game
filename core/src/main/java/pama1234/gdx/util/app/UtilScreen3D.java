@@ -28,12 +28,15 @@ public abstract class UtilScreen3D extends UtilScreen{
   // public CameraGroupStrategy cameraGroupStrategy;
   @Override
   public void show() {
-    center=new EntityCenter<>(this);
-    init();
     screenCam=new OrthographicCamera();
-    cam=cam3d=new CameraController3D(this,0,0,0,1,0,Gdx.app.getType()==ApplicationType.Desktop?640:160);
-    fontBatch=new SpriteBatch();
     imageBatch=new SpriteBatch();
+    Gdx.input.setInputProcessor(inputProcessor=new UtilInputProcesser(this));
+    center=new EntityCenter<>(this);
+    center.list.add(cam=cam3d=new CameraController3D(this,0,0,0,1,0,Gdx.app.getType()==ApplicationType.Desktop?640:160));
+    center.list.add(centerCam=new EntityCenter<>(this));
+    center.list.add(centerScreen=new EntityCenter<>(this));
+    init();
+    fontBatch=new SpriteBatch();
     font=genMultiChunkFont();
     font.fontBatch=fontBatch;
     textColor=new Color(0,0,0,1);
@@ -51,11 +54,7 @@ public abstract class UtilScreen3D extends UtilScreen{
     mouse=new MouseInfo(this);
     for(int i=0;i<touches.length;i++) touches[i]=new TouchInfo(this);
     keyPressedArray=new IntArray(false,12);
-    Gdx.input.setInputProcessor(inputProcessor=new UtilInputProcesser(this));
     backgroundColor=new Color(1,1,1,0);
-    center.list.add(cam);
-    center.list.add(centerCam=new EntityCenter<>(this));
-    center.list.add(centerScreen=new EntityCenter<>(this));
     serverCenter=new ServerEntityCenter<>();
     withCam();
     innerResize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
