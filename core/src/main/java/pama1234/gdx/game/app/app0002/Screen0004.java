@@ -6,13 +6,13 @@ import com.badlogic.gdx.graphics.g3d.Model;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
 import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 
-import pama1234.gdx.game.app.ScreenCore3D;
 import pama1234.gdx.game.ui.CodeTextFieldStyle;
 import pama1234.gdx.game.ui.ConfigInfo;
 import pama1234.gdx.game.ui.NormalOnscreenKeyboard;
+import pama1234.gdx.game.ui.TextField;
+import pama1234.gdx.game.util.RectF;
+import pama1234.gdx.util.app.ScreenCore3D;
 import pama1234.gdx.util.info.MouseInfo;
 
 public class Screen0004 extends ScreenCore3D{
@@ -26,7 +26,8 @@ public class Screen0004 extends ScreenCore3D{
     noStroke();
     // font.getData().markupEnabled=true;
     font.load(0);
-    textField=new TextField("1234",new CodeTextFieldStyle(this));
+    textField=new TextField("1234",new CodeTextFieldStyle(this),
+      new RectF(()->u,()->u,()->width-u*2,()->pu),()->pus);
     textField.setPosition(u,u);
     textField.setOnscreenKeyboard(new NormalOnscreenKeyboard());
     // textField.setFocusTraversal(true);
@@ -63,12 +64,5 @@ public class Screen0004 extends ScreenCore3D{
   @Override
   public void display() {}
   @Override
-  public void frameResized() {
-    textField.setPosition(u,u);
-    //---
-    textField.setSize(width/3f,pu);
-    TextFieldStyle tfs=textField.getStyle();
-    tfs.font.getData().setScale(pus);
-    textField.setStyle(tfs);//TODO libgdx is shit
-  }
+  public void frameResized() {}
 }

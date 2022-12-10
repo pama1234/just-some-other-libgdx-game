@@ -2,12 +2,12 @@ package pama1234.gdx.game.app.app0002;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 
-import pama1234.gdx.game.app.ScreenCore3D;
 import pama1234.gdx.game.ui.CodeTextFieldStyle;
 import pama1234.gdx.game.ui.NormalOnscreenKeyboard;
+import pama1234.gdx.game.ui.TextField;
+import pama1234.gdx.game.util.RectF;
+import pama1234.gdx.util.app.ScreenCore3D;
 import pama1234.gdx.util.element.Graphics;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.listener.EntityListener;
@@ -33,7 +33,8 @@ public class Screen0005 extends ScreenCore3D{
     // shader.bind();
     System.out.println(shader.getLog());
     font.load(0);
-    textField=new TextField(shader.getLog().replace('\n',' '),new CodeTextFieldStyle(this));
+    textField=new TextField(shader.getLog().replace('\n',' '),new CodeTextFieldStyle(this),
+      new RectF(()->u,()->u,()->width-u*2,()->pu),()->pus);
     textField.setPosition(u,u);
     textField.setOnscreenKeyboard(new NormalOnscreenKeyboard());
     stage.addActor(textField);
@@ -86,12 +87,5 @@ public class Screen0005 extends ScreenCore3D{
     idata[6]=1;
     shader.setUniform3fv("iResolution",idata,4,3);
     imageBatch.end();
-    //---
-    textField.setPosition(u,u);
-    //---
-    textField.setSize(width/3f,pu);
-    TextFieldStyle tfs=textField.getStyle();
-    tfs.font.getData().setScale(pus);
-    textField.setStyle(tfs);//TODO libgdx is shit
   }
 }

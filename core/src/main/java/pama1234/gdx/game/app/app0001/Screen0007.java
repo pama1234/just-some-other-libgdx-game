@@ -29,7 +29,6 @@ public class Screen0007 extends UtilScreen3D{
   public ServerSocket serverSocket;
   public Center<SocketData> socketCenter;
   public Thread acceptSocket;
-  // public Thread acceptSocket,removeSocket;//TODO
   public Center<ServerRead> serverReadPool;
   public Center<ServerWrite> serverWritePool;
   public ServerCore serverCore;

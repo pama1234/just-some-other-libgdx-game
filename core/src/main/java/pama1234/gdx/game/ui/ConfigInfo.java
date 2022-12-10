@@ -1,6 +1,6 @@
 package pama1234.gdx.game.ui;
 
-import pama1234.gdx.game.app.ScreenCore3D;
+import pama1234.gdx.util.app.ScreenCore3D;
 import pama1234.gdx.util.entity.Entity;
 
 public class ConfigInfo extends Entity<ScreenCore3D>{

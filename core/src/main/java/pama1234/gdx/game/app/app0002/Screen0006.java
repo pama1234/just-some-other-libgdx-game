@@ -1,8 +1,8 @@
 package pama1234.gdx.game.app.app0002;
 
-import pama1234.gdx.game.app.ScreenCore3D;
 import pama1234.gdx.game.ui.Button;
 import pama1234.gdx.game.ui.TextButtonGenerator;
+import pama1234.gdx.util.app.ScreenCore3D;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.listener.EntityListener;
 

@@ -3,35 +3,38 @@ package pama1234.gdx.game.ui;
 import static pama1234.math.Tools.inBox;
 
 import pama1234.gdx.game.util.ExecuteF;
+import pama1234.gdx.game.util.RectF;
 import pama1234.gdx.game.util.GetBoolean;
 import pama1234.gdx.game.util.GetFloat;
 import pama1234.gdx.game.util.GetInt;
 import pama1234.gdx.util.app.UtilScreen;
 
 public class TextButton extends Button{
-  String text;
-  boolean textOffset=true;//TODO
+  public String text;
+  public boolean textOffset=true;//TODO
   // int x,y,w,h;
-  GetInt bu;
-  GetFloat x,y,w,h;
+  public GetInt bu;
+  // GetFloat x,y,w,h;
+  public RectF rect;
   public TextButton(UtilScreen p,boolean textOffset,GetBoolean active,ExecuteF press,ExecuteF clickStart,ExecuteF clickEnd,String text,GetInt bu,GetFloat x,GetFloat y) {
     this(p,textOffset,active,press,clickStart,clickEnd,text,bu,x,y,null,bu::get);//()->bu.get()*2);
-    this.w=()->p.textLength(this.text)+(this.textOffset?p.pu:0);//TODO
+    this.rect.w=()->p.textLength(this.text)+(this.textOffset?p.pu:0);//TODO
   }
   public TextButton(UtilScreen p,boolean textOffset,GetBoolean active,ExecuteF press,ExecuteF clickStart,ExecuteF clickEnd,String text,GetInt bu,GetFloat x,GetFloat y,GetFloat w,GetFloat h) {
     super(p,active,press,clickStart,clickEnd);
     this.text=text;
     this.textOffset=textOffset;
     this.bu=bu;
-    this.x=x;
-    this.y=y;
-    this.w=w;
-    this.h=h;
+    // this.x=x;
+    // this.y=y;
+    // this.w=w;
+    // this.h=h;
+    this.rect=new RectF(x,y,w,h);
   }
   @Override
   public void display() {
     if(!active.get()) return;
-    final float tx=x.get(),ty=y.get(),tw=w.get(),th=h.get();
+    final float tx=rect.x.get(),ty=rect.y.get(),tw=rect.w.get(),th=rect.h.get();
     if(touch!=null) {
       // p.fill(127,240);
       p.fill(94,203,234,200);
@@ -52,6 +55,6 @@ public class TextButton extends Button{
     p.endBlend();
   }
   public boolean inButton(float xIn,float yIn) {
-    return inBox(xIn,yIn,x.get(),y.get(),w.get(),h.get());
+    return inBox(xIn,yIn,rect.x.get(),rect.y.get(),rect.w.get(),rect.h.get());
   }
 }

@@ -1,4 +1,5 @@
-package pama1234.gdx.game.app;
+package pama1234.gdx.util.app;
+
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Scaling;
@@ -6,12 +7,11 @@ import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import pama1234.gdx.game.ui.Button;
-import pama1234.gdx.util.app.UtilScreen3D;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.listener.EntityListener;
 import pama1234.util.net.ServerInfo;
 
-public abstract class ScreenCore3D extends UtilScreen3D{
+public abstract class ScreenCore2D extends UtilScreen2D{
   public ServerInfo dataServerInfo;
   //---
   public Stage stage;
