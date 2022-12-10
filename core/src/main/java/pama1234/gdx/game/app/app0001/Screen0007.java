@@ -1,4 +1,4 @@
-package pama1234.gdx.game.app;
+package pama1234.gdx.game.app.app0001;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net.Protocol;

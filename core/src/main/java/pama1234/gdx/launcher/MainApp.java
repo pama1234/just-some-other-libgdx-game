@@ -3,6 +3,7 @@ package pama1234.gdx.launcher;
 import com.badlogic.gdx.Game;
 
 import pama1234.gdx.game.app.*;
+import pama1234.gdx.game.app.app0002.Screen0006;
 
 public class MainApp extends Game{
   @Override

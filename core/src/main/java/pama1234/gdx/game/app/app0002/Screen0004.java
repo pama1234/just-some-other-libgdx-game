@@ -1,4 +1,4 @@
-package pama1234.gdx.game.app;
+package pama1234.gdx.game.app.app0002;
 
 import com.badlogic.gdx.graphics.VertexAttributes.Usage;
 import com.badlogic.gdx.graphics.g3d.Material;
@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField.TextFieldStyle;
 
+import pama1234.gdx.game.app.ScreenCore3D;
 import pama1234.gdx.game.ui.CodeTextFieldStyle;
 import pama1234.gdx.game.ui.ConfigInfo;
 import pama1234.gdx.game.ui.NormalOnscreenKeyboard;
@@ -47,27 +48,20 @@ public class Screen0004 extends ScreenCore3D{
     // cam3d.initCamera();
   }
   @Override
-  public void update() {
-  }
+  public void update() {}
   @Override
   public void displayWithCam() {
     // fill(255,0,0);
-    // // rect(-256,-256,512,512);
     // rect(-256,-576,512,1152);
-    // modelBatch.begin(cam.camera);
-    // modelBatch.render(instance);
-    // modelBatch.end();
     // circle(0,0,64);
     model(instance);
     flushModel();
     // circle(0,-128,64);
   }
   @Override
-  public void mousePressed(MouseInfo info) {
-  }
+  public void mousePressed(MouseInfo info) {}
   @Override
-  public void display() {
-  }
+  public void display() {}
   @Override
   public void frameResized() {
     textField.setPosition(u,u);

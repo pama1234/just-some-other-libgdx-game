@@ -3,6 +3,8 @@ package pama1234.gdx.launcher;
 import com.badlogic.gdx.Game;
 
 import pama1234.gdx.game.app.*;
+import pama1234.gdx.game.app.app0001.*;
+import pama1234.gdx.game.app.app0002.*;
 
 public class DebugApp extends Game{
   @Override

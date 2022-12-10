@@ -1,4 +1,4 @@
-package pama1234.gdx.game.app;
+package pama1234.gdx.game.app.app0001;
 
 import pama1234.game.app.server.particle.with2d.CellGroup2D;
 import pama1234.game.app.server.particle.with2d.CellGroupGenerator2D;

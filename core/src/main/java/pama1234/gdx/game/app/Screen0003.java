@@ -33,7 +33,7 @@ import pama1234.math.Tools;
 import pama1234.util.net.ServerInfo;
 
 /**
- * 3D 粒子系统 客户端
+ * 3D 粒子系统 联机 客户端
  */
 public class Screen0003 extends ScreenCore3D{
   // public ServerInfo dataServerInfo;
