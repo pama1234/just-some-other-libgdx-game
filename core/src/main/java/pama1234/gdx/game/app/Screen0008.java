@@ -16,7 +16,7 @@ public class Screen0008 extends ScreenCore2D{
     textArea=new TextArea("1234",new CodeTextFieldStyle(this),
       new RectF(()->u,()->u,()->width-u*2,()->pu*4.25f),()->pus);
     textArea.setOnscreenKeyboard(new NormalOnscreenKeyboard());
-    center.add.add(textArea);
+    // center.add.add(textArea);
     stage.addActor(textArea);
   }
   @Override

@@ -43,6 +43,7 @@ public abstract class UtilScreen extends UtilScreenCore{
   public abstract void displayWithCam();
   public void image(Texture in,float x,float y) {
     imageBatch.begin();
+    // imageBatch.draw(in,x,y-in.getHeight(),in.getWidth(),-in.getHeight());
     imageBatch.draw(in,x,y);
     imageBatch.end();
   }
