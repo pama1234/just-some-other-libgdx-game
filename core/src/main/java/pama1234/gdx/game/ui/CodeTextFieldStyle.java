@@ -12,9 +12,18 @@ public class CodeTextFieldStyle extends TextFieldStyle{
       new DrawableEntity(p,(batch,x,y,w,h)-> {
         p.beginBlend();
         p.fill(0,191);
-        p.rect(x,y,w<0.1f?p.pus:w,h);
+        // p.rect(x,y,w<0.1f?p.pus:w,h);
+        p.rect(x,y,p.pus,h);
+        p.rect(x,y,w,h);
         p.endBlend();
       }),
+      // {
+      //   // {minWidth=p.pus;}
+      //   // @Override
+      //   // public void frameResized(int w,int h) {
+      //   //   minWidth=p.pus;
+      //   // }
+      // },
       new DrawableEntity(p,(batch,x,y,w,h)-> {
         p.fill(255,204,0);
         p.rect(x,y,w,h);

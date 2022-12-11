@@ -6,7 +6,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField.OnscreenKeyboard;
 
 public class NormalOnscreenKeyboard implements OnscreenKeyboard{
   @Override
-  public void show(boolean visible) {
+  public void show(boolean visible) {//TODO
     Gdx.input.setOnscreenKeyboardVisible(visible,OnscreenKeyboardType.URI);
+    // Gdx.input.setOnscreenKeyboardVisible(visible,OnscreenKeyboardType.PhonePad);
   }
 }

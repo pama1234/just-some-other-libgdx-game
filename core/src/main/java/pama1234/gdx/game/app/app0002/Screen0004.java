@@ -28,7 +28,6 @@ public class Screen0004 extends ScreenCore3D{
     font.load(0);
     textField=new TextField("1234",new CodeTextFieldStyle(this),
       new RectF(()->u,()->u,()->width-u*2,()->pu),()->pus);
-    textField.setPosition(u,u);
     textField.setOnscreenKeyboard(new NormalOnscreenKeyboard());
     // textField.setFocusTraversal(true);
     // textField.setAlignment(Align.left);

@@ -31,6 +31,7 @@ public class MultiChunkFont extends BitmapFont{//TODO
   // public Color foregroundColor;
   public MultiChunkFont(FileHandle[] fontFile,boolean loadOnDemand) {
     super(new MultiChunkFontData(fontFile[0],true),(TextureRegion)null,true);
+    // super(new MultiChunkFontData(fontFile[0],false),(TextureRegion)null,true);
     mfontData=(MultiChunkFontData)getData();//TODO
     mfontData.mfont=this;
     this.fontFile=fontFile;
@@ -48,12 +49,13 @@ public class MultiChunkFont extends BitmapFont{//TODO
     load0001(in);
     loadOnDemand=f0001();
   }
-  private void load0001(int in) {
+  public void load0001(int in) {
     data[in]=createBitmapFont(fontFile[in]);
     mregions.set(in,data[in].getRegion());
   }
   public BitmapFont createBitmapFont(FileHandle fontFile) {
     BitmapFont out=fontFile==null?new BitmapFont(true):new BitmapFont(fontFile,true);
+    // BitmapFont out=fontFile==null?new BitmapFont():new BitmapFont(fontFile);
     // out.getRegion().getTexture().setFilter(TextureFilter.Nearest,TextureFilter.Nearest);
     out.getRegion().getTexture().setFilter(TextureFilter.Linear,TextureFilter.Nearest);
     out.getData().setScale(size/defaultSize);

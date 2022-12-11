@@ -35,7 +35,6 @@ public class Screen0005 extends ScreenCore3D{
     font.load(0);
     textField=new TextField(shader.getLog().replace('\n',' '),new CodeTextFieldStyle(this),
       new RectF(()->u,()->u,()->width-u*2,()->pu),()->pus);
-    textField.setPosition(u,u);
     textField.setOnscreenKeyboard(new NormalOnscreenKeyboard());
     stage.addActor(textField);
     // String[] ts=shader.getLog().split("\n");
