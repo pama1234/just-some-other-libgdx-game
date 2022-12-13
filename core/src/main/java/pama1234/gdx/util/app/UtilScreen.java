@@ -47,21 +47,21 @@ public abstract class UtilScreen extends UtilScreenCore{
         +"   gl_Position =  u_projTrans * "+ShaderProgram.POSITION_ATTRIBUTE+";\n"//
         +"}\n";
     String fragmentShader=//
-    "#ifdef GL_ES\n"//
-      +"#define LOWP lowp\n"//
-      +"#define HIGHP highp\n"//
-      +"precision highp float;\n"//
-      +"#else\n"//
-      +"#define LOWP \n"//
-      +"#define HIGHP \n"//
-      +"#endif\n"//
-      +"varying LOWP vec4 v_color;\n"//
-      +"varying HIGHP vec2 v_texCoords;\n"//
-      +"uniform sampler2D u_texture;\n"//
-      +"void main()\n"//
-      +"{\n"//
-      +"  gl_FragColor = v_color * texture2D(u_texture, v_texCoords);\n"//
-      +"}";
+      "#ifdef GL_ES\n"//
+        +"#define LOWP lowp\n"//
+        +"#define HIGHP highp\n"//
+        +"precision highp float;\n"//
+        +"#else\n"//
+        +"#define LOWP \n"//
+        +"#define HIGHP \n"//
+        +"#endif\n"//
+        +"varying LOWP vec4 v_color;\n"//
+        +"varying HIGHP vec2 v_texCoords;\n"//
+        +"uniform sampler2D u_texture;\n"//
+        +"void main()\n"//
+        +"{\n"//
+        +"  gl_FragColor = v_color * texture2D(u_texture, v_texCoords);\n"//
+        +"}";
     ShaderProgram shader=new ShaderProgram(vertexShader,fragmentShader);
     if(!shader.isCompiled()) throw new IllegalArgumentException("Error compiling shader: "+shader.getLog());
     return shader;
@@ -145,6 +145,9 @@ public abstract class UtilScreen extends UtilScreenCore{
   }
   public void textSize(float in) {
     font.size(in);
+  }
+  public float textSize() {
+    return font.size;
   }
   public float fontScale(float ts) {
     if(ts>=1) return MathUtils.floor(ts);

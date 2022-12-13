@@ -49,9 +49,6 @@ public class Screen0009 extends ScreenCore2D{
     // image(background,0,0);
     // SpriteBatch.createDefaultShader();
   }
-  public float textSize() {
-    return font.size;
-  }
   @Override
   public void display() {}
   @Override
