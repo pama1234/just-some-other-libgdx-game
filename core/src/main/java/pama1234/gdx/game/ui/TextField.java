@@ -32,8 +32,8 @@ import com.badlogic.gdx.utils.Pools;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 
-import pama1234.gdx.game.util.GetFloat;
 import pama1234.gdx.game.util.RectF;
+import pama1234.gdx.game.util.function.GetFloat;
 
 /**
  * A single-line text input field.

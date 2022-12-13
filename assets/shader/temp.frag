@@ -1,7 +1,7 @@
 #ifdef GL_ES
 #define LOWP lowp
-precision mediump float;
-precision mediump int;
+precision highp float;
+precision highp int;
 #else
 #define LOWP
 #endif

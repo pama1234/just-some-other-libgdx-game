@@ -1,7 +1,7 @@
 package pama1234.gdx.game.ui;
 
-import pama1234.gdx.game.util.ExecuteF;
-import pama1234.gdx.game.util.GetBoolean;
+import pama1234.gdx.game.util.function.ExecuteF;
+import pama1234.gdx.game.util.function.GetBoolean;
 import pama1234.gdx.util.app.UtilScreen;
 import pama1234.gdx.util.entity.Entity;
 import pama1234.gdx.util.info.TouchInfo;

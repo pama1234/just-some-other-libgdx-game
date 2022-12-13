@@ -29,7 +29,7 @@ public abstract class UtilScreen3D extends UtilScreen{
   @Override
   public void show() {
     screenCam=new OrthographicCamera();
-    imageBatch=new SpriteBatch();
+    imageBatch=new SpriteBatch(1000,createDefaultShader());
     Gdx.input.setInputProcessor(inputProcessor=new UtilInputProcesser(this));
     center=new EntityCenter<>(this);
     center.list.add(cam=cam3d=new CameraController3D(this,0,0,0,1,0,Gdx.app.getType()==ApplicationType.Desktop?640:160));

@@ -655,8 +655,8 @@ public class GifDecoder{
     // int width=frame.getWidth();
     int width=frame.getWidth()+1;//TODO
     int height=frame.getHeight()+1;
-    int tw=frame.getWidth()+1;
-    int th=frame.getHeight()+1;
+    int tw=frame.getWidth();
+    int th=frame.getHeight();
     int vzones=(int)Math.sqrt((double)nrFrames);
     int hzones=vzones;
     while(vzones*hzones<nrFrames) vzones++;
@@ -672,6 +672,7 @@ public class GifDecoder{
       }
     }
     Texture texture=new Texture(target);
+    // texture.setFilter(TextureFilter.Linear,TextureFilter.Nearest);
     texture.setFilter(TextureFilter.Linear,TextureFilter.Nearest);//TODO
     Array<TextureRegion> texReg=new Array<TextureRegion>();
     for(h=0;h<hzones;h++) {

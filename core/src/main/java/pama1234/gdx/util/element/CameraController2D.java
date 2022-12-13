@@ -67,6 +67,7 @@ public class CameraController2D extends CameraController{
   @Override
   public void mouseWheel(float x,float y) {
     if(!activeZoom) return;
+    // scale.des+=y/6f;
     scale.des+=y;
     if(scale.des<1f) scale.des=1f;
     if(scale.des>8) scale.des=8;

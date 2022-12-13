@@ -26,15 +26,15 @@ public class Screen0009 extends ScreenCore2D{
     //---
     background=FileUtil.loadTextureRegion("image/background.png");
     earth=GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP,
-    Gdx.files.internal("image/earth.gif").read());
+      Gdx.files.internal("image/bigEarth.gif").read());
     // Gdx.files.internal("image/earth.gif").read());
   }
   @Override
   public void update() {
-    shaderUpdate();
-    time+=frameRate;
+    // shaderUpdate();
+    time+=frameRate/4;
   }
-  public void shaderUpdate() {}
+  // public void shaderUpdate() {}
   @Override
   public void mousePressed(MouseInfo info) {
     // if(moonlightSonata.isPlaying()) moonlightSonata.pause();
@@ -42,8 +42,15 @@ public class Screen0009 extends ScreenCore2D{
   }
   @Override
   public void displayWithCam() {
-    image(earth.getKeyFrame(time),0,0);
+    TextureRegion kf=earth.getKeyFrame(time);
+    image(kf,0,0);
+    // text(kf.getRegionWidth()+" "+kf.getRegionHeight(),0,0);
+    // text(kf.getU2()+" "+kf.getV2(),0,textSize());
     // image(background,0,0);
+    // SpriteBatch.createDefaultShader();
+  }
+  public float textSize() {
+    return font.size;
   }
   @Override
   public void display() {}

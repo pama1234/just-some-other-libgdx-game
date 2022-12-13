@@ -2,8 +2,8 @@ package pama1234.gdx.game.ui;
 
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 
-import pama1234.gdx.game.util.GetFloat;
 import pama1234.gdx.game.util.RectF;
+import pama1234.gdx.game.util.function.GetFloat;
 import pama1234.gdx.util.listener.EntityListener;
 
 public class TextFieldInherit extends TextField implements EntityListener{

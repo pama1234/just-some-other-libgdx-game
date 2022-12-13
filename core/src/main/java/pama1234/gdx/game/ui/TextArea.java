@@ -16,8 +16,8 @@ import com.badlogic.gdx.utils.Null;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
-import pama1234.gdx.game.util.GetFloat;
 import pama1234.gdx.game.util.RectF;
+import pama1234.gdx.game.util.function.GetFloat;
 
 /** A text input field with multiple lines. */
 public class TextArea extends TextField{

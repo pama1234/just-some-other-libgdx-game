@@ -9,8 +9,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 import com.badlogic.gdx.utils.Timer;
 
-import pama1234.gdx.game.util.GetFloat;
 import pama1234.gdx.game.util.RectF;
+import pama1234.gdx.game.util.function.GetFloat;
 import pama1234.gdx.util.listener.EntityListener;
 
 @Deprecated

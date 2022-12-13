@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.ScreenUtils;
 
@@ -17,6 +18,54 @@ import pama1234.gdx.util.info.TouchInfo;
  * UtilScreenCore -> UtilScreen 此中间类主要放渲染相关的东东
  */
 public abstract class UtilScreen extends UtilScreenCore{
+  public static ShaderProgram createDefaultShader() {
+    String vertexShader=//
+      // "#ifdef GL_ES\n"//
+      //   +"#define LOWP lowp\n"//
+      //   +"#define HIGHP highp\n"//
+      //   +"precision highp float;\n"//
+      //   // +"precision highp vec4;\n"//
+      //   // +"precision highp vec2;\n"//
+      //   // +"precision highp mat4;\n"//
+      //   +"precision highp int;\n"//
+      //   +"#else\n"//
+      //   +"#define LOWP \n"//
+      //   +"#define HIGHP \n"//
+      //   +"#endif\n"//
+      "attribute vec4 "+ShaderProgram.POSITION_ATTRIBUTE+";\n"//
+        +"attribute vec4 "+ShaderProgram.COLOR_ATTRIBUTE+";\n"//
+        +"attribute vec2 "+ShaderProgram.TEXCOORD_ATTRIBUTE+"0;\n"//
+        +"uniform mat4 u_projTrans;\n"//
+        +"varying vec4 v_color;\n"//
+        +"varying vec2 v_texCoords;\n"//
+        +"\n"//
+        +"void main()\n"//
+        +"{\n"//
+        +"   v_color = "+ShaderProgram.COLOR_ATTRIBUTE+";\n"//
+        +"   v_color.a = v_color.a * (255.0/254.0);\n"//
+        +"   v_texCoords = "+ShaderProgram.TEXCOORD_ATTRIBUTE+"0;\n"//
+        +"   gl_Position =  u_projTrans * "+ShaderProgram.POSITION_ATTRIBUTE+";\n"//
+        +"}\n";
+    String fragmentShader=//
+    "#ifdef GL_ES\n"//
+      +"#define LOWP lowp\n"//
+      +"#define HIGHP highp\n"//
+      +"precision highp float;\n"//
+      +"#else\n"//
+      +"#define LOWP \n"//
+      +"#define HIGHP \n"//
+      +"#endif\n"//
+      +"varying LOWP vec4 v_color;\n"//
+      +"varying HIGHP vec2 v_texCoords;\n"//
+      +"uniform sampler2D u_texture;\n"//
+      +"void main()\n"//
+      +"{\n"//
+      +"  gl_FragColor = v_color * texture2D(u_texture, v_texCoords);\n"//
+      +"}";
+    ShaderProgram shader=new ShaderProgram(vertexShader,fragmentShader);
+    if(!shader.isCompiled()) throw new IllegalArgumentException("Error compiling shader: "+shader.getLog());
+    return shader;
+  }
   @Override
   public void render(float delta) {
     frameRate=delta;

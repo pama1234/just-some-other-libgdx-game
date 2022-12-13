@@ -1,4 +1,4 @@
-package pama1234.gdx.game.util;
+package pama1234.gdx.game.util.function;
 
 import com.badlogic.gdx.graphics.Color;
 
