@@ -13,7 +13,7 @@ public enum State0001 implements EntityListener{
   Settings,
   Announcement,
   Exception;
-  public EntityListener entity;
+  public EntityListener entity,displayCam;
   @Override
   public void init() {
     entity.init();

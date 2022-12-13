@@ -1,4 +1,4 @@
-package pama1234.gdx.game.ui;
+package pama1234.gdx.game.ui.util;
 
 import pama1234.gdx.game.util.function.ExecuteF;
 import pama1234.gdx.game.util.function.GetBoolean;
@@ -7,9 +7,9 @@ import pama1234.gdx.util.entity.Entity;
 import pama1234.gdx.util.info.TouchInfo;
 
 public abstract class Button extends Entity<UtilScreen>{
-  GetBoolean active;
-  TouchInfo touch;
-  ExecuteF press,clickStart,clickEnd;
+  public GetBoolean active;
+  public TouchInfo touch;
+  public ExecuteF press,clickStart,clickEnd;
   public Button(UtilScreen p,GetBoolean active,ExecuteF press,ExecuteF clickStart,ExecuteF clickEnd) {
     super(p);
     this.active=active;

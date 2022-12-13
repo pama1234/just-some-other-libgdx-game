@@ -1,4 +1,4 @@
-package pama1234.gdx.game.ui;
+package pama1234.gdx.game.ui.util;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -32,6 +32,7 @@ import com.badlogic.gdx.utils.Pools;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 
+import pama1234.gdx.game.ui.CodeTextFieldStyle;
 import pama1234.gdx.game.util.RectF;
 import pama1234.gdx.game.util.function.GetFloat;
 

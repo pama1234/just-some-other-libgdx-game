@@ -1,9 +1,9 @@
-package pama1234.gdx.game.ui;
+package pama1234.gdx.game.ui.util;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.OnscreenKeyboardType;
 
-import pama1234.gdx.game.ui.TextField.OnscreenKeyboard;
+import pama1234.gdx.game.ui.util.TextField.OnscreenKeyboard;
 
 public class NormalOnscreenKeyboard implements OnscreenKeyboard{
   @Override

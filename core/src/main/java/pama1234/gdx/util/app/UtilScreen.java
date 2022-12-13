@@ -20,18 +20,6 @@ import pama1234.gdx.util.info.TouchInfo;
 public abstract class UtilScreen extends UtilScreenCore{
   public static ShaderProgram createDefaultShader() {
     String vertexShader=//
-      // "#ifdef GL_ES\n"//
-      //   +"#define LOWP lowp\n"//
-      //   +"#define HIGHP highp\n"//
-      //   +"precision highp float;\n"//
-      //   // +"precision highp vec4;\n"//
-      //   // +"precision highp vec2;\n"//
-      //   // +"precision highp mat4;\n"//
-      //   +"precision highp int;\n"//
-      //   +"#else\n"//
-      //   +"#define LOWP \n"//
-      //   +"#define HIGHP \n"//
-      //   +"#endif\n"//
       "attribute vec4 "+ShaderProgram.POSITION_ATTRIBUTE+";\n"//
         +"attribute vec4 "+ShaderProgram.COLOR_ATTRIBUTE+";\n"//
         +"attribute vec2 "+ShaderProgram.TEXCOORD_ATTRIBUTE+"0;\n"//
@@ -73,7 +61,6 @@ public abstract class UtilScreen extends UtilScreenCore{
     for(TouchInfo i:touches) i.update(this);
     inputProcessor.update();
     center.update();
-    // centerScreen.update();
     serverCenter.update();
     update();
     beginDraw();
@@ -92,7 +79,7 @@ public abstract class UtilScreen extends UtilScreenCore{
   public abstract void displayWithCam();
   public void image(Texture in,float x,float y) {
     imageBatch.begin();
-    // imageBatch.draw(in,x,y-in.getHeight(),in.getWidth(),-in.getHeight());
+    // imageBatch.draw(in,x,y-in.getHeight(),in.getWidth(),-in.getHeight());//nop
     imageBatch.draw(in,x,y);
     imageBatch.end();
   }

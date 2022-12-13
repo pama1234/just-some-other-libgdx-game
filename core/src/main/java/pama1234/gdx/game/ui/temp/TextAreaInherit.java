@@ -1,4 +1,4 @@
-package pama1234.gdx.game.ui;
+package pama1234.gdx.game.ui.temp;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;

@@ -1,4 +1,4 @@
-package pama1234.gdx.game.ui;
+package pama1234.gdx.game.ui.util;
 
 import static pama1234.math.Tools.inBox;
 

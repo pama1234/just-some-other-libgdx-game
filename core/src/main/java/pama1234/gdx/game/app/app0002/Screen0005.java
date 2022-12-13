@@ -4,8 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
 import pama1234.gdx.game.ui.CodeTextFieldStyle;
-import pama1234.gdx.game.ui.NormalOnscreenKeyboard;
-import pama1234.gdx.game.ui.TextField;
+import pama1234.gdx.game.ui.util.NormalOnscreenKeyboard;
+import pama1234.gdx.game.ui.util.TextField;
 import pama1234.gdx.game.util.RectF;
 import pama1234.gdx.util.app.ScreenCore3D;
 import pama1234.gdx.util.element.Graphics;

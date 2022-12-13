@@ -3,6 +3,8 @@ package pama1234.gdx.game.ui;
 import com.badlogic.gdx.Input;
 
 import pama1234.gdx.game.app.app0002.Screen0006;
+import pama1234.gdx.game.ui.util.Button;
+import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.util.app.ScreenCore3D;
 
 public class TextButtonGenerator{

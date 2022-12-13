@@ -1,8 +1,8 @@
 package pama1234.gdx.game.app.app0004;
 
 import pama1234.gdx.game.ui.CodeTextFieldStyle;
-import pama1234.gdx.game.ui.NormalOnscreenKeyboard;
-import pama1234.gdx.game.ui.TextArea;
+import pama1234.gdx.game.ui.util.NormalOnscreenKeyboard;
+import pama1234.gdx.game.ui.util.TextArea;
 import pama1234.gdx.game.util.RectF;
 import pama1234.gdx.util.app.ScreenCore2D;
 import pama1234.gdx.util.info.MouseInfo;

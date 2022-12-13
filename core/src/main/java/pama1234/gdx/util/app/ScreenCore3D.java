@@ -5,7 +5,7 @@ import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import pama1234.gdx.game.ui.Button;
+import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.listener.EntityListener;
 import pama1234.util.net.ServerInfo;
