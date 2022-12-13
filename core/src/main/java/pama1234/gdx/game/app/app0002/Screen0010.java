@@ -1,4 +1,4 @@
-package pama1234.gdx.game.app;
+package pama1234.gdx.game.app.app0002;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;

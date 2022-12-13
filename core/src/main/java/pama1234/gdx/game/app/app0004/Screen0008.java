@@ -1,4 +1,4 @@
-package pama1234.gdx.game.app;
+package pama1234.gdx.game.app.app0004;
 
 import pama1234.gdx.game.ui.CodeTextFieldStyle;
 import pama1234.gdx.game.ui.NormalOnscreenKeyboard;
