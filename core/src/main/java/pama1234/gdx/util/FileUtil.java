@@ -23,4 +23,9 @@ public class FileUtil{
     out.flip(false,true);
     return out;
   }
+  public static TextureRegion toTextureRegion(Texture in) {
+    TextureRegion out=new TextureRegion(in);
+    out.flip(false,true);
+    return out;
+  }
 }

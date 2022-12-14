@@ -1,15 +1,26 @@
 package pama1234.gdx.game.asset;
 
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import pama1234.gdx.util.FileUtil;
 
 public class ImageLoader{
   public static TextureRegion background;
-  public static void load_0001() {
-    background=load("background.png");
+  // public static TextureRegion background;
+  public static void load_0001(AssetManager manager) {
+    // background=load("background.png");
+    manager.load("image/background.png",Texture.class);
   }
-  private static TextureRegion load(String in) {
+  public static void put_0001(AssetManager manager) {
+    background=loadFromTexture(manager.get("image/background.png"));
+  }
+  //----------------------------------------------------
+  public static TextureRegion load(String in) {
     return FileUtil.loadTextureRegion("image/"+in);
+  }
+  public static TextureRegion loadFromTexture(Texture in) {
+    return FileUtil.toTextureRegion(in);
   }
 }

@@ -4,15 +4,47 @@ import java.io.InputStream;
 import java.util.Vector;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetDescriptor;
+import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.assets.loaders.AsynchronousAssetLoader;
+import com.badlogic.gdx.assets.loaders.FileHandleResolver;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.utils.Array;
 
-public class GifDecoder{
+import pama1234.gdx.game.asset.GifLoader.Gif;
+import pama1234.gdx.game.asset.GifLoader.GifParameter;
+
+public class GifDecoder extends AsynchronousAssetLoader<Gif,GifParameter>{
+  // @Deprecated
+  public GifDecoder() {
+    super(n->Gdx.files.internal(n));
+  }
+  public GifDecoder(FileHandleResolver resolver) {
+    super(resolver);
+  }
+  @Override
+  public Array<AssetDescriptor> getDependencies(String fileName,FileHandle file,GifParameter parameter) {
+    System.out.println("GifDecoder.getDependencies()");
+    System.out.flush();
+    return null;
+  }
+  @Override
+  public void loadAsync(AssetManager manager,String fileName,FileHandle file,GifParameter parameter) {
+    System.out.println("GifDecoder.loadAsync()");
+    System.out.flush();
+  }
+  @Override
+  public Gif loadSync(AssetManager manager,String fileName,FileHandle file,GifParameter parameter) {
+    System.out.println("GifDecoder.loadSync()");
+    System.out.flush();
+    return null;
+  }
   public static final int STATUS_OK=0;
   public static final int STATUS_FORMAT_ERROR=1;
   public static final int STATUS_OPEN_ERROR=2;
@@ -518,7 +550,7 @@ public class GifDecoder{
       readBlock();
     }while((blockSize>0)&&!err());
   }
-  public Animation<TextureRegion> getAnimation(PlayMode playMode) {
+  public Gif getAnimation(PlayMode playMode) {
     int nrFrames=getFrameCount();
     Pixmap frame=getFrame(0);
     int width=frame.getWidth()+1;
@@ -554,9 +586,10 @@ public class GifDecoder{
     }
     float frameDuration=(float)getDelay(0);
     frameDuration/=1000;
-    Animation<TextureRegion> result=new Animation<TextureRegion>(frameDuration,texReg,playMode);
+    Gif result=new Gif(frameDuration,texReg,playMode);
     return result;
   }
+  @Deprecated
   public static Animation<TextureRegion> loadGIFAnimation(Animation.PlayMode playMode,InputStream is) {
     GifDecoder gdec=new GifDecoder();
     gdec.read(is);

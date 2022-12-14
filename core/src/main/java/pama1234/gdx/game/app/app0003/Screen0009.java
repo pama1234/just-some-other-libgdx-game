@@ -20,7 +20,7 @@ public class Screen0009 extends ScreenCore2D{
   public void setup() {
     noStroke();
     // moonlightSonata=Gdx.audio.newMusic(Gdx.files.internal("music/Beethoven-Moonlight-Sonata.mp3"));
-    MusicLoader.load_0001();
+    MusicLoader.moonlightSonata=MusicLoader.load("Beethoven-Moonlight-Sonata.mp3");
     moonlightSonata.play();
     // alsoSprachZarathustra.play();
     //---

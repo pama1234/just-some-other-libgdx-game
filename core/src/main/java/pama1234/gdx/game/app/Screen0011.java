@@ -23,7 +23,8 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     }else {
       state(State0001.FirstRun);
       // if(!debugFirstRun)
-      // if(false) Gdx.files.local("data/firstRun.txt").writeString("1234",false);
+      // if(false) 
+      Gdx.files.local("data/firstRun.txt").writeString("1234",false);
     }
   }
   @Override
