@@ -29,6 +29,7 @@ dependencies {
 	implementation project(':core')
 	
 	implementation "com.mazatech.amanithsvg:amanithsvg-gdx:$amanithsvgVersion:natives-desktop"
+	// implementation "com.mazatech.amanithsvg:amanithsvg-gdx:$amanithsvgVersion:natives-x86"
 }
 
 def os = System.properties['os.name'].toLowerCase()
@@ -67,6 +68,9 @@ jar {
 		file(archiveFile).setExecutable(true, false)
 	}
 }
+
+distTar {duplicatesStrategy(DuplicatesStrategy.EXCLUDE)}
+distZip {duplicatesStrategy(DuplicatesStrategy.EXCLUDE)}
 
 if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_14)) {
     jpackageImage.dependsOn jar

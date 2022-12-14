@@ -266,12 +266,12 @@ public class Game extends ApplicationAdapter implements InputProcessor{
         // NB: because 'animals.svg' has been designed for a 768 x 640 resolution (see the file header), we do not want to adjust the scale further (i.e. we pass 1.0f as additional scale factor)
         // Note that at the 768 x 640 'reference resolution', each animal sprite will have a dimension of 128 x 128: it will ALWAYS guarantee that we can easily place them on a 4 x 3 grid (landscape layout) or
         // on a 3 x 4 grid (portrait layout), REGARDLESS OF SCREEN RESOLUTION
-        _atlasGen.add(Gdx.files.internal("animals.svg"),true,1.0f);
+        _atlasGen.add(Gdx.files.internal("svg/animals.svg"),true,1.0f);
         // create backgrounds documents
-        _backgroundDocs[0]=SVGAssets.createDocument(Gdx.files.internal("gameBkg1.svg"));
-        _backgroundDocs[1]=SVGAssets.createDocument(Gdx.files.internal("gameBkg2.svg"));
-        _backgroundDocs[2]=SVGAssets.createDocument(Gdx.files.internal("gameBkg3.svg"));
-        _backgroundDocs[3]=SVGAssets.createDocument(Gdx.files.internal("gameBkg4.svg"));
+        _backgroundDocs[0]=SVGAssets.createDocument(Gdx.files.internal("svg/gameBkg1.svg"));
+        _backgroundDocs[1]=SVGAssets.createDocument(Gdx.files.internal("svg/gameBkg2.svg"));
+        _backgroundDocs[2]=SVGAssets.createDocument(Gdx.files.internal("svg/gameBkg3.svg"));
+        _backgroundDocs[3]=SVGAssets.createDocument(Gdx.files.internal("svg/gameBkg4.svg"));
         for(int i=0;i<4;++i) {
             // backgrounds viewBox must cover the whole drawing surface, so we use SVGTMeetOrSlice.Slice (default is SVGTMeetOrSlice.Meet)
             _backgroundDocs[i].setAspectRatio(new SVGAlignment(SVGTAlign.XMidYMid,SVGTMeetOrSlice.Slice));

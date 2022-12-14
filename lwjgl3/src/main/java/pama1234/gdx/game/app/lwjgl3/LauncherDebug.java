@@ -2,6 +2,7 @@ package pama1234.gdx.game.app.lwjgl3;
 
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
+import com.mazatech.amanithsvg.gamecards.Game;
 
 import pama1234.gdx.launcher.DebugApp;
 
@@ -11,7 +12,8 @@ public class LauncherDebug{
 		createApplication();
 	}
 	private static Lwjgl3Application createApplication() {
-		return new Lwjgl3Application(new DebugApp(),getDefaultConfiguration());
+		// return new Lwjgl3Application(new DebugApp(),getDefaultConfiguration());
+		return new Lwjgl3Application(new Game(),getDefaultConfiguration());
 	}
 	private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
 		Lwjgl3ApplicationConfiguration configuration=new Lwjgl3ApplicationConfiguration();

@@ -21,9 +21,6 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
-import pama1234.gdx.game.asset.GifAsset.Gif;
-import pama1234.gdx.game.asset.GifAsset.GifParameter;
-
 public class GifLoader extends AsynchronousAssetLoader<Gif,GifParameter>{
   // @Deprecated 
   public GifLoader() {
@@ -44,14 +41,11 @@ public class GifLoader extends AsynchronousAssetLoader<Gif,GifParameter>{
   public Gif loadSync(AssetManager manager,String fileName,FileHandle file,GifParameter parameter) {
     return getAnimation(parameter==null?PlayMode.LOOP:parameter.playMode);
   }
-  public static final int STATUS_OK=0;
-  public static final int STATUS_FORMAT_ERROR=1;
-  public static final int STATUS_OPEN_ERROR=2;
+  public static final int STATUS_OK=0,STATUS_FORMAT_ERROR=1,STATUS_OPEN_ERROR=2;
   protected static final int MAX_STACK_SIZE=4096;
   protected InputStream in;
   protected int status;
-  protected int width;
-  protected int height;
+  protected int width,height;
   protected boolean gctFlag;
   protected int gctSize;
   protected int loopCount=1;
