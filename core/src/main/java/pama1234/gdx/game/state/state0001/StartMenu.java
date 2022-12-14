@@ -24,14 +24,17 @@ public class StartMenu extends StateEntity0001{
     for(Button e:buttons) p.centerScreen.add.add(e);
     MusicAsset.moonlightSonata.setLooping(true);
     MusicAsset.moonlightSonata.play();
-    p.cam2d.activeDrag=false;
-    p.cam2d.activeZoom=false;
+    p.cam2d.active(false);
     p.cam2d.scale.des=3;
     p.cam2d.point.des.x=96;
   }
   @Override
   public void dispose() {
+    MusicAsset.moonlightSonata.pause();
     for(Button e:buttons) p.centerScreen.remove.add(e);
+    p.cam2d.active(true);
+    p.cam2d.scale.des=1;
+    p.cam2d.point.des.x=0;
   }
   @Override
   public void update() {

@@ -39,6 +39,10 @@ public abstract class CameraController extends Entity<UtilScreen>{
     super(p);
     point=new PathPoint3D(x,y,z);
   }
+  public void active(boolean in) {
+    activeDrag=in;
+    activeZoom=in;
+  }
   public abstract void preResizeEvent(int w,int h);
   public boolean inbox(float x,float y) {
     return Tools.inBoxCenter(x,y,x(),y(),w(),h());

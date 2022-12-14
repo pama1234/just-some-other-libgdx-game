@@ -1,4 +1,8 @@
-package pama1234.gdx.game.util;
+/* Copyright by Johannes Borchardt */
+/* LibGdx conversion 2014 by Anton Persson */
+/* Released under Apache 2.0 */
+/* https://code.google.com/p/animated-gifs-in-android/ */
+package pama1234.gdx.game.util.gif;
 
 import java.io.InputStream;
 import java.util.Vector;
@@ -20,14 +24,12 @@ import com.badlogic.gdx.utils.Array;
 import pama1234.gdx.game.asset.GifAsset.Gif;
 import pama1234.gdx.game.asset.GifAsset.GifParameter;
 
-public class GifDecoder extends AsynchronousAssetLoader<Gif,GifParameter>{
-  // public Gif gif;
-  // public Animation.PlayMode playMode=Animation.PlayMode.LOOP;
-  // @Deprecated
-  public GifDecoder() {
+public class GifLoader extends AsynchronousAssetLoader<Gif,GifParameter>{
+  // @Deprecated 
+  public GifLoader() {
     super(n->Gdx.files.internal(n));
   }
-  public GifDecoder(FileHandleResolver resolver) {
+  public GifLoader(FileHandleResolver resolver) {
     super(resolver);
   }
   @Override
@@ -137,25 +139,18 @@ public class GifDecoder extends AsynchronousAssetLoader<Gif,GifParameter>{
     if(lastDispose>0) {
       if(lastDispose==3) {
         int n=frameCount-2;
-        if(n>0) {
-          lastPixmap=getFrame(n-1);
-        }else {
-          lastPixmap=null;
-        }
+        if(n>0) lastPixmap=getFrame(n-1);
+        else lastPixmap=null;
       }
       if(lastPixmap!=null) {
         lastPixmap.getPixels(dest,0,width,0,0,width,height);
         if(lastDispose==2) {
           int c=0;
-          if(!transparency) {
-            c=lastBgColor;
-          }
+          if(!transparency) c=lastBgColor;
           for(int i=0;i<lrh;i++) {
             int n1=(lry+i)*width+lrx;
             int n2=n1+lrw;
-            for(int k=n1;k<n2;k++) {
-              dest[k]=c;
-            }
+            for(int k=n1;k<n2;k++) dest[k]=c;
           }
         }
       }
@@ -192,16 +187,12 @@ public class GifDecoder extends AsynchronousAssetLoader<Gif,GifParameter>{
         int k=line*width;
         int dx=k+ix;
         int dlim=dx+iw;
-        if((k+width)<dlim) {
-          dlim=k+width;
-        }
+        if((k+width)<dlim) dlim=k+width;
         int sx=i*iw;
         while(dx<dlim) {
           int index=((int)pixels[sx++])&0xff;
           int c=act[index];
-          if(c!=0) {
-            dest[dx]=c;
-          }
+          if(c!=0) dest[dx]=c;
           dx++;
         }
       }
@@ -220,9 +211,7 @@ public class GifDecoder extends AsynchronousAssetLoader<Gif,GifParameter>{
       readHeader();
       if(!err()) {
         readContents();
-        if(frameCount<0) {
-          status=STATUS_FORMAT_ERROR;
-        }
+        if(frameCount<0) status=STATUS_FORMAT_ERROR;
       }
     }else {
       status=STATUS_OPEN_ERROR;
@@ -236,18 +225,10 @@ public class GifDecoder extends AsynchronousAssetLoader<Gif,GifParameter>{
     int nullCode=-1;
     int npix=iw*ih;
     int available,clear,code_mask,code_size,end_of_information,in_code,old_code,bits,code,count,i,datum,data_size,first,top,bi,pi;
-    if((pixels==null)||(pixels.length<npix)) {
-      pixels=new byte[npix];
-    }
-    if(prefix==null) {
-      prefix=new short[MAX_STACK_SIZE];
-    }
-    if(suffix==null) {
-      suffix=new byte[MAX_STACK_SIZE];
-    }
-    if(pixelStack==null) {
-      pixelStack=new byte[MAX_STACK_SIZE+1];
-    }
+    if((pixels==null)||(pixels.length<npix)) pixels=new byte[npix];
+    if(prefix==null) prefix=new short[MAX_STACK_SIZE];
+    if(suffix==null) suffix=new byte[MAX_STACK_SIZE];
+    if(pixelStack==null) pixelStack=new byte[MAX_STACK_SIZE+1];
     data_size=read();
     clear=1<<data_size;
     end_of_information=clear+1;
@@ -265,9 +246,7 @@ public class GifDecoder extends AsynchronousAssetLoader<Gif,GifParameter>{
         if(bits<code_size) {
           if(count==0) {
             count=readBlock();
-            if(count<=0) {
-              break;
-            }
+            if(count<=0) break;
             bi=0;
           }
           datum+=(((int)block[bi])&0xff)<<bits;
@@ -279,9 +258,7 @@ public class GifDecoder extends AsynchronousAssetLoader<Gif,GifParameter>{
         code=datum&code_mask;
         datum>>=code_size;
         bits-=code_size;
-        if((code>available)||(code==end_of_information)) {
-          break;
-        }
+        if((code>available)||(code==end_of_information)) break;
         if(code==clear) {
           code_size=data_size+1;
           code_mask=(1<<code_size)-1;
@@ -305,9 +282,7 @@ public class GifDecoder extends AsynchronousAssetLoader<Gif,GifParameter>{
           code=prefix[code];
         }
         first=((int)suffix[code])&0xff;
-        if(available>=MAX_STACK_SIZE) {
-          break;
-        }
+        if(available>=MAX_STACK_SIZE) break;
         pixelStack[top++]=(byte)first;
         prefix[available]=(short)old_code;
         suffix[available]=(byte)first;
@@ -322,9 +297,7 @@ public class GifDecoder extends AsynchronousAssetLoader<Gif,GifParameter>{
       pixels[pi++]=pixelStack[top];
       i++;
     }
-    for(i=pi;i<npix;i++) {
-      pixels[i]=0;
-    }
+    for(i=pi;i<npix;i++) pixels[i]=0;
   }
   protected boolean err() {
     return status!=STATUS_OK;
@@ -353,17 +326,13 @@ public class GifDecoder extends AsynchronousAssetLoader<Gif,GifParameter>{
         int count=0;
         while(n<blockSize) {
           count=in.read(block,n,blockSize-n);
-          if(count==-1) {
-            break;
-          }
+          if(count==-1) break;
           n+=count;
         }
       }catch(Exception e) {
         e.printStackTrace();
       }
-      if(n<blockSize) {
-        status=STATUS_FORMAT_ERROR;
-      }
+      if(n<blockSize) status=STATUS_FORMAT_ERROR;
     }
     return n;
   }
@@ -377,9 +346,8 @@ public class GifDecoder extends AsynchronousAssetLoader<Gif,GifParameter>{
     }catch(Exception e) {
       e.printStackTrace();
     }
-    if(n<nbytes) {
-      status=STATUS_FORMAT_ERROR;
-    }else {
+    if(n<nbytes) status=STATUS_FORMAT_ERROR;
+    else {
       tab=new int[256];
       int i=0;
       int j=0;
@@ -409,14 +377,9 @@ public class GifDecoder extends AsynchronousAssetLoader<Gif,GifParameter>{
             case 0xff:
               readBlock();
               String app="";
-              for(int i=0;i<11;i++) {
-                app+=(char)block[i];
-              }
-              if(app.equals("NETSCAPE2.0")) {
-                readNetscapeExt();
-              }else {
-                skip();
-              }
+              for(int i=0;i<11;i++) app+=(char)block[i];
+              if(app.equals("NETSCAPE2.0")) readNetscapeExt();
+              else skip();
               break;
             case 0xfe:
               skip();
@@ -478,21 +441,15 @@ public class GifDecoder extends AsynchronousAssetLoader<Gif,GifParameter>{
       act=lct;
     }else {
       act=gct;
-      if(bgIndex==transIndex) {
-        bgColor=0;
-      }
+      if(bgIndex==transIndex) bgColor=0;
     }
     int save=0;
     if(transparency) {
       save=act[transIndex];
       act[transIndex]=0;
     }
-    if(act==null) {
-      status=STATUS_FORMAT_ERROR;
-    }
-    if(err()) {
-      return;
-    }
+    if(act==null) status=STATUS_FORMAT_ERROR;
+    if(err()) return;
     decodeBitmapData();
     skip();
     if(err()) {
@@ -559,26 +516,22 @@ public class GifDecoder extends AsynchronousAssetLoader<Gif,GifParameter>{
     while(vzones*hzones<nrFrames) vzones++;
     int v,h;
     Pixmap target=new Pixmap(width*hzones,height*vzones,Pixmap.Format.RGBA8888);
-    for(h=0;h<hzones;h++) {
-      for(v=0;v<vzones;v++) {
-        int frameID=v+h*vzones;
-        if(frameID<nrFrames) {
-          frame=getFrame(frameID);
-          target.drawPixmap(frame,h*width,v*height);
-        }
+    for(h=0;h<hzones;h++) for(v=0;v<vzones;v++) {
+      int frameID=v+h*vzones;
+      if(frameID<nrFrames) {
+        frame=getFrame(frameID);
+        target.drawPixmap(frame,h*width,v*height);
       }
     }
     Texture texture=new Texture(target);
     texture.setFilter(TextureFilter.Linear,TextureFilter.Nearest);
     Array<TextureRegion> texReg=new Array<TextureRegion>();
-    for(h=0;h<hzones;h++) {
-      for(v=0;v<vzones;v++) {
-        int frameID=v+h*vzones;
-        if(frameID<nrFrames) {
-          TextureRegion tr=new TextureRegion(texture,h*width,v*height,tw,th);
-          tr.flip(false,true);
-          texReg.add(tr);
-        }
+    for(h=0;h<hzones;h++) for(v=0;v<vzones;v++) {
+      int frameID=v+h*vzones;
+      if(frameID<nrFrames) {
+        TextureRegion tr=new TextureRegion(texture,h*width,v*height,tw,th);
+        tr.flip(false,true);
+        texReg.add(tr);
       }
     }
     float frameDuration=(float)getDelay(0);
@@ -588,7 +541,7 @@ public class GifDecoder extends AsynchronousAssetLoader<Gif,GifParameter>{
   }
   @Deprecated
   public static Animation<TextureRegion> loadGIFAnimation(Animation.PlayMode playMode,InputStream is) {
-    GifDecoder gdec=new GifDecoder();
+    GifLoader gdec=new GifLoader();
     gdec.read(is);
     return gdec.getAnimation(playMode);
   }

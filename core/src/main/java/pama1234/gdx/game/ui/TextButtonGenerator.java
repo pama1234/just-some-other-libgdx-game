@@ -4,6 +4,7 @@ import com.badlogic.gdx.Input;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.app.app0002.Screen0006;
+import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.util.app.ScreenCore3D;
@@ -12,13 +13,13 @@ public class TextButtonGenerator{
   public static Button[] genButtons_0003(Screen0011 p) {
     return new Button[] {
       new TextButton(p,true,()->true,()-> {},()-> {},()-> {
-        // System.out.println("TextButtonGenerator.genButtons_0003()");
+        p.state(State0001.Game);
       },"开始游戏",p::getButtonUnitLength,()->p.width/4f*3-p.pu*2.5f,()->p.height/4f-p.bu/2f),
       new TextButton(p,true,()->true,()-> {},()-> {},()-> {
-        // System.out.println("TextButtonGenerator.genButtons_0003()");
+        p.state(State0001.Announcement);
       },"　公告　",p::getButtonUnitLength,()->p.width/4f*3-p.pu*2.5f,()->p.height/2f-p.bu/2f),
       new TextButton(p,true,()->true,()-> {},()-> {},()-> {
-        // System.out.println("TextButtonGenerator.genButtons_0003()");
+        p.state(State0001.Settings);
       },"　设置　",p::getButtonUnitLength,()->p.width/4f*3-p.pu*2.5f,()->p.height/4f*3-p.bu/2f),
       // },"公告",p::getButtonUnitLength,()->p.width/8f*5.5f,()->p.height/2f),
     };

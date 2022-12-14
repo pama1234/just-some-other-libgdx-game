@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import pama1234.gdx.game.asset.MusicAsset;
-import pama1234.gdx.game.util.GifDecoder;
+import pama1234.gdx.game.util.gif.GifLoader;
 import pama1234.gdx.util.FileUtil;
 import pama1234.gdx.util.app.ScreenCore2D;
 import pama1234.gdx.util.info.MouseInfo;
@@ -25,7 +25,7 @@ public class Screen0009 extends ScreenCore2D{
     // alsoSprachZarathustra.play();
     //---
     background=FileUtil.loadTextureRegion("image/background.png");
-    earth=GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP,
+    earth=GifLoader.loadGIFAnimation(Animation.PlayMode.LOOP,
       Gdx.files.internal("image/bigEarth.gif").read());
     // Gdx.files.internal("image/earth.gif").read());
   }

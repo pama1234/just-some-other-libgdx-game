@@ -1,5 +1,6 @@
 package pama1234.gdx.game.state.state0001;
 
+import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntityListener0001;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.gdx.util.listener.EntityListener;
@@ -13,7 +14,14 @@ public enum State0001 implements EntityListener{
   Settings,
   Announcement,
   Exception;
-  public EntityListener entity,displayCam;
+  public StateEntityListener0001 entity;
+  public EntityListener displayCam;
+  public void from(State0001 in) {
+    entity.from(in);
+  }
+  public void to(State0001 in) {
+    entity.to(in);
+  }
   @Override
   public void init() {
     entity.init();

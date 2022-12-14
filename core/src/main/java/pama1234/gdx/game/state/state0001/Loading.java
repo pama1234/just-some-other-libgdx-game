@@ -7,6 +7,7 @@ import pama1234.gdx.game.asset.GifAsset;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
+import pama1234.math.Tools;
 
 public class Loading extends StateEntity0001{
   public int frame;
@@ -19,17 +20,6 @@ public class Loading extends StateEntity0001{
   public void init() {
     p.backgroundColor(0);
     p.textColor(255);
-    // frame=p.frameCount;
-    // Gdx.app.postRunnable(()-> {
-    //   GifLoader.setLoader(manager);
-    //   GifLoader.load_0001(manager);
-    //   MusicLoader.load_0001(manager);
-    //   ImageLoader.load_0001(manager);
-    //   // p.sleep(5000);
-    //   // long time=0;
-    //   // while(time<Long.MAX_VALUE) time++;
-    //   p.state(State0001.StartMenu);
-    // });
     GifAsset.setLoader(manager);
     GifAsset.load_0001(manager);
     MusicAsset.load_0001(manager);
@@ -41,7 +31,7 @@ public class Loading extends StateEntity0001{
   // }
   @Override
   public void display() {
-    String text="加载中 "+frame+" "+manager.getProgress()+"%";
+    String text="加载中 "+frame+"tick "+Tools.cutToLastDigit(manager.getProgress()*100)+"%";
     p.text(text,(p.width-p.textWidth(text))/2f,(p.height-p.pu)/2f);
     // System.out.println(text);
   }

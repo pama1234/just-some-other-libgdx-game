@@ -9,16 +9,16 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.utils.Array;
 
-import pama1234.gdx.game.util.GifDecoder;
+import pama1234.gdx.game.util.gif.GifLoader;
 
 public class GifAsset{
-  public static GifDecoder gdec=new GifDecoder();
+  public static GifLoader gdec=new GifLoader();
   public static Gif load(PlayMode playMode,InputStream is) {
     gdec.read(is);
     return gdec.getAnimation(playMode);
   }
   public static void setLoader(AssetManager manager) {
-    manager.setLoader(Gif.class,new GifDecoder(manager.getFileHandleResolver()));
+    manager.setLoader(Gif.class,new GifLoader(manager.getFileHandleResolver()));
     // manager.setLoader(Gif.class,".gif",new GifDecoder(manager.getFileHandleResolver()));
   }
   //----------------------------------------------------
