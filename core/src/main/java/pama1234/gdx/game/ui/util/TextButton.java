@@ -18,7 +18,7 @@ public class TextButton extends Button{
   public RectF rect;
   public TextButton(UtilScreen p,boolean textOffset,GetBoolean active,ExecuteF press,ExecuteF clickStart,ExecuteF clickEnd,String text,GetInt bu,GetFloat x,GetFloat y) {
     this(p,textOffset,active,press,clickStart,clickEnd,text,bu,x,y,null,bu::get);//()->bu.get()*2);
-    this.rect.w=()->p.textLength(this.text)+(this.textOffset?p.pu:0);//TODO
+    this.rect.w=()->p.textWidth(this.text)+(this.textOffset?p.pu:0);//TODO
   }
   public TextButton(UtilScreen p,boolean textOffset,GetBoolean active,ExecuteF press,ExecuteF clickStart,ExecuteF clickEnd,String text,GetInt bu,GetFloat x,GetFloat y,GetFloat w,GetFloat h) {
     super(p,active,press,clickStart,clickEnd);

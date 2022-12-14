@@ -11,7 +11,6 @@ public class DisplayEntity implements EntityListener{
   @Override
   public void display() {
     f.execute();
-    // System.out.println("1234");
   }
   public interface DisplayWithCam{
     default public void displayCam() {}

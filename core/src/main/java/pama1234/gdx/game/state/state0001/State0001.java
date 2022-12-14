@@ -1,4 +1,4 @@
-package pama1234.gdx.game.state;
+package pama1234.gdx.game.state.state0001;
 
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;

@@ -198,7 +198,7 @@ public class MultiChunkFont extends BitmapFont{//TODO
     // return super.getRegions();
     return mregions;
   }
-  public float textLength(CharSequence in) {
+  public float textWidth(CharSequence in) {
     float out=0;
     for(int i=0;i<in.length();i++) {
       char tc=in.charAt(i);
