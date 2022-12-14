@@ -12,7 +12,7 @@ public class TouchInfo{
   public float sx,sy;
   public float dx,dy;
   public float px,py,x,y;
-  public int ox,oy;
+  public int ox,oy,osx,osy;
   public TouchInfo(UtilScreenCore p) {
     this.p=p;
   }
@@ -34,7 +34,7 @@ public class TouchInfo{
   }
   public void begin(int xIn,int yIn,int p,int b) {
     active=true;
-    Vector3 tv=this.p.unproject(ox=xIn,oy=yIn);
+    Vector3 tv=this.p.unproject(ox=osx=xIn,oy=osy=yIn);
     sx=x=tv.x;
     sy=y=tv.y;
     pointer=p;

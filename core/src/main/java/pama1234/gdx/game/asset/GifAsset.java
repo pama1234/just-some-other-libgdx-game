@@ -6,13 +6,14 @@ import com.badlogic.gdx.assets.AssetLoaderParameters;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.utils.Array;
 
 import pama1234.gdx.game.util.GifDecoder;
 
-public class GifLoader{
+public class GifAsset{
   public static GifDecoder gdec=new GifDecoder();
-  public static Gif load(Animation.PlayMode playMode,InputStream is) {
+  public static Gif load(PlayMode playMode,InputStream is) {
     gdec.read(is);
     return gdec.getAnimation(playMode);
   }
@@ -31,6 +32,10 @@ public class GifLoader{
   }
   //----------------------------------------------------
   public static class GifParameter extends AssetLoaderParameters<Gif>{
+    public PlayMode playMode=PlayMode.LOOP;
+    public GifParameter(PlayMode playMode) {
+      this.playMode=playMode;
+    }
   }
   public static class Gif extends Animation<TextureRegion>{
     public Gif(float frameDuration,TextureRegion... keyFrames) {

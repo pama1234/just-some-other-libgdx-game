@@ -1,12 +1,12 @@
 package pama1234.gdx.game.app.app0003;
 
-import static pama1234.gdx.game.asset.MusicLoader.moonlightSonata;
+import static pama1234.gdx.game.asset.MusicAsset.moonlightSonata;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import pama1234.gdx.game.asset.MusicLoader;
+import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.util.GifDecoder;
 import pama1234.gdx.util.FileUtil;
 import pama1234.gdx.util.app.ScreenCore2D;
@@ -20,7 +20,7 @@ public class Screen0009 extends ScreenCore2D{
   public void setup() {
     noStroke();
     // moonlightSonata=Gdx.audio.newMusic(Gdx.files.internal("music/Beethoven-Moonlight-Sonata.mp3"));
-    MusicLoader.moonlightSonata=MusicLoader.load("Beethoven-Moonlight-Sonata.mp3");
+    MusicAsset.moonlightSonata=MusicAsset.load("Beethoven-Moonlight-Sonata.mp3");
     moonlightSonata.play();
     // alsoSprachZarathustra.play();
     //---

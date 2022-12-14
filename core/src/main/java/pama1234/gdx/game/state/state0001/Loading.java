@@ -3,9 +3,9 @@ package pama1234.gdx.game.state.state0001;
 import com.badlogic.gdx.assets.AssetManager;
 
 import pama1234.gdx.game.app.Screen0011;
-import pama1234.gdx.game.asset.GifLoader;
-import pama1234.gdx.game.asset.ImageLoader;
-import pama1234.gdx.game.asset.MusicLoader;
+import pama1234.gdx.game.asset.GifAsset;
+import pama1234.gdx.game.asset.ImageAsset;
+import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
 
 public class Loading extends StateEntity0001{
@@ -19,7 +19,7 @@ public class Loading extends StateEntity0001{
   public void init() {
     p.backgroundColor(0);
     p.textColor(255);
-    frame=p.frameCount;
+    // frame=p.frameCount;
     // Gdx.app.postRunnable(()-> {
     //   GifLoader.setLoader(manager);
     //   GifLoader.load_0001(manager);
@@ -30,10 +30,10 @@ public class Loading extends StateEntity0001{
     //   // while(time<Long.MAX_VALUE) time++;
     //   p.state(State0001.StartMenu);
     // });
-    GifLoader.setLoader(manager);
-    GifLoader.load_0001(manager);
-    MusicLoader.load_0001(manager);
-    ImageLoader.load_0001(manager);
+    GifAsset.setLoader(manager);
+    GifAsset.load_0001(manager);
+    MusicAsset.load_0001(manager);
+    ImageAsset.load_0001(manager);
   }
   // @Override
   // public void displayCam() {
@@ -49,9 +49,9 @@ public class Loading extends StateEntity0001{
   public void update() {
     frame++;
     if(manager.update()) {
-      GifLoader.put_0001(manager);
-      MusicLoader.put_0001(manager);
-      ImageLoader.put_0001(manager);
+      GifAsset.put_0001(manager);
+      MusicAsset.put_0001(manager);
+      ImageAsset.put_0001(manager);
       p.state(State0001.StartMenu);
     }
   }

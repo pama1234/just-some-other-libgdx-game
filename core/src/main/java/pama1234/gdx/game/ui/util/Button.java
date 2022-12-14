@@ -38,7 +38,7 @@ public abstract class Button extends Entity<UtilScreen>{
   }
   @Override
   public void touchStarted(TouchInfo info) {
-    if(inButton(info.sx,info.sy)) {
+    if(inButton(info.osx,info.osy)) {
       touch=info;
       clickStart();
     }
@@ -48,6 +48,6 @@ public abstract class Button extends Entity<UtilScreen>{
     if(touch==info) {
       touch=null;
       clickEnd();
-    }else if(inButton(info.sx,info.sy)&&inButton(info.x,info.y)) clickEnd();
+    }else if(inButton(info.osx,info.osy)&&inButton(info.ox,info.oy)) clickEnd();
   }
 }

@@ -29,7 +29,7 @@ public abstract class CameraController extends Entity<UtilScreen>{
   public float bavgsox,bavgsoy;
   public float iScale,iDist;
   public TouchInfo a,b;
-  public boolean active;
+  public boolean activeUpdate;
   public boolean activeDrag=true,activeZoom=true;
   @Deprecated
   public CameraController(UtilScreen p) {

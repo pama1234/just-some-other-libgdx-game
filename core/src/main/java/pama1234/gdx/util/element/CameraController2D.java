@@ -34,7 +34,7 @@ public class CameraController2D extends CameraController{
   public void touchStarted(TouchInfo info) {
     if(!activeDrag) return;
     if(p.touchCount==1) {
-      if(info.button==Buttons.RIGHT||p.isAndroid) active=true;
+      if(info.button==Buttons.RIGHT||p.isAndroid) activeUpdate=true;
       // if(info.button==Buttons.RIGHT||Gdx.app.getType()==ApplicationType.Android) active=true;
       else return;
       a=info;
@@ -53,15 +53,15 @@ public class CameraController2D extends CameraController{
   @Override
   public void touchEnded(TouchInfo info) {
     if(!activeDrag) return;
-    if(!active) return;
+    if(!activeUpdate) return;
     if(p.touchCount==1) {
       a=null;
-      active=false;
+      activeUpdate=false;
     }else if(p.touchCount==2) {
       //---alt
       a=null;
       b=null;
-      active=false;
+      activeUpdate=false;
     }
   }
   @Override
@@ -74,7 +74,7 @@ public class CameraController2D extends CameraController{
   }
   @Override
   public void update() {
-    if(active) if(a!=null) {
+    if(activeUpdate) if(a!=null) {
       if(b!=null) {
         scale.des=iScale*dist(a.ox,a.oy,b.ox,b.oy)/iDist;
         cache.set(avg(a.ox,b.ox)-bavgsox,avg(a.oy,b.oy)-bavgsoy);

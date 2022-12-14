@@ -2,7 +2,7 @@ package pama1234.gdx.game.app;
 
 import com.badlogic.gdx.Gdx;
 
-import pama1234.gdx.game.asset.MusicLoader;
+import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.state.state0001.State0001.StateChanger;
 import pama1234.gdx.game.state.state0001.StateGenerator0001;
@@ -15,7 +15,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   @Override
   public void setup() {
     noStroke();
-    MusicLoader.load_init();
+    MusicAsset.load_init();
     StateGenerator0001.loadState0001(this);
     if(Gdx.files.local("data/firstRun.txt").exists()) {
       // if(true) {

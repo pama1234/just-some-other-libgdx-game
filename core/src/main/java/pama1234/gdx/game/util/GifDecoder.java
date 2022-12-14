@@ -17,10 +17,12 @@ import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Array;
 
-import pama1234.gdx.game.asset.GifLoader.Gif;
-import pama1234.gdx.game.asset.GifLoader.GifParameter;
+import pama1234.gdx.game.asset.GifAsset.Gif;
+import pama1234.gdx.game.asset.GifAsset.GifParameter;
 
 public class GifDecoder extends AsynchronousAssetLoader<Gif,GifParameter>{
+  // public Gif gif;
+  // public Animation.PlayMode playMode=Animation.PlayMode.LOOP;
   // @Deprecated
   public GifDecoder() {
     super(n->Gdx.files.internal(n));
@@ -30,20 +32,15 @@ public class GifDecoder extends AsynchronousAssetLoader<Gif,GifParameter>{
   }
   @Override
   public Array<AssetDescriptor> getDependencies(String fileName,FileHandle file,GifParameter parameter) {
-    System.out.println("GifDecoder.getDependencies()");
-    System.out.flush();
     return null;
   }
   @Override
   public void loadAsync(AssetManager manager,String fileName,FileHandle file,GifParameter parameter) {
-    System.out.println("GifDecoder.loadAsync()");
-    System.out.flush();
+    read(file.read());
   }
   @Override
   public Gif loadSync(AssetManager manager,String fileName,FileHandle file,GifParameter parameter) {
-    System.out.println("GifDecoder.loadSync()");
-    System.out.flush();
-    return null;
+    return getAnimation(parameter==null?PlayMode.LOOP:parameter.playMode);
   }
   public static final int STATUS_OK=0;
   public static final int STATUS_FORMAT_ERROR=1;
