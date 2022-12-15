@@ -4,6 +4,7 @@ import android.os.Bundle;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
+import com.mazatech.amanithsvg.gamecards.Game;
 
 import pama1234.gdx.launcher.MainApp;
 
@@ -14,5 +15,6 @@ public class AndroidLauncher extends AndroidApplication {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration configuration = new AndroidApplicationConfiguration();
 		initialize(new MainApp(), configuration);
+		// initialize(new Game(), configuration);
 	}
 }

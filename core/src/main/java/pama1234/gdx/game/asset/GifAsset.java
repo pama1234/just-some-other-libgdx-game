@@ -6,10 +6,11 @@ import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 
 import pama1234.gdx.game.util.gif.Gif;
+import pama1234.gdx.game.util.gif.GifDecoder;
 import pama1234.gdx.game.util.gif.GifLoader;
 
 public class GifAsset{
-  public static GifLoader gdec=new GifLoader();
+  public static GifDecoder gdec=new GifDecoder();
   public static Gif load(PlayMode playMode,InputStream is) {
     gdec.read(is);
     return gdec.getAnimation(playMode);

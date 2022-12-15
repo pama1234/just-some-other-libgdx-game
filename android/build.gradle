@@ -116,11 +116,10 @@ dependencies {
 	natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86"
 	natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86_64"
 
-	// natives "com.mazatech.amanithsvg:amanithsvg-gdx:$amanithsvgVersion:natives-armeabi"
-	natives "com.mazatech.amanithsvg:amanithsvg-gdx:$amanithsvgVersion:natives-armeabi-v7a"
-	natives "com.mazatech.amanithsvg:amanithsvg-gdx:$amanithsvgVersion:natives-arm64-v8a"
-	natives "com.mazatech.amanithsvg:amanithsvg-gdx:$amanithsvgVersion:natives-x86"
-	natives "com.mazatech.amanithsvg:amanithsvg-gdx:$amanithsvgVersion:natives-x86_64"
+	// natives "com.mazatech.amanithsvg:amanithsvg-gdx:$amanithsvgVersion:natives-armeabi-v7a"
+	// natives "com.mazatech.amanithsvg:amanithsvg-gdx:$amanithsvgVersion:natives-arm64-v8a"
+	// natives "com.mazatech.amanithsvg:amanithsvg-gdx:$amanithsvgVersion:natives-x86"
+	// natives "com.mazatech.amanithsvg:amanithsvg-gdx:$amanithsvgVersion:natives-x86_64"
 
 	// This follows advice from https://blog.gradle.org/log4j-vulnerability
 	constraints {

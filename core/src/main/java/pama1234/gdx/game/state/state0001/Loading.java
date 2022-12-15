@@ -20,6 +20,7 @@ public class Loading extends StateEntity0001{
   public void init() {
     p.backgroundColor(0);
     p.textColor(255);
+    // SVGAssets.init();
     GifAsset.setLoader(manager);
     GifAsset.load_0001(manager);
     MusicAsset.load_0001(manager);

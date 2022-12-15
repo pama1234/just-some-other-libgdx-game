@@ -7,4 +7,6 @@ dependencies {
 	api "com.badlogicgames.gdx:gdx:$gdxVersion"
 
 	api project(':server')
+	
+	implementation "com.github.lyze237:gdx-TinyVG:$gdxTinyVGVersion"
 }

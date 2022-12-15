@@ -12,19 +12,25 @@ import pama1234.gdx.util.info.MouseInfo;
 public class Screen0011 extends ScreenCore2D implements StateChanger{
   // public static boolean debugFirstRun=true;//TODO
   public State0001 state;
+  public boolean firstRun;
   @Override
   public void setup() {
     noStroke();
     MusicAsset.load_init();
+    // long time=System.currentTimeMillis();
+    // long nano=System.nanoTime();
+    // SVGAssets.init();
+    // System.out.println(System.nanoTime()-nano);
+    // System.out.println(System.currentTimeMillis()-time);
     StateGenerator0001.loadState0001(this);
-    if(Gdx.files.local("data/firstRun.txt").exists()) {
-      // if(true) {
-      state(State0001.Loading);
-    }else {
+    firstRun=!Gdx.files.local("data/firstRun.txt").exists();
+    // if(firstRun=Gdx.files.local("data/firstRun.txt").exists()) {
+    firstRun=true;
+    if(firstRun) {
       state(State0001.FirstRun);
-      // if(!debugFirstRun)
-      // if(false) 
       Gdx.files.local("data/firstRun.txt").writeString("1234",false);
+    }else {
+      state(State0001.Loading);
     }
   }
   @Override
@@ -53,4 +59,9 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   public void display() {}
   @Override
   public void frameResized() {}
+  @Override
+  public void dispose() {
+    super.dispose();
+    // SVGAssets.dispose();
+  }
 }

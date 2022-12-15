@@ -12,6 +12,7 @@ public class Launcher{
 	}
 	private static Lwjgl3Application createApplication() {
 		return new Lwjgl3Application(new MainApp(),getDefaultConfiguration());
+		// return new Lwjgl3Application(new Game(),getDefaultConfiguration());
 	}
 	private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
 		Lwjgl3ApplicationConfiguration configuration=new Lwjgl3ApplicationConfiguration();
