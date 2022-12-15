@@ -26,7 +26,7 @@ public class StartMenu extends StateEntity0001{
     MusicAsset.moonlightSonata.play();
     p.cam2d.active(false);
     p.cam2d.scale.des=3;
-    p.cam2d.point.des.x=96;
+    p.cam2d.point.set(96,0,0);
   }
   @Override
   public void dispose() {
@@ -34,7 +34,7 @@ public class StartMenu extends StateEntity0001{
     for(Button e:buttons) p.centerScreen.remove.add(e);
     p.cam2d.active(true);
     p.cam2d.scale.des=1;
-    p.cam2d.point.des.x=0;
+    p.cam2d.point.set(0,0,0);
   }
   @Override
   public void update() {

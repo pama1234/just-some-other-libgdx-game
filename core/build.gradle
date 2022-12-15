@@ -8,5 +8,5 @@ dependencies {
 
 	api project(':server')
 	
-	implementation "com.github.lyze237:gdx-TinyVG:$gdxTinyVGVersion"
+	api "com.github.lyze237:gdx-TinyVG:$gdxTinyVGVersion"
 }

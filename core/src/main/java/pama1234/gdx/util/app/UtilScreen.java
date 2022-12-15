@@ -130,6 +130,9 @@ public abstract class UtilScreen extends UtilScreenCore{
   public void textScale(float in) {
     font.textScale(in);
   }
+  public float textscale() {
+    return font.scale;
+  }
   public void textSize(float in) {
     font.size(in);
   }
