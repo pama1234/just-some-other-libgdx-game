@@ -1,17 +1,18 @@
 package pama1234.gdx.util.app;
 
-
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import dev.lyze.gdxtinyvg.drawers.TinyVGShapeDrawer;
 import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.listener.EntityListener;
 import pama1234.util.net.ServerInfo;
 
 public abstract class ScreenCore2D extends UtilScreen2D{
+  public TinyVGShapeDrawer tvgDrawer;
   public ServerInfo dataServerInfo;
   //---
   public Stage stage;
@@ -23,11 +24,13 @@ public abstract class ScreenCore2D extends UtilScreen2D{
   public boolean fullSettings;
   @Override
   public void init() {
+    tvgDrawer=new TinyVGShapeDrawer(imageBatch);
     stage=new Stage(viewport=new ScalingViewport(Scaling.fit,width,height,screenCam),imageBatch);
     inputProcessor.sub.add.add(stage);
     center.list.add(new EntityListener() {
       @Override
       public void update() {
+        // tvgDrawer.getBatch().setProjectionMatrix(cam2d.camera.combined);
         stage.act();
       }
       @Override
