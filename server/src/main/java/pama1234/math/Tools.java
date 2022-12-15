@@ -222,4 +222,13 @@ public class Tools{
   public static int hsbColor(float a,float b,float c) {
     return hsbColor((int)a,(int)b,(int)c);
   }
+  public static long timeData;
+  public static long time() {
+    return timeData=System.currentTimeMillis();
+  }
+  public static long period() {
+    long out=System.currentTimeMillis()-timeData;
+    time();
+    return out;
+  }
 }
