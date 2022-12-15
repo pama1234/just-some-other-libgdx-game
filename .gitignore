@@ -153,3 +153,7 @@ Thumbs.db
 
 fontOut/
 data/
+
+## TODO
+assets/vector/*.tvgt
+assets/vector/*.svg

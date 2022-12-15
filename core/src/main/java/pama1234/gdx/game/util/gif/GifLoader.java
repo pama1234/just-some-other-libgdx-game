@@ -1,10 +1,10 @@
 package pama1234.gdx.game.util.gif;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.assets.loaders.AsynchronousAssetLoader;
 import com.badlogic.gdx.assets.loaders.FileHandleResolver;
+import com.badlogic.gdx.assets.loaders.resolvers.InternalFileHandleResolver;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.Animation.PlayMode;
 import com.badlogic.gdx.utils.Array;
@@ -12,7 +12,8 @@ import com.badlogic.gdx.utils.Array;
 public class GifLoader extends AsynchronousAssetLoader<Gif,GifParameter>{
   public GifDecoder decoder;
   public GifLoader() {
-    this(n->Gdx.files.internal(n));
+    // this(n->Gdx.files.internal(n));
+    this(new InternalFileHandleResolver());
   }
   public GifLoader(FileHandleResolver resolver) {
     super(resolver);
