@@ -14,7 +14,7 @@ public class Screen0006 extends ScreenCore3D{
     noStroke();
     // background=false;
     buttons=ButtonGenerator.genButtons_0002(this);
-    for(Button e:buttons) centerScreen.add.add(e);
+    for(Button<?> e:buttons) centerScreen.add.add(e);
     font.load(0);
     centerScreen.add.add(new EntityListener() {
       @Override

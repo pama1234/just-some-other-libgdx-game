@@ -10,7 +10,7 @@ import pama1234.gdx.game.ui.ButtonGenerator;
 import pama1234.gdx.game.ui.util.Button;
 
 public class StartMenu extends StateEntity0001{
-  public Button[] buttons;
+  public Button<?>[] buttons;
   //---
   public float time;
   public StartMenu(Screen0011 p) {
@@ -21,7 +21,7 @@ public class StartMenu extends StateEntity0001{
   public void init() {
     p.backgroundColor(255);
     p.textColor(255);
-    for(Button e:buttons) p.centerScreen.add.add(e);
+    for(Button<?> e:buttons) p.centerScreen.add.add(e);
     MusicAsset.moonlightSonata.setLooping(true);
     MusicAsset.moonlightSonata.play();
     p.cam2d.active(false);
@@ -32,7 +32,7 @@ public class StartMenu extends StateEntity0001{
   @Override
   public void dispose() {
     MusicAsset.moonlightSonata.pause();
-    for(Button e:buttons) p.centerScreen.remove.add(e);
+    for(Button<?> e:buttons) p.centerScreen.remove.add(e);
     p.cam2d.active(true);
     p.cam2d.scale.des=1;
     p.cam2d.point.set(0,0,0);

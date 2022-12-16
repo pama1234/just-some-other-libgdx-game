@@ -17,7 +17,7 @@ public abstract class ScreenCore2D extends UtilScreen2D{
   public Viewport viewport;
   //---
   public float multDist=1;
-  public Button[] buttons;
+  public Button<?>[] buttons;
   public int bu;
   public boolean fullSettings;
   @Override
