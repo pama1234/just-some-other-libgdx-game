@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.MathUtils;
@@ -18,6 +19,9 @@ import pama1234.gdx.util.info.TouchInfo;
  * UtilScreenCore -> UtilScreen 此中间类主要放渲染相关的东东
  */
 public abstract class UtilScreen extends UtilScreenCore{
+  public SpriteBatch createSpriteBatch() {
+    return new SpriteBatch(1000,createDefaultShader());
+  }
   public static ShaderProgram createDefaultShader() {
     String vertexShader=//
       "attribute vec4 "+ShaderProgram.POSITION_ATTRIBUTE+";\n"//

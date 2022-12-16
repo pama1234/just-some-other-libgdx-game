@@ -131,8 +131,8 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
   public void innerResize(int w,int h) {
     width=w;
     height=h;
-    if(isAndroid) u=min(w,h)/8;
-    else u=min(w,h)/16;
+    if(isAndroid) u=min(w,h)/8f;
+    else u=min(w,h)/16f;
     pus=max(1,floor(u/16f));
     pu=pus*16;
     cam.preResizeEvent(w,h);

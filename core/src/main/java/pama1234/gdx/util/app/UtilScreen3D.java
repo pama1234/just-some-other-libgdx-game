@@ -4,7 +4,6 @@ import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g3d.ModelBatch;
 import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.decals.CameraGroupStrategy;
@@ -29,14 +28,14 @@ public abstract class UtilScreen3D extends UtilScreen{
   @Override
   public void show() {
     screenCam=new OrthographicCamera();
-    imageBatch=new SpriteBatch(1000,createDefaultShader());
+    imageBatch=createSpriteBatch();
     Gdx.input.setInputProcessor(inputProcessor=new UtilInputProcesser(this));
     center=new EntityCenter<>(this);
     center.list.add(cam=cam3d=new CameraController3D(this,0,0,0,1,0,Gdx.app.getType()==ApplicationType.Desktop?640:160));
     center.list.add(centerCam=new EntityCenter<>(this));
     center.list.add(centerScreen=new EntityCenter<>(this));
     init();
-    fontBatch=new SpriteBatch();
+    fontBatch=createSpriteBatch();
     font=genMultiChunkFont();
     font.fontBatch=fontBatch;
     textColor=new Color(0,0,0,1);

@@ -10,7 +10,8 @@ public class TvgAsset{
   public static TinyVG //
   logo0002,
     logo0003,
-    logo0004;
+    logo0004,
+    logo0005;
   public static TinyVG load(String in) {
     TinyVG out=assetLoader.load("vector/"+in);
     out.setScaleY(-1);
@@ -22,7 +23,7 @@ public class TvgAsset{
   }
   public static void load_temp() {
     // TinyVGAssetLoader assetLoader=new TinyVGAssetLoader();
-    logo0004=load("logo0004.tvg");
+    logo0005=load("logo0005.tvg");
   }
   public static void load_0001(AssetManager manager) {
     manager.load("vector/logo0002.tvg",TinyVG.class);
