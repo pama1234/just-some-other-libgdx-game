@@ -8,10 +8,12 @@ import pama1234.gdx.game.state.state0001.State0001.StateChanger;
 import pama1234.gdx.game.state.state0001.StateGenerator0001;
 import pama1234.gdx.util.app.ScreenCore2D;
 import pama1234.gdx.util.info.MouseInfo;
+import pama1234.math.Tools;
 
 public class Screen0011 extends ScreenCore2D implements StateChanger{
   public State0001 state;
   public boolean firstRun;
+  public boolean debugInfo;
   @Override
   public void setup() {
     noStroke();
@@ -50,7 +52,12 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   @Override
   public void displayWithCam() {}
   @Override
-  public void display() {}
+  public void display() {
+    if(debugInfo) text("Memory="+getMemory()+"Mb",0,0);
+  }
+  public String getMemory() {
+    return Tools.cutToLastDigitString((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/(1024*1024));
+  }
   @Override
   public void frameResized() {}
   @Override

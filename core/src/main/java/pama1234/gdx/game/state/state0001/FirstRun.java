@@ -46,7 +46,7 @@ public class FirstRun extends StateEntity0001{
         p.textScale(2);
         p.text(text,256-p.textWidth(text)/2,400+p.textSize()*2);
         if(time>30) {
-          text="测试游戏：喵喵大冒险0001";
+          text="空想世界：啥也没有";
           p.text(text,256-p.textWidth(text)/2,400+p.textSize()*5);
         }
       }

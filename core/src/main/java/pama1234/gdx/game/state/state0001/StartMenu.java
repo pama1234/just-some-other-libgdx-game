@@ -27,6 +27,7 @@ public class StartMenu extends StateEntity0001{
     p.cam2d.active(false);
     p.cam2d.scale.des=3;
     p.cam2d.point.set(96,0,0);
+    p.cam.noGrab();
   }
   @Override
   public void dispose() {

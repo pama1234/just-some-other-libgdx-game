@@ -95,7 +95,13 @@ public abstract class CameraController extends Entity<UtilScreen>{
   @Override
   public void keyPressed(char key,int keyCode) {
     coolingCount=1;
-    if(keyCode==ALT_LEFT) Gdx.input.setCursorCatched(grabCursor=!grabCursor);
-    if(keyCode==ESCAPE) Gdx.input.setCursorCatched(grabCursor=false);
+    if(keyCode==ALT_LEFT) doGrab();
+    if(keyCode==ESCAPE) noGrab();
+  }
+  private void doGrab() {
+    Gdx.input.setCursorCatched(grabCursor=!grabCursor);
+  }
+  public void noGrab() {
+    Gdx.input.setCursorCatched(grabCursor=false);
   }
 }

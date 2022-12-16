@@ -15,6 +15,7 @@ public class Game extends StateEntity0001{
   public void init() {
     p.backgroundColor(0);
     p.cam2d.activeDrag=false;
+    p.cam.noGrab();
     // tvgRefresh();
     for(Button e:buttons) p.centerScreen.add.add(e);
   }

@@ -2,7 +2,7 @@ package pama1234.gdx.game.app.app0004;
 
 import static com.badlogic.gdx.math.MathUtils.log;
 import static com.badlogic.gdx.math.MathUtils.map;
-import static pama1234.gdx.game.ui.InfoGenerator.info;
+import static pama1234.gdx.game.ui.InfoGenerator.info0001;
 import static pama1234.math.UtilMath.dist;
 import static pama1234.math.UtilMath.pow;
 
@@ -191,9 +191,9 @@ public class Screen0003 extends ScreenCore3D{
       }
     }
     //TODO
-    Graphics tg=new Graphics(this,360,16*info.length);
+    Graphics tg=new Graphics(this,360,16*info0001.length);
     tg.beginDraw();
-    for(int i=0;i<info.length;i++) text(info[i],0,16*i);
+    for(int i=0;i<info0001.length;i++) text(info0001[i],0,16*i);
     tg.endDraw();
     TextureRegion tr=new TextureRegion(tg.texture);
     infoD=Decal.newDecal(tr,true);
