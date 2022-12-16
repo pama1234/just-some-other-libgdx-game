@@ -1,6 +1,6 @@
 package pama1234.gdx.game.app.app0002;
 
-import pama1234.gdx.game.ui.TextButtonGenerator;
+import pama1234.gdx.game.ui.ButtonGenerator;
 import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.util.app.ScreenCore3D;
 import pama1234.gdx.util.info.MouseInfo;
@@ -13,7 +13,7 @@ public class Screen0006 extends ScreenCore3D{
   public void setup() {
     noStroke();
     // background=false;
-    buttons=TextButtonGenerator.genButtons_0002(this);
+    buttons=ButtonGenerator.genButtons_0002(this);
     for(Button e:buttons) centerScreen.add.add(e);
     font.load(0);
     centerScreen.add.add(new EntityListener() {

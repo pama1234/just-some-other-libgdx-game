@@ -7,13 +7,17 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import pama1234.gdx.util.FileUtil;
 
 public class ImageAsset{
-  public static TextureRegion background;
+  public static TextureRegion //
+  exit,
+    background;
   // public static TextureRegion background;
   public static void load_0001(AssetManager manager) {
     // background=load("background.png");
+    manager.load("image/exit.png",Texture.class);
     manager.load("image/background.png",Texture.class);
   }
   public static void put_0001(AssetManager manager) {
+    exit=loadFromTexture(manager.get("image/exit.png"));
     background=loadFromTexture(manager.get("image/background.png"));
   }
   //----------------------------------------------------

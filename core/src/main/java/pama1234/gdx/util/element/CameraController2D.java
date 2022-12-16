@@ -17,6 +17,7 @@ public class CameraController2D extends CameraController{
   // public PathPoint point;
   public Vector2 cache;
   public boolean pixelPerfect;
+  public boolean activeDrag=true,activeZoom=true;
   public CameraController2D(UtilScreen2D p,boolean pixelPerfect,float x,float y,float s,float r,float frameU) {
     super(p,x,y,0);
     camera=ocam=new OrthographicCamera();
@@ -26,6 +27,10 @@ public class CameraController2D extends CameraController{
     this.frameU=frameU;
     cache=new Vector2();
     this.pixelPerfect=pixelPerfect;
+  }
+  public void active(boolean in) {
+    activeDrag=in;
+    activeZoom=in;
   }
   public void preResizeEvent(int w,int h) {
     ocam.setToOrtho(p.flip,w,h);
@@ -74,14 +79,7 @@ public class CameraController2D extends CameraController{
   }
   @Override
   public void update() {
-    if(activeUpdate) if(a!=null) {
-      if(activeZoom&&b!=null) {
-        scale.des=iScale*dist(a.ox,a.oy,b.ox,b.oy)/iDist;
-        cache.set(avg(a.ox,b.ox)-bavgsox,avg(a.oy,b.oy)-bavgsoy);
-      }else if(activeDrag) cache.set(a.ox-asox,a.oy-asoy);
-      cache.rotateDeg(rotate.pos);
-      p.cam.point.des.set(scx-cache.x*ocam.zoom,scy-cache.y*ocam.zoom,0);
-    }
+    updateView();
     point.update();
     scale.update();
     rotate.update();
@@ -103,6 +101,20 @@ public class CameraController2D extends CameraController{
     ocam.update();
     //---
     // System.out.println(o.position);
+  }
+  public void updateView() {
+    if(coolingCount>0) {
+      coolingCount--;
+      return;
+    }
+    if(activeUpdate) if(a!=null) {
+      if(activeZoom&&b!=null) {
+        scale.des=iScale*dist(a.ox,a.oy,b.ox,b.oy)/iDist;
+        cache.set(avg(a.ox,b.ox)-bavgsox,avg(a.oy,b.oy)-bavgsoy);
+      }else if(activeDrag) cache.set(a.ox-asox,a.oy-asoy);
+      cache.rotateDeg(rotate.pos);
+      p.cam.point.des.set(scx-cache.x*ocam.zoom,scy-cache.y*ocam.zoom,0);
+    }
   }
   @Override
   public void display() {}

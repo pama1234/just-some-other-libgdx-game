@@ -1,7 +1,10 @@
 package pama1234.gdx.util.element;
 
+import static com.badlogic.gdx.Input.Keys.ALT_LEFT;
+import static com.badlogic.gdx.Input.Keys.ESCAPE;
 import static pama1234.math.UtilMath.min;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
@@ -30,7 +33,8 @@ public abstract class CameraController extends Entity<UtilScreen>{
   public float iScale,iDist;
   public TouchInfo a,b;
   public boolean activeUpdate;
-  public boolean activeDrag=true,activeZoom=true;
+  public boolean grabCursor;
+  public int coolingCount;
   @Deprecated
   public CameraController(UtilScreen p) {
     super(p);
@@ -38,10 +42,6 @@ public abstract class CameraController extends Entity<UtilScreen>{
   public CameraController(UtilScreen p,float x,float y,float z) {
     super(p);
     point=new PathPoint3D(x,y,z);
-  }
-  public void active(boolean in) {
-    activeDrag=in;
-    activeZoom=in;
   }
   public abstract void preResizeEvent(int w,int h);
   public boolean inbox(float x,float y) {
@@ -91,5 +91,11 @@ public abstract class CameraController extends Entity<UtilScreen>{
   }
   public float fy() {
     return Tools.fractionalPart(y());
+  }
+  @Override
+  public void keyPressed(char key,int keyCode) {
+    coolingCount=1;
+    if(keyCode==ALT_LEFT) Gdx.input.setCursorCatched(grabCursor=!grabCursor);
+    if(keyCode==ESCAPE) Gdx.input.setCursorCatched(grabCursor=false);
   }
 }

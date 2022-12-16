@@ -1,13 +1,10 @@
 package pama1234.gdx.util.element;
 
-import static com.badlogic.gdx.Input.Keys.ALT_LEFT;
-import static com.badlogic.gdx.Input.Keys.ESCAPE;
 import static com.badlogic.gdx.math.MathUtils.PI;
 import static com.badlogic.gdx.math.MathUtils.PI2;
 import static pama1234.math.UtilMath.cos;
 import static pama1234.math.UtilMath.sin;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.PerspectiveCamera;
 
 import pama1234.gdx.util.app.UtilScreen3D;
@@ -22,8 +19,6 @@ public class CameraController3D extends CameraController{
   public PathPoint viewDir=new PathPoint(PI/2*3,-PI/2f,0.5f);
   public float moveSpeed=1;
   public float viewSpeed=1.5f;
-  public boolean grabCursor;
-  public int coolingCount;
   public CameraController3D(UtilScreen3D p,float x,float y,float z,float s,float r,float frameU) {
     super(p,x,y,z);
     camera=pcam=new PerspectiveCamera(60,p.width,p.height);
@@ -148,11 +143,5 @@ public class CameraController3D extends CameraController{
     moveSpeed+=y/4;
     if(moveSpeed<1/4f) moveSpeed=1/4f;
     if(moveSpeed>32) moveSpeed=32;
-  }
-  @Override
-  public void keyPressed(char key,int keyCode) {
-    coolingCount=1;
-    if(keyCode==ALT_LEFT) Gdx.input.setCursorCatched(grabCursor=!grabCursor);
-    if(keyCode==ESCAPE) Gdx.input.setCursorCatched(grabCursor=false);
   }
 }

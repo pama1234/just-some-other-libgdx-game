@@ -4,12 +4,21 @@ import com.badlogic.gdx.Input;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.app.app0002.Screen0006;
+import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.ui.util.TextButton;
+import pama1234.gdx.game.ui.util.TextureButton;
 import pama1234.gdx.util.app.ScreenCore3D;
 
-public class TextButtonGenerator{
+public class ButtonGenerator{
+  public static Button[] genButtons_0005(Screen0011 p) {
+    return new Button[] {
+      new TextureButton(p,true,()->true,()-> {},()-> {},()-> {
+        p.state(State0001.StartMenu);
+      },()->ImageAsset.exit,p::getButtonUnitLength,()->p.bu*0.2f,()->p.bu*0.2f,()->p.bu,()->p.bu),
+    };
+  }
   public static Button[] genButtons_0004(Screen0011 p) {
     return new Button[] {
       new TextButton(p,true,()->true,()-> {},()-> {},()-> {
