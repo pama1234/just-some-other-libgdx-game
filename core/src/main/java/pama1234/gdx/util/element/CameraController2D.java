@@ -58,7 +58,7 @@ public class CameraController2D extends CameraController{
       a=null;
       activeUpdate=false;
     }else if(p.touchCount==2) {
-      //---alt
+      //--- alt
       a=null;
       b=null;
       activeUpdate=false;
@@ -75,10 +75,10 @@ public class CameraController2D extends CameraController{
   @Override
   public void update() {
     if(activeUpdate) if(a!=null) {
-      if(b!=null) {
+      if(activeZoom&&b!=null) {
         scale.des=iScale*dist(a.ox,a.oy,b.ox,b.oy)/iDist;
         cache.set(avg(a.ox,b.ox)-bavgsox,avg(a.oy,b.oy)-bavgsoy);
-      }else cache.set(a.ox-asox,a.oy-asoy);
+      }else if(activeDrag) cache.set(a.ox-asox,a.oy-asoy);
       cache.rotateDeg(rotate.pos);
       p.cam.point.des.set(scx-cache.x*ocam.zoom,scy-cache.y*ocam.zoom,0);
     }

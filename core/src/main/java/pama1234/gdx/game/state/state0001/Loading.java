@@ -29,6 +29,10 @@ public class Loading extends StateEntity0001{
     MusicAsset.load_0001(manager);
     ImageAsset.load_0001(manager);
   }
+  @Override
+  public void dispose() {
+    
+  }
   // @Override
   // public void displayCam() {
   //   p.text("加载中",0,0);

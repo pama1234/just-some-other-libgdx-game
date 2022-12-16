@@ -20,6 +20,7 @@ public class StartMenu extends StateEntity0001{
   @Override
   public void init() {
     p.backgroundColor(255);
+    p.textColor(255);
     for(Button e:buttons) p.centerScreen.add.add(e);
     MusicAsset.moonlightSonata.setLooping(true);
     MusicAsset.moonlightSonata.play();
