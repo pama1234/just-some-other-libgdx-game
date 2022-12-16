@@ -13,6 +13,7 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.ScreenUtils;
 
+import dev.lyze.gdxtinyvg.TinyVG;
 import pama1234.gdx.util.info.TouchInfo;
 
 /**
@@ -85,6 +86,11 @@ public abstract class UtilScreen extends UtilScreenCore{
     imageBatch.begin();
     // imageBatch.draw(in,x,y-in.getHeight(),in.getWidth(),-in.getHeight());//nop
     imageBatch.draw(in,x,y);
+    imageBatch.end();
+  }
+  public void tvg(TinyVG in) {//TODO
+    imageBatch.begin();
+    in.draw(tvgDrawer);
     imageBatch.end();
   }
   public void image(Texture in,float x,float y,float z) {

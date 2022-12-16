@@ -37,9 +37,10 @@ public class FirstRun extends StateEntity0001{
   public void displayCam() {
     // if(time>6) {
     if(time>1) {
-      p.tvgDrawer.getBatch().begin();
-      TvgAsset.logo0005.draw(p.tvgDrawer);
-      p.tvgDrawer.getBatch().end();
+      // p.tvgDrawer.getBatch().begin();
+      // TvgAsset.logo0005.draw(p.tvgDrawer);
+      // p.tvgDrawer.getBatch().end();
+      p.tvg(TvgAsset.logo0005);
       if(time>18) {
         String text="嵌套宇宙研发组织";
         p.textScale(2);

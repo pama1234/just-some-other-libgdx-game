@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.IntArray;
 
+import dev.lyze.gdxtinyvg.drawers.TinyVGShapeDrawer;
 import pama1234.gdx.util.element.CameraController2D;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
@@ -21,6 +22,7 @@ public abstract class UtilScreen2D extends UtilScreen{
   public void show() {
     screenCam=new OrthographicCamera();
     imageBatch=createSpriteBatch();
+    tvgDrawer=new TinyVGShapeDrawer(imageBatch);
     Gdx.input.setInputProcessor(inputProcessor=new UtilInputProcesser(this));
     center=new EntityCenter<>(this);
     center.list.add(cam=cam2d=new CameraController2D(this,false,0,0,1,0,Gdx.app.getType()==ApplicationType.Desktop?640:160));

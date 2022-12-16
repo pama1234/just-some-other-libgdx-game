@@ -20,6 +20,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.IntArray;
 
+import dev.lyze.gdxtinyvg.drawers.TinyVGShapeDrawer;
 import pama1234.gdx.util.element.CameraController;
 import pama1234.gdx.util.element.MultiChunkFont;
 import pama1234.gdx.util.info.MouseInfo;
@@ -56,6 +57,7 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
   public OrthographicCamera screenCam;
   public Camera usedCamera;
   public SpriteBatch fontBatch,imageBatch;
+  public TinyVGShapeDrawer tvgDrawer;
   public MultiChunkFont font;
   public Color textColor,fillColor,strokeColor;
   public boolean fill=true,stroke=true;

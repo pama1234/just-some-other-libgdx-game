@@ -11,7 +11,6 @@ import pama1234.gdx.game.ui.util.Button;
 
 public class StartMenu extends StateEntity0001{
   public Button[] buttons;
-  // public int bu;
   //---
   public float time;
   public StartMenu(Screen0011 p) {

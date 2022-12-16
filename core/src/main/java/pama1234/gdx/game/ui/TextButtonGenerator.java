@@ -10,6 +10,13 @@ import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.util.app.ScreenCore3D;
 
 public class TextButtonGenerator{
+  public static Button[] genButtons_0004(Screen0011 p) {
+    return new Button[] {
+      new TextButton(p,true,()->true,()-> {},()-> {},()-> {
+        p.state(State0001.StartMenu);
+      },"返回",p::getButtonUnitLength,()->p.bu*0.5f,()->p.bu*0.5f),
+    };
+  }
   public static Button[] genButtons_0003(Screen0011 p) {
     return new Button[] {
       new TextButton(p,true,()->true,()-> {},()-> {},()-> {
@@ -21,7 +28,6 @@ public class TextButtonGenerator{
       new TextButton(p,true,()->true,()-> {},()-> {},()-> {
         p.state(State0001.Settings);
       },"　设置　",p::getButtonUnitLength,()->p.width/4f*3-p.pu*2.5f,()->p.height/4f*3-p.bu/2f),
-      // },"公告",p::getButtonUnitLength,()->p.width/8f*5.5f,()->p.height/2f),
     };
   }
   public static Button[] genButtons_0002(Screen0006 p) {

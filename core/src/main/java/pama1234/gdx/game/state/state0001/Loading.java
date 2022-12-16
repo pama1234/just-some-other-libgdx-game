@@ -6,6 +6,7 @@ import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.GifAsset;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.asset.MusicAsset;
+import pama1234.gdx.game.asset.TvgAsset;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
 import pama1234.math.Tools;
 
@@ -22,7 +23,9 @@ public class Loading extends StateEntity0001{
     p.textColor(255);
     // SVGAssets.init();
     GifAsset.setLoader(manager);
+    TvgAsset.setLoader(manager);
     GifAsset.load_0001(manager);
+    TvgAsset.load_0001(manager);
     MusicAsset.load_0001(manager);
     ImageAsset.load_0001(manager);
   }
@@ -41,6 +44,7 @@ public class Loading extends StateEntity0001{
     frame++;
     if(manager.update()) {
       GifAsset.put_0001(manager);
+      TvgAsset.put_0001(manager);
       MusicAsset.put_0001(manager);
       ImageAsset.put_0001(manager);
       p.state(State0001.StartMenu);
