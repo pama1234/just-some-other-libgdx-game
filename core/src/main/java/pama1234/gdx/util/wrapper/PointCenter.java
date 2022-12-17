@@ -4,13 +4,15 @@ import java.util.ListIterator;
 
 import com.badlogic.gdx.Input.Buttons;
 
+import pama1234.gdx.util.app.UtilScreen;
 import pama1234.gdx.util.app.UtilScreen2D;
 import pama1234.gdx.util.entity.PointEntity;
 import pama1234.gdx.util.info.MouseInfo;
+import pama1234.math.physics.Point;
 
-public class PointCenter<T extends PointEntity<?>>extends EntityCenter<T>{
+public class PointCenter<T extends UtilScreen,P extends Point,E extends PointEntity<T,P>>extends EntityCenter<E>{
   public float minDist,minDisplayDist;
-  public T select;
+  public E select;
   public PointCenter(UtilScreen2D p) {
     this(p,4);
   }
@@ -35,9 +37,9 @@ public class PointCenter<T extends PointEntity<?>>extends EntityCenter<T>{
   public void find() {
     float tmd=minDist;
     select=null;
-    ListIterator<T> it=list.listIterator(list.size());
+    ListIterator<E> it=list.listIterator(list.size());
     while(it.hasPrevious()) {
-      T i=it.previous();
+      E i=it.previous();
       float td=i.point.pos.dist(p.mouse.x,p.mouse.y);
       if(td<tmd) {
         tmd=td;
@@ -52,7 +54,7 @@ public class PointCenter<T extends PointEntity<?>>extends EntityCenter<T>{
     //  System.out.println(i.point.pos.dist(p.cam.mouseX,p.cam.mouseY));
     p.stroke(255,255,255,191);
     p.noFill();
-    for(T i:list) {
+    for(E i:list) {
       p.circle(i.point.pos.x,i.point.pos.y,minDist*2);
       if(i.point.pos.dist(p.mouse.x,p.mouse.y)<minDisplayDist) {
         p.cross(i.point.pos.x,i.point.pos.y,minDist*2,minDist*2);

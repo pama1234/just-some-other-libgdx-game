@@ -16,10 +16,11 @@ public class ButtonGenerator{
   public static <T extends Screen0011> Button<?>[] genButtons_0006(T p) {
     return new Button[] {
       new TextButtonCam<T>(p,true,()->true,()-> {},()-> {},()-> {
-        p.debugInfo=true;
+        p.debugInfo=!p.debugInfo;
       },"显示调试信息",()->18,()->0,()->0),
       new TextButtonCam<T>(p,true,()->true,()-> {},()-> {},()-> {
         System.gc();
+        Runtime.getRuntime().runFinalization();
       },"清理内存垃圾",()->18,()->0,()->20),
     };
   }

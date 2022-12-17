@@ -1,8 +1,9 @@
 package pama1234.gdx.game.ui;
 
 public class InfoGenerator{
-  public static String[] info0001;
-  public static String[] info0002;
+  public static String[] //
+  info0001,
+    info0002;
   static {
     // genInfo_0001();
     genInfo_0002();
@@ -36,9 +37,9 @@ public class InfoGenerator{
     info0002=new String[] {
       "欢迎！以下是公告",
       "请单指或双指拖拽或使用鼠标右键和滚轮调节视角位置。",
-      "我准备使用libgdx和其他一些东东做一个RPG+沙盒的开源联机游戏",
-      "目前依然在测试阶段，欢迎加QQ群 589219461",
-      "各位可以将觉得需要实现的功能提出来，我会排序后一一实现",
+      "我准备使用libgdx和其他一些东东做一个RPG+沙盒的开源联机游戏，",
+      "目前依然在测试阶段，欢迎加QQ群 589219461。",
+      "各位可以将觉得需要实现的功能提出来，我会排序后一一实现。",
       "之后一定发B站独立游戏预告（咕咕咕"
     };
   }

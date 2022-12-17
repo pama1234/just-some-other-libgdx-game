@@ -3,9 +3,9 @@ package pama1234.gdx.util.entity;
 import pama1234.gdx.util.app.UtilScreen;
 import pama1234.math.physics.Point;
 
-public abstract class PointEntity<T extends Point>extends Entity<UtilScreen>{
-  public final T point;
-  public PointEntity(UtilScreen p,T in) {
+public abstract class PointEntity<T extends UtilScreen,P extends Point>extends Entity<T>{
+  public final P point;
+  public PointEntity(T p,P in) {
     super(p);
     point=in;
   }

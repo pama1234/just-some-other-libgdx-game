@@ -7,19 +7,19 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 
-import pama1234.gdx.util.app.UtilScreen2D;
+import pama1234.gdx.util.app.UtilScreen;
 import pama1234.gdx.util.entity.PointEntity;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.math.physics.PathPoint;
 
-public abstract class Component extends PointEntity<PathPoint>{
+public abstract class Component<T extends UtilScreen>extends PointEntity<T,PathPoint>{
   public FrameBuffer buffer;
   public OrthographicCamera cam;
   // public TextureRegion texture;
   public Texture texture;
   public boolean loop=true;
-  public Component(UtilScreen2D p,float x,float y,int w,int h) {
+  public Component(T p,float x,float y,int w,int h) {
     super(p,new PathPoint(0,0,x,y));
     buffer=new FrameBuffer(Format.RGBA4444,w,h,false);
     // texture=new TextureRegion(buffer.getColorBufferTexture());
