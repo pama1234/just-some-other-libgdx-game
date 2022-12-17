@@ -6,12 +6,16 @@ import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
 import pama1234.gdx.game.state.state0001.game.MainPlayer2D;
+import pama1234.gdx.game.state.state0001.game.Player2D;
 import pama1234.gdx.game.ui.ButtonGenerator;
 import pama1234.gdx.game.ui.util.Button;
+import pama1234.gdx.util.wrapper.PointCenter;
+import pama1234.math.physics.MassPoint;
 
 public class Game extends StateEntity0001{
   public Button<?>[] buttons;
   public float time;
+  public PointCenter<Screen0011,MassPoint,Player2D> center;
   public MainPlayer2D yourself;
   public Game(Screen0011 p) {
     super(p);
@@ -37,27 +41,15 @@ public class Game extends StateEntity0001{
   @Override
   public void displayCam() {
     p.image(ImageAsset.background,-288,-162);
-    // p.image(ImageAsset.player[(int)(time/30)%4][0],-9,-9);
-    // p.rect(-2,-2,4,4);
   }
   @Override
-  public void display() {
-    // p.rect((p.width-p.u)/2,(p.height-p.u)/2,p.u,p.u);
-    // p.tvg(TvgAsset.exit);
-  }
+  public void display() {}
   @Override
   public void update() {
     time+=p.frameRate;
   }
   @Override
-  public void frameResized(int w,int h) {
-    // tvgRefresh();
-  }
-  // public void tvgRefresh() {
-  //   TvgAsset.exit.setPosition((p.width-p.u)/2,(p.height-p.u)/2);
-  //   TvgAsset.exit.setScale(p.u/24);
-  //   TvgAsset.config(TvgAsset.exit);
-  // }
+  public void frameResized(int w,int h) {}
   @Override
   public void keyReleased(char key,int keyCode) {
     if(keyCode==ESCAPE) p.state(State0001.StartMenu);

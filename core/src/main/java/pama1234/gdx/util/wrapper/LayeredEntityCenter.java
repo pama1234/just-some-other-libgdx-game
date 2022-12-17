@@ -5,10 +5,10 @@ import pama1234.gdx.util.entity.Entity;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
 
-public class LayeredEntityCenter extends Entity<UtilScreen>{
+public class LayeredEntityCenter<T extends UtilScreen>extends Entity<T>{
   public EntityCenter<?>[] list;
   public boolean reverseDisplay;
-  public LayeredEntityCenter(UtilScreen p,int size) {
+  public LayeredEntityCenter(T p,int size) {
     super(p);
     list=new EntityCenter<?>[size];
   }

@@ -68,7 +68,7 @@ public class ButtonGenerator{
    *          _X _C _N _M <br/>
    *          _R _F sU sD <br/>
    *          ----------- <br/>
-   *          _↑ _W __ __ <br/>
+   *          _↑ __ _W __ <br/>
    *          _↓ _A _S _D <br/>
    */
   public static <T extends ScreenCore3D> Button<?>[] genButtons_0001(T p) {

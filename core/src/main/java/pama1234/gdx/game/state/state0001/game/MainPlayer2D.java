@@ -61,9 +61,4 @@ public class MainPlayer2D extends Player2D{
     //---
     life.update();
   }
-  // @Override
-  // public void dispose() {
-  //   super.dispose();
-  //   cam.activeDrag=true;
-  // }
 }

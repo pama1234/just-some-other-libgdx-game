@@ -22,7 +22,8 @@ public class Player2D extends GamePointEntity<MassPoint>{
   @Override
   public void update() {
     super.update();
-    pointer=(p.frameCount/10)%tiles.length;
+    pointer=(int)(pg.time*6)%tiles.length;
+    // pointer=(p.frameCount/10)%tiles.length;
     if(pdir!=dir) {
       for(TextureRegion[] i:tiles) i[0].flip(true,false);
       pdir=dir;

@@ -8,19 +8,19 @@ import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.gdx.util.listener.EntityListener;
 
-public class StateCenter<T extends EntityListener>extends Entity<UtilScreen>{
-  public final ArrayList<T> list=new ArrayList<T>();
+public class StateCenter<T extends UtilScreen,E extends EntityListener>extends Entity<T>{
+  public final ArrayList<E> list=new ArrayList<E>();
   public int pointer;
-  public StateCenter(UtilScreen p) {
+  public StateCenter(T p) {
     super(p);
   }
-  public StateCenter(UtilScreen p,T in) {
+  public StateCenter(T p,E in) {
     this(p);
     list.add(in);
   }
-  public StateCenter(UtilScreen p,T[] in) {
+  public StateCenter(T p,E[] in) {
     this(p);
-    for(T i:in) list.add(i);
+    for(E i:in) list.add(i);
   }
   public void set(int in) {
     list.get(pointer).pause();
@@ -29,7 +29,7 @@ public class StateCenter<T extends EntityListener>extends Entity<UtilScreen>{
   }
   @Override
   public void init() {
-    for(T e:list) e.init();
+    for(E e:list) e.init();
   }
   @Override
   public void update() {
@@ -49,7 +49,7 @@ public class StateCenter<T extends EntityListener>extends Entity<UtilScreen>{
   }
   @Override
   public void dispose() {
-    for(T e:list) e.dispose();
+    for(E e:list) e.dispose();
   }
   @Override
   public void mousePressed(MouseInfo info) {
@@ -85,11 +85,11 @@ public class StateCenter<T extends EntityListener>extends Entity<UtilScreen>{
   }
   @Override
   public void frameResized(final int w,final int h) {
-    for(T e:list) e.frameResized(w,h);
+    for(E e:list) e.frameResized(w,h);
   }
   @Override
   public void frameMoved(final int x,final int y) {
-    for(T e:list) e.frameMoved(x,y);
+    for(E e:list) e.frameMoved(x,y);
   }
   @Override
   public void touchStarted(TouchInfo info) {
