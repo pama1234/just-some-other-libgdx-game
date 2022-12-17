@@ -16,6 +16,27 @@ public enum State0001 implements EntityListener{
   Exception;
   public StateEntityListener0001 entity;
   public EntityListener displayCam;
+  //---------------------------------------------------------------
+  public interface StateChanger{
+    /**
+     * @param in
+     * @return out
+     */
+    public State0001 state(State0001 in);
+  }
+  //---------------------------------------------------------------
+  public static State0001[] stateArray=State0001.values();
+  public static int stateToInt(State0001 in) {
+    return in.ordinal();
+  }
+  public static State0001 intToState(int in) {
+    if(in<0||in>stateArray.length) {
+      System.out.println("State0001 intToState in="+in);
+      return State0001.Exception;
+    }
+    return stateArray[in];
+  }
+  //---------------------------------------------------------------
   public void from(State0001 in) {
     entity.from(in);
   }
@@ -97,25 +118,5 @@ public enum State0001 implements EntityListener{
   @Override
   public void touchMoved(TouchInfo info) {
     entity.touchMoved(info);
-  }
-  //---------------------------------------------------------------
-  public interface StateChanger{
-    /**
-     * @param in
-     * @return out
-     */
-    public State0001 state(State0001 in);
-  }
-  //---------------------------------------------------------------
-  public static State0001[] stateArray=State0001.values();
-  public static int stateToInt(State0001 in) {
-    return in.ordinal();
-  }
-  public static State0001 intToState(int in) {
-    if(in<0||in>stateArray.length) {
-      System.out.println("State0001 intToState in="+in);
-      return State0001.Exception;
-    }
-    return stateArray[in];
   }
 }
