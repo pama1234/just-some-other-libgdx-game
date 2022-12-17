@@ -5,7 +5,7 @@ import java.util.HashMap;
 import pama1234.gdx.util.app.UtilScreen;
 import pama1234.gdx.util.wrapper.EntityCenter;
 
-public class ClientPlayerCenter3D extends EntityCenter<ClientPlayer3D>{
+public class ClientPlayerCenter3D extends EntityCenter<UtilScreen,ClientPlayer3D>{
   // public HashMap<TokenData,ClientPlayer3D> hashMap=new HashMap<>();
   public HashMap<String,ClientPlayer3D> hashMap=new HashMap<>();//TODO
   public ClientPlayerCenter3D(UtilScreen p) {

@@ -41,7 +41,10 @@ public class Game extends StateEntity0001{
   }
   @Override
   public void displayCam() {
+    p.beginBlend();
     p.image(ImageAsset.background,-288,-162);
+    p.imageBatch.flush();
+    p.endBlend();
   }
   @Override
   public void display() {}

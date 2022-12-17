@@ -65,7 +65,7 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
   public ShapeRenderer rFill,rStroke;
   public boolean background=true;
   public Color backgroundColor;
-  public EntityCenter<EntityListener> center,centerCam,centerScreen;
+  public EntityCenter<UtilScreen,EntityListener> center,centerCam,centerScreen;
   // public EntityCenter<EntityListener> centerCam;
   // public EntityCenter<EntityListener> centerScreen;
   public ServerEntityCenter<ServerEntityListener> serverCenter;

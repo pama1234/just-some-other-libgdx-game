@@ -11,9 +11,7 @@ import pama1234.math.Tools;
 public class TextButton<T extends UtilScreen>extends Button<T>{
   public String text;
   public boolean textOffset=true;//TODO
-  // int x,y,w,h;
   public GetInt bu;
-  // GetFloat x,y,w,h;
   public RectF rect;
   public TextButton(T p,boolean textOffset,GetBoolean active,ExecuteF press,ExecuteF clickStart,ExecuteF clickEnd,String text,GetInt bu,GetFloat x,GetFloat y) {
     this(p,textOffset,active,press,clickStart,clickEnd,text,bu,x,y,null,bu::get);//()->bu.get()*2);
@@ -24,10 +22,6 @@ public class TextButton<T extends UtilScreen>extends Button<T>{
     this.text=text;
     this.textOffset=textOffset;
     this.bu=bu;
-    // this.x=x;
-    // this.y=y;
-    // this.w=w;
-    // this.h=h;
     this.rect=new RectF(x,y,w,h);
   }
   @Override

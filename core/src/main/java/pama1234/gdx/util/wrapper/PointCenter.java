@@ -5,18 +5,18 @@ import java.util.ListIterator;
 import com.badlogic.gdx.Input.Buttons;
 
 import pama1234.gdx.util.app.UtilScreen;
-import pama1234.gdx.util.app.UtilScreen2D;
 import pama1234.gdx.util.entity.PointEntity;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.math.physics.Point;
 
-public class PointCenter<T extends UtilScreen,P extends Point,E extends PointEntity<T,P>>extends EntityCenter<E>{
+public class PointCenter<T extends UtilScreen,P extends Point,E extends PointEntity<T,P>>extends EntityCenter<T,E>{
   public float minDist,minDisplayDist;
   public E select;
-  public PointCenter(UtilScreen2D p) {
+  public boolean displayCircle,enableDrag;//TODO
+  public PointCenter(T p) {
     this(p,4);
   }
-  public PointCenter(UtilScreen2D p,float u) {
+  public PointCenter(T p,float u) {
     super(p);
     this.minDist=u;
     this.minDisplayDist=u;
@@ -31,6 +31,7 @@ public class PointCenter<T extends UtilScreen,P extends Point,E extends PointEnt
   }
   @Override
   public void mousePressed(MouseInfo info) {
+    if(!enableDrag) return;
     if(p.mouse.button==Buttons.LEFT) find();
     if(select==null) super.mousePressed(info);
   }
@@ -52,16 +53,23 @@ public class PointCenter<T extends UtilScreen,P extends Point,E extends PointEnt
     super.display();
     //    UITools.cross(p.g,p.cam.mouseX,p.cam.mouseY,minDist/2,minDist/2);
     //  System.out.println(i.point.pos.dist(p.cam.mouseX,p.cam.mouseY));
-    p.stroke(255,255,255,191);
-    p.noFill();
-    for(E i:list) {
-      p.circle(i.point.pos.x,i.point.pos.y,minDist*2);
-      if(i.point.pos.dist(p.mouse.x,p.mouse.y)<minDisplayDist) {
-        p.cross(i.point.pos.x,i.point.pos.y,minDist*2,minDist*2);
-        String ts=i.getName()+"\n"+i.point.pos.toString();
-        //      p.text(ts,i.point.pos.x-p.textWidth(ts)/2,i.point.pos.y-p.g.textSize);
-        p.text(ts,i.point.pos.x,i.point.pos.y);
+    //---
+    if(displayCircle) {
+      p.beginBlend();
+      p.stroke(255,255,255,191);
+      p.noFill();
+      for(E i:list) {
+        p.circle(i.point.pos.x,i.point.pos.y,minDist*2);
+        if(i.point.pos.dist(p.mouse.x,p.mouse.y)<minDisplayDist) {
+          p.cross(i.point.pos.x,i.point.pos.y,minDist*2,minDist*2);
+          String ts=i.getName()+"\n"+i.point.pos.toString();
+          //      p.text(ts,i.point.pos.x-p.textWidth(ts)/2,i.point.pos.y-p.g.textSize);
+          p.text(ts,i.point.pos.x,i.point.pos.y);
+        }
       }
+      p.endBlend();
+      p.doFill();
+      p.noStroke();
     }
   }
 }

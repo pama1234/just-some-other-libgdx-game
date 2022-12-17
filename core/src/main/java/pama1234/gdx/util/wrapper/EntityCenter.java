@@ -9,21 +9,21 @@ import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.gdx.util.listener.EntityListener;
 
-public class EntityCenter<T extends EntityListener>extends Entity<UtilScreen>{
-  public final LinkedList<T> list=new LinkedList<T>(),
-    add=new LinkedList<T>(),
-    remove=new LinkedList<T>();
+public class EntityCenter<T extends UtilScreen,E extends EntityListener>extends Entity<T>{
+  public final LinkedList<E> list=new LinkedList<E>(),
+    add=new LinkedList<E>(),
+    remove=new LinkedList<E>();
   public boolean reverseDisplay=true;
-  public EntityCenter(UtilScreen p) {
+  public EntityCenter(T p) {
     super(p);
   }
-  public EntityCenter(UtilScreen p,T in) {
+  public EntityCenter(T p,E in) {
     this(p);
     list.add(in);
   }
-  public EntityCenter(UtilScreen p,T[] in) {
+  public EntityCenter(T p,E[] in) {
     this(p);
-    for(T i:in) list.add(i);
+    for(E i:in) list.add(i);
   }
   public void refresh() {
     list.addAll(add);
@@ -34,84 +34,84 @@ public class EntityCenter<T extends EntityListener>extends Entity<UtilScreen>{
   }
   @Override
   public void init() {
-    for(T e:list) e.init();
+    for(E e:list) e.init();
   }
   @Override
   public void update() {
     refresh();
-    for(T e:list) e.update();
+    for(E e:list) e.update();
   }
   @Override
   public void display() {
     if(reverseDisplay) {
-      Iterator<T> di=list.descendingIterator();
+      Iterator<E> di=list.descendingIterator();
       while(di.hasNext()) di.next().display();
-    }else for(T e:list) e.display();
+    }else for(E e:list) e.display();
   }
   @Override
   public void pause() {
-    for(T e:list) e.pause();
+    for(E e:list) e.pause();
   }
   @Override
   public void resume() {
-    for(T e:list) e.resume();
+    for(E e:list) e.resume();
   }
   @Override
   public void dispose() {
-    for(T e:list) e.dispose();
-    for(T e:add) e.dispose();
-    for(T e:remove) e.dispose();
+    for(E e:list) e.dispose();
+    for(E e:add) e.dispose();
+    for(E e:remove) e.dispose();
   }
   @Override
   public void mousePressed(MouseInfo info) {
-    for(T e:list) e.mousePressed(info);
+    for(E e:list) e.mousePressed(info);
   }
   @Override
   public void mouseReleased(MouseInfo info) {
-    for(T e:list) e.mouseReleased(info);
+    for(E e:list) e.mouseReleased(info);
   }
   @Override
   public void mouseMoved() {
-    for(T e:list) e.mouseMoved();
+    for(E e:list) e.mouseMoved();
   }
   @Override
   public void mouseDragged() {
-    for(T e:list) e.mouseDragged();
+    for(E e:list) e.mouseDragged();
   }
   @Override
   public void mouseWheel(float x,float y) {
-    for(T e:list) e.mouseWheel(x,y);
+    for(E e:list) e.mouseWheel(x,y);
   }
   @Override
   public void keyPressed(final char key,final int keyCode) {
-    for(T e:list) e.keyPressed(key,keyCode);
+    for(E e:list) e.keyPressed(key,keyCode);
   }
   @Override
   public void keyReleased(final char key,final int keyCode) {
-    for(T e:list) e.keyReleased(key,keyCode);
+    for(E e:list) e.keyReleased(key,keyCode);
   }
   @Override
   public void keyTyped(final char key) {
-    for(T e:list) e.keyTyped(key);
+    for(E e:list) e.keyTyped(key);
   }
   @Override
   public void frameResized(final int w,final int h) {
-    for(T e:list) e.frameResized(w,h);
+    for(E e:list) e.frameResized(w,h);
   }
   @Override
   public void frameMoved(final int x,final int y) {
-    for(T e:list) e.frameMoved(x,y);
+    for(E e:list) e.frameMoved(x,y);
   }
   @Override
   public void touchStarted(TouchInfo info) {
-    for(T e:list) e.touchStarted(info);
+    for(E e:list) e.touchStarted(info);
   }
   @Override
   public void touchEnded(TouchInfo info) {
-    for(T e:list) e.touchEnded(info);
+    for(E e:list) e.touchEnded(info);
   }
   @Override
   public void touchMoved(TouchInfo info) {
-    for(T e:list) e.touchMoved(info);
+    for(E e:list) e.touchMoved(info);
   }
 }
