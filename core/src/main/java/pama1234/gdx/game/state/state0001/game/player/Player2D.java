@@ -1,10 +1,13 @@
-package pama1234.gdx.game.state.state0001.game;
+package pama1234.gdx.game.state.state0001.game.player;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
-import pama1234.gdx.game.state.state0001.Game;
+import pama1234.gdx.game.state.state0001.game.Game;
+import pama1234.gdx.game.state.state0001.game.GamePointEntity;
+import pama1234.gdx.util.app.UtilScreen2D;
+import pama1234.gdx.util.wrapper.PointCenter;
 import pama1234.math.physics.MassPoint;
 
 public class Player2D extends GamePointEntity<MassPoint>{
@@ -23,16 +26,21 @@ public class Player2D extends GamePointEntity<MassPoint>{
   public void update() {
     super.update();
     pointer=(int)(pg.time*6)%tiles.length;
-    // pointer=(p.frameCount/10)%tiles.length;
     if(pdir!=dir) {
       for(TextureRegion[] i:tiles) i[0].flip(true,false);
       pdir=dir;
     }
-    // System.out.println(hashCode());
   }
   @Override
   public void display() {
     p.image(tiles[pointer][0],point.pos.x,point.pos.y);
-    // Tools.println(slides[pointer],point.pos.x,point.pos.y);
+  }
+  public static class PlayerCenter2D extends PointCenter<Screen0011,MassPoint,Player2D>{
+    public PlayerCenter2D(UtilScreen2D p,float u) {
+      super(p,u);
+    }
+    public PlayerCenter2D(UtilScreen2D p) {
+      super(p);
+    }
   }
 }

@@ -1,13 +1,14 @@
-package pama1234.gdx.game.state.state0001;
+package pama1234.gdx.game.state.state0001.game;
 
 import static com.badlogic.gdx.Input.Keys.ESCAPE;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
+import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
-import pama1234.gdx.game.state.state0001.game.World;
-import pama1234.gdx.game.state.state0001.game.WorldCenter;
+import pama1234.gdx.game.state.state0001.game.world.World;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
+import pama1234.gdx.game.state.state0001.game.world.WorldCenter;
 import pama1234.gdx.game.ui.ButtonGenerator;
 import pama1234.gdx.game.ui.util.Button;
 
