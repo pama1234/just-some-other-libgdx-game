@@ -5,11 +5,13 @@ import static com.badlogic.gdx.Input.Keys.ESCAPE;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
+import pama1234.gdx.game.state.state0001.game.region.Block;
 import pama1234.gdx.game.state.state0001.game.world.World;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.gdx.game.state.state0001.game.world.WorldCenter;
 import pama1234.gdx.game.ui.ButtonGenerator;
 import pama1234.gdx.game.ui.util.Button;
+import pama1234.math.UtilMath;
 
 public class Game extends StateEntity0001{
   public Button<?>[] buttons;
@@ -50,6 +52,10 @@ public class Game extends StateEntity0001{
   public void display() {
     // Block block=world.regions.getBlock(UtilMath.floor(p.mouse.x/world.blockHeight),UtilMath.floor(p.mouse.y/world.blockWidth));
     // p.text(block==null?"null":block.type.name,p.width/2,p.height/2);
+    p.text(world.yourself.x()+" "+world.yourself.y()+" "+world.yourself.groundLevel,p.width/2,p.height/2);
+    // Block block=world.regions.getBlock(UtilMath.floor(world.yourself.xInt()/world.blockHeight),UtilMath.floor(world.yourself.yInt()/world.blockWidth));
+    Block block=world.yourself.getStandingBlock();
+    p.text(block==null?"null":block.type.name,p.width/2,p.height/2+p.bu);
   }
   @Override
   public void update() {

@@ -22,7 +22,7 @@ public class World0001 extends World<Screen0011,Game>{
     list[0]=players=new PlayerCenter2D(p);
     list[1]=regions=new RegionCenter(p,this,null);
     // list[1]=regions=new RegionCenter(p,this,Gdx.files.local("data/saved/abcd.txt"));
-    yourself=new MainPlayer2D(p,0,0,pg);
+    yourself=new MainPlayer2D(p,this,0,0,pg);
   }
   @Override
   public void init() {

@@ -6,11 +6,12 @@ import pama1234.gdx.game.asset.ImageAsset;
 public class MetaBlock{
   public MetaBlockCenter p;
   public String name;
-  public boolean display;
+  public boolean display,empty;
   public int tileX,tileY;
   public MetaBlock(MetaBlockCenter p,String name) {
     this.p=p;
     this.name=name;
+    empty=true;
   }
   public MetaBlock(MetaBlockCenter p,String name,int tileX,int tileY) {
     this.p=p;
