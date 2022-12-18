@@ -22,8 +22,11 @@ public class StartMenu extends StateEntity0001{
     p.backgroundColor(255);
     p.textColor(255);
     for(Button<?> e:buttons) p.centerScreen.add.add(e);
-    MusicAsset.moonlightSonata.setLooping(true);
-    MusicAsset.moonlightSonata.play();
+    if(!p.mute) {
+      MusicAsset.moonlightSonata.setLooping(true);
+      MusicAsset.moonlightSonata.setVolume(p.volume);
+      MusicAsset.moonlightSonata.play();
+    }
     p.cam2d.active(false);
     p.cam2d.scale.des=3;
     p.cam2d.point.set(96,0,0);

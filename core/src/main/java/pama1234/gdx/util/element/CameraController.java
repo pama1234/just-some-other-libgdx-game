@@ -47,6 +47,10 @@ public abstract class CameraController extends Entity<UtilScreen>{
   public boolean inbox(float x,float y) {
     return Tools.inBoxCenter(x,y,x(),y(),w(),h());
   }
+  public boolean boxIntersect(float x,float y,float w,float h) {
+    float tw=w(),th=h();
+    return Tools.intersects(x,y,w,h,x()-tw/2,y()-th/2,tw,th);
+  }
   //TODO
   @Deprecated
   public boolean inbox(float x,float y,float z) {

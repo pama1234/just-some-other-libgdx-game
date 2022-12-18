@@ -3,7 +3,6 @@ package pama1234.gdx.game.state.state0001.game.region;
 import com.badlogic.gdx.files.FileHandle;
 
 import pama1234.gdx.game.app.Screen0011;
-import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.util.entity.Entity;
 
 public class Region extends Entity<Screen0011> implements LoadAndSave{
@@ -11,7 +10,6 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
   public FileHandle dataLocation;
   //---
   public int x,y;
-  public int chunkWidth=64,chunkHeight=64;
   public Chunk[][] data;
   public Region(Screen0011 p,RegionCenter pr,FileHandle dataLocation) {
     super(p);
@@ -28,12 +26,21 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
       for(int j=0;j<data[i].length;j++) {
         Chunk chunk=data[i][j];
         Block[][] blockData=chunk.data;
+        int tcw=pr.chunkWidth*pr.pw.blockWidth,
+          tch=pr.chunkHeight*pr.pw.blockHeight;
+        int tcx=(x*pr.regionWidth+i)*tcw,
+          tcy=(y*pr.regionHeight+j)*tch;
+        if(!p.cam2d.boxIntersect(tcx,tcy,tcw,tch)) continue;
         for(int n=0;n<blockData.length;n++) {
           for(int m=0;m<blockData[n].length;m++) {
             Block block=blockData[n][m];
             MetaBlock blockType=block.type;
             if(!blockType.display) continue;
-            p.image(ImageAsset.tiles[blockType.tileX][blockType.tileY],((x*pr.regionWidth+i)*chunkWidth+n)*pr.pw.blockWidth,((y*pr.regionHeight+j)*chunkWidth+m)*pr.pw.blockHeight);
+            int tx=((x*pr.regionWidth+i)*pr.chunkWidth+n)*pr.pw.blockWidth,
+              ty=((y*pr.regionHeight+j)*pr.chunkWidth+m)*pr.pw.blockHeight;
+            if(!p.cam2d.boxIntersect(tx,ty,pr.pw.blockWidth,pr.pw.blockHeight)) continue;
+            // p.image(ImageAsset.tiles[blockType.tileX][blockType.tileY],tx,ty);
+            blockType.display(p,block,tx,ty);
           }
         }
       }

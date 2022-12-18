@@ -6,14 +6,16 @@ import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
 import pama1234.gdx.game.ui.ButtonGenerator;
 import pama1234.gdx.game.ui.util.Button;
+import pama1234.gdx.game.ui.util.TextButtonCam;
 
 public class Settings extends StateEntity0001{
-  public Button<?>[] buttons,buttonsCam;
+  public Button<?>[] buttons;
+  public TextButtonCam<?>[] buttonsCam;
   public Settings(Screen0011 p) {
     super(p);
     buttons=ButtonGenerator.genButtons_0004(p);
     // buttons=concat(ButtonGenerator.genButtons_0004(p),ButtonGenerator.genButtons_0006(p));
-    buttonsCam=ButtonGenerator.genButtons_0006(p);
+    buttonsCam=ButtonGenerator.genButtons_0006(p,this);
   }
   @Override
   public void init() {

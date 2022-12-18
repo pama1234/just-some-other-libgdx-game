@@ -3,7 +3,6 @@ package pama1234.gdx.game.state.state0001.game;
 import static com.badlogic.gdx.Input.Keys.ESCAPE;
 
 import pama1234.gdx.game.app.Screen0011;
-import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
 import pama1234.gdx.game.state.state0001.game.world.World;
@@ -16,17 +15,18 @@ public class Game extends StateEntity0001{
   public Button<?>[] buttons;
   public float time;
   //---
+  public World0001 world;
   public WorldCenter<Screen0011,Game,World<Screen0011,Game>> worldCenter;
   public Game(Screen0011 p) {
     super(p);
     buttons=ButtonGenerator.genButtons_0005(p);
     worldCenter=new WorldCenter<Screen0011,Game,World<Screen0011,Game>>(p);
-    worldCenter.list.add(new World0001(p,this));
+    worldCenter.list.add(world=new World0001(p,this));
     worldCenter.pointer=0;
   }
   @Override
   public void init() {
-    p.backgroundColor(0);
+    p.backgroundColor(191);
     p.cam.noGrab();
     // tvgRefresh();
     for(Button<?> e:buttons) p.centerScreen.add.add(e);
@@ -41,13 +41,16 @@ public class Game extends StateEntity0001{
   }
   @Override
   public void displayCam() {
-    p.beginBlend();
-    p.image(ImageAsset.background,-288,-162);
-    p.imageBatch.flush();
-    p.endBlend();
+    // p.beginBlend();
+    // p.image(ImageAsset.background,-288,-162);
+    // p.imageBatch.flush();
+    // p.endBlend();
   }
   @Override
-  public void display() {}
+  public void display() {
+    // Block block=world.regions.getBlock(UtilMath.floor(p.mouse.x/world.blockHeight),UtilMath.floor(p.mouse.y/world.blockWidth));
+    // p.text(block==null?"null":block.type.name,p.width/2,p.height/2);
+  }
   @Override
   public void update() {
     time+=p.frameRate;

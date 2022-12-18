@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.app.app0002.Screen0006;
 import pama1234.gdx.game.asset.ImageAsset;
+import pama1234.gdx.game.state.state0001.Settings;
 import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.ui.util.TextButton;
@@ -13,15 +14,22 @@ import pama1234.gdx.game.ui.util.TextureButton;
 import pama1234.gdx.util.app.ScreenCore3D;
 
 public class ButtonGenerator{
-  public static <T extends Screen0011> Button<?>[] genButtons_0006(T p) {
-    return new Button[] {
+  public static <T extends Screen0011> TextButtonCam<?>[] genButtons_0006(T p,Settings ps) {
+    return new TextButtonCam[] {
       new TextButtonCam<T>(p,true,()->true,()-> {},()-> {},()-> {
         p.debugInfo=!p.debugInfo;
-      },"显示调试信息",()->18,()->0,()->0),
+        if(p.debugInfo) ps.buttonsCam[0].text="显示调试信息：是";
+        else ps.buttonsCam[0].text="显示调试信息：否";
+      },"显示调试信息：否",()->18,()->0,()->0),
       new TextButtonCam<T>(p,true,()->true,()-> {},()-> {},()-> {
         System.gc();
         Runtime.getRuntime().runFinalization();
       },"清理内存垃圾",()->18,()->0,()->20),
+      new TextButtonCam<T>(p,true,()->true,()-> {},()-> {},()-> {
+        p.mute=!p.mute;
+        if(p.mute) ps.buttonsCam[2].text="静音：是";
+        else ps.buttonsCam[2].text="静音：否";
+      },"静音：否",()->18,()->0,()->40),
     };
   }
   public static <T extends Screen0011> Button<?>[] genButtons_0005(T p) {

@@ -14,6 +14,8 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   public State0001 state;
   public boolean firstRun;
   public boolean debugInfo;
+  public boolean mute;
+  public float volume=1;
   @Override
   public void setup() {
     noStroke();
