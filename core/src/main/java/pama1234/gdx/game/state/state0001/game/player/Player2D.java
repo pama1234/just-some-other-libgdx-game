@@ -15,6 +15,7 @@ public class Player2D extends GamePointEntity<MassPoint>{
   public TextureRegion[][] tiles;
   public int pointer;
   public boolean dir,pdir;
+  public int w=20,h=24;
   public float dx=-10,dy=-24;
   public Player2D(Screen0011 p,World0001 pw,float x,float y,Game pg) {
     super(p,new MassPoint(x,y),pg);

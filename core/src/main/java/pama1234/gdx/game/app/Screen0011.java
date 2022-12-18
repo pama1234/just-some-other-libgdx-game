@@ -52,7 +52,15 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   @Override
   public void mousePressed(MouseInfo info) {}
   @Override
-  public void displayWithCam() {}
+  public void displayWithCam() {
+    if(cam.grabCursor) {
+      beginBlend();
+      fill(94,203,234,191);
+      rect(mouse.x-4,mouse.y-0.5f,8,1);
+      rect(mouse.x-0.5f,mouse.y-4,1,8);
+      endBlend();
+    }
+  }
   @Override
   public void display() {
     if(debugInfo) text("Memory="+getMemory()+"Mb",0,0);

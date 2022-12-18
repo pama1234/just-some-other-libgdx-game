@@ -5,6 +5,7 @@ import com.badlogic.gdx.files.FileHandle;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.gdx.util.wrapper.EntityCenter;
+import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 
 public class RegionCenter extends EntityCenter<Screen0011,Region> implements LoadAndSave{
@@ -20,6 +21,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   }
   public void createTest(Screen0011 p) {
     Region region=new Region(p,this,null);
+    region.x=-1;
     region.data=new Chunk[regionWidth][regionHeight];
     Chunk[][] data=region.data;
     for(int i=0;i<data.length;i++) {
@@ -46,8 +48,8 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   public Block getBlock(int x,int y) {
     int cx=UtilMath.floor((float)x/chunkWidth),cy=UtilMath.floor((float)y/chunkHeight);
     int tx=UtilMath.floor((float)cx/regionWidth),ty=UtilMath.floor((float)cy/regionHeight);
-    int px=x%chunkWidth,py=y%chunkHeight;
-    int prx=cx%regionWidth,pry=cy%regionHeight;
+    int prx=Tools.moveInRange(cx,0,regionWidth),pry=Tools.moveInRange(cy,0,regionHeight);
+    int px=Tools.moveInRange(x,0,chunkWidth),py=Tools.moveInRange(y,0,chunkHeight);
     for(Region r:list) if(r.x==tx&&r.y==ty) return r.data[prx][pry].data[px][py];
     return null;
   }

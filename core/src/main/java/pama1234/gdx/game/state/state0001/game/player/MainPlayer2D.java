@@ -24,9 +24,25 @@ public class MainPlayer2D extends Player2D{
   }
   @Override
   public void update() {
-    Block block=getStandingBlock();
-    if(block==null||block.type.empty) groundLevel=(blockY()+1)*pw.blockHeight;
-    // else groundLevel=(blockY())*pw.blockHeight;
+    int bx=blockX();
+    int by=blockY();
+    if(Tools.moveInRange(x(),0,pw.blockWidth)>w/2f) {
+      Block blockLeft=getBlock(bx,by),
+        blockRight=getBlock(bx+1,by);
+      if(isEmpty(blockLeft)&&isEmpty(blockRight)) groundLevel=(by+4)*pw.blockHeight;
+      else groundLevel=by*pw.blockHeight;
+    }else if(Tools.moveInRange(x(),0,pw.blockWidth)<pw.blockWidth/2f) {
+      Block blockLeft=getBlock(bx-1,by),
+        blockRight=getBlock(bx,by);
+      if(isEmpty(blockLeft)&&isEmpty(blockRight)) groundLevel=(by+4)*pw.blockHeight;
+      else groundLevel=by*pw.blockHeight;
+    }else {
+      Block block=getBlock(bx,by),
+        blockLeft=getBlock(bx-1,by),
+        blockRight=getBlock(bx+1,by);
+      if(isEmpty(block)&&isEmpty(blockLeft)&&isEmpty(blockRight)) groundLevel=(by+4)*pw.blockHeight;
+      else groundLevel=by*pw.blockHeight;
+    }
     left=p.isKeyPressed(29)||p.isKeyPressed(21);
     right=p.isKeyPressed(32)||p.isKeyPressed(22);
     jump=p.isKeyPressed(62);
@@ -51,7 +67,7 @@ public class MainPlayer2D extends Player2D{
       }
       if(jumpCool>0) jumpCool--;
       else if(jump) {
-        point.vel.y=-6;
+        point.vel.y=-pw.blockHeight/2f;
         jumpCool=2;
       }
     }
@@ -68,13 +84,17 @@ public class MainPlayer2D extends Player2D{
     //---
     life.update();
   }
-  public Block getStandingBlock() {
-    return pw.regions.getBlock(blockX(),blockY());
+  public boolean isEmpty(Block block) {
+    return block==null||block.type.empty;
+  }
+  public Block getBlock(int xIn,int yIn) {
+    return pw.regions.getBlock(xIn,yIn);
+    // return pw.regions.getBlock(blockX(),blockY());
   }
   public int blockX() {
-    return UtilMath.floor(xInt()/pw.blockHeight);
+    return UtilMath.floor((float)xInt()/pw.blockHeight);
   }
   public int blockY() {
-    return UtilMath.floor(yInt()/pw.blockWidth);
+    return UtilMath.floor((float)yInt()/pw.blockWidth);
   }
 }
