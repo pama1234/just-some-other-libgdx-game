@@ -41,25 +41,6 @@ public class MainPlayer2D extends Player2D{
   }
   @Override
   public void update() {
-    // int bx=blockX();
-    // int by=blockY();
-    // if(Tools.moveInRange(x(),0,pw.blockWidth)>w/2f) {
-    //   Block blockLeft=getBlock(bx,by),
-    //     blockRight=getBlock(bx+1,by);
-    //   if(isEmpty(blockLeft)&&isEmpty(blockRight)) groundLevel=(by+4)*pw.blockHeight;
-    //   else groundLevel=by*pw.blockHeight;
-    // }else if(Tools.moveInRange(x(),0,pw.blockWidth)<pw.blockWidth/2f) {
-    //   Block blockLeft=getBlock(bx-1,by),
-    //     blockRight=getBlock(bx,by);
-    //   if(isEmpty(blockLeft)&&isEmpty(blockRight)) groundLevel=(by+4)*pw.blockHeight;
-    //   else groundLevel=by*pw.blockHeight;
-    // }else {
-    //   Block block=getBlock(bx,by),
-    //     blockLeft=getBlock(bx-1,by),
-    //     blockRight=getBlock(bx+1,by);
-    //   if(isEmpty(block)&&isEmpty(blockLeft)&&isEmpty(blockRight)) groundLevel=(by+4)*pw.blockHeight;
-    //   else groundLevel=by*pw.blockHeight;
-    // }
     testPos();
     //-------------------------------------------------------
     left=p.isKeyPressed(29)||p.isKeyPressed(21);
@@ -78,7 +59,7 @@ public class MainPlayer2D extends Player2D{
     }
     inAir=point.pos.y<groundLevel;
     if(inAir) {
-      point.vel.y+=0.3f;
+      point.vel.y+=0.7f;
     }else {
       if(point.pos.y!=groundLevel) {
         point.vel.y=0;
@@ -86,7 +67,7 @@ public class MainPlayer2D extends Player2D{
       }
       if(jumpCool>0) jumpCool--;
       else if(jump) {
-        point.vel.y=-pw.blockHeight/2f;
+        point.vel.y=-pw.blockHeight;
         jumpCool=2;
       }
     }

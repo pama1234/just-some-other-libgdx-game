@@ -33,8 +33,16 @@ public class MassPoint extends Point implements ByteBufferData{
   }
   @Override
   public void update() {
-    pos.add(vel);
-    if(f!=1) vel.scale(f);
+    if(step==1) {
+      pos.add(vel);
+      if(f!=1) vel.scale(f);
+    }else {
+      pos.add(vel.x*step,vel.y*step);
+      if(f!=1) {
+        float tf=(f-1)*step;
+        vel.add(vel.x*tf,vel.y*tf);
+      }
+    }
   }
   @Override
   public void add(float x,float y) {

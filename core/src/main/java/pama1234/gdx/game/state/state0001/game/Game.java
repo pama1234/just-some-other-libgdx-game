@@ -5,6 +5,7 @@ import static com.badlogic.gdx.Input.Keys.ESCAPE;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
+import pama1234.gdx.game.state.state0001.game.player.MainPlayer2D;
 import pama1234.gdx.game.state.state0001.game.world.World;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.gdx.game.state.state0001.game.world.WorldCenter;
@@ -18,6 +19,7 @@ public class Game extends StateEntity0001{
   //---
   public World0001 world;
   public WorldCenter<Screen0011,Game,World<Screen0011,Game>> worldCenter;
+  public boolean debug;
   public EntityListener displayCamTop;
   public Game(Screen0011 p) {
     super(p);
@@ -25,23 +27,23 @@ public class Game extends StateEntity0001{
     worldCenter=new WorldCenter<Screen0011,Game,World<Screen0011,Game>>(p);
     worldCenter.list.add(world=new World0001(p,this));
     worldCenter.pointer=0;
-    displayCamTop=new EntityListener() {
+    if(debug) displayCamTop=new EntityListener() {
       @Override
       public void display() {
-        // MainPlayer2D tp=world.yourself;
-        // p.beginBlend();
-        // int bx1=tp.blockX1(),
-        //   by1=tp.blockY1(),
-        //   bx2=tp.blockX2(),
-        //   by2=tp.blockY2();
-        // p.fill(94,203,234,191);
-        // p.rect((bx1)*world.blockWidth,by1*world.blockHeight,4,4);
-        // p.rect((bx1)*world.blockWidth,by2*world.blockHeight,4,4);
-        // p.rect((bx2)*world.blockWidth,by2*world.blockHeight,4,4);
-        // p.rect((bx2)*world.blockWidth,by1*world.blockHeight,4,4);
-        // p.fill(255,127,191,191);
-        // p.rect(tp.leftWall,tp.ceiling,tp.rightWall-tp.leftWall,tp.groundLevel-tp.ceiling);
-        // p.endBlend();
+        MainPlayer2D tp=world.yourself;
+        p.beginBlend();
+        int bx1=tp.blockX1(),
+          by1=tp.blockY1(),
+          bx2=tp.blockX2(),
+          by2=tp.blockY2();
+        p.fill(94,203,234,191);
+        p.rect((bx1)*world.blockWidth,by1*world.blockHeight,4,4);
+        p.rect((bx1)*world.blockWidth,by2*world.blockHeight,4,4);
+        p.rect((bx2)*world.blockWidth,by2*world.blockHeight,4,4);
+        p.rect((bx2)*world.blockWidth,by1*world.blockHeight,4,4);
+        p.fill(255,127,191,191);
+        p.rect(tp.leftWall,tp.ceiling,tp.rightWall-tp.leftWall,tp.groundLevel-tp.ceiling);
+        p.endBlend();
       }
     };
   }
@@ -52,7 +54,7 @@ public class Game extends StateEntity0001{
     // tvgRefresh();
     for(Button<?> e:buttons) p.centerScreen.add.add(e);
     worldCenter.init();
-    p.centerCam.add.add(displayCamTop);
+    if(displayCamTop!=null) p.centerCam.add.add(displayCamTop);
     p.centerCam.add.add(worldCenter);
   }
   @Override
@@ -60,7 +62,7 @@ public class Game extends StateEntity0001{
     for(Button<?> e:buttons) p.centerScreen.remove.add(e);
     p.centerCam.remove.add(worldCenter);
     worldCenter.dispose();
-    p.centerCam.remove.add(displayCamTop);
+    if(displayCamTop!=null) p.centerCam.remove.add(displayCamTop);
   }
   @Override
   public void displayCam() {
