@@ -7,6 +7,8 @@ import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.gdx.util.wrapper.EntityCenter;
 import pama1234.math.Tools;
 import pama1234.math.UtilMath;
+import pama1234.math.hash.HashNoise2f;
+import pama1234.math.hash.PerlinNoise2f;
 
 public class RegionCenter extends EntityCenter<Screen0011,Region> implements LoadAndSave{
   public World0001 pw;
@@ -20,6 +22,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     createTest(p);
   }
   public void createTest(Screen0011 p) {
+    PerlinNoise2f noise=new PerlinNoise2f(new HashNoise2f(0));
     Region region=new Region(p,this,null);
     region.x=-1;
     region.data=new Chunk[regionWidth][regionHeight];
@@ -30,11 +33,11 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
         Block[][] blockData=chunk.data=new Block[chunkWidth][chunkHeight];
         for(int n=0;n<blockData.length;n++) {
           for(int m=0;m<blockData[n].length;m++) {
-            //Block block=
-            float random=p.random(2);
+            // float random=p.random(2);
+            float random=noise.get(((region.x*regionWidth+i)*chunkWidth+n)/32f,((region.y*regionHeight+j)*chunkHeight+m)/32f);
             // System.out.println(random+" "+i+" "+j+" "+n+" "+m);
-            if(random>0.5f) blockData[n][m]=new Block(pw.metaBlockCenter.air);
-            else blockData[n][m]=new Block(pw.metaBlockCenter.dirt);
+            if(random>0.3f) blockData[n][m]=new Block(pw.metaBlockCenter.dirt);
+            else blockData[n][m]=new Block(pw.metaBlockCenter.air);
           }
         }
       }

@@ -14,10 +14,11 @@ import pama1234.math.physics.PathVar;
 
 public class MainPlayer2D extends Player2D{
   public CameraController2D cam;
-  public boolean left,right,jump,inAir;
+  public boolean left,right,jump;
+  public boolean inAir;
   public int walkCool,jumpCool;
   public float speed=1f;
-  public float groundLevel=0,leftWall,rightWall,ceiling;
+  public float floor,leftWall,rightWall,ceiling;
   //---
   public float maxLife=32;
   public PathVar life=new PathVar(maxLife);
@@ -62,13 +63,13 @@ public class MainPlayer2D extends Player2D{
         dir=false;
       }
     }
-    inAir=point.pos.y<groundLevel;
+    inAir=point.pos.y<floor;
     if(inAir) {
       point.vel.y+=0.7f;
     }else {
-      if(point.pos.y!=groundLevel) {
+      if(point.pos.y!=floor) {
         point.vel.y=0;
-        point.pos.y=groundLevel;
+        point.pos.y=floor;
       }
       if(jumpCool>0) jumpCool--;
       else if(jump) {
@@ -77,9 +78,9 @@ public class MainPlayer2D extends Player2D{
       }
     }
     super.update();
-    if(point.pos.y>groundLevel) {
+    if(point.pos.y>floor) {
       point.vel.y=0;
-      point.pos.y=groundLevel;
+      point.pos.y=floor;
     }
     if(point.pos.y<ceiling) {
       if(point.vel.y<0) point.vel.y=0;
@@ -91,67 +92,83 @@ public class MainPlayer2D extends Player2D{
     // pointer=(p.frameCount/10)%slides.length;
     //---
     // p.cam.point.des.set(point.x()+12.5f,Tools.mag(point.y(),groundLevel)<48?groundLevel+12.5f:point.y()+12.5f,0);
-    p.cam.point.des.set(point.x(),Tools.mag(point.y(),groundLevel)<48?groundLevel+12.5f:point.y()+12.5f,0);
+    p.cam.point.des.set(point.x(),Tools.mag(point.y(),floor)<48?floor+12.5f:point.y()+12.5f,0);
     //---
     life.update();
   }
+  public int //
+  bx1,by1,
+    bx2,by2,
+    bw,bh;
+  public boolean flagCache;
   public void testPos() {
-    int bx1=blockX1(),
-      by1=blockY1(),
-      bx2=blockX2(),
-      by2=blockY2(),
-      bw=bx2-bx1,
-      bh=by2-by1;
-    if(!inAir) bh-=1;
+    // int bx1=blockX1(),
+    //   by1=blockY1(),
+    //   bx2=blockX2(),
+    //   by2=blockY2(),
+    //   bw=bx2-bx1,
+    //   bh=by2-by1;
+    bx1=blockX1();
+    by1=blockY1();
+    bx2=blockX2();
+    by2=blockY2();
+    bw=bx2-bx1;
+    bh=by2-by1;
+    // if(inAir) {
+    //   by1-=1;
+    //   bh+=1;
+    // }
+    // if(!inAir) bh-=1;
     Block block;
-    boolean flag=false;
-    //------------------------------------------
+    flagCache=false;
+    //------------------------------------------ floor
     for(int i=0;i<=bw;i++) {
-      block=getBlock(bx1+i,by2);
+      block=getBlock(bx1+i,by2+1);
       if(!isEmpty(block)) {
-        flag=true;
+        flagCache=true;
         break;
       }
     }
-    if(flag) {
-      groundLevel=by2*pw.blockHeight;
-      flag=false;
-    }else groundLevel=(by2+4)*pw.blockHeight;
-    //------------------------------------------
+    if(flagCache) {
+      floor=(by2+1)*pw.blockHeight;
+      flagCache=false;
+    }else floor=(by2+4)*pw.blockHeight;
+    //------------------------------------------ left
+    // for(int i=inAir?-1:0;i<=bh;i++) {
     for(int i=0;i<=bh;i++) {
       block=getBlock(bx1-1,by1+i);
       if(!isEmpty(block)) {
-        flag=true;
+        flagCache=true;
         break;
       }
     }
-    if(flag) {
-      leftWall=(bx1+0.5f)*pw.blockWidth+2;
-      flag=false;
+    if(flagCache) {
+      leftWall=(bx1+0.5f)*pw.blockWidth+1;
+      flagCache=false;
     }else leftWall=(bx1-4)*pw.blockWidth;
-    //------------------------------------------
+    //------------------------------------------ right
     for(int i=0;i<=bh;i++) {
       block=getBlock(bx2+1,by1+i);
       if(!isEmpty(block)) {
-        flag=true;
+        flagCache=true;
         break;
       }
     }
-    if(flag) {
-      rightWall=(bx2+0.5f)*pw.blockWidth-2;
-      flag=false;
+    if(flagCache) {
+      rightWall=(bx2+0.5f)*pw.blockWidth-1;
+      flagCache=false;
     }else rightWall=(bx2+4)*pw.blockWidth;
-    //------------------------------------------
+    //------------------------------------------ ceiling
     for(int i=0;i<=bw;i++) {
       block=getBlock(bx1+i,by1-1);
       if(!isEmpty(block)) {
-        flag=true;
+        flagCache=true;
         break;
       }
     }
-    if(flag) {
+    if(flagCache) {
       ceiling=by1*pw.blockHeight+h;
-      flag=false;
+      flagCache=false;
     }else ceiling=(by1-4)*pw.blockHeight;
   }
   public boolean isEmpty(Block block) {
@@ -178,10 +195,10 @@ public class MainPlayer2D extends Player2D{
     return yToBlockCord(y()+dy);
   }
   public int blockX2() {
-    return xToBlockCord(x()+dx+w);
+    return xToBlockCord(x()+dx+w-0.01f);//TODO
   }
   public int blockY2() {
-    return yToBlockCord(y()+dy+h);
+    return yToBlockCord(y()+dy+h-0.01f);//TODO
   }
   public int xToBlockCord(float in) {
     return UtilMath.floor(in/pw.blockWidth);

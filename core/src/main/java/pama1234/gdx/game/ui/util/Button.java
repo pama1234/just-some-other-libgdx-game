@@ -10,9 +10,7 @@ import pama1234.gdx.util.info.TouchInfo;
 public abstract class Button<T extends UtilScreen>extends Entity<T>{
   public GetBoolean active;
   public TouchInfo touch;
-  public GetFloat //
-  // sx=()->touch.osx,sy=()->touch.osy,
-  nx=()->touch.ox,ny=()->touch.oy;
+  public GetFloat nx=()->touch.ox,ny=()->touch.oy;
   public ExecuteF press,clickStart,clickEnd;
   public boolean mouseLimit=true;
   public Button(T p,GetBoolean active,ExecuteF press,ExecuteF clickStart,ExecuteF clickEnd) {
@@ -22,15 +20,11 @@ public abstract class Button<T extends UtilScreen>extends Entity<T>{
     this.clickStart=clickStart;
     this.clickEnd=clickEnd;
   }
-  // @Override
-  // public void display() {}
   @Override
   public void update() {
     if(touch!=null) {
       press();
-      if(!mouseLimit) if(!inButton(nx.get(),ny.get())) {
-        clickEnd();
-      }
+      if(!mouseLimit) if(!inButton(nx.get(),ny.get())) clickEnd();
     }else {
       if(!mouseLimit) {
         TouchInfo temp=touch;
@@ -45,13 +39,6 @@ public abstract class Button<T extends UtilScreen>extends Entity<T>{
         touch=temp;
       }
     }
-  }
-  public void start() {
-    touch.state=1;
-  }
-  public void end() {
-    touch.state=0;
-    touch=null;
   }
   public abstract boolean inButton(float x,float y);
   public boolean active() {
@@ -68,21 +55,22 @@ public abstract class Button<T extends UtilScreen>extends Entity<T>{
     if(active()) clickEnd.execute();
     end();
   }
+  public void start() {
+    touch.state=1;
+  }
+  public void end() {
+    touch.state=0;
+    touch=null;
+  }
   @Override
   public void touchStarted(TouchInfo info) {
     TouchInfo temp=touch;
     touch=info;//TODO
-    if(inButton(nx.get(),ny.get())) {
-      // touch=info;
-      clickStart();
-    }else touch=temp;
+    if(inButton(nx.get(),ny.get())) clickStart();
+    else touch=temp;
   }
   @Override
   public void touchEnded(TouchInfo info) {
-    if(touch==info) {
-      clickEnd();
-      // }else if(inButton(info.osx,info.osy)&&inButton(info.ox,info.oy)) clickEnd();
-    }
-    // else if(touch!=null&&inButton(sx.get(),sy.get())&&inButton(nx.get(),ny.get())) clickEnd();
+    if(touch==info) clickEnd();
   }
 }

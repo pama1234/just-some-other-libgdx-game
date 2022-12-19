@@ -2,7 +2,6 @@ package pama1234.gdx.game.state.state0001.game;
 
 import static com.badlogic.gdx.Input.Keys.ESCAPE;
 
-
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
@@ -23,6 +22,7 @@ public class Game extends StateEntity0001{
   public World0001 world;
   public WorldCenter<Screen0011,Game,World<Screen0011,Game>> worldCenter;
   public boolean debug;
+  // public boolean debug;
   public boolean androidRightMouseButton;
   public EntityListener displayCamTop;
   public Game(Screen0011 p) {
@@ -32,22 +32,28 @@ public class Game extends StateEntity0001{
     worldCenter=new WorldCenter<Screen0011,Game,World<Screen0011,Game>>(p);
     worldCenter.list.add(world=new World0001(p,this));
     worldCenter.pointer=0;
-    if(debug) displayCamTop=new EntityListener() {
+    if(debug) createDebugDisplay();
+  }
+  public void createDebugDisplay() {
+    displayCamTop=new EntityListener() {
       @Override
       public void display() {
         MainPlayer2D tp=world.yourself;
         p.beginBlend();
-        int bx1=tp.blockX1(),
-          by1=tp.blockY1(),
-          bx2=tp.blockX2(),
-          by2=tp.blockY2();
-        p.fill(94,203,234,191);
-        p.rect((bx1)*world.blockWidth,by1*world.blockHeight,4,4);
-        p.rect((bx1)*world.blockWidth,by2*world.blockHeight,4,4);
-        p.rect((bx2)*world.blockWidth,by2*world.blockHeight,4,4);
-        p.rect((bx2)*world.blockWidth,by1*world.blockHeight,4,4);
+        int bx1=tp.bx1,
+          by1=tp.by1,
+          bx2=tp.bx2,
+          by2=tp.by2;
+        int bw=world.blockWidth,bh=world.blockHeight;
         p.fill(255,127,191,191);
-        p.rect(tp.leftWall,tp.ceiling,tp.rightWall-tp.leftWall,tp.groundLevel-tp.ceiling);
+        p.rect(tp.leftWall,tp.ceiling,tp.rightWall-tp.leftWall,tp.floor-tp.ceiling);
+        p.fill(127,255,191,191);
+        p.rect(tp.x()+tp.dx,tp.y()+tp.dy,tp.w,tp.h);
+        p.fill(94,203,234,191);
+        p.rect((bx1)*world.blockWidth,by1*world.blockHeight,bw,bh);
+        p.rect((bx1)*world.blockWidth,by2*world.blockHeight,bw,bh);
+        p.rect((bx2)*world.blockWidth,by2*world.blockHeight,bw,bh);
+        p.rect((bx2)*world.blockWidth,by1*world.blockHeight,bw,bh);
         p.endBlend();
       }
     };

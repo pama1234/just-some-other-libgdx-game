@@ -9,8 +9,6 @@ import pama1234.math.Tools;
 
 public class TextButtonCam<T extends UtilScreen>extends TextButton<T>{
   {
-    // sx=()->touch.sx;
-    // sy=()->touch.sy;
     nx=()->touch.x;
     ny=()->touch.y;
   }
@@ -20,7 +18,6 @@ public class TextButtonCam<T extends UtilScreen>extends TextButton<T>{
   @Override
   public boolean inButton(float xIn,float yIn) {
     return Tools.inBox(xIn,yIn,rect.x.get(),rect.y.get(),rect.w.get(),rect.h.get());
-    // return Tools.inBox(xIn,yIn,rect.x.get()-p.cam.x(),rect.y.get()-p.cam.y(),rect.w.get(),rect.h.get());
   }
   @Override
   public void display() {

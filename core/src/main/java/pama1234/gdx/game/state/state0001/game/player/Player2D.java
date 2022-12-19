@@ -20,6 +20,7 @@ public class Player2D extends GamePointEntity<MassPoint>{
   public Player2D(Screen0011 p,World0001 pw,float x,float y,Game pg) {
     super(p,new MassPoint(x,y),pg);
     point.step=0.5f;
+    // point.step=0.1f;
     this.pw=pw;
     // tiles=ImageAsset.player;
   }

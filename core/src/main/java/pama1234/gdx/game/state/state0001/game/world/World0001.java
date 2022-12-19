@@ -16,13 +16,14 @@ public class World0001 extends World<Screen0011,Game>{
   public int blockWidth=18,blockHeight=18;
   public World0001(Screen0011 p,Game pg) {
     super(p,pg,2);
-    metaBlockCenter=new MetaBlockCenter();
+    metaBlockCenter=new MetaBlockCenter(this);
     metaBlockCenter.add.add(metaBlockCenter.dirt=new MetaBlock(metaBlockCenter,"dirt",2,6));
     metaBlockCenter.add.add(metaBlockCenter.air=new MetaBlock(metaBlockCenter,"air"));
     list[0]=players=new PlayerCenter2D(p);
     list[1]=regions=new RegionCenter(p,this,null);
     // list[1]=regions=new RegionCenter(p,this,Gdx.files.local("data/saved/abcd.txt"));
-    yourself=new MainPlayer2D(p,this,0,0,pg);
+    // yourself=new MainPlayer2D(p,this,0,0,pg);
+    yourself=new MainPlayer2D(p,this,0,-4,pg);
   }
   @Override
   public void init() {
