@@ -7,6 +7,7 @@ import pama1234.gdx.game.app.app0002.Screen0006;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.Settings;
 import pama1234.gdx.game.state.state0001.State0001;
+import pama1234.gdx.game.state.state0001.game.Game;
 import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.game.ui.util.TextButtonCam;
@@ -14,6 +15,44 @@ import pama1234.gdx.game.ui.util.TextureButton;
 import pama1234.gdx.util.app.ScreenCore3D;
 
 public class ButtonGenerator{
+  public static <T extends Screen0011> TextButton<?>[] genButtons_0007(T p,Game pg) {
+    return new TextButton[] {
+      new TextButton<T>(p,true,()->true,()-> {},()-> {
+        p.inputProcessor.keyDown(Input.Keys.W);
+      },()-> {
+        p.inputProcessor.keyUp(Input.Keys.W);
+      },"W",p::getButtonUnitLength,()->p.bu*2.5f,()->p.height-p.bu*2.5f,()->p.bu-p.pus),
+      new TextButton<T>(p,true,()->true,()-> {},()-> {
+        p.inputProcessor.keyDown(Input.Keys.S);
+      },()-> {
+        p.inputProcessor.keyUp(Input.Keys.S);
+      },"S",p::getButtonUnitLength,()->p.bu*2.5f,()->p.height-p.bu*1.5f,()->p.bu-p.pus),
+      new TextButton<T>(p,true,()->true,()-> {},()-> {
+        p.inputProcessor.keyDown(Input.Keys.A);
+      },()-> {
+        p.inputProcessor.keyUp(Input.Keys.A);
+      },"A",p::getButtonUnitLength,()->p.bu*1.5f,()->p.height-p.bu*1.5f,()->p.bu-p.pus),
+      new TextButton<T>(p,true,()->true,()-> {},()-> {
+        p.inputProcessor.keyDown(Input.Keys.D);
+      },()-> {
+        p.inputProcessor.keyUp(Input.Keys.D);
+      },"D",p::getButtonUnitLength,()->p.bu*3.5f,()->p.height-p.bu*1.5f,()->p.bu-p.pus),
+      //--------------------------------------------------------------------
+      new TextButton<T>(p,true,()->true,()-> {},()-> {
+        p.inputProcessor.keyDown(Input.Keys.SPACE);
+      },()-> {
+        p.inputProcessor.keyUp(Input.Keys.SPACE);
+      },"↑",p::getButtonUnitLength,()->p.width-p.bu*2.5f,()->p.height-p.bu*2.5f,()->p.bu-p.pus),
+      new TextButton<T>(p,true,()->true,()-> {},()-> {
+        p.inputProcessor.keyDown(Input.Keys.SHIFT_LEFT);
+      },()-> {
+        p.inputProcessor.keyUp(Input.Keys.SHIFT_LEFT);
+      },"↓",p::getButtonUnitLength,()->p.width-p.bu*2.5f,()->p.height-p.bu*1.5f,()->p.bu-p.pus),
+      new TextButton<T>(p,true,()->true,()-> {},()-> {},()-> {
+        pg.androidRightMouseButton=!pg.androidRightMouseButton;
+        pg.ctrlButtons[6].text=pg.androidRightMouseButton?"mR":"mL";
+      },"mL",p::getButtonUnitLength,()->p.width-p.bu*4f,()->p.height-p.bu*1.5f,()->p.bu-p.pus)};
+  }
   public static <T extends Screen0011> TextButtonCam<?>[] genButtons_0006(T p,Settings ps) {
     return new TextButtonCam[] {
       new TextButtonCam<T>(p,true,()->true,()-> {},()-> {},()-> {

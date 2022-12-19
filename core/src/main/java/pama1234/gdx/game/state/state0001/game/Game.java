@@ -2,6 +2,7 @@ package pama1234.gdx.game.state.state0001.game;
 
 import static com.badlogic.gdx.Input.Keys.ESCAPE;
 
+
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
@@ -11,19 +12,23 @@ import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.gdx.game.state.state0001.game.world.WorldCenter;
 import pama1234.gdx.game.ui.ButtonGenerator;
 import pama1234.gdx.game.ui.util.Button;
+import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.util.listener.EntityListener;
 
 public class Game extends StateEntity0001{
-  public Button<?>[] buttons;
+  public Button<?>[] menuButtons;
+  public TextButton<?>[] ctrlButtons;
   public float time;
   //---
   public World0001 world;
   public WorldCenter<Screen0011,Game,World<Screen0011,Game>> worldCenter;
   public boolean debug;
+  public boolean androidRightMouseButton;
   public EntityListener displayCamTop;
   public Game(Screen0011 p) {
     super(p);
-    buttons=ButtonGenerator.genButtons_0005(p);
+    menuButtons=ButtonGenerator.genButtons_0005(p);
+    if(p.isAndroid) ctrlButtons=ButtonGenerator.genButtons_0007(p,this);
     worldCenter=new WorldCenter<Screen0011,Game,World<Screen0011,Game>>(p);
     worldCenter.list.add(world=new World0001(p,this));
     worldCenter.pointer=0;
@@ -52,14 +57,16 @@ public class Game extends StateEntity0001{
     p.backgroundColor(191);
     p.cam.noGrab();
     // tvgRefresh();
-    for(Button<?> e:buttons) p.centerScreen.add.add(e);
+    for(Button<?> e:menuButtons) p.centerScreen.add.add(e);
+    if(ctrlButtons!=null) for(Button<?> e:ctrlButtons) p.centerScreen.add.add(e);
     worldCenter.init();
     if(displayCamTop!=null) p.centerCam.add.add(displayCamTop);
     p.centerCam.add.add(worldCenter);
   }
   @Override
   public void dispose() {
-    for(Button<?> e:buttons) p.centerScreen.remove.add(e);
+    for(Button<?> e:menuButtons) p.centerScreen.remove.add(e);
+    if(ctrlButtons!=null) for(Button<?> e:ctrlButtons) p.centerScreen.remove.add(e);
     p.centerCam.remove.add(worldCenter);
     worldCenter.dispose();
     if(displayCamTop!=null) p.centerCam.remove.add(displayCamTop);

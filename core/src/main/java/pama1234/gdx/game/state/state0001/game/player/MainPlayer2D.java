@@ -28,7 +28,7 @@ public class MainPlayer2D extends Player2D{
   @Override
   public void mousePressed(MouseInfo info) {
     Block block=getBlock(info.x,info.y);
-    if(block!=null) switch(info.button) {
+    if(block!=null) switch(p.isAndroid?(pg.androidRightMouseButton?Buttons.RIGHT:Buttons.LEFT):info.button) {
       case Buttons.LEFT: {
         block.type=pw.metaBlockCenter.air;
       }
