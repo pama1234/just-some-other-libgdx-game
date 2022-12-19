@@ -17,9 +17,10 @@ public class TextButton<T extends UtilScreen>extends Button<T>{
     this(p,textOffset,active,press,clickStart,clickEnd,text,bu,x,y,null,bu::get);//()->bu.get()*2);
     this.rect.w=()->p.textWidth(this.text)+(this.textOffset?p.pu:0);//TODO
   }
-  public TextButton(T p,boolean textOffset,GetBoolean active,ExecuteF press,ExecuteF clickStart,ExecuteF clickEnd,String text,GetInt bu,GetFloat x,GetFloat y,GetFloat h) {
+  public TextButton(T p,boolean textOffset,GetBoolean active,ExecuteF press,ExecuteF clickStart,ExecuteF clickEnd,String text,GetInt bu,GetFloat x,GetFloat y,GetFloat h,boolean mouseLimit) {
     this(p,textOffset,active,press,clickStart,clickEnd,text,bu,x,y,null,h);//()->bu.get()*2);
     this.rect.w=()->p.textWidth(this.text)+(this.textOffset?p.pu:0);//TODO
+    this.mouseLimit=mouseLimit;
   }
   public TextButton(T p,boolean textOffset,GetBoolean active,ExecuteF press,ExecuteF clickStart,ExecuteF clickEnd,String text,GetInt bu,GetFloat x,GetFloat y,GetFloat w,GetFloat h) {
     super(p,active,press,clickStart,clickEnd);

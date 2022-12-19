@@ -7,7 +7,7 @@ import pama1234.gdx.game.state.state0001.game.Game;
 import pama1234.gdx.game.state.state0001.game.region.Block;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.gdx.util.element.CameraController2D;
-import pama1234.gdx.util.info.MouseInfo;
+import pama1234.gdx.util.info.TouchInfo;
 import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 import pama1234.math.physics.PathVar;
@@ -25,8 +25,12 @@ public class MainPlayer2D extends Player2D{
     super(p,pw,x,y,pg);
     this.cam=p.cam2d;
   }
-  @Override
-  public void mousePressed(MouseInfo info) {
+  // @Override
+  // public void mousePressed(MouseInfo info) {
+  //   mouseUpdate(info);
+  // }
+  public void mouseUpdate(TouchInfo info) {
+    if(info.state!=0) return;
     Block block=getBlock(info.x,info.y);
     if(block!=null) switch(p.isAndroid?(pg.androidRightMouseButton?Buttons.RIGHT:Buttons.LEFT):info.button) {
       case Buttons.LEFT: {
@@ -41,6 +45,7 @@ public class MainPlayer2D extends Player2D{
   }
   @Override
   public void update() {
+    for(TouchInfo e:p.touches) if(e.active) mouseUpdate(e);
     testPos();
     //-------------------------------------------------------
     left=p.isKeyPressed(29)||p.isKeyPressed(21);

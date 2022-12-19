@@ -9,8 +9,8 @@ import pama1234.math.Tools;
 
 public class TextButtonCam<T extends UtilScreen>extends TextButton<T>{
   {
-    sx=()->touch.sx;
-    sy=()->touch.sy;
+    // sx=()->touch.sx;
+    // sy=()->touch.sy;
     nx=()->touch.x;
     ny=()->touch.y;
   }

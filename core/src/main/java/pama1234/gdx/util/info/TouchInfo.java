@@ -13,6 +13,8 @@ public class TouchInfo{
   public float dx,dy;
   public float px,py,x,y;
   public int ox,oy,osx,osy;
+  //---------------------------
+  public int state;
   public TouchInfo(UtilScreenCore p) {
     this.p=p;
   }
