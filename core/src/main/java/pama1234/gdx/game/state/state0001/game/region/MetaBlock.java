@@ -1,27 +1,39 @@
 package pama1234.gdx.game.state.state0001.game.region;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
 import pama1234.gdx.game.app.Screen0011;
-import pama1234.gdx.game.asset.ImageAsset;
 
 public class MetaBlock{
   public MetaBlockCenter pc;
   public String name;
   public boolean display,empty;
-  public int tileX,tileY;
+  // public int tileX,tileY;
+  public TextureRegion[] tiles;
   public MetaBlock(MetaBlockCenter p,String name) {
     this.pc=p;
     this.name=name;
     empty=true;
   }
-  public MetaBlock(MetaBlockCenter p,String name,int tileX,int tileY) {
-    this.pc=p;
+  public MetaBlock(MetaBlockCenter pc,String name,TextureRegion[] tiles) {
+    this.pc=pc;
     this.name=name;
-    this.tileX=tileX;
-    this.tileY=tileY;
+    this.tiles=tiles;
     display=true;
   }
+  // public MetaBlock(MetaBlockCenter p,String name,int tileX,int tileY) {
+  //   this.pc=p;
+  //   this.name=name;
+  //   this.tileX=tileX;
+  //   this.tileY=tileY;
+  //   display=true;
+  // }
   public void display(Screen0011 p,Block in,int x,int y) {
-    p.image(ImageAsset.tiles[tileX][tileY],x,y,pc.pw.blockWidth+0.001f,pc.pw.blockHeight+0.001f);
+    // p.image(ImageAsset.tiles[tileX][tileY],x,y,pc.pw.blockWidth+0.01f,pc.pw.blockHeight+0.01f);
+    p.image(tiles[in.displayType],x,y,pc.pw.blockWidth+0.01f,pc.pw.blockHeight+0.01f);
   }
   // public void update(Block in,int x,int y) {}
+  public int getDisplayType() {//TODO
+    return 0;
+  }
 }
