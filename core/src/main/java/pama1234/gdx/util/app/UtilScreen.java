@@ -137,6 +137,9 @@ public abstract class UtilScreen extends UtilScreenCore{
   public float textWidth(String in) {
     return font.textWidth(in);
   }
+  public float textWidthCam(String in) {
+    return font.textWidthCam(in);
+  }
   public void textScale(float in) {
     font.textScale(in);
   }

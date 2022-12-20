@@ -57,19 +57,27 @@ public class ButtonGenerator{
   public static <T extends Screen0011> TextButtonCam<?>[] genButtons_0006(T p,Settings ps) {
     return new TextButtonCam[] {
       new TextButtonCam<T>(p,true,()->true,()-> {},()-> {},()-> {
+        p.mute=!p.mute;
+        if(p.mute) ps.buttonsCam[0].text="静音：是";
+        else ps.buttonsCam[0].text="静音：否";
+      },"静音：否",()->18,()->0,()->0),
+      new TextButtonCam<T>(p,true,()->true,()-> {},()-> {},()-> {
         p.debugInfo=!p.debugInfo;
-        if(p.debugInfo) ps.buttonsCam[0].text="显示调试信息：是";
-        else ps.buttonsCam[0].text="显示调试信息：否";
-      },"显示调试信息：否",()->18,()->0,()->0),
+        Game game=(Game)State0001.Game.entity;
+        // boolean flag=game.debug;
+        game.debug=p.debugInfo;
+        if(game.debug=p.debugInfo) game.createDebugDisplay();
+        // if(game.debug) {
+        //   game.createDebugDisplay();
+        //   if(!flag) p.centerCam.add.add(game.displayCamTop);
+        // }else if(flag) p.centerCam.remove.add(game.displayCamTop);
+        if(p.debugInfo) ps.buttonsCam[1].text="显示调试信息：是";
+        else ps.buttonsCam[1].text="显示调试信息：否";
+      },"显示调试信息：否",()->18,()->0,()->20),
       new TextButtonCam<T>(p,true,()->true,()-> {},()-> {},()-> {
         System.gc();
         Runtime.getRuntime().runFinalization();
-      },"清理内存垃圾",()->18,()->0,()->20),
-      new TextButtonCam<T>(p,true,()->true,()-> {},()-> {},()-> {
-        p.mute=!p.mute;
-        if(p.mute) ps.buttonsCam[2].text="静音：是";
-        else ps.buttonsCam[2].text="静音：否";
-      },"静音：否",()->18,()->0,()->40),
+      },"清理内存垃圾",()->18,()->0,()->40),
     };
   }
   public static <T extends Screen0011> Button<?>[] genButtons_0005(T p) {

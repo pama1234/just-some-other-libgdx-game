@@ -14,6 +14,7 @@ public class TextButtonCam<T extends UtilScreen>extends TextButton<T>{
   }
   public TextButtonCam(T p,boolean textOffset,GetBoolean active,ExecuteF press,ExecuteF clickStart,ExecuteF clickEnd,String text,GetInt bu,GetFloat x,GetFloat y) {
     super(p,textOffset,active,press,clickStart,clickEnd,text,bu,x,y);
+    this.rect.w=()->p.textWidthCam(this.text)+(this.textOffset?16:0);//TODO
   }
   @Override
   public boolean inButton(float xIn,float yIn) {

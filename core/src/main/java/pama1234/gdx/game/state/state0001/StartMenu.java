@@ -1,7 +1,6 @@
 package pama1234.gdx.game.state.state0001;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.physics.bullet.dynamics.btSimulationIslandManagerMt.Island;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.GifAsset;

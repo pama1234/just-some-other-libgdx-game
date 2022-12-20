@@ -21,7 +21,7 @@ public class Game extends StateEntity0001{
   //---
   public World0001 world;
   public WorldCenter<Screen0011,Game,World<Screen0011,Game>> worldCenter;
-  public boolean debug=true;
+  public boolean debug;
   // public boolean debug;
   public boolean androidRightMouseButton;
   public EntityListener displayCamTop;
@@ -35,7 +35,7 @@ public class Game extends StateEntity0001{
     if(debug) createDebugDisplay();
   }
   public void createDebugDisplay() {
-    displayCamTop=new EntityListener() {
+    if(displayCamTop==null) displayCamTop=new EntityListener() {
       @Override
       public void display() {
         MainPlayer2D tp=world.yourself;
@@ -66,7 +66,7 @@ public class Game extends StateEntity0001{
     for(Button<?> e:menuButtons) p.centerScreen.add.add(e);
     if(ctrlButtons!=null) for(Button<?> e:ctrlButtons) p.centerScreen.add.add(e);
     worldCenter.init();
-    if(displayCamTop!=null) p.centerCam.add.add(displayCamTop);
+    if(debug) p.centerCam.add.add(displayCamTop);
     p.centerCam.add.add(worldCenter);
   }
   @Override
@@ -75,7 +75,7 @@ public class Game extends StateEntity0001{
     if(ctrlButtons!=null) for(Button<?> e:ctrlButtons) p.centerScreen.remove.add(e);
     p.centerCam.remove.add(worldCenter);
     worldCenter.dispose();
-    if(displayCamTop!=null) p.centerCam.remove.add(displayCamTop);
+    if(debug) p.centerCam.remove.add(displayCamTop);
   }
   @Override
   public void displayCam() {
@@ -96,6 +96,11 @@ public class Game extends StateEntity0001{
     // Block block=tp.getBlock(tp.blockX(),tp.blockY());
     // p.text(block==null?"null":block.type.name,p.width/2,p.height/2+p.bu);
     // p.text("vel.y "+tp.point.vel.y,p.width/2,p.height/2);
+    if(debug) {
+      p.fill(94,203,234,191);
+      p.rect(p.bu*1.5f,p.height-p.bu*1.5f-p.pus,p.pu*4.25f+p.pus,p.bu+p.pus);
+      p.rect(p.width-p.bu*4f,p.height-p.bu*2.5f-p.pus,p.pu*3.75f+p.pus,p.bu*2+p.pus);
+    }
   }
   @Override
   public void update() {

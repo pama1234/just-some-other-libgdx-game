@@ -32,6 +32,8 @@ public class MainPlayer2D extends Player2D{
   // }
   public void mouseUpdate(TouchInfo info) {
     if(info.state!=0) return;
+    if(Tools.inBox(info.ox,info.oy,p.bu*1.5f,p.height-p.bu*1.5f-p.pus,p.pu*4.25f+p.pus,p.bu+p.pus)||
+      Tools.inBox(info.ox,info.oy,p.width-p.bu*4f,p.height-p.bu*2.5f-p.pus,p.pu*3.75f+p.pus,p.bu*2+p.pus)) return;
     Block block=getBlock(info.x,info.y);
     if(block!=null) switch(p.isAndroid?(pg.androidRightMouseButton?Buttons.RIGHT:Buttons.LEFT):info.button) {
       case Buttons.LEFT: {
