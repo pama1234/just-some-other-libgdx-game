@@ -32,6 +32,13 @@ public class ButtonGenerator{
         pg.ctrlButtons[0].text=pg.androidRightMouseButton?"mR":"mL";
       },"mL",p::getButtonUnitLength,()->p.width-p.bu*4f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,false),
       new TextButton<T>(p,true,()->true,()-> {},()-> {
+        // p.inputProcessor.keyDown(Input.Keys.SHIFT_LEFT);
+        pg.world.yourself.shift=!pg.world.yourself.shift;
+        pg.ctrlButtons[1].text=pg.world.yourself.shift?"S":"s";
+      },()-> {
+        // p.inputProcessor.keyUp(Input.Keys.SHIFT_LEFT);
+      },"s",p::getButtonUnitLength,()->p.width-p.bu*2.5f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,true),
+      new TextButton<T>(p,true,()->true,()-> {},()-> {
         p.inputProcessor.keyDown(Input.Keys.A);
       },()-> {
         p.inputProcessor.keyUp(Input.Keys.A);
@@ -47,11 +54,6 @@ public class ButtonGenerator{
       },()-> {
         p.inputProcessor.keyUp(Input.Keys.SPACE);
       },"↑",p::getButtonUnitLength,()->p.width-p.bu*2.5f,()->p.height-p.bu*2.5f,()->p.bu-p.pus,false),
-      new TextButton<T>(p,true,()->true,()-> {},()-> {
-        p.inputProcessor.keyDown(Input.Keys.SHIFT_LEFT);
-      },()-> {
-        p.inputProcessor.keyUp(Input.Keys.SHIFT_LEFT);
-      },"↓",p::getButtonUnitLength,()->p.width-p.bu*2.5f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,false)
     };
   }
   public static <T extends Screen0011> TextButtonCam<?>[] genButtons_0006(T p,Settings ps) {

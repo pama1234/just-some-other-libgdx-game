@@ -1,6 +1,7 @@
 package pama1234.gdx.game.state.state0001.game.player;
 
 import com.badlogic.gdx.Input.Buttons;
+import com.badlogic.gdx.Input.Keys;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.Game;
@@ -14,10 +15,10 @@ import pama1234.math.physics.PathVar;
 
 public class MainPlayer2D extends Player2D{
   public CameraController2D cam;
-  public boolean left,right,jump;
+  public boolean left,right,jump,shift;
   public boolean inAir;
   public int walkCool,jumpCool;
-  public float speed=1f;
+  public float speed=1f,shiftSpeedMult=2f;
   public float floor,leftWall,rightWall,ceiling;
   //---
   public float maxLife=32;
@@ -47,6 +48,14 @@ public class MainPlayer2D extends Player2D{
     }
   }
   @Override
+  public void keyPressed(char key,int keyCode) {
+    if(keyCode==Keys.SHIFT_LEFT||keyCode==Keys.SHIFT_RIGHT) shift=true;
+  }
+  @Override
+  public void keyReleased(char key,int keyCode) {
+    if(keyCode==Keys.SHIFT_LEFT||keyCode==Keys.SHIFT_RIGHT) shift=false;
+  }
+  @Override
   public void update() {
     for(TouchInfo e:p.touches) if(e.active) mouseUpdate(e);
     testPos();
@@ -56,7 +65,7 @@ public class MainPlayer2D extends Player2D{
     jump=p.isKeyPressed(62);
     if(walkCool>0) walkCool--;
     else if(!(left==right)) {
-      float speedMult=p.shift?2:1;
+      float speedMult=shift?shiftSpeedMult:1;
       if(left) {
         point.pos.x-=speed*speedMult;
         dir=true;
