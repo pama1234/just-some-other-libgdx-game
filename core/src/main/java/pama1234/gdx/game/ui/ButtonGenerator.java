@@ -35,12 +35,12 @@ public class ButtonGenerator{
         p.inputProcessor.keyDown(Input.Keys.A);
       },()-> {
         p.inputProcessor.keyUp(Input.Keys.A);
-      },"A ",p::getButtonUnitLength,()->p.bu*1.5f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,false),
+      },"← ",p::getButtonUnitLength,()->p.bu*1.5f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,false),
       new TextButton<T>(p,true,()->true,()-> {},()-> {
         p.inputProcessor.keyDown(Input.Keys.D);
       },()-> {
         p.inputProcessor.keyUp(Input.Keys.D);
-      }," D",p::getButtonUnitLength,()->p.bu*3f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,false),
+      }," →",p::getButtonUnitLength,()->p.bu*3f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,false),
       //--------------------------------------------------------------------
       new TextButton<T>(p,true,()->true,()-> {},()-> {
         p.inputProcessor.keyDown(Input.Keys.SPACE);

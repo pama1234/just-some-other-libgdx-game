@@ -4,6 +4,7 @@ import com.badlogic.gdx.files.FileHandle;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
+import pama1234.gdx.game.util.Mutex;
 import pama1234.gdx.util.wrapper.EntityCenter;
 import pama1234.math.Tools;
 import pama1234.math.UtilMath;
@@ -15,11 +16,26 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   public FileHandle metadata;
   public int regionWidth=4,regionHeight=4;
   public int chunkWidth=64,chunkHeight=64;
+  public Mutex doUpdate;
+  public Thread updateLoop;
   public RegionCenter(Screen0011 p,World0001 pw,FileHandle metadata) {
     super(p);
     this.pw=pw;
     this.metadata=metadata;
     createTest(p);
+    doUpdate=new Mutex(true);
+    updateLoop=new Thread(()-> {
+      long beforeM,milis;
+      while(!p.stop) {
+        doUpdate.step();
+        // System.out.println("RegionCenter.RegionCenter()");
+        beforeM=System.currentTimeMillis();
+        super.update();
+        milis=System.currentTimeMillis()-beforeM;
+        if(milis<50) p.sleep(50-milis);
+      }
+    });
+    updateLoop.start();
   }
   public void createTest(Screen0011 p) {
     PerlinNoise2f noise=new PerlinNoise2f(new HashNoise2f(0));
@@ -45,6 +61,14 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     add.add(region);
   }
   @Override
+  public void init() {
+    doUpdate.unlock();
+  }
+  @Override
+  public void dispose() {
+    doUpdate.lock();
+  }
+  @Override
   public void load() {}
   @Override
   public void save() {}
@@ -55,5 +79,9 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     int px=Tools.moveInRange(x,0,chunkWidth),py=Tools.moveInRange(y,0,chunkHeight);
     for(Region r:list) if(r.x==tx&&r.y==ty) return r.data[prx][pry].data[px][py];
     return null;
+  }
+  @Override
+  public void update() {
+    // super.update();
   }
 }

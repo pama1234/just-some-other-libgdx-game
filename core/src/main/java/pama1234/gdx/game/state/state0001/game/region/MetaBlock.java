@@ -9,8 +9,11 @@ public class MetaBlock{
   public String name;
   public boolean display,empty;
   public TextureRegion[] tiles;
+  public int displayTypeSize;
   public int defaultDisplayType;
   public BlockUpdater updater;
+  public BlockChanger from,to;
+  public BlockDisplayer displayer=(p,in,x,y)->p.image(tiles[in.displayType[0]],x,y,pc.pw.blockWidth+0.01f,pc.pw.blockHeight+0.01f);
   public MetaBlock(MetaBlockCenter p,String name) {
     this.pc=p;
     this.name=name;
@@ -22,12 +25,21 @@ public class MetaBlock{
     this.tiles=tiles;
     this.updater=updater;
     display=true;
+    displayTypeSize=1;
+  }
+  public MetaBlock(MetaBlockCenter pc,String name,TextureRegion[] tiles,BlockUpdater updater,BlockDisplayer displayer,int displayTypeSize,BlockChanger from,BlockChanger to) {
+    this(pc,name,tiles,updater);
+    this.displayer=displayer;
+    this.displayTypeSize=displayTypeSize;
+    this.from=from;
+    this.to=to;
   }
   public void update(Block in,int x,int y) {
     if(updater!=null) updater.update(in,x,y);
   }
   public void display(Screen0011 p,Block in,int x,int y) {
-    p.image(tiles[in.displayType],x,y,pc.pw.blockWidth+0.01f,pc.pw.blockHeight+0.01f);
+    // p.image(tiles[in.displayType],x,y,pc.pw.blockWidth+0.01f,pc.pw.blockHeight+0.01f);
+    displayer.display(p,in,x,y);
   }
   public int getDisplayType() {//TODO
     return defaultDisplayType;
@@ -35,5 +47,19 @@ public class MetaBlock{
   @FunctionalInterface
   public interface BlockUpdater{
     void update(Block in,int x,int y);
+  }
+  @FunctionalInterface
+  public interface BlockDisplayer{
+    void display(Screen0011 p,Block in,int x,int y);
+  }
+  @FunctionalInterface
+  public interface BlockChanger{
+    void change(Block block,MetaBlock type);
+  }
+  public void from(Block block,MetaBlock type) {
+    if(from!=null) from.change(block,type);
+  }
+  public void to(Block block,MetaBlock in) {
+    if(to!=null) to.change(block,in);
   }
 }

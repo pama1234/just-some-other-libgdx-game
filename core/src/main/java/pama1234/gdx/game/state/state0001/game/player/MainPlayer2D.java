@@ -37,11 +37,11 @@ public class MainPlayer2D extends Player2D{
     Block block=getBlock(info.x,info.y);
     if(block!=null) switch(p.isAndroid?(pg.androidRightMouseButton?Buttons.RIGHT:Buttons.LEFT):info.button) {
       case Buttons.LEFT: {
-        block.type=pw.metaBlockCenter.air;
+        block.type(pw.metaBlockCenter.air);
       }
         break;
       case Buttons.RIGHT: {
-        block.type=pw.metaBlockCenter.dirt;
+        block.type(pw.metaBlockCenter.dirt);
       }
         break;
     }
