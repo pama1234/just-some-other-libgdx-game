@@ -12,6 +12,7 @@ import pama1234.gdx.game.state.state0001.game.world.WorldCenter;
 import pama1234.gdx.game.ui.ButtonGenerator;
 import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.ui.util.TextButton;
+import pama1234.gdx.game.util.RectF;
 import pama1234.gdx.util.listener.EntityListener;
 
 public class Game extends StateEntity0001{
@@ -97,9 +98,10 @@ public class Game extends StateEntity0001{
     // p.text(block==null?"null":block.type.name,p.width/2,p.height/2+p.bu);
     // p.text("vel.y "+tp.point.vel.y,p.width/2,p.height/2);
     if(debug) {
-      p.fill(94,203,234,191);
-      p.rect(p.bu*1.5f,p.height-p.bu*1.5f-p.pus,p.pu*4.25f+p.pus,p.bu+p.pus);
-      p.rect(p.width-p.bu*4f,p.height-p.bu*2.5f-p.pus,p.pu*3.75f+p.pus,p.bu*2+p.pus);
+      p.beginBlend();
+      p.fill(94,203,234,127);
+      for(RectF e:world.yourself.cullRects) p.rect(e.x(),e.y(),e.w(),e.h());
+      p.endBlend();
     }
   }
   @Override

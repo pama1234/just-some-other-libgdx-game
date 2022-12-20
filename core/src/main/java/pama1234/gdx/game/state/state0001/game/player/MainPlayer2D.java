@@ -7,6 +7,7 @@ import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.Game;
 import pama1234.gdx.game.state.state0001.game.region.Block;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
+import pama1234.gdx.game.util.RectF;
 import pama1234.gdx.util.element.CameraController2D;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.math.Tools;
@@ -23,18 +24,19 @@ public class MainPlayer2D extends Player2D{
   //---
   public float maxLife=32;
   public PathVar life=new PathVar(maxLife);
+  public RectF[] cullRects=new RectF[] {
+    new RectF(()->p.bu*1.5f,()->p.height-p.bu*1.5f-p.pus,()->p.bu*2.75f+p.pus*3,()->p.bu+p.pus),
+    // new RectF(()->p.width-p.bu*4f,()->p.height-p.bu*2.5f-p.pus,()->p.pu*3.75f+p.pus,()->p.bu*2+p.pus),
+    new RectF(()->p.width-p.bu*4f,()->p.height-p.bu*1.5f-p.pus,()->p.bu*2.5f+p.pus,()->p.bu+p.pus),
+    new RectF(()->p.width-p.bu*2.5f,()->p.height-p.bu*2.5f-p.pus,()->p.bu+p.pus,()->p.bu+p.pus),
+  };
   public MainPlayer2D(Screen0011 p,World0001 pw,float x,float y,Game pg) {
     super(p,pw,x,y,pg);
     this.cam=p.cam2d;
   }
-  // @Override
-  // public void mousePressed(MouseInfo info) {
-  //   mouseUpdate(info);
-  // }
-  public void mouseUpdate(TouchInfo info) {
+  public void touchUpdate(TouchInfo info) {
     if(info.state!=0) return;
-    if(Tools.inBox(info.ox,info.oy,p.bu*1.5f,p.height-p.bu*1.5f-p.pus,p.pu*4.25f+p.pus,p.bu+p.pus)||
-      Tools.inBox(info.ox,info.oy,p.width-p.bu*4f,p.height-p.bu*2.5f-p.pus,p.pu*3.75f+p.pus,p.bu*2+p.pus)) return;
+    for(RectF e:cullRects) if(Tools.inBox(info.ox,info.oy,e.x(),e.y(),e.w(),e.h())) return;
     Block block=getBlock(info.x,info.y);
     if(block!=null) switch(p.isAndroid?(pg.androidRightMouseButton?Buttons.RIGHT:Buttons.LEFT):info.button) {
       case Buttons.LEFT: {
@@ -57,7 +59,7 @@ public class MainPlayer2D extends Player2D{
   }
   @Override
   public void update() {
-    for(TouchInfo e:p.touches) if(e.active) mouseUpdate(e);
+    for(TouchInfo e:p.touches) if(e.active) touchUpdate(e);
     testPos();
     //-------------------------------------------------------
     left=p.isKeyPressed(29)||p.isKeyPressed(21);

@@ -7,8 +7,10 @@ import pama1234.gdx.game.app.Screen0011;
 public class MetaBlock{
   public MetaBlockCenter pc;
   public String name;
-  public boolean display,empty;
+  public boolean display,empty,light;
   public TextureRegion[] tiles;
+  public int buildTime,destroyTime;
+  public float hardness,lightIntensity;
   public int displayTypeSize;
   public int defaultDisplayType;
   public BlockUpdater updater;

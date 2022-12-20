@@ -158,3 +158,5 @@ data/
 assets/vector/*.tvgt
 assets/vector/*.tga
 assets/vector/*.svg
+
+*.jar
