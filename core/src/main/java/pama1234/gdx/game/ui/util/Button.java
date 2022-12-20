@@ -65,7 +65,7 @@ public abstract class Button<T extends UtilScreen>extends Entity<T>{
   @Override
   public void touchStarted(TouchInfo info) {
     TouchInfo temp=touch;
-    touch=info;//TODO
+    touch=info;
     if(inButton(nx.get(),ny.get())) clickStart();
     else touch=temp;
   }

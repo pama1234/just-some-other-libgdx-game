@@ -21,7 +21,7 @@ public class Game extends StateEntity0001{
   //---
   public World0001 world;
   public WorldCenter<Screen0011,Game,World<Screen0011,Game>> worldCenter;
-  public boolean debug;
+  public boolean debug=true;
   // public boolean debug;
   public boolean androidRightMouseButton;
   public EntityListener displayCamTop;
@@ -95,6 +95,7 @@ public class Game extends StateEntity0001{
     // p.text(tp.x()+" "+tp.y()+" "+tp.groundLevel,p.width/2,p.height/2);
     // Block block=tp.getBlock(tp.blockX(),tp.blockY());
     // p.text(block==null?"null":block.type.name,p.width/2,p.height/2+p.bu);
+    // p.text("vel.y "+tp.point.vel.y,p.width/2,p.height/2);
   }
   @Override
   public void update() {

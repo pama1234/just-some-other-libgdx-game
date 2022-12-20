@@ -1,6 +1,7 @@
 package pama1234.gdx.game.state.state0001;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.physics.bullet.dynamics.btSimulationIslandManagerMt.Island;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.GifAsset;
@@ -31,6 +32,7 @@ public class StartMenu extends StateEntity0001{
     p.cam2d.scale.des=3;
     p.cam2d.point.set(96,0,0);
     p.cam.noGrab();
+    frameResized(p.width,p.height);
   }
   @Override
   public void dispose() {
@@ -50,14 +52,26 @@ public class StartMenu extends StateEntity0001{
     TextureRegion kf=GifAsset.bigEarth.getKeyFrame(time);
     p.image(kf,-128,-128);
   }
+  float tx,tw;
   @Override
   public void display() {
+    // tx=p.width/8f*5;
+    // tw=p.width/4f;
+    if(p.isAndroid) return;
     p.fill(0);
-    // rect(width/8*5,0,width/4,frameCount<height?sq(frameCount):height);
-    p.rect(p.width/8f*5,0,p.width/4f,p.height);
+    p.rect(tx,0,tw,p.height);
     p.fill(63);
-    p.rect(p.width/8f*5,p.height/4f-p.bu/2f,p.width/4f,p.bu);
-    p.rect(p.width/8f*5,p.height/2f-p.bu/2f,p.width/4f,p.bu);
-    p.rect(p.width/8f*5,p.height/4f*3-p.bu/2f,p.width/4f,p.bu);
+    p.rect(tx,p.height/4f-p.bu/2f,tw,p.bu);
+    p.rect(tx,p.height/2f-p.bu/2f,tw,p.bu);
+    p.rect(tx,p.height/4f*3-p.bu/2f,tw,p.bu);
+  }
+  @Override
+  public void frameResized(int w,int h) {
+    // tx=p.isAndroid?p.width/16f*9:p.width/8f*5;
+    // tw=p.isAndroid?p.width/16f*5:p.width/4f;
+    tx=w/8f*5;
+    tw=w/4f;
+    // tx=w/16f*9;
+    // tw=w/8f*3;
   }
 }

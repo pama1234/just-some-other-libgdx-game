@@ -64,16 +64,15 @@ public class MainPlayer2D extends Player2D{
       }
     }
     inAir=point.pos.y<floor;
-    if(inAir) {
-      point.vel.y+=0.7f;
-    }else {
+    if(inAir) point.vel.y+=pw.g;
+    else {
       if(point.pos.y!=floor) {
         point.vel.y=0;
         point.pos.y=floor;
       }
       if(jumpCool>0) jumpCool--;
       else if(jump) {
-        point.vel.y=-pw.blockHeight;
+        point.vel.y=pw.jumpForce;
         jumpCool=2;
       }
     }
@@ -119,6 +118,7 @@ public class MainPlayer2D extends Player2D{
     //   bh+=1;
     // }
     // if(!inAir) bh-=1;
+    if(inAir&&point.vel.y>0) bh+=1;
     Block block;
     flagCache=false;
     //------------------------------------------ floor

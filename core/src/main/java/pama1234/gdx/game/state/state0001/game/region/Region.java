@@ -21,6 +21,31 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
   @Override
   public void save() {}
   @Override
+  public void update() {
+    for(int i=0;i<data.length;i++) {
+      for(int j=0;j<data[i].length;j++) {
+        Chunk chunk=data[i][j];
+        Block[][] blockData=chunk.data;
+        // int tcw=pr.chunkWidth*pr.pw.blockWidth,
+        //   tch=pr.chunkHeight*pr.pw.blockHeight;
+        // int tcx=(x*pr.regionWidth+i)*tcw,
+        //   tcy=(y*pr.regionHeight+j)*tch;
+        // if(!p.cam2d.boxIntersect(tcx,tcy,tcw,tch)) continue;
+        for(int n=0;n<blockData.length;n++) {
+          for(int m=0;m<blockData[n].length;m++) {
+            Block block=blockData[n][m];
+            MetaBlock blockType=block.type;
+            // if(!blockType.display) continue;
+            int tx=((x*pr.regionWidth+i)*pr.chunkWidth+n),
+              ty=((y*pr.regionHeight+j)*pr.chunkWidth+m);
+            // if(!p.cam2d.boxIntersect(tx,ty,pr.pw.blockWidth,pr.pw.blockHeight)) continue;
+            blockType.update(block,tx,ty);
+          }
+        }
+      }
+    }
+  }
+  @Override
   public void display() {
     for(int i=0;i<data.length;i++) {
       for(int j=0;j<data[i].length;j++) {
