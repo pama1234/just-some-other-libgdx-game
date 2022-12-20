@@ -1,5 +1,5 @@
 info face="unifont" size=16 bold=0 italic=0 charset="utf-8" unicode=1 stretchH=100 smooth=1 aa=2 padding=0,0,0,0 spacing=0,0
-common lineHeight=17 base=14 scaleW=1280 scaleH=1280 pages=1 packed=0 alphaChnl=0 redChnl=0 greenChnl=0 blueChnl=0
+common lineHeight=17 base=14 scaleW=1280 scaleH=800 pages=1 packed=0 alphaChnl=0 redChnl=0 greenChnl=0 blueChnl=0
 page id=0 file="unifont-12.png"
 chars count=4097
 char id=32    x=0    y=0    width=0    height=0    xoffset=0    yoffset=0    xadvance=8    page=0    chnl=0
