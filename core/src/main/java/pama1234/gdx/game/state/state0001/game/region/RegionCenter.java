@@ -66,7 +66,8 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   }
   @Override
   public void dispose() {
-    doUpdate.lock();
+    // System.out.println(p.stop);
+    if(!p.stop) doUpdate.lock();
   }
   @Override
   public void load() {}
@@ -83,5 +84,9 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   @Override
   public void update() {
     // super.update();
+  }
+  public void exit() {
+    // System.out.println("RegionCenter.exit()");
+    doUpdate.unlock();
   }
 }

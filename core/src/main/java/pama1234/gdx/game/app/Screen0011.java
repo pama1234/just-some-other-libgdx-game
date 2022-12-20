@@ -79,5 +79,6 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   @Override
   public void dispose() {
     super.dispose();
+    State0001.exit();
   }
 }

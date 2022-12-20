@@ -21,6 +21,7 @@ public class World0001 extends World<Screen0011,Game>{
   public float g=1f,jumpForce=-blockHeight*1.2f;
   public int time;
   public int typeCache;
+  // public boolean stop;//TODO
   public World0001(Screen0011 p,Game pg) {
     super(p,pg,2);
     metaBlockCenter=new MetaBlockCenter(this);
@@ -106,8 +107,12 @@ public class World0001 extends World<Screen0011,Game>{
   }
   @Override
   public void dispose() {
+    // stop=true;
     super.dispose();
     p.cam2d.activeDrag=true;
     p.centerCam.remove.add(yourself);
+  }
+  public void exit() {
+    regions.exit();
   }
 }

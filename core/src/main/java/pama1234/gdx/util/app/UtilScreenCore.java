@@ -77,8 +77,8 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
   public int pus;
   public boolean stop;
   //---
-  public boolean isAndroid=true;
-  // public boolean isAndroid=Gdx.app.getType()==ApplicationType.Android;
+  // public boolean isAndroid=true;
+  public boolean isAndroid=Gdx.app.getType()==ApplicationType.Android;
   public boolean isKeyPressed(int in) {
     return keyPressedArray.contains(in);
   }

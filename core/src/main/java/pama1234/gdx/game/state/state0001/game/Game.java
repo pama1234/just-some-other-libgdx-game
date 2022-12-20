@@ -114,4 +114,8 @@ public class Game extends StateEntity0001{
   public void keyReleased(char key,int keyCode) {
     if(keyCode==ESCAPE) p.state(State0001.StartMenu);
   }
+  @Override
+  public void exit() {
+    world.exit();
+  }
 }
