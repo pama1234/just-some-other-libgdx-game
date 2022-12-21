@@ -12,7 +12,6 @@ import pama1234.gdx.util.element.CameraController2D;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.math.Tools;
 import pama1234.math.UtilMath;
-import pama1234.math.physics.PathVar;
 
 public class MainPlayer2D extends Player2D{
   public CameraController2D cam;
@@ -22,8 +21,6 @@ public class MainPlayer2D extends Player2D{
   public float speed=1f,shiftSpeedMult=2f;
   public float floor,leftWall,rightWall,ceiling;
   //---
-  public float maxLife=32;
-  public PathVar life=new PathVar(maxLife);
   public RectF[] cullRects=new RectF[] {
     new RectF(()->p.bu*1.5f,()->p.height-p.bu*1.5f-p.pus,()->p.bu*2.75f+p.pus*3,()->p.bu+p.pus),
     // new RectF(()->p.width-p.bu*4f,()->p.height-p.bu*2.5f-p.pus,()->p.pu*3.75f+p.pus,()->p.bu*2+p.pus),
@@ -59,6 +56,8 @@ public class MainPlayer2D extends Player2D{
   }
   @Override
   public void update() {
+    if(p.isKeyPressed(Keys.R)) life.des-=1;//TODO
+    if(p.isKeyPressed(Keys.T)) life.des+=1;
     for(TouchInfo e:p.touches) if(e.active) touchUpdate(e);
     testPos();
     //-------------------------------------------------------
@@ -104,7 +103,7 @@ public class MainPlayer2D extends Player2D{
     // pointer=(p.frameCount/10)%slides.length;
     //---
     // p.cam.point.des.set(point.x()+12.5f,Tools.mag(point.y(),groundLevel)<48?groundLevel+12.5f:point.y()+12.5f,0);
-    p.cam.point.des.set(point.x(),Tools.mag(point.y(),floor)<48?floor+12.5f:point.y()+12.5f,0);
+    p.cam.point.des.set(point.x()+dx+w/2f,Tools.mag(point.y(),floor)<48?floor+dy+h/2f:point.y()+dy+h/2f,0);
     //---
     life.update();
   }
