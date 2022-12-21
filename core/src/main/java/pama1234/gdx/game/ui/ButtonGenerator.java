@@ -9,6 +9,7 @@ import pama1234.gdx.game.state.state0001.Settings;
 import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.state.state0001.game.Game;
 import pama1234.gdx.game.ui.util.Button;
+import pama1234.gdx.game.ui.util.Slider;
 import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.game.ui.util.TextButtonCam;
 import pama1234.gdx.game.ui.util.TextureButton;
@@ -63,6 +64,11 @@ public class ButtonGenerator{
         if(p.mute) ps.buttonsCam[0].text="静音：是";
         else ps.buttonsCam[0].text="静音：否";
       },"静音：否",()->18,()->0,()->0),
+      ps.volumeSlider=new Slider<T>(p,true,()->true,()-> {
+        p.volume=ps.volumeSlider.pos;
+        // ps.volumeSlider.text="音量 "+Tools.cutToLastDigit(p.volume*100);
+        ps.volumeSlider.text="音量 "+String.format("%6.2f",p.volume*100);
+      },()-> {},()-> {},"音量 100.00",()->18,()->0,()->20,1),
       new TextButtonCam<T>(p,true,()->true,()-> {},()-> {},()-> {
         p.debugInfo=!p.debugInfo;
         Game game=(Game)State0001.Game.entity;
@@ -73,13 +79,13 @@ public class ButtonGenerator{
         //   game.createDebugDisplay();
         //   if(!flag) p.centerCam.add.add(game.displayCamTop);
         // }else if(flag) p.centerCam.remove.add(game.displayCamTop);
-        if(p.debugInfo) ps.buttonsCam[1].text="显示调试信息：是";
-        else ps.buttonsCam[1].text="显示调试信息：否";
-      },"显示调试信息：否",()->18,()->0,()->20),
+        if(p.debugInfo) ps.buttonsCam[2].text="显示调试信息：是";
+        else ps.buttonsCam[2].text="显示调试信息：否";
+      },"显示调试信息：否",()->18,()->0,()->40),
       new TextButtonCam<T>(p,true,()->true,()-> {},()-> {},()-> {
         System.gc();
         Runtime.getRuntime().runFinalization();
-      },"清理内存垃圾",()->18,()->0,()->40),
+      },"清理内存垃圾",()->18,()->0,()->60),
     };
   }
   public static <T extends Screen0011> Button<?>[] genButtons_0005(T p) {

@@ -3,6 +3,7 @@
   // 悬停以查看现有属性的描述。
   // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
   // ,"vmArgs": "-Dcom.aparapi.enableShowGeneratedOpenCL=true"
+  // ,"vmArgs": "-XX:MinHeapFreeRatio=15 -XX:MaxHeapFreeRatio=30"
   "version": "0.2.0",
   "configurations": [
     {

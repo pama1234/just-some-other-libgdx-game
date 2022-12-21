@@ -6,19 +6,19 @@ import pama1234.gdx.game.util.function.GetFloat;
 import pama1234.gdx.game.util.function.GetInt;
 import pama1234.gdx.util.app.UtilScreen;
 import pama1234.math.Tools;
+import pama1234.math.UtilMath;
 
-public class TextButtonCam<T extends UtilScreen>extends TextButton<T>{
-  {
-    nx=()->touch.x;
-    ny=()->touch.y;
-  }
-  public TextButtonCam(T p,boolean textOffset,GetBoolean active,ExecuteF press,ExecuteF clickStart,ExecuteF clickEnd,String text,GetInt bu,GetFloat x,GetFloat y) {
+public class Slider<T extends UtilScreen>extends TextButtonCam<T>{
+  public float min,max=1;
+  public float pos;
+  public Slider(T p,boolean textOffset,GetBoolean active,ExecuteF press,ExecuteF clickStart,ExecuteF clickEnd,String text,GetInt bu,GetFloat x,GetFloat y,float pos) {
     super(p,textOffset,active,press,clickStart,clickEnd,text,bu,x,y);
-    this.rect.w=()->p.textWidthCam(this.text)+(this.textOffset?16:0);//TODO
+    this.pos=pos;
   }
   @Override
-  public boolean inButton(float xIn,float yIn) {
-    return Tools.inBox(xIn,yIn,rect.x.get(),rect.y.get(),rect.w.get(),rect.h.get());
+  public void press() {
+    pos=UtilMath.constrain(Tools.map(nx.get(),rect.x(),rect.x()+rect.w(),min,max),min,max);//TODO
+    super.press();
   }
   @Override
   public void display() {
@@ -32,7 +32,10 @@ public class TextButtonCam<T extends UtilScreen>extends TextButton<T>{
       p.fill(127,191);
       p.textColor(255,200);
     }
-    p.rect(tx+1,ty,tw+(textOffset?-1:1),th);
+    float tw2=tw+(textOffset?-1:1);
+    p.rect(tx+1,ty,tw2,th);
+    p.fill(144,222,196,191);
+    p.rect(tx+1,ty,tw2*pos,th);
     p.text(text,tx+(textOffset?8:1),ty+(th-16)/2f-1);
     p.endBlend();
   }

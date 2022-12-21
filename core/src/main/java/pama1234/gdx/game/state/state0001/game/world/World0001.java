@@ -20,6 +20,7 @@ public class World0001 extends World<Screen0011,Game>{
   public int blockWidth=18,blockHeight=18;
   public float g=1f,jumpForce=-blockHeight*1.5f;
   public int time;
+  public float ambientLight;
   public int typeCache;
   // public boolean stop;//TODO
   public World0001(Screen0011 p,Game pg) {

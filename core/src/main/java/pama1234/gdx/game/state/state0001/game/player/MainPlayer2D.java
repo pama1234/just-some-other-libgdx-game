@@ -21,15 +21,20 @@ public class MainPlayer2D extends Player2D{
   public float speed=1f,shiftSpeedMult=2f;
   public float floor,leftWall,rightWall,ceiling;
   //---
-  public RectF[] cullRects=new RectF[] {
-    new RectF(()->p.bu*1.5f,()->p.height-p.bu*1.5f-p.pus,()->p.bu*2.75f+p.pus*3,()->p.bu+p.pus),
-    // new RectF(()->p.width-p.bu*4f,()->p.height-p.bu*2.5f-p.pus,()->p.pu*3.75f+p.pus,()->p.bu*2+p.pus),
-    new RectF(()->p.width-p.bu*4f,()->p.height-p.bu*1.5f-p.pus,()->p.bu*2.5f+p.pus,()->p.bu+p.pus),
-    new RectF(()->p.width-p.bu*2.5f,()->p.height-p.bu*2.5f-p.pus,()->p.bu+p.pus,()->p.bu+p.pus),
-  };
+  public RectF[] cullRects;
   public MainPlayer2D(Screen0011 p,World0001 pw,float x,float y,Game pg) {
     super(p,pw,x,y,pg);
     this.cam=p.cam2d;
+    if(p.isAndroid) {
+      cullRects=new RectF[] {
+        new RectF(()->p.bu*1.5f,()->p.height-p.bu*1.5f-p.pus,()->p.bu*2.75f+p.pus*3,()->p.bu+p.pus),
+        // new RectF(()->p.width-p.bu*4f,()->p.height-p.bu*2.5f-p.pus,()->p.pu*3.75f+p.pus,()->p.bu*2+p.pus),
+        new RectF(()->p.width-p.bu*4f,()->p.height-p.bu*1.5f-p.pus,()->p.bu*2.5f+p.pus,()->p.bu+p.pus),
+        new RectF(()->p.width-p.bu*2.5f,()->p.height-p.bu*2.5f-p.pus,()->p.bu+p.pus,()->p.bu+p.pus),
+      };
+    }else {
+      cullRects=new RectF[0];
+    }
   }
   public void touchUpdate(TouchInfo info) {
     if(info.state!=0) return;
@@ -56,8 +61,8 @@ public class MainPlayer2D extends Player2D{
   }
   @Override
   public void update() {
-    if(p.isKeyPressed(Keys.R)) life.des-=1;//TODO
-    if(p.isKeyPressed(Keys.T)) life.des+=1;
+    // if(p.isKeyPressed(Keys.R)) life.des-=1;//TODO
+    // if(p.isKeyPressed(Keys.T)) life.des+=1;
     for(TouchInfo e:p.touches) if(e.active) touchUpdate(e);
     testPos();
     //-------------------------------------------------------
