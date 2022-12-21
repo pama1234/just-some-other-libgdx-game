@@ -41,13 +41,13 @@ public class Game extends StateEntity0001{
       public void display() {
         MainPlayer2D tp=world.yourself;
         p.beginBlend();
-        int bx1=tp.bx1,
-          by1=tp.by1,
-          bx2=tp.bx2,
-          by2=tp.by2;
+        int bx1=tp.ctrl.bx1,
+          by1=tp.ctrl.by1,
+          bx2=tp.ctrl.bx2,
+          by2=tp.ctrl.by2;
         int bw=world.blockWidth,bh=world.blockHeight;
         p.fill(255,127,191,191);
-        p.rect(tp.leftWall,tp.ceiling,tp.rightWall-tp.leftWall,tp.floor-tp.ceiling);
+        p.rect(tp.ctrl.leftWall,tp.ctrl.ceiling,tp.ctrl.rightWall-tp.ctrl.leftWall,tp.ctrl.floor-tp.ctrl.ceiling);
         p.fill(127,255,191,191);
         p.rect(tp.x()+tp.dx,tp.y()+tp.dy,tp.w,tp.h);
         p.fill(94,203,234,191);
@@ -100,7 +100,7 @@ public class Game extends StateEntity0001{
     if(debug) {
       p.beginBlend();
       p.fill(94,203,234,127);
-      for(RectF e:world.yourself.cullRects) p.rect(e.x(),e.y(),e.w(),e.h());
+      for(RectF e:world.yourself.ctrl.cullRects) p.rect(e.x(),e.y(),e.w(),e.h());
       p.endBlend();
     }
   }

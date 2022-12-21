@@ -10,4 +10,8 @@ public class MetaItem{
   public float hardness,lightIntensity;//TODO
   public int displayTypeSize;
   public int defaultDisplayType;
+  public MetaItem(MetaItemCenter pc,String name) {
+    this.pc=pc;
+    this.name=name;
+  }
 }

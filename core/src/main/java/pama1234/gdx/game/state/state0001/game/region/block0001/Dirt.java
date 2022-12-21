@@ -12,7 +12,7 @@ public class Dirt extends MetaBlock{
     super(pc,"dirt",new TextureRegion[20],2,(in,type)-> {//change to dirt
     },(in,type)-> {//change from dirt
     });
-    init();
+    initLambda();
   }
   public void initLambda() {
     updater=(in,x,y)-> {
@@ -43,7 +43,7 @@ public class Dirt extends MetaBlock{
       }
     };
   }
-  public void init() {
+  public void initTextureRegion() {
     if(tiles[0]!=null) return;
     TextureRegion[][] tsrc=ImageAsset.tiles;
     //-----------------------------------------------------

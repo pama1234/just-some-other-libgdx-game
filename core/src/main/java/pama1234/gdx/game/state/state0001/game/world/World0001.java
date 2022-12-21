@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.Game;
+import pama1234.gdx.game.state.state0001.game.item.MetaItem;
+import pama1234.gdx.game.state.state0001.game.item.MetaItemCenter;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer2D;
 import pama1234.gdx.game.state.state0001.game.player.Player2D.PlayerCenter2D;
 import pama1234.gdx.game.state.state0001.game.region.Block;
@@ -13,7 +15,8 @@ import pama1234.gdx.game.state.state0001.game.region.RegionCenter;
 import pama1234.gdx.game.state.state0001.game.region.block0001.Dirt;
 
 public class World0001 extends World<Screen0011,Game>{
-  public MetaBlockCenter metaBlockCenter;
+  public MetaBlockCenter blockC;
+  public MetaItemCenter itemC;
   public PlayerCenter2D players;
   public RegionCenter regions;
   public MainPlayer2D yourself;
@@ -25,9 +28,11 @@ public class World0001 extends World<Screen0011,Game>{
   // public boolean stop;//TODO
   public World0001(Screen0011 p,Game pg) {
     super(p,pg,2);
-    metaBlockCenter=new MetaBlockCenter(this);
-    metaBlockCenter.add.add(metaBlockCenter.dirt=new Dirt(metaBlockCenter));
-    metaBlockCenter.add.add(metaBlockCenter.air=new MetaBlock(metaBlockCenter,"air"));
+    blockC=new MetaBlockCenter(this);
+    blockC.add.add(blockC.dirt=new Dirt(blockC));
+    blockC.add.add(blockC.air=new MetaBlock(blockC,"air"));
+    itemC=new MetaItemCenter(this);
+    itemC.add.add(itemC.dirt=new MetaItem(itemC,"dirt"));
     list[0]=players=new PlayerCenter2D(p);
     list[1]=regions=new RegionCenter(p,this,Gdx.files.local("data/saved/regions.bin"));
     // list[1]=regions=new RegionCenter(p,this,Gdx.files.local("data/saved/abcd.txt"));
@@ -39,7 +44,7 @@ public class World0001 extends World<Screen0011,Game>{
   @Override
   public void init() {
     super.init();
-    metaBlockCenter.dirt.init();
+    blockC.dirt.initTextureRegion();
     yourself.init();
     p.cam2d.activeDrag=false;
     p.centerCam.add.add(yourself);

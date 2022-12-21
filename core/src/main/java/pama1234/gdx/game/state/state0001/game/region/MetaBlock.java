@@ -16,8 +16,8 @@ public class MetaBlock{
   public BlockUpdater updater;
   public BlockChanger from,to;
   public BlockDisplayer displayer=(p,in,x,y)->p.image(tiles[in.displayType[0]],x,y,pc.pw.blockWidth+0.01f,pc.pw.blockHeight+0.01f);
-  public MetaBlock(MetaBlockCenter p,String name) {
-    this.pc=p;
+  public MetaBlock(MetaBlockCenter pc,String name) {
+    this.pc=pc;
     this.name=name;
     empty=true;
   }

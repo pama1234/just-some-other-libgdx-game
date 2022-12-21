@@ -34,8 +34,8 @@ public class ButtonGenerator{
       },"mL",p::getButtonUnitLength,()->p.width-p.bu*4f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,false),
       new TextButton<T>(p,true,()->true,()-> {},()-> {
         // p.inputProcessor.keyDown(Input.Keys.SHIFT_LEFT);
-        pg.world.yourself.shift=!pg.world.yourself.shift;
-        pg.ctrlButtons[1].text=pg.world.yourself.shift?"S":"s";
+        pg.world.yourself.ctrl.shift=!pg.world.yourself.ctrl.shift;
+        pg.ctrlButtons[1].text=pg.world.yourself.ctrl.shift?"S":"s";
       },()-> {
         // p.inputProcessor.keyUp(Input.Keys.SHIFT_LEFT);
       },"s",p::getButtonUnitLength,()->p.width-p.bu*2.5f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,true),
