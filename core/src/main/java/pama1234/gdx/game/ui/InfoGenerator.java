@@ -5,7 +5,7 @@ public class InfoGenerator{
   info0001,
     info0002;
   static {
-    // genInfo_0001();
+    genInfo_0001();//TODO
     genInfo_0002();
   }
   public static void genInfo_0001() {

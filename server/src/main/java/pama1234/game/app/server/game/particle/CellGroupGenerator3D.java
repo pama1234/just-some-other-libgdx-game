@@ -24,13 +24,13 @@ public class CellGroupGenerator3D{
     int[] colors;
     float boxR;
     boxR=256;
-    int cellType=16;
+    int cellType=64;
     colors=new int[cellType];
     // colorMode(HSB);
     for(int i=0;i<colors.length;i++) colors[i]=Tools.hsbColor((float)i/colors.length*255,0xff,0xff);
     // colorMode(RGB);
     // int range=(int)(boxR*16/cellType);
-    int range=1024/cellType;
+    int range=8192/cellType;
     int arraySize=range*cellType;
     int[] type=new int[arraySize];
     for(int i=0;i<type.length;i++) type[i]=i/range;

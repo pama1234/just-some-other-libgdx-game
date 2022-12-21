@@ -17,15 +17,14 @@ import pama1234.game.app.server.game.ServerPlayer3D;
 import pama1234.game.app.server.game.particle.CellGroup3D;
 import pama1234.game.app.server.game.particle.CellGroupGenerator3D;
 import pama1234.game.app.server.particle.Var;
-import pama1234.gdx.game.ui.ConfigInfo;
 import pama1234.gdx.game.ui.ButtonGenerator;
+import pama1234.gdx.game.ui.ConfigInfo;
 import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.util.ClientPlayerCenter3D;
 import pama1234.gdx.game.util.ControllerClientPlayer3D;
 import pama1234.gdx.util.FileUtil;
 import pama1234.gdx.util.app.ScreenCore3D;
 import pama1234.gdx.util.element.Graphics;
-import pama1234.math.Tools;
 
 /**
  * 3D 粒子系统 单机模式
@@ -52,9 +51,9 @@ public class Screen0001 extends ScreenCore3D{
   public Decal logo;
   public boolean tempTest;//TODO
   public ConfigInfo configInfo;
-  public int tempCellSize=128;
-  public int tempColorSize=12;
-  public int tempSize=tempCellSize*tempColorSize;
+  // public int tempCellSize=128;
+  // public int tempColorSize=32;//TODO
+  // public int tempSize=tempCellSize*tempColorSize;
   public static class GraphicsData{
     public Graphics g;
     public TextureRegion tr;
@@ -77,12 +76,14 @@ public class Screen0001 extends ScreenCore3D{
   }
   @Override
   public void setup() {
+    cam.point.f=0.1f;//TODO
+    cam3d.viewDir.f=0.1f;
     cam.point.set(0,0,-320);
     backgroundColor(0);
     textColor(255);
     CellGroupGenerator3D gen=new CellGroupGenerator3D(0,0);
-    // group=gen.randomGenerate();
-    group=gen.GenerateFromMiniCore();
+    group=gen.randomGenerate();
+    // group=gen.GenerateFromMiniCore();
     // for(int i=0;i<cellData.length;i++) cellData[i]=new CellData();
     playerCenter=new ClientPlayerCenter3D(this);
     // yourself=new ControllerClientPlayer3D(this,"pama1234",cam.point);
@@ -93,12 +94,14 @@ public class Screen0001 extends ScreenCore3D{
     graphicsList=new ArrayList<ArrayList<GraphicsData>>(layerSize);
     // decals=new ArrayList<>(clientCore.cellData.length);
     decals=new ArrayList<>(group.size);
-    final int ts=tempColorSize;
-    int tsize=tempCellSize;
-    int[] colors=new int[tempColorSize];
-    for(int i=0;i<colors.length;i++) colors[i]=Tools.hsbColor((float)i/colors.length*255,0xff,0xff);
-    graphicsList.add(0,new ArrayList<GraphicsData>(ts));
-    for(int i=0;i<ts;i++) {
+    // System.out.println(group.type.length==group.colors.length);
+    final int typeSize=group.colors.length;
+    int tsize=group.size/typeSize;
+    int[] colors=new int[typeSize];
+    // for(int i=0;i<colors.length;i++) colors[i]=Tools.hsbColor((float)i/colors.length*255,0xff,0xff);
+    for(int i=0;i<colors.length;i++) colors[i]=group.colors[i];
+    graphicsList.add(0,new ArrayList<GraphicsData>(typeSize));
+    for(int i=0;i<typeSize;i++) {
       int tgsize=tgsizeF(0);
       Graphics tg=new Graphics(this,tgsize*2,tgsize*2);
       tg.beginDraw();
@@ -108,17 +111,17 @@ public class Screen0001 extends ScreenCore3D{
       circle(tgsize,tgsize,tgsize/2);
       tg.endDraw();
       TextureRegion tr=new TextureRegion(tg.texture);
-      graphicsList.get(0).add(0*ts+i,new GraphicsData(tg,tr));
+      graphicsList.get(0).add(0*typeSize+i,new GraphicsData(tg,tr));
       for(int j=0;j<tsize;j++) {
         Decal td=Decal.newDecal(Var.DIST,Var.DIST,tr,true);
         decals.add(i*tsize+j,new DecalData(td,0));
       }
     }
     for(int k=1;k<layerSize;k++) {
-      graphicsList.add(k,new ArrayList<GraphicsData>(ts));
+      graphicsList.add(k,new ArrayList<GraphicsData>(typeSize));
       // k++;
       // decals.add(k,new ArrayList<Decal>(ts));
-      for(int i=0;i<ts;i++) {
+      for(int i=0;i<typeSize;i++) {
         int tgsize=tgsizeF(k);
         Graphics tg=new Graphics(this,tgsize*2,tgsize*2);
         tg.beginDraw();
