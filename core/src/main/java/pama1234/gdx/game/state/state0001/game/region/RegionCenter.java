@@ -8,21 +8,25 @@ import pama1234.gdx.game.util.Mutex;
 import pama1234.gdx.util.wrapper.EntityCenter;
 import pama1234.math.Tools;
 import pama1234.math.UtilMath;
-import pama1234.math.hash.HashNoise2f;
-import pama1234.math.hash.PerlinNoise2f;
 
 public class RegionCenter extends EntityCenter<Screen0011,Region> implements LoadAndSave{
   public World0001 pw;
   public FileHandle metadata;
   public int regionWidth=4,regionHeight=4;
   public int chunkWidth=64,chunkHeight=64;
+  public RegionGenerator generator;
   public Mutex doUpdate;
   public Thread updateLoop;
   public RegionCenter(Screen0011 p,World0001 pw,FileHandle metadata) {
     super(p);
     this.pw=pw;
     this.metadata=metadata;
-    createTest(p);
+    // createTest(p);
+    generator=new RegionGenerator(p,this,0);//TODO
+    add.add(generator.get(0,-1));
+    add.add(generator.get(-1,-1));
+    add.add(generator.get(-1,0));
+    add.add(generator.get(0,0));
     doUpdate=new Mutex(true);
     updateLoop=new Thread(()-> {
       long beforeM,milis;
@@ -36,29 +40,6 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
       }
     });
     updateLoop.start();
-  }
-  public void createTest(Screen0011 p) {
-    PerlinNoise2f noise=new PerlinNoise2f(new HashNoise2f(0));
-    Region region=new Region(p,this,null);
-    region.x=-1;
-    region.data=new Chunk[regionWidth][regionHeight];
-    Chunk[][] data=region.data;
-    for(int i=0;i<data.length;i++) {
-      for(int j=0;j<data[i].length;j++) {
-        Chunk chunk=data[i][j]=new Chunk(region);
-        Block[][] blockData=chunk.data=new Block[chunkWidth][chunkHeight];
-        for(int n=0;n<blockData.length;n++) {
-          for(int m=0;m<blockData[n].length;m++) {
-            // float random=p.random(2);
-            float random=noise.get(((region.x*regionWidth+i)*chunkWidth+n)/32f,((region.y*regionHeight+j)*chunkHeight+m)/32f);
-            // System.out.println(random+" "+i+" "+j+" "+n+" "+m);
-            if(random>0.3f) blockData[n][m]=new Block(pw.metaBlockCenter.dirt);
-            else blockData[n][m]=new Block(pw.metaBlockCenter.air);
-          }
-        }
-      }
-    }
-    add.add(region);
   }
   @Override
   public void init() {

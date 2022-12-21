@@ -2,6 +2,7 @@ package pama1234.gdx.game.state.state0001.game.region;
 
 public class Block{
   public MetaBlock type;
+  public boolean changed;
   public int[] displayType;
   public Block(MetaBlock type) {
     this.type=type;
@@ -16,9 +17,13 @@ public class Block{
   public void type(MetaBlock in) {
     MetaBlock t=type;
     if(in==t) return;
+    changed=true;//TODO
     type=in;
     init(in);//TODO
     t.to(this,in);
     in.from(this,t);
+  }
+  public static boolean isEmpty(Block in) {
+    return in==null||in.type.empty;
   }
 }

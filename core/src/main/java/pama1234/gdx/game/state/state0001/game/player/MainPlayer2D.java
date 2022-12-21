@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input.Keys;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.Game;
+import pama1234.gdx.game.state.state0001.game.item.Inventory;
 import pama1234.gdx.game.state.state0001.game.region.Block;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.gdx.game.util.RectF;
@@ -20,6 +21,10 @@ public class MainPlayer2D extends Player2D{
   public int walkCool,jumpCool;
   public float speed=1f,shiftSpeedMult=2f;
   public float floor,leftWall,rightWall,ceiling;
+  public int bx1,by1,bx2,by2,bw,bh;
+  public boolean flagCache;
+  //---
+  public Inventory inventory;
   //---
   public RectF[] cullRects;
   public MainPlayer2D(Screen0011 p,World0001 pw,float x,float y,Game pg) {
@@ -64,11 +69,21 @@ public class MainPlayer2D extends Player2D{
     // if(p.isKeyPressed(Keys.R)) life.des-=1;//TODO
     // if(p.isKeyPressed(Keys.T)) life.des+=1;
     for(TouchInfo e:p.touches) if(e.active) touchUpdate(e);
-    testPos();
+    updateOuterBox();
     //-------------------------------------------------------
-    left=p.isKeyPressed(29)||p.isKeyPressed(21);
-    right=p.isKeyPressed(32)||p.isKeyPressed(22);
-    jump=p.isKeyPressed(62);
+    updateCtrlInfo();
+    doWalkAndJump();
+    super.update();
+    constrain();
+    //---
+    // pointer=(p.frameCount/10)%slides.length;
+    //---
+    // p.cam.point.des.set(point.x()+12.5f,Tools.mag(point.y(),groundLevel)<48?groundLevel+12.5f:point.y()+12.5f,0);
+    p.cam.point.des.set(point.x()+dx+w/2f,Tools.mag(point.y(),floor)<48?floor+dy+h/2f:point.y()+dy+h/2f,0);
+    //---
+    life.update();
+  }
+  public void doWalkAndJump() {
     if(walkCool>0) walkCool--;
     else if(!(left==right)) {
       float speedMult=shift?shiftSpeedMult:1;
@@ -93,7 +108,13 @@ public class MainPlayer2D extends Player2D{
         jumpCool=2;
       }
     }
-    super.update();
+  }
+  public void updateCtrlInfo() {
+    left=p.isKeyPressed(29)||p.isKeyPressed(21);
+    right=p.isKeyPressed(32)||p.isKeyPressed(22);
+    jump=p.isKeyPressed(62);
+  }
+  public void constrain() {
     if(point.pos.y>floor) {
       point.vel.y=0;
       point.pos.y=floor;
@@ -104,26 +125,8 @@ public class MainPlayer2D extends Player2D{
     }
     if(point.pos.x<leftWall) point.pos.x=leftWall;
     if(point.pos.x>rightWall) point.pos.x=rightWall;
-    //---
-    // pointer=(p.frameCount/10)%slides.length;
-    //---
-    // p.cam.point.des.set(point.x()+12.5f,Tools.mag(point.y(),groundLevel)<48?groundLevel+12.5f:point.y()+12.5f,0);
-    p.cam.point.des.set(point.x()+dx+w/2f,Tools.mag(point.y(),floor)<48?floor+dy+h/2f:point.y()+dy+h/2f,0);
-    //---
-    life.update();
   }
-  public int //
-  bx1,by1,
-    bx2,by2,
-    bw,bh;
-  public boolean flagCache;
-  public void testPos() {
-    // int bx1=blockX1(),
-    //   by1=blockY1(),
-    //   bx2=blockX2(),
-    //   by2=blockY2(),
-    //   bw=bx2-bx1,
-    //   bh=by2-by1;
+  public void updateOuterBox() {
     bx1=blockX1();
     by1=blockY1();
     bx2=blockX2();
@@ -141,7 +144,7 @@ public class MainPlayer2D extends Player2D{
     //------------------------------------------ floor
     for(int i=0;i<=bw;i++) {
       block=getBlock(bx1+i,by2+1);
-      if(!isEmpty(block)) {
+      if(!Block.isEmpty(block)) {
         flagCache=true;
         break;
       }
@@ -154,7 +157,7 @@ public class MainPlayer2D extends Player2D{
     // for(int i=inAir?-1:0;i<=bh;i++) {
     for(int i=0;i<=bh;i++) {
       block=getBlock(bx1-1,by1+i);
-      if(!isEmpty(block)) {
+      if(!Block.isEmpty(block)) {
         flagCache=true;
         break;
       }
@@ -166,7 +169,7 @@ public class MainPlayer2D extends Player2D{
     //------------------------------------------ right
     for(int i=0;i<=bh;i++) {
       block=getBlock(bx2+1,by1+i);
-      if(!isEmpty(block)) {
+      if(!Block.isEmpty(block)) {
         flagCache=true;
         break;
       }
@@ -178,7 +181,7 @@ public class MainPlayer2D extends Player2D{
     //------------------------------------------ ceiling
     for(int i=0;i<=bw;i++) {
       block=getBlock(bx1+i,by1-1);
-      if(!isEmpty(block)) {
+      if(!Block.isEmpty(block)) {
         flagCache=true;
         break;
       }
@@ -188,16 +191,14 @@ public class MainPlayer2D extends Player2D{
       flagCache=false;
     }else ceiling=(by1-4)*pw.blockHeight;
   }
-  public boolean isEmpty(Block block) {
-    return block==null||block.type.empty;
-  }
+  // public boolean isEmpty(Block block) {
+  //   return block==null||block.type.empty;
+  // }
   public Block getBlock(int xIn,int yIn) {
     return pw.regions.getBlock(xIn,yIn);
-    // return pw.regions.getBlock(blockX(),blockY());
   }
   public Block getBlock(float xIn,float yIn) {
     return pw.regions.getBlock(xToBlockCord(xIn),yToBlockCord(yIn));
-    // return pw.regions.getBlock(blockX(),blockY());
   }
   public int blockX() {
     return xToBlockCord(x());

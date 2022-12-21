@@ -16,6 +16,11 @@ public class Creature extends GamePointEntity<MassPoint>{
   }
   @Override
   public void display() {
+    displayLife();
+  }
+  public void displayLife() {
+    boolean flag=UtilMath.abs(life.des-life.pos)>0.1f;
+    if(!flag&&UtilMath.abs(life.des-maxLife)<=0.1f) return;
     p.beginBlend();
     p.fill(127,127);
     p.rect(x()+dx,y()+dy-4,w,2);
@@ -23,7 +28,7 @@ public class Creature extends GamePointEntity<MassPoint>{
     float tp=w/maxLife;
     float tw=tp*life.pos;
     p.rect(x()+dx,y()+dy-4,tw,2);
-    if(UtilMath.abs(life.des-life.pos)>0.1f) {
+    if(flag) {
       if(life.des>life.pos) {
         p.fill(156,95,255,191);
         p.rect(x()+dx+tw,y()+dy-4,tp*(life.des-life.pos),2);

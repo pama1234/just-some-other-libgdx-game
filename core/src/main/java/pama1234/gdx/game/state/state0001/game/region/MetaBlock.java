@@ -21,13 +21,22 @@ public class MetaBlock{
     this.name=name;
     empty=true;
   }
-  public MetaBlock(MetaBlockCenter pc,String name,TextureRegion[] tiles,BlockUpdater updater) {
+  public MetaBlock(MetaBlockCenter pc,String name,TextureRegion[] tiles) {
     this.pc=pc;
     this.name=name;
     this.tiles=tiles;
-    this.updater=updater;
     display=true;
     displayTypeSize=1;
+  }
+  public MetaBlock(MetaBlockCenter pc,String name,TextureRegion[] tiles,BlockUpdater updater) {
+    this(pc,name,tiles);
+    this.updater=updater;
+  }
+  public MetaBlock(MetaBlockCenter pc,String name,TextureRegion[] tiles,int displayTypeSize,BlockChanger from,BlockChanger to) {//TODO
+    this(pc,name,tiles);
+    this.displayTypeSize=displayTypeSize;
+    this.from=from;
+    this.to=to;
   }
   public MetaBlock(MetaBlockCenter pc,String name,TextureRegion[] tiles,BlockUpdater updater,BlockDisplayer displayer,int displayTypeSize,BlockChanger from,BlockChanger to) {
     this(pc,name,tiles,updater);

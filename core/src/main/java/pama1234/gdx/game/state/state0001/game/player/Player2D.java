@@ -15,8 +15,6 @@ public class Player2D extends Creature{
   public TextureRegion[][] tiles;
   public int pointer;
   public boolean dir,pdir;
-  // public int w=20,h=24;
-  // public float dx=-10,dy=-24;
   {
     w=20;
     h=24;
