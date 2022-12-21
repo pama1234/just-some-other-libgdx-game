@@ -1,11 +1,11 @@
-package pama1234.gdx.game.state.state0001.game.region.block0001;
+package pama1234.gdx.game.state.state0001.game.region.block.block0001;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import pama1234.gdx.game.asset.ImageAsset;
-import pama1234.gdx.game.state.state0001.game.region.Block;
-import pama1234.gdx.game.state.state0001.game.region.MetaBlock;
-import pama1234.gdx.game.state.state0001.game.region.MetaBlockCenter;
+import pama1234.gdx.game.state.state0001.game.region.block.Block;
+import pama1234.gdx.game.state.state0001.game.region.block.MetaBlock;
+import pama1234.gdx.game.state.state0001.game.region.block.MetaBlockCenter;
 
 public class Dirt extends MetaBlock{
   public Dirt(MetaBlockCenter pc) {

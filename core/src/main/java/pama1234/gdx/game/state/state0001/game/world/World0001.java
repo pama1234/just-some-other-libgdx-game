@@ -8,11 +8,11 @@ import pama1234.gdx.game.state.state0001.game.item.MetaItem;
 import pama1234.gdx.game.state.state0001.game.item.MetaItemCenter;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer2D;
 import pama1234.gdx.game.state.state0001.game.player.Player2D.PlayerCenter2D;
-import pama1234.gdx.game.state.state0001.game.region.Block;
-import pama1234.gdx.game.state.state0001.game.region.MetaBlock;
-import pama1234.gdx.game.state.state0001.game.region.MetaBlockCenter;
 import pama1234.gdx.game.state.state0001.game.region.RegionCenter;
-import pama1234.gdx.game.state.state0001.game.region.block0001.Dirt;
+import pama1234.gdx.game.state.state0001.game.region.block.Block;
+import pama1234.gdx.game.state.state0001.game.region.block.MetaBlock;
+import pama1234.gdx.game.state.state0001.game.region.block.MetaBlockCenter;
+import pama1234.gdx.game.state.state0001.game.region.block.block0001.Dirt;
 
 public class World0001 extends World<Screen0011,Game>{
   public MetaBlockCenter blockC;

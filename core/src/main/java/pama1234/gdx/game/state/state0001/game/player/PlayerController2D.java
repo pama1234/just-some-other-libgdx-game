@@ -4,7 +4,7 @@ import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 
 import pama1234.gdx.game.app.Screen0011;
-import pama1234.gdx.game.state.state0001.game.region.Block;
+import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.util.RectF;
 import pama1234.gdx.util.entity.Entity;
 import pama1234.gdx.util.info.TouchInfo;

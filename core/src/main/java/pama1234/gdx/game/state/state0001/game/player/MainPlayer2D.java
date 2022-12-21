@@ -3,7 +3,7 @@ package pama1234.gdx.game.state.state0001.game.player;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.Game;
 import pama1234.gdx.game.state.state0001.game.item.Inventory;
-import pama1234.gdx.game.state.state0001.game.region.Block;
+import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.gdx.util.element.CameraController2D;
 import pama1234.gdx.util.info.TouchInfo;

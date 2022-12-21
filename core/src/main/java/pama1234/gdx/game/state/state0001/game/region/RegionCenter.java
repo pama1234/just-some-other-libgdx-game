@@ -3,6 +3,7 @@ package pama1234.gdx.game.state.state0001.game.region;
 import com.badlogic.gdx.files.FileHandle;
 
 import pama1234.gdx.game.app.Screen0011;
+import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.gdx.game.util.Mutex;
 import pama1234.gdx.util.wrapper.EntityCenter;

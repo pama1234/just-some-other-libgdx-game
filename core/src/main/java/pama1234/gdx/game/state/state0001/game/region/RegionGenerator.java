@@ -3,6 +3,7 @@ package pama1234.gdx.game.state.state0001.game.region;
 import com.badlogic.gdx.Gdx;
 
 import pama1234.gdx.game.app.Screen0011;
+import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.math.hash.HashNoise2f;
 import pama1234.math.hash.PerlinNoise2f;
 
