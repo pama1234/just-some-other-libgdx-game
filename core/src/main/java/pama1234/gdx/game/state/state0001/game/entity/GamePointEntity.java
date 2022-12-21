@@ -1,6 +1,7 @@
-package pama1234.gdx.game.state.state0001.game;
+package pama1234.gdx.game.state.state0001.game.entity;
 
 import pama1234.gdx.game.app.Screen0011;
+import pama1234.gdx.game.state.state0001.game.Game;
 import pama1234.gdx.util.entity.PointEntity;
 import pama1234.math.physics.Point;
 

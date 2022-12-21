@@ -4,8 +4,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
-import pama1234.gdx.game.state.state0001.game.Creature;
 import pama1234.gdx.game.state.state0001.game.Game;
+import pama1234.gdx.game.state.state0001.game.entity.Creature;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.gdx.util.wrapper.PointCenter;
 import pama1234.math.physics.MassPoint;
