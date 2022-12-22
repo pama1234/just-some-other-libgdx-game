@@ -11,7 +11,6 @@ import pama1234.gdx.util.wrapper.PointCenter;
 import pama1234.math.physics.MassPoint;
 
 public class Player2D extends Creature{
-  public World0001 pw;
   public TextureRegion[][] tiles;
   public int pointer;
   public boolean dir,pdir;

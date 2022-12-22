@@ -1,9 +1,12 @@
 package pama1234.gdx.game.state.state0001.game.world;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import pama1234.gdx.game.app.Screen0011;
+import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.Game;
+import pama1234.gdx.game.state.state0001.game.item.IntItem;
 import pama1234.gdx.game.state.state0001.game.item.MetaItem;
 import pama1234.gdx.game.state.state0001.game.item.MetaItemCenter;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer2D;
@@ -32,7 +35,13 @@ public class World0001 extends World<Screen0011,Game>{
     blockC.add.add(blockC.dirt=new Dirt(blockC));
     blockC.add.add(blockC.air=new MetaBlock(blockC,"air"));
     itemC=new MetaItemCenter(this);
-    itemC.add.add(itemC.dirt=new MetaItem(itemC,"dirt"));
+    itemC.add.add(itemC.dirt=new MetaItem<IntItem>(itemC,"dirt") {
+      @Override
+      public void initTextureRegion() {
+        if(tiles==null) tiles=new TextureRegion[1];
+        tiles[0]=ImageAsset.tiles[20][0];
+      }
+    });
     list[0]=players=new PlayerCenter2D(p);
     list[1]=regions=new RegionCenter(p,this,Gdx.files.local("data/saved/regions.bin"));
     // list[1]=regions=new RegionCenter(p,this,Gdx.files.local("data/saved/abcd.txt"));
@@ -45,6 +54,7 @@ public class World0001 extends World<Screen0011,Game>{
   public void init() {
     super.init();
     blockC.dirt.initTextureRegion();
+    itemC.dirt.initTextureRegion();
     yourself.init();
     p.cam2d.activeDrag=false;
     p.centerCam.add.add(yourself);

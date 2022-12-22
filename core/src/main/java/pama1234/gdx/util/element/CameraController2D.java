@@ -107,8 +107,8 @@ public class CameraController2D extends CameraController{
       coolingCount--;
       return;
     }
-    if(activeUpdate) if(a!=null) {
-      if(activeZoom&&b!=null) {
+    if(activeUpdate) if(a!=null&&a.state==0) {
+      if(activeZoom&&b!=null&&b.state==0) {
         scale.des=iScale*dist(a.ox,a.oy,b.ox,b.oy)/iDist;
         cache.set(avg(a.ox,b.ox)-bavgsox,avg(a.oy,b.oy)-bavgsoy);
       }else if(activeDrag) cache.set(a.ox-asox,a.oy-asoy);

@@ -45,6 +45,7 @@ public class MetaBlock{
     this.from=from;
     this.to=to;
   }
+  public void initTextureRegion() {};
   public void update(Block in,int x,int y) {
     if(updater!=null) updater.update(in,x,y);
   }

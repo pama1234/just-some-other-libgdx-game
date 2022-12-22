@@ -34,10 +34,22 @@ public class PlayerController2D extends Entity<Screen0011>{
       cullRects=new RectF[0];
     }
   }
+  @Override
+  public void touchStarted(TouchInfo info) {
+    if(info.state!=0) return;
+    for(RectF e:cullRects) if(Tools.inBox(info.ox,info.oy,e.x(),e.y(),e.w(),e.h())) return;
+    int tx=player.xToBlockCord(info.x),
+      ty=player.xToBlockCord(info.y);
+    if(Tools.inBox(tx,ty,bx1,by1,bw+1,bh+1)) player.inventory.displayHotSlot=!player.inventory.displayHotSlot;
+  }
   public void touchUpdate(TouchInfo info) {
     if(info.state!=0) return;
     for(RectF e:cullRects) if(Tools.inBox(info.ox,info.oy,e.x(),e.y(),e.w(),e.h())) return;
-    Block block=player.getBlock(info.x,info.y);
+    int tx=player.xToBlockCord(info.x),
+      ty=player.xToBlockCord(info.y);
+    // p.println(tx,ty,bx1,by1,bw,bh,Tools.inBox(tx,ty,bx1,by1,bw,bh));
+    if(Tools.inBox(tx,ty,bx1,by1,bw+1,bh+1)) return;
+    Block block=player.getBlock(tx,ty);
     if(block!=null) switch(p.isAndroid?(player.pg.androidRightMouseButton?Buttons.RIGHT:Buttons.LEFT):info.button) {
       case Buttons.LEFT: {
         block.type(player.pw.blockC.air);

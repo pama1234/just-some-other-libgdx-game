@@ -43,6 +43,7 @@ public class Dirt extends MetaBlock{
       }
     };
   }
+  @Override
   public void initTextureRegion() {
     if(tiles[0]!=null) return;
     TextureRegion[][] tsrc=ImageAsset.tiles;

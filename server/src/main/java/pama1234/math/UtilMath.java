@@ -28,17 +28,17 @@ public class UtilMath{
   public static float sqrt(float in) {
     return (float)Math.sqrt(in);
   }
-  public static float sin(float frameCount) {
-    return (float)Math.sin(frameCount);
+  public static float sin(float in) {
+    return (float)Math.sin(in);
   }
-  public static float sinDeg(float frameCount) {
-    return sin(deg(frameCount));
+  public static float sinDeg(float in) {
+    return sin(deg(in));
   }
-  public static float cos(float frameCount) {
-    return (float)Math.cos(frameCount);
+  public static float cos(float in) {
+    return (float)Math.cos(in);
   }
-  public static float cosDeg(float frameCount) {
-    return cos(deg(frameCount));
+  public static float cosDeg(float in) {
+    return cos(deg(in));
   }
   public static int dist(int a,int b) {
     return abs(a-b);

@@ -2,11 +2,15 @@ package pama1234.gdx.game.state.state0001.game.entity;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.Game;
+import pama1234.gdx.game.state.state0001.game.region.block.Block;
+import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.math.UtilMath;
 import pama1234.math.physics.MassPoint;
 import pama1234.math.physics.PathVar;
 
 public class Creature extends GamePointEntity<MassPoint>{
+  public World0001 pw;
+  //---
   public int w,h;
   public float dx,dy;
   //---
@@ -39,5 +43,41 @@ public class Creature extends GamePointEntity<MassPoint>{
       }
     }
     p.endBlend();
+  }
+  public float cx() {
+    return point.pos.x+dx+w/2f;
+  }
+  public float cy() {
+    return point.pos.y+dy+h/2f;
+  }
+  public Block getBlock(int xIn,int yIn) {
+    return pw.regions.getBlock(xIn,yIn);
+  }
+  public Block getBlock(float xIn,float yIn) {
+    return pw.regions.getBlock(xToBlockCord(xIn),yToBlockCord(yIn));
+  }
+  public int blockX() {
+    return xToBlockCord(x());
+  }
+  public int blockY() {
+    return yToBlockCord(y());
+  }
+  public int blockX1() {
+    return xToBlockCord(x()+dx);
+  }
+  public int blockY1() {
+    return yToBlockCord(y()+dy);
+  }
+  public int blockX2() {
+    return xToBlockCord(x()+dx+w-0.01f);//TODO
+  }
+  public int blockY2() {
+    return yToBlockCord(y()+dy+h-0.01f);//TODO
+  }
+  public int xToBlockCord(float in) {
+    return UtilMath.floor(in/pw.blockWidth);
+  }
+  public int yToBlockCord(float in) {
+    return UtilMath.floor(in/pw.blockHeight);
   }
 }

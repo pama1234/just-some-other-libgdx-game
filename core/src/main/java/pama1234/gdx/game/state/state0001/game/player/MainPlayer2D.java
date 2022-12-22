@@ -3,12 +3,11 @@ package pama1234.gdx.game.state.state0001.game.player;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.Game;
 import pama1234.gdx.game.state.state0001.game.item.Inventory;
-import pama1234.gdx.game.state.state0001.game.region.block.Block;
+import pama1234.gdx.game.state.state0001.game.item.Item;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.gdx.util.element.CameraController2D;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.math.Tools;
-import pama1234.math.UtilMath;
 
 public class MainPlayer2D extends Player2D{
   public CameraController2D cam;
@@ -18,6 +17,9 @@ public class MainPlayer2D extends Player2D{
     super(p,pw,x,y,pg);
     this.cam=p.cam2d;
     ctrl=new PlayerController2D(p,this);
+    inventory=new Inventory(this,32);
+    for(int i=0;i<inventory.data.length;i++) inventory.data[i].item=new Item(pw.itemC.dirt);
+    // inventory.data[0].item.type=pw.itemC.dirt;
   }
   @Override
   public void keyPressed(char key,int keyCode) {
@@ -26,6 +28,10 @@ public class MainPlayer2D extends Player2D{
   @Override
   public void keyReleased(char key,int keyCode) {
     ctrl.keyReleased(key,keyCode);
+  }
+  @Override
+  public void touchStarted(TouchInfo info) {
+    ctrl.touchStarted(info);
   }
   @Override
   public void update() {
@@ -42,38 +48,13 @@ public class MainPlayer2D extends Player2D{
     // pointer=(p.frameCount/10)%slides.length;
     //---
     // p.cam.point.des.set(point.x()+12.5f,Tools.mag(point.y(),groundLevel)<48?groundLevel+12.5f:point.y()+12.5f,0);
-    p.cam.point.des.set(point.x()+dx+w/2f,Tools.mag(point.y(),ctrl.floor)<48?ctrl.floor+dy+h/2f:point.y()+dy+h/2f,0);
+    p.cam.point.des.set(cx(),Tools.mag(point.y(),ctrl.floor)<48?ctrl.floor+dy+h/2f:cy(),0);
     //---
     life.update();
   }
-  public Block getBlock(int xIn,int yIn) {
-    return pw.regions.getBlock(xIn,yIn);
-  }
-  public Block getBlock(float xIn,float yIn) {
-    return pw.regions.getBlock(xToBlockCord(xIn),yToBlockCord(yIn));
-  }
-  public int blockX() {
-    return xToBlockCord(x());
-  }
-  public int blockY() {
-    return yToBlockCord(y());
-  }
-  public int blockX1() {
-    return xToBlockCord(x()+dx);
-  }
-  public int blockY1() {
-    return yToBlockCord(y()+dy);
-  }
-  public int blockX2() {
-    return xToBlockCord(x()+dx+w-0.01f);//TODO
-  }
-  public int blockY2() {
-    return yToBlockCord(y()+dy+h-0.01f);//TODO
-  }
-  public int xToBlockCord(float in) {
-    return UtilMath.floor(in/pw.blockWidth);
-  }
-  public int yToBlockCord(float in) {
-    return UtilMath.floor(in/pw.blockHeight);
+  @Override
+  public void display() {
+    super.display();
+    inventory.displayHotSlot();
   }
 }
