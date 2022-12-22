@@ -6,8 +6,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.Game;
-import pama1234.gdx.game.state.state0001.game.item.IntItem;
-import pama1234.gdx.game.state.state0001.game.item.MetaItem;
+import pama1234.gdx.game.state.state0001.game.item.MetaIntItem;
 import pama1234.gdx.game.state.state0001.game.item.MetaItemCenter;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer2D;
 import pama1234.gdx.game.state.state0001.game.player.Player2D.PlayerCenter2D;
@@ -35,7 +34,7 @@ public class World0001 extends World<Screen0011,Game>{
     blockC.add.add(blockC.dirt=new Dirt(blockC));
     blockC.add.add(blockC.air=new MetaBlock(blockC,"air"));
     itemC=new MetaItemCenter(this);
-    itemC.add.add(itemC.dirt=new MetaItem<IntItem>(itemC,"dirt") {
+    itemC.add.add(itemC.dirt=new MetaIntItem(itemC,"dirt") {
       @Override
       public void initTextureRegion() {
         if(tiles==null) tiles=new TextureRegion[1];

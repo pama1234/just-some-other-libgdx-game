@@ -6,47 +6,42 @@ import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.entity.Creature;
 import pama1234.math.UtilMath;
 
-public class Inventory{
+public class Inventory<T extends Item>{
   public Creature pc;
-  public InventorySlot[] data;
+  public InventorySlot<T>[] data;
   public boolean displayHotSlot;
   public int hotSlotSize=9;
   public int selectSlot;
   public Inventory(Creature pc,int size) {
     this.pc=pc;
     data=new InventorySlot[size];
-    for(int i=0;i<data.length;i++) data[i]=new InventorySlot();
+    for(int i=0;i<data.length;i++) data[i]=new InventorySlot<T>();
   }
   public void displayHotSlot() {
     if(!displayHotSlot) return;
-    for(int i=0;i<hotSlotSize;i++) {
+    Screen0011 p=pc.p;
+    p.beginBlend();
+    // p.fill(1);
+    p.tint(255,191);
+    for(int i=0;i<hotSlotSize;i++) {//TODO change to class HotSlot
       // if(data[i]==null) continue;
       Item ti=data[i].item;
       if(ti==null) continue;
-      displayInInventory(pc.p,ti,pc.cx(),pc.cy(),36,(float)i/hotSlotSize);
+      displayInInventory(pc.p,ti,pc.cx(),pc.cy(),36,(float)i/hotSlotSize);//TODO tint image
     }
-    Screen0011 p=pc.p;
-    float i=(float)selectSlot/hotSlotSize;
-    i+=(float)(p.frameCount%timeF)/timeF;
-    TextureRegion tr=data[selectSlot].item.type.tiles[data[selectSlot].item.displayType[0]];
-    // p.image(tr,
-    //   pc.cx()+UtilMath.sin(i*UtilMath.PI2)*(float)36-tr.getRegionWidth()/2f,
-    //   pc.cy()+UtilMath.cos(i*UtilMath.PI2)*36-tr.getRegionHeight()/2f);
-    p.fill(127);
-    // p.noFill();
-    // p.doStroke();
-    // p.stroke(127);
-    // p.strokeWeight(p.strokeWeight*2);
-    // p.rect(
-    //   pc.cx()+UtilMath.sin(i*UtilMath.PI2)*(float)36-tr.getRegionWidth()/2f-2,
-    //   pc.cy()+UtilMath.cos(i*UtilMath.PI2)*36-tr.getRegionHeight()/2f-2,
-    //   tr.getRegionWidth()+4,tr.getRegionHeight()+4);
-    // p.doFill();
-    // p.strokeWeight(p.strokeWeight/2);
-    // p.noStroke();
-    drawSelectSlot(p,i,tr);
+    p.noTint();
+    // p.endBlend();
+    drawSelectSlotFrame();
+    p.endBlend();
   }
-  public void drawSelectSlot(Screen0011 p,float i,TextureRegion tr) {
+  public void drawSelectSlotFrame() {
+    Screen0011 p=pc.p;
+    // p.beginBlend();
+    p.fill(14,229,234,127);
+    drawSlotFrame(p,(float)selectSlot/hotSlotSize+(float)(p.frameCount%timeF)/timeF,data[selectSlot].item.type.tiles[data[selectSlot].item.displayType[0]]);
+    // p.endBlend();
+  }
+  public void drawSlotFrame(Screen0011 p,float i,TextureRegion tr) {
     float r=2;
     float tx=pc.cx()+UtilMath.sin(i*UtilMath.PI2)*(float)36;
     float ty=pc.cy()+UtilMath.cos(i*UtilMath.PI2)*36;
@@ -61,8 +56,12 @@ public class Inventory{
     p.rect(tx2-1,ty1,1,th);
     p.rect(tx1,ty2-1,tw,1);
   }
-  public static class InventorySlot{
-    public Item item;
+  public static class InventorySlot<T extends Item>{
+    public T item;
+  }
+  public static class HotSlot<T extends Item>{
+    public InventorySlot<T> pos;
+    public float x,y,w,h;
   }
   public static int timeF=720;
   public static void displayInInventory(Screen0011 p,Item in,float x,float y,float r,float i) {

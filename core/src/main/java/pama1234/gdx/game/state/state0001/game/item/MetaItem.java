@@ -2,7 +2,7 @@ package pama1234.gdx.game.state.state0001.game.item;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class MetaItem<T extends Item>{
+public abstract class MetaItem<T extends Item>{
   public MetaItemCenter pc;
   public String name;
   public int floatDivider=8;//TODO
@@ -19,6 +19,7 @@ public class MetaItem<T extends Item>{
     this.name=name;
     this.tiles=tiles;
   }
+  public abstract T createItem();
   public void initTextureRegion() {}
   public int getDisplayType() {
     return defaultDisplayType;

@@ -53,6 +53,9 @@ public class Tools{
   public static boolean inBox(int a,int b,int x,int y,int w,int h) {
     return a>x&&a<x+w&&b>y&&b<y+h;
   }
+  public static boolean inBoxInclude(int a,int b,int x,int y,int w,int h) {
+    return a>=x&&a<=x+w&&b>=y&&b<=y+h;
+  }
   public static boolean inBoxCenter(float a,float b,float x,float y,float w,float h) {
     w/=2;
     h/=2;

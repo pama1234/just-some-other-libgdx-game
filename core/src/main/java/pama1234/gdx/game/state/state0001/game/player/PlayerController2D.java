@@ -40,7 +40,7 @@ public class PlayerController2D extends Entity<Screen0011>{
     for(RectF e:cullRects) if(Tools.inBox(info.ox,info.oy,e.x(),e.y(),e.w(),e.h())) return;
     int tx=player.xToBlockCord(info.x),
       ty=player.xToBlockCord(info.y);
-    if(Tools.inBox(tx,ty,bx1,by1,bw+1,bh+1)) player.inventory.displayHotSlot=!player.inventory.displayHotSlot;
+    if(inPlayerBox(tx,ty)) player.inventory.displayHotSlot=!player.inventory.displayHotSlot;
   }
   public void touchUpdate(TouchInfo info) {
     if(info.state!=0) return;
@@ -48,7 +48,7 @@ public class PlayerController2D extends Entity<Screen0011>{
     int tx=player.xToBlockCord(info.x),
       ty=player.xToBlockCord(info.y);
     // p.println(tx,ty,bx1,by1,bw,bh,Tools.inBox(tx,ty,bx1,by1,bw,bh));
-    if(Tools.inBox(tx,ty,bx1,by1,bw+1,bh+1)) return;
+    if(inPlayerBox(tx,ty)) return;
     Block block=player.getBlock(tx,ty);
     if(block!=null) switch(p.isAndroid?(player.pg.androidRightMouseButton?Buttons.RIGHT:Buttons.LEFT):info.button) {
       case Buttons.LEFT: {
@@ -60,6 +60,9 @@ public class PlayerController2D extends Entity<Screen0011>{
       }
         break;
     }
+  }
+  public boolean inPlayerBox(int tx,int ty) {
+    return Tools.inBoxInclude(tx,ty,bx1,by1,bw,bh);
   }
   @Override
   public void keyPressed(char key,int keyCode) {

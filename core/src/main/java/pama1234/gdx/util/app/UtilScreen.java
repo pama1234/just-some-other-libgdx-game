@@ -205,6 +205,32 @@ public abstract class UtilScreen extends UtilScreenCore{
   public void doFill() {
     fill=true;
   }
+  public void tint(Color in) {
+    Color tc=imageBatch.getColor();
+    tc.set(in);
+    imageBatch.setColor(tc);
+  }
+  public void tint(int gray) {
+    fill(gray,255);
+  }
+  public void tint(int gray,int a) {
+    Color tc=imageBatch.getColor();
+    tc.set(gray/255f,gray/255f,gray/255f,a/255f);
+    imageBatch.setColor(tc);
+  }
+  public void tint(int r,int g,int b) {
+    Color tc=imageBatch.getColor();
+    tc.set(r/255f,g/255f,b/255f,1);
+    imageBatch.setColor(tc);
+  }
+  public void tint(int r,int g,int b,int a) {
+    Color tc=imageBatch.getColor();
+    tc.set(r/255f,g/255f,b/255f,a/255f);
+    imageBatch.setColor(tc);
+  }
+  public void noTint() {
+    imageBatch.setColor(imageBatch.getColor().set(1,1,1,1));
+  }
   public void stroke(Color in) {
     strokeColor.set(in);
     rStroke.setColor(strokeColor);

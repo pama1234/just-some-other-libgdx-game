@@ -2,8 +2,8 @@ package pama1234.gdx.game.state.state0001.game.player;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.Game;
+import pama1234.gdx.game.state.state0001.game.item.IntItem;
 import pama1234.gdx.game.state.state0001.game.item.Inventory;
-import pama1234.gdx.game.state.state0001.game.item.Item;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.gdx.util.element.CameraController2D;
 import pama1234.gdx.util.info.TouchInfo;
@@ -12,14 +12,14 @@ import pama1234.math.Tools;
 public class MainPlayer2D extends Player2D{
   public CameraController2D cam;
   public PlayerController2D ctrl;
-  public Inventory inventory;
+  public Inventory<IntItem> inventory;
   public MainPlayer2D(Screen0011 p,World0001 pw,float x,float y,Game pg) {
     super(p,pw,x,y,pg);
     this.cam=p.cam2d;
     ctrl=new PlayerController2D(p,this);
-    inventory=new Inventory(this,32);
-    for(int i=0;i<inventory.data.length;i++) inventory.data[i].item=new Item(pw.itemC.dirt);
-    // inventory.data[0].item.type=pw.itemC.dirt;
+    inventory=new Inventory<>(this,32);
+    // for(int i=0;i<inventory.data.length;i++) inventory.data[i].item=new IntItem(pw.itemC.dirt);
+    inventory.data[0].item.type=pw.itemC.dirt;
   }
   @Override
   public void keyPressed(char key,int keyCode) {
