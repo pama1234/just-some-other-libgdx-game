@@ -19,7 +19,7 @@ public class MainPlayer2D extends Player2D{
     ctrl=new PlayerController2D(p,this);
     inventory=new Inventory<>(this,32);
     // for(int i=0;i<inventory.data.length;i++) inventory.data[i].item=new IntItem(pw.itemC.dirt);
-    inventory.data[0].item.type=pw.itemC.dirt;
+    inventory.data[0].item=pw.itemC.dirt.createItem();
   }
   @Override
   public void keyPressed(char key,int keyCode) {

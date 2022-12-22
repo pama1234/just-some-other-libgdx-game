@@ -5,7 +5,7 @@ import pama1234.util.wrapper.Center;
 
 public class MetaItemCenter extends Center<MetaItem<?>>{
   public World0001 pw;
-  public MetaItem<?> dirt;
+  public MetaIntItem dirt;
   public MetaItemCenter(World0001 pw) {
     this.pw=pw;
   }
