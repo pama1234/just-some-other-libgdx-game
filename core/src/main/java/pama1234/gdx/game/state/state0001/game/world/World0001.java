@@ -7,6 +7,7 @@ import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.Game;
 import pama1234.gdx.game.state.state0001.game.item.MetaIntItem;
+import pama1234.gdx.game.state.state0001.game.item.MetaItem;
 import pama1234.gdx.game.state.state0001.game.item.MetaItemCenter;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer2D;
 import pama1234.gdx.game.state.state0001.game.player.Player2D.PlayerCenter2D;
@@ -31,14 +32,21 @@ public class World0001 extends World<Screen0011,Game>{
   public World0001(Screen0011 p,Game pg) {
     super(p,pg,2);
     blockC=new MetaBlockCenter(this);
-    blockC.add.add(blockC.dirt=new Dirt(blockC));
-    blockC.add.add(blockC.air=new MetaBlock(blockC,"air"));
+    blockC.list.add(blockC.dirt=new Dirt(blockC));
+    blockC.list.add(blockC.air=new MetaBlock(blockC,"air"));
     itemC=new MetaItemCenter(this);
-    itemC.add.add(itemC.dirt=new MetaIntItem(itemC,"dirt") {
+    itemC.list.add(itemC.dirt=new MetaIntItem(itemC,"dirt") {
       @Override
       public void initTextureRegion() {
         if(tiles==null) tiles=new TextureRegion[1];
         tiles[0]=ImageAsset.tiles[20][0];
+      }
+    });
+    itemC.list.add(itemC.empty=new MetaIntItem(itemC,"empty") {
+      @Override
+      public void initTextureRegion() {
+        if(tiles==null) tiles=new TextureRegion[1];
+        tiles[0]=ImageAsset.tiles[20][1];
       }
     });
     list[0]=players=new PlayerCenter2D(p);
@@ -52,8 +60,10 @@ public class World0001 extends World<Screen0011,Game>{
   @Override
   public void init() {
     super.init();
-    blockC.dirt.initTextureRegion();
-    itemC.dirt.initTextureRegion();
+    // blockC.dirt.initTextureRegion();
+    for(MetaBlock e:blockC.list) e.initTextureRegion();
+    for(MetaItem<?> e:itemC.list) e.initTextureRegion();
+    // itemC.dirt.initTextureRegion();
     yourself.init();
     p.cam2d.activeDrag=false;
     p.centerCam.add.add(yourself);

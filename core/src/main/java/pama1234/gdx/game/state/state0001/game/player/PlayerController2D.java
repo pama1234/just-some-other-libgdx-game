@@ -4,6 +4,8 @@ import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 
 import pama1234.gdx.game.app.Screen0011;
+import pama1234.gdx.game.state.state0001.game.item.IntItem;
+import pama1234.gdx.game.state.state0001.game.item.Inventory.HotSlot;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.util.RectF;
 import pama1234.gdx.util.entity.Entity;
@@ -40,7 +42,16 @@ public class PlayerController2D extends Entity<Screen0011>{
     for(RectF e:cullRects) if(Tools.inBox(info.ox,info.oy,e.x(),e.y(),e.w(),e.h())) return;
     int tx=player.xToBlockCord(info.x),
       ty=player.xToBlockCord(info.y);
-    if(inPlayerBox(tx,ty)) player.inventory.displayHotSlot=!player.inventory.displayHotSlot;
+    if(inPlayerOuterBox(tx,ty)) player.inventory.displayHotSlot(!player.inventory.displayHotSlot);
+    // for(HotSlot<IntItem> e:player.inventory.hotSlots) {
+    if(player.inventory.displayHotSlot) for(int i=0;i<player.inventory.hotSlots.length;i++) {
+      HotSlot<IntItem> e=player.inventory.hotSlots[i];
+      // if(e.data!=null&&Tools.inBox(info.x,info.y,e.x1,e.y1,e.w,e.h)) {
+      if(Tools.inBox(info.x,info.y,e.x1,e.y1,e.w,e.h)) {
+        player.inventory.selectSlot=i;
+        return;
+      }
+    }
   }
   public void touchUpdate(TouchInfo info) {
     if(info.state!=0) return;
@@ -48,7 +59,8 @@ public class PlayerController2D extends Entity<Screen0011>{
     int tx=player.xToBlockCord(info.x),
       ty=player.xToBlockCord(info.y);
     // p.println(tx,ty,bx1,by1,bw,bh,Tools.inBox(tx,ty,bx1,by1,bw,bh));
-    if(inPlayerBox(tx,ty)) return;
+    if(inPlayerOuterBox(tx,ty)) return;
+    if(player.inventory.displayHotSlot) for(HotSlot<IntItem> e:player.inventory.hotSlots) if(Tools.inBox(info.x,info.y,e.x1,e.y1,e.w,e.h)) return;
     Block block=player.getBlock(tx,ty);
     if(block!=null) switch(p.isAndroid?(player.pg.androidRightMouseButton?Buttons.RIGHT:Buttons.LEFT):info.button) {
       case Buttons.LEFT: {
@@ -61,12 +73,13 @@ public class PlayerController2D extends Entity<Screen0011>{
         break;
     }
   }
-  public boolean inPlayerBox(int tx,int ty) {
+  public boolean inPlayerOuterBox(int tx,int ty) {
     return Tools.inBoxInclude(tx,ty,bx1,by1,bw,bh);
   }
   @Override
   public void keyPressed(char key,int keyCode) {
     if(keyCode==Keys.SHIFT_LEFT||keyCode==Keys.SHIFT_RIGHT) shift=true;
+    if(keyCode==Keys.E) player.inventory.displayHotSlot(!player.inventory.displayHotSlot);
   }
   @Override
   public void keyReleased(char key,int keyCode) {
