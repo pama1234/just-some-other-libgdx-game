@@ -14,10 +14,13 @@ public class Creature extends GamePointEntity<MassPoint>{
   public int w,h;
   public float dx,dy;
   //---
-  public float maxLife=32;
-  public PathVar life=new PathVar(maxLife);
-  public Creature(Screen0011 p,MassPoint in,Game pg) {
+  // public float maxLife=32;
+  public MetaCreature<?> type;
+  public PathVar life;
+  public Creature(Screen0011 p,MassPoint in,MetaCreature<?> type,Game pg) {
     super(p,in,pg);
+    this.type=type;
+    life=new PathVar(type.maxLife);
   }
   @Override
   public void display() {
@@ -25,12 +28,12 @@ public class Creature extends GamePointEntity<MassPoint>{
   }
   public void displayLife() {
     boolean flag=UtilMath.abs(life.des-life.pos)>0.1f;
-    if(!flag&&UtilMath.abs(life.des-maxLife)<=0.1f) return;
+    if(!flag&&UtilMath.abs(life.des-type.maxLife)<=0.1f) return;
     p.beginBlend();
     p.fill(127,127);
     p.rect(x()+dx,y()+dy-4,w,2);
     p.fill(255,63,63,191);
-    float tp=w/maxLife;
+    float tp=w/type.maxLife;
     float tw=tp*life.pos;
     p.rect(x()+dx,y()+dy-4,tw,2);
     if(flag) {

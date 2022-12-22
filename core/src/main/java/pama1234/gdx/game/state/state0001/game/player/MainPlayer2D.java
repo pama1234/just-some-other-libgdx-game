@@ -13,8 +13,8 @@ public class MainPlayer2D extends Player2D{
   public CameraController2D cam;
   public PlayerController2D ctrl;
   public Inventory<IntItem> inventory;
-  public MainPlayer2D(Screen0011 p,World0001 pw,float x,float y,Game pg) {
-    super(p,pw,x,y,pg);
+  public MainPlayer2D(Screen0011 p,World0001 pw,float x,float y,PlayerType2D type,Game pg) {//TODO type
+    super(p,pw,x,y,type,pg);
     this.cam=p.cam2d;
     ctrl=new PlayerController2D(p,this);
     inventory=new Inventory<>(this,32,9);

@@ -6,11 +6,15 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.Game;
+import pama1234.gdx.game.state.state0001.game.entity.Fly.FlyType;
+import pama1234.gdx.game.state.state0001.game.entity.MetaCreature;
+import pama1234.gdx.game.state.state0001.game.entity.MetaCreatureCenter;
 import pama1234.gdx.game.state.state0001.game.item.MetaIntItem;
 import pama1234.gdx.game.state.state0001.game.item.MetaItem;
 import pama1234.gdx.game.state.state0001.game.item.MetaItemCenter;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer2D;
 import pama1234.gdx.game.state.state0001.game.player.Player2D.PlayerCenter2D;
+import pama1234.gdx.game.state.state0001.game.player.Player2D.PlayerType2D;
 import pama1234.gdx.game.state.state0001.game.region.RegionCenter;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.region.block.MetaBlock;
@@ -20,6 +24,7 @@ import pama1234.gdx.game.state.state0001.game.region.block.block0001.Dirt;
 public class World0001 extends World<Screen0011,Game>{
   public MetaBlockCenter blockC;
   public MetaItemCenter itemC;
+  public MetaCreatureCenter creatureC;
   public PlayerCenter2D players;
   public RegionCenter regions;
   public MainPlayer2D yourself;
@@ -31,9 +36,20 @@ public class World0001 extends World<Screen0011,Game>{
   // public boolean stop;//TODO
   public World0001(Screen0011 p,Game pg) {
     super(p,pg,2);
-    blockC=new MetaBlockCenter(this);
-    blockC.list.add(blockC.dirt=new Dirt(blockC));
-    blockC.list.add(blockC.air=new MetaBlock(blockC,"air"));
+    initBlockC();
+    initItemC();
+    initCreatureC();
+    list[0]=players=new PlayerCenter2D(p);
+    list[1]=regions=new RegionCenter(p,this,Gdx.files.local("data/saved/regions.bin"));
+    // list[1]=regions=new RegionCenter(p,this,Gdx.files.local("data/saved/abcd.txt"));
+    yourself=new MainPlayer2D(p,this,0,-1,creatureC.player,pg);
+  }
+  public void initCreatureC() {
+    creatureC=new MetaCreatureCenter(this);
+    creatureC.list.add(creatureC.player=new PlayerType2D(creatureC));
+    creatureC.list.add(creatureC.fly=new FlyType(creatureC));
+  }
+  public void initItemC() {
     itemC=new MetaItemCenter(this);
     itemC.list.add(itemC.dirt=new MetaIntItem(itemC,"dirt") {
       @Override
@@ -49,10 +65,11 @@ public class World0001 extends World<Screen0011,Game>{
         tiles[0]=ImageAsset.tiles[20][1];
       }
     });
-    list[0]=players=new PlayerCenter2D(p);
-    list[1]=regions=new RegionCenter(p,this,Gdx.files.local("data/saved/regions.bin"));
-    // list[1]=regions=new RegionCenter(p,this,Gdx.files.local("data/saved/abcd.txt"));
-    yourself=new MainPlayer2D(p,this,0,-1,pg);
+  }
+  public void initBlockC() {
+    blockC=new MetaBlockCenter(this);
+    blockC.list.add(blockC.dirt=new Dirt(blockC));
+    blockC.list.add(blockC.air=new MetaBlock(blockC,"air"));
   }
   public boolean isEmpty(Block in) {
     return in==null||in.type.empty;
@@ -63,6 +80,7 @@ public class World0001 extends World<Screen0011,Game>{
     // blockC.dirt.initTextureRegion();
     for(MetaBlock e:blockC.list) e.initTextureRegion();
     for(MetaItem<?> e:itemC.list) e.initTextureRegion();
+    for(MetaCreature<?> e:creatureC.list) e.initTextureRegion();
     // itemC.dirt.initTextureRegion();
     yourself.init();
     p.cam2d.activeDrag=false;
