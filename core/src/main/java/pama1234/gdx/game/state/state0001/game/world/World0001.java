@@ -7,6 +7,8 @@ import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.Game;
 import pama1234.gdx.game.state.state0001.game.entity.Fly.FlyType;
+import pama1234.gdx.game.state.state0001.game.entity.Fly;
+import pama1234.gdx.game.state.state0001.game.entity.GameEntityCenter;
 import pama1234.gdx.game.state.state0001.game.entity.MetaCreature;
 import pama1234.gdx.game.state.state0001.game.entity.MetaCreatureCenter;
 import pama1234.gdx.game.state.state0001.game.item.MetaIntItem;
@@ -25,6 +27,7 @@ public class World0001 extends World<Screen0011,Game>{
   public MetaBlockCenter blockC;
   public MetaItemCenter itemC;
   public MetaCreatureCenter creatureC;
+  public GameEntityCenter entitys;
   public PlayerCenter2D players;
   public RegionCenter regions;
   public MainPlayer2D yourself;
@@ -35,14 +38,16 @@ public class World0001 extends World<Screen0011,Game>{
   public int typeCache;
   // public boolean stop;//TODO
   public World0001(Screen0011 p,Game pg) {
-    super(p,pg,2);
+    super(p,pg,3);
     initBlockC();
     initItemC();
     initCreatureC();
     list[0]=players=new PlayerCenter2D(p);
-    list[1]=regions=new RegionCenter(p,this,Gdx.files.local("data/saved/regions.bin"));
+    list[1]=entitys=new GameEntityCenter(p);
+    list[2]=regions=new RegionCenter(p,this,Gdx.files.local("data/saved/regions.bin"));
     // list[1]=regions=new RegionCenter(p,this,Gdx.files.local("data/saved/abcd.txt"));
     yourself=new MainPlayer2D(p,this,0,-1,creatureC.player,pg);
+    entitys.add.add(new Fly(p,this,0,18*10,creatureC.fly,pg));//TODO
   }
   public void initCreatureC() {
     creatureC=new MetaCreatureCenter(this);

@@ -17,7 +17,7 @@ public class Fly extends TextureCreature{
     }
     @Override
     public void initTextureRegion() {
-      if(tiles[0]==null) return;
+      if(tiles[0]!=null) return;
       for(int i=0;i<tiles.length;i++) tiles[i]=ImageAsset.creature[6+i][2];//TODO
     }
   }

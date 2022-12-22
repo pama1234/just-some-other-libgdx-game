@@ -6,6 +6,7 @@
 已解决 生物实体
 已解决 安卓调节音量导致相机移动bug
 已解决 玩家物品栏
+已解决 更多生物
 创建MetaCreature类
 将Player2D改为TextureCreature的子类
 区块存档读档
@@ -19,7 +20,7 @@ LayeredEntityCenter的泛型可以再修一下
 玩家背包
 天气变化
 光效
-更多生物
+生物随机出现
 鞘翅
 方块元信息编辑器
 内置编译器
