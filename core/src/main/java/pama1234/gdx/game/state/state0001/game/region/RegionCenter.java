@@ -33,7 +33,6 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
       long beforeM,milis;
       while(!p.stop) {
         doUpdate.step();
-        // System.out.println("RegionCenter.RegionCenter()");
         beforeM=System.currentTimeMillis();
         super.update();
         milis=System.currentTimeMillis()-beforeM;
@@ -48,7 +47,6 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   }
   @Override
   public void dispose() {
-    // System.out.println(p.stop);
     if(!p.stop) doUpdate.lock();
   }
   @Override
@@ -68,7 +66,6 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     // super.update();
   }
   public void exit() {
-    // System.out.println("RegionCenter.exit()");
     doUpdate.unlock();
   }
 }

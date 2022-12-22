@@ -16,7 +16,7 @@ public class ImageAsset{
     tileHeight=18,
     tileWidthGap=2,
     tileHeightGap=2;
-  public static TextureRegion[][] tiles,player;
+  public static TextureRegion[][] tiles,creature,player;
   // public static TextureRegion background;
   public static void load_0001(AssetManager manager) {
     // background=load("background.png");
@@ -24,12 +24,14 @@ public class ImageAsset{
     manager.load("image/background.png",Texture.class);
     manager.load("image/tiles.png",Texture.class);
     manager.load("image/player.png",Texture.class);
+    manager.load("image/characters.png",Texture.class);
   }
   public static void put_0001(AssetManager manager) {
     exit=loadFromTexture(manager.get("image/exit.png"));
     background=loadFromTexture(manager.get("image/background.png"));
     tiles=loadFromTexture_0001(manager.get("image/tiles.png"),tileWidth,tileHeight,tileWidthGap,tileHeightGap);
     player=loadFromTexture_0001(manager.get("image/player.png"),20,24,4,0);
+    creature=loadFromTexture_0001(manager.get("image/characters.png"),24,24,2,2);
   }
   //----------------------------------------------------
   public static TextureRegion load(String in) {

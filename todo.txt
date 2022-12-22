@@ -5,6 +5,9 @@
 已解决 静音选项
 已解决 生物实体
 已解决 安卓调节音量导致相机移动bug
+已解决 玩家物品栏
+创建MetaCreature类
+将Player2D改为TextureCreature的子类
 区块存档读档
 区块加载卸载
 区块更新剔除
@@ -12,7 +15,7 @@
 安卓游戏界面不可缩放
 LayeredEntityCenter的泛型可以再修一下
 电脑端在安卓模式下开启游戏内鼠标导致按钮的右半边没有反应
-玩家物品栏
+方块破坏后产生掉落物
 玩家背包
 天气变化
 光效
@@ -23,3 +26,4 @@ LayeredEntityCenter的泛型可以再修一下
 热部署
 联机
 arc-libgdx jitpack
+可选：撞墙扣血
