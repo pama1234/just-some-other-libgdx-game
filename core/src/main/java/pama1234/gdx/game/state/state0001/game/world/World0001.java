@@ -9,12 +9,12 @@ import pama1234.gdx.game.state.state0001.game.Game;
 import pama1234.gdx.game.state.state0001.game.entity.Fly.FlyType;
 import pama1234.gdx.game.state.state0001.game.entity.GameEntityCenter;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
-import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlockCenter;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
-import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreatureCenter;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaIntItem;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
-import pama1234.gdx.game.state.state0001.game.metainfo.MetaItemCenter;
+import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
+import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaCreatureCenter0001;
+import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemCenter0001;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer2D;
 import pama1234.gdx.game.state.state0001.game.player.Player2D.PlayerCenter2D;
 import pama1234.gdx.game.state.state0001.game.player.Player2D.PlayerType2D;
@@ -23,9 +23,9 @@ import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Dirt;
 
 public class World0001 extends World<Screen0011,Game>{
-  public MetaBlockCenter blockC;
-  public MetaItemCenter itemC;
-  public MetaCreatureCenter creatureC;
+  public MetaBlockCenter0001 blockC;
+  public MetaItemCenter0001 itemC;
+  public MetaCreatureCenter0001 creatureC;
   public GameEntityCenter entitys;
   public PlayerCenter2D players;
   public RegionCenter regions;
@@ -50,12 +50,12 @@ public class World0001 extends World<Screen0011,Game>{
     // entitys.add.add(new Fly(p,this,0,18*10,creatureC.fly,pg));//TODO
   }
   public void initCreatureC() {
-    creatureC=new MetaCreatureCenter(this);
+    creatureC=new MetaCreatureCenter0001(this);
     creatureC.list.add(creatureC.player=new PlayerType2D(creatureC));
     creatureC.list.add(creatureC.fly=new FlyType(creatureC));
   }
   public void initItemC() {
-    itemC=new MetaItemCenter(this);
+    itemC=new MetaItemCenter0001(this);
     itemC.list.add(itemC.dirt=new MetaIntItem(itemC,"dirt") {
       @Override
       public void init() {
@@ -75,7 +75,7 @@ public class World0001 extends World<Screen0011,Game>{
     });
   }
   public void initBlockC() {
-    blockC=new MetaBlockCenter(this);
+    blockC=new MetaBlockCenter0001(this);
     blockC.list.add(blockC.dirt=new Dirt(blockC));
     blockC.list.add(blockC.air=new MetaBlock(blockC,"air"));
   }

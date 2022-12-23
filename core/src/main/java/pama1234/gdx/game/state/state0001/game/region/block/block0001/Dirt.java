@@ -4,11 +4,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
-import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlockCenter;
+import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 
 public class Dirt extends MetaBlock{
-  public Dirt(MetaBlockCenter pc) {
+  public Dirt(MetaBlockCenter0001 pc) {
     super(pc,"dirt",new TextureRegion[20],2,(in,type)-> {//change to dirt
     },(in,type)-> {//change from dirt
     });

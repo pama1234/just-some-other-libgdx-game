@@ -1,12 +1,10 @@
 package pama1234.gdx.game.state.state0001.game.metainfo;
 
 import pama1234.gdx.game.state.state0001.game.item.IntItem;
+import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemCenter0001;
 
 public class MetaIntItem extends MetaItem<IntItem>{
-  // public MetaIntItem(MetaItemCenter pc,String name,TextureRegion[] tiles) {
-  //   super(pc,name,tiles);
-  // }
-  public MetaIntItem(MetaItemCenter pc,String name) {
+  public MetaIntItem(MetaItemCenter0001 pc,String name) {
     super(pc,name);
   }
   @Override

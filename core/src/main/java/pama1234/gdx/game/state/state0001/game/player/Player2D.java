@@ -5,7 +5,7 @@ import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.Game;
 import pama1234.gdx.game.state.state0001.game.entity.TextureCreature;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
-import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreatureCenter;
+import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaCreatureCenter0001;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.gdx.util.wrapper.PointCenter;
 import pama1234.math.physics.MassPoint;
@@ -29,7 +29,7 @@ public class Player2D extends TextureCreature{
     }
   }
   public static class PlayerType2D extends MetaCreature<Player2D>{
-    public PlayerType2D(MetaCreatureCenter pc) {
+    public PlayerType2D(MetaCreatureCenter0001 pc) {
       super(pc,32,4);
     }
     @Override
