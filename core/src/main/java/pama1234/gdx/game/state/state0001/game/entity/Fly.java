@@ -3,6 +3,8 @@ package pama1234.gdx.game.state.state0001.game.entity;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.Game;
+import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
+import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreatureCenter;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 
 public class Fly extends TextureCreature{
@@ -16,7 +18,7 @@ public class Fly extends TextureCreature{
       super(pc,4,3);
     }
     @Override
-    public void initTextureRegion() {
+    public void init() {
       if(tiles[0]!=null) return;
       for(int i=0;i<tiles.length;i++) tiles[i]=ImageAsset.creature[6+i][2];//TODO
     }

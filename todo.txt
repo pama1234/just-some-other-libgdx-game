@@ -28,3 +28,4 @@ LayeredEntityCenter的泛型可以再修一下
 联机
 arc-libgdx jitpack
 可选：撞墙扣血
+将init和dispose替换成pause和resume

@@ -1,10 +1,11 @@
-package pama1234.gdx.game.state.state0001.game.region.block;
+package pama1234.gdx.game.state.state0001.game.metainfo;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import pama1234.gdx.game.app.Screen0011;
+import pama1234.gdx.game.state.state0001.game.region.block.Block;
 
-public class MetaBlock{
+public class MetaBlock extends MetaInfoBase{
   public MetaBlockCenter pc;
   public String name;
   public boolean display,empty,light;
@@ -45,7 +46,8 @@ public class MetaBlock{
     this.from=from;
     this.to=to;
   }
-  public void initTextureRegion() {};
+  @Override
+  public void init() {}
   public void update(Block in,int x,int y) {
     if(updater!=null) updater.update(in,x,y);
   }

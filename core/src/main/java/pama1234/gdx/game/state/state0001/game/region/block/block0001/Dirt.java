@@ -3,9 +3,9 @@ package pama1234.gdx.game.state.state0001.game.region.block.block0001;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import pama1234.gdx.game.asset.ImageAsset;
+import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
+import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlockCenter;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
-import pama1234.gdx.game.state.state0001.game.region.block.MetaBlock;
-import pama1234.gdx.game.state.state0001.game.region.block.MetaBlockCenter;
 
 public class Dirt extends MetaBlock{
   public Dirt(MetaBlockCenter pc) {
@@ -44,7 +44,7 @@ public class Dirt extends MetaBlock{
     };
   }
   @Override
-  public void initTextureRegion() {
+  public void init() {
     if(tiles[0]!=null) return;
     TextureRegion[][] tsrc=ImageAsset.tiles;
     //-----------------------------------------------------

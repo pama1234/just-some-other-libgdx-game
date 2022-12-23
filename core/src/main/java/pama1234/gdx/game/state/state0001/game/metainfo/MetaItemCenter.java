@@ -1,4 +1,4 @@
-package pama1234.gdx.game.state.state0001.game.item;
+package pama1234.gdx.game.state.state0001.game.metainfo;
 
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.util.wrapper.Center;

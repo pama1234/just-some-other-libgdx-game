@@ -6,6 +6,7 @@ import com.badlogic.gdx.Input.Keys;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.item.IntItem;
 import pama1234.gdx.game.state.state0001.game.item.Inventory.HotSlot;
+import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.util.RectF;
 import pama1234.gdx.util.entity.Entity;
@@ -64,11 +65,16 @@ public class PlayerController2D extends Entity<Screen0011>{
     Block block=player.getBlock(tx,ty);
     if(block!=null) switch(p.isAndroid?(player.pg.androidRightMouseButton?Buttons.RIGHT:Buttons.LEFT):info.button) {
       case Buttons.LEFT: {
-        block.type(player.pw.blockC.air);
+        if(block.type!=player.pw.blockC.air) block.type(player.pw.blockC.air);
       }
         break;
       case Buttons.RIGHT: {
-        block.type(player.pw.blockC.dirt);
+        IntItem ti=player.inventory.getSelect().data.item;
+        if(ti!=null) {
+          MetaBlock tm=ti.type.blockType;
+          if(tm!=null&&block.type==player.pw.blockC.air) block.type(tm);
+        }
+        // block.type(player.pw.blockC.dirt);
       }
         break;
     }

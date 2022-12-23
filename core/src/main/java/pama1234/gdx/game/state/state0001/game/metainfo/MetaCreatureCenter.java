@@ -1,4 +1,4 @@
-package pama1234.gdx.game.state.state0001.game.entity;
+package pama1234.gdx.game.state.state0001.game.metainfo;
 
 import pama1234.gdx.game.state.state0001.game.entity.Fly.FlyType;
 import pama1234.gdx.game.state.state0001.game.player.Player2D.PlayerType2D;

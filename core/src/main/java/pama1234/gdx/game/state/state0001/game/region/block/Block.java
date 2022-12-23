@@ -1,5 +1,7 @@
 package pama1234.gdx.game.state.state0001.game.region.block;
 
+import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
+
 public class Block{
   public MetaBlock type;
   public boolean changed;

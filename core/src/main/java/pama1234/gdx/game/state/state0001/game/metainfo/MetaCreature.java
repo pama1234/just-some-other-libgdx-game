@@ -1,8 +1,10 @@
-package pama1234.gdx.game.state.state0001.game.entity;
+package pama1234.gdx.game.state.state0001.game.metainfo;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-public class MetaCreature<T extends Creature>{
+import pama1234.gdx.game.state.state0001.game.entity.Creature;
+
+public class MetaCreature<T extends Creature>extends MetaInfoBase{
   public MetaCreatureCenter pc;
   public float maxLife=32;
   public TextureRegion[] tiles;
@@ -11,5 +13,6 @@ public class MetaCreature<T extends Creature>{
     this.maxLife=maxLife;
     tiles=new TextureRegion[tileSize];
   }
-  public void initTextureRegion() {}
+  @Override
+  public void init() {}
 }

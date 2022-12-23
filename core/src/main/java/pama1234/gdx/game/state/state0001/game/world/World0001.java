@@ -7,20 +7,19 @@ import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.Game;
 import pama1234.gdx.game.state.state0001.game.entity.Fly.FlyType;
-import pama1234.gdx.game.state.state0001.game.entity.Fly;
 import pama1234.gdx.game.state.state0001.game.entity.GameEntityCenter;
-import pama1234.gdx.game.state.state0001.game.entity.MetaCreature;
-import pama1234.gdx.game.state.state0001.game.entity.MetaCreatureCenter;
-import pama1234.gdx.game.state.state0001.game.item.MetaIntItem;
-import pama1234.gdx.game.state.state0001.game.item.MetaItem;
-import pama1234.gdx.game.state.state0001.game.item.MetaItemCenter;
+import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
+import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlockCenter;
+import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
+import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreatureCenter;
+import pama1234.gdx.game.state.state0001.game.metainfo.MetaIntItem;
+import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
+import pama1234.gdx.game.state.state0001.game.metainfo.MetaItemCenter;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer2D;
 import pama1234.gdx.game.state.state0001.game.player.Player2D.PlayerCenter2D;
 import pama1234.gdx.game.state.state0001.game.player.Player2D.PlayerType2D;
 import pama1234.gdx.game.state.state0001.game.region.RegionCenter;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
-import pama1234.gdx.game.state.state0001.game.region.block.MetaBlock;
-import pama1234.gdx.game.state.state0001.game.region.block.MetaBlockCenter;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Dirt;
 
 public class World0001 extends World<Screen0011,Game>{
@@ -36,6 +35,7 @@ public class World0001 extends World<Screen0011,Game>{
   public int time;
   public float ambientLight;
   public int typeCache;
+  public boolean firstInit=true;//TODO
   // public boolean stop;//TODO
   public World0001(Screen0011 p,Game pg) {
     super(p,pg,3);
@@ -47,7 +47,7 @@ public class World0001 extends World<Screen0011,Game>{
     list[2]=regions=new RegionCenter(p,this,Gdx.files.local("data/saved/regions.bin"));
     // list[1]=regions=new RegionCenter(p,this,Gdx.files.local("data/saved/abcd.txt"));
     yourself=new MainPlayer2D(p,this,0,-1,creatureC.player,pg);
-    entitys.add.add(new Fly(p,this,0,18*10,creatureC.fly,pg));//TODO
+    // entitys.add.add(new Fly(p,this,0,18*10,creatureC.fly,pg));//TODO
   }
   public void initCreatureC() {
     creatureC=new MetaCreatureCenter(this);
@@ -58,15 +58,18 @@ public class World0001 extends World<Screen0011,Game>{
     itemC=new MetaItemCenter(this);
     itemC.list.add(itemC.dirt=new MetaIntItem(itemC,"dirt") {
       @Override
-      public void initTextureRegion() {
-        if(tiles==null) tiles=new TextureRegion[1];
+      public void init() {
+        // if(tiles!=null) return;
+        blockType=blockC.dirt;
+        tiles=new TextureRegion[1];
         tiles[0]=ImageAsset.tiles[20][0];
       }
     });
     itemC.list.add(itemC.empty=new MetaIntItem(itemC,"empty") {
       @Override
-      public void initTextureRegion() {
-        if(tiles==null) tiles=new TextureRegion[1];
+      public void init() {
+        // if(tiles!=null) return;
+        tiles=new TextureRegion[1];
         tiles[0]=ImageAsset.tiles[20][1];
       }
     });
@@ -83,11 +86,14 @@ public class World0001 extends World<Screen0011,Game>{
   public void init() {
     super.init();
     // blockC.dirt.initTextureRegion();
-    for(MetaBlock e:blockC.list) e.initTextureRegion();
-    for(MetaItem<?> e:itemC.list) e.initTextureRegion();
-    for(MetaCreature<?> e:creatureC.list) e.initTextureRegion();
+    if(firstInit) {
+      firstInit=false;
+      for(MetaBlock e:blockC.list) e.init();
+      for(MetaItem<?> e:itemC.list) e.init();
+      for(MetaCreature<?> e:creatureC.list) e.init();
+    }
     // itemC.dirt.initTextureRegion();
-    yourself.init();
+    // yourself.init();
     p.cam2d.activeDrag=false;
     p.centerCam.add.add(yourself);
   }

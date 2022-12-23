@@ -1,4 +1,4 @@
-package pama1234.gdx.game.state.state0001.game.region.block;
+package pama1234.gdx.game.state.state0001.game.metainfo;
 
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Dirt;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
