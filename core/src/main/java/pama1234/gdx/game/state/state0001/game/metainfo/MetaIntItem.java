@@ -6,6 +6,7 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemC
 public class MetaIntItem extends MetaItem<IntItem>{
   public MetaIntItem(MetaItemCenter0001 pc,String name) {
     super(pc,name);
+    countType=ItemCountType.INT;
   }
   @Override
   public IntItem createItem() {

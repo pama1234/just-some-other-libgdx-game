@@ -8,6 +8,32 @@ import pama1234.math.UtilMath;
 import pama1234.math.physics.PathVar;
 
 public class Inventory<T extends Item>{
+  public static int timeF=7200;
+  public static class InventorySlot<T extends Item>{
+    public T item;
+  }
+  public static class HotSlot<T extends Item>{
+    public InventorySlot<T> data;
+    public float cx,cy,x1,y1,x2,y2,w,h;
+    public HotSlot(InventorySlot<T> pos) {
+      this.data=pos;
+    }
+    public void update(LivingEntity pc,T in,float i,float r) {
+      cx=pc.cx()+UtilMath.sin(i*UtilMath.PI2)*r;
+      cy=pc.cy()+UtilMath.cos(i*UtilMath.PI2)*r;
+      if(in==null) {
+        w=h=18;
+      }else {
+        TextureRegion tr=in.type.tiles[in.displayType[0]];
+        w=tr.getRegionWidth();
+        h=in.type.tiles[in.displayType[0]].getRegionHeight();
+      }
+      x1=cx-w/2f;
+      y1=cy-h/2f;
+      x2=cx+w/2f;
+      y2=cy+h/2f;
+    }
+  }
   public LivingEntity pc;
   public InventorySlot<T>[] data;
   // private boolean displayHotSlot;
@@ -73,31 +99,5 @@ public class Inventory<T extends Item>{
     p.rect(tx2-1,ty1,1,th);
     p.rect(tx1,ty2-1,tw,1);
     p.endBlend();
-  }
-  public static int timeF=7200;
-  public static class InventorySlot<T extends Item>{
-    public T item;
-  }
-  public static class HotSlot<T extends Item>{
-    public InventorySlot<T> data;
-    public float cx,cy,x1,y1,x2,y2,w,h;
-    public HotSlot(InventorySlot<T> pos) {
-      this.data=pos;
-    }
-    public void update(LivingEntity pc,T in,float i,float r) {
-      cx=pc.cx()+UtilMath.sin(i*UtilMath.PI2)*r;
-      cy=pc.cy()+UtilMath.cos(i*UtilMath.PI2)*r;
-      if(in==null) {
-        w=h=18;
-      }else {
-        TextureRegion tr=in.type.tiles[in.displayType[0]];
-        w=tr.getRegionWidth();
-        h=in.type.tiles[in.displayType[0]].getRegionHeight();
-      }
-      x1=cx-w/2f;
-      y1=cy-h/2f;
-      x2=cx+w/2f;
-      y2=cy+h/2f;
-    }
   }
 }

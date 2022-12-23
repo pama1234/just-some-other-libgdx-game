@@ -8,6 +8,8 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemC
 public abstract class MetaItem<T extends Item>extends MetaInfoBase{
   public MetaItemCenter0001 pc;
   public String name;
+  public ItemCountType countType;
+  public int maxCount=1;
   public int floatDivider=8;//TODO
   public float hardness,lightIntensity;//TODO
   public MetaBlock blockType;
@@ -23,5 +25,8 @@ public abstract class MetaItem<T extends Item>extends MetaInfoBase{
   public void init() {}
   public int getDisplayType() {
     return defaultDisplayType;
+  }
+  public enum ItemCountType{
+    UNCOUNTABLE,INT,FLOAT;
   }
 }
