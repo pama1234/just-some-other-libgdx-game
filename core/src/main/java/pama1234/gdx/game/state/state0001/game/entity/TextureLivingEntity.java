@@ -8,11 +8,11 @@ import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.math.physics.MassPoint;
 
-public class TextureCreature extends Creature{
+public class TextureLivingEntity extends LivingEntity{
   // public TextureRegion[] tiles;
   public int pointer;
   public boolean dir,pdir;
-  public <T extends TextureCreature> TextureCreature(Screen0011 p,World0001 pw,float x,float y,MetaCreature<T> type,Game pg) {
+  public <T extends TextureLivingEntity> TextureLivingEntity(Screen0011 p,World0001 pw,float x,float y,MetaCreature<T> type,Game pg) {
     super(p,new MassPoint(x,y),type,pg);
     point.step=0.5f;
     this.pw=pw;
@@ -30,5 +30,11 @@ public class TextureCreature extends Creature{
   public void display() {
     super.display();
     p.image(type.tiles[pointer],point.pos.x+dx,point.pos.y+dy);
+  }
+  public boolean inOuterBox(int tx,int ty) {//TODO
+    return false;
+  }
+  public boolean inInnerBox(float tx,float ty) {//TODO
+    return false;
   }
 }

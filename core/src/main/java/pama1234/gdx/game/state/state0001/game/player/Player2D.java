@@ -3,14 +3,14 @@ package pama1234.gdx.game.state.state0001.game.player;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.Game;
-import pama1234.gdx.game.state.state0001.game.entity.TextureCreature;
+import pama1234.gdx.game.state.state0001.game.entity.TextureLivingEntity;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaCreatureCenter0001;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.gdx.util.wrapper.PointCenter;
 import pama1234.math.physics.MassPoint;
 
-public class Player2D extends TextureCreature{
+public class Player2D extends TextureLivingEntity{
   {
     w=20;
     h=24;

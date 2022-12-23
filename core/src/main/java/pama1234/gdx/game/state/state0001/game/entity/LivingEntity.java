@@ -9,7 +9,7 @@ import pama1234.math.UtilMath;
 import pama1234.math.physics.MassPoint;
 import pama1234.math.physics.PathVar;
 
-public class Creature extends GamePointEntity<MassPoint>{
+public class LivingEntity extends GamePointEntity<MassPoint>{
   public World0001 pw;
   //---
   public int w,h;
@@ -18,7 +18,7 @@ public class Creature extends GamePointEntity<MassPoint>{
   // public float maxLife=32;
   public MetaCreature<?> type;
   public PathVar life;
-  public Creature(Screen0011 p,MassPoint in,MetaCreature<?> type,Game pg) {
+  public LivingEntity(Screen0011 p,MassPoint in,MetaCreature<?> type,Game pg) {
     super(p,in,pg);
     this.type=type;
     life=new PathVar(type.maxLife);
@@ -78,7 +78,7 @@ public class Creature extends GamePointEntity<MassPoint>{
   public int blockY2() {
     return yToBlockCord(y()+dy+h-0.01f);//TODO
   }
-  public int xToBlockCord(float in) {
+  public int xToBlockCord(float in) {//TODO static
     return UtilMath.floor(in/pw.blockWidth);
   }
   public int yToBlockCord(float in) {

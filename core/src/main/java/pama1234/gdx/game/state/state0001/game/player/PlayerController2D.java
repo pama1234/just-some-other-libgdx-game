@@ -4,6 +4,9 @@ import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 
 import pama1234.gdx.game.app.Screen0011;
+import pama1234.gdx.game.state.state0001.game.entity.GamePointEntity;
+import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
+import pama1234.gdx.game.state.state0001.game.entity.TextureLivingEntity;
 import pama1234.gdx.game.state.state0001.game.item.IntItem;
 import pama1234.gdx.game.state.state0001.game.item.Inventory.HotSlot;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
@@ -23,6 +26,7 @@ public class PlayerController2D extends Entity<Screen0011>{
   public int bx1,by1,bx2,by2,bw,bh;
   public boolean flagCache;
   public RectF[] cullRects;
+  public LivingEntity selectEntity;
   public PlayerController2D(Screen0011 p,MainPlayer2D player) {
     super(p);
     this.player=player;
@@ -43,6 +47,13 @@ public class PlayerController2D extends Entity<Screen0011>{
     for(RectF e:cullRects) if(Tools.inBox(info.ox,info.oy,e.x(),e.y(),e.w(),e.h())) return;
     int tx=player.xToBlockCord(info.x),
       ty=player.xToBlockCord(info.y);
+    for(GamePointEntity<?> e:player.pw.entitys.list) {
+      if(e instanceof TextureLivingEntity live) {
+        if(live.inOuterBox(tx,ty)) {
+          selectEntity=live;
+        }
+      }
+    }
     if(inPlayerOuterBox(tx,ty)) player.inventory.displayHotSlot(!player.inventory.displayHotSlot);
     // for(HotSlot<IntItem> e:player.inventory.hotSlots) {
     if(player.inventory.displayHotSlot) for(int i=0;i<player.inventory.hotSlots.length;i++) {

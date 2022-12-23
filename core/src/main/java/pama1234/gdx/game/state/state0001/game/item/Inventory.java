@@ -3,12 +3,12 @@ package pama1234.gdx.game.state.state0001.game.item;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import pama1234.gdx.game.app.Screen0011;
-import pama1234.gdx.game.state.state0001.game.entity.Creature;
+import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
 import pama1234.math.UtilMath;
 import pama1234.math.physics.PathVar;
 
 public class Inventory<T extends Item>{
-  public Creature pc;
+  public LivingEntity pc;
   public InventorySlot<T>[] data;
   // private boolean displayHotSlot;
   public boolean displayHotSlot;
@@ -17,7 +17,7 @@ public class Inventory<T extends Item>{
   public PathVar r;
   // public int hotSlotSize=9;
   public int selectSlot;
-  public Inventory(Creature pc,int size,int hotSlotSize) {
+  public Inventory(LivingEntity pc,int size,int hotSlotSize) {
     this.pc=pc;
     data=new InventorySlot[size];
     hotSlots=new HotSlot[hotSlotSize];
@@ -84,7 +84,7 @@ public class Inventory<T extends Item>{
     public HotSlot(InventorySlot<T> pos) {
       this.data=pos;
     }
-    public void update(Creature pc,T in,float i,float r) {
+    public void update(LivingEntity pc,T in,float i,float r) {
       cx=pc.cx()+UtilMath.sin(i*UtilMath.PI2)*r;
       cy=pc.cy()+UtilMath.cos(i*UtilMath.PI2)*r;
       if(in==null) {
