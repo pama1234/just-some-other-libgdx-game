@@ -3,7 +3,6 @@ package pama1234.gdx.game.app.lwjgl3;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 
-import pama1234.gdx.game.app.Core;
 import pama1234.gdx.launcher.DebugApp;
 
 /** Launches the desktop (LWJGL3) application. */
@@ -12,8 +11,8 @@ public class LauncherDebug{
 		createApplication();
 	}
 	private static Lwjgl3Application createApplication() {
-		// return new Lwjgl3Application(new DebugApp(),getDefaultConfiguration());
-		return new Lwjgl3Application(new Core(),getDefaultConfiguration());
+		return new Lwjgl3Application(new DebugApp(),getDefaultConfiguration());
+		// return new Lwjgl3Application(new MainApp(),getDefaultConfiguration());
 	}
 	private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
 		Lwjgl3ApplicationConfiguration configuration=new Lwjgl3ApplicationConfiguration();

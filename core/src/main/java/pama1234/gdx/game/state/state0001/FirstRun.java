@@ -16,7 +16,7 @@ public class FirstRun extends StateEntity0001{
     TvgAsset.logo0005.centerOrigin();
   }
   @Override
-  public void init() {
+  public void from(State0001 in) {
     MusicAsset.alsoSprachZarathustra.setOnCompletionListener(music->p.state(State0001.Loading));
     MusicAsset.alsoSprachZarathustra.play();
     p.backgroundColor(0);
@@ -27,7 +27,7 @@ public class FirstRun extends StateEntity0001{
     // p.textScale(2);
   }
   @Override
-  public void dispose() {
+  public void to(State0001 in) {
     p.textScale(1);
     p.cam2d.active(true);
     p.cam2d.scale.des=1;

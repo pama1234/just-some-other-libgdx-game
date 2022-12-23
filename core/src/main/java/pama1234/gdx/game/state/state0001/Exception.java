@@ -8,7 +8,7 @@ public class Exception extends StateEntity0001{
     super(p);
   }
   @Override
-  public void init() {
+  public void from(State0001 in) {
     p.backgroundColor(0);
   }
   @Override

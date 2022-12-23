@@ -18,7 +18,7 @@ public class Loading extends StateEntity0001{
     manager=new AssetManager();
   }
   @Override
-  public void init() {
+  public void from(State0001 in) {
     p.backgroundColor(0);
     p.textColor(255);
     // SVGAssets.init();
@@ -30,9 +30,7 @@ public class Loading extends StateEntity0001{
     ImageAsset.load_0001(manager);
   }
   @Override
-  public void dispose() {
-    
-  }
+  public void to(State0001 in) {}
   // @Override
   // public void displayCam() {
   //   p.text("加载中",0,0);

@@ -18,7 +18,7 @@ public class StartMenu extends StateEntity0001{
     buttons=ButtonGenerator.genButtons_0003(p);
   }
   @Override
-  public void init() {
+  public void from(State0001 in) {
     p.backgroundColor(255);
     p.textColor(255);
     for(Button<?> e:buttons) p.centerScreen.add.add(e);
@@ -34,7 +34,7 @@ public class StartMenu extends StateEntity0001{
     frameResized(p.width,p.height);
   }
   @Override
-  public void dispose() {
+  public void to(State0001 in) {
     MusicAsset.moonlightSonata.pause();
     for(Button<?> e:buttons) p.centerScreen.remove.add(e);
     p.cam2d.active(true);

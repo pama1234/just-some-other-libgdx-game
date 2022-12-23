@@ -38,10 +38,10 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
       centerScreen.remove.add(out);
       centerCam.remove.add(out.displayCam);
       out.to(in);
-      out.dispose();
+      out.pause();
     }
     //TODO
-    in.init();
+    in.resume();
     in.from(state);
     centerScreen.add.add(in);
     centerCam.add.add(in.displayCam);

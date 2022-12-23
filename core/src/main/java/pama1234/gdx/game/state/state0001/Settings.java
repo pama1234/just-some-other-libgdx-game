@@ -20,14 +20,14 @@ public class Settings extends StateEntity0001{
     buttonsCam=ButtonGenerator.genButtons_0006(p,this);
   }
   @Override
-  public void init() {
+  public void from(State0001 in) {
     p.backgroundColor(0);
     p.cam.noGrab();
     for(Button<?> e:buttons) p.centerScreen.add.add(e);
     for(Button<?> e:buttonsCam) p.centerCam.add.add(e);
   }
   @Override
-  public void dispose() {
+  public void to(State0001 in) {
     for(Button<?> e:buttons) p.centerScreen.remove.add(e);
     for(Button<?> e:buttonsCam) p.centerCam.remove.add(e);
   }

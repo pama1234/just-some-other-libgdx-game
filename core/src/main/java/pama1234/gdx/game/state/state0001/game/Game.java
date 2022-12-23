@@ -60,7 +60,7 @@ public class Game extends StateEntity0001{
     };
   }
   @Override
-  public void init() {
+  public void from(State0001 in) {
     p.backgroundColor(191);
     p.cam.noGrab();
     // tvgRefresh();
@@ -71,7 +71,7 @@ public class Game extends StateEntity0001{
     p.centerCam.add.add(worldCenter);
   }
   @Override
-  public void dispose() {
+  public void to(State0001 in) {
     for(Button<?> e:menuButtons) p.centerScreen.remove.add(e);
     if(ctrlButtons!=null) for(Button<?> e:ctrlButtons) p.centerScreen.remove.add(e);
     p.centerCam.remove.add(worldCenter);
