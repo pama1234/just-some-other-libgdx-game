@@ -9,13 +9,19 @@ import java.net.UnknownHostException;
 public class ServerSocketData{
   public ServerSocket server;
   public ServerSocketData(ServerInfo info) {
-    try {//TODO try-catch???
-      server=new ServerSocket(info.port,50,InetAddress.getByName(info.addr));//TODO
+    init(info);
+  }
+  public void init(ServerInfo info) {
+    try {
+      initWithException(info);
     }catch(UnknownHostException e) {
       e.printStackTrace();
     }catch(IOException e) {
       e.printStackTrace();
     }
+  }
+  public void initWithException(ServerInfo info) throws IOException,UnknownHostException {
+    server=new ServerSocket(info.port,50,InetAddress.getByName(info.addr));//TODO
   }
   public Socket accept() {
     try {

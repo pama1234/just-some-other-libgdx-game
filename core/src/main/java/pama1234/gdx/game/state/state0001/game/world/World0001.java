@@ -35,7 +35,7 @@ public class World0001 extends World<Screen0011,Game>{
   public int time;
   public float ambientLight;
   public int typeCache;
-  public boolean firstInit=true;//TODO
+  // public boolean firstInit=true;//TODO
   // public boolean stop;//TODO
   public World0001(Screen0011 p,Game pg) {
     super(p,pg,3);
@@ -86,16 +86,26 @@ public class World0001 extends World<Screen0011,Game>{
   public void init() {
     super.init();
     // blockC.dirt.initTextureRegion();
-    if(firstInit) {
-      firstInit=false;
+    // if(firstInit) {
+    //   firstInit=false;
       for(MetaBlock e:blockC.list) e.init();
       for(MetaItem<?> e:itemC.list) e.init();
       for(MetaCreature<?> e:creatureC.list) e.init();
-    }
+    // }
+  }
+  @Override
+  public void resume() {
+    super.resume();
     // itemC.dirt.initTextureRegion();
     // yourself.init();
     p.cam2d.activeDrag=false;
     p.centerCam.add.add(yourself);
+  }
+  @Override
+  public void pause() {
+    super.pause();
+    p.cam2d.activeDrag=true;
+    p.centerCam.remove.add(yourself);
   }
   @Override
   public void update() {
@@ -106,8 +116,6 @@ public class World0001 extends World<Screen0011,Game>{
   public void dispose() {
     // stop=true;
     super.dispose();
-    p.cam2d.activeDrag=true;
-    p.centerCam.remove.add(yourself);
   }
   public void exit() {
     regions.exit();

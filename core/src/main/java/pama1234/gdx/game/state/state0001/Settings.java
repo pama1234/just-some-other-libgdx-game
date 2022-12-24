@@ -16,7 +16,6 @@ public class Settings extends StateEntity0001{
   public Settings(Screen0011 p) {
     super(p);
     buttons=ButtonGenerator.genButtons_0004(p);
-    // buttons=concat(ButtonGenerator.genButtons_0004(p),ButtonGenerator.genButtons_0006(p));
     buttonsCam=ButtonGenerator.genButtons_0006(p,this);
   }
   @Override
@@ -32,17 +31,7 @@ public class Settings extends StateEntity0001{
     for(Button<?> e:buttonsCam) p.centerCam.remove.add(e);
   }
   @Override
-  public void displayCam() {
-    // p.text("FirstRun",0,0);
-  }
-  // public <T> T[] concat(T[] a,T[] b) {
-  //   return Stream.concat(Arrays.stream(a),Arrays.stream(b)).toArray(size->(T[])Array.newInstance(a.getClass().getComponentType(),size));
-  // }
-  // public <T> T[] concat(T[] a,T[] b) {
-  //   T[] both=Arrays.copyOf(a,a.length+b.length);
-  //   System.arraycopy(b,0,both,a.length,b.length);
-  //   return both;
-  // }
+  public void displayCam() {}
   @Override
   public void keyReleased(char key,int keyCode) {
     if(keyCode==ESCAPE) p.state(State0001.StartMenu);

@@ -1,4 +1,4 @@
-package pama1234.math;
+package pama1234.math.gdx.temp;
 
 import pama1234.math.vec.Vec3f;
 

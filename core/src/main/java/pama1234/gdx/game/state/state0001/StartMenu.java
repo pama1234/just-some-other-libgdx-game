@@ -54,8 +54,6 @@ public class StartMenu extends StateEntity0001{
   float tx,tw;
   @Override
   public void display() {
-    // tx=p.width/8f*5;
-    // tw=p.width/4f;
     if(p.isAndroid) return;
     p.fill(0);
     p.rect(tx,0,tw,p.height);
@@ -66,11 +64,7 @@ public class StartMenu extends StateEntity0001{
   }
   @Override
   public void frameResized(int w,int h) {
-    // tx=p.isAndroid?p.width/16f*9:p.width/8f*5;
-    // tw=p.isAndroid?p.width/16f*5:p.width/4f;
     tx=w/8f*5;
     tw=w/4f;
-    // tx=w/16f*9;
-    // tw=w/8f*3;
   }
 }

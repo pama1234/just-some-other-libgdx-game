@@ -1,8 +1,8 @@
 package pama1234.math.mat;
 
-import pama1234.math.ServerAffine2;
-import pama1234.math.ServerQuaternion;
 import pama1234.math.UtilMath;
+import pama1234.math.gdx.temp.ServerAffine2;
+import pama1234.math.gdx.temp.ServerQuaternion;
 import pama1234.math.vec.Vec3f;
 
 public class Mat4f{

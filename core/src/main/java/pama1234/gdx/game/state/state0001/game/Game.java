@@ -26,6 +26,7 @@ public class Game extends StateEntity0001{
   // public boolean debug;
   public boolean androidRightMouseButton;
   public EntityListener displayCamTop;
+  public boolean firstInit=true;//TODO
   public Game(Screen0011 p) {
     super(p);
     menuButtons=ButtonGenerator.genButtons_0005(p);
@@ -66,7 +67,11 @@ public class Game extends StateEntity0001{
     // tvgRefresh();
     for(Button<?> e:menuButtons) p.centerScreen.add.add(e);
     if(ctrlButtons!=null) for(Button<?> e:ctrlButtons) p.centerScreen.add.add(e);
-    worldCenter.init();
+    if(firstInit) {
+      firstInit=false;
+      world.init();
+    }
+    worldCenter.resume();
     if(debug) p.centerCam.add.add(displayCamTop);
     p.centerCam.add.add(worldCenter);
   }
@@ -75,7 +80,7 @@ public class Game extends StateEntity0001{
     for(Button<?> e:menuButtons) p.centerScreen.remove.add(e);
     if(ctrlButtons!=null) for(Button<?> e:ctrlButtons) p.centerScreen.remove.add(e);
     p.centerCam.remove.add(worldCenter);
-    worldCenter.dispose();
+    worldCenter.pause();
     if(debug) p.centerCam.remove.add(displayCamTop);
   }
   @Override
