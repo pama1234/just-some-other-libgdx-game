@@ -62,7 +62,7 @@ public class Game extends StateEntity0001{
   }
   @Override
   public void from(State0001 in) {
-    p.backgroundColor(191);
+    p.backgroundColor(world.backgroundColor);
     p.cam.noGrab();
     // tvgRefresh();
     for(Button<?> e:menuButtons) p.centerScreen.add.add(e);
@@ -112,6 +112,7 @@ public class Game extends StateEntity0001{
   @Override
   public void update() {
     time+=p.frameRate;
+    // p.backgroundColor(world.backgroundColor);
   }
   @Override
   public void frameResized(int w,int h) {}

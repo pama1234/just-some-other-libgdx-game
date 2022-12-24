@@ -1,6 +1,7 @@
 package pama1234.gdx.game.app;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 
 import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.state.state0001.State0001;
@@ -94,5 +95,14 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     super.dispose();
     State0001.disposeAll();
     // State0001.exit();
+  }
+  public void lerpColor(Color a,Color b,Color out,float pos) {
+    if(pos==0) out.set(a);
+    else if(pos==1) out.set(b);
+    float tr=b.r-a.r,
+      tg=b.g-a.g,
+      tb=b.b-a.b,
+      ta=b.a-a.a;
+    out.set(a.r+tr*pos,a.g+tg*pos,a.b+tb*pos,a.a+ta*pos);
   }
 }
