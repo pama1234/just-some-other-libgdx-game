@@ -10,11 +10,11 @@ public class LauncherDebug{
 	public static void main(String[] args) {
 		createApplication();
 	}
-	private static Lwjgl3Application createApplication() {
+	public static Lwjgl3Application createApplication() {
 		return new Lwjgl3Application(new DebugApp(),getDefaultConfiguration());
 		// return new Lwjgl3Application(new MainApp(),getDefaultConfiguration());
 	}
-	private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
+	public static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
 		Lwjgl3ApplicationConfiguration configuration=new Lwjgl3ApplicationConfiguration();
 		configuration.setTitle("libgdx-lwjgl3-debug");
 		configuration.useVsync(true);

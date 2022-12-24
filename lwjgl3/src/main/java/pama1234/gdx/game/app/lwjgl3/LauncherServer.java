@@ -9,10 +9,10 @@ public class LauncherServer{
   public static void main(String[] args) {
     createApplication();
   }
-  private static Lwjgl3Application createApplication() {
+  public static Lwjgl3Application createApplication() {
     return new Lwjgl3Application(new ServerApp(),getDefaultConfiguration());
   }
-  private static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
+  public static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
     Lwjgl3ApplicationConfiguration configuration=new Lwjgl3ApplicationConfiguration();
     configuration.setTitle("just-another-particle-system");
     configuration.useVsync(true);
