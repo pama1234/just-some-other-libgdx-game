@@ -19,7 +19,7 @@ public class MainPlayer2D extends Player2D{
     ctrl=new PlayerController2D(p,this);
     inventory=new Inventory<>(this,32,9);
     // for(int i=0;i<inventory.data.length;i++) inventory.data[i].item=pw.itemC.dirt.createItem();
-    inventory.data[0].item=pw.itemC.dirt.createItem();
+    inventory.data[0].item=pw.metaItems.dirt.createItem();
     // inventory.data[4].item=pw.itemC.dirt.createItem();
   }
   @Override
@@ -46,7 +46,7 @@ public class MainPlayer2D extends Player2D{
     super.update();
     ctrl.constrain();
     //---
-    p.cam.point.des.set(cx(),Tools.mag(point.y(),ctrl.floor)<48?ctrl.floor+dy+h/2f:cy(),0);
+    p.cam.point.des.set(cx(),Tools.mag(point.y(),ctrl.outerBox.floor)<48?ctrl.outerBox.floor+dy+h/2f:cy(),0);
     //---
     life.update();
     inventory.update();

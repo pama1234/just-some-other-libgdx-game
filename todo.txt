@@ -10,6 +10,7 @@
 已解决 将init和dispose替换成pause和resume
 已解决 创建MetaCreature类
 已解决 将Player2D改为TextureCreature的子类
+已解决 时间变化
 区块存档读档
 区块加载卸载
 区块更新剔除
@@ -30,3 +31,6 @@ LayeredEntityCenter的泛型可以再修一下
 arc-libgdx jitpack
 可选：撞墙扣血
 在整个游戏外的异常处理机制
+水体
+树木
+玩家的建造，放置，攻击，交互方式

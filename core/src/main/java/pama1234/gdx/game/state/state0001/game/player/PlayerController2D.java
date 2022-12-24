@@ -7,6 +7,7 @@ import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.entity.GamePointEntity;
 import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
 import pama1234.gdx.game.state.state0001.game.entity.TextureLivingEntity;
+import pama1234.gdx.game.state.state0001.game.entity.util.MovementLimitBox;
 import pama1234.gdx.game.state.state0001.game.item.IntItem;
 import pama1234.gdx.game.state.state0001.game.item.Inventory.HotSlot;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
@@ -19,12 +20,13 @@ import pama1234.math.Tools;
 public class PlayerController2D extends Entity<Screen0011>{
   public MainPlayer2D player;
   public boolean left,right,jump,shift;
-  public boolean inAir;
+  // public boolean inAir;
   public int walkCool,jumpCool;
   public float speed=1f,shiftSpeedMult=2f;
-  public float floor,leftWall,rightWall,ceiling;
-  public int bx1,by1,bx2,by2,bw,bh;
-  public boolean flagCache;
+  // public float floor,leftWall,rightWall,ceiling;
+  // public int bx1,by1,bx2,by2,bw,bh;
+  public MovementLimitBox outerBox;
+  // public boolean flagCache;
   public RectF[] cullRects;
   public LivingEntity selectEntity;
   public PlayerController2D(Screen0011 p,MainPlayer2D player) {
@@ -40,6 +42,7 @@ public class PlayerController2D extends Entity<Screen0011>{
     }else {
       cullRects=new RectF[0];
     }
+    outerBox=new MovementLimitBox(player);
   }
   @Override
   public void touchStarted(TouchInfo info) {
@@ -76,14 +79,14 @@ public class PlayerController2D extends Entity<Screen0011>{
     Block block=player.getBlock(tx,ty);
     if(block!=null) switch(p.isAndroid?(player.pg.androidRightMouseButton?Buttons.RIGHT:Buttons.LEFT):info.button) {
       case Buttons.LEFT: {
-        if(block.type!=player.pw.blockC.air) block.type(player.pw.blockC.air);
+        if(block.type!=player.pw.metaBlocks.air) block.type(player.pw.metaBlocks.air);
       }
         break;
       case Buttons.RIGHT: {
         IntItem ti=player.inventory.getSelect().data.item;
         if(ti!=null) {
           MetaBlock tm=ti.type.blockType;
-          if(tm!=null&&block.type==player.pw.blockC.air) block.type(tm);
+          if(tm!=null&&block.type==player.pw.metaBlocks.air) block.type(tm);
         }
         // block.type(player.pw.blockC.dirt);
       }
@@ -91,7 +94,7 @@ public class PlayerController2D extends Entity<Screen0011>{
     }
   }
   public boolean inPlayerOuterBox(int tx,int ty) {
-    return Tools.inBoxInclude(tx,ty,bx1,by1,bw,bh);
+    return Tools.inBoxInclude(tx,ty,outerBox.bx1,outerBox.by1,outerBox.bw,outerBox.bh);
   }
   @Override
   public void keyPressed(char key,int keyCode) {
@@ -114,12 +117,13 @@ public class PlayerController2D extends Entity<Screen0011>{
         player.dir=false;
       }
     }
-    inAir=player.point.pos.y<floor;
-    if(inAir) player.point.vel.y+=player.pw.g;
+    // inAir=player.point.pos.y<floor;
+    outerBox.updateInAir();
+    if(outerBox.inAir) player.point.vel.y+=player.pw.g;
     else {
-      if(player.point.pos.y!=floor) {
+      if(player.point.pos.y!=outerBox.floor) {
         player.point.vel.y=0;
-        player.point.pos.y=floor;
+        player.point.pos.y=outerBox.floor;
       }
       if(jumpCool>0) jumpCool--;
       else if(jump) {
@@ -134,80 +138,78 @@ public class PlayerController2D extends Entity<Screen0011>{
     jump=p.isKeyPressed(62);
   }
   public void constrain() {
-    if(player.point.pos.y>floor) {
-      player.point.vel.y=0;
-      player.point.pos.y=floor;
-    }
-    if(player.point.pos.y<ceiling) {
-      if(player.point.vel.y<0) player.point.vel.y=0;
-      player.point.pos.y=ceiling;
-    }
-    if(player.point.pos.x<leftWall) player.point.pos.x=leftWall;
-    if(player.point.pos.x>rightWall) player.point.pos.x=rightWall;
+    outerBox.constrain();
+    //   if(player.point.pos.y>floor) {
+    //     player.point.vel.y=0;
+    //     player.point.pos.y=floor;
+    //   }
+    //   if(player.point.pos.y<ceiling) {
+    //     if(player.point.vel.y<0) player.point.vel.y=0;
+    //     player.point.pos.y=ceiling;
+    //   }
+    //   if(player.point.pos.x<leftWall) player.point.pos.x=leftWall;
+    //   if(player.point.pos.x>rightWall) player.point.pos.x=rightWall;
   }
   public void updateOuterBox() {
-    bx1=player.blockX1();
-    by1=player.blockY1();
-    bx2=player.blockX2();
-    by2=player.blockY2();
-    bw=bx2-bx1;
-    bh=by2-by1;
+    outerBox.update();
+    outerBox.updateLimit();
     // if(inAir) {
     //   by1-=1;
     //   bh+=1;
     // }
     // if(!inAir) bh-=1;
-    if(inAir&&player.point.vel.y>0) bh+=1;
-    Block block;
-    flagCache=false;
-    //------------------------------------------ floor
-    for(int i=0;i<=bw;i++) {
-      block=player.getBlock(bx1+i,by2+1);
-      if(!Block.isEmpty(block)) {
-        flagCache=true;
-        break;
-      }
-    }
-    if(flagCache) {
-      floor=(by2+1)*player.pw.blockHeight;
-      flagCache=false;
-    }else floor=(by2+4)*player.pw.blockHeight;
-    //------------------------------------------ left
-    // for(int i=inAir?-1:0;i<=bh;i++) {
-    for(int i=0;i<=bh;i++) {
-      block=player.getBlock(bx1-1,by1+i);
-      if(!Block.isEmpty(block)) {
-        flagCache=true;
-        break;
-      }
-    }
-    if(flagCache) {
-      leftWall=(bx1+0.5f)*player.pw.blockWidth+1;
-      flagCache=false;
-    }else leftWall=(bx1-4)*player.pw.blockWidth;
-    //------------------------------------------ right
-    for(int i=0;i<=bh;i++) {
-      block=player.getBlock(bx2+1,by1+i);
-      if(!Block.isEmpty(block)) {
-        flagCache=true;
-        break;
-      }
-    }
-    if(flagCache) {
-      rightWall=(bx2+0.5f)*player.pw.blockWidth-1;
-      flagCache=false;
-    }else rightWall=(bx2+4)*player.pw.blockWidth;
-    //------------------------------------------ ceiling
-    for(int i=0;i<=bw;i++) {
-      block=player.getBlock(bx1+i,by1-1);
-      if(!Block.isEmpty(block)) {
-        flagCache=true;
-        break;
-      }
-    }
-    if(flagCache) {
-      ceiling=by1*player.pw.blockHeight+player.h;
-      flagCache=false;
-    }else ceiling=(by1-4)*player.pw.blockHeight;
+    //   if(inAir&&player.point.vel.y>0) bh+=1;
+    //   Block block;
+    //   flagCache=false;
+    //   //------------------------------------------ floor
+    //   for(int i=0;i<=bw;i++) {
+    //     block=player.getBlock(bx1+i,by2+1);
+    //     if(!Block.isEmpty(block)) {
+    //       flagCache=true;
+    //       break;
+    //     }
+    //   }
+    //   if(flagCache) {
+    //     floor=(by2+1)*player.pw.blockHeight;
+    //     flagCache=false;
+    //   }else floor=(by2+4)*player.pw.blockHeight;
+    //   //------------------------------------------ left
+    //   // for(int i=inAir?-1:0;i<=bh;i++) {
+    //   for(int i=0;i<=bh;i++) {
+    //     block=player.getBlock(bx1-1,by1+i);
+    //     if(!Block.isEmpty(block)) {
+    //       flagCache=true;
+    //       break;
+    //     }
+    //   }
+    //   if(flagCache) {
+    //     leftWall=(bx1+0.5f)*player.pw.blockWidth+1;
+    //     flagCache=false;
+    //   }else leftWall=(bx1-4)*player.pw.blockWidth;
+    //   //------------------------------------------ right
+    //   for(int i=0;i<=bh;i++) {
+    //     block=player.getBlock(bx2+1,by1+i);
+    //     if(!Block.isEmpty(block)) {
+    //       flagCache=true;
+    //       break;
+    //     }
+    //   }
+    //   if(flagCache) {
+    //     rightWall=(bx2+0.5f)*player.pw.blockWidth-1;
+    //     flagCache=false;
+    //   }else rightWall=(bx2+4)*player.pw.blockWidth;
+    //   //------------------------------------------ ceiling
+    //   for(int i=0;i<=bw;i++) {
+    //     block=player.getBlock(bx1+i,by1-1);
+    //     if(!Block.isEmpty(block)) {
+    //       flagCache=true;
+    //       break;
+    //     }
+    //   }
+    //   if(flagCache) {
+    //     ceiling=by1*player.pw.blockHeight+player.h;
+    //     flagCache=false;
+    //   }else ceiling=(by1-4)*player.pw.blockHeight;
+    // }
   }
 }

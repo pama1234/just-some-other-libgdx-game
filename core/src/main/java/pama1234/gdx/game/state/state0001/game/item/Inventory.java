@@ -81,7 +81,7 @@ public class Inventory<T extends Item>{
       Item ti=ths.data.item;
       TextureRegion tr;
       if(ti!=null) tr=ti.type.tiles[ti.displayType[0]];
-      else tr=pc.pw.itemC.empty.tiles[0];
+      else tr=pc.pw.metaItems.empty.tiles[0];
       p.image(tr,ths.x1,ths.y1);
     }
     p.noTint();

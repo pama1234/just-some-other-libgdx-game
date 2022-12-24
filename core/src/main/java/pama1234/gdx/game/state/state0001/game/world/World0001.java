@@ -8,8 +8,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.Game;
-import pama1234.gdx.game.state.state0001.game.entity.Fly.FlyType;
 import pama1234.gdx.game.state.state0001.game.entity.GameEntityCenter;
+import pama1234.gdx.game.state.state0001.game.entity.entity0001.Fly.FlyType;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaIntItem;
@@ -27,9 +27,9 @@ import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 
 public class World0001 extends World<Screen0011,Game>{
-  public MetaBlockCenter0001 blockC;
-  public MetaItemCenter0001 itemC;
-  public MetaCreatureCenter0001 creatureC;
+  public MetaBlockCenter0001 metaBlocks;
+  public MetaItemCenter0001 metaItems;
+  public MetaCreatureCenter0001 metaCreatures;
   public GameEntityCenter entitys;
   public PlayerCenter2D players;
   public RegionCenter regions;
@@ -45,8 +45,6 @@ public class World0001 extends World<Screen0011,Game>{
   public int skyColorPos,skyColorCount;
   public float daySkyGridSize;
   public Color backgroundColor,colorA,colorB;
-  // public boolean firstInit=true;//TODO
-  // public boolean stop;//TODO
   public World0001(Screen0011 p,Game pg) {
     super(p,pg,3);
     createBlockC();
@@ -55,8 +53,7 @@ public class World0001 extends World<Screen0011,Game>{
     list[0]=players=new PlayerCenter2D(p);
     list[1]=entitys=new GameEntityCenter(p);
     list[2]=regions=new RegionCenter(p,this,Gdx.files.local("data/saved/regions.bin"));
-    // list[1]=regions=new RegionCenter(p,this,Gdx.files.local("data/saved/abcd.txt"));
-    yourself=new MainPlayer2D(p,this,0,-1,creatureC.player,pg);
+    yourself=new MainPlayer2D(p,this,0,-1,metaCreatures.player,pg);
     backgroundColor=p.color(0);
     colorA=p.color(0);
     colorB=p.color(0);
@@ -66,22 +63,22 @@ public class World0001 extends World<Screen0011,Game>{
     return skyColorMap.getPixel(pos,0);
   }
   public void createCreatureC() {
-    creatureC=new MetaCreatureCenter0001(this);
-    creatureC.list.add(creatureC.player=new PlayerType2D(creatureC));
-    creatureC.list.add(creatureC.fly=new FlyType(creatureC));
+    metaCreatures=new MetaCreatureCenter0001(this);
+    metaCreatures.list.add(metaCreatures.player=new PlayerType2D(metaCreatures));
+    metaCreatures.list.add(metaCreatures.fly=new FlyType(metaCreatures));
   }
   public void createItemC() {
-    itemC=new MetaItemCenter0001(this);
-    itemC.list.add(itemC.dirt=new MetaIntItem(itemC,"dirt") {
+    metaItems=new MetaItemCenter0001(this);
+    metaItems.list.add(metaItems.dirt=new MetaIntItem(metaItems,"dirt") {
       @Override
       public void init() {
         // if(tiles!=null) return;
-        blockType=blockC.dirt;
+        blockType=metaBlocks.dirt;
         tiles=new TextureRegion[1];
         tiles[0]=ImageAsset.tiles[20][0];
       }
     });
-    itemC.list.add(itemC.empty=new MetaIntItem(itemC,"empty") {
+    metaItems.list.add(metaItems.empty=new MetaIntItem(metaItems,"empty") {
       @Override
       public void init() {
         // if(tiles!=null) return;
@@ -91,9 +88,9 @@ public class World0001 extends World<Screen0011,Game>{
     });
   }
   public void createBlockC() {
-    blockC=new MetaBlockCenter0001(this);
-    blockC.list.add(blockC.dirt=new Dirt(blockC));
-    blockC.list.add(blockC.air=new MetaBlock(blockC,"air"));
+    metaBlocks=new MetaBlockCenter0001(this);
+    metaBlocks.list.add(metaBlocks.dirt=new Dirt(metaBlocks));
+    metaBlocks.list.add(metaBlocks.air=new MetaBlock(metaBlocks,"air"));
   }
   public boolean isEmpty(Block in) {
     return in==null||in.type.empty;
@@ -101,23 +98,20 @@ public class World0001 extends World<Screen0011,Game>{
   @Override
   public void init() {
     super.init();
+    initSky();
+    for(MetaBlock e:metaBlocks.list) e.init();
+    for(MetaItem<?> e:metaItems.list) e.init();
+    for(MetaCreature<?> e:metaCreatures.list) e.init();
+  }
+  public void initSky() {
     ImageAsset.sky.getTexture().getTextureData().prepare();
     skyColorMap=ImageAsset.sky.getTexture().getTextureData().consumePixmap();
     skyColorCount=skyColorMap.getWidth();
     daySkyGridSize=(float)daySize/skyColorCount;
-    // blockC.dirt.initTextureRegion();
-    // if(firstInit) {
-    //   firstInit=false;
-    for(MetaBlock e:blockC.list) e.init();
-    for(MetaItem<?> e:itemC.list) e.init();
-    for(MetaCreature<?> e:creatureC.list) e.init();
-    // }
   }
   @Override
   public void resume() {
     super.resume();
-    // itemC.dirt.initTextureRegion();
-    // yourself.init();
     p.cam2d.activeDrag=false;
     p.centerCam.add.add(yourself);
   }
@@ -136,11 +130,8 @@ public class World0001 extends World<Screen0011,Game>{
       skyColorPos=tp;
       colorA.set(colorB);
       colorB.set(getSkyColor(tp));
-      // System.out.println("---");
     }
-    // System.out.println((float)Tools.moveInRange(time,0,daySkyGridSize)/daySkyGridSize);
     p.lerpColor(colorA,colorB,backgroundColor,Tools.moveInRange(time,0,daySkyGridSize)/daySkyGridSize);
-    // System.out.println(tp+" "+backgroundColor+" "+Tools.moveInRange(time,0,daySkyGridSize)/daySkyGridSize);
     p.backgroundColor(backgroundColor);
   }
   public int getSkyPos(int in) {
@@ -151,7 +142,4 @@ public class World0001 extends World<Screen0011,Game>{
     super.dispose();
     regions.dispose();
   }
-  // public void exit() {
-  //   regions.exit();
-  // }
 }
