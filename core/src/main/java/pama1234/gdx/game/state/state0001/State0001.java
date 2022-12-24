@@ -17,8 +17,8 @@ public enum State0001 implements EntityListener{
   public StateEntityListener0001 entity;
   public EntityListener displayCam;
   //---------------------------------------------------------------
-  public static void exit() {
-    for(State0001 e:stateArray) e.entity.exit();
+  public static void disposeAll() {
+    for(State0001 e:stateArray) e.dispose();
   }
   public interface StateChanger{
     /**

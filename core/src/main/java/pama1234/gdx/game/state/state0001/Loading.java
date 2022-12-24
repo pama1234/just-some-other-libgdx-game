@@ -31,15 +31,10 @@ public class Loading extends StateEntity0001{
   }
   @Override
   public void to(State0001 in) {}
-  // @Override
-  // public void displayCam() {
-  //   p.text("加载中",0,0);
-  // }
   @Override
   public void display() {
     String text="加载中 "+frame+"tick "+Tools.cutToLastDigit(manager.getProgress()*100)+"%";
     p.text(text,(p.width-p.textWidth(text))/2f,(p.height-p.pu)/2f);
-    // System.out.println(text);
   }
   @Override
   public void update() {

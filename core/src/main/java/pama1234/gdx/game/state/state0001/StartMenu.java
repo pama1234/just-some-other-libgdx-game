@@ -47,7 +47,6 @@ public class StartMenu extends StateEntity0001{
   }
   @Override
   public void displayCam() {
-    // p.text("FirstRun",0,0);
     TextureRegion kf=GifAsset.bigEarth.getKeyFrame(time);
     p.image(kf,-128,-128);
   }

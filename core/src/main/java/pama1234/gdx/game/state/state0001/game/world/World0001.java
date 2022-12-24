@@ -88,9 +88,9 @@ public class World0001 extends World<Screen0011,Game>{
     // blockC.dirt.initTextureRegion();
     // if(firstInit) {
     //   firstInit=false;
-      for(MetaBlock e:blockC.list) e.init();
-      for(MetaItem<?> e:itemC.list) e.init();
-      for(MetaCreature<?> e:creatureC.list) e.init();
+    for(MetaBlock e:blockC.list) e.init();
+    for(MetaItem<?> e:itemC.list) e.init();
+    for(MetaCreature<?> e:creatureC.list) e.init();
     // }
   }
   @Override
@@ -114,10 +114,10 @@ public class World0001 extends World<Screen0011,Game>{
   }
   @Override
   public void dispose() {
-    // stop=true;
     super.dispose();
+    regions.dispose();
   }
-  public void exit() {
-    regions.exit();
-  }
+  // public void exit() {
+  //   regions.exit();
+  // }
 }

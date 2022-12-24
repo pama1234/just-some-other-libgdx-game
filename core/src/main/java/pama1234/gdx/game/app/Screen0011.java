@@ -40,11 +40,23 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
       out.to(in);
       out.pause();
     }
-    //TODO
-    in.resume();
-    in.from(state);
-    centerScreen.add.add(in);
-    centerCam.add.add(in.displayCam);
+    if(in!=null) {
+      in.resume();
+      in.from(state);
+      centerScreen.add.add(in);
+      centerCam.add.add(in.displayCam);
+    }
+    return out;
+  }
+  public State0001 stateNull() {
+    State0001 out=state;
+    state=null;
+    if(out!=null) {
+      centerScreen.list.remove(out);
+      centerCam.list.remove(out.displayCam);
+      out.to(null);
+      out.pause();
+    }
     return out;
   }
   @Override
@@ -78,7 +90,9 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   public void frameResized() {}
   @Override
   public void dispose() {
+    stateNull();
     super.dispose();
-    State0001.exit();
+    State0001.disposeAll();
+    // State0001.exit();
   }
 }
