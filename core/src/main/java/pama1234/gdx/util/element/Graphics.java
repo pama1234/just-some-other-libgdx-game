@@ -8,7 +8,6 @@ import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 
 import pama1234.gdx.util.app.UtilScreen;
 
-// @Deprecated
 public class Graphics{
   public UtilScreen p;
   public FrameBuffer buffer;

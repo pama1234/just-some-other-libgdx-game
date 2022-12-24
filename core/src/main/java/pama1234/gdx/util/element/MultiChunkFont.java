@@ -10,8 +10,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Array;
 
-public class MultiChunkFont extends BitmapFont{//TODO
-  // public class MultiChunkBitmapFont{
+public class MultiChunkFont extends BitmapFont{
   public FileHandle[] fontFile;
   public int length;
   public boolean loadOnDemand;
@@ -20,7 +19,7 @@ public class MultiChunkFont extends BitmapFont{//TODO
   // public int loadedArea;
   public BitmapFont[] data;
   public MultiChunkFontData mfontData;
-  public Array<TextureRegion> mregions;
+  public Array<TextureRegion> multiRegions;
   // public Array<TextureRegion> mregion=new Array<>();
   //---
   public SpriteBatch fontBatch;
@@ -36,22 +35,37 @@ public class MultiChunkFont extends BitmapFont{//TODO
     mfontData.mfont=this;
     this.fontFile=fontFile;
     length=fontFile.length;
-    mregions=super.getRegions();
-    mregions.setSize(length);
+    multiRegions=super.getRegions();
+    multiRegions.setSize(length);
     this.loadOnDemand=loadOnDemand;
     digitShift=16-MathUtils.ceil(MathUtils.log2(length));
     if(digitShift>32) throw new RuntimeException("digitShift>32");
     data=new BitmapFont[length];
     data[0]=this;
-    if(!loadOnDemand) for(int i=0;i<fontFile.length;i++) load0001(i);
+    if(!loadOnDemand) for(int i=0;i<fontFile.length;i++) loadFont(i);
   }
   public void load(int in) {
-    load0001(in);
-    loadOnDemand=f0001();
+    loadFont(in);
+    loadOnDemand=isAllLoaded();
   }
-  public void load0001(int in) {
-    data[in]=createBitmapFont(fontFile[in]);
-    mregions.set(in,data[in].getRegion());
+  public boolean isAllLoaded() {
+    // for(int i=0;i<length;i++) if(((loadedArea>>i)&1)==0) return true;
+    for(int i=0;i<length;i++) if(data[i]==null) return true;
+    return false;
+  }
+  public void loadFont(int in) {
+    BitmapFont tf=createBitmapFont(fontFile[in]);
+    data[in]=tf;
+    for(int i=0;i<tf.getData().glyphs.length;i++) {//TODO
+      Glyph[] tgs=tf.getData().glyphs[i];
+      if(tgs==null) continue;
+      for(int j=0;j<tgs.length;j++) {
+        Glyph tg=tgs[j];
+        if(tg!=null) tg.page=in;
+      }
+    }
+    // data[in]=createBitmapFont(fontFile[in]);
+    multiRegions.set(in,data[in].getRegion());
   }
   public BitmapFont createBitmapFont(FileHandle fontFile) {
     BitmapFont out=fontFile==null?new BitmapFont(true):new BitmapFont(fontFile,true);
@@ -135,23 +149,23 @@ public class MultiChunkFont extends BitmapFont{//TODO
       return glyph;
     }
     Glyph glyph=data[pos].getData().getGlyph(ch);
-    glyph.page=pos;//TODO
+    // System.out.println(glyph.page+" "+pos);
+    // glyph.page=pos;//TODO
     return glyph;
   }
   public float f0002(float x,float y,char tc,int pos) {
-    BitmapFont font=data[pos];
-    Array<TextureRegion> regions=font.getRegions();
-    Glyph glyph=font.getData().getGlyph(tc);
+    // BitmapFont font=data[pos];
+    // Array<TextureRegion> regions=font.getRegions();
+    // Glyph glyph=font.getData().getGlyph(tc);
+    Array<TextureRegion> regions=getRegions();//TODO
+    Glyph glyph=getData().getGlyph(tc);
     if(glyph==null) {
       System.out.println(tc+" "+(int)tc+" "+pos+" "+digitShift);
       return 0;
     }
+    // System.out.println(tc+" "+glyph.page);//all output 0
     Texture texture=regions.get(glyph.page).getTexture();
-    // fill(style.background(i));
-    // fillRect(x,y,glyph.width,glyph.height);
-    // fontBatch.begin();
-    // fontBatch.setColor(style.foreground(i));
-    // fontBatch.setColor(foreground);
+    // Texture texture=regions.get(glyph.page).getTexture();
     fontBatch.draw(texture,
       x+glyph.xoffset*scale,
       y+glyph.yoffset*scale,
@@ -160,17 +174,7 @@ public class MultiChunkFont extends BitmapFont{//TODO
       glyph.u,glyph.v,
       glyph.u2,glyph.v2);
     x+=glyph.xadvance*scale;
-    // fontBatch.end();
     return x;
-  }
-  public boolean f0001() {
-    // for(int i=0;i<length;i++) if(((loadedArea>>i)&1)==0) return true;
-    for(int i=0;i<length;i++) if(data[i]==null) return true;
-    return false;
-  }
-  public interface TextStyleSupplier{
-    public Color foreground(int x);
-    // public Color background(int x);
   }
   public void color(Color in) {
     foreground=in;
@@ -196,7 +200,7 @@ public class MultiChunkFont extends BitmapFont{//TODO
   @Override
   public Array<TextureRegion> getRegions() {//TODO
     // return super.getRegions();
-    return mregions;
+    return multiRegions;
   }
   public float textWidthCam(CharSequence in) {
     float out=0;
