@@ -15,18 +15,16 @@ import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.util.RectF;
 import pama1234.gdx.util.entity.Entity;
 import pama1234.gdx.util.info.TouchInfo;
+import pama1234.gdx.util.wrapper.EntityCenter;
 import pama1234.math.Tools;
+import pama1234.math.UtilMath;
 
 public class PlayerController2D extends Entity<Screen0011>{
   public MainPlayer2D player;
   public boolean left,right,jump,shift;
-  // public boolean inAir;
   public int walkCool,jumpCool;
   public float speed=1f,shiftSpeedMult=2f;
-  // public float floor,leftWall,rightWall,ceiling;
-  // public int bx1,by1,bx2,by2,bw,bh;
-  public MovementLimitBox outerBox;
-  // public boolean flagCache;
+  public MovementLimitBox limitBox;
   public RectF[] cullRects;
   public LivingEntity selectEntity;
   public PlayerController2D(Screen0011 p,MainPlayer2D player) {
@@ -42,7 +40,17 @@ public class PlayerController2D extends Entity<Screen0011>{
     }else {
       cullRects=new RectF[0];
     }
-    outerBox=new MovementLimitBox(player);
+    limitBox=new MovementLimitBox(player);
+    // player.outerBox=limitBox;//TODO
+  }
+  @Override
+  public void display() {
+    if(selectEntity!=null) {
+      p.noFill();
+      // p.strokeWeight();
+      p.circle(selectEntity.x(),selectEntity.y(),UtilMath.max(selectEntity.w,selectEntity.h)+4);
+      p.doFill();
+    }
   }
   @Override
   public void touchStarted(TouchInfo info) {
@@ -50,7 +58,7 @@ public class PlayerController2D extends Entity<Screen0011>{
     for(RectF e:cullRects) if(Tools.inBox(info.ox,info.oy,e.x(),e.y(),e.w(),e.h())) return;
     int tx=player.xToBlockCord(info.x),
       ty=player.xToBlockCord(info.y);
-    for(GamePointEntity<?> e:player.pw.entitys.list) {
+    for(EntityCenter<Screen0011,GamePointEntity<?>> l:player.pw.entitys.list) for(GamePointEntity<?> e:l.list) {
       if(e instanceof TextureLivingEntity live) {
         if(live.inOuterBox(tx,ty)) {
           selectEntity=live;
@@ -94,7 +102,7 @@ public class PlayerController2D extends Entity<Screen0011>{
     }
   }
   public boolean inPlayerOuterBox(int tx,int ty) {
-    return Tools.inBoxInclude(tx,ty,outerBox.bx1,outerBox.by1,outerBox.bw,outerBox.bh);
+    return Tools.inBoxInclude(tx,ty,limitBox.x1,limitBox.y1,limitBox.w,limitBox.h);
   }
   @Override
   public void keyPressed(char key,int keyCode) {
@@ -118,12 +126,12 @@ public class PlayerController2D extends Entity<Screen0011>{
       }
     }
     // inAir=player.point.pos.y<floor;
-    outerBox.updateInAir();
-    if(outerBox.inAir) player.point.vel.y+=player.pw.g;
+    limitBox.updateInAir();
+    if(limitBox.inAir) player.point.vel.y+=player.pw.g;
     else {
-      if(player.point.pos.y!=outerBox.floor) {
+      if(player.point.pos.y!=limitBox.floor) {
         player.point.vel.y=0;
-        player.point.pos.y=outerBox.floor;
+        player.point.pos.y=limitBox.floor;
       }
       if(jumpCool>0) jumpCool--;
       else if(jump) {
@@ -138,78 +146,10 @@ public class PlayerController2D extends Entity<Screen0011>{
     jump=p.isKeyPressed(62);
   }
   public void constrain() {
-    outerBox.constrain();
-    //   if(player.point.pos.y>floor) {
-    //     player.point.vel.y=0;
-    //     player.point.pos.y=floor;
-    //   }
-    //   if(player.point.pos.y<ceiling) {
-    //     if(player.point.vel.y<0) player.point.vel.y=0;
-    //     player.point.pos.y=ceiling;
-    //   }
-    //   if(player.point.pos.x<leftWall) player.point.pos.x=leftWall;
-    //   if(player.point.pos.x>rightWall) player.point.pos.x=rightWall;
+    limitBox.constrain();
   }
   public void updateOuterBox() {
-    outerBox.update();
-    outerBox.updateLimit();
-    // if(inAir) {
-    //   by1-=1;
-    //   bh+=1;
-    // }
-    // if(!inAir) bh-=1;
-    //   if(inAir&&player.point.vel.y>0) bh+=1;
-    //   Block block;
-    //   flagCache=false;
-    //   //------------------------------------------ floor
-    //   for(int i=0;i<=bw;i++) {
-    //     block=player.getBlock(bx1+i,by2+1);
-    //     if(!Block.isEmpty(block)) {
-    //       flagCache=true;
-    //       break;
-    //     }
-    //   }
-    //   if(flagCache) {
-    //     floor=(by2+1)*player.pw.blockHeight;
-    //     flagCache=false;
-    //   }else floor=(by2+4)*player.pw.blockHeight;
-    //   //------------------------------------------ left
-    //   // for(int i=inAir?-1:0;i<=bh;i++) {
-    //   for(int i=0;i<=bh;i++) {
-    //     block=player.getBlock(bx1-1,by1+i);
-    //     if(!Block.isEmpty(block)) {
-    //       flagCache=true;
-    //       break;
-    //     }
-    //   }
-    //   if(flagCache) {
-    //     leftWall=(bx1+0.5f)*player.pw.blockWidth+1;
-    //     flagCache=false;
-    //   }else leftWall=(bx1-4)*player.pw.blockWidth;
-    //   //------------------------------------------ right
-    //   for(int i=0;i<=bh;i++) {
-    //     block=player.getBlock(bx2+1,by1+i);
-    //     if(!Block.isEmpty(block)) {
-    //       flagCache=true;
-    //       break;
-    //     }
-    //   }
-    //   if(flagCache) {
-    //     rightWall=(bx2+0.5f)*player.pw.blockWidth-1;
-    //     flagCache=false;
-    //   }else rightWall=(bx2+4)*player.pw.blockWidth;
-    //   //------------------------------------------ ceiling
-    //   for(int i=0;i<=bw;i++) {
-    //     block=player.getBlock(bx1+i,by1-1);
-    //     if(!Block.isEmpty(block)) {
-    //       flagCache=true;
-    //       break;
-    //     }
-    //   }
-    //   if(flagCache) {
-    //     ceiling=by1*player.pw.blockHeight+player.h;
-    //     flagCache=false;
-    //   }else ceiling=(by1-4)*player.pw.blockHeight;
-    // }
+    limitBox.update();
+    limitBox.updateLimit();
   }
 }

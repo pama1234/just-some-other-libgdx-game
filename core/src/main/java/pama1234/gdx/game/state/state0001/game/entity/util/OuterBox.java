@@ -4,17 +4,17 @@ import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
 
 public class OuterBox{
   public LivingEntity p;
-  public int bx1,by1,bx2,by2,bw,bh;
+  public int x1,y1,x2,y2,w,h;
   public boolean flagCache;
   public OuterBox(LivingEntity p) {
     this.p=p;
   }
   public void update() {
-    bx1=p.blockX1();
-    by1=p.blockY1();
-    bx2=p.blockX2();
-    by2=p.blockY2();
-    bw=bx2-bx1;
-    bh=by2-by1;
+    x1=p.blockX1();
+    y1=p.blockY1();
+    x2=p.blockX2();
+    y2=p.blockY2();
+    w=x2-x1;
+    h=y2-y1;
   }
 }

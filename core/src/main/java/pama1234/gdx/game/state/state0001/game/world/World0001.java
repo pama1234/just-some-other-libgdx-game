@@ -51,7 +51,7 @@ public class World0001 extends World<Screen0011,Game>{
     createItemC();
     createCreatureC();
     list[0]=players=new PlayerCenter2D(p);
-    list[1]=entitys=new GameEntityCenter(p);
+    list[1]=entitys=new GameEntityCenter(p);//TODO
     list[2]=regions=new RegionCenter(p,this,Gdx.files.local("data/saved/regions.bin"));
     yourself=new MainPlayer2D(p,this,0,-1,metaCreatures.player,pg);
     backgroundColor=p.color(0);

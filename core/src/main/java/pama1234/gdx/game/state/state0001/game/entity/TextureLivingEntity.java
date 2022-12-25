@@ -6,6 +6,7 @@ import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.Game;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
+import pama1234.math.Tools;
 import pama1234.math.physics.MassPoint;
 
 public class TextureLivingEntity extends LivingEntity{
@@ -31,10 +32,10 @@ public class TextureLivingEntity extends LivingEntity{
     super.display();
     p.image(type.tiles[pointer],point.pos.x+dx,point.pos.y+dy);
   }
-  public boolean inOuterBox(int tx,int ty) {//TODO
-    return false;
+  public boolean inOuterBox(int tx,int ty) {
+    return Tools.inBoxInclude(tx,ty,outerBox.x1,outerBox.y1,outerBox.w,outerBox.h);
   }
-  public boolean inInnerBox(float tx,float ty) {//TODO
-    return false;
+  public boolean inInnerBox(float tx,float ty) {
+    return Tools.inBox(tx,ty,x()+dx,y()+dy,w,h);
   }
 }

@@ -46,7 +46,7 @@ public class MainPlayer2D extends Player2D{
     super.update();
     ctrl.constrain();
     //---
-    p.cam.point.des.set(cx(),Tools.mag(point.y(),ctrl.outerBox.floor)<48?ctrl.outerBox.floor+dy+h/2f:cy(),0);
+    p.cam.point.des.set(cx(),Tools.mag(point.y(),ctrl.limitBox.floor)<48?ctrl.limitBox.floor+dy+h/2f:cy(),0);
     //---
     life.update();
     inventory.update();
@@ -54,6 +54,7 @@ public class MainPlayer2D extends Player2D{
   @Override
   public void display() {
     super.display();
+    ctrl.display();
     inventory.displayHotSlot();
   }
 }

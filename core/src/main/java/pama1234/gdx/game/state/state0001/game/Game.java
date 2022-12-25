@@ -42,13 +42,13 @@ public class Game extends StateEntity0001{
       public void display() {
         MainPlayer2D tp=world.yourself;
         p.beginBlend();
-        int bx1=tp.ctrl.outerBox.bx1,
-          by1=tp.ctrl.outerBox.by1,
-          bx2=tp.ctrl.outerBox.bx2,
-          by2=tp.ctrl.outerBox.by2;
+        int bx1=tp.ctrl.limitBox.x1,
+          by1=tp.ctrl.limitBox.y1,
+          bx2=tp.ctrl.limitBox.x2,
+          by2=tp.ctrl.limitBox.y2;
         int bw=world.blockWidth,bh=world.blockHeight;
         p.fill(255,127,191,191);
-        p.rect(tp.ctrl.outerBox.leftWall,tp.ctrl.outerBox.ceiling,tp.ctrl.outerBox.rightWall-tp.ctrl.outerBox.leftWall,tp.ctrl.outerBox.floor-tp.ctrl.outerBox.ceiling);
+        p.rect(tp.ctrl.limitBox.leftWall,tp.ctrl.limitBox.ceiling,tp.ctrl.limitBox.rightWall-tp.ctrl.limitBox.leftWall,tp.ctrl.limitBox.floor-tp.ctrl.limitBox.ceiling);
         p.fill(127,255,191,191);
         p.rect(tp.x()+tp.dx,tp.y()+tp.dy,tp.w,tp.h);
         p.fill(94,203,234,191);
