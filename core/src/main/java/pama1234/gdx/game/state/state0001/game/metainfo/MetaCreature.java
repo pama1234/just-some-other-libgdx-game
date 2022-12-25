@@ -7,6 +7,8 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaCreat
 
 public class MetaCreature<T extends LivingEntity>extends MetaInfoBase{
   public MetaCreatureCenter0001 pc;
+  public int w,h;
+  public float dx,dy;
   public float maxLife=32;
   public TextureRegion[] tiles;
   public MetaCreature(MetaCreatureCenter0001 pc,float maxLife,int tileSize) {

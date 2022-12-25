@@ -49,7 +49,7 @@ public class Game extends StateEntity0001{
         p.fill(255,127,191,191);
         p.rect(tp.ctrl.limitBox.leftWall,tp.ctrl.limitBox.ceiling,tp.ctrl.limitBox.rightWall-tp.ctrl.limitBox.leftWall,tp.ctrl.limitBox.floor-tp.ctrl.limitBox.ceiling);
         p.fill(127,255,191,191);
-        p.rect(tp.x()+tp.dx,tp.y()+tp.dy,tp.w,tp.h);
+        p.rect(tp.x()+tp.type.dx,tp.y()+tp.type.dy,tp.type.w,tp.type.h);
         p.fill(94,203,234,191);
         p.rect((bx1)*world.blockWidth,by1*world.blockHeight,bw,bh);
         p.rect((bx1)*world.blockWidth,by2*world.blockHeight,bw,bh);

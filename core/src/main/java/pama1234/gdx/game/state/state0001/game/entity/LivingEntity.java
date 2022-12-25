@@ -14,8 +14,8 @@ import pama1234.math.physics.PathVar;
 public class LivingEntity extends GamePointEntity<MassPoint>{
   public World0001 pw;
   //---
-  public int w,h;
-  public float dx,dy;
+  // public int w,h;
+  // public float dx,dy;
   public OuterBox outerBox;
   //---
   // public float maxLife=32;
@@ -41,27 +41,27 @@ public class LivingEntity extends GamePointEntity<MassPoint>{
     if(!flag&&UtilMath.abs(life.des-type.maxLife)<=0.1f) return;
     p.beginBlend();
     p.fill(127,127);
-    p.rect(x()+dx,y()+dy-4,w,2);
+    p.rect(x()+type.dx,y()+type.dy-4,type.w,2);
     p.fill(255,63,63,191);
-    float tp=w/type.maxLife;
+    float tp=type.w/type.maxLife;
     float tw=tp*life.pos;
-    p.rect(x()+dx,y()+dy-4,tw,2);
+    p.rect(x()+type.dx,y()+type.dy-4,tw,2);
     if(flag) {
       if(life.des>life.pos) {
         p.fill(156,95,255,191);
-        p.rect(x()+dx+tw,y()+dy-4,tp*(life.des-life.pos),2);
+        p.rect(x()+type.dx+tw,y()+type.dy-4,tp*(life.des-life.pos),2);
       }else {
         p.fill(255,255,63,191);
-        p.rect(x()+dx+tw,y()+dy-4,tp*(life.pos-life.des),2);
+        p.rect(x()+type.dx+tw,y()+type.dy-4,tp*(life.pos-life.des),2);
       }
     }
     p.endBlend();
   }
   public float cx() {
-    return point.pos.x+dx+w/2f;
+    return point.pos.x+type.dx+type.w/2f;
   }
   public float cy() {
-    return point.pos.y+dy+h/2f;
+    return point.pos.y+type.dy+type.h/2f;
   }
   public Block getBlock(int xIn,int yIn) {
     return pw.regions.getBlock(xIn,yIn);
@@ -76,16 +76,16 @@ public class LivingEntity extends GamePointEntity<MassPoint>{
     return yToBlockCord(y());
   }
   public int blockX1() {
-    return xToBlockCord(x()+dx);
+    return xToBlockCord(x()+type.dx);
   }
   public int blockY1() {
-    return yToBlockCord(y()+dy);
+    return yToBlockCord(y()+type.dy);
   }
   public int blockX2() {
-    return xToBlockCord(x()+dx+w-0.01f);//TODO
+    return xToBlockCord(x()+type.dx+type.w-0.01f);//TODO
   }
   public int blockY2() {
-    return yToBlockCord(y()+dy+h-0.01f);//TODO
+    return yToBlockCord(y()+type.dy+type.h-0.01f);//TODO
   }
   public int xToBlockCord(float in) {//TODO static
     return UtilMath.floor(in/pw.blockWidth);
@@ -97,6 +97,6 @@ public class LivingEntity extends GamePointEntity<MassPoint>{
     return Tools.inBoxInclude(tx,ty,outerBox.x1,outerBox.y1,outerBox.w,outerBox.h);
   }
   public boolean inInnerBox(float tx,float ty) {
-    return Tools.inBox(tx,ty,x()+dx,y()+dy,w,h);
+    return Tools.inBox(tx,ty,x()+type.dx,y()+type.dy,type.w,type.h);
   }
 }

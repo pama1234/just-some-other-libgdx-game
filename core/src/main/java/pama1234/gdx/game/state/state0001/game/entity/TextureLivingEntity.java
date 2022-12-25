@@ -29,6 +29,6 @@ public class TextureLivingEntity extends LivingEntity{
   @Override
   public void display() {
     super.display();
-    p.image(type.tiles[pointer],point.pos.x+dx,point.pos.y+dy);
+    p.image(type.tiles[pointer],point.pos.x+type.dx,point.pos.y+type.dy);
   }
 }

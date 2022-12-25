@@ -48,7 +48,7 @@ public class PlayerController2D extends Entity<Screen0011>{
       p.noFill();
       p.doStroke();
       // p.strokeWeight(p.strokeWeight*p.pus);
-      p.circle(selectEntity.cx(),selectEntity.cy(),UtilMath.max(selectEntity.w,selectEntity.h)/2f+4);
+      p.circle(selectEntity.cx(),selectEntity.cy(),UtilMath.max(selectEntity.type.w,selectEntity.type.h)/2f+4);
       p.doFill();
       p.noStroke();
     }
@@ -59,14 +59,9 @@ public class PlayerController2D extends Entity<Screen0011>{
     for(RectF e:cullRects) if(Tools.inBox(info.ox,info.oy,e.x(),e.y(),e.w(),e.h())) return;
     int tx=player.xToBlockCord(info.x),
       ty=player.xToBlockCord(info.y);
-    System.out.println(tx+" "+ty);
-    // System.out.println(player.pw.entitys.list.getLast().list.size());
-    // System.out.println(selectEntity);
-    if(inPlayerOuterBox(tx,ty)) player.inventory.displayHotSlot(!player.inventory.displayHotSlot);
-    // for(HotSlot<IntItem> e:player.inventory.hotSlots) {
+    if(p.isAndroid&&inPlayerOuterBox(tx,ty)) player.inventory.displayHotSlot(!player.inventory.displayHotSlot);
     if(player.inventory.displayHotSlot) for(int i=0;i<player.inventory.hotSlots.length;i++) {
       HotSlot<IntItem> e=player.inventory.hotSlots[i];
-      // if(e.data!=null&&Tools.inBox(info.x,info.y,e.x1,e.y1,e.w,e.h)) {
       if(Tools.inBox(info.x,info.y,e.x1,e.y1,e.w,e.h)) {
         player.inventory.selectSlot=i;
         return;
@@ -74,8 +69,6 @@ public class PlayerController2D extends Entity<Screen0011>{
     }
     for(EntityCenter<Screen0011,? extends GamePointEntity<?>> l:player.pw.entitys.list) for(GamePointEntity<?> e:l.list) {
       if(e instanceof LivingEntity live) {
-        // System.out.println(live+" "+live.inOuterBox(tx,ty)+" "+live.outerBox.x1);
-        System.out.println(live.outerBox);
         if(live.inOuterBox(tx,ty)) {
           selectEntity=live;
           return;

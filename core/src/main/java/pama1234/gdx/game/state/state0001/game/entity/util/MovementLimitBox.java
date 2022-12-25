@@ -74,7 +74,7 @@ public class MovementLimitBox extends OuterBox{
       }
     }
     if(flagCache) {
-      ceiling=y1*p.pw.blockHeight+p.h;
+      ceiling=y1*p.pw.blockHeight+p.type.h;
       flagCache=false;
     }else ceiling=(y1-4)*p.pw.blockHeight;
   }

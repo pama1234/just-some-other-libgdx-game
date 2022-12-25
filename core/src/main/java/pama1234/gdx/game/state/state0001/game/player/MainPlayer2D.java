@@ -42,7 +42,7 @@ public class MainPlayer2D extends Player2D{
     super.update();
     ctrl.constrain();
     //---
-    p.cam.point.des.set(cx(),Tools.mag(point.y(),ctrl.limitBox.floor)<48?ctrl.limitBox.floor+dy+h/2f:cy(),0);
+    p.cam.point.des.set(cx(),Tools.mag(point.y(),ctrl.limitBox.floor)<48?ctrl.limitBox.floor+type.dy+type.h/2f:cy(),0);
     //---
     life.update();
     inventory.update();
