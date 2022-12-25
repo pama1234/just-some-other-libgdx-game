@@ -1,4 +1,4 @@
-package pama1234.gdx.game.ui;
+package pama1234.gdx.game.ui.generator;
 
 import com.badlogic.gdx.Input;
 

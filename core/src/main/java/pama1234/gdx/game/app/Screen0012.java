@@ -1,17 +1,19 @@
 package pama1234.gdx.game.app;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.Color;
 
 import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.state.state0001.State0001;
-import pama1234.gdx.game.state.state0001.State0001.StateChanger;
-import pama1234.gdx.game.state.state0001.StateGenerator0001;
+import pama1234.gdx.game.state.state0002.State0002;
+import pama1234.gdx.game.state.state0002.State0002.StateChanger;
+import pama1234.gdx.game.state.state0002.StateGenerator0002;
 import pama1234.gdx.util.app.ScreenCore2D;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.math.Tools;
 
-public class Screen0011 extends ScreenCore2D implements StateChanger{
-  public State0001 state;
+public class Screen0012 extends ScreenCore2D implements StateChanger{
+  public State0002 state;
   public boolean firstRun;
   public boolean debugInfo;
   public boolean mute;
@@ -20,19 +22,19 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   public void setup() {
     noStroke();
     MusicAsset.load_init();
-    StateGenerator0001.loadState0001(this);
+    StateGenerator0002.loadState0001(this);
     firstRun=!Gdx.files.local("data/firstRun.txt").exists();
     // firstRun=true;
     if(firstRun) {
-      state(State0001.FirstRun);
+      state(State0002.FirstRun);
       Gdx.files.local("data/firstRun.txt").writeString("1234",false);
     }else {
-      state(State0001.Loading);
+      state(State0002.Loading);
     }
   }
   @Override
-  public State0001 state(State0001 in) {
-    State0001 out=state;
+  public State0002 state(State0002 in) {
+    State0002 out=state;
     state=in;
     if(out!=null) {
       centerScreen.remove.add(out);
@@ -48,8 +50,8 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     }
     return out;
   }
-  public State0001 stateNull() {
-    State0001 out=state;
+  public State0002 stateNull() {
+    State0002 out=state;
     state=null;
     if(out!=null) {
       centerScreen.list.remove(out);
@@ -94,5 +96,14 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     super.dispose();
     State0001.disposeAll();
     // State0001.exit();
+  }
+  public void lerpColor(Color a,Color b,Color out,float pos) {
+    if(pos==0) out.set(a);
+    else if(pos==1) out.set(b);
+    float tr=b.r-a.r,
+      tg=b.g-a.g,
+      tb=b.b-a.b,
+      ta=b.a-a.a;
+    out.set(a.r+tr*pos,a.g+tg*pos,a.b+tb*pos,a.a+ta*pos);
   }
 }

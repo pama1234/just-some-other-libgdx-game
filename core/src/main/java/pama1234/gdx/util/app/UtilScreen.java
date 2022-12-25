@@ -351,6 +351,15 @@ public abstract class UtilScreen extends UtilScreenCore{
   public Color color(float r,float g,float b,float a) {
     return new Color(r/255f,g/255f,b/255f,a/255f);
   }
+  public void lerpColor(Color a,Color b,Color out,float pos) {
+    if(pos==0) out.set(a);
+    else if(pos==1) out.set(b);
+    float tr=b.r-a.r,
+      tg=b.g-a.g,
+      tb=b.b-a.b,
+      ta=b.a-a.a;
+    out.set(a.r+tr*pos,a.g+tg*pos,a.b+tb*pos,a.a+ta*pos);
+  }
   @Deprecated
   public void border(float x,float y,float w,float h,float weight) {
     beginBlend();

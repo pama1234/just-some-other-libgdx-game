@@ -1,6 +1,6 @@
 package pama1234.gdx.game.state.state0001.game.world;
 
-import pama1234.gdx.game.state.DisplayEntity.DisplayWithCam;
+import pama1234.gdx.game.util.DisplayEntity.DisplayWithCam;
 import pama1234.gdx.util.app.UtilScreen;
 import pama1234.gdx.util.wrapper.StateCenter;
 

@@ -1,24 +1,24 @@
-package pama1234.gdx.game.state.state0001;
+package pama1234.gdx.game.state.state0002;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import pama1234.gdx.game.app.Screen0011;
+import pama1234.gdx.game.app.Screen0012;
 import pama1234.gdx.game.asset.GifAsset;
 import pama1234.gdx.game.asset.MusicAsset;
-import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
-import pama1234.gdx.game.ui.generator.ButtonGenerator;
+import pama1234.gdx.game.state.state0002.StateGenerator0002.StateEntity0002;
+import pama1234.gdx.game.ui.generator.ButtonGenerator0002;
 import pama1234.gdx.game.ui.util.Button;
 
-public class StartMenu extends StateEntity0001{
+public class StartMenu extends StateEntity0002{
   public Button<?>[] buttons;
   //---
   public float time;
-  public StartMenu(Screen0011 p) {
+  public StartMenu(Screen0012 p) {
     super(p);
-    buttons=ButtonGenerator.genButtons_0003(p);
+    buttons=ButtonGenerator0002.genButtons_0003(p);
   }
   @Override
-  public void from(State0001 in) {
+  public void from(State0002 in) {
     p.backgroundColor(255);
     p.textColor(255);
     for(Button<?> e:buttons) p.centerScreen.add.add(e);
@@ -36,7 +36,7 @@ public class StartMenu extends StateEntity0001{
     frameResized(p.width,p.height);
   }
   @Override
-  public void to(State0001 in) {
+  public void to(State0002 in) {
     MusicAsset.moonlightSonata.pause();
     for(Button<?> e:buttons) p.centerScreen.remove.add(e);
     p.cam2d.active(true);

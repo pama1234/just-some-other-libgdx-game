@@ -2,7 +2,7 @@ package pama1234.gdx.game.app.app0004;
 
 import static com.badlogic.gdx.math.MathUtils.log;
 import static com.badlogic.gdx.math.MathUtils.map;
-import static pama1234.gdx.game.ui.InfoGenerator.info0001;
+import static pama1234.gdx.game.ui.generator.InfoGenerator.info0001;
 import static pama1234.math.UtilMath.dist;
 import static pama1234.math.UtilMath.pow;
 
@@ -17,8 +17,8 @@ import pama1234.game.app.server.game.ServerPlayer3D;
 import pama1234.game.app.server.game.particle.CellGroup3D;
 import pama1234.game.app.server.game.particle.CellGroupGenerator3D;
 import pama1234.game.app.server.particle.Var;
-import pama1234.gdx.game.ui.ButtonGenerator;
 import pama1234.gdx.game.ui.ConfigInfo;
+import pama1234.gdx.game.ui.generator.ButtonGenerator;
 import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.util.ClientPlayerCenter3D;
 import pama1234.gdx.game.util.ControllerClientPlayer3D;
