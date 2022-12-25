@@ -59,7 +59,7 @@ public class World0001 extends World<Screen0011,Game>{
     backgroundColor=p.color(0);
     colorA=p.color(0);
     colorB=p.color(0);
-    entitys.points.add.add(new Fly(p,this,0,18*10,metaEntitys.fly,pg));//TODO
+    entitys.points.add.add(new Fly(p,this,0,18*10,pg));//TODO
   }
   public int getSkyColor(int pos) {
     return skyColorMap.getPixel(pos,0);

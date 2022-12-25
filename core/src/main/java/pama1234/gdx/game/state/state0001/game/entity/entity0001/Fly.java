@@ -9,11 +9,9 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaCreat
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 
 public class Fly extends TextureLivingEntity{
-  public Fly(Screen0011 p,World0001 pw,float x,float y,FlyType type,Game pg) {
-    super(p,pw,x,y,type,pg);//TODO
+  public Fly(Screen0011 p,World0001 pw,float x,float y,Game pg) {
+    super(p,pw,x,y,pw.metaEntitys.fly,pg);
   }
-  // @Override
-  // public void initTextureRegion() {}
   public static class FlyType extends MetaCreature<Fly>{
     {
       w=24;
@@ -27,7 +25,7 @@ public class Fly extends TextureLivingEntity{
     @Override
     public void init() {
       if(tiles[0]!=null) return;
-      for(int i=0;i<tiles.length;i++) tiles[i]=ImageAsset.creature[6+i][2];//TODO
+      for(int i=0;i<tiles.length;i++) tiles[i]=ImageAsset.creature[6+i][2];
     }
   }
 }
