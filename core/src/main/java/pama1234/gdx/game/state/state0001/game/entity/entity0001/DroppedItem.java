@@ -1,7 +1,7 @@
 package pama1234.gdx.game.state.state0001.game.entity.entity0001;
 
 import pama1234.gdx.game.app.Screen0011;
-import pama1234.gdx.game.state.state0001.game.Game;
+import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.game.entity.GamePointEntity;
 import pama1234.gdx.game.state.state0001.game.item.Item;
 import pama1234.math.physics.MassPoint;

@@ -1,9 +1,8 @@
-package pama1234.gdx.game.state.state0001.game;
+package pama1234.gdx.game.state.state0001;
 
 import static com.badlogic.gdx.Input.Keys.ESCAPE;
 
 import pama1234.gdx.game.app.Screen0011;
-import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer2D;
 import pama1234.gdx.game.state.state0001.game.world.World;

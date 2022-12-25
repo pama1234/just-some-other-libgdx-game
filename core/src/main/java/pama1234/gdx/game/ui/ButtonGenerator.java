@@ -5,9 +5,9 @@ import com.badlogic.gdx.Input;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.app.app0002.Screen0006;
 import pama1234.gdx.game.asset.ImageAsset;
+import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.Settings;
 import pama1234.gdx.game.state.state0001.State0001;
-import pama1234.gdx.game.state.state0001.game.Game;
 import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.ui.util.Slider;
 import pama1234.gdx.game.ui.util.TextButton;
@@ -18,16 +18,6 @@ import pama1234.gdx.util.app.ScreenCore3D;
 public class ButtonGenerator{
   public static <T extends Screen0011> TextButton<?>[] genButtons_0007(T p,Game pg) {
     return new TextButton[] {
-      // new TextButton<T>(p,true,()->true,()-> {},()-> {
-      //   p.inputProcessor.keyDown(Input.Keys.W);
-      // },()-> {
-      //   p.inputProcessor.keyUp(Input.Keys.W);
-      // },"W",p::getButtonUnitLength,()->p.bu*2.5f,()->p.height-p.bu*2.5f,()->p.bu-p.pus,false),
-      // new TextButton<T>(p,true,()->true,()-> {},()-> {
-      //   p.inputProcessor.keyDown(Input.Keys.S);
-      // },()-> {
-      //   p.inputProcessor.keyUp(Input.Keys.S);
-      // },"S",p::getButtonUnitLength,()->p.bu*2.5f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,false),
       new TextButton<T>(p,true,()->true,()-> {},()-> {},()-> {
         pg.androidRightMouseButton=!pg.androidRightMouseButton;
         pg.ctrlButtons[0].text=pg.androidRightMouseButton?"mR":"mL";

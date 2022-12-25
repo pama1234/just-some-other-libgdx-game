@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
-import pama1234.gdx.game.state.state0001.game.Game;
+import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.game.entity.GameEntityCenter;
 import pama1234.gdx.game.state.state0001.game.entity.entity0001.Fly;
 import pama1234.gdx.game.state.state0001.game.entity.entity0001.Fly.FlyType;
@@ -30,7 +30,7 @@ import pama1234.math.UtilMath;
 public class World0001 extends World<Screen0011,Game>{
   public MetaBlockCenter0001 metaBlocks;
   public MetaItemCenter0001 metaItems;
-  public MetaCreatureCenter0001 metaCreatures;
+  public MetaCreatureCenter0001 metaEntitys;
   public GameEntityCenter entitys;
   public PlayerCenter2D players;
   public RegionCenter regions;
@@ -55,19 +55,19 @@ public class World0001 extends World<Screen0011,Game>{
     list[0]=entitys=new GameEntityCenter(p);
     entitys.list.add(entitys.players=players=new PlayerCenter2D(p));
     list[1]=regions=new RegionCenter(p,this,Gdx.files.local("data/saved/regions.bin"));
-    yourself=new MainPlayer2D(p,this,0,-1,metaCreatures.player,pg);
+    yourself=new MainPlayer2D(p,this,0,-1,pg);
     backgroundColor=p.color(0);
     colorA=p.color(0);
     colorB=p.color(0);
-    entitys.points.add.add(new Fly(p,this,0,18*10,metaCreatures.fly,pg));//TODO
+    entitys.points.add.add(new Fly(p,this,0,18*10,metaEntitys.fly,pg));//TODO
   }
   public int getSkyColor(int pos) {
     return skyColorMap.getPixel(pos,0);
   }
   public void createCreatureC() {
-    metaCreatures=new MetaCreatureCenter0001(this);
-    metaCreatures.list.add(metaCreatures.player=new PlayerType2D(metaCreatures));
-    metaCreatures.list.add(metaCreatures.fly=new FlyType(metaCreatures));
+    metaEntitys=new MetaCreatureCenter0001(this);
+    metaEntitys.list.add(metaEntitys.player=new PlayerType2D(metaEntitys));
+    metaEntitys.list.add(metaEntitys.fly=new FlyType(metaEntitys));
   }
   public void createItemC() {
     metaItems=new MetaItemCenter0001(this);
@@ -103,7 +103,7 @@ public class World0001 extends World<Screen0011,Game>{
     initSky();
     for(MetaBlock e:metaBlocks.list) e.init();
     for(MetaItem<?> e:metaItems.list) e.init();
-    for(MetaCreature<?> e:metaCreatures.list) e.init();
+    for(MetaCreature<?> e:metaEntitys.list) e.init();
   }
   public void initSky() {
     ImageAsset.sky.getTexture().getTextureData().prepare();

@@ -1,7 +1,7 @@
 package pama1234.gdx.game.state.state0001.game.player;
 
 import pama1234.gdx.game.app.Screen0011;
-import pama1234.gdx.game.state.state0001.game.Game;
+import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.game.item.IntItem;
 import pama1234.gdx.game.state.state0001.game.item.Inventory;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
@@ -13,14 +13,12 @@ public class MainPlayer2D extends Player2D{
   public CameraController2D cam;
   public PlayerController2D ctrl;
   public Inventory<IntItem> inventory;
-  public MainPlayer2D(Screen0011 p,World0001 pw,float x,float y,PlayerType2D type,Game pg) {//TODO type
-    super(p,pw,x,y,type,pg);
+  public MainPlayer2D(Screen0011 p,World0001 pw,float x,float y,Game pg) {//TODO type
+    super(p,pw,x,y,pw.metaEntitys.player,pg);
     this.cam=p.cam2d;
     ctrl=new PlayerController2D(p,this);
     inventory=new Inventory<>(this,32,9);
-    // for(int i=0;i<inventory.data.length;i++) inventory.data[i].item=pw.itemC.dirt.createItem();
-    inventory.data[0].item=pw.metaItems.dirt.createItem();
-    // inventory.data[4].item=pw.itemC.dirt.createItem();
+    inventory.data[0].item=pw.metaItems.dirt.createItem();//TODO
   }
   @Override
   public void keyPressed(char key,int keyCode) {
@@ -36,8 +34,6 @@ public class MainPlayer2D extends Player2D{
   }
   @Override
   public void update() {
-    // if(p.isKeyPressed(Keys.R)) life.des-=1;//TODO
-    // if(p.isKeyPressed(Keys.T)) life.des+=1;
     for(TouchInfo e:p.touches) if(e.active) ctrl.touchUpdate(e);
     ctrl.updateOuterBox();
     //-------------------------------------------------------
