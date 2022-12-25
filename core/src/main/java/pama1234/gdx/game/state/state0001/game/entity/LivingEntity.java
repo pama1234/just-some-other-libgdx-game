@@ -6,6 +6,7 @@ import pama1234.gdx.game.state.state0001.game.entity.util.OuterBox;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
+import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 import pama1234.math.physics.MassPoint;
 import pama1234.math.physics.PathVar;
@@ -91,5 +92,11 @@ public class LivingEntity extends GamePointEntity<MassPoint>{
   }
   public int yToBlockCord(float in) {
     return UtilMath.floor(in/pw.blockHeight);
+  }
+  public boolean inOuterBox(int tx,int ty) {
+    return Tools.inBoxInclude(tx,ty,outerBox.x1,outerBox.y1,outerBox.w,outerBox.h);
+  }
+  public boolean inInnerBox(float tx,float ty) {
+    return Tools.inBox(tx,ty,x()+dx,y()+dy,w,h);
   }
 }

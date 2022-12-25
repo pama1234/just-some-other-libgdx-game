@@ -9,6 +9,12 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaCreat
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 
 public class Fly extends TextureLivingEntity{
+  {
+    w=24;
+    h=24;
+    dx=-12;
+    dy=-24;
+  }
   public Fly(Screen0011 p,World0001 pw,float x,float y,FlyType type,Game pg) {
     super(p,pw,x,y,type,pg);//TODO
   }

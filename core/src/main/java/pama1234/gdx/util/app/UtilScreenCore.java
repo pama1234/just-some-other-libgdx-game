@@ -61,7 +61,7 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
   public MultiChunkFont font;
   public Color textColor,fillColor,strokeColor;
   public boolean fill=true,stroke=true;
-  public float strokeWeight;
+  public float defaultStrokeWeight,strokeWeight;
   public ShapeRenderer rFill,rStroke;
   public boolean background=true;
   public Color backgroundColor;

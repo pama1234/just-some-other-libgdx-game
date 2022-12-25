@@ -9,6 +9,7 @@ import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.Game;
 import pama1234.gdx.game.state.state0001.game.entity.GameEntityCenter;
+import pama1234.gdx.game.state.state0001.game.entity.entity0001.Fly;
 import pama1234.gdx.game.state.state0001.game.entity.entity0001.Fly.FlyType;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
@@ -46,18 +47,19 @@ public class World0001 extends World<Screen0011,Game>{
   public float daySkyGridSize;
   public Color backgroundColor,colorA,colorB;
   public World0001(Screen0011 p,Game pg) {
-    super(p,pg,3);
+    super(p,pg,2);
     createBlockC();
     createItemC();
     createCreatureC();
-    list[0]=players=new PlayerCenter2D(p);
-    list[1]=entitys=new GameEntityCenter(p);//TODO
-    list[2]=regions=new RegionCenter(p,this,Gdx.files.local("data/saved/regions.bin"));
+    // list[0]=players=new PlayerCenter2D(p);
+    list[0]=entitys=new GameEntityCenter(p);
+    entitys.list.add(entitys.players=players=new PlayerCenter2D(p));
+    list[1]=regions=new RegionCenter(p,this,Gdx.files.local("data/saved/regions.bin"));
     yourself=new MainPlayer2D(p,this,0,-1,metaCreatures.player,pg);
     backgroundColor=p.color(0);
     colorA=p.color(0);
     colorB=p.color(0);
-    // entitys.add.add(new Fly(p,this,0,18*10,creatureC.fly,pg));//TODO
+    entitys.points.add.add(new Fly(p,this,0,18*10,metaCreatures.fly,pg));//TODO
   }
   public int getSkyColor(int pos) {
     return skyColorMap.getPixel(pos,0);

@@ -6,7 +6,6 @@ import com.badlogic.gdx.Input.Keys;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.entity.GamePointEntity;
 import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
-import pama1234.gdx.game.state.state0001.game.entity.TextureLivingEntity;
 import pama1234.gdx.game.state.state0001.game.entity.util.MovementLimitBox;
 import pama1234.gdx.game.state.state0001.game.item.IntItem;
 import pama1234.gdx.game.state.state0001.game.item.Inventory.HotSlot;
@@ -47,9 +46,11 @@ public class PlayerController2D extends Entity<Screen0011>{
   public void display() {
     if(selectEntity!=null) {
       p.noFill();
-      // p.strokeWeight();
-      p.circle(selectEntity.x(),selectEntity.y(),UtilMath.max(selectEntity.w,selectEntity.h)+4);
+      p.doStroke();
+      // p.strokeWeight(p.strokeWeight*p.pus);
+      p.circle(selectEntity.cx(),selectEntity.cy(),UtilMath.max(selectEntity.w,selectEntity.h)/2f+4);
       p.doFill();
+      p.noStroke();
     }
   }
   @Override
@@ -58,13 +59,9 @@ public class PlayerController2D extends Entity<Screen0011>{
     for(RectF e:cullRects) if(Tools.inBox(info.ox,info.oy,e.x(),e.y(),e.w(),e.h())) return;
     int tx=player.xToBlockCord(info.x),
       ty=player.xToBlockCord(info.y);
-    for(EntityCenter<Screen0011,GamePointEntity<?>> l:player.pw.entitys.list) for(GamePointEntity<?> e:l.list) {
-      if(e instanceof TextureLivingEntity live) {
-        if(live.inOuterBox(tx,ty)) {
-          selectEntity=live;
-        }
-      }
-    }
+    System.out.println(tx+" "+ty);
+    // System.out.println(player.pw.entitys.list.getLast().list.size());
+    // System.out.println(selectEntity);
     if(inPlayerOuterBox(tx,ty)) player.inventory.displayHotSlot(!player.inventory.displayHotSlot);
     // for(HotSlot<IntItem> e:player.inventory.hotSlots) {
     if(player.inventory.displayHotSlot) for(int i=0;i<player.inventory.hotSlots.length;i++) {
@@ -75,6 +72,17 @@ public class PlayerController2D extends Entity<Screen0011>{
         return;
       }
     }
+    for(EntityCenter<Screen0011,? extends GamePointEntity<?>> l:player.pw.entitys.list) for(GamePointEntity<?> e:l.list) {
+      if(e instanceof LivingEntity live) {
+        // System.out.println(live+" "+live.inOuterBox(tx,ty)+" "+live.outerBox.x1);
+        System.out.println(live.outerBox);
+        if(live.inOuterBox(tx,ty)) {
+          selectEntity=live;
+          return;
+        }
+      }
+    }
+    selectEntity=null;
   }
   public void touchUpdate(TouchInfo info) {
     if(info.state!=0) return;
@@ -102,7 +110,8 @@ public class PlayerController2D extends Entity<Screen0011>{
     }
   }
   public boolean inPlayerOuterBox(int tx,int ty) {
-    return Tools.inBoxInclude(tx,ty,limitBox.x1,limitBox.y1,limitBox.w,limitBox.h);
+    // return Tools.inBoxInclude(tx,ty,limitBox.x1,limitBox.y1,limitBox.w,limitBox.h);
+    return player.inOuterBox(tx,ty);
   }
   @Override
   public void keyPressed(char key,int keyCode) {
