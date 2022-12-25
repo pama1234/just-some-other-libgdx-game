@@ -13,6 +13,7 @@ import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.game.util.RectF;
 import pama1234.gdx.util.listener.EntityListener;
+import pama1234.math.vec.Vec2f;
 
 public class Game extends StateEntity0001{
   public Button<?>[] menuButtons;
@@ -22,7 +23,6 @@ public class Game extends StateEntity0001{
   public World0001 world;
   public WorldCenter<Screen0011,Game,World<Screen0011,Game>> worldCenter;
   public boolean debug;
-  // public boolean debug;
   public boolean androidRightMouseButton;
   public EntityListener displayCamTop;
   public boolean firstInit=true;//TODO
@@ -62,6 +62,8 @@ public class Game extends StateEntity0001{
   @Override
   public void from(State0001 in) {
     p.backgroundColor(world.backgroundColor);
+    Vec2f tpos=world.yourself.point.pos;
+    p.cam.point.des.set(tpos.x,tpos.y,0);
     p.cam.noGrab();
     // tvgRefresh();
     for(Button<?> e:menuButtons) p.centerScreen.add.add(e);
@@ -84,23 +86,10 @@ public class Game extends StateEntity0001{
   }
   @Override
   public void displayCam() {
-    // p.beginBlend();
-    // p.image(ImageAsset.background,-288,-162);
-    // p.imageBatch.flush();
-    // p.endBlend();
     worldCenter.displayCam();
-    // MainPlayer2D tp=world.yourself;
   }
   @Override
   public void display() {
-    // Block block=world.regions.getBlock(UtilMath.floor(p.mouse.x/world.blockHeight),UtilMath.floor(p.mouse.y/world.blockWidth));
-    // p.text(block==null?"null":block.type.name,p.width/2,p.height/2);
-    //--------------------------------
-    // MainPlayer2D tp=world.yourself;
-    // p.text(tp.x()+" "+tp.y()+" "+tp.groundLevel,p.width/2,p.height/2);
-    // Block block=tp.getBlock(tp.blockX(),tp.blockY());
-    // p.text(block==null?"null":block.type.name,p.width/2,p.height/2+p.bu);
-    // p.text("vel.y "+tp.point.vel.y,p.width/2,p.height/2);
     if(debug) {
       p.beginBlend();
       p.fill(94,203,234,127);
@@ -111,7 +100,6 @@ public class Game extends StateEntity0001{
   @Override
   public void update() {
     time+=p.frameRate;
-    // p.backgroundColor(world.backgroundColor);
   }
   @Override
   public void frameResized(int w,int h) {}
@@ -119,13 +107,8 @@ public class Game extends StateEntity0001{
   public void keyReleased(char key,int keyCode) {
     if(keyCode==ESCAPE) p.state(State0001.StartMenu);
   }
-  // @Override
-  // public void exit() {
-  //   world.exit();
-  // }
   @Override
   public void dispose() {
-    // System.out.println("Game.dispose()");
     world.dispose();
   }
 }

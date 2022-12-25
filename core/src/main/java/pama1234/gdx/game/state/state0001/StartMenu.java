@@ -29,7 +29,9 @@ public class StartMenu extends StateEntity0001{
     }
     p.cam2d.active(false);
     p.cam2d.scale.des=3;
-    p.cam2d.point.set(96,0,0);
+    p.cam2d.scale.pos=3;
+    p.cam2d.point.des.set(96,0,0);
+    p.cam2d.point.pos.set(96,0,0);
     p.cam.noGrab();
     frameResized(p.width,p.height);
   }
@@ -38,8 +40,10 @@ public class StartMenu extends StateEntity0001{
     MusicAsset.moonlightSonata.pause();
     for(Button<?> e:buttons) p.centerScreen.remove.add(e);
     p.cam2d.active(true);
+    p.cam2d.scale.pos=1;
     p.cam2d.scale.des=1;
-    p.cam2d.point.set(0,0,0);
+    p.cam2d.point.des.set(0,0,0);
+    p.cam2d.point.pos.set(0,0,0);
   }
   @Override
   public void update() {

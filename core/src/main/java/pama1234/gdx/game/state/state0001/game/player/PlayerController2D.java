@@ -112,8 +112,8 @@ public class PlayerController2D extends Entity<Screen0011>{
     }
   }
   public boolean inPlayerOuterBox(int tx,int ty) {
-    // return Tools.inBoxInclude(tx,ty,limitBox.x1,limitBox.y1,limitBox.w,limitBox.h);
-    return player.inOuterBox(tx,ty);
+    return Tools.inBoxInclude(tx,ty,limitBox.x1,limitBox.y1,limitBox.w,limitBox.h);
+    // return player.inOuterBox(tx,ty);
   }
   @Override
   public void keyPressed(char key,int keyCode) {

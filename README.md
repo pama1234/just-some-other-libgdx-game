@@ -13,3 +13,5 @@ I will write an English README when needed.
 主要类位置：pama1234.gdx.launcher.MainApp
 
 命名规则：tx是temp-x的缩写，一般用于局部变量中,其他还有ty，tw，th，这些分别表示位置x，位置y，体积w，体积z
+
+待办事项请看todo.txt，编译安卓项目请用自己的签名文件
