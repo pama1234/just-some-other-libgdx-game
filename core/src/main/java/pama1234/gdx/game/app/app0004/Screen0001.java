@@ -161,7 +161,7 @@ public class Screen0001 extends ScreenCore3D{
     if(isAndroid) {
       // if(true) {
       buttons=ButtonGenerator.genButtons_0001(this);
-      for(Button e:buttons) centerScreen.add.add(e);
+      for(Button<?> e:buttons) centerScreen.add.add(e);
     }
     centerScreen.add.add(configInfo=new ConfigInfo(this));
     centerCam.add.add(playerCenter);

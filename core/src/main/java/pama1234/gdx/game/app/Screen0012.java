@@ -95,7 +95,6 @@ public class Screen0012 extends ScreenCore2D implements StateChanger{
     stateNull();
     super.dispose();
     State0001.disposeAll();
-    // State0001.exit();
   }
   public void lerpColor(Color a,Color b,Color out,float pos) {
     if(pos==0) out.set(a);

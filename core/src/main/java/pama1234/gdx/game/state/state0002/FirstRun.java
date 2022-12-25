@@ -35,23 +35,18 @@ public class FirstRun extends StateEntity0002{
   }
   @Override
   public void displayCam() {
-    // if(time>6) {
     if(time>1) {
-      // p.tvgDrawer.getBatch().begin();
-      // TvgAsset.logo0005.draw(p.tvgDrawer);
-      // p.tvgDrawer.getBatch().end();
       p.tvg(TvgAsset.logo0005);
       if(time>18) {
         String text="嵌套宇宙研发组织";
         p.textScale(2);
         p.text(text,256-p.textWidth(text)/2,400+p.textSize()*2);
         if(time>30) {
-          text="空想世界：啥也没有";
+          text="空想世界：PVP";
           p.text(text,256-p.textWidth(text)/2,400+p.textSize()*5);
         }
       }
     }
-    // p.text("time "+time,0,0);
   }
   @Override
   public void display() {

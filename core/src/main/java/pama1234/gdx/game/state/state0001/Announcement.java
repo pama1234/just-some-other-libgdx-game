@@ -1,7 +1,7 @@
 package pama1234.gdx.game.state.state0001;
 
 import static com.badlogic.gdx.Input.Keys.ESCAPE;
-import static pama1234.gdx.game.ui.generator.InfoGenerator.info0003;
+import static pama1234.gdx.game.ui.generator.InfoGenerator.info0002;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
@@ -27,7 +27,7 @@ public class Announcement extends StateEntity0001{
   }
   @Override
   public void displayCam() {
-    for(int i=0;i<info0003.length;i++) p.text(info0003[i],0,18*i);
+    for(int i=0;i<info0002.length;i++) p.text(info0002[i],0,18*i);
   }
   @Override
   public void keyReleased(char key,int keyCode) {

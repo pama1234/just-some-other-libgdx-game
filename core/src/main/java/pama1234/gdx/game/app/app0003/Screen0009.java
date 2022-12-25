@@ -25,8 +25,9 @@ public class Screen0009 extends ScreenCore2D{
     // alsoSprachZarathustra.play();
     //---
     background=FileUtil.loadTextureRegion("image/background.png");
-    earth=GifDecoder.loadGIFAnimation(Animation.PlayMode.LOOP,
-      Gdx.files.internal("image/bigEarth.gif").read());
+    GifDecoder gdec=new GifDecoder();
+    gdec.read(Gdx.files.internal("image/bigEarth.gif").read());
+    earth=gdec.getAnimation(Animation.PlayMode.LOOP);
     // Gdx.files.internal("image/earth.gif").read());
   }
   @Override

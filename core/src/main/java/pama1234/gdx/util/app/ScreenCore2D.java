@@ -8,10 +8,9 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.listener.EntityListener;
-import pama1234.util.net.ServerInfo;
 
 public abstract class ScreenCore2D extends UtilScreen2D{
-  public ServerInfo dataServerInfo;
+  // public ServerInfo dataServerInfo;
   //---
   public Stage stage;
   public Viewport viewport;
