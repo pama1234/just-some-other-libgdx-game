@@ -10,7 +10,7 @@ import pama1234.math.UtilMath;
 public class ImageAsset{
   public static TextureRegion //
   exit,
-    background,sky;
+    background,sky,select;
   public static int //
   tileWidth=18,
     tileHeight=18,
@@ -26,6 +26,7 @@ public class ImageAsset{
     manager.load("image/player.png",Texture.class);
     manager.load("image/characters.png",Texture.class);
     manager.load("image/sky.png",Texture.class);
+    manager.load("image/select.png",Texture.class);
   }
   public static void put_0001(AssetManager manager) {
     exit=loadFromTexture(manager.get("image/exit.png"));
@@ -34,6 +35,7 @@ public class ImageAsset{
     player=loadFromTexture_0001(manager.get("image/player.png"),20,24,4,0);
     creature=loadFromTexture_0001(manager.get("image/characters.png"),24,24,2,2);
     sky=loadFromTexture(manager.get("image/sky.png"));
+    select=loadFromTexture(manager.get("image/select.png"));
   }
   //----------------------------------------------------
   public static TextureRegion load(String in) {

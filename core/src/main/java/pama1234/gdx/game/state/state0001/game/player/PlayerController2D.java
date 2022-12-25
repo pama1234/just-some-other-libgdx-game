@@ -4,6 +4,7 @@ import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 
 import pama1234.gdx.game.app.Screen0011;
+import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.entity.GamePointEntity;
 import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
 import pama1234.gdx.game.state.state0001.game.entity.util.MovementLimitBox;
@@ -45,12 +46,19 @@ public class PlayerController2D extends Entity<Screen0011>{
   @Override
   public void display() {
     if(selectEntity!=null) {
-      p.noFill();
-      p.doStroke();
-      // p.strokeWeight(p.strokeWeight*p.pus);
-      p.circle(selectEntity.cx(),selectEntity.cy(),UtilMath.max(selectEntity.type.w,selectEntity.type.h)/2f+4);
-      p.doFill();
-      p.noStroke();
+      // p.noFill();
+      // p.doStroke();
+      // p.circle(selectEntity.cx(),selectEntity.cy(),UtilMath.max(selectEntity.type.w,selectEntity.type.h)/2f+4);
+      // p.doFill();
+      // p.noStroke();
+      p.beginBlend();
+      float tl=UtilMath.mag(selectEntity.type.w,selectEntity.type.h)/2f+2;
+      float tcx=selectEntity.cx(),tcy=selectEntity.cy();
+      p.image(ImageAsset.select,tcx-tl,tcy-tl,tl,tl);
+      p.image(ImageAsset.select,tcx+tl,tcy-tl,-tl,tl);
+      p.image(ImageAsset.select,tcx-tl,tcy+tl,tl,-tl);
+      p.image(ImageAsset.select,tcx+tl,tcy+tl,-tl,-tl);
+      p.endBlend();
     }
   }
   @Override
@@ -86,6 +94,7 @@ public class PlayerController2D extends Entity<Screen0011>{
     if(inPlayerOuterBox(tx,ty)) return;
     if(player.inventory.displayHotSlot) for(HotSlot<IntItem> e:player.inventory.hotSlots) if(Tools.inBox(info.x,info.y,e.x1,e.y1,e.w,e.h)) return;
     Block block=player.getBlock(tx,ty);
+    for(EntityCenter<Screen0011,? extends GamePointEntity<?>> l:player.pw.entitys.list) for(GamePointEntity<?> e:l.list) if(e instanceof LivingEntity live) if(live.inOuterBox(tx,ty)) return;
     if(block!=null) switch(p.isAndroid?(player.pg.androidRightMouseButton?Buttons.RIGHT:Buttons.LEFT):info.button) {
       case Buttons.LEFT: {
         if(block.type!=player.pw.metaBlocks.air) block.type(player.pw.metaBlocks.air);
@@ -108,12 +117,18 @@ public class PlayerController2D extends Entity<Screen0011>{
   }
   @Override
   public void keyPressed(char key,int keyCode) {
-    if(keyCode==Keys.SHIFT_LEFT||keyCode==Keys.SHIFT_RIGHT) shift=true;
+    if(keyCode==Keys.SHIFT_LEFT||keyCode==Keys.SHIFT_RIGHT) shift(true);
     if(keyCode==Keys.E) player.inventory.displayHotSlot(!player.inventory.displayHotSlot);
+    if(keyCode==Keys.V) shift(!shift);
+  }
+  public void shift(boolean in) {
+    shift=in;
+    if(shift) player.pointerStep=1/12f;
+    else player.pointerStep=1/6f;
   }
   @Override
   public void keyReleased(char key,int keyCode) {
-    if(keyCode==Keys.SHIFT_LEFT||keyCode==Keys.SHIFT_RIGHT) shift=false;
+    if(keyCode==Keys.SHIFT_LEFT||keyCode==Keys.SHIFT_RIGHT) shift(false);
   }
   public void doWalkAndJump() {
     if(walkCool>0) walkCool--;

@@ -38,7 +38,7 @@ public class World0001 extends World<Screen0011,Game>{
   public int blockWidth=18,blockHeight=18;
   public float g=1f,jumpForce=-blockHeight*1.5f;
   // public int daySize=3600;
-  public int daySize=21600/3;
+  public int daySize=216000/3;
   public int time;
   public float ambientLight;
   public int typeCache;

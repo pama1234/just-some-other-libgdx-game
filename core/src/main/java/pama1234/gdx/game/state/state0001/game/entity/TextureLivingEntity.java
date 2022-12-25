@@ -11,6 +11,8 @@ import pama1234.math.physics.MassPoint;
 public class TextureLivingEntity extends LivingEntity{
   // public TextureRegion[] tiles;
   public int pointer;
+  public float pointerTime;
+  public float pointerStep=1/6f;
   public boolean dir,pdir;
   public <T extends TextureLivingEntity> TextureLivingEntity(Screen0011 p,World0001 pw,float x,float y,MetaCreature<T> type,Game pg) {
     super(p,new MassPoint(x,y),type,pg);
@@ -20,7 +22,13 @@ public class TextureLivingEntity extends LivingEntity{
   @Override
   public void update() {
     super.update();
-    pointer=(int)(pg.time*6)%type.tiles.length;
+    // System.out.println((int)(pg.time*pointerStep)%pointerStep);
+    if((pointerTime+=p.frameRate)>=pointerStep) {
+      pointerTime-=pointerStep;
+      // pointer=(int)(pg.time*6)%type.tiles.length;
+      pointer+=1;
+      pointer%=type.tiles.length;
+    }
     if(pdir!=dir) {
       for(TextureRegion i:type.tiles) i.flip(true,false);
       pdir=dir;
