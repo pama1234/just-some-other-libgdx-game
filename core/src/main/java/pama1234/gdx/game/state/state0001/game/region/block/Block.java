@@ -6,6 +6,7 @@ public class Block{
   public MetaBlock type;
   public boolean changed;
   public int[] displayType;
+  public int lighting=16;
   public Block(MetaBlock type) {
     this.type=type;
     init(type);

@@ -72,5 +72,6 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
         }
       }
     }
+    p.noTint();
   }
 }

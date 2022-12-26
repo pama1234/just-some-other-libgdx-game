@@ -17,7 +17,15 @@ public class MetaBlock extends MetaInfoBase{
   public int defaultDisplayType;
   public BlockUpdater updater;
   public BlockChanger from,to;
-  public BlockDisplayer displayer=(p,in,x,y)->p.image(tiles[in.displayType[0]],x,y,pc.pw.blockWidth+0.01f,pc.pw.blockHeight+0.01f);
+  public BlockDisplayer displayer=(p,in,x,y)-> {
+    p.tint(getLighting(in.lighting));
+    p.image(tiles[in.displayType[0]],x,y,pc.pw.blockWidth+0.01f,pc.pw.blockHeight+0.01f);
+  };
+  public int getLighting(int in) {
+    in<<=4;
+    if(in>255) return 255;
+    return in&0xff;
+  }
   public MetaBlock(MetaBlockCenter0001 pc,String name) {
     this.pc=pc;
     this.name=name;

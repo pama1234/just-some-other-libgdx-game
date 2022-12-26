@@ -6,10 +6,13 @@ import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
+import pama1234.math.UtilMath;
 
 public class Dirt extends MetaBlock{
+  public int lightDist=4,lightCount=UtilMath.sq(lightDist*2+1);
   public Dirt(MetaBlockCenter0001 pc) {
     super(pc,"dirt",new TextureRegion[20],2,(in,type)-> {//change to dirt
+      in.lighting=16;
     },(in,type)-> {//change from dirt
     });
     initLambda();
@@ -29,17 +32,24 @@ public class Dirt extends MetaBlock{
       if(Block.isEmpty(pc.pw.regions.getBlock(x+1,y+1))) typeCache+=4;
       if(Block.isEmpty(pc.pw.regions.getBlock(x+1,y-1))) typeCache+=8;
       in.displayType[1]=typeCache;
+      int tc=0;
+      for(int i=-lightDist;i<=lightDist;i++) for(int j=-lightDist;j<=lightDist;j++) if(Block.isEmpty(pc.pw.regions.getBlock(x+i,y+j))) tc+=1;
+      in.lighting=UtilMath.constrain(UtilMath.floor(UtilMath.map(tc*2,0,lightCount,0,16)),0,16);
+      // in.lighting=16;
+      // if(in.lighting>0) System.out.println(in.lighting);
     };
-    displayer=(pIn,in,x,y)-> {
+    displayer=(p,in,x,y)-> {
       // if(in.displayType==null) return;//TODO
+      p.tint(getLighting(in.lighting));
+      // p.tint(255,0,0);
       int tp_0=in.displayType[0];
-      pIn.image(pc.dirt.tiles[tp_0],x,y,pc.pw.blockWidth+0.01f,pc.pw.blockHeight+0.01f);
+      p.image(pc.dirt.tiles[tp_0],x,y,pc.pw.blockWidth+0.01f,pc.pw.blockHeight+0.01f);
       int tp_1=in.displayType[1];
       if(tp_1!=0) {
-        if((tp_0&2)+(tp_0&8)==0&&(tp_1&4)!=0) pIn.image(pc.dirt.tiles[16],x,y,pc.pw.blockWidth+0.01f,pc.pw.blockHeight+0.01f);
-        if((tp_0&2)+(tp_0&4)==0&&(tp_1&2)!=0) pIn.image(pc.dirt.tiles[17],x,y,pc.pw.blockWidth+0.01f,pc.pw.blockHeight+0.01f);
-        if((tp_0&1)+(tp_0&8)==0&&(tp_1&8)!=0) pIn.image(pc.dirt.tiles[18],x,y,pc.pw.blockWidth+0.01f,pc.pw.blockHeight+0.01f);
-        if((tp_0&1)+(tp_0&4)==0&&(tp_1&1)!=0) pIn.image(pc.dirt.tiles[19],x,y,pc.pw.blockWidth+0.01f,pc.pw.blockHeight+0.01f);
+        if((tp_0&2)+(tp_0&8)==0&&(tp_1&4)!=0) p.image(pc.dirt.tiles[16],x,y,pc.pw.blockWidth+0.01f,pc.pw.blockHeight+0.01f);
+        if((tp_0&2)+(tp_0&4)==0&&(tp_1&2)!=0) p.image(pc.dirt.tiles[17],x,y,pc.pw.blockWidth+0.01f,pc.pw.blockHeight+0.01f);
+        if((tp_0&1)+(tp_0&8)==0&&(tp_1&8)!=0) p.image(pc.dirt.tiles[18],x,y,pc.pw.blockWidth+0.01f,pc.pw.blockHeight+0.01f);
+        if((tp_0&1)+(tp_0&4)==0&&(tp_1&1)!=0) p.image(pc.dirt.tiles[19],x,y,pc.pw.blockWidth+0.01f,pc.pw.blockHeight+0.01f);
       }
     };
   }

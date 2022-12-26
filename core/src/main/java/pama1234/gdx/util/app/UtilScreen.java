@@ -211,17 +211,15 @@ public abstract class UtilScreen extends UtilScreenCore{
     imageBatch.setColor(tc);
   }
   public void tint(int gray) {
-    fill(gray,255);
+    tint(gray,255);
   }
-  public void tint(int gray,int a) {
+  public void tint(int gray,int a) {//TODO
     Color tc=imageBatch.getColor();
     tc.set(gray/255f,gray/255f,gray/255f,a/255f);
     imageBatch.setColor(tc);
   }
   public void tint(int r,int g,int b) {
-    Color tc=imageBatch.getColor();
-    tc.set(r/255f,g/255f,b/255f,1);
-    imageBatch.setColor(tc);
+    tint(r,g,b,255);
   }
   public void tint(int r,int g,int b,int a) {
     Color tc=imageBatch.getColor();
