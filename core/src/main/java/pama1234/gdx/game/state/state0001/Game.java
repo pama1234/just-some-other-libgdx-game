@@ -64,7 +64,7 @@ public class Game extends StateEntity0001{
     p.backgroundColor(world.backgroundColor);
     Vec2f tpos=world.yourself.point.pos;
     p.cam.point.des.set(tpos.x,tpos.y,0);
-    p.cam.noGrab();
+    // p.cam.noGrab();
     // tvgRefresh();
     for(Button<?> e:menuButtons) p.centerScreen.add.add(e);
     if(ctrlButtons!=null) for(Button<?> e:ctrlButtons) p.centerScreen.add.add(e);

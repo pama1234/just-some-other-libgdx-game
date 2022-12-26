@@ -42,7 +42,7 @@ public class Game extends StateEntity0002{
   @Override
   public void from(State0002 in) {
     p.cam.point.des.set(0,0,0);
-    p.cam.noGrab();
+    // p.cam.noGrab();
     // tvgRefresh();
     for(Button<?> e:menuButtons) p.centerScreen.add.add(e);
     if(ctrlButtons!=null) for(Button<?> e:ctrlButtons) p.centerScreen.add.add(e);

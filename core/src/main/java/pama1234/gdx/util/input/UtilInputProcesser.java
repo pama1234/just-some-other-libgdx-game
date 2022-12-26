@@ -67,6 +67,7 @@ public class UtilInputProcesser implements EssentialListener,InputProcessor{
   @Override
   public boolean touchDown(int screenX,int screenY,int pointer,int button) {
     p.touchCount++;
+    // p.textScale(p.pus);//TODO
     TouchInfo info=p.touches[pointer];
     boolean flag=false;
     // if(flag=Tools.inBox(screenX,screenY,p.u/4,p.u/4,p.u,p.u)) coverButton=!coverButton;

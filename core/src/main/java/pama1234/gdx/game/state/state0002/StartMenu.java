@@ -32,7 +32,7 @@ public class StartMenu extends StateEntity0002{
     p.cam2d.scale.pos=3;
     p.cam2d.point.des.set(96,0,0);
     p.cam2d.point.pos.set(96,0,0);
-    p.cam.noGrab();
+    // p.cam.noGrab();
     frameResized(p.width,p.height);
   }
   @Override

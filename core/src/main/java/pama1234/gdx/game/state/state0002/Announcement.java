@@ -17,7 +17,7 @@ public class Announcement extends StateEntity0002{
   @Override
   public void from(State0002 in) {
     p.backgroundColor(0);
-    p.cam.noGrab();
+    // p.cam.noGrab();
     p.cam.point.set(128,64,0);
     for(Button<?> e:buttons) p.centerScreen.add.add(e);
   }

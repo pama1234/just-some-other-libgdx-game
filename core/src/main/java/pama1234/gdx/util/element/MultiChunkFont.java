@@ -181,6 +181,7 @@ public class MultiChunkFont extends BitmapFont{
     fontBatch.setColor(foreground);
     // for(int i=0;i<length;i++) if(data[i]!=null) data[i].setColor(in);
   }
+  // @Override
   public void textScale(float in) {
     scale=in;
   }
@@ -213,6 +214,7 @@ public class MultiChunkFont extends BitmapFont{
     return out;
   }
   public float textWidth(CharSequence in) {
+    // System.out.println(scale);
     return textWidthCam(in)*scale;
   }
   public float f0003(float x,char tc,int pos) {

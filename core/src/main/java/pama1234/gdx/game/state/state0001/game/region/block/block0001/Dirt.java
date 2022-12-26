@@ -9,7 +9,7 @@ import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.math.UtilMath;
 
 public class Dirt extends MetaBlock{
-  public int lightDist=4,lightCount=UtilMath.sq(lightDist*2+1);
+  public int lightDist=7,lightCount=UtilMath.sq(lightDist*2+1);
   public Dirt(MetaBlockCenter0001 pc) {
     super(pc,"dirt",new TextureRegion[20],2,(in,type)-> {//change to dirt
       in.lighting=16;
@@ -19,7 +19,9 @@ public class Dirt extends MetaBlock{
   }
   public void initLambda() {
     updater=(in,x,y)-> {
-      // if(in.displayType==null) return;//TODO
+      displayUpdater.update(in,x,y);
+    };
+    displayUpdater=(in,x,y)-> { // if(in.displayType==null) return;//TODO
       int typeCache=0;
       if(Block.isEmpty(pc.pw.regions.getBlock(x,y-1))) typeCache+=1;// up
       if(Block.isEmpty(pc.pw.regions.getBlock(x,y+1))) typeCache+=2;// down
@@ -32,11 +34,10 @@ public class Dirt extends MetaBlock{
       if(Block.isEmpty(pc.pw.regions.getBlock(x+1,y+1))) typeCache+=4;
       if(Block.isEmpty(pc.pw.regions.getBlock(x+1,y-1))) typeCache+=8;
       in.displayType[1]=typeCache;
+      //---
       int tc=0;
       for(int i=-lightDist;i<=lightDist;i++) for(int j=-lightDist;j<=lightDist;j++) if(Block.isEmpty(pc.pw.regions.getBlock(x+i,y+j))) tc+=1;
       in.lighting=UtilMath.constrain(UtilMath.floor(UtilMath.map(tc*2,0,lightCount,0,16)),0,16);
-      // in.lighting=16;
-      // if(in.lighting>0) System.out.println(in.lighting);
     };
     displayer=(p,in,x,y)-> {
       // if(in.displayType==null) return;//TODO

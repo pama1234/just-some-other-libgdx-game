@@ -15,11 +15,11 @@ public class TextButton<T extends UtilScreen>extends Button<T>{
   public RectF rect;
   public TextButton(T p,boolean textOffset,GetBoolean active,ExecuteF press,ExecuteF clickStart,ExecuteF clickEnd,String text,GetInt bu,GetFloat x,GetFloat y) {
     this(p,textOffset,active,press,clickStart,clickEnd,text,bu,x,y,null,bu::get);//()->bu.get()*2);
-    this.rect.w=()->p.textWidth(this.text)+(this.textOffset?p.pu:0);//TODO
+    this.rect.w=()->p.textWidthCam(this.text)*p.pus+(this.textOffset?p.pu:0);//TODO
   }
   public TextButton(T p,boolean textOffset,GetBoolean active,ExecuteF press,ExecuteF clickStart,ExecuteF clickEnd,String text,GetInt bu,GetFloat x,GetFloat y,GetFloat h,boolean mouseLimit) {
     this(p,textOffset,active,press,clickStart,clickEnd,text,bu,x,y,null,h);//()->bu.get()*2);
-    this.rect.w=()->p.textWidth(this.text)+(this.textOffset?p.pu:0);//TODO
+    this.rect.w=()->p.textWidthCam(this.text)*p.pus+(this.textOffset?p.pu:0);//TODO
     this.mouseLimit=mouseLimit;
   }
   public TextButton(T p,boolean textOffset,GetBoolean active,ExecuteF press,ExecuteF clickStart,ExecuteF clickEnd,String text,GetInt bu,GetFloat x,GetFloat y,GetFloat w,GetFloat h) {
@@ -53,6 +53,7 @@ public class TextButton<T extends UtilScreen>extends Button<T>{
     p.endBlend();
   }
   public boolean inButton(float xIn,float yIn) {
+    // System.out.println(rect.w());
     return Tools.inBox(xIn,yIn,rect.x.get(),rect.y.get(),rect.w.get(),rect.h.get());
   }
 }

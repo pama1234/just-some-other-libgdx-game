@@ -62,6 +62,7 @@ public abstract class UtilScreen extends UtilScreenCore{
   @Override
   public void render(float delta) {
     frameRate=delta;
+    // textScale(pus);
     mouse.update(this);
     for(TouchInfo i:touches) i.update(this);
     inputProcessor.update();
@@ -143,7 +144,7 @@ public abstract class UtilScreen extends UtilScreenCore{
   public void textScale(float in) {
     font.textScale(in);
   }
-  public float textscale() {
+  public float textScale() {
     return font.scale;
   }
   public void textSize(float in) {

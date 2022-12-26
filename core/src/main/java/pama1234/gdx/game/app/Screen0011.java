@@ -60,13 +60,24 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     return out;
   }
   @Override
-  public void update() {}
+  public void update() {
+    // if(cam2d.grabCursor)
+    // System.out.println(cam2d.grabCursor+" "+mouse.ox+" "+mouse.oy);
+  }
   @Override
   public void mousePressed(MouseInfo info) {}
   @Override
   public void displayWithCam() {
     // if(cam.grabCursor) drawCursor();
   }
+  // public void drawScreenCursor() {
+  //   beginBlend();
+  //   final int a=0,b=255;
+  //   fill(mouse.left?a:b,mouse.center?a:b,mouse.right?a:b,127);
+  //   rect(mouse.ox-u*4,mouse.oy-u*0.5f,u*8,u*1);
+  //   rect(mouse.ox-u*0.5f,mouse.oy-u*4,u*1,u*8);
+  //   endBlend();
+  // }
   public void drawCursor() {
     beginBlend();
     final int a=0,b=255;
@@ -79,6 +90,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   public void display() {
     if(debugInfo) text("Memory="+getMemory()+"Mb",0,bu*1.5f);
     if(cam.grabCursor) {
+      // drawScreenCursor();
       withCam();
       drawCursor();
     }
