@@ -37,7 +37,7 @@ public class CameraController2D extends CameraController{
   }
   @Override
   public void touchStarted(TouchInfo info) {
-    if(!activeDrag) return;
+    // if(!activeDrag) return;
     if(p.touchCount==1) {
       if(info.button==Buttons.RIGHT||p.isAndroid) activeUpdate=true;
       // if(info.button==Buttons.RIGHT||Gdx.app.getType()==ApplicationType.Android) active=true;
@@ -57,7 +57,7 @@ public class CameraController2D extends CameraController{
   }
   @Override
   public void touchEnded(TouchInfo info) {
-    if(!activeDrag) return;
+    // if(!activeDrag) return;
     if(!activeUpdate) return;
     if(p.touchCount==1) {
       a=null;
@@ -108,12 +108,12 @@ public class CameraController2D extends CameraController{
       return;
     }
     if(activeUpdate) if(a!=null&&a.state==0) {
-      if(activeZoom&&b!=null&&b.state==0) {
-        scale.des=iScale*dist(a.ox,a.oy,b.ox,b.oy)/iDist;
+      if(b!=null&&b.state==0) {
+        if(activeZoom) scale.des=iScale*dist(a.ox,a.oy,b.ox,b.oy)/iDist;
         cache.set(avg(a.ox,b.ox)-bavgsox,avg(a.oy,b.oy)-bavgsoy);
-      }else if(activeDrag) cache.set(a.ox-asox,a.oy-asoy);
+      }else cache.set(a.ox-asox,a.oy-asoy);
       cache.rotateDeg(rotate.pos);
-      p.cam.point.des.set(scx-cache.x*ocam.zoom,scy-cache.y*ocam.zoom,0);
+      if(activeDrag) p.cam.point.des.set(scx-cache.x*ocam.zoom,scy-cache.y*ocam.zoom,0);
     }
   }
   @Override
