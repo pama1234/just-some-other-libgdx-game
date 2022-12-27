@@ -12,6 +12,7 @@ public class MetaBlock extends MetaInfoBase{
   public TextureRegion[] tiles;
   public int buildTime,destroyTime;
   public float hardness,lightIntensity;
+  public ItemDropAttr[] itemDrop;
   public int displayTypeSize;
   public int defaultDisplayType;
   public BlockUpdater updater,displayUpdater;
@@ -89,5 +90,10 @@ public class MetaBlock extends MetaInfoBase{
   }
   public void to(Block block,MetaBlock in) {
     if(to!=null) to.change(block,in);
+  }
+  public class ItemDropAttr{
+    public MetaIntItem item;
+    public int min,max;
+    public float probability;
   }
 }

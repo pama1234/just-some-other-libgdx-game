@@ -51,8 +51,11 @@ public class Inventory<T extends Item>{
     for(int i=0;i<hotSlots.length;i++) hotSlots[i]=new HotSlot<T>(data[i]);
     r=new PathVar(rSize);
   }
-  public HotSlot<T> getSelect() {
+  public HotSlot<T> select() {
     return hotSlots[selectSlot];
+  }
+  public void select(HotSlot<T> in) {
+    hotSlots[selectSlot]=in;
   }
   public void displayHotSlot(boolean in) {
     if(displayHotSlot==in) return;

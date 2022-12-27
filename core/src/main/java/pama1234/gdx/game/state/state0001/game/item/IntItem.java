@@ -6,5 +6,5 @@ public class IntItem extends Item{
   public IntItem(MetaItem<?> type) {
     super(type);
   }
-  public int count;
+  public int count=1;
 }

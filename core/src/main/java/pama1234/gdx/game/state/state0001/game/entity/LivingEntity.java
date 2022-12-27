@@ -4,6 +4,7 @@ import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.game.entity.util.OuterBox;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
+import pama1234.gdx.game.state.state0001.game.player.GameMode;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.math.Tools;
@@ -14,11 +15,9 @@ import pama1234.math.physics.PathVar;
 public class LivingEntity extends GamePointEntity<MassPoint>{
   public World0001 pw;
   //---
-  // public int w,h;
-  // public float dx,dy;
   public OuterBox outerBox;
   //---
-  // public float maxLife=32;
+  public GameMode gameMode=GameMode.creative;
   public MetaCreature<?> type;
   public PathVar life;
   public LivingEntity(Screen0011 p,MassPoint in,MetaCreature<?> type,Game pg) {

@@ -10,6 +10,7 @@ import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
 import pama1234.gdx.game.state.state0001.game.entity.util.MovementLimitBox;
 import pama1234.gdx.game.state.state0001.game.item.IntItem;
 import pama1234.gdx.game.state.state0001.game.item.Inventory.HotSlot;
+import pama1234.gdx.game.state.state0001.game.item.Inventory.InventorySlot;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.util.RectF;
@@ -97,14 +98,21 @@ public class PlayerController2D extends Entity<Screen0011>{
     for(EntityCenter<Screen0011,? extends GamePointEntity<?>> l:player.pw.entitys.list) for(GamePointEntity<?> e:l.list) if(e instanceof LivingEntity live) if(live.inOuterBox(tx,ty)) return;
     if(block!=null) switch(p.isAndroid?(player.pg.androidRightMouseButton?Buttons.RIGHT:Buttons.LEFT):info.button) {
       case Buttons.LEFT: {
-        if(block.type!=player.pw.metaBlocks.air) block.type(player.pw.metaBlocks.air);
+        if(block.type!=player.pw.metaBlocks.air) player.pw.destroyBlock(player,block,tx,ty);
       }
         break;
       case Buttons.RIGHT: {
-        IntItem ti=player.inventory.getSelect().data.item;
+        InventorySlot<IntItem> td=player.inventory.select().data;
+        IntItem ti=td.item;
         if(ti!=null) {
           MetaBlock tm=ti.type.blockType;
-          if(tm!=null&&block.type==player.pw.metaBlocks.air) block.type(tm);
+          if(tm!=null&&block.type==player.pw.metaBlocks.air) {
+            player.pw.placeBlock(player,block,tm,tx,ty);
+            if(player.gameMode!=GameMode.creative) {
+              ti.count-=1;
+              if(ti.count==0) td.item=null;
+            }
+          }
         }
       }
         break;

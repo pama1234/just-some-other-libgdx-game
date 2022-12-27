@@ -145,4 +145,10 @@ public class World0001 extends World<Screen0011,Game>{
     regions.save();
     regions.dispose();
   }
+  public void destroyBlock(MainPlayer2D player,Block block,int tx,int ty) {
+    block.type(metaBlocks.air);
+  }
+  public void placeBlock(MainPlayer2D player,Block block,MetaBlock in,int tx,int ty) {
+    block.type(in);
+  }
 }
