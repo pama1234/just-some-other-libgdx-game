@@ -25,10 +25,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     this.metadata=metadata;
     // createTest(p);
     generator=new RegionGenerator(p,this,0);//TODO
-    add.add(generator.get(0,-1));
-    add.add(generator.get(-1,-1));
-    add.add(generator.get(-1,0));
-    add.add(generator.get(0,0));
+    load();
     doUpdate=new Mutex(true);
     updateLoop=new Thread(()-> {
       long beforeM,milis;
@@ -54,9 +51,17 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     if(!p.stop) doUpdate.lock();
   }
   @Override
-  public void load() {}
+  public void load() {
+    add.add(generator.get(0,-1));
+    add.add(generator.get(-1,-1));
+    add.add(generator.get(-1,0));
+    add.add(generator.get(0,0));
+  }
   @Override
-  public void save() {}
+  public void save() {
+    refresh();
+    for(Region e:list) e.save();
+  }
   public Block getBlock(int x,int y) {
     int cx=UtilMath.floor((float)x/chunkWidth),cy=UtilMath.floor((float)y/chunkHeight);
     int tx=UtilMath.floor((float)cx/regionWidth),ty=UtilMath.floor((float)cy/regionHeight);

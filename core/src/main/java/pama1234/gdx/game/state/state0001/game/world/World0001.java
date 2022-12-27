@@ -55,6 +55,7 @@ public class World0001 extends World<Screen0011,Game>{
     list[0]=entitys=new GameEntityCenter(p);
     entitys.list.add(entitys.players=players=new PlayerCenter2D(p));
     list[1]=regions=new RegionCenter(p,this,Gdx.files.local("data/saved/regions.bin"));
+    // regions.load();
     yourself=new MainPlayer2D(p,this,0,-1,pg);
     backgroundColor=p.color(0);
     colorA=p.color(0);
@@ -101,6 +102,7 @@ public class World0001 extends World<Screen0011,Game>{
     for(MetaBlock e:metaBlocks.list) e.init();
     for(MetaItem<?> e:metaItems.list) e.init();
     for(MetaCreature<?> e:metaEntitys.list) e.init();
+    // regions.load();
   }
   public void initSky() {
     ImageAsset.sky.getTexture().getTextureData().prepare();
@@ -142,6 +144,7 @@ public class World0001 extends World<Screen0011,Game>{
   @Override
   public void dispose() {
     super.dispose();
+    regions.save();
     regions.dispose();
   }
 }

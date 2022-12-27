@@ -63,6 +63,7 @@ public class Game extends StateEntity0001{
   public void from(State0001 in) {
     p.backgroundColor(world.backgroundColor);
     Vec2f tpos=world.yourself.point.pos;
+    p.cam.point.pos.set(tpos.x,tpos.y,0);
     p.cam.point.des.set(tpos.x,tpos.y,0);
     // p.cam.noGrab();
     // tvgRefresh();

@@ -118,4 +118,22 @@ public class CameraController2D extends CameraController{
   }
   @Override
   public void display() {}
+  public float x1() {
+    return 0;
+  }
+  public float y1() {
+    return 0;
+  }
+  public float x2() {
+    return 0;
+  }
+  public float y2() {
+    return 0;
+  }
+  public float w() {
+    return 0;
+  }
+  public float h() {
+    return 0;
+  }
 }

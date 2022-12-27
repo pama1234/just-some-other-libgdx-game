@@ -20,6 +20,10 @@ public class RegionGenerator{
     Region region=new Region(p,pr,Gdx.files.local("data/saved/regions/"+x+" "+y+".bin"));
     region.x=x;
     region.y=y;
+    get(region);
+    return region;
+  }
+  public void get(Region region) {
     region.data=new Chunk[pr.regionWidth][pr.regionHeight];
     Chunk[][] data=region.data;
     for(int i=0;i<data.length;i++) {
@@ -37,6 +41,5 @@ public class RegionGenerator{
         }
       }
     }
-    return region;
   }
 }

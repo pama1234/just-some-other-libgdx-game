@@ -19,7 +19,9 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
     this.dataLocation=dataLocation;
   }
   @Override
-  public void load() {}
+  public void load() {
+    pr.generator.get(this);
+  }
   @Override
   public void save() {}
   @Override
