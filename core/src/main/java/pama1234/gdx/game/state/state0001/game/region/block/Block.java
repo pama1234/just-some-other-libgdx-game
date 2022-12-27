@@ -22,7 +22,7 @@ public class Block{
     MetaBlock t=type;
     if(in==t) return;
     changed=true;
-    updateLighting=true;
+    // updateLighting=true;
     type=in;
     init(in);
     t.to(this,in);

@@ -9,7 +9,6 @@ import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.math.UtilMath;
 
 public class Dirt extends MetaBlock{
-  public int lightDist=7,lightCount=UtilMath.sq(lightDist*2+1);
   public Dirt(MetaBlockCenter0001 pc,int id) {
     super(pc,"dirt",id,new TextureRegion[20],2,(in,type)-> {//change to dirt
       in.lighting=16;
@@ -37,8 +36,8 @@ public class Dirt extends MetaBlock{
       //---
       if(in.updateLighting) {
         int tc=0;
-        for(int i=-lightDist;i<=lightDist;i++) for(int j=-lightDist;j<=lightDist;j++) if(Block.isEmpty(pc.pw.regions.getBlock(x+i,y+j))) tc+=1;
-        in.lighting=UtilMath.constrain(UtilMath.floor(UtilMath.map(tc*2,0,lightCount,0,16)),0,16);
+        for(int i=-pc.pw.lightDist;i<=pc.pw.lightDist;i++) for(int j=-pc.pw.lightDist;j<=pc.pw.lightDist;j++) if(Block.isEmpty(pc.pw.regions.getBlock(x+i,y+j))) tc+=1;
+        in.lighting=UtilMath.constrain(UtilMath.floor(UtilMath.map(tc*2,0,pc.pw.lightCount,0,16)),0,16);
       }
     };
     displayer=(p,in,x,y)-> {

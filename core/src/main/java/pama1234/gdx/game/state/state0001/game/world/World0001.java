@@ -41,6 +41,7 @@ public class World0001 extends World<Screen0011,Game>{
   public int daySize=216000/3;
   public int time;
   public float ambientLight;
+  public int lightDist=7,lightCount=UtilMath.sq(lightDist*2+1);
   public int typeCache;
   public Pixmap skyColorMap;
   public int skyColorPos,skyColorCount;
@@ -145,10 +146,20 @@ public class World0001 extends World<Screen0011,Game>{
     regions.save();
     regions.dispose();
   }
-  public void destroyBlock(MainPlayer2D player,Block block,int tx,int ty) {
+  public void updateRectLighting(int x,int y) {
+    for(int i=-lightDist;i<=lightDist;i++) for(int j=-lightDist;j<=lightDist;j++) {
+      Block tb=regions.getBlock(x+i,y+j);
+      if(!Block.isEmpty(tb)) {
+        tb.updateLighting=true;
+      }
+    }
+  }
+  public void destroyBlock(MainPlayer2D player,Block block,int x,int y) {
+    updateRectLighting(x,y);
     block.type(metaBlocks.air);
   }
-  public void placeBlock(MainPlayer2D player,Block block,MetaBlock in,int tx,int ty) {
+  public void placeBlock(MainPlayer2D player,Block block,MetaBlock in,int x,int y) {
+    updateRectLighting(x,y);
     block.type(in);
   }
   public int xToBlockCord(float in) {//TODO static
