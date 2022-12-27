@@ -5,6 +5,7 @@ import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 public class Block{
   public MetaBlock type;
   public boolean changed;
+  public boolean updateLighting=true;
   public int[] displayType;
   public int lighting=16;
   public Block(MetaBlock type) {
@@ -20,9 +21,10 @@ public class Block{
   public void type(MetaBlock in) {
     MetaBlock t=type;
     if(in==t) return;
-    changed=true;//TODO
+    changed=true;
+    updateLighting=true;
     type=in;
-    init(in);//TODO
+    init(in);
     t.to(this,in);
     in.from(this,t);
   }

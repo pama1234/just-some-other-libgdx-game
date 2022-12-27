@@ -16,39 +16,29 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   public int regionWidth=4,regionHeight=4;
   public int chunkWidth=64,chunkHeight=64;
   public RegionGenerator generator;
-  public Mutex doUpdate;
-  public Thread updateLoop;
-  // public Stream<Region> stream;
+  public Mutex doUpdate,doUpdateDisplay;
+  public Thread updateLoop,updateDisplayLoop;
   public RegionCenter(Screen0011 p,World0001 pw,FileHandle metadata) {
     super(p);
     this.pw=pw;
     this.metadata=metadata;
-    // createTest(p);
     generator=new RegionGenerator(p,this,0);//TODO
-    load();
     doUpdate=new Mutex(true);
-    updateLoop=new Thread(()-> {
-      long beforeM,milis;
-      while(!p.stop) {
-        doUpdate.step();
-        beforeM=System.currentTimeMillis();
-        // refresh();
-        // Stream<Region> stream=list.stream().parallel();
-        // stream.forEach(r->r.update());
-        super.update();
-        milis=System.currentTimeMillis()-beforeM;
-        if(milis<50) p.sleep(50-milis);
-      }
-    });
+    doUpdateDisplay=new Mutex(true);
+    updateLoop=createUpdateLoop();
     updateLoop.start();
   }
   @Override
   public void resume() {
     doUpdate.unlock();
+    doUpdateDisplay.unlock();
   }
   @Override
   public void pause() {
-    if(!p.stop) doUpdate.lock();
+    if(!p.stop) {
+      doUpdate.lock();
+      doUpdateDisplay.lock();
+    }
   }
   @Override
   public void load() {
@@ -74,13 +64,31 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   public void update() {
     // super.update();
   }
-  // @Override
-  // public void refresh() {
-  //   boolean flag=(!add.isEmpty())||(!remove.isEmpty());
-  //   super.refresh();
-  //   if(flag) stream=list.stream().parallel();
-  // }
   public void dispose() {
     doUpdate.unlock();
+    doUpdateDisplay.unlock();
+  }
+  public Thread createUpdateLoop() {
+    return new Thread(()-> {
+      long beforeM,milis;
+      while(!p.stop) {
+        doUpdate.step();
+        beforeM=System.currentTimeMillis();
+        // refresh();
+        // Stream<Region> stream=list.stream().parallel();
+        // stream.forEach(r->r.update());
+        super.update();
+        milis=System.currentTimeMillis()-beforeM;
+        if(milis<50) p.sleep(50-milis);
+      }
+    });
+  }
+  public Thread createUpdateDisplayLoop() {
+    return new Thread(()-> {
+      while(!p.stop) {
+        doUpdateDisplay.step();
+        for(Region e:list) e.updateDisplay();
+      }
+    });
   }
 }

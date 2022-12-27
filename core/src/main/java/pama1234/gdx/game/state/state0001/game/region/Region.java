@@ -78,4 +78,21 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
     }
     p.noTint();
   }
+  public void updateDisplay() {
+    for(int i=0;i<data.length;i++) {
+      for(int j=0;j<data[i].length;j++) {
+        Chunk chunk=data[i][j];
+        Block[][] blockData=chunk.data;
+        for(int n=0;n<blockData.length;n++) {
+          for(int m=0;m<blockData[n].length;m++) {
+            Block block=blockData[n][m];
+            MetaBlock blockType=block.type;
+            int tx=((x*pr.regionWidth+i)*pr.chunkWidth+n),
+              ty=((y*pr.regionHeight+j)*pr.chunkWidth+m);
+            blockType.updateDisplay(block,tx,ty);
+          }
+        }
+      }
+    }
+  }
 }

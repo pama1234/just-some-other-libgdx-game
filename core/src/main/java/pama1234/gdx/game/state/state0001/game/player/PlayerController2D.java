@@ -106,7 +106,6 @@ public class PlayerController2D extends Entity<Screen0011>{
           MetaBlock tm=ti.type.blockType;
           if(tm!=null&&block.type==player.pw.metaBlocks.air) block.type(tm);
         }
-        // block.type(player.pw.blockC.dirt);
       }
         break;
     }

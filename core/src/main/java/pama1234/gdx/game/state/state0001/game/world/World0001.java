@@ -72,7 +72,6 @@ public class World0001 extends World<Screen0011,Game>{
     metaItems.list.add(metaItems.empty=new MetaIntItem(metaItems,"empty",metaItems.id()) {
       @Override
       public void init() {
-        // if(tiles!=null) return;
         tiles=new TextureRegion[1];
         tiles[0]=ImageAsset.tiles[20][1];
       }
@@ -80,7 +79,6 @@ public class World0001 extends World<Screen0011,Game>{
     metaItems.list.add(metaItems.dirt=new MetaIntItem(metaItems,"dirt",metaItems.id()) {
       @Override
       public void init() {
-        // if(tiles!=null) return;
         blockType=metaBlocks.dirt;
         tiles=new TextureRegion[1];
         tiles[0]=ImageAsset.tiles[20][0];
@@ -91,7 +89,6 @@ public class World0001 extends World<Screen0011,Game>{
     metaBlocks=new MetaBlockCenter0001(this);
     metaBlocks.list.add(metaBlocks.air=new MetaBlock(metaBlocks,"air",metaBlocks.id()));
     metaBlocks.list.add(metaBlocks.dirt=new Dirt(metaBlocks,metaBlocks.id()));
-    // System.out.println(metaBlocks.dirt.displayer);
   }
   public boolean isEmpty(Block in) {
     return in==null||in.type.empty;
@@ -103,7 +100,7 @@ public class World0001 extends World<Screen0011,Game>{
     for(MetaBlock e:metaBlocks.list) e.init();
     for(MetaItem<?> e:metaItems.list) e.init();
     for(MetaCreature<?> e:metaEntitys.list) e.init();
-    // regions.load();
+    regions.load();
   }
   public void initSky() {
     ImageAsset.sky.getTexture().getTextureData().prepare();

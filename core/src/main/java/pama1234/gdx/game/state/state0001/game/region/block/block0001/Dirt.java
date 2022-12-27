@@ -19,9 +19,9 @@ public class Dirt extends MetaBlock{
   }
   public void initLambda() {
     updater=(in,x,y)-> {
-      displayUpdater.update(in,x,y);
+      // displayUpdater.update(in,x,y);
     };
-    displayUpdater=(in,x,y)-> { // if(in.displayType==null) return;//TODO
+    displayUpdater=(in,x,y)-> {
       int typeCache=0;
       if(Block.isEmpty(pc.pw.regions.getBlock(x,y-1))) typeCache+=1;// up
       if(Block.isEmpty(pc.pw.regions.getBlock(x,y+1))) typeCache+=2;// down
@@ -35,15 +35,14 @@ public class Dirt extends MetaBlock{
       if(Block.isEmpty(pc.pw.regions.getBlock(x+1,y-1))) typeCache+=8;
       in.displayType[1]=typeCache;
       //---
-      int tc=0;
-      for(int i=-lightDist;i<=lightDist;i++) for(int j=-lightDist;j<=lightDist;j++) if(Block.isEmpty(pc.pw.regions.getBlock(x+i,y+j))) tc+=1;
-      in.lighting=UtilMath.constrain(UtilMath.floor(UtilMath.map(tc*2,0,lightCount,0,16)),0,16);
+      if(in.updateLighting) {
+        int tc=0;
+        for(int i=-lightDist;i<=lightDist;i++) for(int j=-lightDist;j<=lightDist;j++) if(Block.isEmpty(pc.pw.regions.getBlock(x+i,y+j))) tc+=1;
+        in.lighting=UtilMath.constrain(UtilMath.floor(UtilMath.map(tc*2,0,lightCount,0,16)),0,16);
+      }
     };
     displayer=(p,in,x,y)-> {
-      // if(in.displayType==null) return;//TODO
       p.tint(getLighting(in.lighting));
-      // System.out.println(getLighting(in.lighting));
-      // p.tint(255,0,0);
       int tp_0=in.displayType[0];
       p.image(pc.dirt.tiles[tp_0],x,y,pc.pw.blockWidth+0.01f,pc.pw.blockHeight+0.01f);
       int tp_1=in.displayType[1];
