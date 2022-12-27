@@ -14,6 +14,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   public State0001 state;
   public boolean firstRun;
   public boolean debugInfo;
+  public long renderTime;
   public boolean mute;
   public float volume=1;
   @Override
@@ -60,10 +61,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     return out;
   }
   @Override
-  public void update() {
-    // if(cam2d.grabCursor)
-    // System.out.println(cam2d.grabCursor+" "+mouse.ox+" "+mouse.oy);
-  }
+  public void update() {}
   @Override
   public void mousePressed(MouseInfo info) {}
   @Override
@@ -87,13 +85,29 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     endBlend();
   }
   @Override
+  public void doDraw() {
+    if(debugInfo) {
+      Tools.time();
+      super.doDraw();
+      renderTime=Tools.period();
+    }else {
+      super.doDraw();
+    }
+  }
+  @Override
   public void display() {
-    if(debugInfo) text("Memory="+getMemory()+"Mb",0,bu*1.5f);
+    if(debugInfo) {
+      text("Memory="+getMemory()+"Mb",0,bu*1.5f);
+      text("RenderTime="+getRenderTime()+"ms",0,bu*1.5f+pu);
+    }
     if(cam.grabCursor) {
       // drawScreenCursor();
       withCam();
       drawCursor();
     }
+  }
+  public String getRenderTime() {
+    return String.format("%03d",renderTime);
   }
   public String getMemory() {
     return Tools.cutToLastDigitString((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/(1024*1024));

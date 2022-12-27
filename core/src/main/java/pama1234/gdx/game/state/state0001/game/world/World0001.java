@@ -151,4 +151,10 @@ public class World0001 extends World<Screen0011,Game>{
   public void placeBlock(MainPlayer2D player,Block block,MetaBlock in,int tx,int ty) {
     block.type(in);
   }
+  public int xToBlockCord(float in) {//TODO static
+    return UtilMath.floor(in/blockWidth);
+  }
+  public int yToBlockCord(float in) {
+    return UtilMath.floor(in/blockHeight);
+  }
 }

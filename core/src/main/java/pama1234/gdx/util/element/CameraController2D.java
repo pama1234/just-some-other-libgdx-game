@@ -119,15 +119,15 @@ public class CameraController2D extends CameraController{
   @Override
   public void display() {}
   public float x1() {
-    return 0;
+    return point.pos.x-w()/2;
   }
   public float y1() {
-    return 0;
+    return point.pos.y-h()/2;
   }
   public float x2() {
-    return 0;
+    return point.pos.x+w()/2;
   }
   public float y2() {
-    return 0;
+    return point.pos.y+h()/2;
   }
 }

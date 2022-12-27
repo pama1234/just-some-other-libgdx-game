@@ -51,22 +51,28 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
   }
   @Override
   public void display() {
+    forLoopDisplay();
+  }
+  public void forLoopDisplay() {
+    int tcw=pr.chunkWidth*pr.pw.blockWidth,
+      tch=pr.chunkHeight*pr.pw.blockHeight;
+    int rx=x*pr.regionWidth,
+      ry=y*pr.regionHeight;
+    if(!p.cam2d.boxIntersect(rx*tcw,ry*tch,tcw*pr.regionWidth,tch*pr.regionHeight)) return;
     for(int i=0;i<data.length;i++) {
       for(int j=0;j<data[i].length;j++) {
         Chunk chunk=data[i][j];
         Block[][] blockData=chunk.data;
-        int tcw=pr.chunkWidth*pr.pw.blockWidth,
-          tch=pr.chunkHeight*pr.pw.blockHeight;
-        int tcx=(x*pr.regionWidth+i)*tcw,
-          tcy=(y*pr.regionHeight+j)*tch;
+        int tcx=(rx+i)*tcw,
+          tcy=(ry+j)*tch;
         if(!p.cam2d.boxIntersect(tcx,tcy,tcw,tch)) continue;
         for(int n=0;n<blockData.length;n++) {
           for(int m=0;m<blockData[n].length;m++) {
             Block block=blockData[n][m];
             MetaBlock blockType=block.type;
             if(!blockType.display) continue;
-            int txi=(x*pr.regionWidth+i)*pr.chunkWidth+n,
-              tyi=(y*pr.regionHeight+j)*pr.chunkWidth+m;
+            int txi=(rx+i)*pr.chunkWidth+n,
+              tyi=(ry+j)*pr.chunkWidth+m;
             int tx=txi*pr.pw.blockWidth,
               ty=tyi*pr.pw.blockHeight;
             if(!p.cam2d.boxIntersect(tx,ty,pr.pw.blockWidth,pr.pw.blockHeight)) continue;

@@ -69,6 +69,10 @@ public abstract class UtilScreen extends UtilScreenCore{
     center.update();
     serverCenter.update();
     update();
+    doDraw();
+    frameCount++;
+  }
+  public void doDraw() {
     beginDraw();
     if(background) background(backgroundColor);
     withCam();
@@ -80,7 +84,6 @@ public abstract class UtilScreen extends UtilScreenCore{
     display();
     inputProcessor.display();
     endDraw();
-    frameCount++;
   }
   public abstract void displayWithCam();
   public void image(Texture in,float x,float y) {

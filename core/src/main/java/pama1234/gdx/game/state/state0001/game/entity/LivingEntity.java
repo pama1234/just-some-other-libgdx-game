@@ -86,11 +86,13 @@ public class LivingEntity extends GamePointEntity<MassPoint>{
   public int blockY2() {
     return yToBlockCord(y()+type.dy+type.h-0.01f);//TODO
   }
-  public int xToBlockCord(float in) {//TODO static
-    return UtilMath.floor(in/pw.blockWidth);
+  public int xToBlockCord(float in) {
+    // return UtilMath.floor(in/pw.blockWidth);
+    return pw.xToBlockCord(in);
   }
   public int yToBlockCord(float in) {
-    return UtilMath.floor(in/pw.blockHeight);
+    // return UtilMath.floor(in/pw.blockHeight);
+    return pw.yToBlockCord(in);
   }
   public boolean inOuterBox(int tx,int ty) {
     return Tools.inBoxInclude(tx,ty,outerBox.x1,outerBox.y1,outerBox.w,outerBox.h);

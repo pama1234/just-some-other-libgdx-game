@@ -3,6 +3,7 @@ package pama1234.gdx.game.state.state0001.game.region;
 import com.badlogic.gdx.files.FileHandle;
 
 import pama1234.gdx.game.app.Screen0011;
+import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.gdx.game.util.Mutex;
@@ -63,6 +64,29 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   @Override
   public void update() {
     // super.update();
+  }
+  @Override
+  public void display() {
+    // super.display();
+    fourPointDisplay();
+  }
+  public void fourPointDisplay() {
+    int x1=pw.xToBlockCord(p.cam2d.x1()),
+      y1=pw.xToBlockCord(p.cam2d.y1()),
+      x2=pw.xToBlockCord(p.cam2d.x2()),
+      y2=pw.xToBlockCord(p.cam2d.y2());
+    for(int i=x1;i<=x2;i++) {
+      for(int j=y1;j<=y2;j++) {
+        int tx=i*pw.blockWidth,
+          ty=j*pw.blockHeight;
+        Block block=getBlock(i,j);
+        MetaBlock blockType=block.type;
+        if(!blockType.display) continue;
+        blockType.updateDisplay(block,i,j);
+        blockType.display(p,block,tx,ty);
+      }
+    }
+    p.noTint();
   }
   public void dispose() {
     doUpdate.unlock();
