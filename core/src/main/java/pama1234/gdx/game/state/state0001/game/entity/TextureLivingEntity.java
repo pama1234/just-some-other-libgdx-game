@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.Game;
+import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.math.physics.MassPoint;
@@ -37,6 +38,7 @@ public class TextureLivingEntity extends LivingEntity{
   @Override
   public void display() {
     super.display();
+    p.tint(MetaBlock.getLighting(lighting));
     p.image(type.tiles[pointer],point.pos.x+type.dx,point.pos.y+type.dy);
   }
 }

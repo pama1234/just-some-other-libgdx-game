@@ -18,6 +18,7 @@ public class CameraController2D extends CameraController{
   public Vector2 cache;
   public boolean pixelPerfect;
   public boolean activeDrag=true,activeZoom=true;
+  public float minScale=1,maxScale=8;
   public CameraController2D(UtilScreen2D p,boolean pixelPerfect,float x,float y,float s,float r,float frameU) {
     super(p,x,y,0);
     camera=ocam=new OrthographicCamera();
@@ -74,8 +75,11 @@ public class CameraController2D extends CameraController{
     if(!activeZoom) return;
     // scale.des+=y/6f;
     scale.des+=y;
-    if(scale.des<1f) scale.des=1f;
-    if(scale.des>8) scale.des=8;
+    testScale();
+  }
+  public void testScale() {
+    if(scale.des<minScale) scale.des=minScale;
+    if(scale.des>maxScale) scale.des=maxScale;
   }
   @Override
   public void update() {
@@ -109,7 +113,10 @@ public class CameraController2D extends CameraController{
     }
     if(activeUpdate) if(a!=null&&a.state==0) {
       if(b!=null&&b.state==0) {
-        if(activeZoom) scale.des=iScale*dist(a.ox,a.oy,b.ox,b.oy)/iDist;
+        if(activeZoom) {
+          scale.des=iScale*dist(a.ox,a.oy,b.ox,b.oy)/iDist;
+          testScale();
+        }
         cache.set(avg(a.ox,b.ox)-bavgsox,avg(a.oy,b.oy)-bavgsoy);
       }else cache.set(a.ox-asox,a.oy-asoy);
       cache.rotateDeg(rotate.pos);

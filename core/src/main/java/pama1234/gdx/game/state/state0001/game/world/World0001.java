@@ -149,7 +149,7 @@ public class World0001 extends World<Screen0011,Game>{
   public void updateRectLighting(int x,int y) {
     for(int i=-lightDist;i<=lightDist;i++) for(int j=-lightDist;j<=lightDist;j++) {
       Block tb=regions.getBlock(x+i,y+j);
-      if(!Block.isEmpty(tb)) {
+      if(tb!=null) {
         tb.updateLighting=true;
       }
     }
@@ -162,10 +162,16 @@ public class World0001 extends World<Screen0011,Game>{
     updateRectLighting(x,y);
     block.type(in);
   }
-  public int xToBlockCord(float in) {//TODO static
+  public int xToBlockCord(float in) {
     return UtilMath.floor(in/blockWidth);
   }
   public int yToBlockCord(float in) {
     return UtilMath.floor(in/blockHeight);
+  }
+  public Block getBlock(int x,int y) {
+    return regions.getBlock(x,y);
+  }
+  public Block getBlock(float x,float y) {
+    return regions.getBlock(xToBlockCord(x),yToBlockCord(y));
   }
 }

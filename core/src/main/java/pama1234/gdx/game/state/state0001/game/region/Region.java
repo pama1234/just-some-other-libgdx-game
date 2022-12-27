@@ -70,13 +70,13 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
           for(int m=0;m<blockData[n].length;m++) {
             Block block=blockData[n][m];
             MetaBlock blockType=block.type;
-            if(!blockType.display) continue;
             int txi=(rx+i)*pr.chunkWidth+n,
               tyi=(ry+j)*pr.chunkWidth+m;
             int tx=txi*pr.pw.blockWidth,
               ty=tyi*pr.pw.blockHeight;
-            if(!p.cam2d.boxIntersect(tx,ty,pr.pw.blockWidth,pr.pw.blockHeight)) continue;
             blockType.updateDisplay(block,txi,tyi);
+            if(!blockType.display) continue;
+            if(!p.cam2d.boxIntersect(tx,ty,pr.pw.blockWidth,pr.pw.blockHeight)) continue;
             blockType.display(p,block,tx,ty);
           }
         }

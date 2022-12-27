@@ -5,6 +5,7 @@ import static com.badlogic.gdx.Input.Keys.ESCAPE;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer2D;
+import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.World;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.gdx.game.state.state0001.game.world.WorldCenter;
@@ -98,6 +99,8 @@ public class Game extends StateEntity0001{
       p.fill(94,203,234,127);
       for(RectF e:world.yourself.ctrl.cullRects) p.rect(e.x(),e.y(),e.w(),e.h());
       p.endBlend();
+      Block tb=world.getBlock(p.mouse.x, p.mouse.y);
+      p.text("lighting="+(tb!=null?tb.lighting:"null"), 0,p.bu*1.5f+p.pu*2);
     }
   }
   @Override

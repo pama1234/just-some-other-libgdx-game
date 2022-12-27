@@ -20,6 +20,7 @@ public class LivingEntity extends GamePointEntity<MassPoint>{
   public GameMode gameMode=GameMode.creative;
   public MetaCreature<?> type;
   public PathVar life;
+  public float lighting;
   public LivingEntity(Screen0011 p,MassPoint in,MetaCreature<?> type,Game pg) {
     super(p,in,pg);
     outerBox=new OuterBox(this);
@@ -30,6 +31,14 @@ public class LivingEntity extends GamePointEntity<MassPoint>{
   public void update() {
     super.update();
     outerBox.update();
+    lighting=0;
+    for(int i=0;i<=outerBox.w;i++) {
+      for(int j=0;j<=outerBox.h;j++) {
+        Block tb=pw.getBlock(outerBox.x1+i,outerBox.y1+j);
+        if(tb!=null) lighting+=tb.lighting;
+      }
+    }
+    lighting/=outerBox.w*outerBox.h;
   }
   @Override
   public void display() {

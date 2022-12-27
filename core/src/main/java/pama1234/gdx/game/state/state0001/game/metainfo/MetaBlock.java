@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
+import pama1234.math.UtilMath;
 
 public class MetaBlock extends MetaInfoBase{
   public MetaBlockCenter0001 pc;
@@ -15,16 +16,25 @@ public class MetaBlock extends MetaInfoBase{
   public ItemDropAttr[] itemDrop;
   public int displayTypeSize;
   public int defaultDisplayType;
-  public BlockUpdater updater,displayUpdater;
+  public BlockUpdater updater,displayUpdater=(in,x,y)-> {
+    if(in.updateLighting) {
+      int tc=0;
+      for(int i=-pc.pw.lightDist;i<=pc.pw.lightDist;i++) for(int j=-pc.pw.lightDist;j<=pc.pw.lightDist;j++) if(Block.isEmpty(pc.pw.regions.getBlock(x+i,y+j))) tc+=1;
+      in.lighting=UtilMath.constrain(UtilMath.floor(UtilMath.map(tc*2,0,pc.pw.lightCount,0,16)),0,16);
+    }
+  };
   public BlockChanger from,to;
   public BlockDisplayer displayer=(p,in,x,y)-> {
     p.tint(getLighting(in.lighting));
     p.image(tiles[in.displayType[0]],x,y,pc.pw.blockWidth+0.01f,pc.pw.blockHeight+0.01f);
   };
-  public int getLighting(int in) {
+  public static int getLighting(int in) {
     in<<=4;
     if(in>255) return 255;
     return in&0xff;
+  }
+  public static int getLighting(float in) {
+    return UtilMath.constrain(UtilMath.floor(in*16),0,255);
   }
   public MetaBlock(MetaBlockCenter0001 pc,String name,int id) {
     super(name,id);
@@ -64,7 +74,8 @@ public class MetaBlock extends MetaInfoBase{
     if(updater!=null) updater.update(in,x,y);
   }
   public void updateDisplay(Block in,int x,int y) {
-    if(displayUpdater!=null) displayUpdater.update(in,x,y);
+    // if(displayUpdater!=null)
+    displayUpdater.update(in,x,y);
   }
   public void display(Screen0011 p,Block in,int x,int y) {
     // p.image(tiles[in.displayType],x,y,pc.pw.blockWidth+0.01f,pc.pw.blockHeight+0.01f);
