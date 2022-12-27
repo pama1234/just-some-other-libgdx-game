@@ -42,6 +42,7 @@ public class Dirt extends MetaBlock{
     displayer=(p,in,x,y)-> {
       // if(in.displayType==null) return;//TODO
       p.tint(getLighting(in.lighting));
+      // System.out.println(getLighting(in.lighting));
       // p.tint(255,0,0);
       int tp_0=in.displayType[0];
       p.image(pc.dirt.tiles[tp_0],x,y,pc.pw.blockWidth+0.01f,pc.pw.blockHeight+0.01f);

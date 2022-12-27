@@ -70,7 +70,6 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
             int tx=txi*pr.pw.blockWidth,
               ty=tyi*pr.pw.blockHeight;
             if(!p.cam2d.boxIntersect(tx,ty,pr.pw.blockWidth,pr.pw.blockHeight)) continue;
-            // p.image(ImageAsset.tiles[blockType.tileX][blockType.tileY],tx,ty);
             blockType.updateDisplay(block,txi,tyi);
             blockType.display(p,block,tx,ty);
           }

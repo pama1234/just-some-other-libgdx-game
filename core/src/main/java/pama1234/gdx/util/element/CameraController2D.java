@@ -130,10 +130,4 @@ public class CameraController2D extends CameraController{
   public float y2() {
     return 0;
   }
-  public float w() {
-    return 0;
-  }
-  public float h() {
-    return 0;
-  }
 }

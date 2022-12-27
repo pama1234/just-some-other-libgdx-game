@@ -91,6 +91,7 @@ public class World0001 extends World<Screen0011,Game>{
     metaBlocks=new MetaBlockCenter0001(this);
     metaBlocks.list.add(metaBlocks.air=new MetaBlock(metaBlocks,"air",metaBlocks.id()));
     metaBlocks.list.add(metaBlocks.dirt=new Dirt(metaBlocks,metaBlocks.id()));
+    // System.out.println(metaBlocks.dirt.displayer);
   }
   public boolean isEmpty(Block in) {
     return in==null||in.type.empty;
