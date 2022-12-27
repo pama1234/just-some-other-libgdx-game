@@ -8,7 +8,6 @@ import pama1234.gdx.game.state.state0001.game.region.block.Block;
 
 public class MetaBlock extends MetaInfoBase{
   public MetaBlockCenter0001 pc;
-  public String name;
   public boolean display,empty,light;
   public TextureRegion[] tiles;
   public int buildTime,destroyTime;
@@ -26,31 +25,33 @@ public class MetaBlock extends MetaInfoBase{
     if(in>255) return 255;
     return in&0xff;
   }
-  public MetaBlock(MetaBlockCenter0001 pc,String name) {
+  public MetaBlock(MetaBlockCenter0001 pc,String name,int id) {
+    super(name,id);
     this.pc=pc;
     this.name=name;
     empty=true;
   }
-  public MetaBlock(MetaBlockCenter0001 pc,String name,TextureRegion[] tiles) {
+  public MetaBlock(MetaBlockCenter0001 pc,String name,int id,TextureRegion[] tiles) {
+    super(name,id);
     this.pc=pc;
     this.name=name;
     this.tiles=tiles;
     display=true;
     displayTypeSize=1;
   }
-  public MetaBlock(MetaBlockCenter0001 pc,String name,TextureRegion[] tiles,BlockUpdater updater,BlockUpdater displayUpdater) {
-    this(pc,name,tiles);
+  public MetaBlock(MetaBlockCenter0001 pc,String name,int id,TextureRegion[] tiles,BlockUpdater updater,BlockUpdater displayUpdater) {
+    this(pc,name,id,tiles);
     this.updater=updater;
     this.displayUpdater=displayUpdater;
   }
-  public MetaBlock(MetaBlockCenter0001 pc,String name,TextureRegion[] tiles,int displayTypeSize,BlockChanger from,BlockChanger to) {//TODO
-    this(pc,name,tiles);
+  public MetaBlock(MetaBlockCenter0001 pc,String name,int id,TextureRegion[] tiles,int displayTypeSize,BlockChanger from,BlockChanger to) {//TODO
+    this(pc,name,id,tiles);
     this.displayTypeSize=displayTypeSize;
     this.from=from;
     this.to=to;
   }
-  public MetaBlock(MetaBlockCenter0001 pc,String name,TextureRegion[] tiles,BlockUpdater updater,BlockUpdater displayUpdater,BlockDisplayer displayer,int displayTypeSize,BlockChanger from,BlockChanger to) {
-    this(pc,name,tiles,updater,displayUpdater);
+  public MetaBlock(MetaBlockCenter0001 pc,String name,int id,TextureRegion[] tiles,BlockUpdater updater,BlockUpdater displayUpdater,BlockDisplayer displayer,int displayTypeSize,BlockChanger from,BlockChanger to) {
+    this(pc,name,id,tiles,updater,displayUpdater);
     this.displayer=displayer;
     this.displayTypeSize=displayTypeSize;
     this.from=from;

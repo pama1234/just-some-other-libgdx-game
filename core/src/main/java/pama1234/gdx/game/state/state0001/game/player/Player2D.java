@@ -29,8 +29,8 @@ public class Player2D extends TextureLivingEntity{
       dx=-10;
       dy=-24;
     }
-    public PlayerType2D(MetaCreatureCenter0001 pc) {
-      super(pc,32,4);
+    public PlayerType2D(MetaCreatureCenter0001 pc,int id) {
+      super(pc,"player",id,32,4);
     }
     @Override
     public void init() {

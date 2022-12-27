@@ -10,8 +10,8 @@ import pama1234.math.UtilMath;
 
 public class Dirt extends MetaBlock{
   public int lightDist=7,lightCount=UtilMath.sq(lightDist*2+1);
-  public Dirt(MetaBlockCenter0001 pc) {
-    super(pc,"dirt",new TextureRegion[20],2,(in,type)-> {//change to dirt
+  public Dirt(MetaBlockCenter0001 pc,int id) {
+    super(pc,"dirt",id,new TextureRegion[20],2,(in,type)-> {//change to dirt
       in.lighting=16;
     },(in,type)-> {//change from dirt
     });

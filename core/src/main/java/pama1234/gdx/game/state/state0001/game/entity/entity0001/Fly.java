@@ -19,8 +19,8 @@ public class Fly extends TextureLivingEntity{
       dx=-12;
       dy=-24;
     }
-    public FlyType(MetaCreatureCenter0001 pc) {
-      super(pc,4,3);
+    public FlyType(MetaCreatureCenter0001 pc,int id) {
+      super(pc,"fly",id,4,3);
     }
     @Override
     public void init() {

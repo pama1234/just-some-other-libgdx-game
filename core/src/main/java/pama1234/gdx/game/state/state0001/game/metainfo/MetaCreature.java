@@ -11,7 +11,8 @@ public class MetaCreature<T extends LivingEntity>extends MetaInfoBase{
   public float dx,dy;
   public float maxLife=32;
   public TextureRegion[] tiles;
-  public MetaCreature(MetaCreatureCenter0001 pc,float maxLife,int tileSize) {
+  public MetaCreature(MetaCreatureCenter0001 pc,String name,int id,float maxLife,int tileSize) {
+    super(name,id);
     this.pc=pc;
     this.maxLife=maxLife;
     tiles=new TextureRegion[tileSize];

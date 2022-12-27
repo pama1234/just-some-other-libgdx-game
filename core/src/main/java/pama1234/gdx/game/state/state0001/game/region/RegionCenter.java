@@ -1,7 +1,5 @@
 package pama1234.gdx.game.state.state0001.game.region;
 
-import java.util.stream.Stream;
-
 import com.badlogic.gdx.files.FileHandle;
 
 import pama1234.gdx.game.app.Screen0011;

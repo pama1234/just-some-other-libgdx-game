@@ -7,7 +7,7 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemC
 
 public abstract class MetaItem<T extends Item>extends MetaInfoBase{
   public MetaItemCenter0001 pc;
-  public String name;
+  // public String name;
   public ItemCountType countType;
   public int maxCount=1;
   public int floatDivider=8;//TODO
@@ -16,8 +16,8 @@ public abstract class MetaItem<T extends Item>extends MetaInfoBase{
   public TextureRegion[] tiles;
   public int displayTypeSize=1;
   public int defaultDisplayType;
-  public MetaItem(MetaItemCenter0001 pc,String name) {
-    this.pc=pc;
+  public MetaItem(MetaItemCenter0001 pc,String name,int id) {
+    super(name,id);
     this.name=name;
   }
   public abstract T createItem();

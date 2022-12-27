@@ -61,17 +61,22 @@ public class World0001 extends World<Screen0011,Game>{
     colorB=p.color(0);
     entitys.points.add.add(new Fly(p,this,0,18*10,pg));//TODO
   }
-  public int getSkyColor(int pos) {
-    return skyColorMap.getPixel(pos,0);
-  }
   public void createCreatureC() {
     metaEntitys=new MetaCreatureCenter0001(this);
-    metaEntitys.list.add(metaEntitys.player=new PlayerType2D(metaEntitys));
-    metaEntitys.list.add(metaEntitys.fly=new FlyType(metaEntitys));
+    metaEntitys.list.add(metaEntitys.player=new PlayerType2D(metaEntitys,metaEntitys.id()));
+    metaEntitys.list.add(metaEntitys.fly=new FlyType(metaEntitys,metaEntitys.id()));
   }
   public void createItemC() {
     metaItems=new MetaItemCenter0001(this);
-    metaItems.list.add(metaItems.dirt=new MetaIntItem(metaItems,"dirt") {
+    metaItems.list.add(metaItems.empty=new MetaIntItem(metaItems,"empty",metaItems.id()) {
+      @Override
+      public void init() {
+        // if(tiles!=null) return;
+        tiles=new TextureRegion[1];
+        tiles[0]=ImageAsset.tiles[20][1];
+      }
+    });
+    metaItems.list.add(metaItems.dirt=new MetaIntItem(metaItems,"dirt",metaItems.id()) {
       @Override
       public void init() {
         // if(tiles!=null) return;
@@ -80,19 +85,11 @@ public class World0001 extends World<Screen0011,Game>{
         tiles[0]=ImageAsset.tiles[20][0];
       }
     });
-    metaItems.list.add(metaItems.empty=new MetaIntItem(metaItems,"empty") {
-      @Override
-      public void init() {
-        // if(tiles!=null) return;
-        tiles=new TextureRegion[1];
-        tiles[0]=ImageAsset.tiles[20][1];
-      }
-    });
   }
   public void createBlockC() {
     metaBlocks=new MetaBlockCenter0001(this);
-    metaBlocks.list.add(metaBlocks.dirt=new Dirt(metaBlocks));
-    metaBlocks.list.add(metaBlocks.air=new MetaBlock(metaBlocks,"air"));
+    metaBlocks.list.add(metaBlocks.air=new MetaBlock(metaBlocks,"air",metaBlocks.id()));
+    metaBlocks.list.add(metaBlocks.dirt=new Dirt(metaBlocks,metaBlocks.id()));
   }
   public boolean isEmpty(Block in) {
     return in==null||in.type.empty;
@@ -135,6 +132,9 @@ public class World0001 extends World<Screen0011,Game>{
     }
     p.lerpColor(colorA,colorB,backgroundColor,Tools.moveInRange(time,0,daySkyGridSize)/daySkyGridSize);
     p.backgroundColor(backgroundColor);
+  }
+  public int getSkyColor(int pos) {
+    return skyColorMap.getPixel(pos,0);
   }
   public int getSkyPos(int in) {
     return UtilMath.floor(Tools.map(in%daySize,0,daySize,0,skyColorCount));

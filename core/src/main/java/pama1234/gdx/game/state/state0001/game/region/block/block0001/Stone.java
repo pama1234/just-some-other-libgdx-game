@@ -8,8 +8,8 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlock
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 
 public class Stone extends MetaBlock{
-  public Stone(MetaBlockCenter0001 pc) {
-    super(pc,"stone",new TextureRegion[20],2,(in,type)-> {//change to dirt
+  public Stone(MetaBlockCenter0001 pc,int id) {
+    super(pc,"stone",id,new TextureRegion[20],2,(in,type)-> {//change to dirt
     },(in,type)-> {//change from dirt
     });
     initLambda();
