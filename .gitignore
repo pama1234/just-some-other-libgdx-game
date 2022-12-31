@@ -160,3 +160,6 @@ assets/vector/*.tga
 assets/vector/*.svg
 
 *.jar
+
+
+assets/image/src
