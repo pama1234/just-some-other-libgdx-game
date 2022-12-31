@@ -27,7 +27,7 @@ public class Screen0002 extends UtilScreen2D{
   public void displayWithCam() {}
   @Override
   public void display() {
-    int circleSeg=circleSeg(CellGroup2D.SIZE*cam.scale.pos*(1/cam.frameScale));
+    int circleSeg=circleSeg(CellGroup2D.SIZE*cam2d.scale.pos*(1/cam.frameScale));
     for(int i=0;i<group.size;i++) {
       fillHex(group.color(i));
       circle(group.x(i),group.y(i),CellGroup2D.SIZE,circleSeg);

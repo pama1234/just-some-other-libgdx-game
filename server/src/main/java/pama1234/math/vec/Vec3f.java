@@ -33,6 +33,14 @@ public class Vec3f extends Vector3f implements ByteBufferData{
     x=in.x;
     y=in.y;
   }
+  public void set(Vec2f in) {
+    x=in.x;
+    y=in.y;
+  }
+  public void set(float a,float b) {
+    x=a;
+    y=b;
+  }
   public void add(float a,float b,float c) {
     x+=a;
     y+=b;

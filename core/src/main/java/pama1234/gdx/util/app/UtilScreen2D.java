@@ -51,9 +51,16 @@ public abstract class UtilScreen2D extends UtilScreen{
     innerResize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
     setup();
   }
+  @Override
   public Vector3 unproject(float x,float y) {
     vectorCache.set(x,y,0);
     cam.camera.unproject(vectorCache);
     return vectorCache;
+  }
+  @Override
+  public void withCam() {
+    setCamera(cam.camera);
+    textScale(1);
+    strokeWeight(defaultStrokeWeight=u/16*cam2d.scale.pos);
   }
 }

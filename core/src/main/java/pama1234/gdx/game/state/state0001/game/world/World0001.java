@@ -112,13 +112,20 @@ public class World0001 extends World<Screen0011,Game>{
   @Override
   public void resume() {
     super.resume();
-    p.cam2d.activeDrag=false;
+    // p.cam2d.activeDrag=false;
+    p.cam2d.active(false);
+    p.cam2d.scale.pos=yourself.ctrl.camScale;
+    p.cam2d.scale.des=yourself.ctrl.camScale;
+    p.cam.point.pos.set(yourself.point.pos);
+    p.cam.point.des.set(yourself.point.pos);
     p.centerCam.add.add(yourself);
   }
   @Override
   public void pause() {
     super.pause();
-    p.cam2d.activeDrag=true;
+    // p.cam2d.activeDrag=true;
+    p.cam2d.active(true);
+    yourself.ctrl.camScale=p.cam2d.scale.des;
     p.centerCam.remove.add(yourself);
   }
   @Override

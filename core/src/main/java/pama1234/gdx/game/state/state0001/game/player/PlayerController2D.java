@@ -28,6 +28,7 @@ public class PlayerController2D extends Entity<Screen0011>{
   public MovementLimitBox limitBox;
   public RectF[] cullRects;
   public LivingEntity selectEntity;
+  public float camScale=1;
   public PlayerController2D(Screen0011 p,MainPlayer2D player) {
     super(p);
     this.player=player;
@@ -125,8 +126,14 @@ public class PlayerController2D extends Entity<Screen0011>{
   @Override
   public void keyPressed(char key,int keyCode) {
     if(keyCode==Keys.SHIFT_LEFT||keyCode==Keys.SHIFT_RIGHT) shift(true);
-    if(keyCode==Keys.E) player.inventory.displayHotSlot(!player.inventory.displayHotSlot);
-    if(keyCode==Keys.V) shift(!shift);
+    else if(keyCode==Keys.E) player.inventory.displayHotSlot(!player.inventory.displayHotSlot);
+    else if(keyCode==Keys.V) shift(!shift);
+    else if(keyCode==Keys.EQUALS) camScale(0.5f);
+    else if(keyCode==Keys.MINUS) camScale(-0.5f);
+  }
+  public void camScale(float in) {
+    p.cam2d.scaleAdd(in);
+    camScale=p.cam2d.scale.des;
   }
   public void shift(boolean in) {
     shift=in;

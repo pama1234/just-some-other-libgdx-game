@@ -15,7 +15,6 @@ import pama1234.gdx.util.entity.Entity;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.math.Tools;
 import pama1234.math.physics.PathPoint3D;
-import pama1234.math.physics.PathVar;
 
 public abstract class CameraController extends Entity<UtilScreen>{
   public Camera camera;
@@ -24,7 +23,7 @@ public abstract class CameraController extends Entity<UtilScreen>{
   //---
   // public PathPoint point;
   public PathPoint3D point;
-  public PathVar scale,rotate;
+  //---
   public float frameU,frameScale;
   public float scx,scy;
   public float asox,asoy;
@@ -44,23 +43,10 @@ public abstract class CameraController extends Entity<UtilScreen>{
     point=new PathPoint3D(x,y,z);
   }
   public abstract void preResizeEvent(int w,int h);
-  public boolean inbox(float x,float y) {
-    return Tools.inBoxCenter(x,y,x(),y(),w(),h());
-  }
-  public boolean boxIntersect(float x,float y,float w,float h) {
-    float tw=w(),th=h();
-    return Tools.intersects(x,y,w,h,x()-tw/2,y()-th/2,tw,th);
-  }
   //TODO
   @Deprecated
   public boolean inbox(float x,float y,float z) {
     return false;
-  }
-  public float w() {
-    return (p.width*frameScale)/scale.pos;
-  }
-  public float h() {
-    return (p.height*frameScale)/scale.pos;
   }
   @Override
   public void frameResized(int w,int h) {

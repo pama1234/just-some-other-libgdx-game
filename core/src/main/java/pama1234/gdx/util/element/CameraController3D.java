@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.PerspectiveCamera;
 import pama1234.gdx.util.app.UtilScreen3D;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.math.physics.PathPoint;
-import pama1234.math.physics.PathVar;
 
 public class CameraController3D extends CameraController{
   // public PerspectiveCamera pcam;
@@ -25,8 +24,8 @@ public class CameraController3D extends CameraController{
     // camera=new PerspectiveCamera(60,p.width,p.height);
     // camera=new PerspectiveCamera(60,p.width,p.height);
     initCamera();
-    scale=new PathVar(s);
-    rotate=new PathVar(r);
+    // scale=new PathVar(s);
+    // rotate=new PathVar(r);
     this.frameU=frameU;
   }
   public void initCamera() {

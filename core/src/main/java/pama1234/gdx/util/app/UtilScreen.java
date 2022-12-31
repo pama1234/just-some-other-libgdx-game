@@ -322,8 +322,8 @@ public abstract class UtilScreen extends UtilScreenCore{
   public void withCam() {
     setCamera(cam.camera);
     textScale(1);
-    strokeWeight(defaultStrokeWeight=u/16*cam.scale.pos);//TODO
-    // System.out.println(u+" "+defaultStrokeWeight);
+    // strokeWeight(defaultStrokeWeight=u/16*cam2d.scale.pos);
+    strokeWeight(defaultStrokeWeight=u/16);
   }
   public void fillRect(float x,float y,float w,float h) {
     rFill.rect(x,y,w,h);

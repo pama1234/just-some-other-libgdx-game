@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 
 import pama1234.gdx.util.app.UtilScreen2D;
 import pama1234.gdx.util.info.TouchInfo;
+import pama1234.math.Tools;
 import pama1234.math.physics.PathVar;
 
 public class CameraController2D extends CameraController{
@@ -18,6 +19,7 @@ public class CameraController2D extends CameraController{
   public Vector2 cache;
   public boolean pixelPerfect;
   public boolean activeDrag=true,activeZoom=true;
+  public PathVar scale,rotate;
   public float minScale=1,maxScale=8;
   public CameraController2D(UtilScreen2D p,boolean pixelPerfect,float x,float y,float s,float r,float frameU) {
     super(p,x,y,0);
@@ -77,10 +79,6 @@ public class CameraController2D extends CameraController{
     scale.des+=y;
     testScale();
   }
-  public void testScale() {
-    if(scale.des<minScale) scale.des=minScale;
-    if(scale.des>maxScale) scale.des=maxScale;
-  }
   @Override
   public void update() {
     updateView();
@@ -125,6 +123,19 @@ public class CameraController2D extends CameraController{
   }
   @Override
   public void display() {}
+  public boolean inbox(float x,float y) {
+    return Tools.inBoxCenter(x,y,x(),y(),w(),h());
+  }
+  public boolean boxIntersect(float x,float y,float w,float h) {
+    float tw=w(),th=h();
+    return Tools.intersects(x,y,w,h,x()-tw/2,y()-th/2,tw,th);
+  }
+  public float w() {
+    return (p.width*frameScale)/scale.pos;
+  }
+  public float h() {
+    return (p.height*frameScale)/scale.pos;
+  }
   public float x1() {
     return point.pos.x-w()/2;
   }
@@ -136,5 +147,13 @@ public class CameraController2D extends CameraController{
   }
   public float y2() {
     return point.pos.y+h()/2;
+  }
+  public void scaleAdd(float in) {
+    scale.des+=in;
+    testScale();
+  }
+  public void testScale() {
+    if(scale.des<minScale) scale.des=minScale;
+    if(scale.des>maxScale) scale.des=maxScale;
   }
 }

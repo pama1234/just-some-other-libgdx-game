@@ -7,7 +7,6 @@ import pama1234.gdx.game.state.state0001.game.item.Inventory;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.gdx.util.element.CameraController2D;
 import pama1234.gdx.util.info.TouchInfo;
-import pama1234.math.Tools;
 
 public class MainPlayer2D extends Player2D{
   public CameraController2D cam;
@@ -42,7 +41,9 @@ public class MainPlayer2D extends Player2D{
     super.update();
     ctrl.constrain();
     //---
-    p.cam.point.des.set(cx(),Tools.mag(point.y(),ctrl.limitBox.floor)<48?ctrl.limitBox.floor+type.dy+type.h/2f:cy(),0);
+    // p.cam.point.des.set(cx(),Tools.mag(point.y(),ctrl.limitBox.floor)<48?ctrl.limitBox.floor+type.dy+type.h/2f:cy(),0);//TODO
+    // p.println(cx(),cy());
+    p.cam.point.des.set(cx(),cy());
     //---
     life.update();
     inventory.update();
