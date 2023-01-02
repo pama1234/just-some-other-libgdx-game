@@ -20,12 +20,13 @@ public class Fly extends TextureLivingEntity{
       dy=-24;
     }
     public FlyType(MetaCreatureCenter0001 pc,int id) {
-      super(pc,"fly",id,4,3);
+      super(pc,"fly",id,4,3,1);
     }
     @Override
     public void init() {
-      if(tiles[0]!=null) return;
-      for(int i=0;i<tiles.length;i++) tiles[i]=ImageAsset.creature[6+i][2];
+      // if(tiles[0]!=null) return;
+      // System.out.println("Fly.FlyType.init()");
+      for(int i=0;i<tiles.length;i++) tiles[i][0]=ImageAsset.creature[6+i][2];
     }
   }
 }

@@ -11,10 +11,11 @@ import pama1234.math.physics.MassPoint;
 
 public class TextureLivingEntity extends LivingEntity{
   // public TextureRegion[] tiles;
-  public int pointer;
-  public float pointerTime;
-  public float pointerStep=1/6f;
+  public int time;
+  public float timeCount;
+  public float timeStep=1/6f;
   public boolean dir,pdir;
+  public int moveState;
   public <T extends TextureLivingEntity> TextureLivingEntity(Screen0011 p,World0001 pw,float x,float y,MetaCreature<T> type,Game pg) {
     super(p,new MassPoint(x,y),type,pg);
     point.step=0.5f;
@@ -23,15 +24,13 @@ public class TextureLivingEntity extends LivingEntity{
   @Override
   public void update() {
     super.update();
-    // System.out.println((int)(pg.time*pointerStep)%pointerStep);
-    if((pointerTime+=p.frameRate)>=pointerStep) {
-      pointerTime-=pointerStep;
-      // pointer=(int)(pg.time*6)%type.tiles.length;
-      pointer+=1;
-      pointer%=type.tiles.length;
+    if((timeCount+=p.frameRate)>=timeStep) {
+      timeCount-=timeStep;
+      time+=1;
+      time%=type.tiles.length;
     }
     if(pdir!=dir) {
-      for(TextureRegion i:type.tiles) i.flip(true,false);
+      for(TextureRegion[] i:type.tiles) for(TextureRegion e:i) e.flip(true,false);
       pdir=dir;
     }
   }
@@ -39,6 +38,9 @@ public class TextureLivingEntity extends LivingEntity{
   public void display() {
     super.display();
     p.tint(MetaBlock.getLighting(lighting));
-    p.image(type.tiles[pointer],point.pos.x+type.dx,point.pos.y+type.dy);
+    // p.println(time,moveState,type,type.tiles[time][moveState]);
+    // if(type.tiles[time][moveState]!=null)
+    // System.out.println("TextureLivingEntity.display()");
+    p.image(type.tiles[time][moveState],point.pos.x+type.dx,point.pos.y+type.dy);
   }
 }

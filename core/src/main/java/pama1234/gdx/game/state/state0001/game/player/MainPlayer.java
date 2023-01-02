@@ -8,14 +8,14 @@ import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.gdx.util.element.CameraController2D;
 import pama1234.gdx.util.info.TouchInfo;
 
-public class MainPlayer2D extends Player2D{
+public class MainPlayer extends Player{
   public CameraController2D cam;
-  public PlayerController2D ctrl;
+  public PlayerController ctrl;
   public Inventory<IntItem> inventory;
-  public MainPlayer2D(Screen0011 p,World0001 pw,float x,float y,Game pg) {//TODO type
+  public MainPlayer(Screen0011 p,World0001 pw,float x,float y,Game pg) {//TODO type
     super(p,pw,x,y,pw.metaEntitys.player,pg);
     this.cam=p.cam2d;
-    ctrl=new PlayerController2D(p,this);
+    ctrl=new PlayerController(p,this);
     inventory=new Inventory<>(this,32,9);
     inventory.data[0].item=pw.metaItems.dirt.createItem();//TODO
   }

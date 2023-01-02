@@ -2,12 +2,20 @@ package pama1234.gdx.game.state.state0001.game.entity.util;
 
 import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
+import pama1234.gdx.game.util.RectF;
 
 public class MovementLimitBox extends OuterBox{
   public boolean inAir;
   public float floor,leftWall,rightWall,ceiling;
+  // public float floorConst,ceilingConst,leftWallConst,rightWallConst;
+  public RectF rectConst;
   public MovementLimitBox(LivingEntity p) {
     super(p);
+    rectConst=new RectF(()->p.type.w/2f,()->p.pw.blockHeight,()->0,()->p.type.h);
+    // floorConst=p.pw.blockHeight;
+    // ceilingConst=p.type.h;
+    // leftWallConst=p.pw.blockWidth;
+    // rightWallConst=0;
   }
   public void constrain() {
     if(p.point.pos.y>floor) {
@@ -37,9 +45,23 @@ public class MovementLimitBox extends OuterBox{
       }
     }
     if(flagCache) {
-      floor=(y2+1)*p.pw.blockHeight;
+      floor=y2*p.pw.blockHeight+rectConst.y();
+      // floor=y2*p.pw.blockHeight+floorConst;
       flagCache=false;
     }else floor=(y2+4)*p.pw.blockHeight;
+    //------------------------------------------ ceiling
+    for(int i=0;i<=w;i++) {
+      block=p.getBlock(x1+i,y1-1);
+      if(!Block.isEmpty(block)) {
+        flagCache=true;
+        break;
+      }
+    }
+    if(flagCache) {
+      ceiling=y1*p.pw.blockHeight+rectConst.h();
+      // ceiling=y1*p.pw.blockHeight+ceilingConst;
+      flagCache=false;
+    }else ceiling=(y1-4)*p.pw.blockHeight;
     //------------------------------------------ left
     // for(int i=inAir?-1:0;i<=bh;i++) {
     for(int i=0;i<=h;i++) {
@@ -50,7 +72,9 @@ public class MovementLimitBox extends OuterBox{
       }
     }
     if(flagCache) {
-      leftWall=(x1+0.5f)*p.pw.blockWidth+1;
+      // leftWall=(x1)*p.pw.blockWidth+leftWallConst;
+      leftWall=(x1)*p.pw.blockWidth+rectConst.x();
+      // leftWall=(x1+0.5f)*p.pw.blockWidth+1;
       flagCache=false;
     }else leftWall=(x1-4)*p.pw.blockWidth;
     //------------------------------------------ right
@@ -62,20 +86,10 @@ public class MovementLimitBox extends OuterBox{
       }
     }
     if(flagCache) {
-      rightWall=(x2+0.5f)*p.pw.blockWidth-1;
+      rightWall=(x2)*p.pw.blockWidth+rectConst.w();
+      // rightWall=(x2)*p.pw.blockWidth+rightWallConst;
+      // rightWall=(x2+0.5f)*p.pw.blockWidth-1;
       flagCache=false;
     }else rightWall=(x2+4)*p.pw.blockWidth;
-    //------------------------------------------ ceiling
-    for(int i=0;i<=w;i++) {
-      block=p.getBlock(x1+i,y1-1);
-      if(!Block.isEmpty(block)) {
-        flagCache=true;
-        break;
-      }
-    }
-    if(flagCache) {
-      ceiling=y1*p.pw.blockHeight+p.type.h;
-      flagCache=false;
-    }else ceiling=(y1-4)*p.pw.blockHeight;
   }
 }

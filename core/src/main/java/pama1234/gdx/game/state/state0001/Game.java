@@ -4,7 +4,7 @@ import static com.badlogic.gdx.Input.Keys.ESCAPE;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
-import pama1234.gdx.game.state.state0001.game.player.MainPlayer2D;
+import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.World;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
@@ -40,7 +40,7 @@ public class Game extends StateEntity0001{
     if(displayCamTop==null) displayCamTop=new EntityListener() {
       @Override
       public void display() {
-        MainPlayer2D tp=world.yourself;
+        MainPlayer tp=world.yourself;
         p.beginBlend();
         int bx1=tp.ctrl.limitBox.x1,
           by1=tp.ctrl.limitBox.y1,

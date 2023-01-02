@@ -18,9 +18,9 @@ import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaCreatureCenter0001;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemCenter0001;
-import pama1234.gdx.game.state.state0001.game.player.MainPlayer2D;
-import pama1234.gdx.game.state.state0001.game.player.Player2D.PlayerCenter2D;
-import pama1234.gdx.game.state.state0001.game.player.Player2D.PlayerType2D;
+import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
+import pama1234.gdx.game.state.state0001.game.player.Player.PlayerCenter;
+import pama1234.gdx.game.state.state0001.game.player.Player.PlayerType;
 import pama1234.gdx.game.state.state0001.game.region.RegionCenter;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Dirt;
@@ -32,9 +32,9 @@ public class World0001 extends World<Screen0011,Game>{
   public MetaItemCenter0001 metaItems;
   public MetaCreatureCenter0001 metaEntitys;
   public GameEntityCenter entitys;
-  public PlayerCenter2D players;
+  public PlayerCenter players;
   public RegionCenter regions;
-  public MainPlayer2D yourself;
+  public MainPlayer yourself;
   public int blockWidth=18,blockHeight=18;
   public float g=1f,jumpForce=-blockHeight*1.5f;
   // public int daySize=3600;
@@ -54,18 +54,18 @@ public class World0001 extends World<Screen0011,Game>{
     createCreatureC();
     // list[0]=players=new PlayerCenter2D(p);
     list[0]=entitys=new GameEntityCenter(p);
-    entitys.list.add(entitys.players=players=new PlayerCenter2D(p));
+    entitys.list.add(entitys.players=players=new PlayerCenter(p));
     list[1]=regions=new RegionCenter(p,this,Gdx.files.local("data/saved/regions.bin"));
     // regions.load();
-    yourself=new MainPlayer2D(p,this,0,-1,pg);
+    yourself=new MainPlayer(p,this,0,-1,pg);
     backgroundColor=p.color(0);
     colorA=p.color(0);
     colorB=p.color(0);
-    entitys.points.add.add(new Fly(p,this,0,18*10,pg));//TODO
+    // entitys.points.add.add(new Fly(p,this,0,18*10,pg));//TODO
   }
   public void createCreatureC() {
     metaEntitys=new MetaCreatureCenter0001(this);
-    metaEntitys.list.add(metaEntitys.player=new PlayerType2D(metaEntitys,metaEntitys.id()));
+    metaEntitys.list.add(metaEntitys.player=new PlayerType(metaEntitys,metaEntitys.id()));
     metaEntitys.list.add(metaEntitys.fly=new FlyType(metaEntitys,metaEntitys.id()));
   }
   public void createItemC() {
@@ -161,11 +161,11 @@ public class World0001 extends World<Screen0011,Game>{
       }
     }
   }
-  public void destroyBlock(MainPlayer2D player,Block block,int x,int y) {
+  public void destroyBlock(MainPlayer player,Block block,int x,int y) {
     updateRectLighting(x,y);
     block.type(metaBlocks.air);
   }
-  public void placeBlock(MainPlayer2D player,Block block,MetaBlock in,int x,int y) {
+  public void placeBlock(MainPlayer player,Block block,MetaBlock in,int x,int y) {
     updateRectLighting(x,y);
     block.type(in);
   }

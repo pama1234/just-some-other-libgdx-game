@@ -20,8 +20,8 @@ import pama1234.gdx.util.wrapper.EntityCenter;
 import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 
-public class PlayerController2D extends Entity<Screen0011>{
-  public MainPlayer2D player;
+public class PlayerController extends Entity<Screen0011>{
+  public MainPlayer player;
   public boolean left,right,jump,shift;
   public int walkCool,jumpCool;
   public float speed=1f,shiftSpeedMult=2f;
@@ -29,7 +29,7 @@ public class PlayerController2D extends Entity<Screen0011>{
   public RectF[] cullRects;
   public LivingEntity selectEntity;
   public float camScale=1;
-  public PlayerController2D(Screen0011 p,MainPlayer2D player) {
+  public PlayerController(Screen0011 p,MainPlayer player) {
     super(p);
     this.player=player;
     if(p.isAndroid) {
@@ -137,8 +137,8 @@ public class PlayerController2D extends Entity<Screen0011>{
   }
   public void shift(boolean in) {
     shift=in;
-    if(shift) player.pointerStep=1/12f;
-    else player.pointerStep=1/6f;
+    if(shift) player.timeStep=1/12f;
+    else player.timeStep=1/6f;
   }
   @Override
   public void keyReleased(char key,int keyCode) {

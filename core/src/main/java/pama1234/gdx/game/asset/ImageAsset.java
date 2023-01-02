@@ -23,7 +23,7 @@ public class ImageAsset{
     manager.load("image/exit.png",Texture.class);
     manager.load("image/background.png",Texture.class);
     manager.load("image/tiles.png",Texture.class);
-    manager.load("image/player.png",Texture.class);
+    manager.load("image/player04.png",Texture.class);
     manager.load("image/characters.png",Texture.class);
     manager.load("image/sky.png",Texture.class);
     manager.load("image/select.png",Texture.class);
@@ -32,7 +32,9 @@ public class ImageAsset{
     exit=loadFromTexture(manager.get("image/exit.png"));
     background=loadFromTexture(manager.get("image/background.png"));
     tiles=loadFromTexture_0001(manager.get("image/tiles.png"),tileWidth,tileHeight,tileWidthGap,tileHeightGap);
-    player=loadFromTexture_0001(manager.get("image/player.png"),20,24,4,0);
+    player=loadFromTexture_0001(manager.get("image/player04.png"),36,54,0,0);
+    // System.out.println(player[0].length);
+    // player=loadFromTexture_0001(manager.get("image/player.png"),20,24,4,0);
     creature=loadFromTexture_0001(manager.get("image/characters.png"),24,24,2,2);
     sky=loadFromTexture(manager.get("image/sky.png"));
     select=loadFromTexture(manager.get("image/select.png"));

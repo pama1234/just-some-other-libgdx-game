@@ -45,7 +45,7 @@ public class Stone extends MetaBlock{
   }
   @Override
   public void init() {
-    if(tiles[0]!=null) return;
+    // if(tiles[0]!=null) return;
     TextureRegion[][] tsrc=ImageAsset.tiles;
     //-----------------------------------------------------
     tiles[15]=tsrc[0][0];
