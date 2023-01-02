@@ -12,6 +12,7 @@ public class MovementLimitBox extends OuterBox{
   public MovementLimitBox(LivingEntity p) {
     super(p);
     rectConst=new RectF(()->p.type.w/2f,()->p.pw.blockHeight,()->0,()->p.type.h);
+    // rectConst=new RectF(()->p.type.w/2f,()->0,()->0,()->p.type.h);
     // floorConst=p.pw.blockHeight;
     // ceilingConst=p.type.h;
     // leftWallConst=p.pw.blockWidth;
@@ -33,22 +34,12 @@ public class MovementLimitBox extends OuterBox{
     inAir=p.point.pos.y<floor;
   }
   public void updateLimit() {
-    if(inAir&&p.point.vel.y>0) h+=1;
+    if(inAir) {
+      if(p.point.vel.y>0) h+=1;
+      else y1+=1;
+    }
     Block block;
     flagCache=false;
-    //------------------------------------------ floor
-    for(int i=0;i<=w;i++) {
-      block=p.getBlock(x1+i,y2+1);
-      if(!Block.isEmpty(block)) {
-        flagCache=true;
-        break;
-      }
-    }
-    if(flagCache) {
-      floor=y2*p.pw.blockHeight+rectConst.y();
-      // floor=y2*p.pw.blockHeight+floorConst;
-      flagCache=false;
-    }else floor=(y2+4)*p.pw.blockHeight;
     //------------------------------------------ ceiling
     for(int i=0;i<=w;i++) {
       block=p.getBlock(x1+i,y1-1);
@@ -62,6 +53,19 @@ public class MovementLimitBox extends OuterBox{
       // ceiling=y1*p.pw.blockHeight+ceilingConst;
       flagCache=false;
     }else ceiling=(y1-4)*p.pw.blockHeight;
+    //------------------------------------------ floor
+    for(int i=0;i<=w;i++) {
+      block=p.getBlock(x1+i,y2+1);
+      if(!Block.isEmpty(block)) {
+        flagCache=true;
+        break;
+      }
+    }
+    if(flagCache) {
+      floor=y2*p.pw.blockHeight+rectConst.y();
+      // floor=y2*p.pw.blockHeight+floorConst;
+      flagCache=false;
+    }else floor=(y2+4)*p.pw.blockHeight;
     //------------------------------------------ left
     // for(int i=inAir?-1:0;i<=bh;i++) {
     for(int i=0;i<=h;i++) {

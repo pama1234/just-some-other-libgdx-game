@@ -19,6 +19,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   public RegionGenerator generator;
   public Mutex doUpdate,doUpdateDisplay;
   public Thread updateLoop,updateDisplayLoop;
+  public long updateMilis;
   public RegionCenter(Screen0011 p,World0001 pw,FileHandle metadata) {
     super(p);
     this.pw=pw;
@@ -94,7 +95,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   }
   public Thread createUpdateLoop() {
     return new Thread(()-> {
-      long beforeM,milis;
+      long beforeM;
       while(!p.stop) {
         doUpdate.step();
         beforeM=System.currentTimeMillis();
@@ -102,8 +103,8 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
         // Stream<Region> stream=list.stream().parallel();
         // stream.forEach(r->r.update());
         super.update();
-        milis=System.currentTimeMillis()-beforeM;
-        if(milis<50) p.sleep(50-milis);
+        updateMilis=System.currentTimeMillis()-beforeM;
+        if(updateMilis<50) p.sleep(50-updateMilis);
       }
     });
   }

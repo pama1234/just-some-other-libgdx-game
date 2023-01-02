@@ -10,7 +10,6 @@ import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.math.physics.MassPoint;
 
 public class TextureLivingEntity extends LivingEntity{
-  // public TextureRegion[] tiles;
   public int time;
   public float timeCount;
   public float timeStep=1/6f;

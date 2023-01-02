@@ -63,14 +63,17 @@ public abstract class UtilScreen extends UtilScreenCore{
   public void render(float delta) {
     frameRate=delta;
     // textScale(pus);
+    doUpdate();
+    doDraw();
+    frameCount++;
+  }
+  public void doUpdate() {
     mouse.update(this);
     for(TouchInfo i:touches) i.update(this);
     inputProcessor.update();
     center.update();
     serverCenter.update();
     update();
-    doDraw();
-    frameCount++;
   }
   public void doDraw() {
     beginDraw();

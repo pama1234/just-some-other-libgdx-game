@@ -14,7 +14,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   public State0001 state;
   public boolean firstRun;
   public boolean debugInfo;
-  public long renderTime;
+  public long renderTime,updateTime;
   public boolean mute;
   public float volume=1;
   @Override
@@ -90,15 +90,26 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
       Tools.time();
       super.doDraw();
       renderTime=Tools.period();
-    }else {
-      super.doDraw();
-    }
+    }else super.doDraw();
+  }
+  @Override
+  public void doUpdate() {
+    if(debugInfo) {
+      Tools.time();
+      super.doUpdate();
+      updateTime=Tools.period();
+    }else super.doUpdate();
   }
   @Override
   public void display() {
     if(debugInfo) {
-      text("Memory="+getMemory()+"Mb",0,bu*1.5f);
-      text("RenderTime="+getRenderTime()+"ms",0,bu*1.5f+pu);
+      textScale(pus/2f);
+      float ty=bu*1.5f;
+      float th=pu/2f;
+      text("Memory="+getMemory()+"Mb",0,ty);
+      text("Render="+getMillisString(renderTime)+"ms",0,ty+th);
+      text("Update="+getMillisString(updateTime)+"ms",0,ty+th*2);
+      textScale(pus);
     }
     if(cam.grabCursor) {
       // drawScreenCursor();
@@ -106,8 +117,8 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
       drawCursor();
     }
   }
-  public String getRenderTime() {
-    return String.format("%03d",renderTime);
+  public String getMillisString(long in) {
+    return String.format("%03d",in);
   }
   public String getMemory() {
     return Tools.cutToLastDigitString((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/(1024*1024));

@@ -8,6 +8,7 @@ import pama1234.math.UtilMath;
 import pama1234.math.physics.PathVar;
 
 public class Inventory<T extends Item>{
+  public static final int noDisplay=0,displayHotSlot=1,displayFullInventory=2;
   public static int timeF=7200;
   public static class InventorySlot<T extends Item>{
     public T item;
@@ -36,8 +37,8 @@ public class Inventory<T extends Item>{
   }
   public LivingEntity pc;
   public InventorySlot<T>[] data;
-  // private boolean displayHotSlot;
-  public boolean displayHotSlot;
+  // public boolean displayInventory;
+  public int displayState=displayHotSlot;
   public HotSlot<T>[] hotSlots;
   public float rSize=36;
   public PathVar r;
@@ -57,19 +58,36 @@ public class Inventory<T extends Item>{
   public void select(HotSlot<T> in) {
     hotSlots[selectSlot]=in;
   }
-  public void displayHotSlot(boolean in) {
-    if(displayHotSlot==in) return;
-    if(in) {
+  public void displayStateChange() {
+    if(displayState==displayFullInventory) safeDisplayState(displayHotSlot);
+    else safeDisplayState(displayFullInventory);
+  }
+  public void displayState(int in) {
+    if(displayState==in) return;
+    safeDisplayState(in);
+  }
+  private void safeDisplayState(int in) {
+    if(in==displayFullInventory) {
       r.des=rSize;
       r.pos=0;
     }
-    displayHotSlot=in;
+    displayState=in;
   }
   public void display() {
-    if(displayHotSlot) displayHotSlotCircle();
+    switch(displayState) {
+      case noDisplay: {}
+        break;
+      case displayHotSlot: {}
+        break;
+      case displayFullInventory: {
+        displayHotSlotCircle();
+      }
+        break;
+    }
+    if(displayState==displayFullInventory) displayHotSlotCircle();
   }
   public void update() {
-    if(displayHotSlot) r.update();
+    if(displayState==displayFullInventory) r.update();
     else return;
     Screen0011 p=pc.p;
     for(int i=0;i<hotSlots.length;i++) {
@@ -90,7 +108,7 @@ public class Inventory<T extends Item>{
         p.noTint();
       }else {
         tr=pc.pw.metaItems.empty.tiles[0];
-        p.tint(255,191);
+        p.tint(255,127);
       }
       p.image(tr,ths.x1,ths.y1);
     }

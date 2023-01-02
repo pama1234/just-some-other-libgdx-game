@@ -14,6 +14,7 @@ import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.game.util.RectF;
 import pama1234.gdx.util.listener.EntityListener;
+import pama1234.math.Tools;
 import pama1234.math.vec.Vec2f;
 
 public class Game extends StateEntity0001{
@@ -99,8 +100,14 @@ public class Game extends StateEntity0001{
       p.fill(94,203,234,127);
       for(RectF e:world.yourself.ctrl.cullRects) p.rect(e.x(),e.y(),e.w(),e.h());
       p.endBlend();
-      Block tb=world.getBlock(p.mouse.x, p.mouse.y);
-      p.text("lighting="+(tb!=null?tb.lighting:"null"), 0,p.bu*1.5f+p.pu*2);
+      Block tb=world.getBlock(p.mouse.x,p.mouse.y);
+      p.textScale(p.pus/2f);
+      float ty=p.bu*1.5f;
+      float th=p.pu/2f;
+      p.text("Block Lighting="+(tb!=null?tb.lighting:"null"),0,ty+th*4);
+      p.text("PlayerLighting="+Tools.cutToLastDigit(world.yourself.lighting),0,ty+th*5);
+      p.text("Regions Update="+p.getMillisString(world.regions.updateMilis)+"ms",0,ty+th*6);
+      p.textScale(p.pus);
     }
   }
   @Override

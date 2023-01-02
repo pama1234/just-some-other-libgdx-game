@@ -9,6 +9,7 @@ import pama1234.gdx.game.state.state0001.game.entity.GamePointEntity;
 import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
 import pama1234.gdx.game.state.state0001.game.entity.util.MovementLimitBox;
 import pama1234.gdx.game.state.state0001.game.item.IntItem;
+import pama1234.gdx.game.state.state0001.game.item.Inventory;
 import pama1234.gdx.game.state.state0001.game.item.Inventory.HotSlot;
 import pama1234.gdx.game.state.state0001.game.item.Inventory.InventorySlot;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
@@ -70,8 +71,8 @@ public class PlayerController extends Entity<Screen0011>{
     for(RectF e:cullRects) if(Tools.inBox(info.ox,info.oy,e.x(),e.y(),e.w(),e.h())) return;
     int tx=player.xToBlockCord(info.x),
       ty=player.xToBlockCord(info.y);
-    if(p.isAndroid&&inPlayerOuterBox(tx,ty)) player.inventory.displayHotSlot(!player.inventory.displayHotSlot);
-    if(player.inventory.displayHotSlot) for(int i=0;i<player.inventory.hotSlots.length;i++) {
+    if(p.isAndroid&&inPlayerOuterBox(tx,ty)) player.inventory.displayStateChange();
+    if(player.inventory.displayState==Inventory.displayFullInventory) for(int i=0;i<player.inventory.hotSlots.length;i++) {
       HotSlot<IntItem> e=player.inventory.hotSlots[i];
       if(Tools.inBox(info.x,info.y,e.x1,e.y1,e.w,e.h)) {
         player.inventory.selectSlot=i;
@@ -95,7 +96,7 @@ public class PlayerController extends Entity<Screen0011>{
       ty=player.xToBlockCord(info.y);
     // p.println(tx,ty,bx1,by1,bw,bh,Tools.inBox(tx,ty,bx1,by1,bw,bh));
     if(inPlayerOuterBox(tx,ty)) return;
-    if(player.inventory.displayHotSlot) for(HotSlot<IntItem> e:player.inventory.hotSlots) if(Tools.inBox(info.x,info.y,e.x1,e.y1,e.w,e.h)) return;
+    if(player.inventory.displayState==Inventory.displayFullInventory) for(HotSlot<IntItem> e:player.inventory.hotSlots) if(Tools.inBox(info.x,info.y,e.x1,e.y1,e.w,e.h)) return;
     Block block=player.getBlock(tx,ty);
     for(EntityCenter<Screen0011,? extends GamePointEntity<?>> l:player.pw.entitys.list) for(GamePointEntity<?> e:l.list) if(e instanceof LivingEntity live) if(live.inOuterBox(tx,ty)) return;
     if(block!=null) switch(p.isAndroid?(player.pg.androidRightMouseButton?Buttons.RIGHT:Buttons.LEFT):info.button) {
@@ -127,7 +128,7 @@ public class PlayerController extends Entity<Screen0011>{
   @Override
   public void keyPressed(char key,int keyCode) {
     if(keyCode==Keys.SHIFT_LEFT||keyCode==Keys.SHIFT_RIGHT) shift(true);
-    else if(keyCode==Keys.E) player.inventory.displayHotSlot(!player.inventory.displayHotSlot);
+    else if(keyCode==Keys.E) player.inventory.displayStateChange();
     else if(keyCode==Keys.V) shift(!shift);
     else if(keyCode==Keys.EQUALS) camScale(0.5f);
     else if(keyCode==Keys.MINUS) camScale(-0.5f);
