@@ -7,16 +7,10 @@ import pama1234.gdx.game.util.RectF;
 public class MovementLimitBox extends OuterBox{
   public boolean inAir;
   public float floor,leftWall,rightWall,ceiling;
-  // public float floorConst,ceilingConst,leftWallConst,rightWallConst;
   public RectF rectConst;
   public MovementLimitBox(LivingEntity p) {
     super(p);
     rectConst=new RectF(()->p.type.w/2f,()->p.pw.blockHeight,()->0,()->p.type.h);
-    // rectConst=new RectF(()->p.type.w/2f,()->0,()->0,()->p.type.h);
-    // floorConst=p.pw.blockHeight;
-    // ceilingConst=p.type.h;
-    // leftWallConst=p.pw.blockWidth;
-    // rightWallConst=0;
   }
   public void constrain() {
     if(p.point.pos.y>floor) {
@@ -34,10 +28,11 @@ public class MovementLimitBox extends OuterBox{
     inAir=p.point.pos.y<floor;
   }
   public void updateLimit() {
-    if(inAir) {
-      if(p.point.vel.y>0) h+=1;
-      else y1+=1;
-    }
+    // if(inAir) {
+    //   if(p.point.vel.y>0) h+=1;
+    //   else y1+=1;
+    // }
+    // if(inAir&&p.point.vel.y>0) h+=1;
     Block block;
     flagCache=false;
     //------------------------------------------ ceiling

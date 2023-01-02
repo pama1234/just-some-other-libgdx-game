@@ -5,8 +5,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
-import pama1234.gdx.game.state.state0001.game.region.block.Block;
-import pama1234.math.UtilMath;
 
 public class Dirt extends MetaBlock{
   public Dirt(MetaBlockCenter0001 pc,int id) {
@@ -17,41 +15,9 @@ public class Dirt extends MetaBlock{
     initLambda();
   }
   public void initLambda() {
-    updater=(in,x,y)-> {
-      // displayUpdater.update(in,x,y);
-    };
-    displayUpdater=(in,x,y)-> {
-      int typeCache=0;
-      if(Block.isEmpty(pc.pw.regions.getBlock(x,y-1))) typeCache+=1;// up
-      if(Block.isEmpty(pc.pw.regions.getBlock(x,y+1))) typeCache+=2;// down
-      if(Block.isEmpty(pc.pw.regions.getBlock(x-1,y))) typeCache+=4;// left
-      if(Block.isEmpty(pc.pw.regions.getBlock(x+1,y))) typeCache+=8;// right
-      in.displayType[0]=typeCache;
-      typeCache=0;
-      if(Block.isEmpty(pc.pw.regions.getBlock(x-1,y-1))) typeCache+=1;
-      if(Block.isEmpty(pc.pw.regions.getBlock(x-1,y+1))) typeCache+=2;
-      if(Block.isEmpty(pc.pw.regions.getBlock(x+1,y+1))) typeCache+=4;
-      if(Block.isEmpty(pc.pw.regions.getBlock(x+1,y-1))) typeCache+=8;
-      in.displayType[1]=typeCache;
-      //---
-      if(in.updateLighting) {
-        int tc=0;
-        for(int i=-pc.pw.lightDist;i<=pc.pw.lightDist;i++) for(int j=-pc.pw.lightDist;j<=pc.pw.lightDist;j++) if(Block.isEmpty(pc.pw.regions.getBlock(x+i,y+j))) tc+=1;
-        in.lighting=UtilMath.constrain(UtilMath.floor(UtilMath.map(tc*2,0,pc.pw.lightCount,0,16)),0,16);
-      }
-    };
-    displayer=(p,in,x,y)-> {
-      p.tint(getLighting(in.lighting));
-      int tp_0=in.displayType[0];
-      p.image(pc.dirt.tiles[tp_0],x,y,pc.pw.blockWidth+0.01f,pc.pw.blockHeight+0.01f);
-      int tp_1=in.displayType[1];
-      if(tp_1!=0) {
-        if((tp_0&2)+(tp_0&8)==0&&(tp_1&4)!=0) p.image(pc.dirt.tiles[16],x,y,pc.pw.blockWidth+0.01f,pc.pw.blockHeight+0.01f);
-        if((tp_0&2)+(tp_0&4)==0&&(tp_1&2)!=0) p.image(pc.dirt.tiles[17],x,y,pc.pw.blockWidth+0.01f,pc.pw.blockHeight+0.01f);
-        if((tp_0&1)+(tp_0&8)==0&&(tp_1&8)!=0) p.image(pc.dirt.tiles[18],x,y,pc.pw.blockWidth+0.01f,pc.pw.blockHeight+0.01f);
-        if((tp_0&1)+(tp_0&4)==0&&(tp_1&1)!=0) p.image(pc.dirt.tiles[19],x,y,pc.pw.blockWidth+0.01f,pc.pw.blockHeight+0.01f);
-      }
-    };
+    updater=doNothing;
+    displayUpdater=fullBlockDisplayUpdater;
+    displayer=fullBlockDisplayer;
   }
   @Override
   public void init() {

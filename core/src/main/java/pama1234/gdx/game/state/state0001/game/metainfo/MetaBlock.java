@@ -5,9 +5,52 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
+import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.math.UtilMath;
 
 public class MetaBlock extends MetaInfoBase{
+  public static final BlockUpdater doNothing=(in,x,y)-> {},
+    fullBlockDisplayUpdater=(in,x,y)-> {
+      World0001 world=in.type.pc.pw;
+      int typeCache=0;
+      if(Block.isEmpty(world.getBlock(x,y-1))) typeCache+=1;// up
+      if(Block.isEmpty(world.getBlock(x,y+1))) typeCache+=2;// down
+      if(Block.isEmpty(world.getBlock(x-1,y))) typeCache+=4;// left
+      if(Block.isEmpty(world.getBlock(x+1,y))) typeCache+=8;// right
+      in.displayType[0]=typeCache;
+      typeCache=0;
+      if(Block.isEmpty(world.getBlock(x-1,y-1))) typeCache+=1;
+      if(Block.isEmpty(world.getBlock(x-1,y+1))) typeCache+=2;
+      if(Block.isEmpty(world.getBlock(x+1,y+1))) typeCache+=4;
+      if(Block.isEmpty(world.getBlock(x+1,y-1))) typeCache+=8;
+      in.displayType[1]=typeCache;
+      //---
+      if(in.updateLighting) {
+        int tc=0;
+        for(int i=-world.lightDist;i<=world.lightDist;i++) for(int j=-world.lightDist;j<=world.lightDist;j++) if(Block.isEmpty(world.regions.getBlock(x+i,y+j))) tc+=1;
+        in.lighting=UtilMath.constrain(UtilMath.floor(UtilMath.map(tc*2,0,world.lightCount,0,16)),0,16);
+      }
+    },defaultDisplayUpdater=(in,x,y)-> {
+      World0001 world=in.type.pc.pw;
+      if(in.updateLighting) {
+        int tc=0;
+        for(int i=-world.lightDist;i<=world.lightDist;i++) for(int j=-world.lightDist;j<=world.lightDist;j++) if(Block.isEmpty(world.regions.getBlock(x+i,y+j))) tc+=1;
+        in.lighting=UtilMath.constrain(UtilMath.floor(UtilMath.map(tc*2,0,world.lightCount,0,16)),0,16);
+      }
+    };
+  public static final BlockDisplayer fullBlockDisplayer=(p,in,x,y)-> {
+    World0001 world=in.type.pc.pw;
+    p.tint(getLighting(in.lighting));
+    int tp_0=in.displayType[0];
+    p.image(in.type.tiles[tp_0],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
+    int tp_1=in.displayType[1];
+    if(tp_1!=0) {
+      if((tp_0&2)+(tp_0&8)==0&&(tp_1&4)!=0) p.image(in.type.tiles[16],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
+      if((tp_0&2)+(tp_0&4)==0&&(tp_1&2)!=0) p.image(in.type.tiles[17],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
+      if((tp_0&1)+(tp_0&8)==0&&(tp_1&8)!=0) p.image(in.type.tiles[18],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
+      if((tp_0&1)+(tp_0&4)==0&&(tp_1&1)!=0) p.image(in.type.tiles[19],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
+    }
+  };
   public MetaBlockCenter0001 pc;
   public boolean display,empty,light;
   public TextureRegion[] tiles;
@@ -16,13 +59,7 @@ public class MetaBlock extends MetaInfoBase{
   public ItemDropAttr[] itemDrop;
   public int displayTypeSize;
   public int defaultDisplayType;
-  public BlockUpdater updater,displayUpdater=(in,x,y)-> {
-    if(in.updateLighting) {
-      int tc=0;
-      for(int i=-pc.pw.lightDist;i<=pc.pw.lightDist;i++) for(int j=-pc.pw.lightDist;j<=pc.pw.lightDist;j++) if(Block.isEmpty(pc.pw.regions.getBlock(x+i,y+j))) tc+=1;
-      in.lighting=UtilMath.constrain(UtilMath.floor(UtilMath.map(tc*2,0,pc.pw.lightCount,0,16)),0,16);
-    }
-  };
+  public BlockUpdater updater,displayUpdater=defaultDisplayUpdater;
   public BlockChanger from,to;
   public BlockDisplayer displayer=(p,in,x,y)-> {
     p.tint(getLighting(in.lighting));

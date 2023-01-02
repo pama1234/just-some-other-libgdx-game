@@ -53,6 +53,7 @@ public class MainPlayer extends Player{
     super.display();
     ctrl.display();
     inventory.display();
+    p.noTint();
     // if(inventory.displayHotSlot) inventory.displayHotSlotCircle();
   }
 }

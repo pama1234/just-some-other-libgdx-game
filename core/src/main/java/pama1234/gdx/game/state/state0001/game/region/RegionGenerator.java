@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
+import pama1234.math.UtilMath;
 import pama1234.math.hash.HashNoise2f;
 import pama1234.math.hash.PerlinNoise2f;
 
@@ -33,8 +34,13 @@ public class RegionGenerator{
         for(int n=0;n<blockData.length;n++) {
           for(int m=0;m<blockData[n].length;m++) {
             // float random=p.random(2);
-            float random=noise.get(((region.x*pr.regionWidth+i)*pr.chunkWidth+n)/32f,((region.y*pr.regionHeight+j)*pr.chunkHeight+m)/32f);
+            // float random=noise.get(((region.x*pr.regionWidth+i)*pr.chunkWidth+n)/32f,((region.y*pr.regionHeight+j)*pr.chunkHeight+m)/32f);
+            float tx=x(region.x,i,n)/32f,ty=y(region.y,j,m)/32f;
+            float tx2=tx>0?doPow(tx):-doPow(-tx),ty2=ty>0?doPow(ty):-doPow(-ty);
+            float random=noise.get(tx2,ty2);
+            // float random=noise.get(x(region.x,i,n)/32f,y(region.y,j,m)/32f);
             // System.out.println(random+" "+i+" "+j+" "+n+" "+m);
+            // p.println(random,tx2,ty2);
             if(random>0.6f) blockData[n][m]=new Block(pr.pw.metaBlocks.stone);
             else if(random>0.3f) blockData[n][m]=new Block(pr.pw.metaBlocks.dirt);
             else blockData[n][m]=new Block(pr.pw.metaBlocks.air);
@@ -42,5 +48,14 @@ public class RegionGenerator{
         }
       }
     }
+  }
+  public float doPow(float tx) {
+    return UtilMath.pow(tx,0.8f);
+  }
+  public int y(int y1,int y2,int y3) {
+    return (y1*pr.regionHeight+y2)*pr.chunkHeight+y3;
+  }
+  public int x(int x1,int x2,int x3) {
+    return (x1*pr.regionWidth+x2)*pr.chunkWidth+x3;
   }
 }

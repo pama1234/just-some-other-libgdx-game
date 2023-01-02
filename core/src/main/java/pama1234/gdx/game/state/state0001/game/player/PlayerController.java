@@ -23,6 +23,7 @@ import pama1234.math.UtilMath;
 
 public class PlayerController extends Entity<Screen0011>{
   public MainPlayer player;
+  public boolean walking;
   public boolean left,right,jump,shift;
   public int walkCool,jumpCool;
   public float speed=3f,shiftSpeedMult=2f;
@@ -147,10 +148,8 @@ public class PlayerController extends Entity<Screen0011>{
     if(keyCode==Keys.SHIFT_LEFT||keyCode==Keys.SHIFT_RIGHT) shift(false);
   }
   public void doWalkAndJump() {
-    player.timeStep=1/2f;
-    player.moveState=0;
     if(walkCool>0) walkCool--;
-    else if(left!=right) {
+    else if(walking) {
       float speedMult=shift?shiftSpeedMult:1;
       if(left) {
         player.point.pos.x-=speed*speedMult;
@@ -159,8 +158,6 @@ public class PlayerController extends Entity<Screen0011>{
         player.point.pos.x+=speed*speedMult;
         player.dir=false;
       }
-      player.timeStep=1/8f;
-      player.moveState=1;
     }
     // inAir=player.point.pos.y<floor;
     limitBox.updateInAir();
@@ -181,6 +178,21 @@ public class PlayerController extends Entity<Screen0011>{
     left=p.isKeyPressed(29)||p.isKeyPressed(21);
     right=p.isKeyPressed(32)||p.isKeyPressed(22);
     jump=p.isKeyPressed(62);
+    boolean tb=left!=right;
+    if(walking!=tb) {
+      walking=tb;
+      walkEvent();
+    }
+  }
+  public void walkEvent() {
+    if(walking) {
+      player.timeStep=1/8f;
+      player.moveState=1;
+    }else {
+      player.timeStep=1/2f;
+      player.moveState=0;
+    }
+    player.testFrameTime();
   }
   public void constrain() {
     limitBox.constrain();

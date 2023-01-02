@@ -1,5 +1,7 @@
 package pama1234.gdx.game.state.state0001.game.player;
 
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.Game;
@@ -32,11 +34,11 @@ public class Player extends TextureLivingEntity{
       dy=-h;
     }
     public PlayerType(MetaCreatureCenter0001 pc,int id) {
-      super(pc,"player",id,32,4,2);
+      super(pc,"player",id,32,new TextureRegion[][] {new TextureRegion[4],new TextureRegion[8]});
     }
     @Override
     public void init() {
-      for(int i=0;i<tiles.length;i++) for(int j=0;j<tiles[i].length;j++) tiles[i][j]=ImageAsset.player[i][j];
+      for(int i=0;i<tiles.length;i++) for(int j=0;j<tiles[i].length;j++) tiles[i][j]=ImageAsset.player[j][i];
     }
   }
 }
