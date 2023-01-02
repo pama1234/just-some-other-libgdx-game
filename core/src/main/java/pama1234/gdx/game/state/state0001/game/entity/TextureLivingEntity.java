@@ -38,9 +38,6 @@ public class TextureLivingEntity extends LivingEntity{
   public void display() {
     super.display();
     p.tint(MetaBlock.getLighting(lighting));
-    // p.println(time,moveState,type,type.tiles[time][moveState]);
-    // if(type.tiles[time][moveState]!=null)
-    // System.out.println("TextureLivingEntity.display()");
     p.image(type.tiles[time][moveState],point.pos.x+type.dx,point.pos.y+type.dy);
   }
 }

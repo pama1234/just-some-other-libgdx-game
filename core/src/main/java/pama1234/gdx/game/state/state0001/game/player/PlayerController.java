@@ -24,7 +24,8 @@ public class PlayerController extends Entity<Screen0011>{
   public MainPlayer player;
   public boolean left,right,jump,shift;
   public int walkCool,jumpCool;
-  public float speed=1f,shiftSpeedMult=2f;
+  public float speed=2f,shiftSpeedMult=2f;
+  public float jumpForceMult=1.5f;
   public MovementLimitBox limitBox;
   public RectF[] cullRects;
   public LivingEntity selectEntity;
@@ -166,7 +167,7 @@ public class PlayerController extends Entity<Screen0011>{
       }
       if(jumpCool>0) jumpCool--;
       else if(jump) {
-        player.point.vel.y=player.pw.jumpForce;
+        player.point.vel.y=player.pw.jumpForce*jumpForceMult;
         jumpCool=2;
       }
     }

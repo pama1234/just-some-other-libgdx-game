@@ -9,7 +9,6 @@ import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.game.entity.GameEntityCenter;
-import pama1234.gdx.game.state.state0001.game.entity.entity0001.Fly;
 import pama1234.gdx.game.state.state0001.game.entity.entity0001.Fly.FlyType;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
@@ -74,7 +73,7 @@ public class World0001 extends World<Screen0011,Game>{
       @Override
       public void init() {
         tiles=new TextureRegion[1];
-        tiles[0]=ImageAsset.tiles[20][1];
+        tiles[0]=ImageAsset.items[0][0];
       }
     });
     metaItems.list.add(metaItems.dirt=new MetaIntItem(metaItems,"dirt",metaItems.id()) {
@@ -82,7 +81,7 @@ public class World0001 extends World<Screen0011,Game>{
       public void init() {
         blockType=metaBlocks.dirt;
         tiles=new TextureRegion[1];
-        tiles[0]=ImageAsset.tiles[20][0];
+        tiles[0]=ImageAsset.items[0][1];
       }
     });
   }

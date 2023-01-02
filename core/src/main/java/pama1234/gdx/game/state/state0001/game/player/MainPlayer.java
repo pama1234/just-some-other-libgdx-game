@@ -52,6 +52,7 @@ public class MainPlayer extends Player{
   public void display() {
     super.display();
     ctrl.display();
-    inventory.displayHotSlot();
+    inventory.display();
+    // if(inventory.displayHotSlot) inventory.displayHotSlotCircle();
   }
 }

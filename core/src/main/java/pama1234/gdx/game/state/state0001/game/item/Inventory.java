@@ -65,6 +65,9 @@ public class Inventory<T extends Item>{
     }
     displayHotSlot=in;
   }
+  public void display() {
+    if(displayHotSlot) displayHotSlotCircle();
+  }
   public void update() {
     if(displayHotSlot) r.update();
     else return;
@@ -73,18 +76,22 @@ public class Inventory<T extends Item>{
       hotSlots[i].update(pc,hotSlots[i].data.item,(float)i/hotSlots.length+(float)(p.frameCount%timeF)/timeF,r.pos);
     }
   }
-  public void displayHotSlot() {
-    if(!displayHotSlot) return;
+  public void displayHotSlotCircle() {
+    // if(!displayHotSlot) return;
     Screen0011 p=pc.p;
     p.beginBlend();
-    // p.fill(1);
-    p.tint(255,191);
+    // p.tint(255,191);
     for(int i=0;i<hotSlots.length;i++) {
       HotSlot<T> ths=hotSlots[i];
       Item ti=ths.data.item;
       TextureRegion tr;
-      if(ti!=null) tr=ti.type.tiles[ti.displayType[0]];
-      else tr=pc.pw.metaItems.empty.tiles[0];
+      if(ti!=null) {
+        tr=ti.type.tiles[ti.displayType[0]];
+        p.noTint();
+      }else {
+        tr=pc.pw.metaItems.empty.tiles[0];
+        p.tint(255,191);
+      }
       p.image(tr,ths.x1,ths.y1);
     }
     p.noTint();
@@ -103,4 +110,6 @@ public class Inventory<T extends Item>{
     p.rect(tx1,ty2-1,tw,1);
     p.endBlend();
   }
+  public void displayHotSlot() {}
+  public void displayInventoryCircle() {}
 }

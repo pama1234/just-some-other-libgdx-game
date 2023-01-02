@@ -36,12 +36,7 @@ public class Player extends TextureLivingEntity{
     }
     @Override
     public void init() {
-      // System.out.println("Player.PlayerType.init()");
-      // if(tiles[0]==null) 
-      for(int i=0;i<tiles.length;i++) for(int j=0;j<tiles[i].length;j++) {
-        // pc.pw.p.println(i,j,tiles[i][j],ImageAsset.player[i][j]);
-        tiles[i][j]=ImageAsset.player[i][j];
-      }
+      for(int i=0;i<tiles.length;i++) for(int j=0;j<tiles[i].length;j++) tiles[i][j]=ImageAsset.player[i][j];
     }
   }
 }

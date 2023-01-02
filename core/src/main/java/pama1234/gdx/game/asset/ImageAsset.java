@@ -11,18 +11,19 @@ public class ImageAsset{
   public static TextureRegion //
   exit,
     background,sky,select;
-  public static int //
-  tileWidth=18,
-    tileHeight=18,
-    tileWidthGap=2,
-    tileHeightGap=2;
-  public static TextureRegion[][] tiles,creature,player;
+  // public static int //
+  // tileWidth=18,
+  //   tileHeight=18,
+  //   tileWidthGap=2,
+  //   tileHeightGap=2;
+  public static TextureRegion[][] tiles,items,creature,player;
   // public static TextureRegion background;
   public static void load_0001(AssetManager manager) {
     // background=load("background.png");
     manager.load("image/exit.png",Texture.class);
     manager.load("image/background.png",Texture.class);
     manager.load("image/tiles.png",Texture.class);
+    manager.load("image/items.png",Texture.class);
     manager.load("image/player04.png",Texture.class);
     manager.load("image/characters.png",Texture.class);
     manager.load("image/sky.png",Texture.class);
@@ -31,7 +32,8 @@ public class ImageAsset{
   public static void put_0001(AssetManager manager) {
     exit=loadFromTexture(manager.get("image/exit.png"));
     background=loadFromTexture(manager.get("image/background.png"));
-    tiles=loadFromTexture_0001(manager.get("image/tiles.png"),tileWidth,tileHeight,tileWidthGap,tileHeightGap);
+    tiles=loadFromTexture_0001(manager.get("image/tiles.png"),18,18,2,2);
+    items=loadFromTexture_0001(manager.get("image/items.png"),18,18,2,2);
     player=loadFromTexture_0001(manager.get("image/player04.png"),36,54,0,0);
     // System.out.println(player[0].length);
     // player=loadFromTexture_0001(manager.get("image/player.png"),20,24,4,0);
