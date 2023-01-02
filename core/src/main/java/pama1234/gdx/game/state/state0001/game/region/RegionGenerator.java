@@ -35,7 +35,8 @@ public class RegionGenerator{
             // float random=p.random(2);
             float random=noise.get(((region.x*pr.regionWidth+i)*pr.chunkWidth+n)/32f,((region.y*pr.regionHeight+j)*pr.chunkHeight+m)/32f);
             // System.out.println(random+" "+i+" "+j+" "+n+" "+m);
-            if(random>0.3f) blockData[n][m]=new Block(pr.pw.metaBlocks.dirt);
+            if(random>0.6f) blockData[n][m]=new Block(pr.pw.metaBlocks.stone);
+            else if(random>0.3f) blockData[n][m]=new Block(pr.pw.metaBlocks.dirt);
             else blockData[n][m]=new Block(pr.pw.metaBlocks.air);
           }
         }

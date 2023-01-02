@@ -1,6 +1,5 @@
 package pama1234.gdx.game.ui.util;
 
-import pama1234.gdx.game.util.function.ExecuteF;
 import pama1234.gdx.game.util.function.GetBoolean;
 import pama1234.gdx.game.util.function.GetFloat;
 import pama1234.gdx.game.util.function.GetInt;
@@ -12,7 +11,7 @@ public class TextButtonCam<T extends UtilScreen>extends TextButton<T>{
     nx=()->touch.x;
     ny=()->touch.y;
   }
-  public TextButtonCam(T p,boolean textOffset,GetBoolean active,ExecuteF press,ExecuteF clickStart,ExecuteF clickEnd,String text,GetInt bu,GetFloat x,GetFloat y) {
+  public TextButtonCam(T p,boolean textOffset,GetBoolean active,ButtonEvent press,ButtonEvent clickStart,ButtonEvent clickEnd,String text,GetInt bu,GetFloat x,GetFloat y) {
     super(p,textOffset,active,press,clickStart,clickEnd,text,bu,x,y);
     this.rect.w=()->p.textWidthCam(this.text)+(this.textOffset?16:0);//TODO
   }

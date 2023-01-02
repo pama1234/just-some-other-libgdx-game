@@ -5,7 +5,6 @@ import static pama1234.math.Tools.inBox;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import pama1234.gdx.game.util.RectF;
-import pama1234.gdx.game.util.function.ExecuteF;
 import pama1234.gdx.game.util.function.GetBoolean;
 import pama1234.gdx.game.util.function.GetFloat;
 import pama1234.gdx.game.util.function.GetInt;
@@ -18,12 +17,12 @@ public class TextureButton<T extends UtilScreen>extends Button<T>{
   public GetInt bu;
   // GetFloat x,y,w,h;
   public RectF rect;
-  public TextureButton(T p,boolean textOffset,GetBoolean active,ExecuteF press,ExecuteF clickStart,ExecuteF clickEnd,GetTextureRegion image,GetInt bu,GetFloat x,GetFloat y) {
+  public TextureButton(T p,boolean textOffset,GetBoolean active,ButtonEvent press,ButtonEvent clickStart,ButtonEvent clickEnd,GetTextureRegion image,GetInt bu,GetFloat x,GetFloat y) {
     this(p,textOffset,active,press,clickStart,clickEnd,image,bu,x,y,null,null);//()->bu.get()*2);
     this.rect.w=()->bu.get()/32f*this.image.get().getRegionWidth();
     this.rect.h=()->bu.get()/32f*this.image.get().getRegionHeight();
   }
-  public TextureButton(T p,boolean textOffset,GetBoolean active,ExecuteF press,ExecuteF clickStart,ExecuteF clickEnd,GetTextureRegion image,GetInt bu,GetFloat x,GetFloat y,GetFloat w,GetFloat h) {
+  public TextureButton(T p,boolean textOffset,GetBoolean active,ButtonEvent press,ButtonEvent clickStart,ButtonEvent clickEnd,GetTextureRegion image,GetInt bu,GetFloat x,GetFloat y,GetFloat w,GetFloat h) {
     super(p,active,press,clickStart,clickEnd);
     this.image=image;
     this.textOffset=textOffset;

@@ -1,6 +1,5 @@
 package pama1234.gdx.game.ui.util;
 
-import pama1234.gdx.game.util.function.ExecuteF;
 import pama1234.gdx.game.util.function.GetBoolean;
 import pama1234.gdx.game.util.function.GetFloat;
 import pama1234.gdx.util.app.UtilScreen;
@@ -8,12 +7,13 @@ import pama1234.gdx.util.entity.Entity;
 import pama1234.gdx.util.info.TouchInfo;
 
 public abstract class Button<T extends UtilScreen>extends Entity<T>{
+  public String text;//TODO
   public GetBoolean active;
   public TouchInfo touch;
   public GetFloat nx=()->touch.ox,ny=()->touch.oy;
-  public ExecuteF press,clickStart,clickEnd;
+  public ButtonEvent press,clickStart,clickEnd;
   public boolean mouseLimit=true;
-  public Button(T p,GetBoolean active,ExecuteF press,ExecuteF clickStart,ExecuteF clickEnd) {
+  public Button(T p,GetBoolean active,ButtonEvent press,ButtonEvent clickStart,ButtonEvent clickEnd) {
     super(p);
     this.active=active;
     this.press=press;
@@ -45,14 +45,14 @@ public abstract class Button<T extends UtilScreen>extends Entity<T>{
     return active.get();
   }
   public void press() {
-    if(active()) press.execute();
+    if(active()) press.execute(this);
   }
   public void clickStart() {
     start();
-    if(active()) clickStart.execute();
+    if(active()) clickStart.execute(this);
   }
   public void clickEnd() {
-    if(active()) clickEnd.execute();
+    if(active()) clickEnd.execute(this);
     end();
   }
   public void start() {
@@ -72,5 +72,9 @@ public abstract class Button<T extends UtilScreen>extends Entity<T>{
   @Override
   public void touchEnded(TouchInfo info) {
     if(touch==info) clickEnd();
+  }
+  @FunctionalInterface
+  public interface ButtonEvent{
+    public void execute(Button<?> button);
   }
 }

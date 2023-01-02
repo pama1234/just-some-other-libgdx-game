@@ -23,6 +23,7 @@ import pama1234.gdx.game.state.state0001.game.player.Player.PlayerType;
 import pama1234.gdx.game.state.state0001.game.region.RegionCenter;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Dirt;
+import pama1234.gdx.game.state.state0001.game.region.block.block0001.Stone;
 import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 
@@ -89,6 +90,7 @@ public class World0001 extends World<Screen0011,Game>{
     metaBlocks=new MetaBlockCenter0001(this);
     metaBlocks.list.add(metaBlocks.air=new MetaBlock(metaBlocks,"air",metaBlocks.id()));
     metaBlocks.list.add(metaBlocks.dirt=new Dirt(metaBlocks,metaBlocks.id()));
+    metaBlocks.list.add(metaBlocks.stone=new Stone(metaBlocks,metaBlocks.id()));
   }
   public boolean isEmpty(Block in) {
     return in==null||in.type.empty;

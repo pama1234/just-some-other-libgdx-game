@@ -25,7 +25,7 @@ public class PlayerController extends Entity<Screen0011>{
   public MainPlayer player;
   public boolean left,right,jump,shift;
   public int walkCool,jumpCool;
-  public float speed=2f,shiftSpeedMult=2f;
+  public float speed=3f,shiftSpeedMult=2f;
   public float jumpForceMult=1.5f;
   public MovementLimitBox limitBox;
   public RectF[] cullRects;
@@ -147,8 +147,10 @@ public class PlayerController extends Entity<Screen0011>{
     if(keyCode==Keys.SHIFT_LEFT||keyCode==Keys.SHIFT_RIGHT) shift(false);
   }
   public void doWalkAndJump() {
+    player.timeStep=1/2f;
+    player.moveState=0;
     if(walkCool>0) walkCool--;
-    else if(!(left==right)) {
+    else if(left!=right) {
       float speedMult=shift?shiftSpeedMult:1;
       if(left) {
         player.point.pos.x-=speed*speedMult;
@@ -157,6 +159,8 @@ public class PlayerController extends Entity<Screen0011>{
         player.point.pos.x+=speed*speedMult;
         player.dir=false;
       }
+      player.timeStep=1/8f;
+      player.moveState=1;
     }
     // inAir=player.point.pos.y<floor;
     limitBox.updateInAir();
