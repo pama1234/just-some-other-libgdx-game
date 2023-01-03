@@ -3,27 +3,21 @@ package pama1234.gdx.game.state.state0001.game.world;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.game.entity.GameEntityCenter;
-import pama1234.gdx.game.state.state0001.game.entity.entity0001.Fly.FlyType;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
-import pama1234.gdx.game.state.state0001.game.metainfo.MetaIntItem;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaCreatureCenter0001;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemCenter0001;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
 import pama1234.gdx.game.state.state0001.game.player.Player.PlayerCenter;
-import pama1234.gdx.game.state.state0001.game.player.Player.PlayerType;
 import pama1234.gdx.game.state.state0001.game.region.RegionCenter;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
-import pama1234.gdx.game.state.state0001.game.region.block.block0001.Dirt;
-import pama1234.gdx.game.state.state0001.game.region.block.block0001.Stone;
 import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 
@@ -49,9 +43,9 @@ public class World0001 extends World<Screen0011,Game>{
   public Color backgroundColor,colorA,colorB;
   public World0001(Screen0011 p,Game pg) {
     super(p,pg,2);
-    createBlockC();
-    createItemC();
-    createCreatureC();
+    metaBlocks=World0001Generator.createBlockC(this);
+    metaItems=World0001Generator.createItemC(this);
+    metaEntitys=World0001Generator.createCreatureC(this);
     // list[0]=players=new PlayerCenter2D(p);
     list[0]=entitys=new GameEntityCenter(p);
     entitys.list.add(entitys.players=players=new PlayerCenter(p));
@@ -62,43 +56,6 @@ public class World0001 extends World<Screen0011,Game>{
     colorA=p.color(0);
     colorB=p.color(0);
     // entitys.points.add.add(new Fly(p,this,0,18*10,pg));//TODO
-  }
-  public void createCreatureC() {
-    metaEntitys=new MetaCreatureCenter0001(this);
-    metaEntitys.list.add(metaEntitys.player=new PlayerType(metaEntitys,metaEntitys.id()));
-    metaEntitys.list.add(metaEntitys.fly=new FlyType(metaEntitys,metaEntitys.id()));
-  }
-  public void createItemC() {
-    metaItems=new MetaItemCenter0001(this);
-    metaItems.list.add(metaItems.empty=new MetaIntItem(metaItems,"empty",metaItems.id()) {
-      @Override
-      public void init() {
-        tiles=new TextureRegion[1];
-        tiles[0]=ImageAsset.items[0][0];
-      }
-    });
-    metaItems.list.add(metaItems.dirt=new MetaIntItem(metaItems,"dirt",metaItems.id()) {
-      @Override
-      public void init() {
-        blockType=metaBlocks.dirt;
-        tiles=new TextureRegion[1];
-        tiles[0]=ImageAsset.items[0][1];
-      }
-    });
-    metaItems.list.add(metaItems.stone=new MetaIntItem(metaItems,"stone",metaItems.id()) {
-      @Override
-      public void init() {
-        blockType=metaBlocks.stone;
-        tiles=new TextureRegion[1];
-        tiles[0]=ImageAsset.items[0][2];
-      }
-    });
-  }
-  public void createBlockC() {
-    metaBlocks=new MetaBlockCenter0001(this);
-    metaBlocks.list.add(metaBlocks.air=new MetaBlock(metaBlocks,"air",metaBlocks.id()));
-    metaBlocks.list.add(metaBlocks.dirt=new Dirt(metaBlocks,metaBlocks.id()));
-    metaBlocks.list.add(metaBlocks.stone=new Stone(metaBlocks,metaBlocks.id()));
   }
   public boolean isEmpty(Block in) {
     return in==null||in.type.empty;

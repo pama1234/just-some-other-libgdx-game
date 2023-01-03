@@ -75,41 +75,24 @@ public class Inventory{
     for(int i=0;i<hotSlots.length;i++) {
       HotSlot ths=hotSlots[i];
       Item ti=ths.data.item;
-      TextureRegion tr;
-      // if(ti!=null) {
-      //   tr=ti.type.tiles[ti.displayType[0]];
-      //   p.noTint();
-      // }else {
-      //   tr=pc.pw.metaItems.empty.tiles[0];
-      //   p.tint(255,127);
-      // }
-      tr=pc.pw.metaItems.empty.tiles[0];
+      TextureRegion tr=pc.pw.metaItems.inventoryConfig.tiles[0];
       p.tint(255,127);
       p.image(tr,ths.x1,ths.y1);
       if(ti!=null) {
         tr=ti.type.tiles[ti.displayType[0]];
         p.noTint();
-        p.image(tr,ths.x1,ths.y1,ths.w,ths.h);
+        p.image(tr,ths.x1+ths.w3(),ths.y1+ths.h3(),ths.w2,ths.h2);
       }
     }
-    p.noTint();
-    // p.endBlend();
     drawSelectRect(p);
+    p.noTint();
     p.endBlend();
   }
-  private void drawSelectRect(Screen0011 p) {
-    p.fill(14,229,234,127);
-    float r=2;
-    float tx1=hotSlots[selectSlot].x1-r;
-    float ty1=hotSlots[selectSlot].y1-r;
-    float tx2=hotSlots[selectSlot].x2+r;
-    float ty2=hotSlots[selectSlot].y2+r;
-    float tw=hotSlots[selectSlot].w+r*2;
-    float th=hotSlots[selectSlot].h+r*2;
-    p.rect(tx1,ty1,1,th);
-    p.rect(tx1,ty1,tw,1);
-    p.rect(tx2-1,ty1,1,th);
-    p.rect(tx1,ty2-1,tw,1);
+  public void drawSelectRect(Screen0011 p) {
+    HotSlot ths=hotSlots[selectSlot];
+    TextureRegion tr=pc.pw.metaItems.inventoryConfig.tiles[1];
+    p.tint(255,127);
+    p.image(tr,ths.x1,ths.y1);
   }
   public void displayHotSlot() {}
   public void displayInventoryCircle() {}
@@ -119,25 +102,33 @@ public class Inventory{
   }
   public static class HotSlot{
     public InventorySlot data;
-    public float cx,cy,x1,y1,x2,y2,w,h;
+    public float cx,cy,x1,y1,x2,y2,w1,h1,w2,h2;
     public HotSlot(InventorySlot pos) {
       this.data=pos;
     }
     public void update(LivingEntity pc,Item in,float i,float r) {
       cx=pc.cx()+UtilMath.sin(i*UtilMath.PI2)*r;
       cy=pc.cy()+UtilMath.cos(i*UtilMath.PI2)*r;
-      if(in==null) w=h=18;
-      else {
+      if(in==null) {
+        w1=h1=18;
+        w2=h2=0;
+      }else {
         TextureRegion tr=in.type.tiles[in.displayType[0]];
-        w=tr.getRegionWidth();
-        h=tr.getRegionHeight();
-        // w=tr.getRegionWidth()/3f*2;
-        // h=tr.getRegionHeight()/3f*2;
+        w1=tr.getRegionWidth();
+        h1=tr.getRegionHeight();
+        w2=tr.getRegionWidth()/3f*2;
+        h2=tr.getRegionHeight()/3f*2;
       }
-      x1=cx-w/2f;
-      y1=cy-h/2f;
-      x2=cx+w/2f;
-      y2=cy+h/2f;
+      x1=cx-w1/2f;
+      y1=cy-h1/2f;
+      x2=cx+w1/2f;
+      y2=cy+h1/2f;
+    }
+    public float w3() {
+      return (w1-w2)/2f;
+    }
+    public float h3() {
+      return (h1-h2)/2f;
     }
   }
 }
