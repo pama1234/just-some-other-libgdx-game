@@ -45,7 +45,6 @@ public class MovementLimitBox extends OuterBox{
     }
     if(flagCache) {
       ceiling=y1*p.pw.blockHeight+rectConst.h();
-      // ceiling=y1*p.pw.blockHeight+ceilingConst;
       flagCache=false;
     }else ceiling=(y1-4)*p.pw.blockHeight;
     //------------------------------------------ floor
@@ -58,11 +57,9 @@ public class MovementLimitBox extends OuterBox{
     }
     if(flagCache) {
       floor=y2*p.pw.blockHeight+rectConst.y();
-      // floor=y2*p.pw.blockHeight+floorConst;
       flagCache=false;
     }else floor=(y2+4)*p.pw.blockHeight;
     //------------------------------------------ left
-    // for(int i=inAir?-1:0;i<=bh;i++) {
     for(int i=0;i<=h;i++) {
       block=p.getBlock(x1-1,y1+i);
       if(!Block.isEmpty(block)) {
@@ -71,9 +68,7 @@ public class MovementLimitBox extends OuterBox{
       }
     }
     if(flagCache) {
-      // leftWall=(x1)*p.pw.blockWidth+leftWallConst;
       leftWall=(x1)*p.pw.blockWidth+rectConst.x();
-      // leftWall=(x1+0.5f)*p.pw.blockWidth+1;
       flagCache=false;
     }else leftWall=(x1-4)*p.pw.blockWidth;
     //------------------------------------------ right
@@ -86,8 +81,6 @@ public class MovementLimitBox extends OuterBox{
     }
     if(flagCache) {
       rightWall=(x2)*p.pw.blockWidth+rectConst.w();
-      // rightWall=(x2)*p.pw.blockWidth+rightWallConst;
-      // rightWall=(x2+0.5f)*p.pw.blockWidth-1;
       flagCache=false;
     }else rightWall=(x2+4)*p.pw.blockWidth;
   }

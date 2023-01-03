@@ -105,7 +105,7 @@ public class Game extends StateEntity0001{
       float ty=p.bu*1.5f;
       float th=p.pu/2f;
       p.text("Block Lighting="+(tb!=null?tb.lighting:"null"),0,ty+th*4);
-      p.text("PlayerLighting="+Tools.cutToLastDigit(world.yourself.lighting),0,ty+th*5);
+      p.text("PlayerLighting="+Tools.cutToLastDigit(world.yourself.lighting.pos),0,ty+th*5);
       p.text("Regions Update="+p.getMillisString(world.regions.updateMilis)+"ms",0,ty+th*6);
       p.textScale(p.pus);
     }

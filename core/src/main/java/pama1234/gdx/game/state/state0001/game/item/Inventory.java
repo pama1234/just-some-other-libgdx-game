@@ -95,10 +95,8 @@ public class Inventory<T extends Item>{
     }
   }
   public void displayHotSlotCircle() {
-    // if(!displayHotSlot) return;
     Screen0011 p=pc.p;
     p.beginBlend();
-    // p.tint(255,191);
     for(int i=0;i<hotSlots.length;i++) {
       HotSlot<T> ths=hotSlots[i];
       Item ti=ths.data.item;

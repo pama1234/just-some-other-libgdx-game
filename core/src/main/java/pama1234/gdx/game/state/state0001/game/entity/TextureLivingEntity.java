@@ -39,7 +39,7 @@ public class TextureLivingEntity extends LivingEntity{
   @Override
   public void display() {
     super.display();
-    p.tint(MetaBlock.getLighting(lighting));
+    p.tint(MetaBlock.getLighting(lighting.pos));
     p.image(type.tiles[moveState][frameTime],point.pos.x+type.dx,point.pos.y+type.dy);
   }
 }

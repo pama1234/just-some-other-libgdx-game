@@ -5,8 +5,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
-import pama1234.gdx.game.state.state0001.game.region.block.Block;
-import pama1234.math.UtilMath;
 
 public class Stone extends MetaBlock{
   public Stone(MetaBlockCenter0001 pc,int id) {
