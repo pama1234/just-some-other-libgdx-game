@@ -14,24 +14,31 @@ public class Inventory{
   public InventorySlot[] data;
   // public boolean displayInventory;
   public int displayState=displayHotSlot;
-  public HotSlot[] hotSlots;
-  public float rSize=36;
+  public DisplaySlot[] hotSlots;
+  public DisplaySlot holdSlot;
+  public float rSize;
   public PathVar r;
   // public int hotSlotSize=9;
   public int selectSlot;
   public Inventory(LivingEntity pc,int size,int hotSlotSize) {
     this.pc=pc;
     data=new InventorySlot[size];
-    hotSlots=new HotSlot[hotSlotSize];
     for(int i=0;i<data.length;i++) data[i]=new InventorySlot();
-    for(int i=0;i<hotSlots.length;i++) hotSlots[i]=new HotSlot(data[i]);
-    r=new PathVar(rSize);
+    hotSlots=new DisplaySlot[hotSlotSize];
+    for(int i=0;i<hotSlots.length;i++) hotSlots[i]=new DisplaySlot(data[i]);
+    holdSlot=new DisplaySlot(data[data.length-1]);
+    r=new PathVar(rSize=UtilMath.min(pc.type.w,pc.type.h));
   }
-  public HotSlot select() {
+  public void switchHold(DisplaySlot in) {
+    Item ti=holdSlot.data.item;
+    holdSlot.data.item=in.data.item;
+    in.data.item=ti;
+  }
+  public DisplaySlot select() {
     return hotSlots[selectSlot];
   }
-  public void select(HotSlot in) {
-    hotSlots[selectSlot]=in;
+  public void select(int in) {
+    selectSlot=in;
   }
   public void displayStateChange() {
     if(displayState==displayFullInventory) safeDisplayState(displayHotSlot);
@@ -62,34 +69,35 @@ public class Inventory{
     if(displayState==displayFullInventory) displayHotSlotCircle();
   }
   public void update() {
-    if(displayState==displayFullInventory) r.update();
-    else return;
+    if(displayState!=displayFullInventory) return;
+    r.update();
     Screen0011 p=pc.p;
-    for(int i=0;i<hotSlots.length;i++) {
-      hotSlots[i].update(pc,hotSlots[i].data.item,(float)i/hotSlots.length+(float)(p.frameCount%timeF)/timeF,r.pos);
-    }
+    for(int i=0;i<hotSlots.length;i++) hotSlots[i].circleUpdate(pc,(float)i/hotSlots.length+(float)(p.frameCount%timeF)/timeF,r.pos);
+    holdSlot.centerUpdate(pc);
   }
   public void displayHotSlotCircle() {
     Screen0011 p=pc.p;
     p.beginBlend();
-    for(int i=0;i<hotSlots.length;i++) {
-      HotSlot ths=hotSlots[i];
-      Item ti=ths.data.item;
-      TextureRegion tr=pc.pw.metaItems.inventoryConfig.tiles[0];
-      p.tint(255,127);
-      p.image(tr,ths.x1,ths.y1);
-      if(ti!=null) {
-        tr=ti.type.tiles[ti.displayType[0]];
-        p.noTint();
-        p.image(tr,ths.x1+ths.w3(),ths.y1+ths.h3(),ths.w2,ths.h2);
-      }
-    }
+    for(int i=0;i<hotSlots.length;i++) displayHotSlot(p,hotSlots[i]);
+    displayHotSlot(p,holdSlot);
     drawSelectRect(p);
     p.noTint();
     p.endBlend();
   }
+  public void displayHotSlot(Screen0011 p,DisplaySlot ths) {
+    Item ti=ths.data.item;
+    TextureRegion tr=pc.pw.metaItems.inventoryConfig.tiles[0];
+    p.tint(255,127);
+    p.image(tr,ths.x1,ths.y1);
+    if(ti!=null) {
+      tr=ti.type.tiles[ti.displayType[0]];
+      p.noTint();
+      p.image(tr,ths.x1+ths.w3(),ths.y1+ths.h3(),ths.w2,ths.h2);
+    }
+  }
   public void drawSelectRect(Screen0011 p) {
-    HotSlot ths=hotSlots[selectSlot];
+    p.tint(255,191);
+    DisplaySlot ths=hotSlots[selectSlot];
     TextureRegion tr=pc.pw.metaItems.inventoryConfig.tiles[1];
     p.tint(255,127);
     p.image(tr,ths.x1,ths.y1);
@@ -100,15 +108,31 @@ public class Inventory{
   public static class InventorySlot{
     public Item item;
   }
-  public static class HotSlot{
+  public static class DisplaySlot{
     public InventorySlot data;
     public float cx,cy,x1,y1,x2,y2,w1,h1,w2,h2;
-    public HotSlot(InventorySlot pos) {
+    public DisplaySlot(InventorySlot pos) {
       this.data=pos;
     }
-    public void update(LivingEntity pc,Item in,float i,float r) {
+    public void centerUpdate(LivingEntity pc) {
+      cx=pc.cx();
+      cy=pc.cy()+12;
+      setDisplaySize(data.item);
+      updatePosition();
+    }
+    public void circleUpdate(LivingEntity pc,float i,float r) {
       cx=pc.cx()+UtilMath.sin(i*UtilMath.PI2)*r;
       cy=pc.cy()+UtilMath.cos(i*UtilMath.PI2)*r;
+      setDisplaySize(data.item);
+      updatePosition();
+    }
+    public void updatePosition() {
+      x1=cx-w1/2f;
+      y1=cy-h1/2f;
+      x2=cx+w1/2f;
+      y2=cy+h1/2f;
+    }
+    public void setDisplaySize(Item in) {
       if(in==null) {
         w1=h1=18;
         w2=h2=0;
@@ -119,10 +143,6 @@ public class Inventory{
         w2=tr.getRegionWidth()/3f*2;
         h2=tr.getRegionHeight()/3f*2;
       }
-      x1=cx-w1/2f;
-      y1=cy-h1/2f;
-      x2=cx+w1/2f;
-      y2=cy+h1/2f;
     }
     public float w3() {
       return (w1-w2)/2f;

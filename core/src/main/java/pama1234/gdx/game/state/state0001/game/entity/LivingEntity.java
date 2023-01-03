@@ -37,8 +37,8 @@ public class LivingEntity extends GamePointEntity<MassPoint>{
   }
   public void lightingUpdate() {
     lighting.des=0;
-    for(int i=0;i<=outerBox.w;i++) {
-      for(int j=0;j<=outerBox.h;j++) {
+    for(int i=0;i<outerBox.w;i++) {
+      for(int j=0;j<outerBox.h;j++) {
         Block tb=pw.getBlock(outerBox.x1+i,outerBox.y1+j);
         if(tb!=null) lighting.des+=tb.lighting;
       }
