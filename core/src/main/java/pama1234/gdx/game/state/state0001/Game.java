@@ -104,11 +104,12 @@ public class Game extends StateEntity0001{
       p.textScale(p.pus/2f);
       float th=p.pu/2f;
       float tx=th;
-      float ty=p.bu*1.5f+th*5;
-      p.text("Block         Lighting= "+(tb!=null?tb.lighting:"null"),tx,ty);
-      p.text("Player        Lighting= "+Tools.cutToLastDigit(world.yourself.lighting.pos),tx,ty+th*1);
-      p.text("Regions         Update= "+p.getMillisString(world.regions.updateMilis)+"ms",tx,ty+th*2);
-      p.text("Regions Display Update= "+p.getTimeString(world.regions.updateDisplayMilis/1000f)+"s",tx,ty+th*3);
+      float ty=p.bu*1.5f+th*6;
+      p.text("Block   Lighting= "+(tb!=null?tb.lighting:"null"),tx,ty);
+      p.text("Player  Lighting= "+Tools.cutToLastDigit(world.yourself.lighting.pos),tx,ty+th*1);
+      p.text("Player  Position= "+p.getFloatString(world.yourself.point.pos.x)+" "+p.getFloatString(world.yourself.point.pos.y),tx,ty+th*2);
+      p.text("Regions         Update= "+p.getMillisString(world.regions.updateMilis)+"ms",tx,ty+th*3);
+      p.text("Regions Display Update= "+p.getFloatString(world.regions.updateDisplayMilis/1000f)+"s",tx,ty+th*4);
       p.textScale(p.pus);
     }
   }

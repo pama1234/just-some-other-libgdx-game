@@ -23,6 +23,9 @@ public class TextureLivingEntity extends LivingEntity{
   @Override
   public void update() {
     super.update();
+    frameUpdate();
+  }
+  public void frameUpdate() {
     if((timeCount+=p.frameRate)>=timeStep) {
       timeCount-=timeStep;
       frameTime+=1;

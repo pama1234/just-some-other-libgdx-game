@@ -35,7 +35,7 @@ public class RegionGenerator{
           for(int m=0;m<blockData[n].length;m++) {
             // float random=p.random(2);
             // float random=noise.get(((region.x*pr.regionWidth+i)*pr.chunkWidth+n)/32f,((region.y*pr.regionHeight+j)*pr.chunkHeight+m)/32f);
-            float tx=x(region.x,i,n)/32f,ty=y(region.y,j,m)/32f;
+            float tx=x(region.x,i,n)/64f,ty=y(region.y,j,m)/64f;
             float tx2=tx>0?doPow(tx):-doPow(-tx),ty2=ty>0?doPow(ty):-doPow(-ty);
             float random=noise.get(tx2,ty2);
             // float random=noise.get(x(region.x,i,n)/32f,y(region.y,j,m)/32f);

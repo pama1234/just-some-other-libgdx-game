@@ -126,7 +126,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   public String getMillisString(long in,int l) {
     return String.format("%0"+l+"d",in);
   }
-  public String getTimeString(float in) {
+  public String getFloatString(float in) {
     return String.format("%.2f",in);
   }
   public String getMemory() {

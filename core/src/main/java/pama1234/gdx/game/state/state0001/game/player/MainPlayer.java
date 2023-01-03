@@ -18,6 +18,7 @@ public class MainPlayer extends Player{
     ctrl=new PlayerController(p,this);
     inventory=new Inventory<>(this,32,9);
     inventory.data[0].item=pw.metaItems.dirt.createItem();//TODO
+    inventory.data[1].item=pw.metaItems.stone.createItem();
   }
   @Override
   public void keyPressed(char key,int keyCode) {
@@ -35,17 +36,24 @@ public class MainPlayer extends Player{
   public void update() {
     for(TouchInfo e:p.touches) if(e.active) ctrl.touchUpdate(e);
     ctrl.updateOuterBox();
-    //-------------------------------------------------------
+    //---
     ctrl.updateCtrlInfo();
     ctrl.doWalkAndJump();
+    //---
     super.update();
     ctrl.constrain();
+    // point.update();
+    // life.update();
+    // outerBox.update();
+    // ctrl.constrain();
+    // lightingUpdate();
+    // frameUpdate();
     //---
     // p.cam.point.des.set(cx(),Tools.mag(point.y(),ctrl.limitBox.floor)<48?ctrl.limitBox.floor+type.dy+type.h/2f:cy(),0);//TODO
     // p.println(cx(),cy());
     p.cam.point.des.set(cx(),cy());
     //---
-    life.update();
+    // life.update();
     inventory.update();
   }
   @Override

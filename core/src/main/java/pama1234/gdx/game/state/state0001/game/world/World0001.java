@@ -85,6 +85,14 @@ public class World0001 extends World<Screen0011,Game>{
         tiles[0]=ImageAsset.items[0][1];
       }
     });
+    metaItems.list.add(metaItems.stone=new MetaIntItem(metaItems,"stone",metaItems.id()) {
+      @Override
+      public void init() {
+        blockType=metaBlocks.stone;
+        tiles=new TextureRegion[1];
+        tiles[0]=ImageAsset.items[0][2];
+      }
+    });
   }
   public void createBlockC() {
     metaBlocks=new MetaBlockCenter0001(this);
