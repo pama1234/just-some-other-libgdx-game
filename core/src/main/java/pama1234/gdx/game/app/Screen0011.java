@@ -104,11 +104,14 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   public void display() {
     if(debugInfo) {
       textScale(pus/2f);
-      float ty=bu*1.5f;
       float th=pu/2f;
-      text("Memory="+getMemory()+"Mb",0,ty);
-      text("Render="+getMillisString(renderTime)+"ms",0,ty+th);
-      text("Update="+getMillisString(updateTime)+"ms",0,ty+th*2);
+      float tx=th;
+      float ty=bu*1.5f;
+      text("Memory  ="+getMemory()+"Mb",tx,ty);
+      text("Render  ="+getMillisString(renderTime)+"ms",tx,ty+th);
+      text("Update  ="+getMillisString(updateTime)+"ms",tx,ty+th*2);
+      text("Update  ="+getMillisString(updateTime)+"ms",tx,ty+th*3);
+      text("CamScale="+Tools.cutToLastDigit(cam2d.scale.pos),tx,ty+th*4);
       textScale(pus);
     }
     if(cam.grabCursor) {

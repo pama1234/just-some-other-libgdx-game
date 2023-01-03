@@ -22,4 +22,18 @@ public class RectF{
   public float h() {
     return h.get();
   }
+  //------------------
+  //TODO
+  public float x1() {
+    return x.get();
+  }
+  public float y1() {
+    return y.get();
+  }
+  public float x2() {
+    return w.get();
+  }
+  public float y2() {
+    return h.get();
+  }
 }

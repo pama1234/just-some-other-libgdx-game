@@ -1,5 +1,7 @@
 package pama1234.gdx.game.state.state0001.game.region;
 
+import java.util.stream.Stream;
+
 import com.badlogic.gdx.files.FileHandle;
 
 import pama1234.gdx.game.app.Screen0011;
@@ -117,8 +119,10 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
       while(!p.stop) {
         doUpdateDisplay.step();
         beforeM=System.currentTimeMillis();
-        // System.out.println(beforeM);
-        for(Region e:list) e.updateDisplay();
+        // for(Region e:list) e.updateDisplay();
+        // refresh();
+        Stream<Region> stream=list.stream().parallel();
+        stream.forEach(r->r.updateDisplay());
         updateDisplayMilis=System.currentTimeMillis()-beforeM;
         // if(updateDisplayMilis<50) p.sleep(50-updateDisplayMilis);
       }

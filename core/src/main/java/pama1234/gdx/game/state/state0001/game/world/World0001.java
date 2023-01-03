@@ -117,6 +117,7 @@ public class World0001 extends World<Screen0011,Game>{
     p.cam2d.active(false);
     p.cam2d.scale.pos=yourself.ctrl.camScale;
     p.cam2d.scale.des=yourself.ctrl.camScale;
+    p.cam2d.minScale=2;
     p.cam.point.pos.set(yourself.point.pos);
     p.cam.point.des.set(yourself.point.pos);
     p.centerCam.add.add(yourself);
@@ -126,6 +127,7 @@ public class World0001 extends World<Screen0011,Game>{
     super.pause();
     // p.cam2d.activeDrag=true;
     p.cam2d.active(true);
+    p.cam2d.minScale=1;
     yourself.ctrl.camScale=p.cam2d.scale.des;
     p.centerCam.remove.add(yourself);
   }

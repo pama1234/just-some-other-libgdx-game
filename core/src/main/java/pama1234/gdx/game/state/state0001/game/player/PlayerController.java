@@ -8,7 +8,7 @@ import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.entity.GamePointEntity;
 import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
 import pama1234.gdx.game.state.state0001.game.entity.util.MovementLimitBox;
-import pama1234.gdx.game.state.state0001.game.item.IntItem;
+import pama1234.gdx.game.state.state0001.game.item.Item;
 import pama1234.gdx.game.state.state0001.game.item.Inventory;
 import pama1234.gdx.game.state.state0001.game.item.Inventory.HotSlot;
 import pama1234.gdx.game.state.state0001.game.item.Inventory.InventorySlot;
@@ -31,7 +31,7 @@ public class PlayerController extends Entity<Screen0011>{
   public MovementLimitBox limitBox;
   public RectF[] cullRects;
   public LivingEntity selectEntity;
-  public float camScale=1;
+  public float camScale=2;
   public PlayerController(Screen0011 p,MainPlayer player) {
     super(p);
     this.player=player;
@@ -69,7 +69,7 @@ public class PlayerController extends Entity<Screen0011>{
       ty=player.xToBlockCord(info.y);
     if(p.isAndroid&&inPlayerOuterBox(tx,ty)) player.inventory.displayStateChange();
     if(player.inventory.displayState==Inventory.displayFullInventory) for(int i=0;i<player.inventory.hotSlots.length;i++) {
-      HotSlot<IntItem> e=player.inventory.hotSlots[i];
+      HotSlot<Item> e=player.inventory.hotSlots[i];
       if(Tools.inBox(info.x,info.y,e.x1,e.y1,e.w,e.h)) {
         player.inventory.selectSlot=i;
         return;
@@ -92,7 +92,7 @@ public class PlayerController extends Entity<Screen0011>{
       ty=player.xToBlockCord(info.y);
     // p.println(tx,ty,bx1,by1,bw,bh,Tools.inBox(tx,ty,bx1,by1,bw,bh));
     if(inPlayerOuterBox(tx,ty)) return;
-    if(player.inventory.displayState==Inventory.displayFullInventory) for(HotSlot<IntItem> e:player.inventory.hotSlots) if(Tools.inBox(info.x,info.y,e.x1,e.y1,e.w,e.h)) return;
+    if(player.inventory.displayState==Inventory.displayFullInventory) for(HotSlot<Item> e:player.inventory.hotSlots) if(Tools.inBox(info.x,info.y,e.x1,e.y1,e.w,e.h)) return;
     Block block=player.getBlock(tx,ty);
     for(EntityCenter<Screen0011,? extends GamePointEntity<?>> l:player.pw.entitys.list) for(GamePointEntity<?> e:l.list) if(e instanceof LivingEntity live) if(live.inOuterBox(tx,ty)) return;
     if(block!=null) switch(p.isAndroid?(player.pg.androidRightMouseButton?Buttons.RIGHT:Buttons.LEFT):info.button) {
@@ -101,8 +101,8 @@ public class PlayerController extends Entity<Screen0011>{
       }
         break;
       case Buttons.RIGHT: {
-        InventorySlot<IntItem> td=player.inventory.select().data;
-        IntItem ti=td.item;
+        InventorySlot<Item> td=player.inventory.select().data;
+        Item ti=td.item;
         if(ti!=null) {
           MetaBlock tm=ti.type.blockType;
           if(tm!=null&&block.type==player.pw.metaBlocks.air) {
@@ -186,9 +186,11 @@ public class PlayerController extends Entity<Screen0011>{
     float speedMult=shift?shiftSpeedMult:1;
     if(walking) {
       player.timeStep=(1/8f)/speedMult;
+      player.frameTime=0;
       player.moveState=1;
     }else {
       player.timeStep=(1/2f)/speedMult;
+      player.frameTime=0;
       player.moveState=0;
     }
     player.testFrameTime();
