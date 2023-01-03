@@ -139,6 +139,11 @@ public class MetaBlock extends MetaInfoBase{
   public void to(Block block,MetaBlock in) {
     if(to!=null) to.change(block,in);
   }
+  public void initBlockLambda() {
+    updater=doNothing;
+    displayUpdater=fullBlockDisplayUpdater;
+    displayer=fullBlockDisplayer;
+  }
   public class ItemDropAttr{
     public MetaIntItem item;
     public int min,max;

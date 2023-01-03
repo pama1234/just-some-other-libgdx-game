@@ -12,12 +12,7 @@ public class Stone extends MetaBlock{
       in.lighting=16;
     },(in,type)-> {//change from stone
     });
-    initLambda();
-  }
-  public void initLambda() {
-    updater=doNothing;
-    displayUpdater=fullBlockDisplayUpdater;
-    displayer=fullBlockDisplayer;
+    initBlockLambda();
   }
   @Override
   public void init() {

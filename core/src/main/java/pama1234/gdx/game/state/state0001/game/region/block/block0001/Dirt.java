@@ -12,12 +12,7 @@ public class Dirt extends MetaBlock{
       in.lighting=16;
     },(in,type)-> {//change from dirt
     });
-    initLambda();
-  }
-  public void initLambda() {
-    updater=doNothing;
-    displayUpdater=fullBlockDisplayUpdater;
-    displayer=fullBlockDisplayer;
+    initBlockLambda();
   }
   @Override
   public void init() {
