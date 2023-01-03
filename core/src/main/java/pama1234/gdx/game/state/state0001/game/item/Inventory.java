@@ -4,17 +4,18 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
+import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 import pama1234.math.physics.PathVar;
 
 public class Inventory{
-  public static final int noDisplay=0,displayHotSlot=1,displayFullInventory=2;
+  public static final int noDisplay=0,displayHoldSlot=1,displayFullInventory=2;
   public static int timeF=7200;
   public LivingEntity pc;
   public InventorySlot[] data;
   // public boolean displayInventory;
-  public int displayState=displayHotSlot;
-  public DisplaySlot[] hotSlots;
+  public int displayState=displayHoldSlot;
+  public DisplaySlot[] hotSlots,backpackSlots;
   public DisplaySlot holdSlot;
   public float rSize;
   public PathVar r;
@@ -27,6 +28,8 @@ public class Inventory{
     hotSlots=new DisplaySlot[hotSlotSize];
     for(int i=0;i<hotSlots.length;i++) hotSlots[i]=new DisplaySlot(data[i]);
     holdSlot=new DisplaySlot(data[data.length-1]);
+    backpackSlots=new DisplaySlot[size-hotSlotSize-1];
+    for(int i=0;i<backpackSlots.length;i++) backpackSlots[i]=new DisplaySlot(data[i+hotSlots.length]);
     r=new PathVar(rSize=UtilMath.min(pc.type.w,pc.type.h));
   }
   public void switchHold(DisplaySlot in) {
@@ -40,8 +43,11 @@ public class Inventory{
   public void select(int in) {
     selectSlot=in;
   }
+  public void testSelectSlot() {
+    selectSlot=Tools.moveInRange(selectSlot,0,hotSlots.length);
+  }
   public void displayStateChange() {
-    if(displayState==displayFullInventory) safeDisplayState(displayHotSlot);
+    if(displayState==displayFullInventory) safeDisplayState(displayHoldSlot);
     else safeDisplayState(displayFullInventory);
   }
   public void displayState(int in) {
@@ -56,33 +62,58 @@ public class Inventory{
     displayState=in;
   }
   public void display() {
+    Screen0011 p=pc.p;
+    p.textScale(0.5f);
     switch(displayState) {
       case noDisplay: {}
         break;
-      case displayHotSlot: {}
+      case displayHoldSlot: {
+        displayHotSlotItem(pc.p,holdSlot);
+      }
         break;
       case displayFullInventory: {
         displayHotSlotCircle();
       }
         break;
     }
-    if(displayState==displayFullInventory) displayHotSlotCircle();
+    p.textScale(1);
+    // if(displayState==displayFullInventory) displayHotSlotCircle();
   }
   public void update() {
-    if(displayState!=displayFullInventory) return;
-    r.update();
-    Screen0011 p=pc.p;
-    for(int i=0;i<hotSlots.length;i++) hotSlots[i].circleUpdate(pc,(float)i/hotSlots.length+(float)(p.frameCount%timeF)/timeF,r.pos);
-    holdSlot.centerUpdate(pc);
+    switch(displayState) {
+      case noDisplay: {}
+        break;
+      case displayHoldSlot: {
+        holdSlot.centerUpdate(pc);
+      }
+        break;
+      case displayFullInventory: {
+        if(displayState!=displayFullInventory) return;
+        r.update();
+        Screen0011 p=pc.p;
+        for(int i=0;i<hotSlots.length;i++) hotSlots[i].circleUpdate(pc,(float)i/hotSlots.length+(float)(p.frameCount%timeF)/timeF,r.pos);
+        holdSlot.centerUpdate(pc);
+      }
+        break;
+    }
   }
   public void displayHotSlotCircle() {
     Screen0011 p=pc.p;
     p.beginBlend();
+    drawSelectRect(p);
     for(int i=0;i<hotSlots.length;i++) displayHotSlot(p,hotSlots[i]);
     displayHotSlot(p,holdSlot);
-    drawSelectRect(p);
     p.noTint();
+    drawMouse(p,holdSlot);
     p.endBlend();
+  }
+  public void drawMouse(Screen0011 p,DisplaySlot ths) {
+    Item ti=ths.data.item;
+    if(ti!=null) {
+      TextureRegion tr=ti.type.tiles[ti.displayType[0]];
+      p.image(tr,p.mouse.x-ths.w2/2f,p.mouse.y-ths.h2/2f,ths.w2,ths.h2);
+      displayItemCount(p,ti,p.mouse.x-ths.w1/2f,p.mouse.y-ths.h1/2f);
+    }
   }
   public void displayHotSlot(Screen0011 p,DisplaySlot ths) {
     Item ti=ths.data.item;
@@ -93,13 +124,26 @@ public class Inventory{
       tr=ti.type.tiles[ti.displayType[0]];
       p.noTint();
       p.image(tr,ths.x1+ths.w3(),ths.y1+ths.h3(),ths.w2,ths.h2);
+      displayItemCount(p,ti,ths.x1,ths.y1);
     }
+  }
+  public void displayHotSlotItem(Screen0011 p,DisplaySlot ths) {
+    Item ti=ths.data.item;
+    if(ti!=null) {
+      TextureRegion tr=ti.type.tiles[ti.displayType[0]];
+      p.image(tr,ths.x1+ths.w3(),ths.y1+ths.h3(),ths.w2,ths.h2);
+      displayItemCount(p,ti,ths.x1,ths.y1);
+    }
+  }
+  private void displayItemCount(Screen0011 p,Item ti,float x,float y) {
+    p.textColor(255,127);
+    p.text(Integer.toString(ti.count),x,y);
   }
   public void drawSelectRect(Screen0011 p) {
     p.tint(255,191);
     DisplaySlot ths=hotSlots[selectSlot];
     TextureRegion tr=pc.pw.metaItems.inventoryConfig.tiles[1];
-    p.tint(255,127);
+    // p.tint(255,127);
     p.image(tr,ths.x1,ths.y1);
   }
   public void displayHotSlot() {}

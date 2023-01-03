@@ -39,9 +39,9 @@ public class Stone extends MetaBlock{
     tiles[2]=tsrc[2][11];
     tiles[10]=tsrc[3][11];
     //----------------------------------------------------- TODO
-    tiles[16]=tsrc[4][0];
-    tiles[17]=tsrc[5][0];
-    tiles[18]=tsrc[4][1];
-    tiles[19]=tsrc[5][1];
+    tiles[16]=tsrc[4][8];
+    tiles[17]=tsrc[5][8];
+    tiles[18]=tsrc[4][9];
+    tiles[19]=tsrc[5][9];
   }
 }

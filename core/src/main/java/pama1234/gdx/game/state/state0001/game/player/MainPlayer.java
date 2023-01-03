@@ -28,8 +28,16 @@ public class MainPlayer extends Player{
     ctrl.keyReleased(key,keyCode);
   }
   @Override
+  public void mouseWheel(float x,float y) {
+    ctrl.mouseWheel(x,y);
+  }
+  @Override
   public void touchStarted(TouchInfo info) {
     ctrl.touchStarted(info);
+  }
+  @Override
+  public void touchEnded(TouchInfo info) {
+    ctrl.touchEnded(info);
   }
   @Override
   public void update() {

@@ -79,7 +79,7 @@ public class PlayerController extends Entity<Screen0011>{
           }
             break;
           case Buttons.RIGHT: {
-            player.inventory.select(i);
+            // player.inventory.select(i);
             player.inventory.switchHold(e);
           }
             break;
@@ -136,6 +136,12 @@ public class PlayerController extends Entity<Screen0011>{
     // return player.inOuterBox(tx,ty);
   }
   @Override
+  public void mouseWheel(float x,float y) {
+    // p.println(x,y);
+    player.inventory.selectSlot+=y;
+    player.inventory.testSelectSlot();
+  }
+  @Override
   public void keyPressed(char key,int keyCode) {
     if(keyCode==Keys.SHIFT_LEFT||keyCode==Keys.SHIFT_RIGHT) shift(true);
     else if(keyCode==Keys.E) player.inventory.displayStateChange();
@@ -143,21 +149,19 @@ public class PlayerController extends Entity<Screen0011>{
     else if(keyCode==Keys.EQUALS) camScale(0.5f);
     else if(keyCode==Keys.MINUS) camScale(-0.5f);
   }
+  @Override
+  public void keyReleased(char key,int keyCode) {
+    if(keyCode==Keys.SHIFT_LEFT||keyCode==Keys.SHIFT_RIGHT) shift(false);
+  }
   public void camScale(float in) {
     p.cam2d.scaleAdd(in);
     camScale=p.cam2d.scale.des;
   }
   public void shift(boolean in) {
     shift=in;
-    // if(shift) player.timeStep=1/12f;
-    // else player.timeStep=1/6f;
     float speedMult=shift?shiftSpeedMult:1;
     if(walking) player.timeStep=(1/8f)/speedMult;
     else player.timeStep=(1/2f)/speedMult;
-  }
-  @Override
-  public void keyReleased(char key,int keyCode) {
-    if(keyCode==Keys.SHIFT_LEFT||keyCode==Keys.SHIFT_RIGHT) shift(false);
   }
   public void doWalkAndJump() {
     if(walkCool>0) walkCool--;
