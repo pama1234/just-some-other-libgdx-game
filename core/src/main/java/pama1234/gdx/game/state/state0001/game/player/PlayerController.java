@@ -51,11 +51,6 @@ public class PlayerController extends Entity<Screen0011>{
   @Override
   public void display() {
     if(selectEntity!=null) {
-      // p.noFill();
-      // p.doStroke();
-      // p.circle(selectEntity.cx(),selectEntity.cy(),UtilMath.max(selectEntity.type.w,selectEntity.type.h)/2f+4);
-      // p.doFill();
-      // p.noStroke();
       p.beginBlend();
       float tl=UtilMath.mag(selectEntity.type.w,selectEntity.type.h)/2f+2;
       float tcx=selectEntity.cx(),tcy=selectEntity.cy();
@@ -140,8 +135,11 @@ public class PlayerController extends Entity<Screen0011>{
   }
   public void shift(boolean in) {
     shift=in;
-    if(shift) player.timeStep=1/12f;
-    else player.timeStep=1/6f;
+    // if(shift) player.timeStep=1/12f;
+    // else player.timeStep=1/6f;
+    float speedMult=shift?shiftSpeedMult:1;
+    if(walking) player.timeStep=(1/8f)/speedMult;
+    else player.timeStep=(1/2f)/speedMult;
   }
   @Override
   public void keyReleased(char key,int keyCode) {
@@ -185,11 +183,12 @@ public class PlayerController extends Entity<Screen0011>{
     }
   }
   public void walkEvent() {
+    float speedMult=shift?shiftSpeedMult:1;
     if(walking) {
-      player.timeStep=1/8f;
+      player.timeStep=(1/8f)/speedMult;
       player.moveState=1;
     }else {
-      player.timeStep=1/2f;
+      player.timeStep=(1/2f)/speedMult;
       player.moveState=0;
     }
     player.testFrameTime();
