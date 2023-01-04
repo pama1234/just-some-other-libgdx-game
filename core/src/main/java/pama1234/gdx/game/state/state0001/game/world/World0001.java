@@ -45,6 +45,7 @@ public class World0001 extends World<Screen0011,Game>{
     super(p,pg,2);
     metaBlocks=World0001Generator.createBlockC(this);
     metaItems=World0001Generator.createItemC(this);
+    for(MetaBlock e:metaBlocks.list) e.initItemDrop();
     metaEntitys=World0001Generator.createCreatureC(this);
     // list[0]=players=new PlayerCenter2D(p);
     list[0]=entities=new GameEntityCenter(p);

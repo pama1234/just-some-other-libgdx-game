@@ -16,6 +16,10 @@ public class Stone extends MetaBlock{
     itemDrop=new ItemDropAttr[] {};
   }
   @Override
+  public void initItemDrop() {
+    itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pw.metaItems.stone,1)};
+  }
+  @Override
   public void init() {
     // if(tiles[0]!=null) return;
     TextureRegion[][] tsrc=ImageAsset.tiles;

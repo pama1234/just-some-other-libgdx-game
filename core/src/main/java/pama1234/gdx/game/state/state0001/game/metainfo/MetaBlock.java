@@ -78,6 +78,7 @@ public class MetaBlock extends MetaInfoBase{
     this.pc=pc;
     this.name=name;
     empty=true;
+    itemDrop=new ItemDropAttr[0];
   }
   public MetaBlock(MetaBlockCenter0001 pc,
     String name,int id,
@@ -143,9 +144,15 @@ public class MetaBlock extends MetaInfoBase{
     displayUpdater=fullBlockDisplayUpdater;
     displayer=fullBlockDisplayer;
   }
+  public void initItemDrop() {}
   public class ItemDropAttr{
     public MetaIntItem item;
     public int min,max;
     public float probability;
+    public ItemDropAttr(MetaIntItem item,int in) {
+      this.item=item;
+      min=max=in;
+      probability=1;
+    }
   }
 }

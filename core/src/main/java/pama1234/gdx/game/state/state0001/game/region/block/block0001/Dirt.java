@@ -13,7 +13,10 @@ public class Dirt extends MetaBlock{
     },(in,type)-> {//change from dirt
     });
     initBlockLambda();
-    itemDrop=new ItemDropAttr[] {};
+  }
+  @Override
+  public void initItemDrop() {
+    itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pw.metaItems.dirt,1)};
   }
   @Override
   public void init() {

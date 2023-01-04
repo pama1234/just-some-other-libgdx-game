@@ -1,8 +1,10 @@
 package pama1234.gdx.game.state.state0001.game.entity.entity0001;
 
+import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.game.entity.GamePointEntity;
 import pama1234.gdx.game.state.state0001.game.item.Item;
+import pama1234.gdx.util.wrapper.EntityCenter;
 import pama1234.math.physics.MassPoint;
 
 public class DroppedItem extends GamePointEntity<MassPoint>{
@@ -12,7 +14,10 @@ public class DroppedItem extends GamePointEntity<MassPoint>{
     this.data=data;
   }
   @Override
-  public void display() {}
+  public void display() {
+    // System.out.println(data.displayType);
+    p.image(data.type.tiles[0],x(),y());
+  }
   // public static class DroppedItemType extends MetaCreature<DroppedItem>{
   //   {
   //     w=12;
@@ -26,4 +31,9 @@ public class DroppedItem extends GamePointEntity<MassPoint>{
   //   @Override
   //   public void init() {}
   // }
+  public static class DroppedItemCenter extends EntityCenter<Screen0011,DroppedItem>{
+    public DroppedItemCenter(Screen0011 p) {
+      super(p);
+    }
+  }
 }
