@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import pama1234.gdx.game.state.state0001.game.item.Item;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemCenter0001;
 
-public abstract class MetaItem<T extends Item>extends MetaInfoBase{
+public class MetaItem extends MetaInfoBase{
   public MetaItemCenter0001 pc;
   // public String name;
   public ItemCountType countType=ItemCountType.INT;
@@ -18,10 +18,15 @@ public abstract class MetaItem<T extends Item>extends MetaInfoBase{
   public int defaultDisplayType;
   public MetaItem(MetaItemCenter0001 pc,String name,int id) {
     super(name,id);
+    this.pc=pc;
     this.name=name;
   }
-  public abstract T createItem();
-  public abstract T createItem(int count);
+  public Item createItem() {
+    return new Item(this);
+  };
+  public Item createItem(int count) {
+    return new Item(this,count);
+  };
   @Override
   public void init() {}
   public int getDisplayType() {

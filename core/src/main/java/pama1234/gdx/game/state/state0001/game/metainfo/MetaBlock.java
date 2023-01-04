@@ -146,13 +146,17 @@ public class MetaBlock extends MetaInfoBase{
   }
   public void initItemDrop() {}
   public class ItemDropAttr{
-    public MetaIntItem item;
+    public MetaItem item;
     public int min,max;
     public float probability;
-    public ItemDropAttr(MetaIntItem item,int in) {
+    public ItemDropAttr(MetaItem item,int in) {
       this.item=item;
       min=max=in;
       probability=1;
+    }
+    public int dropNumber(World0001 world) {
+      if(probability==1||world.random(1)<probability) return (int)world.random(min,max);
+      else return 0;
     }
   }
 }

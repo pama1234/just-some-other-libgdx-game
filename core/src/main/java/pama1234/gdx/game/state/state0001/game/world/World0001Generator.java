@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.entity.entity0001.Fly.FlyType;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
-import pama1234.gdx.game.state.state0001.game.metainfo.MetaIntItem;
+import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaCreatureCenter0001;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemCenter0001;
@@ -23,7 +23,7 @@ public class World0001Generator{
   }
   public static MetaItemCenter0001 createItemC(World0001 in) {
     MetaItemCenter0001 metaItems=new MetaItemCenter0001(in);
-    metaItems.list.add(metaItems.inventoryConfig=new MetaIntItem(metaItems,"empty",metaItems.id()) {
+    metaItems.list.add(metaItems.inventoryConfig=new MetaItem(metaItems,"empty",metaItems.id()) {
       @Override
       public void init() {
         tiles=new TextureRegion[2];
@@ -31,7 +31,7 @@ public class World0001Generator{
         tiles[1]=ImageAsset.items[0][1];
       }
     });
-    metaItems.list.add(metaItems.dirt=new MetaIntItem(metaItems,"dirt",metaItems.id()) {
+    metaItems.list.add(metaItems.dirt=new MetaItem(metaItems,"dirt",metaItems.id()) {
       @Override
       public void init() {
         blockType=in.metaBlocks.dirt;
@@ -39,7 +39,7 @@ public class World0001Generator{
         tiles[0]=ImageAsset.items[0][2];
       }
     });
-    metaItems.list.add(metaItems.stone=new MetaIntItem(metaItems,"stone",metaItems.id()) {
+    metaItems.list.add(metaItems.stone=new MetaItem(metaItems,"stone",metaItems.id()) {
       @Override
       public void init() {
         blockType=in.metaBlocks.stone;

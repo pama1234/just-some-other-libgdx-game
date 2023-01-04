@@ -38,10 +38,7 @@ public class Block{
     return in!=null&&in.type==type;
   }
   public void doItemDrop(int x,int y) {
-    // System.out.println(x+" "+y);
     World0001 world=type.pc.pw;
-    for(ItemDropAttr e:type.itemDrop) {
-      world.entities.items.add.add(new DroppedItem(world.pg,x*world.blockWidth,y*world.blockHeight,e.item.createItem()));
-    }
+    for(ItemDropAttr e:type.itemDrop) world.entities.items.add.add(new DroppedItem(world.pg,(x+0.5f)*world.blockWidth,(y+1)*world.blockHeight,e.item.createItem(e.dropNumber(world))));
   }
 }

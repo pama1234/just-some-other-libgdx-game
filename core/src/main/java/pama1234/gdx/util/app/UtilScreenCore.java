@@ -181,10 +181,10 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
       e.printStackTrace();
     }
   }
-  public float random(int max) {
+  public float random(float max) {
     return rng.nextFloat()*max;
   }
-  public float random(int min,int max) {
+  public float random(float min,float max) {
     max-=min;
     return rng.nextFloat()*max+min;
   }

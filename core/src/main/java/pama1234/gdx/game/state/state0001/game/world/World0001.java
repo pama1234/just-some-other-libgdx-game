@@ -58,6 +58,12 @@ public class World0001 extends World<Screen0011,Game>{
     colorB=p.color(0);
     // entitys.points.add.add(new Fly(p,this,0,18*10,pg));//TODO
   }
+  public float random(float max) {
+    return p.random(max);
+  }
+  public float random(float min,float max) {
+    return p.random(min,max);
+  }
   public boolean isEmpty(Block in) {
     return in==null||in.type.empty;
   }
@@ -66,7 +72,7 @@ public class World0001 extends World<Screen0011,Game>{
     super.init();
     initSky();
     for(MetaBlock e:metaBlocks.list) e.init();
-    for(MetaItem<?> e:metaItems.list) e.init();
+    for(MetaItem e:metaItems.list) e.init();
     for(MetaCreature<?> e:metaEntitys.list) e.init();
     regions.load();
   }

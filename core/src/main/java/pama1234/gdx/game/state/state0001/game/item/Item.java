@@ -3,20 +3,20 @@ package pama1234.gdx.game.state.state0001.game.item;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
 
 public class Item{
-  public MetaItem<?> type;
+  public MetaItem type;
   public int[] displayType;
   public int count=1;
-  public Item(MetaItem<?> type) {
+  public Item(MetaItem type) {
     this.type=type;
     init(type);
     count=1;
   }
-  public Item(MetaItem<?> type,int count) {
+  public Item(MetaItem type,int count) {
     this.type=type;
     init(type);
     this.count=count;
   }
-  public void init(MetaItem<?> type) {
+  public void init(MetaItem type) {
     if(type.displayTypeSize>0) {
       displayType=new int[type.displayTypeSize];
       displayType[0]=type.getDisplayType();

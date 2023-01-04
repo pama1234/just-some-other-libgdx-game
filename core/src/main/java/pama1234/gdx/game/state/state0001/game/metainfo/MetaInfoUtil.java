@@ -7,6 +7,6 @@ public class MetaInfoUtil{
   }
   public static class MetaBlockCenter extends Center<MetaBlock>{
   }
-  public static class MetaItemCenter<T extends MetaItem<?>>extends Center<T>{
+  public static class MetaItemCenter<T extends MetaItem>extends Center<T>{
   }
 }

@@ -8,30 +8,20 @@ import pama1234.gdx.util.wrapper.EntityCenter;
 import pama1234.math.physics.MassPoint;
 
 public class DroppedItem extends GamePointEntity<MassPoint>{
+  public DroppedItemCenter pdic;
   public Item data;
-  public DroppedItem(Game pg,int x,int y,Item data) {
+  public DroppedItem(Game pg,float x,float y,Item data) {
     super(pg.p,new MassPoint(x,y),pg);
     this.data=data;
+    pdic=data.type.pc.pw.entities.items;
   }
   @Override
   public void display() {
-    // System.out.println(data.displayType);
-    p.image(data.type.tiles[0],x(),y());
+    p.image(data.type.tiles[0],x()+pdic.dx,y()+pdic.dy,pdic.w,pdic.h);
   }
-  // public static class DroppedItemType extends MetaCreature<DroppedItem>{
-  //   {
-  //     w=12;
-  //     h=12;
-  //     dx=-6;
-  //     dy=-12;
-  //   }
-  //   public DroppedItemType(MetaCreatureCenter0001 pc,int id) {
-  //     super(pc,"dropped item",id,4,0,0);
-  //   }
-  //   @Override
-  //   public void init() {}
-  // }
   public static class DroppedItemCenter extends EntityCenter<Screen0011,DroppedItem>{
+    public int w=12,h=12,
+      dx=-6,dy=-12;
     public DroppedItemCenter(Screen0011 p) {
       super(p);
     }
