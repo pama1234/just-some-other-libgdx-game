@@ -6,11 +6,11 @@ import pama1234.gdx.util.wrapper.EntityCenter;
 import pama1234.gdx.util.wrapper.MultiEntityCenter;
 
 public class GameEntityCenter extends MultiEntityCenter<Screen0011,EntityCenter<Screen0011,? extends GamePointEntity<?>>>{
-  public GamePointEntityCenter points;
+  public GamePointEntityCenter pointEntities;
   public PlayerCenter players;
   public GameEntityCenter(Screen0011 p) {
     super(p);
-    list.add(points=new GamePointEntityCenter(p));
+    list.add(pointEntities=new GamePointEntityCenter(p));
   }
   @Override
   public void display() {

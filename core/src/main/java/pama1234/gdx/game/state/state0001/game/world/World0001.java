@@ -25,7 +25,7 @@ public class World0001 extends World<Screen0011,Game>{
   public MetaBlockCenter0001 metaBlocks;
   public MetaItemCenter0001 metaItems;
   public MetaCreatureCenter0001 metaEntitys;
-  public GameEntityCenter entitys;
+  public GameEntityCenter entities;
   public PlayerCenter players;
   public RegionCenter regions;
   public MainPlayer yourself;
@@ -47,8 +47,8 @@ public class World0001 extends World<Screen0011,Game>{
     metaItems=World0001Generator.createItemC(this);
     metaEntitys=World0001Generator.createCreatureC(this);
     // list[0]=players=new PlayerCenter2D(p);
-    list[0]=entitys=new GameEntityCenter(p);
-    entitys.list.add(entitys.players=players=new PlayerCenter(p));
+    list[0]=entities=new GameEntityCenter(p);
+    entities.list.add(entities.players=players=new PlayerCenter(p));
     list[1]=regions=new RegionCenter(p,this,Gdx.files.local("data/saved/regions.bin"));
     // regions.load();
     yourself=new MainPlayer(p,this,0,-1,pg);
@@ -124,17 +124,18 @@ public class World0001 extends World<Screen0011,Game>{
   public void updateRectLighting(int x,int y) {
     for(int i=-lightDist;i<=lightDist;i++) for(int j=-lightDist;j<=lightDist;j++) {
       Block tb=regions.getBlock(x+i,y+j);
-      if(tb!=null) {
-        tb.updateLighting=true;
-      }
+      if(tb!=null) tb.updateLighting=true;
     }
   }
   public void destroyBlock(MainPlayer player,Block block,int x,int y) {
-    updateRectLighting(x,y);
-    block.type(metaBlocks.air);
+    // updateRectLighting(x,y);
+    // block.doItemDrop(x,y);
+    // block.type(metaBlocks.air);
+    placeBlock(player,block,metaBlocks.air,x,y);
   }
   public void placeBlock(MainPlayer player,Block block,MetaBlock in,int x,int y) {
     updateRectLighting(x,y);
+    block.doItemDrop(x,y);
     block.type(in);
   }
   public int xToBlockCord(float in) {

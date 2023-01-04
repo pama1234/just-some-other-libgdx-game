@@ -9,6 +9,12 @@ public class Item{
   public Item(MetaItem<?> type) {
     this.type=type;
     init(type);
+    count=1;
+  }
+  public Item(MetaItem<?> type,int count) {
+    this.type=type;
+    init(type);
+    this.count=count;
   }
   public void init(MetaItem<?> type) {
     if(type.displayTypeSize>0) {

@@ -1,6 +1,8 @@
 package pama1234.gdx.game.state.state0001.game.region.block;
 
+import pama1234.gdx.game.state.state0001.game.entity.entity0001.DroppedItem;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
+import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock.ItemDropAttr;
 
 public class Block{
   public MetaBlock type;
@@ -33,5 +35,11 @@ public class Block{
   }
   public static boolean isType(Block in,MetaBlock type) {
     return in!=null&&in.type==type;
+  }
+  public void doItemDrop(int x,int y) {
+    System.out.println(x+" "+y);
+    for(ItemDropAttr e:type.itemDrop) {
+      type.pc.pw.entities.pointEntities.add.add(new DroppedItem(type.pc.pw.pg,x,y,e.item.createItem()));
+    }
   }
 }

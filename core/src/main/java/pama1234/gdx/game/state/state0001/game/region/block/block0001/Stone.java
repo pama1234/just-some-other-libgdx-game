@@ -8,11 +8,12 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlock
 
 public class Stone extends MetaBlock{
   public Stone(MetaBlockCenter0001 pc,int id) {
-    super(pc,"stone",id,new TextureRegion[20],2,(in,type)-> {//change to stone
+    super(pc,"stone",id,20,2,(in,type)-> {//change to stone
       in.lighting=16;
     },(in,type)-> {//change from stone
     });
     initBlockLambda();
+    itemDrop=new ItemDropAttr[] {};
   }
   @Override
   public void init() {

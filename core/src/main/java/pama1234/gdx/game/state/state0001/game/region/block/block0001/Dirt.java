@@ -8,15 +8,15 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlock
 
 public class Dirt extends MetaBlock{
   public Dirt(MetaBlockCenter0001 pc,int id) {
-    super(pc,"dirt",id,new TextureRegion[20],2,(in,type)-> {//change to dirt
+    super(pc,"dirt",id,20,2,(in,type)-> {//change to dirt
       in.lighting=16;
     },(in,type)-> {//change from dirt
     });
     initBlockLambda();
+    itemDrop=new ItemDropAttr[] {};
   }
   @Override
   public void init() {
-    // if(tiles[0]!=null) return;
     TextureRegion[][] tsrc=ImageAsset.tiles;
     //-----------------------------------------------------
     tiles[15]=tsrc[0][0];

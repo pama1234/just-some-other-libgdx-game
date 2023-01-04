@@ -79,28 +79,27 @@ public class MetaBlock extends MetaInfoBase{
     this.name=name;
     empty=true;
   }
-  public MetaBlock(MetaBlockCenter0001 pc,String name,int id,TextureRegion[] tiles) {
+  public MetaBlock(MetaBlockCenter0001 pc,
+    String name,int id,
+    int tilesSize,
+    BlockUpdater updater,BlockUpdater displayUpdater,BlockDisplayer displayer,
+    int displayTypeSize,
+    BlockChanger from,BlockChanger to) {
+    this(pc,name,id,tilesSize,displayTypeSize,from,to);
+    this.updater=updater;
+    this.displayUpdater=displayUpdater;
+    this.displayer=displayer;
+  }
+  public MetaBlock(MetaBlockCenter0001 pc,
+    String name,int id,
+    int tilesSize,
+    int displayTypeSize,
+    BlockChanger from,BlockChanger to) {
     super(name,id);
     this.pc=pc;
     this.name=name;
-    this.tiles=tiles;
+    this.tiles=new TextureRegion[tilesSize];
     display=true;
-    displayTypeSize=1;
-  }
-  public MetaBlock(MetaBlockCenter0001 pc,String name,int id,TextureRegion[] tiles,BlockUpdater updater,BlockUpdater displayUpdater) {
-    this(pc,name,id,tiles);
-    this.updater=updater;
-    this.displayUpdater=displayUpdater;
-  }
-  public MetaBlock(MetaBlockCenter0001 pc,String name,int id,TextureRegion[] tiles,int displayTypeSize,BlockChanger from,BlockChanger to) {//TODO
-    this(pc,name,id,tiles);
-    this.displayTypeSize=displayTypeSize;
-    this.from=from;
-    this.to=to;
-  }
-  public MetaBlock(MetaBlockCenter0001 pc,String name,int id,TextureRegion[] tiles,BlockUpdater updater,BlockUpdater displayUpdater,BlockDisplayer displayer,int displayTypeSize,BlockChanger from,BlockChanger to) {
-    this(pc,name,id,tiles,updater,displayUpdater);
-    this.displayer=displayer;
     this.displayTypeSize=displayTypeSize;
     this.from=from;
     this.to=to;

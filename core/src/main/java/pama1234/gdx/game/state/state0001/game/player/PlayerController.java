@@ -88,7 +88,7 @@ public class PlayerController extends Entity<Screen0011>{
       }
     }
     //--------------------------------------------------------------------------------------------------------------------------------
-    for(EntityCenter<Screen0011,? extends GamePointEntity<?>> l:player.pw.entitys.list) for(GamePointEntity<?> e:l.list) {
+    for(EntityCenter<Screen0011,? extends GamePointEntity<?>> l:player.pw.entities.list) for(GamePointEntity<?> e:l.list) {
       if(e instanceof LivingEntity live) {
         if(live.inOuterBox(tx,ty)) {
           selectEntity=live;
@@ -107,7 +107,7 @@ public class PlayerController extends Entity<Screen0011>{
     if(inPlayerOuterBox(tx,ty)) return;
     if(player.inventory.displayState==Inventory.displayFullInventory) for(DisplaySlot e:player.inventory.hotSlots) if(Tools.inBox(info.x,info.y,e.x1,e.y1,e.w1,e.h1)) return;
     Block block=player.getBlock(tx,ty);
-    for(EntityCenter<Screen0011,? extends GamePointEntity<?>> l:player.pw.entitys.list) for(GamePointEntity<?> e:l.list) if(e instanceof LivingEntity live) if(live.inOuterBox(tx,ty)) return;
+    for(EntityCenter<Screen0011,? extends GamePointEntity<?>> l:player.pw.entities.list) for(GamePointEntity<?> e:l.list) if(e instanceof LivingEntity live) if(live.inOuterBox(tx,ty)) return;
     if(block!=null) switch(p.isAndroid?(player.pg.androidRightMouseButton?Buttons.RIGHT:Buttons.LEFT):info.button) {
       case Buttons.LEFT: {
         if(block.type!=player.pw.metaBlocks.air) player.pw.destroyBlock(player,block,tx,ty);
