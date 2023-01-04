@@ -10,10 +10,12 @@ import pama1234.math.physics.MassPoint;
 public class DroppedItem extends GamePointEntity<MassPoint>{
   public DroppedItemCenter pdic;
   public Item data;
+  // public MovementLimitBox limitBox;
   public DroppedItem(Game pg,float x,float y,Item data) {
     super(pg.p,new MassPoint(x,y),pg);
     this.data=data;
     pdic=data.type.pc.pw.entities.items;
+    // limitBox=new MovementLimitBox(this);
   }
   @Override
   public void display() {
