@@ -26,7 +26,8 @@ public class PlayerController extends Entity<Screen0011>{
   public boolean walking;
   public boolean left,right,jump,shift;
   public int walkCool,jumpCool;
-  public float speed=3f,shiftSpeedMult=2f;
+  public float speed=1f,shiftSpeedMult=2f;
+  public float slowDownSpeed=1/4f;
   public float jumpForceMult=1.5f;
   public MovementLimitBox limitBox;
   public RectF[] cullRects;
@@ -164,17 +165,19 @@ public class PlayerController extends Entity<Screen0011>{
     else player.timeStep=(1/2f)/speedMult;
   }
   public void doWalkAndJump() {
-    if(walkCool>0) walkCool--;
-    else if(walking) {
+    if(walkCool>0) {
+      walkCool--;
+      walkSlowDown();
+    }else if(walking) {
       float speedMult=shift?shiftSpeedMult:1;
       if(left) {
-        player.point.pos.x-=speed*speedMult;
+        player.point.vel.x-=speed*speedMult;
         player.dir=true;
       }else {
-        player.point.pos.x+=speed*speedMult;
+        player.point.vel.x+=speed*speedMult;
         player.dir=false;
       }
-    }
+    }else walkSlowDown();
     // inAir=player.point.pos.y<floor;
     limitBox.updateInAir();
     if(limitBox.inAir) player.point.vel.y+=player.pw.g;
@@ -189,6 +192,9 @@ public class PlayerController extends Entity<Screen0011>{
         jumpCool=2;
       }
     }
+  }
+  public void walkSlowDown() {
+    player.point.vel.x*=slowDownSpeed;
   }
   public void updateCtrlInfo() {
     left=p.isKeyPressed(29)||p.isKeyPressed(21);
