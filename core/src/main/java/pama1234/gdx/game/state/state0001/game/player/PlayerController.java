@@ -71,7 +71,6 @@ public class PlayerController extends Entity<Screen0011>{
     int tx=player.xToBlockCord(info.x),
       ty=player.xToBlockCord(info.y);
     //--------------------------------------------------------------------------------------------------------------------------------
-    if(p.isAndroid&&inPlayerOuterBox(tx,ty)) player.inventory.displayStateChange();
     if(player.inventory.displayState==Inventory.displayFullInventory) for(int i=0;i<player.inventory.hotSlots.length;i++) {
       DisplaySlot e=player.inventory.hotSlots[i];
       if(Tools.inBox(info.x,info.y,e.x1,e.y1,e.w1,e.h1)) {
@@ -90,6 +89,8 @@ public class PlayerController extends Entity<Screen0011>{
         return;
       }
     }
+    //--------------------------------------------------------------------------------------------------------------------------------
+    if(p.isAndroid&&inPlayerOuterBox(tx,ty)) player.inventory.displayStateChange();
     //--------------------------------------------------------------------------------------------------------------------------------
     for(EntityCenter<Screen0011,? extends GamePointEntity<?>> l:player.pw.entities.list) {
       if(l==player.pw.entities.items) continue;

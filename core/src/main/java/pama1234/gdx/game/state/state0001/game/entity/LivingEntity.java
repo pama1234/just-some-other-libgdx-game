@@ -15,7 +15,7 @@ public class LivingEntity extends GamePointEntity<MassPoint>{
   //---
   public OuterBox outerBox;
   //---
-  public GameMode gameMode=GameMode.creative;
+  public GameMode gameMode=GameMode.survival;
   public MetaCreature<?> type;
   public PathVar life;
   public PathVar lighting;

@@ -115,8 +115,8 @@ public class Game extends StateEntity0001{
       p.text("Player  Lighting= "+Tools.cutToLastDigit(world.yourself.lighting.pos),tx,ty+th*1);
       p.text("Player  Position= "+p.getFloatString(world.yourself.point.pos.x)+" "+p.getFloatString(world.yourself.point.pos.y),tx,ty+th*2);
       p.text("Player  Velocity= "+p.getFloatString(world.yourself.point.vel.x)+" "+p.getFloatString(world.yourself.point.vel.y),tx,ty+th*3);
-      p.text("Regions         Update= "+p.getMillisString(world.regions.updateMilis)+"ms",tx,ty+th*4);
-      p.text("Regions Display Update= "+p.getFloatString(world.regions.updateDisplayMilis/1000f)+"s",tx,ty+th*5);
+      p.text("Regions         Update= "+p.getMillisString(world.regions.updateMillis)+"ms",tx,ty+th*4);
+      p.text("Regions Display Update= "+p.getFloatString(world.regions.updateDisplayMillis/1000f)+"s",tx,ty+th*5);
       p.textScale(p.pus);
     }
   }

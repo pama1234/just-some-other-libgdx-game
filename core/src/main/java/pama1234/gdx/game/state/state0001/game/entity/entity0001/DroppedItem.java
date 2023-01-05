@@ -51,10 +51,7 @@ public class DroppedItem extends LivingEntity{
   }
   @Override
   public void display() {
-    // p.image(data.type.tiles[0],x()+pdic.dx,y()+pdic.dy,pdic.w,pdic.h);
     p.image(data.type.tiles[0],x()+type.dx,y()+type.dy,type.w,type.h);
-    // p.rect(x()+type.dx,y()+type.dy,2,2);
-    // p.rect(x(),y(),2,2);
   }
   public static class DroppedItemType extends MetaCreature<DroppedItem>{
     {
