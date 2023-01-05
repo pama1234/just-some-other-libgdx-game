@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.Pixmap;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.Game;
+import pama1234.gdx.game.state.state0001.State0001;
+import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntityListener0001;
 import pama1234.gdx.game.state.state0001.game.entity.GameEntityCenter;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
@@ -21,7 +23,7 @@ import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 
-public class World0001 extends World<Screen0011,Game>{
+public class World0001 extends World<Screen0011,Game> implements StateEntityListener0001{
   public MetaBlockCenter0001 metaBlocks;
   public MetaItemCenter0001 metaItems;
   public MetaCreatureCenter0001 metaEntitys;
@@ -83,8 +85,19 @@ public class World0001 extends World<Screen0011,Game>{
     daySkyGridSize=(float)daySize/skyColorCount;
   }
   @Override
+  public void from(State0001 in) {
+    innerResume();
+  }
+  @Override
+  public void to(State0001 in) {
+    innerPause();
+  }
+  @Override
   public void resume() {
     super.resume();
+    // innerResume();
+  }
+  public void innerResume() {
     p.cam2d.activeDrag=false;
     // p.cam2d.active(false);
     p.cam2d.scale.pos=yourself.ctrl.camScale;
@@ -97,6 +110,9 @@ public class World0001 extends World<Screen0011,Game>{
   @Override
   public void pause() {
     super.pause();
+    // innerPause();
+  }
+  public void innerPause() {
     p.cam2d.activeDrag=true;
     // p.cam2d.active(true);
     p.cam2d.minScale=1;
@@ -135,15 +151,15 @@ public class World0001 extends World<Screen0011,Game>{
     }
   }
   public void destroyBlock(MainPlayer player,Block block,int x,int y) {
-    // updateRectLighting(x,y);
-    // block.doItemDrop(x,y);
-    // block.type(metaBlocks.air);
     placeBlock(player,block,metaBlocks.air,x,y);
   }
   public void placeBlock(MainPlayer player,Block block,MetaBlock in,int x,int y) {
     updateRectLighting(x,y);
     block.doItemDrop(p,x,y);
     block.type(in);
+    // block.updateLighting=false;
+    // block.type.updateDisplay(block,x,y);
+    // block.updateLighting=true;
   }
   public int xToBlockCord(float in) {
     return UtilMath.floor(in/blockWidth);

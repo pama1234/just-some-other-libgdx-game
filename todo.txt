@@ -5,6 +5,7 @@
 
 要素：
 
+手机版切后台导致玩家消失（和其他的bug，因为pause和resume和state from和state to的作用混淆问题）
 玩家跳跃动画
 光源方块
 玩家背包

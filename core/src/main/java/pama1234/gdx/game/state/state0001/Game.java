@@ -84,6 +84,7 @@ public class Game extends StateEntity0001{
       firstInit=false;
       world.init();
     }
+    world.from(in);//TODO
     worldCenter.resume();
     if(debug) p.centerCam.add.add(displayCamTop);
     p.centerCam.add.add(worldCenter);
@@ -95,6 +96,7 @@ public class Game extends StateEntity0001{
     if(ctrlButtons!=null) for(Button<?> e:ctrlButtons) p.centerScreen.remove.add(e);
     p.centerCam.remove.add(worldCenter);
     worldCenter.pause();
+    world.to(in);//TODO
     if(debug) p.centerCam.remove.add(displayCamTop);
   }
   @Override
@@ -113,9 +115,6 @@ public class Game extends StateEntity0001{
       initDebugText();
       debugText("Lighting  block="+(tb!=null?tb.lighting:"null")+" player="+Tools.cutToLastDigit(world.yourself.lighting.pos));
       debugText("Player    pos="+p.getFloatString(world.yourself.point.pos.x,8)+" "+p.getFloatString(world.yourself.point.pos.y,7)+" vel="+p.getFloatString(world.yourself.point.vel.x,5)+" "+p.getFloatString(world.yourself.point.vel.y,5));
-      // debugText("Block  Lighting= "+(tb!=null?tb.lighting:"null"));
-      // debugText("Player Lighting= "+Tools.cutToLastDigit(world.yourself.lighting.pos));
-      // debugText("Player Velocity= "+p.getFloatString(world.yourself.point.vel.x,5)+" "+p.getFloatString(world.yourself.point.vel.y,5));
       debugText("---- asynchronous ----");
       debugText("Regions         Update= "+p.getMillisString(world.regions.updateLoop.millis)+"ms");
       debugText("Regions Display Update= "+p.getMillisString(world.regions.updateDisplayLoop.millis)+"ms");
