@@ -136,7 +136,7 @@ public class Inventory{
     }
   }
   private void displayItemCount(Screen0011 p,Item ti,float x,float y) {
-    p.textColor(255,127);
+    p.textColor(255,191);
     p.text(Integer.toString(ti.count),x,y);
   }
   public void drawSelectRect(Screen0011 p) {
@@ -193,6 +193,17 @@ public class Inventory{
     }
     public float h3() {
       return (h1-h2)/2f;
+    }
+  }
+  public void accept(Item in) {
+    for(InventorySlot e:data) if(e.item!=null&&e.item.type==in.type) {
+      e.item.count+=in.count;
+      in.count=0;
+      return;
+    }
+    for(InventorySlot e:data) if(e.item==null) {
+      e.item=in;
+      return;
     }
   }
 }

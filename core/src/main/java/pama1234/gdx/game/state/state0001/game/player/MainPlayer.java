@@ -48,6 +48,7 @@ public class MainPlayer extends Player{
     //---
     super.update();
     ctrl.constrain();
+    ctrl.updatePickItem();
     // point.update();
     // life.update();
     // outerBox.update();

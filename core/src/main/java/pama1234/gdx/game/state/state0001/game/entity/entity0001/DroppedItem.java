@@ -32,9 +32,6 @@ public class DroppedItem extends LivingEntity{
     limitBox.doInAirTest();
     if(limitBox.inAir) point.vel.y+=pw.g;
     limitBox.constrain();
-    // for(int i=0;i<pc.list.size();i++) {
-    //   DroppedItem e=pc.list.get(i);
-    // }
     Iterator<DroppedItem> di=pc.list.descendingIterator();
     while(di.hasNext()) {
       DroppedItem e=di.next();
@@ -51,10 +48,6 @@ public class DroppedItem extends LivingEntity{
         e.point.vel.set((x()-e.x())*p.random(0.1f,0.2f),(y()-e.y())*p.random(0.1f,0.2f));
       }
     }
-    // for(DroppedItem e:pc.list) {
-    //   if(UtilMath.dist(e.x(),e.y(),x(),y())<pc.itemMergeDist) {
-    //   }
-    // }
   }
   @Override
   public void display() {

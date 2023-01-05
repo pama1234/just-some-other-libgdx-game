@@ -7,6 +7,7 @@ import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.entity.GamePointEntity;
 import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
+import pama1234.gdx.game.state.state0001.game.entity.entity0001.DroppedItem;
 import pama1234.gdx.game.state.state0001.game.entity.util.MovementLimitBox;
 import pama1234.gdx.game.state.state0001.game.item.Item;
 import pama1234.gdx.game.state.state0001.game.item.Inventory;
@@ -33,6 +34,7 @@ public class PlayerController extends Entity<Screen0011>{
   public RectF[] cullRects;
   public LivingEntity selectEntity;
   public float camScale=2;
+  public float itemPickDist=18,itemPickMoveDist=72;
   public PlayerController(Screen0011 p,MainPlayer player) {
     super(p);
     this.player=player;
@@ -231,5 +233,16 @@ public class PlayerController extends Entity<Screen0011>{
   public void updateOuterBox() {
     limitBox.update();
     limitBox.updateLimit();
+  }
+  public void updatePickItem() {
+    for(DroppedItem e:player.pw.entities.items.list) {
+      float td=UtilMath.dist(player.x(),player.y(),e.x(),e.y());
+      if(td<itemPickDist) {
+        player.inventory.accept(e.data);
+        player.pw.entities.items.remove.add(e);
+      }else if(td<itemPickMoveDist) {
+        e.point.vel.set((player.x()-e.x())*p.random(0.1f,0.2f),(player.y()-e.y())*p.random(0.1f,0.2f));
+      }
+    }
   }
 }
