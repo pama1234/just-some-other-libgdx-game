@@ -128,8 +128,11 @@ public abstract class UtilScreen extends UtilScreenCore{
   }
   public void image(TextureRegion in,float x,float y,float w,float h) {
     imageBatch.begin();
-    imageBatch.draw(in,x,y,w,h);
+    innerImage(in,x,y,w,h);
     imageBatch.end();
+  }
+  public void innerImage(TextureRegion in,float x,float y,float w,float h) {
+    imageBatch.draw(in,x,y,w,h);
   }
   public void sprite(Sprite in) {
     imageBatch.begin();

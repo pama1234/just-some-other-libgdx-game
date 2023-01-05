@@ -19,31 +19,29 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   public int regionWidth=4,regionHeight=4;
   public int chunkWidth=64,chunkHeight=64;
   public RegionGenerator generator;
-  public Mutex doUpdate,doUpdateDisplay;
-  public Thread updateLoop,updateDisplayLoop;
-  public long updateMillis,updateDisplayMillis;
+  public LoopThread[] loops;
+  public LoopThread updateLoop,fullMapUpdateDisplayLoop,updateDisplayLoop;
   public RegionCenter(Screen0011 p,World0001 pw,FileHandle metadata) {
     super(p);
     this.pw=pw;
     this.metadata=metadata;
     generator=new RegionGenerator(p,this,0);//TODO
-    doUpdate=new Mutex(true);
-    doUpdateDisplay=new Mutex(true);
-    updateLoop=createUpdateLoop();
+    loops=new LoopThread[3];
+    updateLoop=loops[0]=createUpdateLoop();
     updateLoop.start();
-    updateDisplayLoop=createUpdateDisplayLoop();
+    fullMapUpdateDisplayLoop=loops[1]=createFullMapUpdateDisplayLoop();
+    fullMapUpdateDisplayLoop.start();
+    updateDisplayLoop=loops[2]=createUpdateDisplayLoop();
     updateDisplayLoop.start();
   }
   @Override
   public void resume() {
-    doUpdate.unlock();
-    doUpdateDisplay.unlock();
+    unlockAllLoop();
   }
   @Override
   public void pause() {
     if(!p.stop) {
-      doUpdate.lock();
-      doUpdateDisplay.lock();
+      lockAllLoop();
     }
   }
   @Override
@@ -76,6 +74,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     fourPointDisplay();
   }
   public void fourPointDisplay() {
+    p.imageBatch.begin();
     int x1=pw.xToBlockCord(p.cam2d.x1()),
       y1=pw.xToBlockCord(p.cam2d.y1()),
       x2=pw.xToBlockCord(p.cam2d.x2()),
@@ -87,52 +86,101 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
         Block block=getBlock(i,j);
         if(block==null) continue;//TODO
         MetaBlock blockType=block.type;
-        blockType.updateDisplay(block,i,j);
+        // blockType.updateDisplay(block,i,j);
         if(!blockType.display) continue;
         blockType.display(p,block,tx,ty);
       }
     }
+    p.imageBatch.end();
     p.noTint();
   }
   public void dispose() {
-    doUpdate.unlock();
-    doUpdateDisplay.unlock();
+    unlockAllLoop();
   }
-  public Thread createUpdateLoop() {
-    return new Thread(()-> {
-      long beforeM;
-      while(!p.stop) {
-        doUpdate.step();
-        beforeM=System.currentTimeMillis();
-        // refresh();
-        // Stream<Region> stream=list.stream().parallel();
-        // stream.forEach(r->r.update());
-        super.update();
-        updateMillis=System.currentTimeMillis()-beforeM;
-        if(updateMillis<50) p.sleep(50-updateMillis);
+  public void unlockAllLoop() {
+    // updateLoop.lock.unlock();
+    // fullMapUpdateDisplayLoop.lock.unlock();
+    for(LoopThread e:loops) e.lock.unlock();
+  }
+  public void lockAllLoop() {
+    // updateLoop.lock.lock();
+    // fullMapUpdateDisplayLoop.lock.lock();
+    for(LoopThread e:loops) e.lock.lock();
+  }
+  public LoopThread createUpdateLoop() {
+    return new LoopThread("RegionsUpdateLoop") {
+      @Override
+      public void run() {
+        long beforeM;
+        while(!p.stop) {
+          lock.step();
+          beforeM=System.currentTimeMillis();
+          // refresh();
+          // Stream<Region> stream=list.stream().parallel();
+          // stream.forEach(r->r.update());
+          RegionCenter.super.update();
+          millis=System.currentTimeMillis()-beforeM;
+          if(millis<50) p.sleep(50-millis);
+        }
       }
-    });
+    };
   }
-  public Thread createUpdateDisplayLoop() {
-    return new Thread(()-> {
-      long beforeM;
-      while(!p.stop) {
-        doUpdateDisplay.step();
-        beforeM=System.currentTimeMillis();
-        // for(Region e:list) e.updateDisplay();
-        // refresh();
-        Stream<Region> stream=list.stream().parallel();
-        stream.forEach(r->r.updateDisplay());
-        updateDisplayMillis=System.currentTimeMillis()-beforeM;
-        // if(updateDisplayMilis<50) p.sleep(50-updateDisplayMilis);
+  public LoopThread createFullMapUpdateDisplayLoop() {
+    return new LoopThread("RegionsFullMapUpdateDisplayLoop") {
+      @Override
+      public void run() {
+        long beforeM;
+        while(!p.stop) {
+          lock.step();
+          beforeM=System.currentTimeMillis();
+          // for(Region e:list) e.updateDisplay();
+          // refresh();
+          Stream<Region> stream=list.stream().parallel();
+          stream.forEach(r->r.updateDisplay());
+          millis=System.currentTimeMillis()-beforeM;
+          // if(updateDisplayMilis<50) p.sleep(50-updateDisplayMilis);
+        }
       }
-    });
+    };
   }
-  public class ThreadLoop extends Thread{
+  public LoopThread createUpdateDisplayLoop() {
+    return new LoopThread("RegionsUpdateDisplayLoop") {
+      @Override
+      public void run() {
+        long beforeM;
+        while(!p.stop) {
+          lock.step();
+          beforeM=System.currentTimeMillis();
+          // for(Region e:list) e.updateDisplay();
+          // refresh();
+          // Stream<Region> stream=list.stream().parallel();
+          // stream.forEach(r->r.updateDisplay());
+          // fourPointDisplay();
+          int x1=pw.xToBlockCord(p.cam2d.x1()),
+            y1=pw.xToBlockCord(p.cam2d.y1()),
+            x2=pw.xToBlockCord(p.cam2d.x2()),
+            y2=pw.xToBlockCord(p.cam2d.y2());
+          for(int i=x1;i<=x2;i++) {
+            for(int j=y1;j<=y2;j++) {
+              // int tx=i*pw.blockWidth,
+              //   ty=j*pw.blockHeight;
+              Block block=getBlock(i,j);
+              if(block==null) continue;//TODO
+              MetaBlock blockType=block.type;
+              blockType.updateDisplay(block,i,j);
+            }
+          }
+          millis=System.currentTimeMillis()-beforeM;
+          // if(updateDisplayMilis<50) p.sleep(50-updateDisplayMilis);
+        }
+      }
+    };
+  }
+  public class LoopThread extends Thread{
     public Mutex lock;
     public long millis;
-    public ThreadLoop(Runnable target,String name) {
-      super(target,name);
+    public LoopThread(String name) {
+      super(name);
       lock=new Mutex(true);
     }
   }

@@ -30,6 +30,7 @@ public class Game extends StateEntity0001{
   public boolean androidRightMouseButton;
   public EntityListener displayCamTop;
   public boolean firstInit=true;//TODO
+  public float debugTextX,debugTextY,debugTextH,debugTextCountY;
   public Game(Screen0011 p) {
     super(p);
     menuButtons=ButtonGenerator.genButtons_0005(p);
@@ -57,11 +58,12 @@ public class Game extends StateEntity0001{
       by2=limitBox.y2;
     int bw=world.blockWidth,
       bh=world.blockHeight;
-    p.fill(255,127,191,191);
+    int ta=63;
+    p.fill(255,127,191,ta);
     p.rect(limitBox.leftWall,limitBox.ceiling,limitBox.rightWall-limitBox.leftWall,limitBox.floor-limitBox.ceiling);
-    p.fill(127,255,191,191);
+    p.fill(127,255,191,ta);
     p.rect(in.x()+in.type.dx,in.y()+in.type.dy,in.type.w,in.type.h);
-    p.fill(94,203,234,191);
+    p.fill(94,203,234,ta);
     p.rect((bx1)*world.blockWidth,by1*world.blockHeight,bw,bh);
     p.rect((bx1)*world.blockWidth,by2*world.blockHeight,bw,bh);
     p.rect((bx2)*world.blockWidth,by2*world.blockHeight,bw,bh);
@@ -108,17 +110,29 @@ public class Game extends StateEntity0001{
       p.endBlend();
       Block tb=world.getBlock(p.mouse.x,p.mouse.y);
       p.textScale(p.pus/2f);
-      float th=p.pu/2f;
-      float tx=th;
-      float ty=p.bu*1.5f+th*6;
-      p.text("Block   Lighting= "+(tb!=null?tb.lighting:"null"),tx,ty);
-      p.text("Player  Lighting= "+Tools.cutToLastDigit(world.yourself.lighting.pos),tx,ty+th*1);
-      p.text("Player  Position= "+p.getFloatString(world.yourself.point.pos.x)+" "+p.getFloatString(world.yourself.point.pos.y),tx,ty+th*2);
-      p.text("Player  Velocity= "+p.getFloatString(world.yourself.point.vel.x)+" "+p.getFloatString(world.yourself.point.vel.y),tx,ty+th*3);
-      p.text("Regions         Update= "+p.getMillisString(world.regions.updateMillis)+"ms",tx,ty+th*4);
-      p.text("Regions Display Update= "+p.getFloatString(world.regions.updateDisplayMillis/1000f)+"s",tx,ty+th*5);
+      initDebugText();
+      debugText("Lighting  block="+(tb!=null?tb.lighting:"null")+" player="+Tools.cutToLastDigit(world.yourself.lighting.pos));
+      debugText("Player    pos="+p.getFloatString(world.yourself.point.pos.x,8)+" "+p.getFloatString(world.yourself.point.pos.y,7)+" vel="+p.getFloatString(world.yourself.point.vel.x,5)+" "+p.getFloatString(world.yourself.point.vel.y,5));
+      // debugText("Block  Lighting= "+(tb!=null?tb.lighting:"null"));
+      // debugText("Player Lighting= "+Tools.cutToLastDigit(world.yourself.lighting.pos));
+      // debugText("Player Velocity= "+p.getFloatString(world.yourself.point.vel.x,5)+" "+p.getFloatString(world.yourself.point.vel.y,5));
+      debugText("---- asynchronous ----");
+      debugText("Regions         Update= "+p.getMillisString(world.regions.updateLoop.millis)+"ms");
+      debugText("Regions Display Update= "+p.getMillisString(world.regions.updateDisplayLoop.millis)+"ms");
+      long tm=world.regions.fullMapUpdateDisplayLoop.millis;
+      debugText("FullMap Display Update= "+p.getMillisString(tm,5)+"ms "+p.getFloatString(tm/1000f)+"s");
       p.textScale(p.pus);
     }
+  }
+  public void initDebugText() {
+    debugTextH=p.pu/2f;
+    debugTextX=debugTextH;
+    debugTextY=p.bu*1.5f+debugTextH*6;
+    debugTextCountY=0;
+  }
+  public void debugText(String in) {
+    p.text(in,debugTextX,debugTextY+debugTextH*debugTextCountY);
+    debugTextCountY+=1;
   }
   @Override
   public void update() {

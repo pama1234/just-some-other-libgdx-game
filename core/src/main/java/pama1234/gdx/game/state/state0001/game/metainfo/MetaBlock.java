@@ -42,13 +42,13 @@ public class MetaBlock extends MetaInfoBase{
     World0001 world=in.type.pc.pw;
     p.tint(getLighting(in.lighting));
     int tp_0=in.displayType[0];
-    p.image(in.type.tiles[tp_0],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
+    p.innerImage(in.type.tiles[tp_0],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
     int tp_1=in.displayType[1];
     if(tp_1!=0) {
-      if((tp_0&2)+(tp_0&8)==0&&(tp_1&4)!=0) p.image(in.type.tiles[16],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
-      if((tp_0&2)+(tp_0&4)==0&&(tp_1&2)!=0) p.image(in.type.tiles[17],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
-      if((tp_0&1)+(tp_0&8)==0&&(tp_1&8)!=0) p.image(in.type.tiles[18],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
-      if((tp_0&1)+(tp_0&4)==0&&(tp_1&1)!=0) p.image(in.type.tiles[19],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
+      if((tp_0&2)+(tp_0&8)==0&&(tp_1&4)!=0) p.innerImage(in.type.tiles[16],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
+      if((tp_0&2)+(tp_0&4)==0&&(tp_1&2)!=0) p.innerImage(in.type.tiles[17],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
+      if((tp_0&1)+(tp_0&8)==0&&(tp_1&8)!=0) p.innerImage(in.type.tiles[18],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
+      if((tp_0&1)+(tp_0&4)==0&&(tp_1&1)!=0) p.innerImage(in.type.tiles[19],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
     }
   };
   public MetaBlockCenter0001 pc;

@@ -17,6 +17,8 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   public long renderTime,updateTime;
   public boolean mute;
   public float volume=1;
+  //---
+  public float debugTextX,debugTextY,debugTextH,debugTextCountY;
   @Override
   public void setup() {
     noStroke();
@@ -104,14 +106,13 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   public void display() {
     if(debugInfo) {
       textScale(pus/2f);
-      float th=pu/2f;
-      float tx=th;
-      float ty=bu*1.5f;
-      text("Memory  ="+getMemory()+"Mb",tx,ty);
-      text("Render  ="+getMillisString(renderTime)+"ms",tx,ty+th);
-      text("Update  ="+getMillisString(updateTime)+"ms",tx,ty+th*2);
-      text("Update  ="+getMillisString(updateTime)+"ms",tx,ty+th*3);
-      text("CamScale="+Tools.cutToLastDigit(cam2d.scale.pos),tx,ty+th*4);
+      initDebugText();
+      debugText("Memory   ="+getMemory()+"Mb");
+      float tf=1/frameRate;
+      debugText("FrameRate="+(tf<999?getFloatString(tf,6):"???.??")+"fps "+getMillisString((int)(frameRate*1000))+"ms");
+      debugText("Render   ="+getMillisString(renderTime)+"ms");
+      debugText("Update   ="+getMillisString(updateTime)+"ms");
+      debugText("CamScale ="+getFloatString(cam2d.scale.pos));
       textScale(pus);
     }
     if(cam.grabCursor) {
@@ -120,6 +121,16 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
       drawCursor();
     }
   }
+  public void initDebugText() {
+    debugTextH=pu/2f;
+    debugTextX=debugTextH;
+    debugTextY=bu*1.5f;
+    debugTextCountY=0;
+  }
+  public void debugText(String in) {
+    text(in,debugTextX,debugTextY+debugTextH*debugTextCountY);
+    debugTextCountY+=1;
+  }
   public String getMillisString(long in) {
     return String.format("%03d",in);
   }
@@ -127,7 +138,10 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     return String.format("%0"+l+"d",in);
   }
   public String getFloatString(float in) {
-    return String.format("%.2f",in);
+    return String.format("%05.2f",in);
+  }
+  public String getFloatString(float in,int l) {
+    return String.format("%0"+l+".2f",in);
   }
   public String getMemory() {
     return Tools.cutToLastDigitString((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/(1024*1024));
