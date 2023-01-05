@@ -40,6 +40,12 @@ public class Block{
   }
   public void doItemDrop(Screen0011 p,int x,int y) {
     World0001 world=type.pc.pw;
-    for(ItemDropAttr e:type.itemDrop) world.entities.items.add.add(new DroppedItem(p,world,(x+0.5f)*world.blockWidth,(y+1)*world.blockHeight,world.metaEntitys.droppedItem,e.item.createItem(e.dropNumber(world))));
+    for(ItemDropAttr e:type.itemDrop) world.entities.items.add.add(
+      new DroppedItem(p,world,
+        (x+0.5f)*world.blockWidth,
+        (y+1)*world.blockHeight,
+        world.random(-0.8f,0.8f)*world.blockWidth,
+        world.random(-0.8f,-1.2f)*world.blockHeight,
+        world.metaEntitys.droppedItem,e.item.createItem(e.dropNumber(world))));
   }
 }

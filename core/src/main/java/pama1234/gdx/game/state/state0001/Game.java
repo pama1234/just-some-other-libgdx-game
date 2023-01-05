@@ -4,7 +4,9 @@ import static com.badlogic.gdx.Input.Keys.ESCAPE;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
-import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
+import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
+import pama1234.gdx.game.state.state0001.game.entity.entity0001.DroppedItem;
+import pama1234.gdx.game.state.state0001.game.entity.util.MovementLimitBox;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.World;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
@@ -41,25 +43,29 @@ public class Game extends StateEntity0001{
     if(displayCamTop==null) displayCamTop=new EntityListener() {
       @Override
       public void display() {
-        MainPlayer tp=world.yourself;
         p.beginBlend();
-        int bx1=tp.ctrl.limitBox.x1,
-          by1=tp.ctrl.limitBox.y1,
-          bx2=tp.ctrl.limitBox.x2,
-          by2=tp.ctrl.limitBox.y2;
-        int bw=world.blockWidth,bh=world.blockHeight;
-        p.fill(255,127,191,191);
-        p.rect(tp.ctrl.limitBox.leftWall,tp.ctrl.limitBox.ceiling,tp.ctrl.limitBox.rightWall-tp.ctrl.limitBox.leftWall,tp.ctrl.limitBox.floor-tp.ctrl.limitBox.ceiling);
-        p.fill(127,255,191,191);
-        p.rect(tp.x()+tp.type.dx,tp.y()+tp.type.dy,tp.type.w,tp.type.h);
-        p.fill(94,203,234,191);
-        p.rect((bx1)*world.blockWidth,by1*world.blockHeight,bw,bh);
-        p.rect((bx1)*world.blockWidth,by2*world.blockHeight,bw,bh);
-        p.rect((bx2)*world.blockWidth,by2*world.blockHeight,bw,bh);
-        p.rect((bx2)*world.blockWidth,by1*world.blockHeight,bw,bh);
+        drawLimitBox(world.yourself,world.yourself.ctrl.limitBox);
+        for(DroppedItem e:world.entities.items.list) drawLimitBox(e,e.limitBox);
         p.endBlend();
       }
     };
+  }
+  public void drawLimitBox(LivingEntity in,MovementLimitBox limitBox) {
+    int bx1=limitBox.x1,
+      by1=limitBox.y1,
+      bx2=limitBox.x2,
+      by2=limitBox.y2;
+    int bw=world.blockWidth,
+      bh=world.blockHeight;
+    p.fill(255,127,191,191);
+    p.rect(limitBox.leftWall,limitBox.ceiling,limitBox.rightWall-limitBox.leftWall,limitBox.floor-limitBox.ceiling);
+    p.fill(127,255,191,191);
+    p.rect(in.x()+in.type.dx,in.y()+in.type.dy,in.type.w,in.type.h);
+    p.fill(94,203,234,191);
+    p.rect((bx1)*world.blockWidth,by1*world.blockHeight,bw,bh);
+    p.rect((bx1)*world.blockWidth,by2*world.blockHeight,bw,bh);
+    p.rect((bx2)*world.blockWidth,by2*world.blockHeight,bw,bh);
+    p.rect((bx2)*world.blockWidth,by1*world.blockHeight,bw,bh);
   }
   @Override
   public void from(State0001 in) {

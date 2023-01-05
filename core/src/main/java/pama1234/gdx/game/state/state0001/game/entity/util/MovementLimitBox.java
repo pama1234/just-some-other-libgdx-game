@@ -10,7 +10,7 @@ public class MovementLimitBox extends OuterBox{
   public RectF rectConst;
   public MovementLimitBox(LivingEntity p) {
     super(p);
-    rectConst=new RectF(()->p.type.w/2f,()->p.pw.blockHeight,()->0,()->p.type.h);
+    rectConst=new RectF(()->p.type.w/2f,()->p.type.h,()->0,()->p.pw.blockHeight);
   }
   public void constrain() {
     if(p.point.pos.y>floor) {
@@ -40,7 +40,7 @@ public class MovementLimitBox extends OuterBox{
       }
     }
     if(flagCache) {
-      ceiling=y1*p.pw.blockHeight+rectConst.y2();
+      ceiling=y1*p.pw.blockHeight+rectConst.y1();
       flagCache=false;
     }else ceiling=(y1-4)*p.pw.blockHeight;
     //------------------------------------------ floor
@@ -52,7 +52,7 @@ public class MovementLimitBox extends OuterBox{
       }
     }
     if(flagCache) {
-      floor=y2*p.pw.blockHeight+rectConst.y1();
+      floor=y2*p.pw.blockHeight+rectConst.y2();
       flagCache=false;
     }else floor=(y2+4)*p.pw.blockHeight;
     //------------------------------------------ left

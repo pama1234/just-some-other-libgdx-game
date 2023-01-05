@@ -16,7 +16,6 @@ public class TextureLivingEntity extends LivingEntity{
   public int moveState;
   public <T extends TextureLivingEntity> TextureLivingEntity(Screen0011 p,World0001 pw,float x,float y,MetaCreature<T> type) {
     super(p,pw,new MassPoint(x,y),type);
-    point.step=0.25f;
   }
   @Override
   public void update() {
