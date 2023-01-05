@@ -3,6 +3,7 @@ package pama1234.gdx.game.state.state0001.game.world;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import pama1234.gdx.game.asset.ImageAsset;
+import pama1234.gdx.game.state.state0001.game.entity.entity0001.DroppedItem.DroppedItemType;
 import pama1234.gdx.game.state.state0001.game.entity.entity0001.Fly.FlyType;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
@@ -52,6 +53,7 @@ public class World0001Generator{
   public static MetaCreatureCenter0001 createCreatureC(World0001 in) {
     MetaCreatureCenter0001 metaEntitys=new MetaCreatureCenter0001(in);
     metaEntitys.list.add(metaEntitys.player=new PlayerType(metaEntitys,metaEntitys.id()));
+    metaEntitys.list.add(metaEntitys.droppedItem=new DroppedItemType(metaEntitys,metaEntitys.id()));
     metaEntitys.list.add(metaEntitys.fly=new FlyType(metaEntitys,metaEntitys.id()));
     return metaEntitys;
   }

@@ -52,7 +52,7 @@ public class World0001 extends World<Screen0011,Game>{
     entities.list.add(entities.players=players=new PlayerCenter(p));
     list[1]=regions=new RegionCenter(p,this,Gdx.files.local("data/saved/regions.bin"));
     // regions.load();
-    yourself=new MainPlayer(p,this,0,-1,pg);
+    yourself=new MainPlayer(p,this,0,0);
     backgroundColor=p.color(0);
     colorA=p.color(0);
     colorB=p.color(0);
@@ -142,7 +142,7 @@ public class World0001 extends World<Screen0011,Game>{
   }
   public void placeBlock(MainPlayer player,Block block,MetaBlock in,int x,int y) {
     updateRectLighting(x,y);
-    block.doItemDrop(x,y);
+    block.doItemDrop(p,x,y);
     block.type(in);
   }
   public int xToBlockCord(float in) {

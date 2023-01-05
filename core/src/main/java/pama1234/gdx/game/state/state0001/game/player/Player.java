@@ -4,7 +4,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
-import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.game.entity.TextureLivingEntity;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaCreatureCenter0001;
@@ -13,8 +12,8 @@ import pama1234.gdx.util.wrapper.PointCenter;
 import pama1234.math.physics.MassPoint;
 
 public class Player extends TextureLivingEntity{
-  public Player(Screen0011 p,World0001 pw,float x,float y,PlayerType type,Game pg) {
-    super(p,pw,x,y,type,pg);
+  public Player(Screen0011 p,World0001 pw,float x,float y,PlayerType type) {
+    super(p,pw,x,y,type);
     timeStep=1/2f;
   }
   public static class PlayerCenter extends PointCenter<Screen0011,MassPoint,Player>{

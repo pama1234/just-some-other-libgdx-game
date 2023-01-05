@@ -73,7 +73,7 @@ public class PlayerController extends Entity<Screen0011>{
     if(player.inventory.displayState==Inventory.displayFullInventory) for(int i=0;i<player.inventory.hotSlots.length;i++) {
       DisplaySlot e=player.inventory.hotSlots[i];
       if(Tools.inBox(info.x,info.y,e.x1,e.y1,e.w1,e.h1)) {
-        switch(p.isAndroid?(player.pg.androidRightMouseButton?Buttons.RIGHT:Buttons.LEFT):info.button) {
+        switch(p.isAndroid?(player.pw.pg.androidRightMouseButton?Buttons.RIGHT:Buttons.LEFT):info.button) {
           case Buttons.LEFT: {
             // player.inventory.selectSlot=i;
             player.inventory.select(i);
@@ -109,7 +109,7 @@ public class PlayerController extends Entity<Screen0011>{
     if(player.inventory.displayState==Inventory.displayFullInventory) for(DisplaySlot e:player.inventory.hotSlots) if(Tools.inBox(info.x,info.y,e.x1,e.y1,e.w1,e.h1)) return;
     Block block=player.getBlock(tx,ty);
     for(EntityCenter<Screen0011,? extends GamePointEntity<?>> l:player.pw.entities.list) for(GamePointEntity<?> e:l.list) if(e instanceof LivingEntity live) if(live.inOuterBox(tx,ty)) return;
-    if(block!=null) switch(p.isAndroid?(player.pg.androidRightMouseButton?Buttons.RIGHT:Buttons.LEFT):info.button) {
+    if(block!=null) switch(p.isAndroid?(player.pw.pg.androidRightMouseButton?Buttons.RIGHT:Buttons.LEFT):info.button) {
       case Buttons.LEFT: {
         if(block.type!=player.pw.metaBlocks.air) player.pw.destroyBlock(player,block,tx,ty);
       }
@@ -179,7 +179,7 @@ public class PlayerController extends Entity<Screen0011>{
       }
     }else walkSlowDown();
     // inAir=player.point.pos.y<floor;
-    limitBox.updateInAir();
+    limitBox.doInAirTest();
     if(limitBox.inAir) player.point.vel.y+=player.pw.g;
     else {
       if(player.point.pos.y!=limitBox.floor) {

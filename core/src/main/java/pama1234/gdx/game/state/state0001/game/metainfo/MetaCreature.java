@@ -10,6 +10,7 @@ public class MetaCreature<T extends LivingEntity>extends MetaInfoBase{
   public int w,h;
   public float dx,dy;
   public float maxLife=32;
+  public boolean immortal;//TODO
   public TextureRegion[][] tiles;
   public MetaCreature(MetaCreatureCenter0001 pc,String name,int id,float maxLife,TextureRegion[][] tiles) {
     super(name,id);

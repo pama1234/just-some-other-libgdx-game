@@ -24,7 +24,7 @@ public class MovementLimitBox extends OuterBox{
     if(p.point.pos.x<leftWall) p.point.pos.x=leftWall;
     if(p.point.pos.x>rightWall) p.point.pos.x=rightWall;
   }
-  public void updateInAir() {
+  public void doInAirTest() {
     inAir=p.point.pos.y<floor;
   }
   public void updateLimit() {

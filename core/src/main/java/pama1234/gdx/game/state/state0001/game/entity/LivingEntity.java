@@ -1,7 +1,6 @@
 package pama1234.gdx.game.state.state0001.game.entity;
 
 import pama1234.gdx.game.app.Screen0011;
-import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.game.entity.util.OuterBox;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
 import pama1234.gdx.game.state.state0001.game.player.GameMode;
@@ -13,7 +12,6 @@ import pama1234.math.physics.MassPoint;
 import pama1234.math.physics.PathVar;
 
 public class LivingEntity extends GamePointEntity<MassPoint>{
-  public World0001 pw;
   //---
   public OuterBox outerBox;
   //---
@@ -21,8 +19,8 @@ public class LivingEntity extends GamePointEntity<MassPoint>{
   public MetaCreature<?> type;
   public PathVar life;
   public PathVar lighting;
-  public LivingEntity(Screen0011 p,MassPoint in,MetaCreature<?> type,Game pg) {
-    super(p,in,pg);
+  public LivingEntity(Screen0011 p,World0001 pw,MassPoint in,MetaCreature<?> type) {
+    super(p,pw,in);
     outerBox=new OuterBox(this);
     this.type=type;
     life=new PathVar(type.maxLife);
