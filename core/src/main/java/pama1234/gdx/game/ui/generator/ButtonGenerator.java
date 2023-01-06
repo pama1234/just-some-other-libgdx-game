@@ -23,12 +23,9 @@ public class ButtonGenerator{
         self.text=pg.androidRightMouseButton?"mR":"mL";
       },"mL",p::getButtonUnitLength,()->p.width-p.bu*4f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,false),
       new TextButton<T>(p,true,()->true,self-> {},self-> {
-        // p.inputProcessor.keyDown(Input.Keys.SHIFT_LEFT);
         pg.world.yourself.ctrl.shift(!pg.world.yourself.ctrl.shift);
         self.text=pg.world.yourself.ctrl.shift?"S":"s";
-      },self-> {
-        // p.inputProcessor.keyUp(Input.Keys.SHIFT_LEFT);
-      },"s",p::getButtonUnitLength,()->p.width-p.bu*2.5f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,true),
+      },self-> {},"s",p::getButtonUnitLength,()->p.width-p.bu*2.5f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,true),
       new TextButton<T>(p,true,()->true,self-> {},self-> {
         p.inputProcessor.keyDown(Input.Keys.A);
       },self-> {
@@ -56,26 +53,27 @@ public class ButtonGenerator{
       },"静音：否",()->18,()->0,()->0),
       ps.volumeSlider=new Slider<T>(p,true,()->true,self-> {
         p.volume=ps.volumeSlider.pos;
-        // ps.volumeSlider.text="音量 "+Tools.cutToLastDigit(p.volume*100);
         self.text="音量 "+String.format("%6.2f",p.volume*100);
       },self-> {},self-> {},"音量 100.00",()->18,()->0,()->20,1),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.debugInfo=!p.debugInfo;
         Game game=(Game)State0001.Game.entity;
-        // boolean flag=game.debug;
-        game.debug=p.debugInfo;
+        // game.debug=p.debugInfo;
         if(game.debug=p.debugInfo) game.createDebugDisplay();
-        // if(game.debug) {
-        //   game.createDebugDisplay();
-        //   if(!flag) p.centerCam.add.add(game.displayCamTop);
-        // }else if(flag) p.centerCam.remove.add(game.displayCamTop);
-        if(p.debugInfo) self.text="显示调试信息：是";
-        else self.text="显示调试信息：否";
-      },"显示调试信息：否",()->18,()->0,()->40),
+        if(p.debugInfo) self.text="显示文本调试信息：是";
+        else self.text="显示文本调试信息：否";
+      },"显示文本调试信息：否",()->18,()->0,()->40),
+      new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
+        Game game=(Game)State0001.Game.entity;
+        game.debugGraphics=!game.debugGraphics;
+        if(game.debugGraphics) game.createDebugDisplay();
+        if(game.debugGraphics) self.text="显示图形调试信息：是";
+        else self.text="显示图形调试信息：否";
+      },"显示图形调试信息：否",()->18,()->0,()->60),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         System.gc();
         Runtime.getRuntime().runFinalization();
-      },"清理内存垃圾",()->18,()->0,()->60),
+      },"清理内存垃圾",()->18,()->0,()->80),
     };
   }
   public static <T extends Screen0011> Button<?>[] genButtons_0005(T p) {

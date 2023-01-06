@@ -55,26 +55,56 @@ public class PlayerController extends Entity<Screen0011>{
   }
   @Override
   public void display() {
+    p.beginBlend();
     if(selectEntity!=null) drawSelectEntity();
     drawSelectBlock();
+    p.endBlend();
   }
   public void drawSelectEntity() {
-    p.beginBlend();
+    // p.beginBlend();
     float tl=UtilMath.mag(selectEntity.type.w,selectEntity.type.h)/2f+2;
     float tcx=selectEntity.cx(),tcy=selectEntity.cy();
+    p.tint(255,191);
     p.image(ImageAsset.select,tcx-tl,tcy-tl,tl,tl);
     p.image(ImageAsset.select,tcx+tl,tcy-tl,-tl,tl);
     p.image(ImageAsset.select,tcx-tl,tcy+tl,tl,-tl);
     p.image(ImageAsset.select,tcx+tl,tcy+tl,-tl,-tl);
-    p.endBlend();
+    p.noTint();
+    // p.endBlend();
   }
   public void drawSelectBlock() {
-    p.beginBlend();
-    p.fill(0,127);
+    // p.beginBlend();
+    // p.fill(0,127);
     int tw=player.pw.blockWidth,
       th=player.pw.blockHeight;
-    p.rect(selectBlock.x*tw,selectBlock.y*th,tw,th);
-    p.endBlend();
+    switch(selectBlock.task) {
+      case BlockPointer.idle: {
+        // p.fill(0,127);
+        p.fill(0);
+        // p.rect(selectBlock.x*tw,selectBlock.y*th,tw,th);
+        float r=1;
+        float tx1=selectBlock.x*tw-r;
+        float ty1=selectBlock.y*th-r;
+        float tx2=(selectBlock.x+1)*tw+r;
+        float ty2=(selectBlock.y+1)*th+r;
+        float tw1=tw+r*2;
+        float th1=th+r*2;
+        p.rect(tx1,ty1,1,th1);
+        p.rect(tx1,ty1,tw1,1);
+        p.rect(tx2-1,ty1,1,th1);
+        p.rect(tx1,ty2-1,tw1,1);
+      }
+        break;
+      case BlockPointer.destroy: {
+        p.tint(255,191);
+        p.image(ImageAsset.tiles[20][selectBlock.progress],selectBlock.x*tw,selectBlock.y*th);
+      }
+      default:
+        break;
+    }
+    // if(selectBlock.task!=BlockPointer.idle)
+    p.noTint();
+    // p.endBlend();
   }
   public void updateCtrlInfo() {
     updateKeyInfo();
@@ -102,14 +132,27 @@ public class PlayerController extends Entity<Screen0011>{
   public void touchStarted(TouchInfo info) {
     if(info.state!=0) return;
     if(testPosInButtons(info.x,info.y)) return;
+    //---
     int tx=player.xToBlockCord(info.x),
       ty=player.xToBlockCord(info.y);
-    //--------------------------------------------------------------------------------------------------------------------------------
     if(updateAndTestInventorySlot(info.x,info.y,info.button)) return;
-    //--------------------------------------------------------------------------------------------------------------------------------
     if(p.isAndroid&&inPlayerOuterBox(tx,ty)) player.inventory.displayStateChange();
-    //--------------------------------------------------------------------------------------------------------------------------------
     if(updateAndTestSelectEntity(tx,ty)) return;
+  }
+  public void touchUpdate(TouchInfo info) {
+    if(info.state!=0) return;
+    if(testPosInButtons(info.x,info.y)) return;
+    if(testPosInInventorySlot(info.x,info.y)) return;
+    //---
+    int tx=player.xToBlockCord(info.x),
+      ty=player.xToBlockCord(info.y);
+    if(inPlayerOuterBox(tx,ty)) return;
+    Block block=player.getBlock(tx,ty);
+    selectBlock.update(block,tx,ty);
+    if(player.gameMode!=GameMode.creative) return;
+    if(testPosInOtherEntity(tx,ty)) return;
+    // if(player.gameMode==GameMode.creative)
+    creativeModeUpdateSelectBlock(info,tx,ty,block);
   }
   public boolean updateAndTestSelectEntity(int tx,int ty) {
     for(EntityCenter<Screen0011,? extends GamePointEntity<?>> l:player.pw.entities.list) {
@@ -146,20 +189,6 @@ public class PlayerController extends Entity<Screen0011>{
       }
     }
     return false;
-  }
-  public void touchUpdate(TouchInfo info) {
-    if(info.state!=0) return;
-    if(testPosInButtons(info.x,info.y)) return;
-    if(testPosInInventorySlot(info.x,info.y)) return;
-    int tx=player.xToBlockCord(info.x),
-      ty=player.xToBlockCord(info.y);
-    if(inPlayerOuterBox(tx,ty)) return;
-    Block block=player.getBlock(tx,ty);
-    selectBlock.update(block,tx,ty);
-    if(player.gameMode!=GameMode.creative) return;
-    if(testPosInOtherEntity(tx,ty)) return;
-    // if(player.gameMode==GameMode.creative)
-    creativeModeUpdateSelectBlock(info,tx,ty,block);
   }
   public void creativeModeUpdateSelectBlock(TouchInfo info,int tx,int ty,Block block) {
     if(block!=null) switch(p.isAndroid?(player.pw.pg.androidRightMouseButton?Buttons.RIGHT:Buttons.LEFT):info.button) {

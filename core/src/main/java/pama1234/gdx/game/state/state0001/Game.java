@@ -26,7 +26,7 @@ public class Game extends StateEntity0001{
   //---
   public World0001 world;
   public WorldCenter<Screen0011,Game,World<Screen0011,Game>> worldCenter;
-  public boolean debug;
+  public boolean debug,debugGraphics;
   public boolean androidRightMouseButton;
   public EntityListener displayCamTop;
   public boolean firstInit=true;//TODO
@@ -86,7 +86,7 @@ public class Game extends StateEntity0001{
     }
     world.from(in);//TODO
     worldCenter.resume();
-    if(debug) p.centerCam.add.add(displayCamTop);
+    if(debugGraphics) p.centerCam.add.add(displayCamTop);
     p.centerCam.add.add(worldCenter);
   }
   @Override
@@ -97,7 +97,7 @@ public class Game extends StateEntity0001{
     p.centerCam.remove.add(worldCenter);
     worldCenter.pause();
     world.to(in);//TODO
-    if(debug) p.centerCam.remove.add(displayCamTop);
+    if(debugGraphics) p.centerCam.remove.add(displayCamTop);
   }
   @Override
   public void displayCam() {
