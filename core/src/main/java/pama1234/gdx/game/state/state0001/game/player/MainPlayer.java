@@ -15,8 +15,6 @@ public class MainPlayer extends Player{
     this.cam=p.cam2d;
     ctrl=new PlayerController(p,this);
     inventory=new Inventory(this,32,9);
-    // inventory.data[0].item=pw.metaItems.dirt.createItem();
-    // inventory.data[1].item=pw.metaItems.stone.createItem();
   }
   @Override
   public void keyPressed(char key,int keyCode) {

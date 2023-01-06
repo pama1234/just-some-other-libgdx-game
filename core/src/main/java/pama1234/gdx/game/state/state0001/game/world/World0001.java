@@ -98,8 +98,8 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
     // innerResume();
   }
   public void innerResume() {
-    p.cam2d.activeDrag=false;
-    // p.cam2d.active(false);
+    // p.cam2d.activeDrag=false;
+    p.cam2d.active(false);
     p.cam2d.scale.pos=yourself.ctrl.camScale;
     p.cam2d.scale.des=yourself.ctrl.camScale;
     p.cam2d.minScale=p.isAndroid?1:2;
@@ -113,8 +113,8 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
     // innerPause();
   }
   public void innerPause() {
-    p.cam2d.activeDrag=true;
-    // p.cam2d.active(true);
+    // p.cam2d.activeDrag=true;
+    p.cam2d.active(true);
     p.cam2d.minScale=1;
     yourself.ctrl.camScale=p.cam2d.scale.des;
     p.centerCam.remove.add(yourself);
