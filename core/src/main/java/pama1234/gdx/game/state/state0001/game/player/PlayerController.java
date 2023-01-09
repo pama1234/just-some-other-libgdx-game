@@ -80,7 +80,7 @@ public class PlayerController extends Entity<Screen0011>{
     switch(selectBlock.task) {
       case BlockPointer.idle: {
         // p.fill(0,127);
-        p.fill(0);
+        p.fill(0,127);
         // p.rect(selectBlock.x*tw,selectBlock.y*th,tw,th);
         float r=1;
         float tx1=selectBlock.x*tw-r;
@@ -153,6 +153,10 @@ public class PlayerController extends Entity<Screen0011>{
     if(testPosInOtherEntity(tx,ty)) return;
     // if(player.gameMode==GameMode.creative)
     creativeModeUpdateSelectBlock(info,tx,ty,block);
+  }
+  @Override
+  public void touchEnded(TouchInfo info) {
+    // if(selectBlock.task)
   }
   public boolean updateAndTestSelectEntity(int tx,int ty) {
     for(EntityCenter<Screen0011,? extends GamePointEntity<?>> l:player.pw.entities.list) {
@@ -326,6 +330,7 @@ public class PlayerController extends Entity<Screen0011>{
   }
   public class BlockPointer{
     public static final int idle=0,build=1,destroy=2;
+    // public TouchInfo info;
     public Block block;
     public int x,y;
     public int task;
@@ -335,11 +340,15 @@ public class PlayerController extends Entity<Screen0011>{
       x=xIn;
       y=yIn;
     }
-    public void update(Block in,int x,int y) {
+    // public void update(TouchInfo info,Block block,int x,int y) {
+    public void update(Block block,int x,int y) {
       pos(x,y);
-      block=in;
+      // this.info=info;
+      this.block=block;
     }
+    // public BlockPointer(TouchInfo info,Block block,int x,int y) {
     public BlockPointer(Block block,int x,int y) {
+      // this.info=info;
       this.block=block;
       this.x=x;
       this.y=y;

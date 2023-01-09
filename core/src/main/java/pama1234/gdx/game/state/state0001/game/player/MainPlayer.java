@@ -10,11 +10,12 @@ public class MainPlayer extends Player{
   public CameraController2D cam;
   public PlayerController ctrl;
   public Inventory inventory;
-  public MainPlayer(Screen0011 p,World0001 pw,float x,float y) {//TODO type
+  public MainPlayer(Screen0011 p,World0001 pw,float x,float y) {
     super(p,pw,x,y,pw.metaEntitys.player);
     this.cam=p.cam2d;
     ctrl=new PlayerController(p,this);
     inventory=new Inventory(this,32,9);
+    // gameMode=GameMode.creative;
   }
   @Override
   public void keyPressed(char key,int keyCode) {
@@ -47,18 +48,10 @@ public class MainPlayer extends Player{
     super.update();
     ctrl.constrain();
     ctrl.updatePickItem();
-    // point.update();
-    // life.update();
-    // outerBox.update();
-    // ctrl.constrain();
-    // lightingUpdate();
-    // frameUpdate();
-    //---
     // p.cam.point.des.set(cx(),Tools.mag(point.y(),ctrl.limitBox.floor)<48?ctrl.limitBox.floor+type.dy+type.h/2f:cy(),0);//TODO
     // p.println(cx(),cy());
     p.cam.point.des.set(cx(),cy());
     //---
-    // life.update();
     inventory.update();
   }
   @Override
@@ -67,6 +60,5 @@ public class MainPlayer extends Player{
     ctrl.display();
     inventory.display();
     p.noTint();
-    // if(inventory.displayHotSlot) inventory.displayHotSlotCircle();
   }
 }
