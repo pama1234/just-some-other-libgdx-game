@@ -97,7 +97,8 @@ public class PlayerController extends Entity<Screen0011>{
         break;
       case BlockPointer.destroy: {
         p.tint(255,191);
-        p.image(ImageAsset.tiles[20][selectBlock.progress],selectBlock.x*tw,selectBlock.y*th);
+        p.println(selectBlock.progress,0,selectBlock.block.type.destroyTime,0,7,UtilMath.map(selectBlock.progress,0,selectBlock.block.type.destroyTime,0,7));
+        p.image(ImageAsset.tiles[20][(int)UtilMath.map(selectBlock.progress,0,selectBlock.block.type.destroyTime,0,7)],selectBlock.x*tw,selectBlock.y*th);
       }
       default:
         break;
@@ -136,10 +137,17 @@ public class PlayerController extends Entity<Screen0011>{
     int tx=player.xToBlockCord(info.x),
       ty=player.xToBlockCord(info.y);
     if(updateAndTestInventorySlot(info.x,info.y,info.button)) return;
-    if(p.isAndroid&&inPlayerOuterBox(tx,ty)) player.inventory.displayStateChange();
+    if(p.isAndroid&&inPlayerOuterBox(tx,ty)) {
+      player.inventory.displayStateChange();
+      return;
+    }
     if(updateAndTestSelectEntity(tx,ty)) return;
+    Block block=player.getBlock(tx,ty);
+    selectBlock.update(block,tx,ty);
+    selectBlock.startTaskButtonInfo(info.button);
   }
   public void touchUpdate(TouchInfo info) {
+    if(!player.pw.p.isAndroid) return;
     if(info.state!=0) return;
     if(testPosInButtons(info.x,info.y)) return;
     if(testPosInInventorySlot(info.x,info.y)) return;
@@ -157,6 +165,11 @@ public class PlayerController extends Entity<Screen0011>{
   @Override
   public void touchEnded(TouchInfo info) {
     // if(selectBlock.task)
+    int tx=player.xToBlockCord(info.x),
+      ty=player.xToBlockCord(info.y);
+    Block block=player.getBlock(tx,ty);
+    // selectBlock.update(block,tx,ty);
+    selectBlock.testStopTaskButtonInfo(block);
   }
   public boolean updateAndTestSelectEntity(int tx,int ty) {
     for(EntityCenter<Screen0011,? extends GamePointEntity<?>> l:player.pw.entities.list) {
@@ -328,30 +341,76 @@ public class PlayerController extends Entity<Screen0011>{
       }
     }
   }
-  public class BlockPointer{
+  public static class BlockPointer{
     public static final int idle=0,build=1,destroy=2;
-    // public TouchInfo info;
     public Block block;
     public int x,y;
     public int task;
     public int progress;
     public BlockPointer() {}
+    public BlockPointer(Block block,int x,int y) {
+      this.block=block;
+      this.x=x;
+      this.y=y;
+    }
     public void pos(int xIn,int yIn) {
       x=xIn;
       y=yIn;
     }
-    // public void update(TouchInfo info,Block block,int x,int y) {
-    public void update(Block block,int x,int y) {
+    public void update(Block in,int x,int y) {
       pos(x,y);
-      // this.info=info;
-      this.block=block;
+      if(in!=block) {
+        block=in;
+        progress=0;
+      }else updateTask();
     }
-    // public BlockPointer(TouchInfo info,Block block,int x,int y) {
-    public BlockPointer(Block block,int x,int y) {
-      // this.info=info;
-      this.block=block;
-      this.x=x;
-      this.y=y;
+    public void startTask(int type) {
+      task=type;
+      progress=0;
+    }
+    public void startTaskButtonInfo(int button) {
+      switch(button) {
+        case Buttons.LEFT: {
+          startTask(destroy);
+        }
+          break;
+        case Buttons.RIGHT: {
+          startTask(build);
+        }
+          break;
+        // default:
+        //   break;
+      }
+    }
+    public void updateTask() {
+      progress++;
+      testTaskComplete();
+      // if(progress>=block.type.buildTime)
+    }
+    public void testTaskComplete() {
+      switch(task) {
+        case build: {
+          if(progress>=block.type.buildTime) {
+            progress=0;
+          }
+        }
+          break;
+        case destroy:
+          if(progress>=block.type.destroyTime) {
+            // player.pw.destroyBlock(player,block,x,y);
+            progress=0;
+          }
+          break;
+        // default:
+        //   break;
+      }
+    }
+    public void testStopTaskButtonInfo(Block in) {
+      if(in==block) stopTask();
+    }
+    public void stopTask() {
+      task=idle;
+      progress=0;
     }
   }
 }

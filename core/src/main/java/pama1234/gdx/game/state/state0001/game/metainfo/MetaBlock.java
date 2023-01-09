@@ -54,7 +54,7 @@ public class MetaBlock extends MetaInfoBase{
   public MetaBlockCenter0001 pc;
   public boolean display,empty,light;
   public TextureRegion[] tiles;
-  public int buildTime,destroyTime;
+  public int buildTime=1,destroyTime=1;
   public float hardness,lightIntensity;
   public ItemDropAttr[] itemDrop;
   public int displayTypeSize;

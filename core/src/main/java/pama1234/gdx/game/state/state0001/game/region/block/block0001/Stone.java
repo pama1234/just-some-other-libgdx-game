@@ -12,8 +12,9 @@ public class Stone extends MetaBlock{
       in.lighting=16;
     },(in,type)-> {//change from stone
     });
+    destroyTime=60;
     initBlockLambda();
-    itemDrop=new ItemDropAttr[] {};
+    // itemDrop=new ItemDropAttr[] {};
   }
   @Override
   public void initItemDrop() {

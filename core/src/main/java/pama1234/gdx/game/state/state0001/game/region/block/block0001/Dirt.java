@@ -12,6 +12,7 @@ public class Dirt extends MetaBlock{
       in.lighting=16;
     },(in,type)-> {//change from dirt
     });
+    destroyTime=30;
     initBlockLambda();
   }
   @Override
