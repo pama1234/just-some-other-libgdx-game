@@ -58,16 +58,44 @@ public class Game extends StateEntity0001{
       by2=limitBox.y2;
     int bw=world.blockWidth,
       bh=world.blockHeight;
-    int ta=63;
+    int ta=191;
     p.fill(255,127,191,ta);
-    p.rect(limitBox.leftWall,limitBox.ceiling,limitBox.rightWall-limitBox.leftWall,limitBox.floor-limitBox.ceiling);
+    // p.rect(limitBox.leftWall,limitBox.ceiling,limitBox.rightWall-limitBox.leftWall,limitBox.floor-limitBox.ceiling);
+    rectStroke(1,limitBox.leftWall,limitBox.ceiling,limitBox.rightWall,limitBox.floor);
     p.fill(127,255,191,ta);
-    p.rect(in.x()+in.type.dx,in.y()+in.type.dy,in.type.w,in.type.h);
+    // p.rect(in.x()+in.type.dx,in.y()+in.type.dy,in.type.w,in.type.h);
+    boxStroke(1,in.x()+in.type.dx,in.y()+in.type.dy,in.type.w,in.type.h);
     p.fill(94,203,234,ta);
-    p.rect((bx1)*world.blockWidth,by1*world.blockHeight,bw,bh);
-    p.rect((bx1)*world.blockWidth,by2*world.blockHeight,bw,bh);
-    p.rect((bx2)*world.blockWidth,by2*world.blockHeight,bw,bh);
-    p.rect((bx2)*world.blockWidth,by1*world.blockHeight,bw,bh);
+    // p.rect(bx1*bw,by1*bh,bw,bh);
+    // p.rect(bx1*bw,by2*bh,bw,bh);
+    // p.rect(bx2*bw,by2*bh,bw,bh);
+    // p.rect(bx2*bw,by1*bh,bw,bh);
+    //---
+    rectStroke(1,bx1*bw,by1*bh,(bx2+1)*bw,(by2+1)*bh);
+  }
+  public void rectStroke(float r,float tx1,float ty1,float tx2,float ty2) {
+    float tw1=tx2-tx1+r*2;
+    float th1=ty2-ty1+r*2;
+    tx1-=r;
+    ty1-=r;
+    tx2+=r;
+    ty2+=r;
+    p.rect(tx1,ty1,r,th1);
+    p.rect(tx1,ty1,tw1,r);
+    p.rect(tx2-r,ty1,r,th1);
+    p.rect(tx1,ty2-r,tw1,r);
+  }
+  public void boxStroke(float r,float tx1,float ty1,float tw1,float th1) {
+    float tx2=tx1+tw1+r;
+    float ty2=ty1+th1+r;
+    tx1-=r;
+    ty1-=r;
+    tw1+=r*2;
+    th1+=r*2;
+    p.rect(tx1,ty1,r,th1);
+    p.rect(tx1,ty1,tw1,r);
+    p.rect(tx2-r,ty1,r,th1);
+    p.rect(tx1,ty2-r,tw1,r);
   }
   @Override
   public void from(State0001 in) {

@@ -18,6 +18,7 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaCreat
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemCenter0001;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
 import pama1234.gdx.game.state.state0001.game.player.Player.PlayerCenter;
+import pama1234.gdx.game.state.state0001.game.player.PlayerController.BlockPointer;
 import pama1234.gdx.game.state.state0001.game.region.RegionCenter;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.math.Tools;
@@ -154,6 +155,17 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
     placeBlock(player,block,metaBlocks.air,x,y);
   }
   public void placeBlock(MainPlayer player,Block block,MetaBlock in,int x,int y) {
+    updateRectLighting(x,y);
+    block.doItemDrop(p,x,y);
+    block.type(in);
+    // block.updateLighting=false;
+    // block.type.updateDisplay(block,x,y);
+    // block.updateLighting=true;
+  }
+  public void destroyBlock(BlockPointer bp,Block block,int x,int y) {
+    placeBlock(bp,block,metaBlocks.air,x,y);
+  }
+  public void placeBlock(BlockPointer bp,Block block,MetaBlock in,int x,int y) {
     updateRectLighting(x,y);
     block.doItemDrop(p,x,y);
     block.type(in);

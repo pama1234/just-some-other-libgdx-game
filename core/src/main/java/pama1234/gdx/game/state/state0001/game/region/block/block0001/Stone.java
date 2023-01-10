@@ -13,6 +13,7 @@ public class Stone extends MetaBlock{
     },(in,type)-> {//change from stone
     });
     destroyTime=60;
+    buildTime=15;
     initBlockLambda();
     // itemDrop=new ItemDropAttr[] {};
   }

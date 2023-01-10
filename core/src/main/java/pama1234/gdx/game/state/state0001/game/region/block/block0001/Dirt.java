@@ -13,6 +13,7 @@ public class Dirt extends MetaBlock{
     },(in,type)-> {//change from dirt
     });
     destroyTime=30;
+    buildTime=15;
     initBlockLambda();
   }
   @Override

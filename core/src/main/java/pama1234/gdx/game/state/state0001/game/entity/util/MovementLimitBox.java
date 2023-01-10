@@ -10,7 +10,12 @@ public class MovementLimitBox extends OuterBox{
   public RectF rectConst;
   public MovementLimitBox(LivingEntity p) {
     super(p);
-    rectConst=new RectF(()->p.type.w/2f,()->p.type.h,()->0,()->p.pw.blockHeight);
+    rectConst=new RectF(
+      ()->p.type.w/2f,//left
+      ()->p.type.h,//ceiling
+      ()->0,//right
+      ()->p.pw.blockHeight//floor
+    );
   }
   public void constrain() {
     if(p.point.pos.y>floor) {
