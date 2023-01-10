@@ -11,6 +11,7 @@ public class Block{
   public boolean changed;
   public boolean updateLighting=true;
   public int[] displayType;
+  // public int lighting=0xffffff;
   public int lighting=16;
   public Block(MetaBlock type) {
     this.type=type;
@@ -47,7 +48,7 @@ public class Block{
         (y+1)*world.blockHeight,
         // 0,0,
         world.random(-0.8f,0.8f)*world.blockWidth,
-        world.random(-0.8f,-1.2f)*world.blockHeight*(flag?1:-1),
+        world.random(-0.4f,-0.8f)*world.blockHeight*(flag?1:-1),
         world.metaEntitys.droppedItem,e.item.createItem(e.dropNumber(world))));
   }
 }

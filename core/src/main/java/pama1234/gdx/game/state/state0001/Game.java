@@ -60,17 +60,10 @@ public class Game extends StateEntity0001{
       bh=world.blockHeight;
     int ta=191;
     p.fill(255,127,191,ta);
-    // p.rect(limitBox.leftWall,limitBox.ceiling,limitBox.rightWall-limitBox.leftWall,limitBox.floor-limitBox.ceiling);
     rectStroke(1,limitBox.leftWall,limitBox.ceiling,limitBox.rightWall,limitBox.floor);
     p.fill(127,255,191,ta);
-    // p.rect(in.x()+in.type.dx,in.y()+in.type.dy,in.type.w,in.type.h);
     boxStroke(1,in.x()+in.type.dx,in.y()+in.type.dy,in.type.w,in.type.h);
     p.fill(94,203,234,ta);
-    // p.rect(bx1*bw,by1*bh,bw,bh);
-    // p.rect(bx1*bw,by2*bh,bw,bh);
-    // p.rect(bx2*bw,by2*bh,bw,bh);
-    // p.rect(bx2*bw,by1*bh,bw,bh);
-    //---
     rectStroke(1,bx1*bw,by1*bh,(bx2+1)*bw,(by2+1)*bh);
   }
   public void rectStroke(float r,float tx1,float ty1,float tx2,float ty2) {

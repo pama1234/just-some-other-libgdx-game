@@ -25,19 +25,21 @@ public class MetaBlock extends MetaInfoBase{
       if(Block.isEmpty(world.getBlock(x+1,y-1))) typeCache+=8;
       in.displayType[1]=typeCache;
       //---
-      if(in.updateLighting) {
-        int tc=0;
-        for(int i=-world.lightDist;i<=world.lightDist;i++) for(int j=-world.lightDist;j<=world.lightDist;j++) if(Block.isEmpty(world.regions.getBlock(x+i,y+j))) tc+=1;
-        in.lighting=UtilMath.constrain(UtilMath.floor(UtilMath.map(tc*2,0,world.lightCount,0,16)),0,16);
-      }
+      if(in.updateLighting) lightingUpdate(in,x,y,world);
     },defaultDisplayUpdater=(in,x,y)-> {
       World0001 world=in.type.pc.pw;
-      if(in.updateLighting) {
-        int tc=0;
-        for(int i=-world.lightDist;i<=world.lightDist;i++) for(int j=-world.lightDist;j<=world.lightDist;j++) if(Block.isEmpty(world.regions.getBlock(x+i,y+j))) tc+=1;
-        in.lighting=UtilMath.constrain(UtilMath.floor(UtilMath.map(tc*2,0,world.lightCount,0,16)),0,16);
-      }
+      if(in.updateLighting) lightingUpdate(in,x,y,world);
     };
+  public static void lightingUpdate(Block in,int x,int y,World0001 world) {
+    int tc=0;
+    for(int i=-world.lightDist;i<=world.lightDist;i++) for(int j=-world.lightDist;j<=world.lightDist;j++) if(Block.isEmpty(world.regions.getBlock(x+i,y+j))) tc+=1;
+    // int ti=worldLighting(world,tc);
+    // in.lighting=Tools.color(ti,ti,ti);
+    in.lighting=worldLighting(world,tc);
+  }
+  public static int worldLighting(World0001 world,int tc) {
+    return UtilMath.constrain(UtilMath.floor(UtilMath.map(tc*2,0,world.lightCount,0,16)),0,16);
+  }
   public static final BlockDisplayer fullBlockDisplayer=(p,in,x,y)-> {
     World0001 world=in.type.pc.pw;
     p.tint(getLighting(in.lighting));
@@ -121,18 +123,6 @@ public class MetaBlock extends MetaInfoBase{
   public int getDisplayType() {//TODO
     return defaultDisplayType;
   }
-  @FunctionalInterface
-  public interface BlockUpdater{
-    void update(Block in,int x,int y);
-  }
-  @FunctionalInterface
-  public interface BlockDisplayer{
-    void display(Screen0011 p,Block in,int x,int y);
-  }
-  @FunctionalInterface
-  public interface BlockChanger{
-    void change(Block block,MetaBlock type);
-  }
   public void from(Block block,MetaBlock type) {
     if(from!=null) from.change(block,type);
   }
@@ -158,5 +148,17 @@ public class MetaBlock extends MetaInfoBase{
       if(probability==1||world.random(1)<probability) return (int)world.random(min,max);
       else return 0;
     }
+  }
+  @FunctionalInterface
+  public interface BlockUpdater{
+    void update(Block in,int x,int y);
+  }
+  @FunctionalInterface
+  public interface BlockDisplayer{
+    void display(Screen0011 p,Block in,int x,int y);
+  }
+  @FunctionalInterface
+  public interface BlockChanger{
+    void change(Block block,MetaBlock type);
   }
 }

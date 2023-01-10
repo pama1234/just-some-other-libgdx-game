@@ -15,7 +15,6 @@ import pama1234.gdx.game.state.state0001.game.item.Inventory.InventorySlot;
 import pama1234.gdx.game.state.state0001.game.item.Item;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
-import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.gdx.game.util.RectF;
 import pama1234.gdx.util.entity.Entity;
 import pama1234.gdx.util.info.TouchInfo;
@@ -130,15 +129,6 @@ public class PlayerController extends Entity<Screen0011>{
       if(testPosInInventorySlot(p.mouse.x,p.mouse.y)) return;
       int tx=player.xToBlockCord(p.mouse.x),
         ty=player.xToBlockCord(p.mouse.y);
-      // if(inPlayerOuterBox(tx,ty)) {
-      //   // if(Tools.inRangeInclude(tx,limitBox.x1,limitBox.x2))
-      //   tx=p.mouse.x<player.cx()?limitBox.x1-1:limitBox.x2+1;
-      //   // if(Tools.inRangeInclude(ty,limitBox.y1,limitBox.y2))
-      //   ty=p.mouse.y<player.cy()?limitBox.y1-1:limitBox.y2+1;
-      //   Block block=player.getBlock(tx,ty);
-      //   selectBlock.update(block,tx,ty);
-      //   // return;
-      // }
       if(testInPlayerOuterBoxAndUpdateSelectBlock(p.mouse.x,p.mouse.y,tx,ty)) return;
       Block block=player.getBlock(tx,ty);
       selectBlock.update(block,tx,ty);
@@ -174,13 +164,6 @@ public class PlayerController extends Entity<Screen0011>{
     //---
     int tx=player.xToBlockCord(info.x),
       ty=player.xToBlockCord(info.y);
-    // if(inPlayerOuterBox(tx,ty)) {
-    //   if(Tools.inRangeInclude(tx,limitBox.x1,limitBox.x2)) tx=p.mouse.x<player.cx()?limitBox.x1-1:limitBox.x2+1;
-    //   if(Tools.inRangeInclude(ty,limitBox.y1,limitBox.y2)) ty=p.mouse.y<player.cy()?limitBox.y1-1:limitBox.y2+1;
-    //   Block block=player.getBlock(tx,ty);
-    //   selectBlock.update(block,tx,ty);
-    //   return;
-    // }
     if(testInPlayerOuterBoxAndUpdateSelectBlock(info.x,info.y,tx,ty)) return;
     Block block=player.getBlock(tx,ty);
     selectBlock.update(block,tx,ty);
@@ -192,13 +175,14 @@ public class PlayerController extends Entity<Screen0011>{
   @Override
   public void touchEnded(TouchInfo info) {
     // if(selectBlock.task)
+    float x=info.x,y=info.y;
     int tx=player.xToBlockCord(info.x),
       ty=player.xToBlockCord(info.y);
     if(inPlayerOuterBox(tx,ty)) {
-      // if(Tools.inRangeInclude(tx,limitBox.x1,limitBox.x2))
-      tx=info.x<player.cx()?limitBox.x1-1:limitBox.x2+1;
-      // if(Tools.inRangeInclude(ty,limitBox.y1,limitBox.y2))
-      ty=info.y<player.cy()?limitBox.y1-1:limitBox.y2+1;
+      float tp1=UtilMath.abs(limitBox.w/(float)limitBox.h);
+      float tp2=UtilMath.abs((x-player.cx())/(y-player.cy()));
+      if(tp2>=tp1) tx=x<player.cx()?limitBox.x1-1:limitBox.x2+1;
+      else ty=y<player.cy()?limitBox.y1-1:limitBox.y2+1;
       Block block=player.getBlock(tx,ty);
       selectBlock.testStopTaskWithBlock(block);
       return;
@@ -211,10 +195,7 @@ public class PlayerController extends Entity<Screen0011>{
     if(inPlayerOuterBox(tx,ty)) {
       float tp1=UtilMath.abs(limitBox.w/(float)limitBox.h);
       float tp2=UtilMath.abs((x-player.cx())/(y-player.cy()));
-      // p.println(limitBox.w,limitBox.h,tp1,x,y,tp2);
-      // if(Tools.inRangeInclude(tx,limitBox.x1,limitBox.x2))
       if(tp2>=tp1) tx=x<player.cx()?limitBox.x1-1:limitBox.x2+1;
-      // if(Tools.inRangeInclude(ty,limitBox.y1,limitBox.y2))
       else ty=y<player.cy()?limitBox.y1-1:limitBox.y2+1;
       Block block=player.getBlock(tx,ty);
       selectBlock.update(block,tx,ty);
@@ -395,101 +376,6 @@ public class PlayerController extends Entity<Screen0011>{
       }else if(td<itemPickMoveDist) {
         e.point.vel.set((player.x()-e.x())*p.random(0.1f,0.2f),(player.y()-e.y())*p.random(0.1f,0.2f));
       }
-    }
-  }
-  @FunctionalInterface
-  public interface GetInventorySlot{
-    public InventorySlot get();
-  }
-  public static class BlockPointer{
-    public static final int idle=0,build=1,destroy=2;
-    public World0001 pw;
-    // public InventorySlot slot;
-    public GetInventorySlot slot;
-    public Block block;
-    public int x,y;
-    public int task;
-    public int progress;
-    public BlockPointer(World0001 in) {
-      pw=in;
-    }
-    public BlockPointer(Block block,int x,int y) {
-      this.block=block;
-      this.x=x;
-      this.y=y;
-    }
-    public void pos(int xIn,int yIn) {
-      x=xIn;
-      y=yIn;
-    }
-    public void update(Block in,int x,int y) {
-      pos(x,y);
-      if(in!=block) {
-        block=in;
-        progress=0;
-      }else updateTask();
-    }
-    public InventorySlot slot() {
-      return slot.get();
-    }
-    public void startTask(int type) {
-      task=type;
-      progress=0;
-    }
-    public void startTaskButtonInfo(int button) {
-      switch(button) {
-        case Buttons.LEFT: {
-          startTask(destroy);
-        }
-          break;
-        case Buttons.RIGHT: {
-          startTask(build);
-        }
-          break;
-        // default:
-        //   break;
-      }
-    }
-    public void updateTask() {
-      progress++;
-      testTaskComplete();
-      // if(progress>=block.type.buildTime)
-    }
-    public void testTaskComplete() {
-      switch(task) {
-        case build: {
-          // if(progress>=block.type.buildTime) {
-          InventorySlot ts=slot();
-          if(ts.item==null) break;
-          MetaBlock tbt=ts.item.type.blockType;
-          if(block.type==tbt) progress=0;
-          else if(progress>=tbt.buildTime) {
-            progress=0;
-            // if(block.type!=tbt) {
-            pw.placeBlock(this,block,tbt,x,y);
-            ts.item.count-=1;
-            if(ts.item.count==0) ts.item=null;
-            // }
-          }
-        }
-          break;
-        case destroy:
-          if(progress>=block.type.destroyTime) {
-            // player.pw.destroyBlock(player,block,x,y);
-            pw.destroyBlock(this,block,x,y);
-            progress=0;
-          }
-          break;
-        // default:
-        //   break;
-      }
-    }
-    public void testStopTaskWithBlock(Block in) {
-      if(in==block) stopTask();
-    }
-    public void stopTask() {
-      task=idle;
-      progress=0;
     }
   }
 }

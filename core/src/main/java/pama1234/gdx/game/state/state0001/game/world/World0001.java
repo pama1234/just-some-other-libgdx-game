@@ -16,9 +16,9 @@ import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaCreatureCenter0001;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemCenter0001;
+import pama1234.gdx.game.state.state0001.game.player.BlockPointer;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
 import pama1234.gdx.game.state.state0001.game.player.Player.PlayerCenter;
-import pama1234.gdx.game.state.state0001.game.player.PlayerController.BlockPointer;
 import pama1234.gdx.game.state.state0001.game.region.RegionCenter;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.math.Tools;
@@ -103,7 +103,8 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
     p.cam2d.active(false);
     p.cam2d.scale.pos=yourself.ctrl.camScale;
     p.cam2d.scale.des=yourself.ctrl.camScale;
-    p.cam2d.minScale=p.isAndroid?1:2;
+    p.cam2d.minScale=p.isAndroid?0.5f:1;
+    // p.cam2d.minScale=p.isAndroid?1:2;
     p.cam.point.pos.set(yourself.point.pos);
     p.cam.point.des.set(yourself.point.pos);
     p.centerCam.add.add(yourself);
@@ -169,9 +170,6 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
     updateRectLighting(x,y);
     block.doItemDrop(p,x,y);
     block.type(in);
-    // block.updateLighting=false;
-    // block.type.updateDisplay(block,x,y);
-    // block.updateLighting=true;
   }
   public int xToBlockCord(float in) {
     return UtilMath.floor(in/blockWidth);
