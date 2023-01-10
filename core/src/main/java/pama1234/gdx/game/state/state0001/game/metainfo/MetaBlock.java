@@ -44,7 +44,15 @@ public class MetaBlock extends MetaInfoBase{
   public static int worldLighting(int in,int count) {
     return UtilMath.constrain(UtilMath.floor(UtilMath.map(count*2,0,in,0,16)),0,16);
   }
-  public static final BlockDisplayer fullBlockDisplayer=(p,in,x,y)-> {
+  public static final BlockDisplayer defaultBlockDisplayer=(p,in,x,y)-> {
+    World0001 world=in.type.pc.pw;
+    p.tint(
+      getLighting(in.light.r()),
+      getLighting(in.light.g()),
+      getLighting(in.light.b()));
+    int tp_0=in.displayType[0];
+    p.innerImage(in.type.tiles[tp_0],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
+  },fullBlockDisplayer=(p,in,x,y)-> {
     World0001 world=in.type.pc.pw;
     p.tint(
       getLighting(in.light.r()),
@@ -70,10 +78,7 @@ public class MetaBlock extends MetaInfoBase{
   public int defaultDisplayType;
   public BlockUpdater updater=lightUpdater,displayUpdater=defaultDisplayUpdater;
   public BlockChanger from,to;
-  public BlockDisplayer displayer=(p,in,x,y)-> {
-    p.tint(getLighting(in.light.r()));
-    p.image(tiles[in.displayType[0]],x,y,pc.pw.blockWidth+0.01f,pc.pw.blockHeight+0.01f);
-  };
+  public BlockDisplayer displayer=defaultBlockDisplayer;
   public static int getLighting(int in) {
     in<<=4;
     if(in>255) return 255;
@@ -136,7 +141,7 @@ public class MetaBlock extends MetaInfoBase{
   public void to(Block block,MetaBlock in) {
     if(to!=null) to.change(block,in);
   }
-  public void initBlockLambda() {
+  public void initFullBlockLambda() {
     updater=lightUpdater;
     displayUpdater=fullBlockDisplayUpdater;
     displayer=fullBlockDisplayer;

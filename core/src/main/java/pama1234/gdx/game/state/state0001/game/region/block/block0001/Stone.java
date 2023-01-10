@@ -15,7 +15,7 @@ public class Stone extends MetaBlock{
     });
     destroyTime=60;
     buildTime=15;
-    initBlockLambda();
+    initFullBlockLambda();
     // itemDrop=new ItemDropAttr[] {};
   }
   @Override

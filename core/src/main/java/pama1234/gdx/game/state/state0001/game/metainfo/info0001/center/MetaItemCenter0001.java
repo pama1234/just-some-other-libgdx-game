@@ -11,6 +11,7 @@ public class MetaItemCenter0001 extends MetaItemCenter<MetaItem>{
   public MetaItem inventoryConfig;
   public MetaItem dirt;
   public MetaItem stone;
+  public MetaItem log;
   public MetaItemCenter0001(World0001 pw) {
     this.pw=pw;
     idg=new IDGenerator();

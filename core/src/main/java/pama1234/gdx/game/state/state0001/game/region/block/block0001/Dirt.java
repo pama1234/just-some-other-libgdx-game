@@ -15,7 +15,7 @@ public class Dirt extends MetaBlock{
     });
     destroyTime=30;
     buildTime=15;
-    initBlockLambda();
+    initFullBlockLambda();
   }
   @Override
   public void initItemDrop() {
