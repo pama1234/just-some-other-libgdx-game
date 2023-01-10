@@ -13,7 +13,7 @@ public class MovementLimitBox extends OuterBox{
     rectConst=new RectF(
       ()->p.type.w/2f,//left
       ()->p.type.h,//ceiling
-      ()->0,//right
+      ()->p.pw.blockWidth-p.type.w/2f,//right
       ()->p.pw.blockHeight//floor
     );
   }

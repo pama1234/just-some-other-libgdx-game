@@ -45,9 +45,9 @@ public class Block{
       new DroppedItem(p,world,
         (x+0.5f)*world.blockWidth,
         (y+1)*world.blockHeight,
-        0,0,
-        // world.random(-0.8f,0.8f)*world.blockWidth,
-        // world.random(-0.8f,-1.2f)*world.blockHeight*(flag?1:-1),
+        // 0,0,
+        world.random(-0.8f,0.8f)*world.blockWidth,
+        world.random(-0.8f,-1.2f)*world.blockHeight*(flag?1:-1),
         world.metaEntitys.droppedItem,e.item.createItem(e.dropNumber(world))));
   }
 }

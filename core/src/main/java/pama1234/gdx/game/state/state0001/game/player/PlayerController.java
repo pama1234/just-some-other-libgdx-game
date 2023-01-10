@@ -130,10 +130,31 @@ public class PlayerController extends Entity<Screen0011>{
       if(testPosInInventorySlot(p.mouse.x,p.mouse.y)) return;
       int tx=player.xToBlockCord(p.mouse.x),
         ty=player.xToBlockCord(p.mouse.y);
-      if(inPlayerOuterBox(tx,ty)) return;
+      // if(inPlayerOuterBox(tx,ty)) {
+      //   // if(Tools.inRangeInclude(tx,limitBox.x1,limitBox.x2))
+      //   tx=p.mouse.x<player.cx()?limitBox.x1-1:limitBox.x2+1;
+      //   // if(Tools.inRangeInclude(ty,limitBox.y1,limitBox.y2))
+      //   ty=p.mouse.y<player.cy()?limitBox.y1-1:limitBox.y2+1;
+      //   Block block=player.getBlock(tx,ty);
+      //   selectBlock.update(block,tx,ty);
+      //   // return;
+      // }
+      if(testInPlayerOuterBoxAndUpdateSelectBlock(p.mouse.x,p.mouse.y,tx,ty)) return;
       Block block=player.getBlock(tx,ty);
       selectBlock.update(block,tx,ty);
     }
+  }
+  public boolean testInPlayerOuterBoxAndUpdateSelectBlock(float x,float y,int tx,int ty) {
+    if(inPlayerOuterBox(tx,ty)) {
+      // if(Tools.inRangeInclude(tx,limitBox.x1,limitBox.x2))
+      tx=x<player.cx()?limitBox.x1-1:limitBox.x2+1;
+      // if(Tools.inRangeInclude(ty,limitBox.y1,limitBox.y2))
+      ty=y<player.cy()?limitBox.y1-1:limitBox.y2+1;
+      Block block=player.getBlock(tx,ty);
+      selectBlock.update(block,tx,ty);
+      return true;
+    }
+    return false;
   }
   public void updateKeyInfo() {
     left=p.isKeyPressed(29)||p.isKeyPressed(21);
@@ -165,7 +186,14 @@ public class PlayerController extends Entity<Screen0011>{
     //---
     int tx=player.xToBlockCord(info.x),
       ty=player.xToBlockCord(info.y);
-    if(inPlayerOuterBox(tx,ty)) return;
+    // if(inPlayerOuterBox(tx,ty)) {
+    //   if(Tools.inRangeInclude(tx,limitBox.x1,limitBox.x2)) tx=p.mouse.x<player.cx()?limitBox.x1-1:limitBox.x2+1;
+    //   if(Tools.inRangeInclude(ty,limitBox.y1,limitBox.y2)) ty=p.mouse.y<player.cy()?limitBox.y1-1:limitBox.y2+1;
+    //   Block block=player.getBlock(tx,ty);
+    //   selectBlock.update(block,tx,ty);
+    //   return;
+    // }
+    if(testInPlayerOuterBoxAndUpdateSelectBlock(info.x,info.y,tx,ty)) return;
     Block block=player.getBlock(tx,ty);
     selectBlock.update(block,tx,ty);
     if(player.gameMode!=GameMode.creative) return;
@@ -178,9 +206,18 @@ public class PlayerController extends Entity<Screen0011>{
     // if(selectBlock.task)
     int tx=player.xToBlockCord(info.x),
       ty=player.xToBlockCord(info.y);
+    if(inPlayerOuterBox(tx,ty)) {
+      // if(Tools.inRangeInclude(tx,limitBox.x1,limitBox.x2))
+      tx=info.x<player.cx()?limitBox.x1-1:limitBox.x2+1;
+      // if(Tools.inRangeInclude(ty,limitBox.y1,limitBox.y2))
+      ty=info.y<player.cy()?limitBox.y1-1:limitBox.y2+1;
+      Block block=player.getBlock(tx,ty);
+      selectBlock.testStopTaskWithBlock(block);
+      return;
+    }
     Block block=player.getBlock(tx,ty);
     // selectBlock.update(block,tx,ty);
-    selectBlock.testStopTaskButtonInfo(block);
+    selectBlock.testStopTaskWithBlock(block);
   }
   public boolean updateAndTestSelectEntity(int tx,int ty) {
     for(EntityCenter<Screen0011,? extends GamePointEntity<?>> l:player.pw.entities.list) {
@@ -444,7 +481,7 @@ public class PlayerController extends Entity<Screen0011>{
         //   break;
       }
     }
-    public void testStopTaskButtonInfo(Block in) {
+    public void testStopTaskWithBlock(Block in) {
       if(in==block) stopTask();
     }
     public void stopTask() {
