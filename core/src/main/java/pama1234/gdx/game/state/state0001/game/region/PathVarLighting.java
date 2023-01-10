@@ -23,4 +23,7 @@ public class PathVarLighting{
   public float b() {
     return b.pos;
   }
+  public void set(float in) {
+    r.des=g.des=b.des=in;
+  }
 }

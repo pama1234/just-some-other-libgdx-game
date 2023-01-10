@@ -16,7 +16,6 @@ import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.game.util.RectF;
 import pama1234.gdx.util.listener.EntityListener;
-import pama1234.math.Tools;
 import pama1234.math.vec.Vec2f;
 
 public class Game extends StateEntity0001{
@@ -134,7 +133,15 @@ public class Game extends StateEntity0001{
       Block tb=world.getBlock(p.mouse.x,p.mouse.y);
       p.textScale(p.pus/2f);
       initDebugText();
-      debugText("Lighting  block="+(tb!=null?tb.lighting:"null")+" player="+Tools.cutToLastDigit(world.yourself.lighting.pos));
+      // debugText("Lighting  block="+(tb!=null?tb.lighting:"null")+" player="+Tools.cutToLastDigit(world.yourself.lighting.pos));
+      debugText("Lighting  block="+
+        (tb!=null?tb.lighting:"null")+
+        " player="+
+        p.getFloatString(world.yourself.light.r(),2,1)+
+        " "+
+        p.getFloatString(world.yourself.light.g(),2,1)+
+        " "+
+        p.getFloatString(world.yourself.light.b(),2,1));
       debugText("Player    pos="+p.getFloatString(world.yourself.point.pos.x,8)+" "+p.getFloatString(world.yourself.point.pos.y,7)+" vel="+p.getFloatString(world.yourself.point.vel.x,5)+" "+p.getFloatString(world.yourself.point.vel.y,5));
       debugText("---- asynchronous ----");
       debugText("Regions         Update= "+p.getMillisString(world.regions.updateLoop.millis)+"ms");

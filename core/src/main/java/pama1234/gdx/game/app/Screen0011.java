@@ -143,6 +143,9 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   public String getFloatString(float in,int l) {
     return String.format("%0"+l+".2f",in);
   }
+  public String getFloatString(float in,int l,int l2) {
+    return String.format("%0"+l+"."+l2+"f",in);
+  }
   public String getMemory() {
     return Tools.cutToLastDigitString((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/(1024*1024));
   }

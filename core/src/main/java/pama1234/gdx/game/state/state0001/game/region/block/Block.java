@@ -4,6 +4,7 @@ import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.entity.entity0001.DroppedItem;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock.ItemDropAttr;
+import pama1234.gdx.game.state.state0001.game.region.PathVarLighting;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 
 public class Block{
@@ -13,9 +14,11 @@ public class Block{
   public int[] displayType;
   // public int lighting=0xffffff;
   public int lighting=16;
+  public PathVarLighting light;
   public Block(MetaBlock type) {
     this.type=type;
     init(type);
+    light=new PathVarLighting();
   }
   public void init(MetaBlock type) {
     if(type.displayTypeSize>0) {

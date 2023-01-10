@@ -98,90 +98,83 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     unlockAllLoop();
   }
   public void unlockAllLoop() {
-    // updateLoop.lock.unlock();
-    // fullMapUpdateDisplayLoop.lock.unlock();
     for(LoopThread e:loops) e.lock.unlock();
   }
   public void lockAllLoop() {
-    // updateLoop.lock.lock();
-    // fullMapUpdateDisplayLoop.lock.lock();
     for(LoopThread e:loops) e.lock.lock();
   }
   public LoopThread createUpdateLoop() {
-    return new LoopThread("RegionsUpdateLoop") {
+    return new LoopThread("RegionsUpdateLoop") {//刷新全世界的方块数据
       @Override
-      public void run() {
-        long beforeM;
-        while(!p.stop) {
-          lock.step();
-          beforeM=System.currentTimeMillis();
-          // refresh();
-          // Stream<Region> stream=list.stream().parallel();
-          // stream.forEach(r->r.update());
-          RegionCenter.super.update();
-          millis=System.currentTimeMillis()-beforeM;
-          if(millis<50) p.sleep(50-millis);
-        }
+      public void doUpdate() {
+        // refresh();
+        // Stream<Region> stream=list.stream().parallel();
+        // stream.forEach(r->r.update());
+        RegionCenter.super.update();
+        // for(Region e:list) e.update();
+      }
+      @Override
+      public void doSleep() {
+        if(millis<50) p.sleep(50-millis);
       }
     };
   }
-  public LoopThread createFullMapUpdateDisplayLoop() {
+  public LoopThread createFullMapUpdateDisplayLoop() {//刷新全世界的方块显示
     return new LoopThread("RegionsFullMapUpdateDisplayLoop") {
       @Override
-      public void run() {
-        long beforeM;
-        while(!p.stop) {
-          lock.step();
-          beforeM=System.currentTimeMillis();
-          // for(Region e:list) e.updateDisplay();
-          // refresh();
-          Stream<Region> stream=list.stream().parallel();
-          stream.forEach(r->r.updateDisplay());
-          millis=System.currentTimeMillis()-beforeM;
-          // if(updateDisplayMilis<50) p.sleep(50-updateDisplayMilis);
-        }
+      public void doUpdate() {
+        // for(Region e:list) e.updateDisplay();
+        // refresh();
+        Stream<Region> stream=list.stream().parallel();
+        stream.forEach(r->r.updateDisplay());
       }
     };
   }
-  public LoopThread createUpdateDisplayLoop() {
+  public LoopThread createUpdateDisplayLoop() {//刷新视角内的方块显示
     return new LoopThread("RegionsUpdateDisplayLoop") {
       @Override
-      public void run() {
-        long beforeM;
-        while(!p.stop) {
-          lock.step();
-          beforeM=System.currentTimeMillis();
-          // for(Region e:list) e.updateDisplay();
-          // refresh();
-          // Stream<Region> stream=list.stream().parallel();
-          // stream.forEach(r->r.updateDisplay());
-          // fourPointDisplay();
-          int x1=pw.xToBlockCord(p.cam2d.x1()),
-            y1=pw.xToBlockCord(p.cam2d.y1()),
-            x2=pw.xToBlockCord(p.cam2d.x2()),
-            y2=pw.xToBlockCord(p.cam2d.y2());
-          for(int i=x1;i<=x2;i++) {
-            for(int j=y1;j<=y2;j++) {
-              // int tx=i*pw.blockWidth,
-              //   ty=j*pw.blockHeight;
-              Block block=getBlock(i,j);
-              if(block==null) continue;//TODO
-              MetaBlock blockType=block.type;
-              blockType.updateDisplay(block,i,j);
-            }
+      public void doUpdate() {
+        // for(Region e:list) e.updateDisplay();
+        // refresh();
+        // Stream<Region> stream=list.stream().parallel();
+        // stream.forEach(r->r.updateDisplay());
+        // fourPointDisplay();
+        int x1=pw.xToBlockCord(p.cam2d.x1()),
+          y1=pw.xToBlockCord(p.cam2d.y1()),
+          x2=pw.xToBlockCord(p.cam2d.x2()),
+          y2=pw.xToBlockCord(p.cam2d.y2());
+        for(int i=x1;i<=x2;i++) {
+          for(int j=y1;j<=y2;j++) {
+            // int tx=i*pw.blockWidth,
+            //   ty=j*pw.blockHeight;
+            Block block=getBlock(i,j);
+            if(block==null) continue;//TODO
+            MetaBlock blockType=block.type;
+            blockType.updateDisplay(block,i,j);
           }
-          millis=System.currentTimeMillis()-beforeM;
-          // if(updateDisplayMilis<50) p.sleep(50-updateDisplayMilis);
         }
       }
     };
   }
-  public class LoopThread extends Thread{
+  public abstract class LoopThread extends Thread{
     public Mutex lock;
     public long millis;
     public LoopThread(String name) {
       super(name);
       lock=new Mutex(true);
     }
+    @Override
+    public void run() {
+      long beforeM;
+      while(!p.stop) {
+        lock.step();
+        beforeM=System.currentTimeMillis();
+        doUpdate();
+        millis=System.currentTimeMillis()-beforeM;
+        doSleep();
+      }
+    }
+    public abstract void doUpdate();
+    public void doSleep() {}
   }
 }

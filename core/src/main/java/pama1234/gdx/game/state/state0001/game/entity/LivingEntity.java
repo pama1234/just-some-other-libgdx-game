@@ -4,6 +4,7 @@ import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.entity.util.OuterBox;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
 import pama1234.gdx.game.state.state0001.game.player.GameMode;
+import pama1234.gdx.game.state.state0001.game.region.PathVarLighting;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.math.Tools;
@@ -18,14 +19,16 @@ public class LivingEntity extends GamePointEntity<MassPoint>{
   public GameMode gameMode=GameMode.survival;
   public MetaCreature<?> type;
   public PathVar life;
-  public PathVar lighting;
+  // public PathVar lighting;
+  public PathVarLighting light;
   public LivingEntity(Screen0011 p,World0001 pw,MassPoint in,MetaCreature<?> type) {
     super(p,pw,in);
     point.step=0.25f;
     outerBox=new OuterBox(this);
     this.type=type;
     life=new PathVar(type.maxLife);
-    lighting=new PathVar(255,0.05f);
+    // lighting=new PathVar(255,0.05f);
+    light=new PathVarLighting();
   }
   @Override
   public void update() {
@@ -35,15 +38,16 @@ public class LivingEntity extends GamePointEntity<MassPoint>{
     lightingUpdate();
   }
   public void lightingUpdate() {
-    lighting.des=0;
+    float count=0;
     for(int i=0;i<outerBox.w;i++) {
       for(int j=0;j<outerBox.h;j++) {
         Block tb=pw.getBlock(outerBox.x1+i,outerBox.y1+j);
-        if(tb!=null) lighting.des+=tb.lighting;
+        if(tb!=null) count+=tb.lighting;
       }
     }
-    lighting.des/=outerBox.w*outerBox.h;
-    lighting.update();
+    count/=outerBox.w*outerBox.h;
+    light.set(count);
+    // lighting.update();
   }
   @Override
   public void display() {
