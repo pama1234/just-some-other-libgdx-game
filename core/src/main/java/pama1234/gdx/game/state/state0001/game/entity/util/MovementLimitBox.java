@@ -21,15 +21,19 @@ public class MovementLimitBox extends OuterBox{
   }
   public void constrain() {
     if(p.point.pos.y>floor) {
-      p.point.vel.y=0;
+      if(p.point.vel.y>0) p.point.vel.y=0;
       p.point.pos.y=floor;
-    }
-    if(p.point.pos.y<ceiling) {
+    }else if(p.point.pos.y<ceiling) {
       if(p.point.vel.y<0) p.point.vel.y=0;
       p.point.pos.y=ceiling;
     }
-    if(p.point.pos.x<leftWall) p.point.pos.x=leftWall;
-    if(p.point.pos.x>rightWall) p.point.pos.x=rightWall;
+    if(p.point.pos.x<leftWall) {
+      if(p.point.vel.x<0) p.point.vel.x=0;
+      p.point.pos.x=leftWall;
+    }else if(p.point.pos.x>rightWall) {
+      if(p.point.vel.x>0) p.point.vel.x=0;
+      p.point.pos.x=rightWall;
+    }
   }
   public void doInAirTest() {
     inAir=p.point.pos.y<floor;

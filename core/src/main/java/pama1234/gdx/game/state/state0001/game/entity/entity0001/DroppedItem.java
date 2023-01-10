@@ -26,13 +26,13 @@ public class DroppedItem extends LivingEntity{
   }
   @Override
   public void update() {
-    super.update();
     limitBox.update();
     limitBox.updateLimit();
     limitBox.doInAirTest();
     if(limitBox.inAir) point.vel.y+=pw.g;
-    itemAttract();
+    super.update();
     limitBox.constrain();
+    itemAttract();
   }
   public void itemAttract() {
     Iterator<DroppedItem> di=pc.list.descendingIterator();

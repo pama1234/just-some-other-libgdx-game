@@ -5,9 +5,10 @@ import pama1234.math.physics.PathVar;
 public class PathVarLighting{
   public PathVar r,g,b;
   public PathVarLighting() {
-    r=new PathVar(255,0.05f);
-    g=new PathVar(255,0.05f);
-    b=new PathVar(255,0.05f);
+    int ti=0;
+    r=new PathVar(ti,0.05f);
+    g=new PathVar(ti,0.05f);
+    b=new PathVar(ti,0.05f);
   }
   public void update() {
     r.update();
@@ -25,5 +26,17 @@ public class PathVarLighting{
   }
   public void set(float in) {
     r.des=g.des=b.des=in;
+  }
+  public void set(float rIn,float gIn,float bIn) {
+    r.des=rIn;
+    g.des=gIn;
+    b.des=bIn;
+  }
+  @Override
+  public String toString() {
+    return formatFloat(r.des)+" "+formatFloat(g.des)+" "+formatFloat(b.des);
+  }
+  public String formatFloat(float in) {
+    return String.format("%04.1f",in);
   }
 }

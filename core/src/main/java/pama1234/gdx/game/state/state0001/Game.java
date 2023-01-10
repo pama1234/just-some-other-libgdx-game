@@ -134,14 +134,7 @@ public class Game extends StateEntity0001{
       p.textScale(p.pus/2f);
       initDebugText();
       // debugText("Lighting  block="+(tb!=null?tb.lighting:"null")+" player="+Tools.cutToLastDigit(world.yourself.lighting.pos));
-      debugText("Lighting  block="+
-        (tb!=null?tb.lighting:"null")+
-        " player="+
-        p.getFloatString(world.yourself.light.r(),2,1)+
-        " "+
-        p.getFloatString(world.yourself.light.g(),2,1)+
-        " "+
-        p.getFloatString(world.yourself.light.b(),2,1));
+      debugText("Lighting  block="+(tb!=null?tb.light.toString():"null")+" player="+world.yourself.light.toString());
       debugText("Player    pos="+p.getFloatString(world.yourself.point.pos.x,8)+" "+p.getFloatString(world.yourself.point.pos.y,7)+" vel="+p.getFloatString(world.yourself.point.vel.x,5)+" "+p.getFloatString(world.yourself.point.vel.y,5));
       debugText("---- asynchronous ----");
       debugText("Regions         Update= "+p.getMillisString(world.regions.updateLoop.millis)+"ms");

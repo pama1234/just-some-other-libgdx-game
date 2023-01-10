@@ -13,7 +13,7 @@ public class Block{
   public boolean updateLighting=true;
   public int[] displayType;
   // public int lighting=0xffffff;
-  public int lighting=16;
+  // public int lighting=16;
   public PathVarLighting light;
   public Block(MetaBlock type) {
     this.type=type;
@@ -45,13 +45,14 @@ public class Block{
   public void doItemDrop(Screen0011 p,int x,int y) {
     World0001 world=type.pc.pw;
     boolean flag=world.isEmpty(world.getBlock(x,y-1));
+    float randomConst=0.8f;
     for(ItemDropAttr e:type.itemDrop) world.entities.items.add.add(
       new DroppedItem(p,world,
         (x+0.5f)*world.blockWidth,
         (y+1)*world.blockHeight,
         // 0,0,
-        world.random(-0.8f,0.8f)*world.blockWidth,
-        world.random(-0.4f,-0.8f)*world.blockHeight*(flag?1:-1),
+        world.random(-randomConst,randomConst)*world.blockWidth,
+        world.random(randomConst/2,randomConst)*world.blockHeight*(flag?-1:1),
         world.metaEntitys.droppedItem,e.item.createItem(e.dropNumber(world))));
   }
 }

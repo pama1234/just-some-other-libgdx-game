@@ -9,40 +9,47 @@ import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.math.UtilMath;
 
 public class MetaBlock extends MetaInfoBase{
-  public static final BlockUpdater doNothing=(in,x,y)-> {},
-    fullBlockDisplayUpdater=(in,x,y)-> {
-      World0001 world=in.type.pc.pw;
-      int typeCache=0;
-      if(Block.isEmpty(world.getBlock(x,y-1))) typeCache+=1;// up
-      if(Block.isEmpty(world.getBlock(x,y+1))) typeCache+=2;// down
-      if(Block.isEmpty(world.getBlock(x-1,y))) typeCache+=4;// left
-      if(Block.isEmpty(world.getBlock(x+1,y))) typeCache+=8;// right
-      in.displayType[0]=typeCache;
-      typeCache=0;
-      if(Block.isEmpty(world.getBlock(x-1,y-1))) typeCache+=1;
-      if(Block.isEmpty(world.getBlock(x-1,y+1))) typeCache+=2;
-      if(Block.isEmpty(world.getBlock(x+1,y+1))) typeCache+=4;
-      if(Block.isEmpty(world.getBlock(x+1,y-1))) typeCache+=8;
-      in.displayType[1]=typeCache;
-      //---
-      if(in.updateLighting) lightingUpdate(in,x,y,world);
-    },defaultDisplayUpdater=(in,x,y)-> {
-      World0001 world=in.type.pc.pw;
-      if(in.updateLighting) lightingUpdate(in,x,y,world);
-    };
+  public static final BlockUpdater doNothing=(in,x,y)-> {},lightUpdater=(in,x,y)-> {
+    in.light.update();
+  },fullBlockDisplayUpdater=(in,x,y)-> {
+    World0001 world=in.type.pc.pw;
+    int typeCache=0;
+    if(Block.isEmpty(world.getBlock(x,y-1))) typeCache+=1;// up
+    if(Block.isEmpty(world.getBlock(x,y+1))) typeCache+=2;// down
+    if(Block.isEmpty(world.getBlock(x-1,y))) typeCache+=4;// left
+    if(Block.isEmpty(world.getBlock(x+1,y))) typeCache+=8;// right
+    in.displayType[0]=typeCache;
+    typeCache=0;
+    if(Block.isEmpty(world.getBlock(x-1,y-1))) typeCache+=1;
+    if(Block.isEmpty(world.getBlock(x-1,y+1))) typeCache+=2;
+    if(Block.isEmpty(world.getBlock(x+1,y+1))) typeCache+=4;
+    if(Block.isEmpty(world.getBlock(x+1,y-1))) typeCache+=8;
+    in.displayType[1]=typeCache;
+    //---
+    if(in.updateLighting) lightingUpdate(in,x,y,world);
+    // in.light.update();
+  },defaultDisplayUpdater=(in,x,y)-> {
+    World0001 world=in.type.pc.pw;
+    if(in.updateLighting) lightingUpdate(in,x,y,world);
+    // in.light.update();
+  };
   public static void lightingUpdate(Block in,int x,int y,World0001 world) {
-    int tc=0;
-    for(int i=-world.lightDist;i<=world.lightDist;i++) for(int j=-world.lightDist;j<=world.lightDist;j++) if(Block.isEmpty(world.regions.getBlock(x+i,y+j))) tc+=1;
+    int cr=0;
+    int lDist=world.lightDist;
+    for(int i=-lDist;i<=lDist;i++) for(int j=-lDist;j<=lDist;j++) if(Block.isEmpty(world.regions.getBlock(x+i,y+j))) cr+=1;
     // int ti=worldLighting(world,tc);
     // in.lighting=Tools.color(ti,ti,ti);
-    in.lighting=worldLighting(world,tc);
+    in.light.set(worldLighting(world.lightCount,cr));
   }
-  public static int worldLighting(World0001 world,int tc) {
-    return UtilMath.constrain(UtilMath.floor(UtilMath.map(tc*2,0,world.lightCount,0,16)),0,16);
+  public static int worldLighting(int in,int count) {
+    return UtilMath.constrain(UtilMath.floor(UtilMath.map(count*2,0,in,0,16)),0,16);
   }
   public static final BlockDisplayer fullBlockDisplayer=(p,in,x,y)-> {
     World0001 world=in.type.pc.pw;
-    p.tint(getLighting(in.lighting));
+    p.tint(
+      getLighting(in.light.r()),
+      getLighting(in.light.g()),
+      getLighting(in.light.b()));
     int tp_0=in.displayType[0];
     p.innerImage(in.type.tiles[tp_0],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
     int tp_1=in.displayType[1];
@@ -61,10 +68,10 @@ public class MetaBlock extends MetaInfoBase{
   public ItemDropAttr[] itemDrop;
   public int displayTypeSize;
   public int defaultDisplayType;
-  public BlockUpdater updater,displayUpdater=defaultDisplayUpdater;
+  public BlockUpdater updater=lightUpdater,displayUpdater=defaultDisplayUpdater;
   public BlockChanger from,to;
   public BlockDisplayer displayer=(p,in,x,y)-> {
-    p.tint(getLighting(in.lighting));
+    p.tint(getLighting(in.light.r()));
     p.image(tiles[in.displayType[0]],x,y,pc.pw.blockWidth+0.01f,pc.pw.blockHeight+0.01f);
   };
   public static int getLighting(int in) {
@@ -130,7 +137,7 @@ public class MetaBlock extends MetaInfoBase{
     if(to!=null) to.change(block,in);
   }
   public void initBlockLambda() {
-    updater=doNothing;
+    updater=lightUpdater;
     displayUpdater=fullBlockDisplayUpdater;
     displayer=fullBlockDisplayer;
   }
