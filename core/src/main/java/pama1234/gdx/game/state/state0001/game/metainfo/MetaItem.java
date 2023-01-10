@@ -16,10 +16,12 @@ public class MetaItem extends MetaInfoBase{
   public TextureRegion[] tiles;
   public int displayTypeSize=1;
   public int defaultDisplayType;
-  public MetaItem(MetaItemCenter0001 pc,String name,int id) {
+  public InitFunction initer;
+  public MetaItem(MetaItemCenter0001 pc,String name,int id,InitFunction initer) {
     super(name,id);
     this.pc=pc;
     this.name=name;
+    this.initer=initer;
   }
   public Item createItem() {
     return new Item(this);
@@ -28,11 +30,17 @@ public class MetaItem extends MetaInfoBase{
     return new Item(this,count);
   };
   @Override
-  public void init() {}
+  public void init() {
+    if(initer!=null) initer.init(this);
+  }
   public int getDisplayType() {
     return defaultDisplayType;
   }
   public enum ItemCountType{
     UNCOUNTABLE,INT;
+  }
+  @FunctionalInterface
+  public interface InitFunction{
+    public void init(MetaItem in);
   }
 }

@@ -22,32 +22,25 @@ public class World0001Generator{
     metaBlocks.list.add(metaBlocks.stone=new Stone(metaBlocks,metaBlocks.id()));
     return metaBlocks;
   }
-  public static MetaItemCenter0001 createItemC(World0001 in) {
-    MetaItemCenter0001 metaItems=new MetaItemCenter0001(in);
-    metaItems.list.add(metaItems.inventoryConfig=new MetaItem(metaItems,"empty",metaItems.id()) {
-      @Override
-      public void init() {
-        tiles=new TextureRegion[2];
-        tiles[0]=ImageAsset.items[0][0];
-        tiles[1]=ImageAsset.items[0][1];
-      }
-    });
-    metaItems.list.add(metaItems.dirt=new MetaItem(metaItems,"dirt",metaItems.id()) {
-      @Override
-      public void init() {
-        blockType=in.metaBlocks.dirt;
-        tiles=new TextureRegion[1];
-        tiles[0]=ImageAsset.items[0][2];
-      }
-    });
-    metaItems.list.add(metaItems.stone=new MetaItem(metaItems,"stone",metaItems.id()) {
-      @Override
-      public void init() {
-        blockType=in.metaBlocks.stone;
-        tiles=new TextureRegion[1];
-        tiles[0]=ImageAsset.items[0][3];
-      }
-    });
+  public static MetaItemCenter0001 createItemC(World0001 pw) {
+    MetaItemCenter0001 metaItems=new MetaItemCenter0001(pw);
+    metaItems.list.add(metaItems.inventoryConfig=new MetaItem(metaItems,"empty",metaItems.id(),in-> {
+      in.tiles=new TextureRegion[2];
+      in.tiles[0]=ImageAsset.items[0][0];
+      in.tiles[1]=ImageAsset.items[0][1];
+    }));
+    // metaItems.list.add(metaItems.dirt=new DirtItem(metaItems,metaItems.id()));
+    // metaItems.list.add(metaItems.stone=new StoneItem(metaItems,metaItems.id()));
+    metaItems.list.add(metaItems.dirt=new MetaItem(metaItems,"dirt",metaItems.id(),in-> {
+      in.blockType=pw.metaBlocks.dirt;
+      in.tiles=new TextureRegion[1];
+      in.tiles[0]=ImageAsset.items[0][2];
+    }));
+    metaItems.list.add(metaItems.stone=new MetaItem(metaItems,"stone",metaItems.id(),in-> {
+      in.blockType=pw.metaBlocks.stone;
+      in.tiles=new TextureRegion[1];
+      in.tiles[0]=ImageAsset.items[0][3];
+    }));
     return metaItems;
   }
   public static MetaCreatureCenter0001 createCreatureC(World0001 in) {
