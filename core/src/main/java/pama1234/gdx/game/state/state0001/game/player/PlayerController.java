@@ -144,18 +144,6 @@ public class PlayerController extends Entity<Screen0011>{
       selectBlock.update(block,tx,ty);
     }
   }
-  public boolean testInPlayerOuterBoxAndUpdateSelectBlock(float x,float y,int tx,int ty) {
-    if(inPlayerOuterBox(tx,ty)) {
-      // if(Tools.inRangeInclude(tx,limitBox.x1,limitBox.x2))
-      tx=x<player.cx()?limitBox.x1-1:limitBox.x2+1;
-      // if(Tools.inRangeInclude(ty,limitBox.y1,limitBox.y2))
-      ty=y<player.cy()?limitBox.y1-1:limitBox.y2+1;
-      Block block=player.getBlock(tx,ty);
-      selectBlock.update(block,tx,ty);
-      return true;
-    }
-    return false;
-  }
   public void updateKeyInfo() {
     left=p.isKeyPressed(29)||p.isKeyPressed(21);
     right=p.isKeyPressed(32)||p.isKeyPressed(22);
@@ -218,6 +206,21 @@ public class PlayerController extends Entity<Screen0011>{
     Block block=player.getBlock(tx,ty);
     // selectBlock.update(block,tx,ty);
     selectBlock.testStopTaskWithBlock(block);
+  }
+  public boolean testInPlayerOuterBoxAndUpdateSelectBlock(float x,float y,int tx,int ty) {
+    if(inPlayerOuterBox(tx,ty)) {
+      float tp1=UtilMath.abs(limitBox.w/(float)limitBox.h);
+      float tp2=UtilMath.abs((x-player.cx())/(y-player.cy()));
+      // p.println(limitBox.w,limitBox.h,tp1,x,y,tp2);
+      // if(Tools.inRangeInclude(tx,limitBox.x1,limitBox.x2))
+      if(tp2>=tp1) tx=x<player.cx()?limitBox.x1-1:limitBox.x2+1;
+      // if(Tools.inRangeInclude(ty,limitBox.y1,limitBox.y2))
+      else ty=y<player.cy()?limitBox.y1-1:limitBox.y2+1;
+      Block block=player.getBlock(tx,ty);
+      selectBlock.update(block,tx,ty);
+      return true;
+    }
+    return false;
   }
   public boolean updateAndTestSelectEntity(int tx,int ty) {
     for(EntityCenter<Screen0011,? extends GamePointEntity<?>> l:player.pw.entities.list) {
