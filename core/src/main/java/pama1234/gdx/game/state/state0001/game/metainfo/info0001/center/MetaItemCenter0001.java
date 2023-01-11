@@ -12,6 +12,7 @@ public class MetaItemCenter0001 extends MetaItemCenter<MetaItem>{
   public MetaItem dirt;
   public MetaItem stone;
   public MetaItem log;
+  public MetaItem branch;
   public MetaItem leaf;
   public MetaItem workbench;
   public MetaItemCenter0001(World0001 pw) {
