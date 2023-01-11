@@ -154,7 +154,7 @@ public class PlayerController extends Entity<Screen0011>{
     if(updateAndTestSelectEntity(tx,ty)) return;
     Block block=player.getBlock(tx,ty);
     selectBlock.update(block,tx,ty);
-    selectBlock.startTaskButtonInfo(info.button);
+    selectBlock.startTaskButtonInfo(getTouchInfoButton(info.button));
   }
   public void touchUpdate(TouchInfo info) {
     if(!player.pw.p.isAndroid) return;
@@ -222,7 +222,7 @@ public class PlayerController extends Entity<Screen0011>{
     if(player.inventory.displayState==Inventory.displayFullInventory) for(int i=0;i<player.inventory.hotSlots.length;i++) {
       DisplaySlot e=player.inventory.hotSlots[i];
       if(Tools.inBox(x,y,e.x1,e.y1,e.w1,e.h1)) {
-        switch(p.isAndroid?(player.pw.pg.androidRightMouseButton?Buttons.RIGHT:Buttons.LEFT):button) {
+        switch(getTouchInfoButton(button)) {
           case Buttons.LEFT: {
             // player.inventory.selectSlot=i;
             selectSlot(i);
@@ -240,7 +240,7 @@ public class PlayerController extends Entity<Screen0011>{
     return false;
   }
   public void creativeModeUpdateSelectBlock(TouchInfo info,int tx,int ty,Block block) {
-    if(block!=null) switch(p.isAndroid?(player.pw.pg.androidRightMouseButton?Buttons.RIGHT:Buttons.LEFT):info.button) {
+    if(block!=null) switch(getTouchInfoButton(info.button)) {
       case Buttons.LEFT: {
         if(block.type!=player.pw.metaBlocks.air) player.pw.destroyBlock(player,block,tx,ty);
       }
@@ -262,6 +262,9 @@ public class PlayerController extends Entity<Screen0011>{
       }
         break;
     }
+  }
+  public int getTouchInfoButton(int in) {
+    return p.isAndroid?(player.pw.pg.androidRightMouseButton?Buttons.RIGHT:Buttons.LEFT):in;
   }
   public boolean testPosInInventorySlot(float x,float y) {
     if(player.inventory.displayState==Inventory.displayFullInventory) for(DisplaySlot e:player.inventory.hotSlots) if(Tools.inBox(x,y,e.x1,e.y1,e.w1,e.h1)) return true;
