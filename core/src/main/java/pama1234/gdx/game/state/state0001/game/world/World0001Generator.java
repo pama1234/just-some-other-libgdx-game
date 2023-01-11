@@ -13,6 +13,7 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemC
 import pama1234.gdx.game.state.state0001.game.player.Player.PlayerType;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Dirt;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Stone;
+import pama1234.gdx.game.state.state0001.game.region.block.block0001.TreeLeaf;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.TreeLog;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Workbench;
 
@@ -23,6 +24,7 @@ public class World0001Generator{
     metaBlocks.list.add(metaBlocks.dirt=new Dirt(metaBlocks,metaBlocks.id()));
     metaBlocks.list.add(metaBlocks.stone=new Stone(metaBlocks,metaBlocks.id()));
     metaBlocks.list.add(metaBlocks.log=new TreeLog(metaBlocks,metaBlocks.id()));
+    metaBlocks.list.add(metaBlocks.leaf=new TreeLeaf(metaBlocks,metaBlocks.id()));
     metaBlocks.list.add(metaBlocks.workbench=new Workbench(metaBlocks,metaBlocks.id()));
     return metaBlocks;
   }
@@ -47,6 +49,11 @@ public class World0001Generator{
       in.blockType=pw.metaBlocks.log;
       in.tiles=new TextureRegion[1];
       in.tiles[0]=ImageAsset.items[1][0];
+    }));
+    metaItems.list.add(metaItems.leaf=new MetaItem(metaItems,"leaf",metaItems.id(),in-> {
+      in.blockType=pw.metaBlocks.leaf;
+      in.tiles=new TextureRegion[1];
+      in.tiles[0]=ImageAsset.items[1][2];
     }));
     metaItems.list.add(metaItems.workbench=new MetaItem(metaItems,"workbench",metaItems.id(),in-> {
       in.blockType=pw.metaBlocks.workbench;
