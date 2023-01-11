@@ -39,6 +39,9 @@ public class Block{
   public static boolean isEmpty(Block in) {
     return in==null||in.type.empty;
   }
+  public static boolean isNotFullBlock(Block in) {
+    return in==null||in.type.empty||!in.type.fullBlock;
+  }
   public static boolean isType(Block in,MetaBlock type) {
     return in!=null&&in.type==type;
   }

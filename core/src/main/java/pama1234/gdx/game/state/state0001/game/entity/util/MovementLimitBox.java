@@ -46,7 +46,7 @@ public class MovementLimitBox extends OuterBox{
     //------------------------------------------ ceiling
     for(int i=0;i<=w;i++) {
       block=p.getBlock(x1+i,y1-1);
-      if(!Block.isEmpty(block)) {
+      if(!Block.isNotFullBlock(block)) {
         flagCache=true;
         break;
       }
@@ -58,7 +58,7 @@ public class MovementLimitBox extends OuterBox{
     //------------------------------------------ floor
     for(int i=0;i<=w;i++) {
       block=p.getBlock(x1+i,y2+1);
-      if(!Block.isEmpty(block)) {
+      if(!Block.isNotFullBlock(block)) {
         flagCache=true;
         break;
       }
@@ -70,7 +70,7 @@ public class MovementLimitBox extends OuterBox{
     //------------------------------------------ left
     for(int i=0;i<=h;i++) {
       block=p.getBlock(x1-1,y1+i);
-      if(!Block.isEmpty(block)) {
+      if(!Block.isNotFullBlock(block)) {
         flagCache=true;
         break;
       }
@@ -82,7 +82,7 @@ public class MovementLimitBox extends OuterBox{
     //------------------------------------------ right
     for(int i=0;i<=h;i++) {
       block=p.getBlock(x2+1,y1+i);
-      if(!Block.isEmpty(block)) {
+      if(!Block.isNotFullBlock(block)) {
         flagCache=true;
         break;
       }

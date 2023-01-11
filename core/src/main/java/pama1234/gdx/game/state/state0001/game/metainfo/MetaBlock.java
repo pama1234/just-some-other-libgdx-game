@@ -14,16 +14,16 @@ public class MetaBlock extends MetaInfoBase{
   },fullBlockDisplayUpdater=(in,x,y)-> {
     World0001 world=in.type.pc.pw;
     int typeCache=0;
-    if(Block.isEmpty(world.getBlock(x,y-1))) typeCache+=1;// up
-    if(Block.isEmpty(world.getBlock(x,y+1))) typeCache+=2;// down
-    if(Block.isEmpty(world.getBlock(x-1,y))) typeCache+=4;// left
-    if(Block.isEmpty(world.getBlock(x+1,y))) typeCache+=8;// right
+    if(Block.isNotFullBlock(world.getBlock(x,y-1))) typeCache+=1;// up
+    if(Block.isNotFullBlock(world.getBlock(x,y+1))) typeCache+=2;// down
+    if(Block.isNotFullBlock(world.getBlock(x-1,y))) typeCache+=4;// left
+    if(Block.isNotFullBlock(world.getBlock(x+1,y))) typeCache+=8;// right
     in.displayType[0]=typeCache;
     typeCache=0;
-    if(Block.isEmpty(world.getBlock(x-1,y-1))) typeCache+=1;
-    if(Block.isEmpty(world.getBlock(x-1,y+1))) typeCache+=2;
-    if(Block.isEmpty(world.getBlock(x+1,y+1))) typeCache+=4;
-    if(Block.isEmpty(world.getBlock(x+1,y-1))) typeCache+=8;
+    if(Block.isNotFullBlock(world.getBlock(x-1,y-1))) typeCache+=1;
+    if(Block.isNotFullBlock(world.getBlock(x-1,y+1))) typeCache+=2;
+    if(Block.isNotFullBlock(world.getBlock(x+1,y+1))) typeCache+=4;
+    if(Block.isNotFullBlock(world.getBlock(x+1,y-1))) typeCache+=8;
     in.displayType[1]=typeCache;
     //---
     if(in.updateLighting) lightingUpdate(in,x,y,world);
@@ -36,9 +36,7 @@ public class MetaBlock extends MetaInfoBase{
   public static void lightingUpdate(Block in,int x,int y,World0001 world) {
     int cr=0;
     int lDist=world.lightDist;
-    for(int i=-lDist;i<=lDist;i++) for(int j=-lDist;j<=lDist;j++) if(Block.isEmpty(world.regions.getBlock(x+i,y+j))) cr+=1;
-    // int ti=worldLighting(world,tc);
-    // in.lighting=Tools.color(ti,ti,ti);
+    for(int i=-lDist;i<=lDist;i++) for(int j=-lDist;j<=lDist;j++) if(Block.isNotFullBlock(world.regions.getBlock(x+i,y+j))) cr+=1;
     in.light.set(worldLighting(world.lightCount,cr));
   }
   public static int worldLighting(int in,int count) {
@@ -73,6 +71,7 @@ public class MetaBlock extends MetaInfoBase{
   public TextureRegion[] tiles;
   public int buildTime=1,destroyTime=1;
   public float hardness,lightIntensity;
+  public boolean fullBlock=true;
   public ItemDropAttr[] itemDrop;
   public int displayTypeSize;
   public int defaultDisplayType;
@@ -142,7 +141,7 @@ public class MetaBlock extends MetaInfoBase{
     if(to!=null) to.change(block,in);
   }
   public void initFullBlockLambda() {
-    updater=lightUpdater;
+    // updater=lightUpdater;
     displayUpdater=fullBlockDisplayUpdater;
     displayer=fullBlockDisplayer;
   }

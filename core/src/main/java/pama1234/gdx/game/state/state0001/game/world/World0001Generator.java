@@ -14,6 +14,7 @@ import pama1234.gdx.game.state.state0001.game.player.Player.PlayerType;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Dirt;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Stone;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.TreeLog;
+import pama1234.gdx.game.state.state0001.game.region.block.block0001.Workbench;
 
 public class World0001Generator{
   public static MetaBlockCenter0001 createBlockC(World0001 in) {
@@ -22,6 +23,7 @@ public class World0001Generator{
     metaBlocks.list.add(metaBlocks.dirt=new Dirt(metaBlocks,metaBlocks.id()));
     metaBlocks.list.add(metaBlocks.stone=new Stone(metaBlocks,metaBlocks.id()));
     metaBlocks.list.add(metaBlocks.log=new TreeLog(metaBlocks,metaBlocks.id()));
+    metaBlocks.list.add(metaBlocks.workbench=new Workbench(metaBlocks,metaBlocks.id()));
     return metaBlocks;
   }
   public static MetaItemCenter0001 createItemC(World0001 pw) {
@@ -45,6 +47,11 @@ public class World0001Generator{
       in.blockType=pw.metaBlocks.log;
       in.tiles=new TextureRegion[1];
       in.tiles[0]=ImageAsset.items[1][0];
+    }));
+    metaItems.list.add(metaItems.workbench=new MetaItem(metaItems,"workbench",metaItems.id(),in-> {
+      in.blockType=pw.metaBlocks.workbench;
+      in.tiles=new TextureRegion[1];
+      in.tiles[0]=ImageAsset.items[2][0];
     }));
     return metaItems;
   }
