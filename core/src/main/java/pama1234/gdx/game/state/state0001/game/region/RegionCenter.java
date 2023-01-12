@@ -49,18 +49,10 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   }
   @Override
   public void load() {
-    list.add(pool.get(0,-1));
-    list.add(pool.get(-1,-1));
-    list.add(pool.get(-1,0));
-    list.add(pool.get(0,0));
-    // refresh();
-    // new Thread(()-> {
-    //   p.sleep(1000);
-    //   add.add(generator.get(-1,0));
-    //   p.sleep(3000);
-    //   // System.out.println("RegionCenter.load() add.add");
-    //   add.add(generator.get(0,0));
-    // }).start();
+    add.add(pool.get(0,-1));
+    add.add(pool.get(-1,-1));
+    add.add(pool.get(-1,0));
+    add.add(pool.get(0,0));
   }
   @Override
   public void save() {
@@ -72,10 +64,10 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     // System.out.println("RegionCenter.refresh()");
     removeRegionAndTestChunkUpdate();
     testAddChunk();
-    // for(int i=1;i<loops.length;i++) loops[i].lock.lock();
-    super.refresh();
+    synchronized(list) {//TODO
+      super.refresh();
+    }
     // System.out.println(list.size());
-    // for(int i=1;i<loops.length;i++) loops[i].lock.unlock();
   }
   public void removeRegionAndTestChunkUpdate() {
     for(Region e:list) {
@@ -239,9 +231,9 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     int tx=UtilMath.floor((float)cx/regionWidth),ty=UtilMath.floor((float)cy/regionHeight);
     int prx=Tools.moveInRange(cx,0,regionWidth),pry=Tools.moveInRange(cy,0,regionHeight);
     int px=Tools.moveInRange(x,0,chunkWidth),py=Tools.moveInRange(y,0,chunkHeight);
-    // synchronized(list) {
-    for(Region r:list) if(r.x==tx&&r.y==ty) return r.data[prx][pry].data[px][py];
-    // }
+    synchronized(list) {//TODO
+      for(Region r:list) if(r.x==tx&&r.y==ty) return r.data[prx][pry].data[px][py];
+    }
     return null;
   }
   public abstract class LoopThread extends Thread{
