@@ -73,6 +73,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     testAddChunk();
     // for(int i=1;i<loops.length;i++) loops[i].lock.lock();
     super.refresh();
+    System.out.println(list.size());
     // for(int i=1;i<loops.length;i++) loops[i].lock.unlock();
   }
   public void removeRegionAndTestChunkUpdate() {
@@ -109,13 +110,20 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     testAddChunkWithPlayer(pw.yourself);//TODO
   }
   public void testAddChunkWithPlayer(Player player) {
-    float tx_1=player.cx()/(regionWidth*chunkWidth*pw.blockWidth),
-      ty_1=player.cy()/(regionHeight*chunkHeight*pw.blockHeight);
-    for(int i=-regionLoadDistInt;i<regionLoadDistInt;i++) {
-      for(int j=-regionLoadDistInt;j<regionLoadDistInt;j++) {
-        float tx_2=(((i+0.5f)*regionWidth)*chunkWidth),
-          ty_2=(((j+0.5f)*regionHeight)*chunkHeight);
-        if(UtilMath.dist(tx_1,ty_1,tx_2,ty_2)<regionLoadDist) add.add(pool.get(i,j));
+    int tx_1=UtilMath.round(player.cx()/(regionWidth*chunkWidth*pw.blockWidth)),
+      ty_1=UtilMath.round(player.cy()/(regionHeight*chunkHeight*pw.blockHeight));
+    float tx_2=player.cx()/pw.blockWidth,
+      ty_2=player.cy()/pw.blockHeight;
+    for(int i=-regionLoadDistInt;i<=regionLoadDistInt;i++) {
+      for(int j=-regionLoadDistInt;j<=regionLoadDistInt;j++) {
+        int tx_3=tx_1+i,
+          ty_3=ty_1+j;
+        float tx_4=(((tx_3+0.5f)*regionWidth)*chunkWidth),
+          ty_4=(((ty_3+0.5f)*regionHeight)*chunkHeight);
+        if(UtilMath.dist(tx_2,ty_2,tx_4,ty_4)<regionLoadDist) {
+          for(Region e:list) if(e.posIs(tx_3,ty_3)) continue;
+          add.add(pool.get(i,j));
+        }
       }
     }
   }
