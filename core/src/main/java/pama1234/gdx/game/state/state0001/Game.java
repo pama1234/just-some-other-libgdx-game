@@ -7,6 +7,7 @@ import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
 import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
 import pama1234.gdx.game.state.state0001.game.entity.entity0001.DroppedItem;
 import pama1234.gdx.game.state.state0001.game.entity.util.MovementLimitBox;
+import pama1234.gdx.game.state.state0001.game.region.RegionCenter.LoopThread;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.World;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
@@ -136,13 +137,21 @@ public class Game extends StateEntity0001{
       // debugText("Lighting  block="+(tb!=null?tb.lighting:"null")+" player="+Tools.cutToLastDigit(world.yourself.lighting.pos));
       debugText("Lighting  block="+(tb!=null?tb.light.toString():"null")+" player="+world.yourself.light.toString());
       debugText("Player    pos="+p.getFloatString(world.yourself.point.pos.x,8)+" "+p.getFloatString(world.yourself.point.pos.y,7)+" vel="+p.getFloatString(world.yourself.point.vel.x,5)+" "+p.getFloatString(world.yourself.point.vel.y,5));
-      debugText("---- asynchronous ----");
-      debugText("Regions         Update= "+p.getMillisString(world.regions.updateLoop.millis)+"ms");
-      debugText("Regions Display Update= "+p.getMillisString(world.regions.updateDisplayLoop.millis)+"ms");
-      long tm=world.regions.fullMapUpdateDisplayLoop.millis;
-      debugText("FullMap Display Update= "+p.getMillisString(tm,5)+"ms "+p.getFloatString(tm/1000f)+"s");
+      debugText("---- asynchronous ----");//以下是那三个刷新线程的调试信息，格式如下之类的：“执行所消耗的时间ms 和上一次执行相距的时间差ms”
+      debugText("Regions         Update "+timeString(world.regions.updateLoop));
+      debugText("Regions Display Update "+timeString(world.regions.updateDisplayLoop));
+      debugText("FullMap Display Update "+secondTimeString(world.regions.fullMapUpdateDisplayLoop));
       p.textScale(p.pus);
     }
+  }
+  public String secondTimeString(LoopThread loop) {
+    long tm=loop.millis,tm_2=loop.stepMillis;
+    return ("spent= "+p.getMillisString(tm,5)+"ms "+p.getFloatString(tm/1000f)+"s differ= ")+
+      (p.getMillisString(tm_2,5)+"ms "+p.getFloatString(tm_2/1000f)+"s");
+  }
+  public String timeString(LoopThread loop) {
+    return ("spent= "+p.getMillisString(loop.millis)+"ms differ= ")+
+      (p.getMillisString(loop.stepMillis)+"ms");
   }
   public void initDebugText() {
     debugTextH=p.pu/2f;

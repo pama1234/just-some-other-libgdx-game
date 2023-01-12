@@ -179,6 +179,7 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
       Thread.sleep(i);
     }catch(InterruptedException e) {
       e.printStackTrace();
+      // System.out.println(e);
     }
   }
   public float random(float max) {

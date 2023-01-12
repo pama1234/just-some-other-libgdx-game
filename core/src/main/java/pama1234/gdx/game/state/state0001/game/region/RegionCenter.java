@@ -40,9 +40,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   }
   @Override
   public void pause() {
-    if(!p.stop) {
-      lockAllLoop();
-    }
+    if(!p.stop) lockAllLoop();
   }
   @Override
   public void load() {
@@ -50,20 +48,28 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     add.add(generator.get(-1,-1));
     add.add(generator.get(-1,0));
     add.add(generator.get(0,0));
+    // new Thread(()-> {
+    //   p.sleep(1000);
+    //   add.add(generator.get(-1,0));
+    //   p.sleep(3000);
+    //   // System.out.println("RegionCenter.load() add.add");
+    //   add.add(generator.get(0,0));
+    // }).start();
   }
   @Override
   public void save() {
     refresh();
     for(Region e:list) e.save();
   }
-  public Block getBlock(int x,int y) {
-    int cx=UtilMath.floor((float)x/chunkWidth),cy=UtilMath.floor((float)y/chunkHeight);
-    int tx=UtilMath.floor((float)cx/regionWidth),ty=UtilMath.floor((float)cy/regionHeight);
-    int prx=Tools.moveInRange(cx,0,regionWidth),pry=Tools.moveInRange(cy,0,regionHeight);
-    int px=Tools.moveInRange(x,0,chunkWidth),py=Tools.moveInRange(y,0,chunkHeight);
-    for(Region r:list) if(r.x==tx&&r.y==ty) return r.data[prx][pry].data[px][py];
-    return null;
+  @Override
+  public void refresh() {
+    // System.out.println("RegionCenter.refresh()");
+    // for(int i=1;i<loops.length;i++) loops[i].lock.lock();
+    testloadChunk();
+    super.refresh();
+    // for(int i=1;i<loops.length;i++) loops[i].lock.unlock();
   }
+  public void testloadChunk() {}
   @Override
   public void update() {
     // super.update();
@@ -96,6 +102,8 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   }
   public void dispose() {
     unlockAllLoop();
+    for(LoopThread e:loops) e.interrupt();
+    // updateDisplayLoop.interrupt();//TODO
   }
   public void unlockAllLoop() {
     for(LoopThread e:loops) e.lock.unlock();
@@ -111,16 +119,13 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
         // Stream<Region> stream=list.stream().parallel();
         // stream.forEach(r->r.update());
         RegionCenter.super.update();
+        // refresh();
         // for(Region e:list) e.update();
-      }
-      @Override
-      public void doSleep() {
-        if(millis<50) p.sleep(50-millis);
       }
     };
   }
   public LoopThread createFullMapUpdateDisplayLoop() {//刷新全世界的方块显示
-    return new LoopThread("RegionsFullMapUpdateDisplayLoop") {
+    return new LoopThread("RegionsFullMapUpdateDisplayLoop",30000) {
       @Override
       public void doUpdate() {
         // for(Region e:list) e.updateDisplay();
@@ -156,25 +161,50 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
       }
     };
   }
+  public Block getBlock(int x,int y) {
+    int cx=UtilMath.floor((float)x/chunkWidth),cy=UtilMath.floor((float)y/chunkHeight);
+    int tx=UtilMath.floor((float)cx/regionWidth),ty=UtilMath.floor((float)cy/regionHeight);
+    int prx=Tools.moveInRange(cx,0,regionWidth),pry=Tools.moveInRange(cy,0,regionHeight);
+    int px=Tools.moveInRange(x,0,chunkWidth),py=Tools.moveInRange(y,0,chunkHeight);
+    // synchronized(list) {
+    for(Region r:list) if(r.x==tx&&r.y==ty) return r.data[prx][pry].data[px][py];
+    // }
+    return null;
+  }
   public abstract class LoopThread extends Thread{
     public Mutex lock;
-    public long millis;
+    public long sleepSize=50;//set to negative for no sleep
+    public long millis,stepMillis;
     public LoopThread(String name) {
       super(name);
       lock=new Mutex(true);
     }
+    public LoopThread(String name,long sleepSize) {
+      this(name);
+      this.sleepSize=sleepSize;
+    }
     @Override
     public void run() {
-      long beforeM;
+      long beforeM=System.currentTimeMillis();
       while(!p.stop) {
         lock.step();
-        beforeM=System.currentTimeMillis();
+        long tl=System.currentTimeMillis();
+        stepMillis=tl-beforeM;
+        beforeM=tl;
         doUpdate();
         millis=System.currentTimeMillis()-beforeM;
         doSleep();
       }
     }
     public abstract void doUpdate();
-    public void doSleep() {}
+    public void doSleep() {
+      if(millis<sleepSize) try {
+        sleep(sleepSize-millis);
+      }catch(InterruptedException e) {
+        // e.printStackTrace();
+        // System.out.println(e);
+        // System.out.println(p.stop);
+      }
+    }
   }
 }
