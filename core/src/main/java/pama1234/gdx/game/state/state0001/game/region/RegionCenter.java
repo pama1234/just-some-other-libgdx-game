@@ -22,15 +22,15 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   public int chunkWidth=64,chunkHeight=64;
   public float regionLoadDist=360;
   public int regionLoadDistInt=1;
-  public float chunkRemoveDist=360*18,regionRemoveDist=512*18;
-  public RegionLoadAndSaveCtrl pool;
+  public float chunkRemoveDist=360,regionRemoveDist=512;
+  public RegionPool pool;
   public LoopThread[] loops;
   public LoopThread updateLoop,fullMapUpdateDisplayLoop,updateDisplayLoop;
   public RegionCenter(Screen0011 p,World0001 pw,FileHandle metadata) {
     super(p);
     this.pw=pw;
     this.metadata=metadata;
-    pool=new RegionLoadAndSaveCtrl(p,this,0);//TODO
+    pool=new RegionPool(p,this,0);//TODO
     loops=new LoopThread[3];
     updateLoop=loops[0]=createUpdateLoop();
     updateLoop.start();
@@ -90,17 +90,19 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     }
   }
   public void testChunkUpdateWithPlayer(Player player) {
+    float tcx=player.cx()/pw.blockWidth,
+      tcy=player.cy()/pw.blockHeight;
     for(Region e:list) {
       float tx_1=(((e.x+0.5f)*regionWidth)*chunkWidth),
         ty_1=(((e.y+0.5f)*regionHeight)*chunkHeight);
-      boolean tb_1=UtilMath.dist(tx_1,ty_1,player.cx(),player.cy())<regionRemoveDist;
+      boolean tb_1=UtilMath.dist(tx_1,ty_1,tcx,tcy)<regionRemoveDist;
       if(tb_1) e.keep=true;
       for(int i=0;i<e.data.length;i++) {
         for(int j=0;j<e.data[i].length;j++) {
           Chunk chunk=e.data[i][j];
           float tx_2=((e.x*regionWidth+(i+0.5f))*chunkWidth),
             ty_2=((e.y*regionHeight+(j+0.5f))*chunkHeight);
-          boolean tb_2=UtilMath.dist(tx_2,ty_2,player.cx(),player.cy())<chunkRemoveDist;
+          boolean tb_2=UtilMath.dist(tx_2,ty_2,tcx,tcy)<chunkRemoveDist;
           if(tb_2) chunk.update=true;
         }
       }
