@@ -10,7 +10,7 @@ import pama1234.gdx.game.state.state0001.game.world.World0001;
 
 public class TreeLeaf extends MetaBlock{
   public TreeLeaf(MetaBlockCenter0001 pc,int id) {
-    super(pc,"tree-leaf",id,21,3,(in,type)-> {//change to log
+    super(pc,"tree-leaf",id,25,3,(in,type)-> {//change to log
       in.light.set(16);
     },(in,type)-> {//change from log
     });
@@ -51,7 +51,23 @@ public class TreeLeaf extends MetaBlock{
     tiles[2]=tsrc[tx+2][ty+3];
     tiles[10]=tsrc[tx+3][ty+3];
     //-----------------------------------------------------
-    tiles[20]=tsrc[tx+1][ty+4];
+    tx=16;
+    ty=7;
+    //-----------------------------------------------------
+    tiles[16]=tsrc[tx][ty];
+    tiles[17]=tsrc[tx+1][ty];
+    tiles[18]=tsrc[tx][ty+1];
+    tiles[19]=tsrc[tx+1][ty+1];
+    //-----------------------------------------------------
+    tx=18;
+    ty=7;
+    //-----------------------------------------------------
+    tiles[20]=tsrc[tx][ty];
+    tiles[21]=tsrc[tx+1][ty];
+    tiles[22]=tsrc[tx][ty+1];
+    tiles[23]=tsrc[tx+1][ty+1];
+    //-----------------------------------------------------
+    tiles[24]=tsrc[tx+1][ty+4];
   }
   public void initTreeLogLambda() {
     // updater=lightUpdater;
@@ -84,15 +100,44 @@ public class TreeLeaf extends MetaBlock{
         getLighting(in.light.b()));
       int tp_0=in.displayType[0];
       p.innerImage(in.type.tiles[tp_0],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
-      // int tp_1=in.displayType[1];
-      // if(tp_1!=0) {
-      //   if((tp_0&2)+(tp_0&8)==0&&(tp_1&4)!=0) p.innerImage(in.type.tiles[16],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
-      //   if((tp_0&2)+(tp_0&4)==0&&(tp_1&2)!=0) p.innerImage(in.type.tiles[17],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
-      //   if((tp_0&1)+(tp_0&8)==0&&(tp_1&8)!=0) p.innerImage(in.type.tiles[18],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
-      //   if((tp_0&1)+(tp_0&4)==0&&(tp_1&1)!=0) p.innerImage(in.type.tiles[19],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
-      // }
+      int tp_1=in.displayType[1];
+      if(tp_1!=0) {
+        TextureRegion tr;
+        // if((tp_0&2)+(tp_0&8)==0&&(tp_1&4)!=0) tr=in.type.tiles[16];
+        // else tr=in.type.tiles[20];
+        // p.innerImage(tr,x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
+        // if((tp_0&2)+(tp_0&4)==0&&(tp_1&2)!=0) tr=in.type.tiles[17];
+        // else tr=in.type.tiles[21];
+        // p.innerImage(tr,x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
+        // if((tp_0&1)+(tp_0&8)==0&&(tp_1&8)!=0) tr=in.type.tiles[18];
+        // else tr=in.type.tiles[22];
+        // p.innerImage(tr,x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
+        // if((tp_0&1)+(tp_0&4)==0&&(tp_1&1)!=0) tr=in.type.tiles[19];
+        // else tr=in.type.tiles[23];
+        // p.innerImage(tr,x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
+        if((tp_0&2)+(tp_0&8)==0) {
+          if((tp_1&4)!=0) tr=in.type.tiles[16];
+          else tr=in.type.tiles[20];
+          p.innerImage(tr,x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
+        }
+        if((tp_0&2)+(tp_0&4)==0) {
+          if((tp_1&2)!=0) tr=in.type.tiles[17];
+          else tr=in.type.tiles[21];
+          p.innerImage(tr,x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
+        }
+        if((tp_0&1)+(tp_0&8)==0) {
+          if((tp_1&8)!=0) tr=in.type.tiles[18];
+          else tr=in.type.tiles[22];
+          p.innerImage(tr,x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
+        }
+        if((tp_0&1)+(tp_0&4)==0) {
+          if((tp_1&1)!=0) tr=in.type.tiles[19];
+          else tr=in.type.tiles[23];
+          p.innerImage(tr,x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
+        }
+      }
       int tp_2=in.displayType[2];
-      if(tp_2!=0) p.innerImage(in.type.tiles[20],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
+      if(tp_2!=0) p.innerImage(in.type.tiles[24],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
     };
   }
   public static boolean isTreeLeaf(Block in,TreeLeaf type) {

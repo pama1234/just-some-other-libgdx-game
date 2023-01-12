@@ -26,26 +26,27 @@ public class Stone extends MetaBlock{
   public void init() {
     // if(tiles[0]!=null) return;
     TextureRegion[][] tsrc=ImageAsset.tiles;
+    int tx=0,ty=8;
     //-----------------------------------------------------
-    tiles[15]=tsrc[0][8];
-    tiles[7]=tsrc[1][8];
-    tiles[3]=tsrc[2][8];
-    tiles[11]=tsrc[3][8];
+    tiles[15]=tsrc[tx][ty];
+    tiles[7]=tsrc[tx+1][ty];
+    tiles[3]=tsrc[tx+2][ty];
+    tiles[11]=tsrc[tx+3][ty];
     //-----------------------------------------------------
-    tiles[13]=tsrc[0][9];
-    tiles[5]=tsrc[1][9];
-    tiles[1]=tsrc[2][9];
-    tiles[9]=tsrc[3][9];
+    tiles[13]=tsrc[tx][ty+1];
+    tiles[5]=tsrc[tx+1][ty+1];
+    tiles[1]=tsrc[tx+2][ty+1];
+    tiles[9]=tsrc[tx+3][ty+1];
     //-----------------------------------------------------
-    tiles[12]=tsrc[0][10];
-    tiles[4]=tsrc[1][10];
-    tiles[0]=tsrc[2][10];
-    tiles[8]=tsrc[3][10];
+    tiles[12]=tsrc[tx][ty+2];
+    tiles[4]=tsrc[tx+1][ty+2];
+    tiles[0]=tsrc[tx+2][ty+2];
+    tiles[8]=tsrc[tx+3][ty+2];
     //-----------------------------------------------------
-    tiles[14]=tsrc[0][11];
-    tiles[6]=tsrc[1][11];
-    tiles[2]=tsrc[2][11];
-    tiles[10]=tsrc[3][11];
+    tiles[14]=tsrc[tx][ty+3];
+    tiles[6]=tsrc[tx+1][ty+3];
+    tiles[2]=tsrc[tx+2][ty+3];
+    tiles[10]=tsrc[tx+3][ty+3];
     //----------------------------------------------------- //TODO
     tiles[16]=tsrc[4][8];
     tiles[17]=tsrc[5][8];

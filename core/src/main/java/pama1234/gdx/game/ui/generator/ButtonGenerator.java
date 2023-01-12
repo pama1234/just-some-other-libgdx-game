@@ -71,9 +71,12 @@ public class ButtonGenerator{
         else self.text="显示图形调试信息：否";
       },"显示图形调试信息：否",()->18,()->0,()->60),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
+        //TODO
+      },"重新加载图片素材（未实现）",()->18,()->0,()->80),
+      new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         System.gc();
         Runtime.getRuntime().runFinalization();
-      },"清理内存垃圾",()->18,()->0,()->80),
+      },"清理内存垃圾",()->18,()->0,()->100),
     };
   }
   public static <T extends Screen0011> Button<?>[] genButtons_0005(T p) {
