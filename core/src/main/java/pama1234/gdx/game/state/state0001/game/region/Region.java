@@ -19,16 +19,21 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
     this.dataLocation=dataLocation;
   }
   @Override
-  public void load() {
-    pr.generator.get(this);
+  public void load() {//TODO
+    // pr.pool.get(this);
   }
   @Override
-  public void save() {}
+  public void save() {//TODO
+  }
+  public boolean posIs(int a,int b) {
+    return x==a&&y==b;
+  }
   @Override
   public void update() {
     for(int i=0;i<data.length;i++) {
       for(int j=0;j<data[i].length;j++) {
         Chunk chunk=data[i][j];
+        if(!chunk.update) continue;
         Block[][] blockData=chunk.data;
         // int tcw=pr.chunkWidth*pr.pw.blockWidth,
         //   tch=pr.chunkHeight*pr.pw.blockHeight;

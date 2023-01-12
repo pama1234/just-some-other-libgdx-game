@@ -18,14 +18,14 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   public FileHandle metadata;
   public int regionWidth=4,regionHeight=4;
   public int chunkWidth=64,chunkHeight=64;
-  public RegionGenerator generator;
+  public RegionLoadAndSaveCtrl pool;
   public LoopThread[] loops;
   public LoopThread updateLoop,fullMapUpdateDisplayLoop,updateDisplayLoop;
   public RegionCenter(Screen0011 p,World0001 pw,FileHandle metadata) {
     super(p);
     this.pw=pw;
     this.metadata=metadata;
-    generator=new RegionGenerator(p,this,0);//TODO
+    pool=new RegionLoadAndSaveCtrl(p,this,0);//TODO
     loops=new LoopThread[3];
     updateLoop=loops[0]=createUpdateLoop();
     updateLoop.start();
@@ -44,10 +44,10 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   }
   @Override
   public void load() {
-    add.add(generator.get(0,-1));
-    add.add(generator.get(-1,-1));
-    add.add(generator.get(-1,0));
-    add.add(generator.get(0,0));
+    add.add(pool.get(0,-1));
+    add.add(pool.get(-1,-1));
+    add.add(pool.get(-1,0));
+    add.add(pool.get(0,0));
     // new Thread(()-> {
     //   p.sleep(1000);
     //   add.add(generator.get(-1,0));
