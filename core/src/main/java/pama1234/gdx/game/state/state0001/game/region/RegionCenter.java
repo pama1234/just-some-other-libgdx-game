@@ -110,13 +110,18 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     for(Player player:pw.entities.players.list) testAddChunkWithPlayer(player);
     testAddChunkWithPlayer(pw.yourself);//TODO
   }
+  // public int tx_1_g,ty_1_g;
   public void testAddChunkWithPlayer(Player player) {
     int tx_1=UtilMath.round(player.cx()/(regionWidth*chunkWidth*pw.blockWidth)),
       ty_1=UtilMath.round(player.cy()/(regionHeight*chunkHeight*pw.blockHeight));
+    // if(tx_1_g!=tx_1||ty_1_g!=ty_1) {
+    //   p.println(tx_1,ty_1);
+    //   tx_1_g=tx_1;
+    //   ty_1_g=ty_1;
+    // }
     float tx_2=player.cx()/pw.blockWidth,
       ty_2=player.cy()/pw.blockHeight;
     for(int i=-regionLoadDistInt;i<=regionLoadDistInt;i++) {
-      // label_1:
       for(int j=-regionLoadDistInt;j<=regionLoadDistInt;j++) {
         int tx_3=tx_1+i,
           ty_3=ty_1+j;
@@ -126,9 +131,8 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
         // p.println(tx_3,ty_3,tx_2,ty_2,tx_4,ty_4,UtilMath.dist(tx_2,ty_2,tx_4,ty_4),regionLoadDist);
         if(UtilMath.dist(tx_2,ty_2,tx_4,ty_4)<regionLoadDist) {
           boolean flag=testRegionPosInList(tx_3,ty_3,list)||testRegionPosInList(tx_3,ty_3,add);
-          // continue label_1;
           // System.out.println(flag);
-          if(!flag) add.add(pool.get(i,j));
+          if(!flag) add.add(pool.get(tx_3,ty_3));
         }
       }
     }
