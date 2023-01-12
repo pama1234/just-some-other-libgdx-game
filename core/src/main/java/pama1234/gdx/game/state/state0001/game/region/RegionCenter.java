@@ -6,6 +6,7 @@ import com.badlogic.gdx.files.FileHandle;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
+import pama1234.gdx.game.state.state0001.game.player.Player;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.gdx.game.util.Mutex;
@@ -18,6 +19,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   public FileHandle metadata;
   public int regionWidth=4,regionHeight=4;
   public int chunkWidth=64,chunkHeight=64;
+  public float chunkLoadDist=256,regionLoadDist=360;
   public RegionLoadAndSaveCtrl pool;
   public LoopThread[] loops;
   public LoopThread updateLoop,fullMapUpdateDisplayLoop,updateDisplayLoop;
@@ -69,7 +71,44 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     super.refresh();
     // for(int i=1;i<loops.length;i++) loops[i].lock.unlock();
   }
-  public void testloadChunk() {}
+  public void testloadChunk() {
+    for(Region e:list) {
+      e.flag=false;
+      for(int i=0;i<e.data.length;i++) for(int j=0;j<e.data[i].length;j++) e.data[i][j].update=false;
+    }
+    for(Player player:pw.entities.players.list) for(Region e:list) {
+      float tx_1=(((e.x+0.5f)*regionWidth)*chunkWidth),
+        ty_1=(((e.y+0.5f)*regionHeight)*chunkHeight);
+      boolean tb_1=UtilMath.dist(tx_1,ty_1,player.cx(),player.cy())<regionLoadDist;
+      if(tb_1) e.flag=true;
+      for(int i=0;i<e.data.length;i++) {
+        for(int j=0;j<e.data[i].length;j++) {
+          Chunk chunk=e.data[i][j];
+          float tx_2=((e.x*regionWidth+(i+0.5f))*chunkWidth),
+            ty_2=((e.y*regionHeight+(j+0.5f))*chunkHeight);
+          // if(UtilMath.dist(tx, ty,player.cx(),player.cy()))
+          boolean tb_2=UtilMath.dist(tx_2,ty_2,player.cx(),player.cy())<chunkLoadDist;
+          if(tb_2) chunk.update=true;
+          // if(!chunk.update) continue;
+          //---
+          //   Block[][] blockData=chunk.data;
+          //   for(int n=0;n<blockData.length;n++) {
+          //     for(int m=0;m<blockData[n].length;m++) {
+          //       Block block=blockData[n][m];
+          //       MetaBlock blockType=block.type;
+          //       int tx=((e.x*regionWidth+i)*chunkWidth+n),
+          //         ty=((e.y*regionHeight+j)*chunkHeight+m);
+          //       blockType.update(block,tx,ty);
+          //     }
+          //   }
+        }
+      }
+    }
+    for(Region e:list) if(e.flag=true) {
+      remove.add(e);
+      pool.put(e);
+    }
+  }
   @Override
   public void update() {
     // super.update();
