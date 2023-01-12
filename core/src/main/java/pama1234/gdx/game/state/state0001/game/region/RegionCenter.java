@@ -19,7 +19,9 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   public FileHandle metadata;
   public int regionWidth=4,regionHeight=4;
   public int chunkWidth=64,chunkHeight=64;
-  public float chunkLoadDist=256,regionLoadDist=360;
+  public float regionLoadDist=360;
+  public int regionLoadDistInt=1;
+  public float chunkRemoveDist=360,regionRemoveDist=512;
   public RegionLoadAndSaveCtrl pool;
   public LoopThread[] loops;
   public LoopThread updateLoop,fullMapUpdateDisplayLoop,updateDisplayLoop;
@@ -50,6 +52,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     add.add(pool.get(-1,-1));
     add.add(pool.get(-1,0));
     add.add(pool.get(0,0));
+    // refresh();
     // new Thread(()-> {
     //   p.sleep(1000);
     //   add.add(generator.get(-1,0));
@@ -66,47 +69,54 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   @Override
   public void refresh() {
     // System.out.println("RegionCenter.refresh()");
+    removeRegionAndTestChunkUpdate();
+    testAddChunk();
     // for(int i=1;i<loops.length;i++) loops[i].lock.lock();
-    testloadChunk();
     super.refresh();
     // for(int i=1;i<loops.length;i++) loops[i].lock.unlock();
   }
-  public void testloadChunk() {
+  public void removeRegionAndTestChunkUpdate() {
     for(Region e:list) {
       e.flag=false;
       for(int i=0;i<e.data.length;i++) for(int j=0;j<e.data[i].length;j++) e.data[i][j].update=false;
     }
-    for(Player player:pw.entities.players.list) for(Region e:list) {
+    for(Player player:pw.entities.players.list) testChunkUpdateWithPlayer(player);
+    testChunkUpdateWithPlayer(pw.yourself);//TODO
+    for(Region e:list) if(e.flag==true) {
+      remove.add(e);
+      pool.put(e);
+    }
+  }
+  public void testChunkUpdateWithPlayer(Player player) {
+    for(Region e:list) {
       float tx_1=(((e.x+0.5f)*regionWidth)*chunkWidth),
         ty_1=(((e.y+0.5f)*regionHeight)*chunkHeight);
-      boolean tb_1=UtilMath.dist(tx_1,ty_1,player.cx(),player.cy())<regionLoadDist;
+      boolean tb_1=UtilMath.dist(tx_1,ty_1,player.cx(),player.cy())<regionRemoveDist;
       if(tb_1) e.flag=true;
       for(int i=0;i<e.data.length;i++) {
         for(int j=0;j<e.data[i].length;j++) {
           Chunk chunk=e.data[i][j];
           float tx_2=((e.x*regionWidth+(i+0.5f))*chunkWidth),
             ty_2=((e.y*regionHeight+(j+0.5f))*chunkHeight);
-          // if(UtilMath.dist(tx, ty,player.cx(),player.cy()))
-          boolean tb_2=UtilMath.dist(tx_2,ty_2,player.cx(),player.cy())<chunkLoadDist;
+          boolean tb_2=UtilMath.dist(tx_2,ty_2,player.cx(),player.cy())<chunkRemoveDist;
           if(tb_2) chunk.update=true;
-          // if(!chunk.update) continue;
-          //---
-          //   Block[][] blockData=chunk.data;
-          //   for(int n=0;n<blockData.length;n++) {
-          //     for(int m=0;m<blockData[n].length;m++) {
-          //       Block block=blockData[n][m];
-          //       MetaBlock blockType=block.type;
-          //       int tx=((e.x*regionWidth+i)*chunkWidth+n),
-          //         ty=((e.y*regionHeight+j)*chunkHeight+m);
-          //       blockType.update(block,tx,ty);
-          //     }
-          //   }
         }
       }
     }
-    for(Region e:list) if(e.flag=true) {
-      remove.add(e);
-      pool.put(e);
+  }
+  public void testAddChunk() {
+    for(Player player:pw.entities.players.list) testAddChunkWithPlayer(player);
+    testAddChunkWithPlayer(pw.yourself);//TODO
+  }
+  public void testAddChunkWithPlayer(Player player) {
+    float tx_1=player.cx()/(regionWidth*chunkWidth*pw.blockWidth),
+      ty_1=player.cy()/(regionHeight*chunkHeight*pw.blockHeight);
+    for(int i=-regionLoadDistInt;i<regionLoadDistInt;i++) {
+      for(int j=-regionLoadDistInt;j<regionLoadDistInt;j++) {
+        float tx_2=(((i+0.5f)*regionWidth)*chunkWidth),
+          ty_2=(((j+0.5f)*regionHeight)*chunkHeight);
+        if(UtilMath.dist(tx_1,ty_1,tx_2,ty_2)<regionLoadDist) add.add(pool.get(i,j));
+      }
     }
   }
   @Override
