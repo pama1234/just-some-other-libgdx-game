@@ -28,10 +28,10 @@ public class TreeBranch extends MetaBlock{
   public void init() {
     TextureRegion[][] tsrc=ImageAsset.tiles;
     //-----------------------------------------------------
-    tiles[0]=tsrc[18][4];
+    tiles[3]=tsrc[18][4];
     tiles[1]=tsrc[19][4];
     tiles[2]=tsrc[18][5];
-    tiles[3]=tsrc[19][5];
+    tiles[0]=tsrc[19][5];
     tiles[4]=tsrc[19][6];
   }
   public void initTreeLogLambda() {
@@ -39,10 +39,10 @@ public class TreeBranch extends MetaBlock{
     displayUpdater=(in,x,y)-> {
       World0001 world=in.type.pc.pw;
       int typeCache=0;
-      // if(isTreeLog(world.getBlock(x,y-1),this)) typeCache+=1;// up
-      if(isTreeLog(world.getBlock(x,y+1),pc.log)) typeCache+=1;// down
-      // if(Block.isEmpty(world.getBlock(x-1,y))) typeCache+=4;// left
-      // if(Block.isEmpty(world.getBlock(x+1,y))) typeCache+=8;// right
+      if(TreeLog.isTreeLeaf(world.getBlock(x,y-1),pc.leaf)) typeCache+=1;// up
+      // if(TreeLog.isTreeLog(world.getBlock(x,y+1),pc.log)) typeCache+=2;// down
+      if(!isBranchOrLog(world.getBlock(x-1,y),this,pc.log)) typeCache+=2;// left
+      if(!isBranchOrLog(world.getBlock(x+1,y),this,pc.log)) typeCache=4;// right
       in.displayType[0]=typeCache;
       // typeCache=0;
       // if(Block.isNotFullBlock(world.getBlock(x-1,y-1))) typeCache+=1;
@@ -56,10 +56,7 @@ public class TreeBranch extends MetaBlock{
     };
     // displayer=fullBlockDisplayer;
   }
-  public static boolean isTreeLog(Block in,TreeLog type) {
-    return in!=null&&in.type==type;
-  }
-  public static boolean isTreeBranch(Block in,TreeBranch type) {
-    return in!=null&&in.type==type;
+  public boolean isBranchOrLog(Block in,TreeBranch a,TreeLog b) {
+    return in!=null&&(in.type==a||in.type==b);
   }
 }

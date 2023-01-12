@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
-import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 
 public class TreeLeaf extends MetaBlock{
@@ -28,8 +27,6 @@ public class TreeLeaf extends MetaBlock{
   public void init() {
     TextureRegion[][] tsrc=ImageAsset.tiles;
     int tx=16,ty=0;
-    //-----------------------------------------------------
-    // tiles[0]=tsrc[16][0];
     //-----------------------------------------------------
     tiles[15]=tsrc[tx][ty];
     tiles[7]=tsrc[tx+1][ty];
@@ -67,26 +64,26 @@ public class TreeLeaf extends MetaBlock{
     tiles[22]=tsrc[tx][ty+1];
     tiles[23]=tsrc[tx+1][ty+1];
     //-----------------------------------------------------
-    tiles[24]=tsrc[tx+1][ty+4];
+    tiles[24]=tsrc[17][4];
   }
   public void initTreeLogLambda() {
     // updater=lightUpdater;
     displayUpdater=(in,x,y)-> {
       World0001 world=in.type.pc.pw;
       int typeCache=0;
-      if(!isTreeLeaf(world.getBlock(x,y-1),this)) typeCache+=1;// up
-      if(!isTreeLeaf(world.getBlock(x,y+1),this)) typeCache+=2;// down
-      if(!isTreeLeaf(world.getBlock(x-1,y),this)) typeCache+=4;// left
-      if(!isTreeLeaf(world.getBlock(x+1,y),this)) typeCache+=8;// right
+      if(!TreeLog.isTreeLeaf(world.getBlock(x,y-1),this)) typeCache+=1;// up
+      if(!TreeLog.isTreeLeaf(world.getBlock(x,y+1),this)) typeCache+=2;// down
+      if(!TreeLog.isTreeLeaf(world.getBlock(x-1,y),this)) typeCache+=4;// left
+      if(!TreeLog.isTreeLeaf(world.getBlock(x+1,y),this)) typeCache+=8;// right
       in.displayType[0]=typeCache;
       typeCache=0;
-      if(!isTreeLeaf(world.getBlock(x-1,y-1),this)) typeCache+=1;
-      if(!isTreeLeaf(world.getBlock(x-1,y+1),this)) typeCache+=2;
-      if(!isTreeLeaf(world.getBlock(x+1,y+1),this)) typeCache+=4;
-      if(!isTreeLeaf(world.getBlock(x+1,y-1),this)) typeCache+=8;
+      if(!TreeLog.isTreeLeaf(world.getBlock(x-1,y-1),this)) typeCache+=1;// up left
+      if(!TreeLog.isTreeLeaf(world.getBlock(x-1,y+1),this)) typeCache+=2;// down left
+      if(!TreeLog.isTreeLeaf(world.getBlock(x+1,y+1),this)) typeCache+=4;// down right
+      if(!TreeLog.isTreeLeaf(world.getBlock(x+1,y-1),this)) typeCache+=8;// up right
       in.displayType[1]=typeCache;
       typeCache=0;
-      if(isTreeLog(world.getBlock(x,y+1),pc.log)) typeCache+=1;
+      if(TreeLog.isTreeLog(world.getBlock(x,y+1),pc.log)) typeCache+=1;
       in.displayType[2]=typeCache;
       //---
       if(in.updateLighting) lightingUpdate(in,x,y,world);
@@ -99,51 +96,34 @@ public class TreeLeaf extends MetaBlock{
         getLighting(in.light.g()),
         getLighting(in.light.b()));
       int tp_0=in.displayType[0];
+      // if(tp_0!=0)
       p.innerImage(in.type.tiles[tp_0],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
       int tp_1=in.displayType[1];
-      if(tp_1!=0) {
-        TextureRegion tr;
-        // if((tp_0&2)+(tp_0&8)==0&&(tp_1&4)!=0) tr=in.type.tiles[16];
-        // else tr=in.type.tiles[20];
-        // p.innerImage(tr,x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
-        // if((tp_0&2)+(tp_0&4)==0&&(tp_1&2)!=0) tr=in.type.tiles[17];
-        // else tr=in.type.tiles[21];
-        // p.innerImage(tr,x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
-        // if((tp_0&1)+(tp_0&8)==0&&(tp_1&8)!=0) tr=in.type.tiles[18];
-        // else tr=in.type.tiles[22];
-        // p.innerImage(tr,x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
-        // if((tp_0&1)+(tp_0&4)==0&&(tp_1&1)!=0) tr=in.type.tiles[19];
-        // else tr=in.type.tiles[23];
-        // p.innerImage(tr,x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
-        if((tp_0&2)+(tp_0&8)==0) {
-          if((tp_1&4)!=0) tr=in.type.tiles[16];
-          else tr=in.type.tiles[20];
-          p.innerImage(tr,x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
-        }
-        if((tp_0&2)+(tp_0&4)==0) {
-          if((tp_1&2)!=0) tr=in.type.tiles[17];
-          else tr=in.type.tiles[21];
-          p.innerImage(tr,x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
-        }
-        if((tp_0&1)+(tp_0&8)==0) {
-          if((tp_1&8)!=0) tr=in.type.tiles[18];
-          else tr=in.type.tiles[22];
-          p.innerImage(tr,x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
-        }
-        if((tp_0&1)+(tp_0&4)==0) {
-          if((tp_1&1)!=0) tr=in.type.tiles[19];
-          else tr=in.type.tiles[23];
-          p.innerImage(tr,x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
-        }
+      // if(tp_1!=0) {
+      TextureRegion tr;
+      if((tp_0&2)+(tp_0&8)==0) {// down and right is leaf
+        if((tp_1&4)!=0) tr=in.type.tiles[16];// down right is not leaf
+        else tr=in.type.tiles[20];
+        p.innerImage(tr,x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
       }
+      if((tp_0&2)+(tp_0&4)==0) {// down and left is leaf
+        if((tp_1&2)!=0) tr=in.type.tiles[17];// down left is not leaf
+        else tr=in.type.tiles[21];
+        p.innerImage(tr,x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
+      }
+      if((tp_0&1)+(tp_0&8)==0) {// up and right is leaf
+        if((tp_1&8)!=0) tr=in.type.tiles[18];// up right is not leaf
+        else tr=in.type.tiles[22];
+        p.innerImage(tr,x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
+      }
+      if((tp_0&1)+(tp_0&4)==0) {// up and left is leaf
+        if((tp_1&1)!=0) tr=in.type.tiles[19];// up left is not leaf
+        else tr=in.type.tiles[23];
+        p.innerImage(tr,x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
+      }
+      // }
       int tp_2=in.displayType[2];
       if(tp_2!=0) p.innerImage(in.type.tiles[24],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
     };
-  }
-  public static boolean isTreeLeaf(Block in,TreeLeaf type) {
-    return in!=null&&in.type==type;
-  }
-  public static boolean isTreeLog(Block in,TreeLog type) {
-    return in!=null&&in.type==type;
   }
 }
