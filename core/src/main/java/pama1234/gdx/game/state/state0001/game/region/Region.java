@@ -13,7 +13,7 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
   //---
   public int x,y;
   public Chunk[][] data;
-  public boolean flag;//用于测试是否需要加载卸载
+  public boolean keep;//用于测试是否需要加载卸载
   public Region(Screen0011 p,RegionCenter pr,FileHandle dataLocation) {
     super(p);
     this.pr=pr;

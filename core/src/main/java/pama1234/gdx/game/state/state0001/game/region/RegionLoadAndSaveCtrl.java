@@ -14,7 +14,7 @@ public class RegionLoadAndSaveCtrl{
     pool=new LinkedList<>();
   }
   public Region get(int x,int y) {
-    System.out.println("load "+x+" "+y);
+    System.out.println("load region "+x+" "+y);
     Region e;
     Iterator<Region> i=pool.iterator();
     while(i.hasNext()) {
@@ -34,7 +34,7 @@ public class RegionLoadAndSaveCtrl{
     return out;
   }
   public void put(Region in) {
-    System.out.println("save "+in.x+" "+in.y);
+    System.out.println("save region "+in.x+" "+in.y);
     pool.addLast(in);
   }
 }

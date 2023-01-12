@@ -1,5 +1,6 @@
 package pama1234.gdx.game.state.state0001.game.region;
 
+import java.util.LinkedList;
 import java.util.stream.Stream;
 
 import com.badlogic.gdx.files.FileHandle;
@@ -21,7 +22,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   public int chunkWidth=64,chunkHeight=64;
   public float regionLoadDist=360;
   public int regionLoadDistInt=1;
-  public float chunkRemoveDist=360,regionRemoveDist=512;
+  public float chunkRemoveDist=360*18,regionRemoveDist=512*18;
   public RegionLoadAndSaveCtrl pool;
   public LoopThread[] loops;
   public LoopThread updateLoop,fullMapUpdateDisplayLoop,updateDisplayLoop;
@@ -48,10 +49,10 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   }
   @Override
   public void load() {
-    add.add(pool.get(0,-1));
-    add.add(pool.get(-1,-1));
-    add.add(pool.get(-1,0));
-    add.add(pool.get(0,0));
+    list.add(pool.get(0,-1));
+    list.add(pool.get(-1,-1));
+    list.add(pool.get(-1,0));
+    list.add(pool.get(0,0));
     // refresh();
     // new Thread(()-> {
     //   p.sleep(1000);
@@ -73,17 +74,17 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     testAddChunk();
     // for(int i=1;i<loops.length;i++) loops[i].lock.lock();
     super.refresh();
-    System.out.println(list.size());
+    // System.out.println(list.size());
     // for(int i=1;i<loops.length;i++) loops[i].lock.unlock();
   }
   public void removeRegionAndTestChunkUpdate() {
     for(Region e:list) {
-      e.flag=false;
+      e.keep=false;
       for(int i=0;i<e.data.length;i++) for(int j=0;j<e.data[i].length;j++) e.data[i][j].update=false;
     }
     for(Player player:pw.entities.players.list) testChunkUpdateWithPlayer(player);
     testChunkUpdateWithPlayer(pw.yourself);//TODO
-    for(Region e:list) if(e.flag==true) {
+    for(Region e:list) if(!e.keep) {
       remove.add(e);
       pool.put(e);
     }
@@ -93,7 +94,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
       float tx_1=(((e.x+0.5f)*regionWidth)*chunkWidth),
         ty_1=(((e.y+0.5f)*regionHeight)*chunkHeight);
       boolean tb_1=UtilMath.dist(tx_1,ty_1,player.cx(),player.cy())<regionRemoveDist;
-      if(tb_1) e.flag=true;
+      if(tb_1) e.keep=true;
       for(int i=0;i<e.data.length;i++) {
         for(int j=0;j<e.data[i].length;j++) {
           Chunk chunk=e.data[i][j];
@@ -115,17 +116,26 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     float tx_2=player.cx()/pw.blockWidth,
       ty_2=player.cy()/pw.blockHeight;
     for(int i=-regionLoadDistInt;i<=regionLoadDistInt;i++) {
+      // label_1:
       for(int j=-regionLoadDistInt;j<=regionLoadDistInt;j++) {
         int tx_3=tx_1+i,
           ty_3=ty_1+j;
+        // p.println(tx_3,ty_3);
         float tx_4=(((tx_3+0.5f)*regionWidth)*chunkWidth),
           ty_4=(((ty_3+0.5f)*regionHeight)*chunkHeight);
+        // p.println(tx_3,ty_3,tx_2,ty_2,tx_4,ty_4,UtilMath.dist(tx_2,ty_2,tx_4,ty_4),regionLoadDist);
         if(UtilMath.dist(tx_2,ty_2,tx_4,ty_4)<regionLoadDist) {
-          for(Region e:list) if(e.posIs(tx_3,ty_3)) continue;
-          add.add(pool.get(i,j));
+          boolean flag=testRegionPosInList(tx_3,ty_3,list)||testRegionPosInList(tx_3,ty_3,add);
+          // continue label_1;
+          // System.out.println(flag);
+          if(!flag) add.add(pool.get(i,j));
         }
       }
     }
+  }
+  public boolean testRegionPosInList(int xIn,int yIn,LinkedList<Region> list) {
+    for(Region e:list) if(e.posIs(xIn,yIn)) return true;
+    return false;
   }
   @Override
   public void update() {
