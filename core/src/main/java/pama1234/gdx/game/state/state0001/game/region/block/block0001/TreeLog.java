@@ -50,12 +50,6 @@ public class TreeLog extends MetaBlock{
         }
       }
       in.displayType[0]=typeCache;
-      // typeCache=0;
-      // if(Block.isNotFullBlock(world.getBlock(x-1,y-1))) typeCache+=1;
-      // if(Block.isNotFullBlock(world.getBlock(x-1,y+1))) typeCache+=2;
-      // if(Block.isNotFullBlock(world.getBlock(x+1,y+1))) typeCache+=4;
-      // if(Block.isNotFullBlock(world.getBlock(x+1,y-1))) typeCache+=8;
-      // in.displayType[1]=typeCache;
       //---
       if(in.updateLighting) lightingUpdate(in,x,y,world);
       // in.light.update();

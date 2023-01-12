@@ -17,7 +17,7 @@ public class TreeLeaf extends MetaBlock{
     buildTime=8;
     // fullBlock=false;
     // initFullBlockLambda();
-    initTreeLogLambda();
+    initTreeLeafLambda();
   }
   @Override
   public void initItemDrop() {
@@ -66,7 +66,7 @@ public class TreeLeaf extends MetaBlock{
     //-----------------------------------------------------
     tiles[24]=tsrc[17][4];
   }
-  public void initTreeLogLambda() {
+  public void initTreeLeafLambda() {
     // updater=lightUpdater;
     displayUpdater=(in,x,y)-> {
       World0001 world=in.type.pc.pw;
