@@ -22,13 +22,14 @@ public class RegionGenerator{
     Region region=new Region(p,pr,x,y,Gdx.files.local("data/saved/regions/"+x+"."+y+".bin"));
     if(region.dataLocation.exists()) {
       region.load();
-      return region;
+      // return region;
     }
     get(region);
     return region;
   }
   public void get(Region region) {
     MetaBlock[] types=pr.pw.metaBlocks.list.toArray(new MetaBlock[pr.pw.metaBlocks.list.size()]);
+    // System.out.println(types.length);
     region.data=new Chunk[pr.regionWidth][pr.regionHeight];
     Chunk[][] data=region.data;
     for(int i=0;i<data.length;i++) {
@@ -44,16 +45,16 @@ public class RegionGenerator{
         Block[][] blockData=chunk.data;
         for(int n=0;n<blockData.length;n++) {
           for(int m=0;m<blockData[n].length;m++) {
-            if(blockData[n][m]!=null) {
-              Block block=blockData[n][m];
-              // block.type=types[i];
-              block.innerInit(types[i]);
+            Block tb=blockData[n][m];
+            if(tb!=null) {
+              tb.innerInit(types[tb.typeId]);
+              p.println(i,j,n,m,tb.type.name);
             }else {
               float tx=x(region.x,i,n)/64f,ty=y(region.y,j,m)/64f;
               // float tx2=tx>0?doPow(tx):-doPow(-tx),ty2=ty>0?doPow(ty):-doPow(-ty);
               // float random=noise.get(tx2,ty2);
               float random=noise.get(tx,ty);
-              Block tb;
+              // Block tb;
               if(random>0.6f) tb=new Block(pr.pw.metaBlocks.stone);
               else if(random>0.3f) tb=new Block(pr.pw.metaBlocks.dirt);
               else tb=new Block(pr.pw.metaBlocks.air);

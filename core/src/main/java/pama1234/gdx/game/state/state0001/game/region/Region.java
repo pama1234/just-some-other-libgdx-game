@@ -68,19 +68,21 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
         Block[][] blockData=data[i][j].data;
         for(int n=0;n<blockData.length;n++) {
           for(int m=0;m<blockData[n].length;m++) {
-            if(blockData[n][m]!=null&&!blockData[n][m].changed) blockData[n][m]=null;
+            // if(blockData[n][m]!=null&&
+            if(!blockData[n][m].changed) blockData[n][m]=null;
+            // else p.println(i,j,n,m,blockData[n][m].type.name);
             // if(!blockData[n][m].changed) blockData[n][m]=null;
           }
         }
       }
     }
-    File tf=dataLocation.file();
-    try {
-      tf.createNewFile();
-    }catch(IOException e) {
-      e.printStackTrace();
-    }
-    try(Output output=new Output(new FileOutputStream(tf))) {
+    // File tf=dataLocation.file();
+    // try {
+    //   tf.createNewFile();
+    // }catch(IOException e) {
+    //   e.printStackTrace();
+    // }
+    try(Output output=new Output(new FileOutputStream(dataLocation.file()))) {
       kryo.writeObject(output,this);
       output.close();
     }catch(FileNotFoundException|KryoException e) {
@@ -106,6 +108,7 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
             Block block=blockData[n][m];
             if(block==null) continue;//TODO 性能
             MetaBlock blockType=block.type;
+            if(blockType==null) continue;
             int tx_3=tx_2+n,
               ty_3=ty_2+m;
             blockType.update(block,tx_3,ty_3);
@@ -164,6 +167,7 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
             Block block=blockData[n][m];
             if(block==null) continue;//TODO 浪费性能
             MetaBlock blockType=block.type;
+            if(blockType==null) continue;
             int tx=tx_2+n,
               ty=ty_2+m;
             blockType.updateDisplay(block,tx,ty);

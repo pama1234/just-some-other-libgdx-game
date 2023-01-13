@@ -169,6 +169,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
         Block block=getBlock(i,j);
         if(block==null) continue;//TODO
         MetaBlock blockType=block.type;
+        if(blockType==null) continue;
         // blockType.updateDisplay(block,i,j);
         if(!blockType.display) continue;
         blockType.display(p,block,tx,ty);
@@ -227,6 +228,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
             Block block=getBlock(i,j);
             if(block==null) continue;//TODO
             MetaBlock blockType=block.type;
+            if(blockType==null) continue;
             blockType.updateDisplay(block,i,j);
           }
         }

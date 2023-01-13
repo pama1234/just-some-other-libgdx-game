@@ -136,7 +136,7 @@ public class Game extends StateEntity0001{
       initDebugText();
       // debugText("Lighting  block="+(tb!=null?tb.lighting:"null")+" player="+Tools.cutToLastDigit(world.yourself.lighting.pos));
       debugText("Lighting  block="+(tb!=null?tb.light.toString():"null")+" player="+world.yourself.light.toString());
-      debugText("Player    pos="+p.getFloatString(world.yourself.point.pos.x,8)+" "+p.getFloatString(world.yourself.point.pos.y,7)+" vel="+p.getFloatString(world.yourself.point.vel.x,5)+" "+p.getFloatString(world.yourself.point.vel.y,5));
+      debugText("Player    pos="+p.getFloatString(world.yourself.point.pos.x,8)+" "+p.getFloatString(world.yourself.point.pos.y,8)+" vel="+p.getFloatString(world.yourself.point.vel.x,5)+" "+p.getFloatString(world.yourself.point.vel.y,5));
       debugText("---- asynchronous ----");//以下是那三个刷新线程的调试信息，格式如下之类的：“执行所消耗的时间ms 和上一次执行相距的时间差ms”
       debugText("Regions         Update "+timeString(world.regions.updateLoop));
       debugText("Regions Display Update "+timeString(world.regions.updateDisplayLoop));

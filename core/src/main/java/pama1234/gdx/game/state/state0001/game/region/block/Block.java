@@ -52,10 +52,10 @@ public class Block{
     in.from(this,t);
   }
   public static boolean isEmpty(Block in) {
-    return in==null||in.type.empty;
+    return in==null||in.type==null||in.type.empty;//TODO
   }
   public static boolean isNotFullBlock(Block in) {
-    return in==null||in.type.empty||!in.type.fullBlock;
+    return in==null||in.type==null||in.type.empty||!in.type.fullBlock;//TODO
   }
   public static boolean isType(Block in,MetaBlock type) {
     return in!=null&&in.type==type;

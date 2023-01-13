@@ -42,7 +42,7 @@ public class LivingEntity extends GamePointEntity<MassPoint>{
     for(int i=0;i<=outerBox.w;i++) {
       for(int j=0;j<=outerBox.h;j++) {
         Block tb=pw.getBlock(outerBox.x1+i,outerBox.y1+j);
-        if(tb!=null) {
+        if(tb!=null&&tb.light!=null) {
           cr+=tb.light.r();
           cg+=tb.light.g();
           cb+=tb.light.b();

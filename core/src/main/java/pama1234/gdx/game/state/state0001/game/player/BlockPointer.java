@@ -72,7 +72,7 @@ public class BlockPointer{
         InventorySlot ts=slot();
         if(ts.item==null) break;
         MetaBlock tbt=ts.item.type.blockType;
-        if(tbt==null||block.type==tbt) progress=0;
+        if(tbt==null||block==null||block.type==tbt) progress=0;
         else if(progress>=tbt.buildTime) {
           progress=0;
           // if(block.type!=tbt) {
