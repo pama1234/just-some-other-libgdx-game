@@ -1,10 +1,8 @@
 package pama1234.gdx.game.state.state0001.game.region;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 
 import com.badlogic.gdx.files.FileHandle;
 import com.esotericsoftware.kryo.Kryo;
@@ -56,6 +54,17 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
       Region out=kryo.readObject(input,Region.class);
       input.close();
       data=out.data;
+      // for(int i=0;i<data.length;i++) {
+      //   for(int j=0;j<data[i].length;j++) {
+      //     Block[][] blockData=data[i][j].data;
+      //     for(int n=0;n<blockData.length;n++) {
+      //       for(int m=0;m<blockData[n].length;m++) {
+      //         Block block=blockData[n][m];
+      //         if(block!=null) p.println(i,j,n,m,block.typeId);
+      //       }
+      //     }
+      //   }
+      // }
     }catch(FileNotFoundException|KryoException e) {
       e.printStackTrace();
     }
@@ -68,20 +77,12 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
         Block[][] blockData=data[i][j].data;
         for(int n=0;n<blockData.length;n++) {
           for(int m=0;m<blockData[n].length;m++) {
-            // if(blockData[n][m]!=null&&
             if(!blockData[n][m].changed) blockData[n][m]=null;
             // else p.println(i,j,n,m,blockData[n][m].type.name);
-            // if(!blockData[n][m].changed) blockData[n][m]=null;
           }
         }
       }
     }
-    // File tf=dataLocation.file();
-    // try {
-    //   tf.createNewFile();
-    // }catch(IOException e) {
-    //   e.printStackTrace();
-    // }
     try(Output output=new Output(new FileOutputStream(dataLocation.file()))) {
       kryo.writeObject(output,this);
       output.close();
