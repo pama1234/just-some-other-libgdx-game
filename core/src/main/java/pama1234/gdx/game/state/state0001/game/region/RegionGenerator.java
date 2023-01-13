@@ -49,6 +49,7 @@ public class RegionGenerator{
             Block tb=blockData[n][m];
             if(tb!=null) {
               tb.innerInit(types[tb.typeId]);
+              tb.changed=true;
               // p.println(i,j,n,m,tb.type.name);
             }else {
               float tx=x(region.x,i,n)/64f,ty=y(region.y,j,m)/64f;
