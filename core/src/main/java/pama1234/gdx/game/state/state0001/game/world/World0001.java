@@ -1,6 +1,7 @@
 package pama1234.gdx.game.state.state0001.game.world;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 
@@ -78,6 +79,7 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
     for(MetaItem e:metaItems.list) e.init();
     for(MetaCreature<?> e:metaEntitys.list) e.init();
     regions.load();
+    Gdx.files.local("data/saved/regions/").mkdirs();//TODO
   }
   public void initSky() {
     ImageAsset.sky.getTexture().getTextureData().prepare();

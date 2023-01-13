@@ -57,7 +57,10 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   @Override
   public void save() {
     refresh();
-    for(Region e:list) e.save();
+    synchronized(list) {//TODO
+      for(Region e:list) e.save();
+      list.clear();
+    }
   }
   @Override
   public void refresh() {

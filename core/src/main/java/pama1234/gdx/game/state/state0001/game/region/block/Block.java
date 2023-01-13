@@ -1,5 +1,7 @@
 package pama1234.gdx.game.state.state0001.game.region.block;
 
+import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
+
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.entity.entity0001.DroppedItem;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
@@ -9,16 +11,29 @@ import pama1234.gdx.game.state.state0001.game.world.World0001;
 
 public class Block{
   public MetaBlock type;
+  @Tag(0)
+  public int typeId;
   public boolean changed;
+  @Tag(1)
   public boolean updateLighting=true;
   public int[] displayType;
   // public int lighting=0xffffff;
   // public int lighting=16;
   public PathVarLighting light;
+  @Deprecated
+  public Block() {//只能用于kryo
+  }
   public Block(MetaBlock type) {
-    this.type=type;
+    innerInit(type);
+  }
+  public void innerInit(MetaBlock type) {
+    innerSetType(type);
     init(type);
     light=new PathVarLighting();
+  }
+  public void innerSetType(MetaBlock in) {
+    type=in;
+    typeId=in.id;
   }
   public void init(MetaBlock type) {
     if(type.displayTypeSize>0) {
@@ -31,7 +46,7 @@ public class Block{
     if(in==t) return;
     changed=true;
     // updateLighting=true;
-    type=in;
+    innerSetType(in);
     init(in);
     t.to(this,in);
     in.from(this,t);

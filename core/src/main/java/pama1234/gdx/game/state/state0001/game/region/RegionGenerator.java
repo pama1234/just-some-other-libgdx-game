@@ -3,6 +3,7 @@ package pama1234.gdx.game.state.state0001.game.region;
 import com.badlogic.gdx.Gdx;
 
 import pama1234.gdx.game.app.Screen0011;
+import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.math.UtilMath;
 import pama1234.math.hash.HashNoise2f;
@@ -18,32 +19,46 @@ public class RegionGenerator{
     noise=new PerlinNoise2f(new HashNoise2f(seed));//TODO
   }
   public Region get(int x,int y) {
-    Region region=new Region(p,pr,Gdx.files.local("data/saved/regions/"+x+" "+y+".bin"));
-    region.x=x;
-    region.y=y;
+    Region region=new Region(p,pr,x,y,Gdx.files.local("data/saved/regions/"+x+"."+y+".bin"));
+    if(region.dataLocation.exists()) {
+      region.load();
+      return region;
+    }
     get(region);
     return region;
   }
   public void get(Region region) {
+    MetaBlock[] types=pr.pw.metaBlocks.list.toArray(new MetaBlock[pr.pw.metaBlocks.list.size()]);
     region.data=new Chunk[pr.regionWidth][pr.regionHeight];
     Chunk[][] data=region.data;
     for(int i=0;i<data.length;i++) {
       for(int j=0;j<data[i].length;j++) {
-        Chunk chunk=data[i][j]=new Chunk(region);
-        Block[][] blockData=chunk.data=new Block[pr.chunkWidth][pr.chunkHeight];
+        Chunk tc=data[i][j];
+        if(tc!=null) {
+          tc.innerInit(region);
+        }else {
+          tc=data[i][j]=new Chunk(region);
+          tc.data=new Block[pr.chunkWidth][pr.chunkHeight];
+        }
+        Chunk chunk=data[i][j];
+        Block[][] blockData=chunk.data;
         for(int n=0;n<blockData.length;n++) {
           for(int m=0;m<blockData[n].length;m++) {
-            // float random=p.random(2);
-            // float random=noise.get(((region.x*pr.regionWidth+i)*pr.chunkWidth+n)/32f,((region.y*pr.regionHeight+j)*pr.chunkHeight+m)/32f);
-            float tx=x(region.x,i,n)/64f,ty=y(region.y,j,m)/64f;
-            float tx2=tx>0?doPow(tx):-doPow(-tx),ty2=ty>0?doPow(ty):-doPow(-ty);
-            float random=noise.get(tx2,ty2);
-            // float random=noise.get(x(region.x,i,n)/32f,y(region.y,j,m)/32f);
-            // System.out.println(random+" "+i+" "+j+" "+n+" "+m);
-            // p.println(random,tx2,ty2);
-            if(random>0.6f) blockData[n][m]=new Block(pr.pw.metaBlocks.stone);
-            else if(random>0.3f) blockData[n][m]=new Block(pr.pw.metaBlocks.dirt);
-            else blockData[n][m]=new Block(pr.pw.metaBlocks.air);
+            if(blockData[n][m]!=null) {
+              Block block=blockData[n][m];
+              // block.type=types[i];
+              block.innerInit(types[i]);
+            }else {
+              float tx=x(region.x,i,n)/64f,ty=y(region.y,j,m)/64f;
+              // float tx2=tx>0?doPow(tx):-doPow(-tx),ty2=ty>0?doPow(ty):-doPow(-ty);
+              // float random=noise.get(tx2,ty2);
+              float random=noise.get(tx,ty);
+              Block tb;
+              if(random>0.6f) tb=new Block(pr.pw.metaBlocks.stone);
+              else if(random>0.3f) tb=new Block(pr.pw.metaBlocks.dirt);
+              else tb=new Block(pr.pw.metaBlocks.air);
+              blockData[n][m]=tb;
+            }
           }
         }
       }
