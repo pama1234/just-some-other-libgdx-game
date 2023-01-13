@@ -107,7 +107,7 @@ public class PlayerController extends Entity<Screen0011>{
         if(ti!=null) {
           p.tint(255,191);
           // p.println(selectBlock.progress,0,selectBlock.slot().item.type.blockType.buildTime,0,7,UtilMath.map(selectBlock.progress,0,selectBlock.slot().item.type.blockType.buildTime,0,7));
-          p.image(ImageAsset.tiles[21][(int)UtilMath.map(selectBlock.progress,0,ti.type.blockType.buildTime,0,7)],selectBlock.x*tw,selectBlock.y*th);
+          p.image(ImageAsset.tiles[21][(int)UtilMath.map(selectBlock.progress,0,ti.type.blockType.buildTime+selectBlock.block.type.destroyTime,0,7)],selectBlock.x*tw,selectBlock.y*th);
         }
       }
       default:
@@ -250,13 +250,8 @@ public class PlayerController extends Entity<Screen0011>{
         Item ti=td.item;
         if(ti!=null) {
           MetaBlock tb=ti.type.blockType;
-          // if(tm!=null&&block.type==player.pw.metaBlocks.air) {
           if(tb!=null&&block.type!=tb) {
             player.pw.placeBlock(player,block,tb,tx,ty);
-            // if(player.gameMode!=GameMode.creative) {
-            //   ti.count-=1;
-            //   if(ti.count==0) td.item=null;
-            // }
           }
         }
       }

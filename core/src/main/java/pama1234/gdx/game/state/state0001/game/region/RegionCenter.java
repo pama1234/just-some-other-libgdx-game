@@ -204,12 +204,12 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
         // for(Region e:list) e.updateDisplay();
         // refresh();
         Stream<Region> stream=list.stream().parallel();
-        stream.forEach(r->r.updateDisplay());
+        stream.forEach(r->r.updateDisplay(2));//主动降速，让CPU愉快一些
       }
     };
   }
   public LoopThread createUpdateDisplayLoop() {//刷新视角内的方块显示
-    return new LoopThread("RegionsUpdateDisplayLoop") {
+    return new LoopThread("RegionsUpdateDisplayLoop",300) {
       @Override
       public void doUpdate() {
         // for(Region e:list) e.updateDisplay();
@@ -252,6 +252,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     public LoopThread(String name) {
       super(name);
       lock=new Mutex(true);
+      setPriority(MIN_PRIORITY);//TODO
     }
     public LoopThread(String name,long sleepSize) {
       this(name);

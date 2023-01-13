@@ -73,7 +73,7 @@ public class BlockPointer{
         if(ts.item==null) break;
         MetaBlock tbt=ts.item.type.blockType;
         if(tbt==null||block==null||block.type==tbt) progress=0;
-        else if(progress>=tbt.buildTime) {
+        else if(progress>=tbt.buildTime+block.type.destroyTime) {
           progress=0;
           // if(block.type!=tbt) {
           pw.placeBlock(this,block,tbt,x,y);

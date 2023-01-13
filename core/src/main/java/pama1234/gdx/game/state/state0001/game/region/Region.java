@@ -153,7 +153,7 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
     }
     p.noTint();
   }
-  public void updateDisplay() {
+  public void updateDisplay(long sleep) {
     int tx_1=x*pr.regionWidth,
       ty_1=y*pr.regionHeight;
     for(int i=0;i<data.length;i++) {
@@ -173,6 +173,7 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
               ty=ty_2+m;
             blockType.updateDisplay(block,tx,ty);
           }
+          p.sleep(sleep);
         }
       }
     }

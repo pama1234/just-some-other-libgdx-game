@@ -31,7 +31,7 @@ public class RegionGenerator{
     MetaBlock[] types=pr.pw.metaBlocks.list.toArray(new MetaBlock[pr.pw.metaBlocks.list.size()]);
     // System.out.println(types.length);
     Chunk[][] data=region.data;
-    if(data==null) region.data=new Chunk[pr.regionWidth][pr.regionHeight];
+    if(data==null) data=region.data=new Chunk[pr.regionWidth][pr.regionHeight];
     for(int i=0;i<data.length;i++) {
       for(int j=0;j<data[i].length;j++) {
         Chunk tc=data[i][j];
