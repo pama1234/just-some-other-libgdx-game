@@ -58,6 +58,7 @@ public class EntityCenter<T extends UtilScreen,E extends EntityListener>extends 
   }
   @Override
   public void dispose() {
+    refresh();//TODO
     for(E e:list) e.dispose();
     for(E e:add) e.dispose();
     for(E e:remove) e.dispose();

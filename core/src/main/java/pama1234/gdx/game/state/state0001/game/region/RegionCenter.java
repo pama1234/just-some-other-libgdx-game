@@ -57,10 +57,19 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   @Override
   public void save() {
     refresh();
+    // System.out.println(p.stop);
+    shutdownAllLoop();
     synchronized(list) {//TODO
       for(Region e:list) e.save();
       list.clear();
     }
+  }
+  public void dispose() {
+    shutdownAllLoop();
+  }
+  public void shutdownAllLoop() {
+    unlockAllLoop();
+    for(LoopThread e:loops) e.interrupt();
   }
   @Override
   public void refresh() {
@@ -167,11 +176,6 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     }
     p.imageBatch.end();
     p.noTint();
-  }
-  public void dispose() {
-    unlockAllLoop();
-    for(LoopThread e:loops) e.interrupt();
-    // updateDisplayLoop.interrupt();//TODO
   }
   public void unlockAllLoop() {
     for(LoopThread e:loops) e.lock.unlock();

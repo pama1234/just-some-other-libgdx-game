@@ -163,6 +163,7 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
     fontBatch.dispose();
     font.dispose();
     // fontGenerator.dispose();
+    // center.refresh();
     center.dispose();
     // centerScreen.dispose();
     serverCenter.dispose();
