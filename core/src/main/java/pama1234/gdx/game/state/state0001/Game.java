@@ -146,11 +146,11 @@ public class Game extends StateEntity0001{
   }
   public String secondTimeString(LoopThread loop) {
     long tm=loop.millis,tm_2=loop.stepMillis;
-    return ("spent= "+p.getMillisString(tm,5)+"ms "+p.getFloatString(tm/1000f)+"s differ= ")+
+    return ("spent= "+p.getMillisString(tm,5)+"ms "+p.getFloatString(tm/1000f)+"s step= ")+
       (p.getMillisString(tm_2,5)+"ms "+p.getFloatString(tm_2/1000f)+"s");
   }
   public String timeString(LoopThread loop) {
-    return ("spent= "+p.getMillisString(loop.millis)+"ms differ= ")+
+    return ("spent= "+p.getMillisString(loop.millis)+"ms step= ")+
       (p.getMillisString(loop.stepMillis)+"ms");
   }
   public void initDebugText() {

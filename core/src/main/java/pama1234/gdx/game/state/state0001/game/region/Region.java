@@ -75,12 +75,15 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
     for(int i=0;i<data.length;i++) {
       for(int j=0;j<data[i].length;j++) {
         Block[][] blockData=data[i][j].data;
+        boolean flag=true;
         for(int n=0;n<blockData.length;n++) {
           for(int m=0;m<blockData[n].length;m++) {
             if(!blockData[n][m].changed) blockData[n][m]=null;
+            else flag=false;
             // else p.println(i,j,n,m,blockData[n][m].type.name);
           }
         }
+        if(flag) data[i][j]=null;
       }
     }
     try(Output output=new Output(new FileOutputStream(dataLocation.file()))) {
@@ -100,7 +103,7 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
     for(int i=0;i<data.length;i++) {
       for(int j=0;j<data[i].length;j++) {
         Chunk chunk=data[i][j];
-        if(!chunk.update) continue;
+        if(chunk==null||!chunk.update) continue;//TODO
         Block[][] blockData=chunk.data;
         int tx_2=(tx_1+i)*pr.chunkWidth,
           ty_2=(ty_1+j)*pr.chunkHeight;
@@ -159,7 +162,7 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
     for(int i=0;i<data.length;i++) {
       for(int j=0;j<data[i].length;j++) {
         Chunk chunk=data[i][j];
-        if(!chunk.update) continue;
+        if(chunk==null||!chunk.update) continue;//TODO
         Block[][] blockData=chunk.data;
         int tx_2=(tx_1+i)*pr.chunkWidth,
           ty_2=(ty_1+j)*pr.chunkHeight;
@@ -173,7 +176,13 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
               ty=ty_2+m;
             blockType.updateDisplay(block,tx,ty);
           }
-          p.sleep(sleep);
+          // p.sleep(sleep);
+          try {
+            Thread.sleep(sleep);
+          }catch(InterruptedException e) {
+            // e.printStackTrace();
+            sleep=0;//迅速完成执行
+          }
         }
       }
     }

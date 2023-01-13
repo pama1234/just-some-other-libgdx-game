@@ -69,7 +69,10 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   }
   public void shutdownAllLoop() {
     unlockAllLoop();
-    for(LoopThread e:loops) e.interrupt();
+    for(LoopThread e:loops) {
+      e.sleepSize=0;
+      e.interrupt();
+    }
   }
   @Override
   public void refresh() {
@@ -198,13 +201,13 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     };
   }
   public LoopThread createFullMapUpdateDisplayLoop() {//刷新全世界的方块显示
-    return new LoopThread("RegionsFullMapUpdateDisplayLoop",30000) {
+    return new LoopThread("RegionsFullMapUpdateDisplayLoop",60000) {
       @Override
       public void doUpdate() {
         // for(Region e:list) e.updateDisplay();
         // refresh();
         Stream<Region> stream=list.stream().parallel();
-        stream.forEach(r->r.updateDisplay(2));//主动降速，让CPU愉快一些
+        stream.forEach(r->r.updateDisplay(40));//主动降速，让CPU愉快一些
       }
     };
   }
