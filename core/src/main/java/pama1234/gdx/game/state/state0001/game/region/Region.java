@@ -47,6 +47,9 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
     this.y=y;
     this.dataLocation=dataLocation;
   }
+  public boolean posIs(int a,int b) {
+    return x==a&&y==b;
+  }
   @Override
   public void load() {//TODO
     if(p.debugInfo) System.out.println("inner load region "+x+" "+y);
@@ -72,29 +75,28 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
   @Override
   public void save() {//TODO
     if(p.debugInfo) System.out.println("inner save region "+x+" "+y);
+    boolean tb_1=false;
     for(int i=0;i<data.length;i++) {
       for(int j=0;j<data[i].length;j++) {
         Block[][] blockData=data[i][j].data;
-        boolean flag=true;
+        boolean tb_2=true;
         for(int n=0;n<blockData.length;n++) {
           for(int m=0;m<blockData[n].length;m++) {
             if(!blockData[n][m].changed) blockData[n][m]=null;
-            else flag=false;
+            else tb_2=false;
             // else p.println(i,j,n,m,blockData[n][m].type.name);
           }
         }
-        if(flag) data[i][j]=null;
+        if(tb_2) data[i][j]=null;
+        else tb_1=true;
       }
     }
-    try(Output output=new Output(new FileOutputStream(dataLocation.file()))) {
+    if(tb_1) try(Output output=new Output(new FileOutputStream(dataLocation.file()))) {
       kryo.writeObject(output,this);
       output.close();
     }catch(FileNotFoundException|KryoException e) {
       e.printStackTrace();
     }
-  }
-  public boolean posIs(int a,int b) {
-    return x==a&&y==b;
   }
   @Override
   public void update() {
@@ -186,5 +188,9 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
         }
       }
     }
+  }
+  public static class RegionVerion{
+    public int version;
+    // public IntMap<String> idToNameMap;
   }
 }
