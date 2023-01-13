@@ -66,6 +66,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   }
   public void dispose() {
     shutdownAllLoop();
+    pool.dispose();
   }
   public void shutdownAllLoop() {
     unlockAllLoop();

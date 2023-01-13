@@ -31,4 +31,8 @@ public class RegionPool{
     data.addLast(in);
     if(data.size()>maxSize) data.removeFirst().save();
   }
+  public void dispose() {
+    for(Region e:data) e.save();
+    data.clear();
+  }
 }
