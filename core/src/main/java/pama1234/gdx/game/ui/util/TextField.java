@@ -277,9 +277,10 @@ public class TextField extends Widget implements Disableable{
     float textY=getTextY(font,background);
     calculateOffsets();
     if(focused&&hasSelection&&selection!=null) {
+      // drawSelection(selection,batch,font,x+bgLeftWidth,y);
       drawSelection(selection,batch,font,x+bgLeftWidth,y+textY);
     }
-    float yOffset=font.isFlipped()?-textHeight:0;
+    // float yOffset=font.isFlipped()?-textHeight:0;
     if(displayText.length()==0) {
       if((!focused||disabled)&&messageText!=null) {
         BitmapFont messageFont=style.messageFont!=null?style.messageFont:font;
@@ -287,13 +288,18 @@ public class TextField extends Widget implements Disableable{
           messageFont.setColor(style.messageFontColor.r,style.messageFontColor.g,style.messageFontColor.b,
             style.messageFontColor.a*color.a*parentAlpha);
         }else messageFont.setColor(0.7f,0.7f,0.7f,color.a*parentAlpha);
-        drawMessageText(batch,messageFont,x+bgLeftWidth,y+textY+yOffset,width-bgLeftWidth-bgRightWidth);
+        // drawMessageText(batch,messageFont,x+bgLeftWidth,y,width-bgLeftWidth-bgRightWidth);
+        drawMessageText(batch,messageFont,x+bgLeftWidth,y+textY,width-bgLeftWidth-bgRightWidth);
+        // drawMessageText(batch,messageFont,x+bgLeftWidth,y+textY+yOffset,width-bgLeftWidth-bgRightWidth);
       }
     }else {
       font.setColor(fontColor.r,fontColor.g,fontColor.b,fontColor.a*color.a*parentAlpha);
-      drawText(batch,font,x+bgLeftWidth,y+textY+yOffset);
+      // drawText(batch,font,x+bgLeftWidth,y);
+      drawText(batch,font,x+bgLeftWidth,y+textY);
+      // drawText(batch,font,x+bgLeftWidth,y+textY+yOffset);
     }
     if(!disabled&&cursorOn&&cursorPatch!=null) {
+      // drawCursor(cursorPatch,batch,font,x+bgLeftWidth,y);
       drawCursor(cursorPatch,batch,font,x+bgLeftWidth,y+textY);
     }
   }
@@ -857,7 +863,7 @@ public class TextField extends Widget implements Disableable{
             String insertion=enter?"\n":String.valueOf(character);
             text=insert(cursor++,insertion,text);
           }
-          String tempUndoText=undoText;
+          // String tempUndoText=undoText;
           if(changeText(oldText,text)) {
             long time=System.currentTimeMillis();
             if(time-750>lastChangeTime) undoText=oldText;

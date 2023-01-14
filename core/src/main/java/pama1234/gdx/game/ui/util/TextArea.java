@@ -193,7 +193,9 @@ public class TextArea extends TextField{
         }
         float selectionX=glyphPositions.get(start)-glyphPositions.get(lineStart);
         float selectionWidth=glyphPositions.get(end)-glyphPositions.get(start);
+        // selection.draw(batch,x+selectionX+fontLineOffsetX,y-lineHeight,
         selection.draw(batch,x+selectionX+fontLineOffsetX,y-lineHeight-offsetY,
+        // selection.draw(batch,x+selectionX+fontLineOffsetX,y-lineHeight+offsetY,
           selectionWidth+fontLineOffsetWidth,font.getLineHeight());
       }
       offsetY+=font.getLineHeight();
@@ -201,10 +203,15 @@ public class TextArea extends TextField{
     }
   }
   protected void drawText(Batch batch,BitmapFont font,float x,float y) {
+    // float offsetY=-(style.font.getLineHeight()-textHeight)/2;
+    // for(int i=firstLineShowing*2;i<(firstLineShowing+linesShowing)*2&&i<linesBreak.size;i+=2) {
+    //   font.draw(batch,displayText,x,y+offsetY,linesBreak.items[i],linesBreak.items[i+1],0,Align.left,false);
+    //   offsetY-=font.getLineHeight();
+    // }
     float offsetY=-(style.font.getLineHeight()-textHeight)/2;
     for(int i=firstLineShowing*2;i<(firstLineShowing+linesShowing)*2&&i<linesBreak.size;i+=2) {
       font.draw(batch,displayText,x,y+offsetY,linesBreak.items[i],linesBreak.items[i+1],0,Align.left,false);
-      offsetY-=font.getLineHeight();
+      offsetY+=font.getLineHeight();
     }
   }
   protected void drawCursor(Drawable cursorPatch,Batch batch,BitmapFont font,float x,float y) {
@@ -303,7 +310,8 @@ public class TextArea extends TextField{
   }
   public float getCursorY() {
     BitmapFont font=style.font;
-    return -(cursorLine-firstLineShowing+1)*font.getLineHeight();
+    return (cursorLine-firstLineShowing)*font.getLineHeight();
+    // return -(cursorLine-firstLineShowing+1)*font.getLineHeight();
   }
   public class TextAreaListener extends TextFieldClickListener{
     protected void setCursorPosition(float x,float y) {
