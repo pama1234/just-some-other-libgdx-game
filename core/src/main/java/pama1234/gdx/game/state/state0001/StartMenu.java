@@ -58,9 +58,9 @@ public class StartMenu extends StateEntity0001{
   @Override
   public void display() {
     if(p.isAndroid) return;
-    p.fill(0);
+    p.fill(60,136,136);
     p.rect(tx,0,tw,p.height);
-    p.fill(63);
+    p.fill(120,200,196);
     p.rect(tx,p.height/4f-p.bu/2f,tw,p.bu);
     p.rect(tx,p.height/2f-p.bu/2f,tw,p.bu);
     p.rect(tx,p.height/4f*3-p.bu/2f,tw,p.bu);

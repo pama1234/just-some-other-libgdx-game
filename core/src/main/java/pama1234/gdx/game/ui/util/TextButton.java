@@ -33,6 +33,7 @@ public class TextButton<T extends UtilScreen>extends Button<T>{
     final float tx=rect.x.get(),ty=rect.y.get(),tw=rect.w.get(),th=rect.h.get();
     if(touch!=null) {
       // p.fill(127,240);
+      // if(inButton(p.mouse.x,p.mouse.y)) p.fill(0,90,130,200); else 
       p.fill(94,203,234,200);
       p.textColor(255,220);
     }else {

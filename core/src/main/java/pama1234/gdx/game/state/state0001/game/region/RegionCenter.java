@@ -92,6 +92,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
       e.sleepSize=0;
       e.interrupt();
     }
+    // fullMapUpdateDisplayLoop.interrupt();//TODO
   }
   @Override
   public void refresh() {

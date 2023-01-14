@@ -176,12 +176,10 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
     placeBlock(player,block,metaBlocks.air,x,y);
   }
   public void placeBlock(MainPlayer player,Block block,MetaBlock in,int x,int y) {
-    updateRectLighting(x,y);
     block.doItemDrop(p,x,y);
     block.type(in);
-    // block.updateLighting=false;
     // block.type.updateDisplay(block,x,y);
-    // block.updateLighting=true;
+    updateRectLighting(x,y);
   }
   public void destroyBlock(BlockPointer bp,Block block,int x,int y) {
     placeBlock(bp,block,metaBlocks.air,x,y);
