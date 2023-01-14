@@ -166,16 +166,17 @@ public class TextArea extends TextField{
     // }
     // if(font.usesIntegerPositions()) textY=(int)textY;
     // return textY;
-    // return 0;
-    return font.getDescent();
+    return 0;
+    // return font.getDescent();
   }
   protected void drawSelection(Drawable selection,Batch batch,BitmapFont font,float x,float y) {
     int i=firstLineShowing*2;
     float offsetY=0;
     int minIndex=Math.min(cursor,selectionStart);
     int maxIndex=Math.max(cursor,selectionStart);
-    BitmapFont.BitmapFontData fontData=font.getData();
-    float lineHeight=style.font.getLineHeight();
+    // BitmapFont.BitmapFontData fontData=font.getData();
+    // float lineHeight=style.font.getLineHeight();
+    // float lineHeight=0;
     while(i+1<linesBreak.size&&i<(firstLineShowing+linesShowing)*2) {
       int lineStart=linesBreak.get(i);
       int lineEnd=linesBreak.get(i+1);
@@ -185,20 +186,24 @@ public class TextArea extends TextField{
         int end=Math.min(lineEnd,maxIndex);
         float fontLineOffsetX=0;
         float fontLineOffsetWidth=0;
-        BitmapFont.Glyph lineFirst=fontData.getGlyph(displayText.charAt(lineStart));
-        if(lineFirst!=null) {
-          if(start==lineStart) {
-            fontLineOffsetWidth=lineFirst.fixedWidth?0:-lineFirst.xoffset*fontData.scaleX-fontData.padLeft;
-          }else {
-            fontLineOffsetX=lineFirst.fixedWidth?0:-lineFirst.xoffset*fontData.scaleX-fontData.padLeft;
-          }
-        }
+        // BitmapFont.Glyph lineFirst=fontData.getGlyph(displayText.charAt(lineStart));
+        // if(lineFirst!=null) {
+        //   if(start==lineStart) {
+        //     fontLineOffsetWidth=lineFirst.fixedWidth?0:-lineFirst.xoffset*fontData.scaleX-fontData.padLeft;
+        //   }else {
+        //     fontLineOffsetX=lineFirst.fixedWidth?0:-lineFirst.xoffset*fontData.scaleX-fontData.padLeft;
+        //   }
+        // }
         float selectionX=glyphPositions.get(start)-glyphPositions.get(lineStart);
         float selectionWidth=glyphPositions.get(end)-glyphPositions.get(start);
         // selection.draw(batch,x+selectionX+fontLineOffsetX,y-lineHeight,
-        selection.draw(batch,x+selectionX+fontLineOffsetX,y-lineHeight+offsetY,
+        selection.draw(batch,
+          x+selectionX+fontLineOffsetX,
+          y+offsetY,
           // selection.draw(batch,x+selectionX+fontLineOffsetX,y-lineHeight+offsetY,
-          selectionWidth+fontLineOffsetWidth,font.getLineHeight());
+          // selection.draw(batch,x+selectionX+fontLineOffsetX,y-lineHeight+offsetY,
+          selectionWidth+fontLineOffsetWidth,
+          font.getLineHeight());
       }
       offsetY+=font.getLineHeight();
       i+=2;
@@ -210,14 +215,40 @@ public class TextArea extends TextField{
     //   font.draw(batch,displayText,x,y+offsetY,linesBreak.items[i],linesBreak.items[i+1],0,Align.left,false);
     //   offsetY-=font.getLineHeight();
     // }
-    float offsetY=-(style.font.getLineHeight()-textHeight)/2;
+    // float offsetY=-(style.font.getLineHeight()-textHeight)/2;
+    float offsetY=0;
     for(int i=firstLineShowing*2;i<(firstLineShowing+linesShowing)*2&&i<linesBreak.size;i+=2) {
-      font.draw(batch,displayText,x,y+offsetY,linesBreak.items[i],linesBreak.items[i+1],0,Align.left,false);
+      font.draw(batch,displayText,
+        // x,
+        x-fontOffset,
+        y+offsetY,
+        linesBreak.items[i],linesBreak.items[i+1],0,Align.left,false);
       offsetY+=font.getLineHeight();
     }
   }
   protected void drawCursor(Drawable cursorPatch,Batch batch,BitmapFont font,float x,float y) {
     cursorPatch.draw(batch,x+getCursorX(),y+getCursorY(),cursorPatch.getMinWidth(),font.getLineHeight());
+  }
+  public float getCursorX() {
+    float tempTextOffset=0;
+    BitmapFont.BitmapFontData fontData=style.font.getData();
+    if(!(cursor>=glyphPositions.size||cursorLine*2>=linesBreak.size)) {
+      int lineStart=linesBreak.items[cursorLine*2];
+      // float glyphOffset=0;
+      // BitmapFont.Glyph lineFirst=fontData.getGlyph(displayText.charAt(lineStart));
+      // if(lineFirst!=null) {
+      //   glyphOffset=lineFirst.fixedWidth?0:-lineFirst.xoffset*fontData.scaleX-fontData.padLeft;
+      // }
+      // tempTextOffset=glyphPositions.get(cursor)-glyphPositions.get(lineStart)+glyphOffset;
+      tempTextOffset=glyphPositions.get(cursor)-glyphPositions.get(lineStart);
+    }
+    return tempTextOffset+fontData.cursorX;
+    // return style.font.getData().cursorX;
+  }
+  public float getCursorY() {
+    BitmapFont font=style.font;
+    return (cursorLine-firstLineShowing)*font.getLineHeight();
+    // return -(cursorLine-firstLineShowing+1)*font.getLineHeight();
   }
   protected void calculateOffsets() {
     super.calculateOffsets();
@@ -296,25 +327,6 @@ public class TextArea extends TextField{
   public int getLinesShowing() {
     return linesShowing;
   }
-  public float getCursorX() {
-    float textOffset=0;
-    BitmapFont.BitmapFontData fontData=style.font.getData();
-    if(!(cursor>=glyphPositions.size||cursorLine*2>=linesBreak.size)) {
-      int lineStart=linesBreak.items[cursorLine*2];
-      float glyphOffset=0;
-      BitmapFont.Glyph lineFirst=fontData.getGlyph(displayText.charAt(lineStart));
-      if(lineFirst!=null) {
-        glyphOffset=lineFirst.fixedWidth?0:-lineFirst.xoffset*fontData.scaleX-fontData.padLeft;
-      }
-      textOffset=glyphPositions.get(cursor)-glyphPositions.get(lineStart)+glyphOffset;
-    }
-    return textOffset+fontData.cursorX;
-  }
-  public float getCursorY() {
-    BitmapFont font=style.font;
-    return (cursorLine-firstLineShowing)*font.getLineHeight();
-    // return -(cursorLine-firstLineShowing+1)*font.getLineHeight();
-  }
   public class TextAreaListener extends TextFieldClickListener{
     protected void setCursorPosition(float x,float y) {
       moveOffset=-1;
@@ -329,7 +341,9 @@ public class TextArea extends TextField{
       if(background!=null) {
         y-=background.getTopHeight();
       }
-      cursorLine=(int)Math.floor((height-y)/font.getLineHeight())+firstLineShowing;
+      cursorLine=(int)Math.floor(y/(font.getLineHeight()*font.getData().scaleY))+firstLineShowing;
+      System.out.println(y+" "+(font.getLineHeight()+" "+font.getData().scaleY));
+      // cursorLine=(int)Math.floor((height-y)/font.getLineHeight())+firstLineShowing;
       cursorLine=Math.max(0,Math.min(cursorLine,getLines()-1));
       super.setCursorPosition(x,y);
       updateCurrentLine();

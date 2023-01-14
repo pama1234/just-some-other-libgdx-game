@@ -309,23 +309,26 @@ public class TextField extends Widget implements Disableable{
   protected float getTextY(BitmapFont font,@Null Drawable background) {
     // float height=getHeight();
     // float textY=textHeight/2+font.getDescent();
-    float textY=font.getDescent();
+    // float textY=font.getDescent()*font.getData().scaleY;
     // if(background!=null) {
     //   float bottom=background.getBottomHeight();
     //   textY=textY+(height-background.getTopHeight()-bottom)/2+bottom;
     // }else textY=textY+height/2;
-    if(font.usesIntegerPositions()) textY=(int)textY;
-    return textY;
+    // if(font.usesIntegerPositions()) textY=(int)textY;
+    // return textY;
+    return 0;
   }
   protected void drawSelection(Drawable selection,Batch batch,BitmapFont font,float xIn,float yIn) {//TODO
     // System.out.println("TextField.drawSelection()");
     selection.draw(batch,
       xIn+textOffset+selectionX,
       // xIn+textOffset+selectionX+fontOffset,
-      // y+font.getDescent(),
+      // yIn-font.getDescent(),
       yIn,
       selectionWidth,
-      textHeight);
+      // textHeight+font.getDescent());
+      // textHeight);
+      font.getLineHeight());
   }
   protected void drawText(Batch batch,BitmapFont font,float x,float y) {
     font.draw(batch,displayText,
@@ -342,7 +345,9 @@ public class TextField extends Widget implements Disableable{
       x+textOffset+glyphPositions.get(cursor)-glyphPositions.get(visibleTextStart)+font.getData().cursorX,
       // x+textOffset+glyphPositions.get(cursor)-glyphPositions.get(visibleTextStart)+fontOffset+font.getData().cursorX,
       y-font.getDescent(),
-      cursorPatch.getMinWidth(),textHeight);
+      cursorPatch.getMinWidth(),
+      // textHeight);
+      font.getLineHeight());
   }
   void updateDisplayText() {
     BitmapFont font=style.font;
