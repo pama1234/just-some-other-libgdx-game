@@ -104,7 +104,8 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
     else p.cam2d.active(false);
     p.cam2d.scale.pos=yourself.ctrl.camScale;
     p.cam2d.scale.des=yourself.ctrl.camScale;
-    p.cam2d.minScale=p.isAndroid?0.5f:0.25f;
+    p.cam2d.minScale=p.isAndroid?0.25f:0.5f;
+    // p.cam2d.minScale=p.isAndroid?0.125f:0.25f;
     // p.cam2d.minScale=p.isAndroid?0.5f:1;
     // p.cam2d.minScale=p.isAndroid?1:2;
     p.cam.point.pos.set(yourself.point.pos);

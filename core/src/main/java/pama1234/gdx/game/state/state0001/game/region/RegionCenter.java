@@ -213,9 +213,11 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     };
   }
   public LoopThread createUpdateDisplayLoop() {//刷新视角内的方块显示
-    return new LoopThread("RegionsUpdateDisplayLoop",300) {
+    return new LoopThread("RegionsUpdateDisplayLoop",50) {
       @Override
       public void doUpdate() {
+        if(p.cam2d.scale.pos<1.0f) sleepSize=300;
+        else sleepSize=50;
         // for(Region e:list) e.updateDisplay();
         // refresh();
         // Stream<Region> stream=list.stream().parallel();
