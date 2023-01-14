@@ -243,7 +243,9 @@ public class TextField extends Widget implements Disableable{
       float tx=td.scaleX,
         ty=td.scaleY;
       td.setScale(textSize.get());
+      // System.out.println(td.scaleY);
       // setStyle(style);//TODO
+      // System.out.println(getClass());
       textHeight=style.font.getCapHeight()-style.font.getDescent()*2;
       if(text!=null) updateDisplayText();
       doDraw(batch,parentAlpha);
@@ -332,8 +334,8 @@ public class TextField extends Widget implements Disableable{
   }
   protected void drawText(Batch batch,BitmapFont font,float x,float y) {
     font.draw(batch,displayText,
-      // x+textOffset,
-      x+textOffset-fontOffset,
+      x+textOffset,
+      // x+textOffset-fontOffset,
       y,
       visibleTextStart,visibleTextEnd,0,Align.left,false);
   }

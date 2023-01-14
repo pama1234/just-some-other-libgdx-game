@@ -169,7 +169,7 @@ public class TextArea extends TextField{
     return 0;
     // return font.getDescent();
   }
-  protected void drawSelection(Drawable selection,Batch batch,BitmapFont font,float x,float y) {
+  protected void drawSelection(Drawable selection,Batch batch,BitmapFont font,float x,float y) {//TODO
     int i=firstLineShowing*2;
     float offsetY=0;
     int minIndex=Math.min(cursor,selectionStart);
@@ -185,6 +185,7 @@ public class TextArea extends TextField{
         int start=Math.max(lineStart,minIndex);
         int end=Math.min(lineEnd,maxIndex);
         float fontLineOffsetX=0;
+        // float fontLineOffsetWidth=-fontOffset;
         float fontLineOffsetWidth=0;
         // BitmapFont.Glyph lineFirst=fontData.getGlyph(displayText.charAt(lineStart));
         // if(lineFirst!=null) {
@@ -219,8 +220,8 @@ public class TextArea extends TextField{
     float offsetY=0;
     for(int i=firstLineShowing*2;i<(firstLineShowing+linesShowing)*2&&i<linesBreak.size;i+=2) {
       font.draw(batch,displayText,
-        // x,
-        x-fontOffset,
+        x,
+        // x-fontOffset,
         y+offsetY,
         linesBreak.items[i],linesBreak.items[i+1],0,Align.left,false);
       offsetY+=font.getLineHeight();
@@ -332,17 +333,18 @@ public class TextArea extends TextField{
       moveOffset=-1;
       Drawable background=style.background;
       BitmapFont font=style.font;
-      float height=getHeight();
+      // float height=getHeight();
       if(background!=null) {
-        height-=background.getTopHeight();
+        // height-=background.getTopHeight();
         x-=background.getLeftWidth();
       }
       x=Math.max(0,x);
       if(background!=null) {
         y-=background.getTopHeight();
       }
-      cursorLine=(int)Math.floor(y/(font.getLineHeight()*font.getData().scaleY))+firstLineShowing;
-      System.out.println(y+" "+(font.getLineHeight()+" "+font.getData().scaleY));
+      cursorLine=(int)Math.floor(y/(font.getLineHeight()*textSize.get()))+firstLineShowing;
+      // System.out.println(y+" "+font.getLineHeight()+" "+font.getData().scaleY);
+      // System.out.println(font.getData().scaleY+" "+textSize.get());
       // cursorLine=(int)Math.floor((height-y)/font.getLineHeight())+firstLineShowing;
       cursorLine=Math.max(0,Math.min(cursorLine,getLines()-1));
       super.setCursorPosition(x,y);
