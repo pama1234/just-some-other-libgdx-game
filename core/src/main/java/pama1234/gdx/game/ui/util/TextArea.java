@@ -166,7 +166,8 @@ public class TextArea extends TextField{
     // }
     // if(font.usesIntegerPositions()) textY=(int)textY;
     // return textY;
-    return 0;
+    // return 0;
+    return font.getDescent();
   }
   protected void drawSelection(Drawable selection,Batch batch,BitmapFont font,float x,float y) {
     int i=firstLineShowing*2;
@@ -196,7 +197,7 @@ public class TextArea extends TextField{
         float selectionWidth=glyphPositions.get(end)-glyphPositions.get(start);
         // selection.draw(batch,x+selectionX+fontLineOffsetX,y-lineHeight,
         selection.draw(batch,x+selectionX+fontLineOffsetX,y-lineHeight+offsetY,
-        // selection.draw(batch,x+selectionX+fontLineOffsetX,y-lineHeight+offsetY,
+          // selection.draw(batch,x+selectionX+fontLineOffsetX,y-lineHeight+offsetY,
           selectionWidth+fontLineOffsetWidth,font.getLineHeight());
       }
       offsetY+=font.getLineHeight();

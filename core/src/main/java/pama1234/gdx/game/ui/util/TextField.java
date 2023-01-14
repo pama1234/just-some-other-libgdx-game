@@ -250,7 +250,7 @@ public class TextField extends Widget implements Disableable{
       td.setScale(tx,ty);
     }else doDraw(batch,parentAlpha);
   }
-  public void doDraw(Batch batch,float parentAlpha) {
+  public void doDraw(Batch batch,float parentAlpha) {//TODO
     boolean focused=hasKeyboardFocus();
     if(focused!=this.focused||(focused&&!blinkTask.isScheduled())) {
       this.focused=focused;
@@ -317,24 +317,30 @@ public class TextField extends Widget implements Disableable{
     if(font.usesIntegerPositions()) textY=(int)textY;
     return textY;
   }
-  protected void drawSelection(Drawable selection,Batch batch,BitmapFont font,float x,float y) {
+  protected void drawSelection(Drawable selection,Batch batch,BitmapFont font,float xIn,float yIn) {//TODO
     // System.out.println("TextField.drawSelection()");
     selection.draw(batch,
-      x+textOffset+selectionX+fontOffset,
+      xIn+textOffset+selectionX,
+      // xIn+textOffset+selectionX+fontOffset,
       // y+font.getDescent(),
-      y,
+      yIn,
       selectionWidth,
       textHeight);
   }
   protected void drawText(Batch batch,BitmapFont font,float x,float y) {
-    font.draw(batch,displayText,x+textOffset,y,visibleTextStart,visibleTextEnd,0,Align.left,false);
+    font.draw(batch,displayText,
+      // x+textOffset,
+      x+textOffset-fontOffset,
+      y,
+      visibleTextStart,visibleTextEnd,0,Align.left,false);
   }
   protected void drawMessageText(Batch batch,BitmapFont font,float x,float y,float maxWidth) {
     font.draw(batch,messageText,x,y,0,messageText.length(),maxWidth,textHAlign,false,"...");
   }
   protected void drawCursor(Drawable cursorPatch,Batch batch,BitmapFont font,float x,float y) {
     cursorPatch.draw(batch,
-      x+textOffset+glyphPositions.get(cursor)-glyphPositions.get(visibleTextStart)+fontOffset+font.getData().cursorX,
+      x+textOffset+glyphPositions.get(cursor)-glyphPositions.get(visibleTextStart)+font.getData().cursorX,
+      // x+textOffset+glyphPositions.get(cursor)-glyphPositions.get(visibleTextStart)+fontOffset+font.getData().cursorX,
       y-font.getDescent(),
       cursorPatch.getMinWidth(),textHeight);
   }
