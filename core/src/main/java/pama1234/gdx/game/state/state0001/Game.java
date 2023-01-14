@@ -7,6 +7,7 @@ import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
 import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
 import pama1234.gdx.game.state.state0001.game.entity.entity0001.DroppedItem;
 import pama1234.gdx.game.state.state0001.game.entity.util.MovementLimitBox;
+import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
 import pama1234.gdx.game.state.state0001.game.region.RegionCenter.LoopThread;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.World;
@@ -24,7 +25,7 @@ public class Game extends StateEntity0001{
   public TextButton<?>[] ctrlButtons;
   public float time;
   //---
-  public World0001 world;
+  public World0001 world_0001;
   public WorldCenter<Screen0011,Game,World<Screen0011,Game>> worldCenter;
   public boolean debug,debugGraphics;
   public boolean androidRightMouseButton;
@@ -36,28 +37,34 @@ public class Game extends StateEntity0001{
     menuButtons=ButtonGenerator.genButtons_0005(p);
     if(p.isAndroid) ctrlButtons=ButtonGenerator.genButtons_0007(p,this);
     worldCenter=new WorldCenter<Screen0011,Game,World<Screen0011,Game>>(p);
-    worldCenter.list.add(world=new World0001(p,this));
+    worldCenter.list.add(world_0001=new World0001(p,this));
     worldCenter.pointer=0;
     if(debug) createDebugDisplay();
+  }
+  public World0001 world() {
+    return world_0001;
   }
   public void createDebugDisplay() {
     if(displayCamTop==null) displayCamTop=new EntityListener() {
       @Override
       public void display() {
         p.beginBlend();
-        drawLimitBox(world.yourself,world.yourself.ctrl.limitBox);
-        for(DroppedItem e:world.entities.items.list) drawLimitBox(e,e.limitBox);
+        World0001 tw=world();
+        MainPlayer tp=tw.yourself;
+        drawLimitBox(tw,tp,tp.ctrl.limitBox);
+        // for(EntityCenter<Screen0011,? extends GamePointEntity<?>> i:tw.entities.list) for(GamePointEntity<?> e:i.list) drawLimitBox(tw,e,e.limitBox);
+        for(DroppedItem e:tw.entities.items.list) drawLimitBox(tw,e,e.limitBox);
         p.endBlend();
       }
     };
   }
-  public void drawLimitBox(LivingEntity in,MovementLimitBox limitBox) {
+  public void drawLimitBox(World0001 tw,LivingEntity in,MovementLimitBox limitBox) {
     int bx1=limitBox.x1,
       by1=limitBox.y1,
       bx2=limitBox.x2,
       by2=limitBox.y2;
-    int bw=world.blockWidth,
-      bh=world.blockHeight;
+    int bw=tw.blockWidth,
+      bh=tw.blockHeight;
     int ta=191;
     p.fill(255,127,191,ta);
     rectStroke(1,limitBox.leftWall,limitBox.ceiling,limitBox.rightWall,limitBox.floor);
@@ -92,8 +99,9 @@ public class Game extends StateEntity0001{
   }
   @Override
   public void from(State0001 in) {
-    p.backgroundColor(world.backgroundColor);
-    Vec2f tpos=world.yourself.point.pos;
+    World0001 tw=world();
+    p.backgroundColor(tw.backgroundColor);
+    Vec2f tpos=tw.yourself.point.pos;
     p.cam.point.pos.set(tpos.x,tpos.y,0);
     p.cam.point.des.set(tpos.x,tpos.y,0);
     // p.cam2d.activeDrag=false;
@@ -103,9 +111,9 @@ public class Game extends StateEntity0001{
     if(ctrlButtons!=null) for(Button<?> e:ctrlButtons) p.centerScreen.add.add(e);
     if(firstInit) {
       firstInit=false;
-      world.init();
+      tw.init();
     }
-    world.from(in);//TODO
+    tw.from(in);//TODO
     worldCenter.resume();
     if(debugGraphics) p.centerCam.add.add(displayCamTop);
     p.centerCam.add.add(worldCenter);
@@ -117,7 +125,7 @@ public class Game extends StateEntity0001{
     if(ctrlButtons!=null) for(Button<?> e:ctrlButtons) p.centerScreen.remove.add(e);
     p.centerCam.remove.add(worldCenter);
     worldCenter.pause();
-    world.to(in);//TODO
+    world().to(in);//TODO
     if(debugGraphics) p.centerCam.remove.add(displayCamTop);
   }
   @Override
@@ -129,18 +137,20 @@ public class Game extends StateEntity0001{
     if(debug) {
       p.beginBlend();
       p.fill(94,203,234,127);
-      for(RectF e:world.yourself.ctrl.cullRects) p.rect(e.x(),e.y(),e.w(),e.h());
+      World0001 tw=world();
+      RectF[] cullRects=tw.yourself.ctrl.cullRects;
+      for(RectF e:cullRects) p.rect(e.x(),e.y(),e.w(),e.h());
       p.endBlend();
-      Block tb=world.getBlock(p.mouse.x,p.mouse.y);
+      Block tb=tw.getBlock(p.mouse.x,p.mouse.y);
       p.textScale(p.pus/2f);
       initDebugText();
       // debugText("Lighting  block="+(tb!=null?tb.lighting:"null")+" player="+Tools.cutToLastDigit(world.yourself.lighting.pos));
-      debugText("Lighting  block="+(tb!=null?tb.light.toString():"null")+" player="+world.yourself.light.toString());
-      debugText("Player    pos="+p.getFloatString(world.yourself.point.pos.x,8)+" "+p.getFloatString(world.yourself.point.pos.y,8)+" vel="+p.getFloatString(world.yourself.point.vel.x,5)+" "+p.getFloatString(world.yourself.point.vel.y,5));
+      debugText("Lighting  block="+(tb!=null?tb.light.toString():"null")+" player="+tw.yourself.light.toString());
+      debugText("Player    pos="+p.getFloatString(tw.yourself.point.pos.x,8)+" "+p.getFloatString(tw.yourself.point.pos.y,8)+" vel="+p.getFloatString(tw.yourself.point.vel.x,5)+" "+p.getFloatString(tw.yourself.point.vel.y,5));
       debugText("---- asynchronous ----");//以下是那三个刷新线程的调试信息，格式如下之类的：“执行所消耗的时间ms 和上一次执行相距的时间差ms”
-      debugText("Regions         Update "+timeString(world.regions.updateLoop));
-      debugText("Regions Display Update "+timeString(world.regions.updateDisplayLoop));
-      debugText("FullMap Display Update "+secondTimeString(world.regions.fullMapUpdateDisplayLoop));
+      debugText("Regions         Update "+timeString(tw.regions.updateLoop));
+      debugText("Regions Display Update "+timeString(tw.regions.updateDisplayLoop));
+      debugText("FullMap Display Update "+secondTimeString(tw.regions.fullMapUpdateDisplayLoop));
       p.textScale(p.pus);
     }
   }
@@ -175,6 +185,7 @@ public class Game extends StateEntity0001{
   }
   @Override
   public void dispose() {
-    world.dispose();
+    // world().dispose();
+    for(World<?,?> e:worldCenter.list) e.dispose();
   }
 }

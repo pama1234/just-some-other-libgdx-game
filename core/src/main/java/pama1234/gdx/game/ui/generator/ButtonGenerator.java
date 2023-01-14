@@ -23,8 +23,8 @@ public class ButtonGenerator{
         self.text=pg.androidRightMouseButton?"mR":"mL";
       },"mL",p::getButtonUnitLength,()->p.width-p.bu*4f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,false),
       new TextButton<T>(p,true,()->true,self-> {},self-> {
-        pg.world.yourself.ctrl.shift(!pg.world.yourself.ctrl.shift);
-        self.text=pg.world.yourself.ctrl.shift?"S":"s";
+        pg.world().yourself.ctrl.shift(!pg.world().yourself.ctrl.shift);
+        self.text=pg.world().yourself.ctrl.shift?"S":"s";
       },self-> {},"s",p::getButtonUnitLength,()->p.width-p.bu*2.5f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,true),
       new TextButton<T>(p,true,()->true,self-> {},self-> {
         p.inputProcessor.keyDown(Input.Keys.A);

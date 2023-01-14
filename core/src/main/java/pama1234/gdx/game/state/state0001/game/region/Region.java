@@ -57,17 +57,6 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
       Region out=kryo.readObject(input,Region.class);
       input.close();
       data=out.data;
-      // for(int i=0;i<data.length;i++) {
-      //   for(int j=0;j<data[i].length;j++) {
-      //     Block[][] blockData=data[i][j].data;
-      //     for(int n=0;n<blockData.length;n++) {
-      //       for(int m=0;m<blockData[n].length;m++) {
-      //         Block block=blockData[n][m];
-      //         if(block!=null) p.println(i,j,n,m,block.typeId);
-      //       }
-      //     }
-      //   }
-      // }
     }catch(FileNotFoundException|KryoException e) {
       e.printStackTrace();
     }
@@ -171,7 +160,7 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
         for(int n=0;n<blockData.length;n++) {
           for(int m=0;m<blockData[n].length;m++) {
             Block block=blockData[n][m];
-            if(block==null) continue;//TODO 浪费性能
+            if(block==null) continue;//TODO 性能
             MetaBlock blockType=block.type;
             if(blockType==null) continue;
             int tx=tx_2+n,
@@ -183,14 +172,11 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
             Thread.sleep(sleep);
           }catch(InterruptedException e) {
             // e.printStackTrace();
-            sleep=0;//迅速完成执行
+            // sleep=0;//迅速完成执行
+            return;
           }
         }
       }
     }
-  }
-  public static class RegionVerion{
-    public int version;
-    // public IntMap<String> idToNameMap;
   }
 }

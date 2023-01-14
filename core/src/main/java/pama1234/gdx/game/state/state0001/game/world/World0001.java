@@ -3,6 +3,7 @@ package pama1234.gdx.game.state.state0001.game.world;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
@@ -25,11 +26,25 @@ import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 
 public class World0001 extends World<Screen0011,Game> implements StateEntityListener0001{
+  public static class WorldData{
+    @Tag(0)
+    public String name;
+    @Tag(1)
+    public int version;
+    public WorldData(String name,int version) {
+      this.name=name;
+      this.version=version;
+    }
+  }
+  public WorldData data;
+  public String dataDir="data/saved/test-world/";
+  //---
   public MetaBlockCenter0001 metaBlocks;
   public MetaItemCenter0001 metaItems;
   public MetaCreatureCenter0001 metaEntitys;
+  //---
   public GameEntityCenter entities;
-  public PlayerCenter players;
+  // public PlayerCenter players;
   public RegionCenter regions;
   public MainPlayer yourself;
   public int blockWidth=18,blockHeight=18;
@@ -52,14 +67,14 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
     metaEntitys=World0001Generator.createCreatureC(this);
     // list[0]=players=new PlayerCenter2D(p);
     list[0]=entities=new GameEntityCenter(p);
-    entities.list.add(entities.players=players=new PlayerCenter(p));
-    list[1]=regions=new RegionCenter(p,this,Gdx.files.local("data/saved/regions.bin"));
+    entities.list.add(entities.players=new PlayerCenter(p));
+    list[1]=regions=new RegionCenter(p,this);
     // regions.load();
     yourself=new MainPlayer(p,this,0,0);
     backgroundColor=p.color(0);
     colorA=p.color(0);
     colorB=p.color(0);
-    // entitys.points.add.add(new Fly(p,this,0,18*10,pg));//TODO
+    // entities.pointEntities.add.add(new Fly(p,this,0,18*10));//TODO
   }
   public float random(float max) {
     return p.random(max);
@@ -78,7 +93,7 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
     for(MetaItem e:metaItems.list) e.init();
     for(MetaCreature<?> e:metaEntitys.list) e.init();
     regions.load();
-    Gdx.files.local("data/saved/regions/").mkdirs();//TODO
+    Gdx.files.local(dataDir+"regions/").mkdirs();//TODO
   }
   public void initSky() {
     ImageAsset.sky.getTexture().getTextureData().prepare();

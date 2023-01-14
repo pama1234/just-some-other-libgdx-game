@@ -3,7 +3,9 @@ package pama1234.gdx.game.state.state0001.game.region;
 import java.util.LinkedList;
 import java.util.stream.Stream;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
@@ -16,8 +18,20 @@ import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 
 public class RegionCenter extends EntityCenter<Screen0011,Region> implements LoadAndSave{
+  public static class RegionData{
+    @Tag(0)
+    public String name;
+    @Tag(1)
+    public int version;
+    // public IntMap<String> idToNameMap;
+    public RegionData(String name,int version) {
+      this.name=name;
+      this.version=version;
+    }
+  }
   public World0001 pw;
-  public FileHandle metadata;
+  public RegionData data;
+  public FileHandle dataLocation;
   public int regionWidth=4,regionHeight=4;
   public int chunkWidth=64,chunkHeight=64;
   public float regionLoadDist=360;
@@ -26,10 +40,14 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   public RegionPool pool;
   public LoopThread[] loops;
   public LoopThread updateLoop,fullMapUpdateDisplayLoop,updateDisplayLoop;
+  public RegionCenter(Screen0011 p,World0001 pw) {
+    this(p,pw,Gdx.files.local(pw.dataDir+"regions.bin"));
+  }
   public RegionCenter(Screen0011 p,World0001 pw,FileHandle metadata) {
     super(p);
     this.pw=pw;
-    this.metadata=metadata;
+    data=new RegionData("firstRegion",0);
+    this.dataLocation=metadata;
     pool=new RegionPool(p,this,0);//TODO
     loops=new LoopThread[3];
     updateLoop=loops[0]=createUpdateLoop();

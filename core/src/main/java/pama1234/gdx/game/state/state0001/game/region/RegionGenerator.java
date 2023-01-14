@@ -19,7 +19,7 @@ public class RegionGenerator{
     noise=new PerlinNoise2f(new HashNoise2f(seed));//TODO
   }
   public Region get(int x,int y) {
-    Region region=new Region(p,pr,x,y,Gdx.files.local("data/saved/regions/"+x+"."+y+".bin"));
+    Region region=new Region(p,pr,x,y,Gdx.files.local(pr.pw.dataDir+"regions/"+x+"."+y+".bin"));
     if(region.dataLocation.exists()) {
       region.load();
       // return region;

@@ -23,9 +23,7 @@ public class Fly extends TextureLivingEntity{
     }
     @Override
     public void init() {
-      // if(tiles[0]!=null) return;
-      // System.out.println("Fly.FlyType.init()");
-      for(int i=0;i<tiles.length;i++) tiles[i][0]=ImageAsset.creature[6+i][2];
+      for(int i=0;i<tiles[0].length;i++) tiles[0][i]=ImageAsset.creature[6+i][2];
     }
   }
 }
