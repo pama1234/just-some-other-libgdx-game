@@ -243,6 +243,9 @@ public class TextField extends Widget implements Disableable{
       float tx=td.scaleX,
         ty=td.scaleY;
       td.setScale(textSize.get());
+      // setStyle(style);//TODO
+      textHeight=style.font.getCapHeight()-style.font.getDescent()*2;
+      if(text!=null) updateDisplayText();
       doDraw(batch,parentAlpha);
       td.setScale(tx,ty);
     }else doDraw(batch,parentAlpha);
@@ -304,19 +307,23 @@ public class TextField extends Widget implements Disableable{
     }
   }
   protected float getTextY(BitmapFont font,@Null Drawable background) {
-    float height=getHeight();
-    float textY=textHeight/2+font.getDescent();
-    if(background!=null) {
-      float bottom=background.getBottomHeight();
-      textY=textY+(height-background.getTopHeight()-bottom)/2+bottom;
-    }else {
-      textY=textY+height/2;
-    }
+    // float height=getHeight();
+    // float textY=textHeight/2+font.getDescent();
+    float textY=font.getDescent();
+    // if(background!=null) {
+    //   float bottom=background.getBottomHeight();
+    //   textY=textY+(height-background.getTopHeight()-bottom)/2+bottom;
+    // }else textY=textY+height/2;
     if(font.usesIntegerPositions()) textY=(int)textY;
     return textY;
   }
   protected void drawSelection(Drawable selection,Batch batch,BitmapFont font,float x,float y) {
-    selection.draw(batch,x+textOffset+selectionX+fontOffset,y-textHeight-font.getDescent(),selectionWidth,
+    // System.out.println("TextField.drawSelection()");
+    selection.draw(batch,
+      x+textOffset+selectionX+fontOffset,
+      // y+font.getDescent(),
+      y,
+      selectionWidth,
       textHeight);
   }
   protected void drawText(Batch batch,BitmapFont font,float x,float y) {
@@ -328,7 +335,8 @@ public class TextField extends Widget implements Disableable{
   protected void drawCursor(Drawable cursorPatch,Batch batch,BitmapFont font,float x,float y) {
     cursorPatch.draw(batch,
       x+textOffset+glyphPositions.get(cursor)-glyphPositions.get(visibleTextStart)+fontOffset+font.getData().cursorX,
-      y-textHeight-font.getDescent(),cursorPatch.getMinWidth(),textHeight);
+      y-font.getDescent(),
+      cursorPatch.getMinWidth(),textHeight);
   }
   void updateDisplayText() {
     BitmapFont font=style.font;

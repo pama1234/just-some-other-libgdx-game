@@ -160,12 +160,13 @@ public class TextArea extends TextField{
     linesShowing=(int)Math.floor(availableHeight/font.getLineHeight());
   }
   protected float getTextY(BitmapFont font,@Null Drawable background) {
-    float textY=getHeight();
-    if(background!=null) {
-      textY=textY-background.getTopHeight();
-    }
-    if(font.usesIntegerPositions()) textY=(int)textY;
-    return textY;
+    // float textY=getHeight();
+    // if(background!=null) {
+    //   textY=textY-background.getTopHeight();
+    // }
+    // if(font.usesIntegerPositions()) textY=(int)textY;
+    // return textY;
+    return 0;
   }
   protected void drawSelection(Drawable selection,Batch batch,BitmapFont font,float x,float y) {
     int i=firstLineShowing*2;
@@ -194,7 +195,7 @@ public class TextArea extends TextField{
         float selectionX=glyphPositions.get(start)-glyphPositions.get(lineStart);
         float selectionWidth=glyphPositions.get(end)-glyphPositions.get(start);
         // selection.draw(batch,x+selectionX+fontLineOffsetX,y-lineHeight,
-        selection.draw(batch,x+selectionX+fontLineOffsetX,y-lineHeight-offsetY,
+        selection.draw(batch,x+selectionX+fontLineOffsetX,y-lineHeight+offsetY,
         // selection.draw(batch,x+selectionX+fontLineOffsetX,y-lineHeight+offsetY,
           selectionWidth+fontLineOffsetWidth,font.getLineHeight());
       }
