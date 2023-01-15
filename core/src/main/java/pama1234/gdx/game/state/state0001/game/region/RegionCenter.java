@@ -75,7 +75,6 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   @Override
   public void save() {
     refresh();
-    // System.out.println(p.stop);
     shutdownAllLoop();
     synchronized(list) {//TODO
       for(Region e:list) e.save();
@@ -96,13 +95,11 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   }
   @Override
   public void refresh() {
-    // System.out.println("RegionCenter.refresh()");
     removeRegionAndTestChunkUpdate();
     testAddChunk();
     synchronized(list) {//TODO
       super.refresh();
     }
-    // System.out.println(list.size());
   }
   public void removeRegionAndTestChunkUpdate() {
     for(Region e:list) {
@@ -139,28 +136,19 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     for(Player player:pw.entities.players.list) testAddChunkWithPlayer(player);
     testAddChunkWithPlayer(pw.yourself);//TODO
   }
-  // public int tx_1_g,ty_1_g;
   public void testAddChunkWithPlayer(Player player) {
     int tx_1=UtilMath.round(player.cx()/(regionWidth*chunkWidth*pw.blockWidth)),
       ty_1=UtilMath.round(player.cy()/(regionHeight*chunkHeight*pw.blockHeight));
-    // if(tx_1_g!=tx_1||ty_1_g!=ty_1) {
-    //   p.println(tx_1,ty_1);
-    //   tx_1_g=tx_1;
-    //   ty_1_g=ty_1;
-    // }
     float tx_2=player.cx()/pw.blockWidth,
       ty_2=player.cy()/pw.blockHeight;
     for(int i=-regionLoadDistInt;i<=regionLoadDistInt;i++) {
       for(int j=-regionLoadDistInt;j<=regionLoadDistInt;j++) {
         int tx_3=tx_1+i,
           ty_3=ty_1+j;
-        // p.println(tx_3,ty_3);
         float tx_4=(((tx_3+0.5f)*regionWidth)*chunkWidth),
           ty_4=(((ty_3+0.5f)*regionHeight)*chunkHeight);
-        // p.println(tx_3,ty_3,tx_2,ty_2,tx_4,ty_4,UtilMath.dist(tx_2,ty_2,tx_4,ty_4),regionLoadDist);
         if(UtilMath.dist(tx_2,ty_2,tx_4,ty_4)<regionLoadDist) {
           boolean flag=testRegionPosInList(tx_3,ty_3,list)||testRegionPosInList(tx_3,ty_3,add);
-          // System.out.println(flag);
           if(!flag) add.add(pool.get(tx_3,ty_3));
         }
       }

@@ -145,6 +145,5 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     stateNull();
     super.dispose();
     State0001.disposeAll();
-    // State0001.exit();
   }
 }

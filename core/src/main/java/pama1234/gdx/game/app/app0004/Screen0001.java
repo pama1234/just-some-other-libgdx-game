@@ -51,9 +51,6 @@ public class Screen0001 extends ScreenCore3D{
   public Decal logo;
   public boolean tempTest;//TODO
   public ConfigInfo configInfo;
-  // public int tempCellSize=128;
-  // public int tempColorSize=32;//TODO
-  // public int tempSize=tempCellSize*tempColorSize;
   public static class GraphicsData{
     public Graphics g;
     public TextureRegion tr;
@@ -71,7 +68,6 @@ public class Screen0001 extends ScreenCore3D{
     }
   }
   public int tgsizeF(int k) {
-    // return (int)pow(gsize,(k+2)*0.3f);
     return 8*(k*2+1);
   }
   @Override
@@ -173,14 +169,13 @@ public class Screen0001 extends ScreenCore3D{
     in/=cam3d.viewDist()/2;
     in=2-in;
     if(in>1) in=1;
-    if(in<0) in=0;
+    else if(in<0) in=0;
     return in;
   }
   public int layerF(float dist) {
     int out=(int)map(dist,0,cam3d.viewDist(),layerSize,0);
     if(out>=layerSize) out=layerSize-1;
     return out;
-    // return (int)constrain(map(log(dist,logn),-logViewDist,logViewDist,layerSize,0),0,layerSize-1);
   }
   public boolean isVisible(Camera cam,Decal in,float r) {
     return cam.frustum.sphereInFrustum(in.getPosition(),r);

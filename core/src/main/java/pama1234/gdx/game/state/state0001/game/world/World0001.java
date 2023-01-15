@@ -120,9 +120,6 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
     p.cam2d.scale.pos=yourself.ctrl.camScale;
     p.cam2d.scale.des=yourself.ctrl.camScale;
     p.cam2d.minScale=p.isAndroid?0.25f:0.5f;
-    // p.cam2d.minScale=p.isAndroid?0.125f:0.25f;
-    // p.cam2d.minScale=p.isAndroid?0.5f:1;
-    // p.cam2d.minScale=p.isAndroid?1:2;
     p.cam.point.pos.set(yourself.point.pos);
     p.cam.point.des.set(yourself.point.pos);
     p.centerCam.add.add(yourself);
@@ -161,8 +158,6 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
   @Override
   public void dispose() {
     super.dispose();
-    // System.out.println("World0001.dispose()");
-    // new Throwable().printStackTrace();
     regions.save();
     regions.dispose();
   }

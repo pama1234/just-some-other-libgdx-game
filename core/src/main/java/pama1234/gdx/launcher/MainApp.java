@@ -12,7 +12,7 @@ public class MainApp extends Game{
   @Override
   public void create() {
     // setScreen(new Screen0012());
-    setScreen(new Screen0011());//main game
+    // setScreen(new Screen0011());// main game
     // setScreen(new Screen0010());
     // setScreen(new Screen0009());
     // setScreen(new Screen0008());
@@ -21,7 +21,7 @@ public class MainApp extends Game{
     // setScreen(new Screen0004());
     // setScreen(new Screen0003());
     // setScreen(new Screen0002());
-    // setScreen(new Screen0001());
+    setScreen(new Screen0001());// 3D 粒子系统 单机模式
   }
   @Override
   public void dispose() {
