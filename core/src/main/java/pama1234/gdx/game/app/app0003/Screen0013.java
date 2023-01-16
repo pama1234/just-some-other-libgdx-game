@@ -1,5 +1,8 @@
 package pama1234.gdx.game.app.app0003;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
 
@@ -29,21 +32,35 @@ public class Screen0013 extends ScreenCore3D{
   public void update() {}
   @Override
   public void displayWithCam() {
-    // float step=0.125f+(frameCount%16)/16f-1/8f;
-    // float step=0.125f;
     float step=f_0002(frameCount)/2f;
-    // System.out.println(step);
-    beginBlend();
+    // beginBlend();
     decalFlush(decal);
+    // Gdx.gl.glEnable(GL20.GL_BLEND);//TODO
+    // Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA,GL20.GL_ONE_MINUS_SRC_ALPHA);
+    // Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA,GL20.GL_ONE_MINUS_DST_COLOR);
+    // Gdx.gl.glBlendFunc(GL20.GL_ONE_MINUS_DST_COLOR,GL20.GL_ZERO);
+    fontBatch.setBlendFunctionSeparate(
+      GL20.GL_SRC_ALPHA,
+      GL20.GL_ONE_MINUS_SRC_ALPHA,
+      GL20.GL_SRC_ALPHA,
+      GL20.GL_ONE_MINUS_SRC_ALPHA);
+    // fontBatch.enableBlending();
     textColor(213,53,105,127);
     text(text,step,0);
     textColor(0,89,132,127);
     text(text,-step,0);
+    fontBatch.flush();
+    setDefaultBlendFunc(fontBatch);
+    // endBlend();
     textColor(0);
     text(Tools.cutToLastDigitString(step),0,20);
-    // textColor(266,127);
-    // text(text,0,0);
-    endBlend();
+  }
+  public void setDefaultBlendFunc(SpriteBatch in) {
+    in.setBlendFunctionSeparate(
+      GL20.GL_SRC_ALPHA,
+      GL20.GL_ONE_MINUS_SRC_ALPHA,
+      GL20.GL_SRC_ALPHA,
+      GL20.GL_ONE_MINUS_SRC_ALPHA);
   }
   public float f_0001(float in) {
     in%=16;
