@@ -19,36 +19,24 @@ public class Screen0009 extends ScreenCore2D{
   @Override
   public void setup() {
     noStroke();
-    // moonlightSonata=Gdx.audio.newMusic(Gdx.files.internal("music/Beethoven-Moonlight-Sonata.mp3"));
     MusicAsset.moonlightSonata=MusicAsset.load("Beethoven-Moonlight-Sonata.mp3");
     moonlightSonata.play();
-    // alsoSprachZarathustra.play();
     //---
     background=FileUtil.loadTextureRegion("image/background.png");
     GifDecoder gdec=new GifDecoder();
     gdec.read(Gdx.files.internal("image/bigEarth.gif").read());
     earth=gdec.getAnimation(Animation.PlayMode.LOOP);
-    // Gdx.files.internal("image/earth.gif").read());
   }
   @Override
   public void update() {
-    // shaderUpdate();
     time+=frameRate/4;
   }
-  // public void shaderUpdate() {}
   @Override
-  public void mousePressed(MouseInfo info) {
-    // if(moonlightSonata.isPlaying()) moonlightSonata.pause();
-    // else moonlightSonata.play();
-  }
+  public void mousePressed(MouseInfo info) {}
   @Override
   public void displayWithCam() {
     TextureRegion kf=earth.getKeyFrame(time);
     image(kf,0,0);
-    // text(kf.getRegionWidth()+" "+kf.getRegionHeight(),0,0);
-    // text(kf.getU2()+" "+kf.getV2(),0,textSize());
-    // image(background,0,0);
-    // SpriteBatch.createDefaultShader();
   }
   @Override
   public void display() {}

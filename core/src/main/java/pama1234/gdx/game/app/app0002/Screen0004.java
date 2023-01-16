@@ -32,7 +32,6 @@ public class Screen0004 extends ScreenCore3D{
     // textField.setFocusTraversal(true);
     // textField.setAlignment(Align.left);
     stage.addActor(textField);
-    // inputProcessor.sub.add.add(stage);
     centerScreen.add.add(new ConfigInfo(this));
     //---
     ModelBuilder modelBuilder=new ModelBuilder();
@@ -44,8 +43,6 @@ public class Screen0004 extends ScreenCore3D{
       ),
       Usage.Position|Usage.Normal);
     instance=new ModelInstance(model);
-    // cam.camera=new OrthographicCamera();
-    // cam3d.initCamera();
   }
   @Override
   public void update() {}

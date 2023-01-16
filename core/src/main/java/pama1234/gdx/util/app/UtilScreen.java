@@ -166,6 +166,10 @@ public abstract class UtilScreen extends UtilScreenCore{
     if(ts>=1) return MathUtils.floor(ts);
     else return Math.max(MathUtils.floor(ts*fontGridSize)/fontGridSize,1/fontGridSize);
   }
+  public void textColor(int r,int g,int b,int a) {
+    textColor.set(r/255f,g/255f,b/255f,a/255f);
+    font.color(textColor);
+  }
   public void textColor(int r,int g,int b) {
     textColor.set(r/255f,g/255f,b/255f,1);
     font.color(textColor);
