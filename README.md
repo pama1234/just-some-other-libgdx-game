@@ -14,6 +14,6 @@ I will write an English README when needed.
 
 命名规则：tx是temp-x的缩写，一般用于局部变量中,其他还有ty，tw，th，这些分别表示位置x，位置y，体积w，体积z
 
-待办事项请看todo.txt，编译安卓项目请用自己的签名文件
+待办事项请看doc文件的todo.txt，编译安卓项目请用自己的签名文件
 
 其他注意事项：请不要写文本注释，注释是用来记录错旧代码的
