@@ -174,15 +174,11 @@ public class TextArea extends TextField{
         ||(minIndex>lineStart&&minIndex>lineEnd&&maxIndex>lineStart&&maxIndex>lineEnd))) {
         int start=Math.max(lineStart,minIndex);
         int end=Math.min(lineEnd,maxIndex);
-        // float fontLineOffsetX=0;
-        // float fontLineOffsetWidth=0;
         float selectionX=glyphPositions.get(start)-glyphPositions.get(lineStart);
         float selectionWidth=glyphPositions.get(end)-glyphPositions.get(start);
         selection.draw(batch,
-          // x+selectionX+fontLineOffsetX,
           x+selectionX,
           y+offsetY,
-          // selectionWidth+fontLineOffsetWidth,
           selectionWidth,
           font.getLineHeight());
       }

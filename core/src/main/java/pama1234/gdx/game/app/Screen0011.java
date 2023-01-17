@@ -1,5 +1,7 @@
 package pama1234.gdx.game.app;
 
+import static pama1234.math.Tools.*;
+
 import com.badlogic.gdx.Gdx;
 
 import pama1234.gdx.game.asset.MusicAsset;
@@ -14,10 +16,10 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   public State0001 state;
   public boolean firstRun;
   public boolean debugInfo;
-  public long renderTime,updateTime;
   public boolean mute;
   public float volume=1;
   //---
+  public long renderTime,updateTime;
   public float debugTextX,debugTextY,debugTextH,debugTextCountY;
   @Override
   public void setup() {
@@ -119,24 +121,6 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   public void debugText(String in) {
     text(in,debugTextX,debugTextY+debugTextH*debugTextCountY);
     debugTextCountY+=1;
-  }
-  public String getMillisString(long in) {
-    return String.format("%03d",in);
-  }
-  public String getMillisString(long in,int l) {
-    return String.format("%0"+l+"d",in);
-  }
-  public String getFloatString(float in) {
-    return String.format("%05.2f",in);
-  }
-  public String getFloatString(float in,int l) {
-    return String.format("%0"+l+".2f",in);
-  }
-  public String getFloatString(float in,int l,int l2) {
-    return String.format("%0"+l+"."+l2+"f",in);
-  }
-  public String getMemory() {
-    return Tools.cutToLastDigitString((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/(1024*1024));
   }
   @Override
   public void frameResized() {}

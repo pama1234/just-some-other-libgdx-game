@@ -10,6 +10,7 @@ import pama1234.gdx.game.state.state0001.Settings;
 import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.ui.CodeTextFieldStyle;
 import pama1234.gdx.game.ui.util.Button;
+import pama1234.gdx.game.ui.util.NormalOnscreenKeyboard;
 import pama1234.gdx.game.ui.util.Slider;
 import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.game.ui.util.TextButtonCam;
@@ -20,9 +21,11 @@ import pama1234.gdx.util.app.ScreenCore3D;
 
 public class UiGenerator{
   public static TextField[] genTextFields_0001(Screen0011 p) {
-    return new TextField[] {new TextField("测试文本输入框",new CodeTextFieldStyle(p),
+    TextField[] out=new TextField[] {new TextField("测试文本输入框",new CodeTextFieldStyle(p),
       new RectF(()->p.u*5,()->p.u,()->p.width-p.u*6,()->p.u+p.pus),
       ()->p.pus)};
+    for(TextField e:out) e.setOnscreenKeyboard(new NormalOnscreenKeyboard());
+    return out;
     // return new TextField[0];
   }
   public static <T extends Screen0011> TextButton<?>[] genButtons_0007(T p,Game pg) {

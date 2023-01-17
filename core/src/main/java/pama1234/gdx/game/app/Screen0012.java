@@ -1,10 +1,12 @@
 package pama1234.gdx.game.app;
 
+import static pama1234.math.Tools.getFloatString;
+import static pama1234.math.Tools.getMillisString;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 
 import pama1234.gdx.game.asset.MusicAsset;
-import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.state.state0002.State0002;
 import pama1234.gdx.game.state.state0002.State0002.StateChanger;
 import pama1234.gdx.game.state.state0002.StateGenerator0002;
@@ -18,6 +20,9 @@ public class Screen0012 extends ScreenCore2D implements StateChanger{
   public boolean debugInfo;
   public boolean mute;
   public float volume=1;
+  //---
+  public long renderTime,updateTime;
+  public float debugTextX,debugTextY,debugTextH,debugTextCountY;
   @Override
   public void setup() {
     noStroke();
@@ -79,11 +84,31 @@ public class Screen0012 extends ScreenCore2D implements StateChanger{
   }
   @Override
   public void display() {
-    if(debugInfo) text("Memory="+getMemory()+"Mb",0,bu*1.5f);
+    if(debugInfo) {
+      textScale(pus/2f);
+      initDebugText();
+      debugText("Memory   ="+getMemory()+"Mb");
+      float tf=1/frameRate;
+      debugText("FrameRate="+(tf<999?getFloatString(tf,6):"???.??")+"fps "+getMillisString((int)(frameRate*1000))+"ms");
+      debugText("Render   ="+getMillisString(renderTime)+"ms");
+      debugText("Update   ="+getMillisString(updateTime)+"ms");
+      debugText("CamScale ="+getFloatString(cam2d.scale.pos));
+      textScale(pus);
+    }
     if(cam.grabCursor) {
       withCam();
       drawCursor();
     }
+  }
+  public void initDebugText() {
+    debugTextH=pu/2f;
+    debugTextX=debugTextH;
+    debugTextY=bu*1.5f;
+    debugTextCountY=0;
+  }
+  public void debugText(String in) {
+    text(in,debugTextX,debugTextY+debugTextH*debugTextCountY);
+    debugTextCountY+=1;
   }
   public String getMemory() {
     return Tools.cutToLastDigitString((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/(1024*1024));
@@ -94,7 +119,7 @@ public class Screen0012 extends ScreenCore2D implements StateChanger{
   public void dispose() {
     stateNull();
     super.dispose();
-    State0001.disposeAll();
+    State0002.disposeAll();
   }
   public void lerpColor(Color a,Color b,Color out,float pos) {
     if(pos==0) out.set(a);

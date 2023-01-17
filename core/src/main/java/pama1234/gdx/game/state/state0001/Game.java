@@ -1,6 +1,8 @@
 package pama1234.gdx.game.state.state0001;
 
 import static com.badlogic.gdx.Input.Keys.ESCAPE;
+import static pama1234.math.Tools.getFloatString;
+import static pama1234.math.Tools.getMillisString;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
@@ -145,7 +147,7 @@ public class Game extends StateEntity0001{
       p.textScale(p.pus/2f);
       initDebugText();
       debugText("Lighting  block="+(tb!=null?tb.light.toString():"null")+" player="+tw.yourself.light.toString());
-      debugText("Player    pos="+p.getFloatString(tw.yourself.point.pos.x,8)+" "+p.getFloatString(tw.yourself.point.pos.y,8)+" vel="+p.getFloatString(tw.yourself.point.vel.x,5)+" "+p.getFloatString(tw.yourself.point.vel.y,5));
+      debugText("Player    pos="+getFloatString(tw.yourself.point.pos.x,8)+" "+getFloatString(tw.yourself.point.pos.y,8)+" vel="+getFloatString(tw.yourself.point.vel.x,5)+" "+getFloatString(tw.yourself.point.vel.y,5));
       debugText("---- asynchronous ----");//以下是那三个刷新线程的调试信息，格式如下之类的：“执行所消耗的时间ms 和上一次执行相距的时间差ms”
       debugText("Regions         Update "+timeString(tw.regions.updateLoop));
       debugText("Regions Display Update "+timeString(tw.regions.updateDisplayLoop));
@@ -155,12 +157,12 @@ public class Game extends StateEntity0001{
   }
   public String secondTimeString(LoopThread loop) {
     long tm=loop.millis,tm_2=loop.stepMillis;
-    return ("spent= "+p.getMillisString(tm,5)+"ms "+p.getFloatString(tm/1000f)+"s step= ")+
-      (p.getMillisString(tm_2,5)+"ms "+p.getFloatString(tm_2/1000f)+"s");
+    return ("spent= "+getMillisString(tm,5)+"ms "+getFloatString(tm/1000f)+"s step= ")+
+      (getMillisString(tm_2,5)+"ms "+getFloatString(tm_2/1000f)+"s");
   }
   public String timeString(LoopThread loop) {
-    return ("spent= "+p.getMillisString(loop.millis)+"ms step= ")+
-      (p.getMillisString(loop.stepMillis)+"ms");
+    return ("spent= "+getMillisString(loop.millis)+"ms step= ")+
+      (getMillisString(loop.stepMillis)+"ms");
   }
   public void initDebugText() {
     debugTextH=p.pu/2f;

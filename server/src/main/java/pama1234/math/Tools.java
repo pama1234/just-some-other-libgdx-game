@@ -5,6 +5,24 @@ import pama1234.math.vec.Vec2f;
 // import com.badlogic.gdx.graphics.Color;
 // import com.badlogic.gdx.math.MathUtils;
 public class Tools{
+  public static String getMillisString(long in) {
+    return String.format("%03d",in);
+  }
+  public static String getMillisString(long in,int l) {
+    return String.format("%0"+l+"d",in);
+  }
+  public static String getFloatString(float in) {
+    return String.format("%05.2f",in);
+  }
+  public static String getFloatString(float in,int l) {
+    return String.format("%0"+l+".2f",in);
+  }
+  public static String getFloatString(float in,int l,int l2) {
+    return String.format("%0"+l+"."+l2+"f",in);
+  }
+  public static String getMemory() {
+    return Tools.cutToLastDigitString((Runtime.getRuntime().totalMemory()-Runtime.getRuntime().freeMemory())/(1024*1024));
+  }
   public static float msq(float in) {
     if(in<0) return -(in*in);
     return in*in;

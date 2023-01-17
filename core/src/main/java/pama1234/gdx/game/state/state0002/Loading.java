@@ -3,7 +3,6 @@ package pama1234.gdx.game.state.state0002;
 import com.badlogic.gdx.assets.AssetManager;
 
 import pama1234.gdx.game.app.Screen0012;
-import pama1234.gdx.game.asset.GifAsset;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.asset.TvgAsset;
@@ -22,9 +21,9 @@ public class Loading extends StateEntity0002{
     p.backgroundColor(0);
     p.textColor(255);
     // SVGAssets.init();
-    GifAsset.setLoader(manager);
+    // GifAsset.setLoader(manager);
     TvgAsset.setLoader(manager);
-    GifAsset.load_0001(manager);
+    // GifAsset.load_0001(manager);
     TvgAsset.load_0001(manager);
     MusicAsset.load_0001(manager);
     ImageAsset.load_0001(manager);
@@ -40,7 +39,7 @@ public class Loading extends StateEntity0002{
   public void update() {
     frame++;
     if(manager.update()) {
-      GifAsset.put_0001(manager);
+      // GifAsset.put_0001(manager);
       TvgAsset.put_0001(manager);
       MusicAsset.put_0001(manager);
       ImageAsset.put_0001(manager);
