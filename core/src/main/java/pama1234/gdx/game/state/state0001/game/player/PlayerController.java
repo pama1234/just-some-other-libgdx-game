@@ -220,8 +220,9 @@ public class PlayerController extends Entity<Screen0011>{
   }
   public boolean updateAndTestInventorySlot(float x,float y,int button) {
     if(player.inventory.displayState==Inventory.displayFullInventory) {
-      for(int i=0;i<player.inventory.hotSlots.length;i++) {
-        if(testSlot(x,y,button,player.inventory.hotSlots,i)) return true;
+      DisplaySlot[] hotSlots=player.inventory.hotSlots;
+      for(int i=0;i<hotSlots.length;i++) {
+        if(testSlot(x,y,button,hotSlots,i)) return true;
       }
     }
     return false;
@@ -231,6 +232,7 @@ public class PlayerController extends Entity<Screen0011>{
     if(Tools.inBox(x,y,e.x1,e.y1,e.w1,e.h1)) {
       switch(getTouchInfoButton(button)) {
         case Buttons.LEFT: {
+          // System.out.println("PlayerController.testSlot()");
           selectHotSlot(i);
         }
           break;
@@ -241,7 +243,7 @@ public class PlayerController extends Entity<Screen0011>{
       }
       return true;
     }
-    return true;
+    return false;
   }
   public void creativeModeUpdateSelectBlock(TouchInfo info,int tx,int ty,Block block) {
     if(block!=null) switch(getTouchInfoButton(info.button)) {
