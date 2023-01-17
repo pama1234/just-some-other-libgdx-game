@@ -233,7 +233,6 @@ public class TextField extends Widget implements Disableable{
     return style.background;
   }
   public void draw(Batch batch,float parentAlpha) {
-    // System.out.println("TextField.draw()");
     if(rectF!=null) {
       setPosition(rectF.x(),rectF.y());
       setSize(rectF.w(),rectF.h());
@@ -243,9 +242,6 @@ public class TextField extends Widget implements Disableable{
       float tx=td.scaleX,
         ty=td.scaleY;
       td.setScale(textSize.get());
-      // System.out.println(td.scaleY);
-      // setStyle(style);//TODO
-      // System.out.println(getClass());
       textHeight=style.font.getCapHeight()-style.font.getDescent()*2;
       if(text!=null) updateDisplayText();
       doDraw(batch,parentAlpha);
@@ -282,10 +278,8 @@ public class TextField extends Widget implements Disableable{
     float textY=getTextY(font,background);
     calculateOffsets();
     if(focused&&hasSelection&&selection!=null) {
-      // drawSelection(selection,batch,font,x+bgLeftWidth,y);
       drawSelection(selection,batch,font,x+bgLeftWidth,y+textY);
     }
-    // float yOffset=font.isFlipped()?-textHeight:0;
     if(displayText.length()==0) {
       if((!focused||disabled)&&messageText!=null) {
         BitmapFont messageFont=style.messageFont!=null?style.messageFont:font;
@@ -293,50 +287,27 @@ public class TextField extends Widget implements Disableable{
           messageFont.setColor(style.messageFontColor.r,style.messageFontColor.g,style.messageFontColor.b,
             style.messageFontColor.a*color.a*parentAlpha);
         }else messageFont.setColor(0.7f,0.7f,0.7f,color.a*parentAlpha);
-        // drawMessageText(batch,messageFont,x+bgLeftWidth,y,width-bgLeftWidth-bgRightWidth);
         drawMessageText(batch,messageFont,x+bgLeftWidth,y+textY,width-bgLeftWidth-bgRightWidth);
-        // drawMessageText(batch,messageFont,x+bgLeftWidth,y+textY+yOffset,width-bgLeftWidth-bgRightWidth);
       }
     }else {
       font.setColor(fontColor.r,fontColor.g,fontColor.b,fontColor.a*color.a*parentAlpha);
-      // drawText(batch,font,x+bgLeftWidth,y);
       drawText(batch,font,x+bgLeftWidth,y+textY);
-      // drawText(batch,font,x+bgLeftWidth,y+textY+yOffset);
     }
-    if(!disabled&&cursorOn&&cursorPatch!=null) {
-      // drawCursor(cursorPatch,batch,font,x+bgLeftWidth,y);
-      drawCursor(cursorPatch,batch,font,x+bgLeftWidth,y+textY);
-    }
+    if(!disabled&&cursorOn&&cursorPatch!=null) drawCursor(cursorPatch,batch,font,x+bgLeftWidth,y+textY);
   }
   protected float getTextY(BitmapFont font,@Null Drawable background) {
-    // float height=getHeight();
-    // float textY=textHeight/2+font.getDescent();
-    // float textY=font.getDescent()*font.getData().scaleY;
-    // if(background!=null) {
-    //   float bottom=background.getBottomHeight();
-    //   textY=textY+(height-background.getTopHeight()-bottom)/2+bottom;
-    // }else textY=textY+height/2;
-    // if(font.usesIntegerPositions()) textY=(int)textY;
-    // return textY;
     return 0;
   }
   protected void drawSelection(Drawable selection,Batch batch,BitmapFont font,float xIn,float yIn) {//TODO
-    // System.out.println("TextField.drawSelection()");
     selection.draw(batch,
       xIn+textOffset+selectionX,
-      // xIn+textOffset+selectionX+fontOffset,
-      // yIn-font.getDescent(),
       yIn,
       selectionWidth,
-      // textHeight+font.getDescent());
-      // textHeight);
       font.getLineHeight());
   }
   protected void drawText(Batch batch,BitmapFont font,float x,float y) {
     font.draw(batch,displayText,
       x+textOffset,
-      // x+textOffset-fontOffset,
-      // y-font.getDescent(),
       y-font.getDescent(),
       visibleTextStart,visibleTextEnd,0,Align.left,false);
   }
@@ -346,10 +317,9 @@ public class TextField extends Widget implements Disableable{
   protected void drawCursor(Drawable cursorPatch,Batch batch,BitmapFont font,float x,float y) {
     cursorPatch.draw(batch,
       x+textOffset+glyphPositions.get(cursor)-glyphPositions.get(visibleTextStart)+font.getData().cursorX,
-      // x+textOffset+glyphPositions.get(cursor)-glyphPositions.get(visibleTextStart)+fontOffset+font.getData().cursorX,
-      y-font.getDescent(),
+      y,
+      // y-font.getDescent(),
       cursorPatch.getMinWidth(),
-      // textHeight);
       font.getLineHeight());
   }
   void updateDisplayText() {

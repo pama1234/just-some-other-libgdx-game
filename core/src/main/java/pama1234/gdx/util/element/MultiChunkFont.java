@@ -31,6 +31,7 @@ public class MultiChunkFont extends BitmapFont{
   public MultiChunkFont(FileHandle[] fontFile,boolean loadOnDemand) {
     super(new MultiChunkFontData(fontFile[0],true),(TextureRegion)null,true);
     // super(new MultiChunkFontData(fontFile[0],false),(TextureRegion)null,true);
+  
     mfontData=(MultiChunkFontData)getData();//TODO
     mfontData.mfont=this;
     this.fontFile=fontFile;
@@ -44,6 +45,10 @@ public class MultiChunkFont extends BitmapFont{
     data[0]=this;
     if(!loadOnDemand) for(int i=0;i<fontFile.length;i++) loadFont(i);
   }
+  // @Override
+  // public float getDescent() {
+  //   return super.getDescent();
+  // }
   public void load(int in) {
     loadFont(in);
     loadOnDemand=isAllLoaded();

@@ -282,6 +282,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
       long beforeM=System.currentTimeMillis();
       while(!p.stop) {
         lock.step();
+        if(p.stop) return;//TODO
         long tl=System.currentTimeMillis();
         stepMillis=tl-beforeM;
         beforeM=tl;

@@ -33,14 +33,9 @@ public class Screen0013 extends ScreenCore3D{
   public void displayWithCam() {
     float step=f_0002(frameCount)/2f;
     decalFlush(decal);
-    // fontBatch.setBlendFunctionSeparate(
-    //   GL20.GL_SRC_ALPHA,
-    //   GL20.GL_ONE_MINUS_SRC_ALPHA,
-    //   GL20.GL_SRC_ALPHA,
-    //   GL20.GL_ONE_MINUS_SRC_ALPHA);
     fontBatch.setBlendFunctionSeparate(
       GL20.GL_SRC_ALPHA,
-      GL20.GL_ZERO,
+      GL20.GL_ONE_MINUS_SRC_ALPHA,
       GL20.GL_SRC_ALPHA,
       GL20.GL_ONE_MINUS_SRC_ALPHA);
     textColor(213,53,105,127);

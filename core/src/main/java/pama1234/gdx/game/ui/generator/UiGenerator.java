@@ -20,9 +20,10 @@ import pama1234.gdx.util.app.ScreenCore3D;
 
 public class UiGenerator{
   public static TextField[] genTextFields_0001(Screen0011 p) {
-    // return new TextField[] {new TextField("只是一个测试输入框",new CodeTextFieldStyle(p),
-    //   new RectF(()->p.u,()->p.u*2+p.pu*4.25f,()->p.width-p.u*2,()->p.pu*4.25f),()->p.pus)};
-    return new TextField[0];
+    return new TextField[] {new TextField("测试文本输入框",new CodeTextFieldStyle(p),
+      new RectF(()->p.u*5,()->p.u,()->p.width-p.u*6,()->p.u+p.pus),
+      ()->p.pus)};
+    // return new TextField[0];
   }
   public static <T extends Screen0011> TextButton<?>[] genButtons_0007(T p,Game pg) {
     return new TextButton[] {
