@@ -18,7 +18,7 @@ import pama1234.game.app.server.game.particle.CellGroup3D;
 import pama1234.game.app.server.game.particle.CellGroupGenerator3D;
 import pama1234.game.app.server.particle.Var;
 import pama1234.gdx.game.ui.ConfigInfo;
-import pama1234.gdx.game.ui.generator.ButtonGenerator;
+import pama1234.gdx.game.ui.generator.UiGenerator;
 import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.util.ClientPlayerCenter3D;
 import pama1234.gdx.game.util.ControllerClientPlayer3D;
@@ -156,7 +156,7 @@ public class Screen0001 extends ScreenCore3D{
     //TODO
     if(isAndroid) {
       // if(true) {
-      buttons=ButtonGenerator.genButtons_0001(this);
+      buttons=UiGenerator.genButtons_0001(this);
       for(Button<?> e:buttons) centerScreen.add.add(e);
     }
     centerScreen.add.add(configInfo=new ConfigInfo(this));

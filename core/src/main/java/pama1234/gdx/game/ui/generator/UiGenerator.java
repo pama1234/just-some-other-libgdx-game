@@ -8,14 +8,22 @@ import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.Settings;
 import pama1234.gdx.game.state.state0001.State0001;
+import pama1234.gdx.game.ui.CodeTextFieldStyle;
 import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.ui.util.Slider;
 import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.game.ui.util.TextButtonCam;
+import pama1234.gdx.game.ui.util.TextField;
 import pama1234.gdx.game.ui.util.TextureButton;
+import pama1234.gdx.game.util.RectF;
 import pama1234.gdx.util.app.ScreenCore3D;
 
-public class ButtonGenerator{
+public class UiGenerator{
+  public static TextField[] genTextFields_0001(Screen0011 p) {
+    // return new TextField[] {new TextField("只是一个测试输入框",new CodeTextFieldStyle(p),
+    //   new RectF(()->p.u,()->p.u*2+p.pu*4.25f,()->p.width-p.u*2,()->p.pu*4.25f),()->p.pus)};
+    return new TextField[0];
+  }
   public static <T extends Screen0011> TextButton<?>[] genButtons_0007(T p,Game pg) {
     return new TextButton[] {
       new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {

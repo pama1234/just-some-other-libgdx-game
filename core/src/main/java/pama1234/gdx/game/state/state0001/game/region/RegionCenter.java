@@ -216,9 +216,9 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
         // refresh();
         Stream<Region> stream=list.stream().parallel();
         stream.forEach(r-> {
-          if(p.stop) return;//TODO
+          // if(p.stop) return;//TODO
           r.updateDisplay(40);
-        });//主动降速，让CPU愉快一些
+        });//主动降速
       }
     };
   }
@@ -233,6 +233,9 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
         // Stream<Region> stream=list.stream().parallel();
         // stream.forEach(r->r.updateDisplay());
         // fourPointDisplay();
+        fourPointUpdateDisplay();
+      }
+      public void fourPointUpdateDisplay() {
         int x1=pw.xToBlockCord(p.cam2d.x1()),
           y1=pw.xToBlockCord(p.cam2d.y1()),
           x2=pw.xToBlockCord(p.cam2d.x2()),

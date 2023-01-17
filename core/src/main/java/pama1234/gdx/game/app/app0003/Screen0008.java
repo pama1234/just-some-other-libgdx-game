@@ -23,8 +23,8 @@ public class Screen0008 extends ScreenCore2D{
       new RectF(()->u,()->u,()->width-u*2,()->pu*4.25f),()->pus);
     textArea.setOnscreenKeyboard(new NormalOnscreenKeyboard());
     // center.add.add(textArea);
-    stage.addActor(textField);
-    stage.addActor(textArea);
+    screenStage.addActor(textField);
+    screenStage.addActor(textArea);
   }
   @Override
   public void update() {
@@ -36,7 +36,10 @@ public class Screen0008 extends ScreenCore2D{
   @Override
   public void displayWithCam() {}
   @Override
-  public void display() {}
+  public void display() {
+    fill(0);
+    rect(u-pus,u*2+pu*4.25f-pus,pus*2,pus*2);
+  }
   @Override
   public void frameResized() {}
 }

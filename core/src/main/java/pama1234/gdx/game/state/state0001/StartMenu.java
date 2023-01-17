@@ -6,7 +6,7 @@ import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.GifAsset;
 import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
-import pama1234.gdx.game.ui.generator.ButtonGenerator;
+import pama1234.gdx.game.ui.generator.UiGenerator;
 import pama1234.gdx.game.ui.util.Button;
 
 public class StartMenu extends StateEntity0001{
@@ -15,7 +15,7 @@ public class StartMenu extends StateEntity0001{
   public float time;
   public StartMenu(Screen0011 p) {
     super(p);
-    buttons=ButtonGenerator.genButtons_0003(p);
+    buttons=UiGenerator.genButtons_0003(p);
   }
   @Override
   public void from(State0001 in) {

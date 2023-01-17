@@ -15,20 +15,20 @@ import pama1234.gdx.util.app.UtilScreen;
 
 public class MainApp extends Game{
   public List<Class<? extends UtilScreen>> screenList;
-  public int screenType=11;
+  public int screenType=8;
   public MainApp() {
     screenList=Arrays.asList(null,
-      Screen0001.class,
+      Screen0001.class,//particle system
       Screen0002.class,
       Screen0003.class,
       Screen0004.class,
       Screen0005.class,
       Screen0006.class,
       Screen0007.class,
-      Screen0008.class,
+      Screen0008.class,//TextArea test
       Screen0009.class,
       Screen0010.class,
-      Screen0011.class,
+      Screen0011.class,//main game
       Screen0012.class,
       Screen0013.class);
   }

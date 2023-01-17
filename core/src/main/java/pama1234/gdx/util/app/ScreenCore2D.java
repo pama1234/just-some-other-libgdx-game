@@ -12,7 +12,7 @@ import pama1234.gdx.util.listener.EntityListener;
 public abstract class ScreenCore2D extends UtilScreen2D{
   // public ServerInfo dataServerInfo;
   //---
-  public Stage stage;
+  public Stage screenStage;
   public Viewport viewport;
   //---
   public float multDist=1;
@@ -21,17 +21,16 @@ public abstract class ScreenCore2D extends UtilScreen2D{
   public boolean fullSettings;
   @Override
   public void init() {
-    stage=new Stage(viewport=new ScalingViewport(Scaling.fit,width,height,screenCam),imageBatch);
-    inputProcessor.sub.add.add(stage);
+    screenStage=new Stage(viewport=new ScalingViewport(Scaling.fit,width,height,screenCam),imageBatch);
+    inputProcessor.sub.add.add(screenStage);
     center.list.add(new EntityListener() {
       @Override
       public void update() {
-        // tvgDrawer.getBatch().setProjectionMatrix(cam2d.camera.combined);
-        stage.act();
+        screenStage.act();
       }
       @Override
       public void mousePressed(MouseInfo info) {
-        stage.setKeyboardFocus(null);
+        screenStage.setKeyboardFocus(null);
       }
       @Override
       public void frameResized(int w,int h) {
@@ -43,7 +42,7 @@ public abstract class ScreenCore2D extends UtilScreen2D{
     centerScreen.list.add(new EntityListener() {
       @Override
       public void display() {
-        stage.draw();
+        screenStage.draw();
       }
     });
   }

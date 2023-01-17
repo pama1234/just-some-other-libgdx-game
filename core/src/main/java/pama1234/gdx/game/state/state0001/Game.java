@@ -13,7 +13,7 @@ import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.World;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.gdx.game.state.state0001.game.world.WorldCenter;
-import pama1234.gdx.game.ui.generator.ButtonGenerator;
+import pama1234.gdx.game.ui.generator.UiGenerator;
 import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.game.util.RectF;
@@ -34,8 +34,8 @@ public class Game extends StateEntity0001{
   public float debugTextX,debugTextY,debugTextH,debugTextCountY;
   public Game(Screen0011 p) {
     super(p);
-    menuButtons=ButtonGenerator.genButtons_0005(p);
-    if(p.isAndroid) ctrlButtons=ButtonGenerator.genButtons_0007(p,this);
+    menuButtons=UiGenerator.genButtons_0005(p);
+    if(p.isAndroid) ctrlButtons=UiGenerator.genButtons_0007(p,this);
     worldCenter=new WorldCenter<Screen0011,Game,World<Screen0011,Game>>(p);
     worldCenter.list.add(world_0001=new World0001(p,this));
     worldCenter.pointer=0;

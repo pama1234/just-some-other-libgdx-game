@@ -16,7 +16,7 @@ public class Slider<T extends UtilScreen>extends TextButtonCam<T>{
   }
   @Override
   public void press() {
-    pos=UtilMath.constrain(Tools.map(nx.get(),rect.x(),rect.x()+rect.w(),min,max),min,max);//TODO
+    pos=UtilMath.constrain(Tools.map(nx.get(),rect.x()+1,rect.x()+rect.w(),min,max),min,max);//TODO
     super.press();
   }
   @Override

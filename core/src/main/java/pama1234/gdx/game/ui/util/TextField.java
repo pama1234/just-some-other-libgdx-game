@@ -336,7 +336,8 @@ public class TextField extends Widget implements Disableable{
     font.draw(batch,displayText,
       x+textOffset,
       // x+textOffset-fontOffset,
-      y,
+      // y-font.getDescent(),
+      y-font.getDescent(),
       visibleTextStart,visibleTextEnd,0,Align.left,false);
   }
   protected void drawMessageText(Batch batch,BitmapFont font,float x,float y,float maxWidth) {
