@@ -215,7 +215,10 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
         // for(Region e:list) e.updateDisplay();
         // refresh();
         Stream<Region> stream=list.stream().parallel();
-        stream.forEach(r->r.updateDisplay(40));//主动降速，让CPU愉快一些
+        stream.forEach(r-> {
+          if(p.stop) return;//TODO
+          r.updateDisplay(40);
+        });//主动降速，让CPU愉快一些
       }
     };
   }

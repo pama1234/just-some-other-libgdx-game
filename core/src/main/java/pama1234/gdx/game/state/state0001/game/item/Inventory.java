@@ -13,14 +13,13 @@ public class Inventory{
   public static int timeF=7200;
   public LivingEntity pc;
   public InventorySlot[] data;
-  // public boolean displayInventory;
   public int displayState=displayHoldSlot;
   public DisplaySlot[] hotSlots,backpackSlots;
   public DisplaySlot holdSlot;
   public float rSize;
   public PathVar r;
-  // public int hotSlotSize=9;
   public int selectSlot;
+  public float circleDeg;
   public Inventory(LivingEntity pc,int size,int hotSlotSize) {
     this.pc=pc;
     data=new InventorySlot[size];
@@ -61,24 +60,6 @@ public class Inventory{
     }
     displayState=in;
   }
-  public void display() {
-    Screen0011 p=pc.p;
-    p.textScale(0.5f);
-    switch(displayState) {
-      case noDisplay: {}
-        break;
-      case displayHoldSlot: {
-        displayHotSlotItem(pc.p,holdSlot);
-      }
-        break;
-      case displayFullInventory: {
-        displayHotSlotCircle();
-      }
-        break;
-    }
-    p.textScale(1);
-    // if(displayState==displayFullInventory) displayHotSlotCircle();
-  }
   public void update() {
     switch(displayState) {
       case noDisplay: {}
@@ -91,23 +72,53 @@ public class Inventory{
         if(displayState!=displayFullInventory) return;
         r.update();
         Screen0011 p=pc.p;
-        for(int i=0;i<hotSlots.length;i++) hotSlots[i].circleUpdate(pc,(float)i/hotSlots.length+(float)(p.frameCount%timeF)/timeF,r.pos);
+        for(int i=0;i<hotSlots.length;i++) hotSlots[i].circleUpdate(pc,
+          (float)i/hotSlots.length+(float)(p.frameCount%timeF)/timeF+circleDeg,
+          r.pos);
         holdSlot.centerUpdate(pc);
       }
         break;
     }
   }
+  public void display() {
+    Screen0011 p=pc.p;
+    p.textScale(0.5f);
+    switch(displayState) {
+      case noDisplay: {}
+        break;
+      case displayHoldSlot: {
+        displaySlotItem(pc.p,holdSlot);
+      }
+        break;
+      case displayFullInventory: {
+        drawSelectRect(p);
+        displayHotSlotCircle();
+        displayBackpackSlot();
+        drawMouseHold(p,holdSlot);
+      }
+        break;
+    }
+    p.textScale(1);
+    // if(displayState==displayFullInventory) displayHotSlotCircle();
+  }
+  public void displayBackpackSlot() {
+    // Screen0011 p=pc.p;
+    // for(int i=0;i<hotSlots.length;i++) displayHotSlot(p,hotSlots[i]);
+    // displayHotSlot(p,holdSlot);
+    // p.noTint();
+    // drawMouseHold(p,holdSlot);
+  }
   public void displayHotSlotCircle() {
     Screen0011 p=pc.p;
-    p.beginBlend();
-    drawSelectRect(p);
-    for(int i=0;i<hotSlots.length;i++) displayHotSlot(p,hotSlots[i]);
-    displayHotSlot(p,holdSlot);
+    // p.beginBlend();
+    // drawSelectRect(p);
+    for(int i=0;i<hotSlots.length;i++) displaySlot(p,hotSlots[i]);
+    displaySlot_02(p,holdSlot);
     p.noTint();
-    drawMouse(p,holdSlot);
-    p.endBlend();
+    // drawMouseHold(p,holdSlot);
+    // p.endBlend();
   }
-  public void drawMouse(Screen0011 p,DisplaySlot ths) {
+  public void drawMouseHold(Screen0011 p,DisplaySlot ths) {
     Item ti=ths.data.item;
     if(ti!=null) {
       TextureRegion tr=ti.type.tiles[ti.displayType[0]];
@@ -115,19 +126,32 @@ public class Inventory{
       displayItemCount(p,ti,p.mouse.x-ths.w1/2f,p.mouse.y-ths.h1/2f);
     }
   }
-  public void displayHotSlot(Screen0011 p,DisplaySlot ths) {
+  public void displaySlot_02(Screen0011 p,DisplaySlot ths) {
     Item ti=ths.data.item;
-    TextureRegion tr=pc.pw.metaItems.inventoryConfig.tiles[0];
-    p.tint(255,127);
-    p.image(tr,ths.x1,ths.y1);
     if(ti!=null) {
-      tr=ti.type.tiles[ti.displayType[0]];
+      drawSlotBackground(p,ths);
+      TextureRegion tr=ti.type.tiles[ti.displayType[0]];
       p.noTint();
       p.image(tr,ths.x1+ths.w3(),ths.y1+ths.h3(),ths.w2,ths.h2);
       displayItemCount(p,ti,ths.x1,ths.y1);
     }
   }
-  public void displayHotSlotItem(Screen0011 p,DisplaySlot ths) {
+  public void drawSlotBackground(Screen0011 p,DisplaySlot ths) {
+    TextureRegion tr=pc.pw.metaItems.inventoryConfig.tiles[0];
+    p.tint(255,127);
+    p.image(tr,ths.x1,ths.y1);
+  }
+  public void displaySlot(Screen0011 p,DisplaySlot ths) {
+    Item ti=ths.data.item;
+    drawSlotBackground(p,ths);
+    if(ti!=null) {
+      TextureRegion tr=ti.type.tiles[ti.displayType[0]];
+      p.noTint();
+      p.image(tr,ths.x1+ths.w3(),ths.y1+ths.h3(),ths.w2,ths.h2);
+      displayItemCount(p,ti,ths.x1,ths.y1);
+    }
+  }
+  public void displaySlotItem(Screen0011 p,DisplaySlot ths) {
     Item ti=ths.data.item;
     if(ti!=null) {
       TextureRegion tr=ti.type.tiles[ti.displayType[0]];
@@ -141,7 +165,7 @@ public class Inventory{
   }
   public void drawSelectRect(Screen0011 p) {
     p.tint(255,191);
-    DisplaySlot ths=hotSlots[selectSlot];
+    DisplaySlot ths=selectSlot>=hotSlots.length?backpackSlots[selectSlot-hotSlots.length]:hotSlots[selectSlot];
     TextureRegion tr=pc.pw.metaItems.inventoryConfig.tiles[1];
     // p.tint(255,127);
     p.image(tr,ths.x1,ths.y1);

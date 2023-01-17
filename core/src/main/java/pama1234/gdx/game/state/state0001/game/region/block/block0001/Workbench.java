@@ -12,6 +12,7 @@ public class Workbench extends MetaBlock{
       in.light.set(16);
     },(in,type)-> {//change from workbench
     });
+    fullBlock=false;
     destroyTime=120;
     buildTime=10;
     // initFullBlockLambda();
