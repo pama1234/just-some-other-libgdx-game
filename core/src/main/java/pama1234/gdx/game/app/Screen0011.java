@@ -1,6 +1,8 @@
 package pama1234.gdx.game.app;
 
-import static pama1234.math.Tools.*;
+import static pama1234.math.Tools.getFloatString;
+import static pama1234.math.Tools.getMemory;
+import static pama1234.math.Tools.getMillisString;
 
 import com.badlogic.gdx.Gdx;
 

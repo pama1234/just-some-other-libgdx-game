@@ -23,6 +23,19 @@ import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 
 public class PlayerController extends Entity<Screen0011>{
+  public static class ControllerBlockPointer{
+    public TouchInfo info;
+    public BlockPointer data;
+    public ControllerBlockPointer(BlockPointer in) {
+      data=in;
+    }
+    public void info(TouchInfo in) {
+      info=in;
+    }
+    public void testStopTask(TouchInfo in) {
+      if(info==in) data.stopTask();
+    }
+  }
   public MainPlayer player;
   public boolean walking;
   public boolean left,right,jump,shift;
@@ -33,7 +46,7 @@ public class PlayerController extends Entity<Screen0011>{
   public MovementLimitBox limitBox;
   public RectF[] cullRects;
   public LivingEntity selectEntity;
-  public BlockPointer selectBlock;
+  public ControllerBlockPointer selectBlock;
   public float camScale=2;
   public float itemPickDist=18,itemPickMoveDist=72;
   public PlayerController(Screen0011 p,MainPlayer player) {
@@ -50,8 +63,8 @@ public class PlayerController extends Entity<Screen0011>{
       cullRects=new RectF[0];
     }
     limitBox=new MovementLimitBox(player);
-    selectBlock=new BlockPointer(player.pw);
-    selectBlock.slot=()->player.inventory.select().data;
+    selectBlock=new ControllerBlockPointer(new BlockPointer(player.pw,()->player.inventory.select().data));
+    // selectBlock.data.slot=()->player.inventory.select().data;
     // player.outerBox=limitBox;//TODO
   }
   @Override
@@ -78,16 +91,16 @@ public class PlayerController extends Entity<Screen0011>{
     // p.fill(0,127);
     int tw=player.pw.blockWidth,
       th=player.pw.blockHeight;
-    switch(selectBlock.task) {
+    switch(selectBlock.data.task) {
       case BlockPointer.idle: {
         // p.fill(0,127);
         p.fill(0,127);
         // p.rect(selectBlock.x*tw,selectBlock.y*th,tw,th);
         float r=1;
-        float tx1=selectBlock.x*tw-r;
-        float ty1=selectBlock.y*th-r;
-        float tx2=(selectBlock.x+1)*tw+r;
-        float ty2=(selectBlock.y+1)*th+r;
+        float tx1=selectBlock.data.x*tw-r;
+        float ty1=selectBlock.data.y*th-r;
+        float tx2=(selectBlock.data.x+1)*tw+r;
+        float ty2=(selectBlock.data.y+1)*th+r;
         float tw1=tw+r*2;
         float th1=th+r*2;
         p.rect(tx1,ty1,1,th1);
@@ -99,15 +112,18 @@ public class PlayerController extends Entity<Screen0011>{
       case BlockPointer.destroy: {
         p.tint(255,191);
         // p.println(selectBlock.progress,0,selectBlock.block.type.destroyTime,0,7,UtilMath.map(selectBlock.progress,0,selectBlock.block.type.destroyTime,0,7));
-        p.image(ImageAsset.tiles[20][(int)UtilMath.map(selectBlock.progress,0,selectBlock.block.type.destroyTime,0,7)],selectBlock.x*tw,selectBlock.y*th);
+        p.image(ImageAsset.tiles[20][(int)UtilMath.map(selectBlock.data.progress,0,selectBlock.data.block.type.destroyTime,0,7)],selectBlock.data.x*tw,selectBlock.data.y*th);
       }
         break;
       case BlockPointer.build: {
-        Item ti=selectBlock.slot().item;
+        Item ti=selectBlock.data.slot().item;
         if(ti!=null) {
           p.tint(255,191);
           // p.println(selectBlock.progress,0,selectBlock.slot().item.type.blockType.buildTime,0,7,UtilMath.map(selectBlock.progress,0,selectBlock.slot().item.type.blockType.buildTime,0,7));
-          p.image(ImageAsset.tiles[21][(int)UtilMath.map(selectBlock.progress,0,ti.type.blockType.buildTime+selectBlock.block.type.destroyTime,0,7)],selectBlock.x*tw,selectBlock.y*th);
+          p.image(
+            ImageAsset.tiles[21][(int)UtilMath.map(selectBlock.data.progress,
+              0,ti.type.blockType.buildTime+selectBlock.data.block.type.destroyTime,0,7)],
+            selectBlock.data.x*tw,selectBlock.data.y*th);
         }
       }
       default:
@@ -131,7 +147,7 @@ public class PlayerController extends Entity<Screen0011>{
         ty=player.xToBlockCord(p.mouse.y);
       if(testInPlayerOuterBoxAndUpdateSelectBlock(p.mouse.x,p.mouse.y,tx,ty)) return;
       Block block=player.getBlock(tx,ty);
-      selectBlock.update(block,tx,ty);
+      selectBlock.data.update(block,tx,ty);
     }
   }
   public void updateKeyInfo() {
@@ -153,8 +169,9 @@ public class PlayerController extends Entity<Screen0011>{
     }
     if(updateAndTestSelectEntity(tx,ty)) return;
     Block block=player.getBlock(tx,ty);
-    selectBlock.update(block,tx,ty);
-    selectBlock.startTaskButtonInfo(getTouchInfoButton(info.button));
+    selectBlock.data.update(block,tx,ty);
+    selectBlock.info(info);
+    selectBlock.data.startTaskButtonInfo(getTouchInfoButton(info.button));
   }
   public void touchUpdate(TouchInfo info) {
     if(!player.pw.p.isAndroid) return;
@@ -166,7 +183,7 @@ public class PlayerController extends Entity<Screen0011>{
       ty=player.xToBlockCord(info.y);
     if(testInPlayerOuterBoxAndUpdateSelectBlock(info.x,info.y,tx,ty)) return;
     Block block=player.getBlock(tx,ty);
-    selectBlock.update(block,tx,ty);
+    selectBlock.data.update(block,tx,ty);
     if(player.gameMode!=GameMode.creative) return;
     if(testPosInOtherEntity(tx,ty)) return;
     // if(player.gameMode==GameMode.creative)
@@ -183,13 +200,13 @@ public class PlayerController extends Entity<Screen0011>{
       float tp2=UtilMath.abs((x-player.cx())/(y-player.cy()));
       if(tp2>=tp1) tx=x<player.cx()?limitBox.x1-1:limitBox.x2+1;
       else ty=y<player.cy()?limitBox.y1-1:limitBox.y2+1;
-      Block block=player.getBlock(tx,ty);
-      selectBlock.testStopTaskWithBlock(block);
-      return;
+      // Block block=player.getBlock(tx,ty);
+      // selectBlock.testStopTaskWithBlock(block);
+      // return;
     }
-    Block block=player.getBlock(tx,ty);
-    // selectBlock.update(block,tx,ty);
-    selectBlock.testStopTaskWithBlock(block);
+    // Block block=player.getBlock(tx,ty);
+    // selectBlock.data.testStopTaskWithBlock(block);
+    selectBlock.testStopTask(info);
   }
   public boolean testInPlayerOuterBoxAndUpdateSelectBlock(float x,float y,int tx,int ty) {
     if(inPlayerOuterBox(tx,ty)) {
@@ -198,7 +215,7 @@ public class PlayerController extends Entity<Screen0011>{
       if(tp2>=tp1) tx=x<player.cx()?limitBox.x1-1:limitBox.x2+1;
       else ty=y<player.cy()?limitBox.y1-1:limitBox.y2+1;
       Block block=player.getBlock(tx,ty);
-      selectBlock.update(block,tx,ty);
+      selectBlock.data.update(block,tx,ty);
       return true;
     }
     return false;
@@ -232,7 +249,6 @@ public class PlayerController extends Entity<Screen0011>{
     if(Tools.inBox(x,y,e.x1,e.y1,e.w1,e.h1)) {
       switch(getTouchInfoButton(button)) {
         case Buttons.LEFT: {
-          // System.out.println("PlayerController.testSlot()");
           selectHotSlot(i);
         }
           break;
