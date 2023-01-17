@@ -34,12 +34,19 @@ public class MetaBlock extends MetaInfoBase{
     // in.light.update();
   };
   public static void lightingUpdate(Block in,int x,int y,World0001 world) {
-    int cr=0;
+    float cr=0;
     int lDist=world.lightDist;
-    for(int i=-lDist;i<=lDist;i++) for(int j=-lDist;j<=lDist;j++) if(Block.isNotFullBlock(world.regions.getBlock(x+i,y+j))) cr+=1;
+    for(int i=-lDist;i<=lDist;i++) for(int j=-lDist;j<=lDist;j++) {
+      float mag=UtilMath.mag(i,j);
+      if(mag>lDist) continue;
+      Block block=world.regions.getBlock(x+i,y+j);
+      if(Block.isNotFullBlock(block)) cr+=world.skyLight();
+      if(block!=null&&block.type.light) cr+=block.type.lightIntensity*(1-mag/lDist);
+      // if(block!=null&&block.type.light) cr+=block.type.lightIntensity*((lDist-mag)/lDist);
+    }
     in.light.set(worldLighting(world.lightCount,cr));
   }
-  public static int worldLighting(int in,int count) {
+  public static int worldLighting(float in,float count) {
     return UtilMath.constrain(UtilMath.floor(UtilMath.map(count*2,0,in,0,16)),0,16);
   }
   public static final BlockDisplayer defaultBlockDisplayer=(p,in,x,y)-> {
@@ -67,7 +74,7 @@ public class MetaBlock extends MetaInfoBase{
     }
   };
   public MetaBlockCenter0001 pc;
-  public boolean display,empty,light;
+  public boolean display,empty,light;//TODO need light boolean?
   public TextureRegion[] tiles;
   public int buildTime=1,destroyTime=1;
   public float hardness,lightIntensity;
@@ -144,6 +151,10 @@ public class MetaBlock extends MetaInfoBase{
     // updater=lightUpdater;
     displayUpdater=fullBlockDisplayUpdater;
     displayer=fullBlockDisplayer;
+  }
+  public void setLightIntensity(float in) {
+    light=true;
+    lightIntensity=in;
   }
   public void initItemDrop() {}
   public class ItemDropAttr{

@@ -15,6 +15,7 @@ public class TreeLeaf extends MetaBlock{
     });
     destroyTime=15;
     buildTime=8;
+    setLightIntensity(2);
     // fullBlock=false;
     // initFullBlockLambda();
     initTreeLeafLambda();

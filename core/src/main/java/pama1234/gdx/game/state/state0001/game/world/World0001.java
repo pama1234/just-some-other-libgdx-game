@@ -49,11 +49,17 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
   public MainPlayer yourself;
   public int blockWidth=18,blockHeight=18;
   public float g=1f,jumpForce=-blockHeight*1.5f;
-  // public int daySize=3600;
-  public int daySize=216000/3;
+  // public int daySize=216000/3;
+  public int daySize=72000;//20 minute
+  // public int daySize=7200;//2 minute
+  // public int daySize=3600;//1 minute
+  // public int time=daySize/4*3;
   public int time=12000;
   public float ambientLight;
-  public int lightDist=7,lightCount=UtilMath.sq(lightDist*2+1);
+  public int lightDist=7;
+  // public int lightDist=7,lightCount=(int)(UtilMath.sq(lightDist)*UtilMath.PI);
+  public float lightCount=UtilMath.sq(lightDist)*UtilMath.PI;
+  // public int lightDist=7,lightCount=UtilMath.sq(lightDist*2+1);
   public int typeCache;
   public Pixmap skyColorMap;
   public int skyColorPos,skyColorCount;
@@ -147,6 +153,8 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
       colorB.set(getSkyColor(tp));
     }
     p.lerpColor(colorA,colorB,backgroundColor,Tools.moveInRange(time,0,daySkyGridSize)/daySkyGridSize);
+    backgroundColor.toHsv(skyHsb);//TODO
+    // System.out.println(skyHsb[2]);
     p.backgroundColor(backgroundColor);
   }
   public int getSkyColor(int pos) {
@@ -195,5 +203,9 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
   }
   public Block getBlock(float x,float y) {
     return regions.getBlock(xToBlockCord(x),yToBlockCord(y));
+  }
+  public float[] skyHsb=new float[3];
+  public float skyLight() {
+    return skyHsb[2];
   }
 }

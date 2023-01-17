@@ -55,7 +55,6 @@ public class MainPlayer extends Player{
     ctrl.constrain();
     ctrl.updatePickItem();
     // p.cam.point.des.set(cx(),Tools.mag(point.y(),ctrl.limitBox.floor)<48?ctrl.limitBox.floor+type.dy+type.h/2f:cy(),0);//TODO
-    // p.println(cx(),cy());
     p.cam.point.des.set(cx(),cy());
     //---
     inventory.update();

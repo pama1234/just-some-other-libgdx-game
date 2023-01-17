@@ -26,11 +26,6 @@ public class BlockPointer{
     pw=in;
     this.slot=slot;
   }
-  // public BlockPointer(Block block,int x,int y) {
-  //   this.block=block;
-  //   this.x=x;
-  //   this.y=y;
-  // }
   public void pos(int xIn,int yIn) {
     x=xIn;
     y=yIn;

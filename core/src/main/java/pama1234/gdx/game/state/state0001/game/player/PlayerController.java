@@ -64,18 +64,16 @@ public class PlayerController extends Entity<Screen0011>{
     }
     limitBox=new MovementLimitBox(player);
     selectBlock=new ControllerBlockPointer(new BlockPointer(player.pw,()->player.inventory.select().data));
-    // selectBlock.data.slot=()->player.inventory.select().data;
     // player.outerBox=limitBox;//TODO
   }
   @Override
   public void display() {
-    p.beginBlend();
+    // p.beginBlend();
     if(selectEntity!=null) drawSelectEntity();
     drawSelectBlock();
-    p.endBlend();
+    // p.endBlend();
   }
   public void drawSelectEntity() {
-    // p.beginBlend();
     float tl=UtilMath.mag(selectEntity.type.w,selectEntity.type.h)/2f+2;
     float tcx=selectEntity.cx(),tcy=selectEntity.cy();
     p.tint(255,191);
@@ -84,18 +82,13 @@ public class PlayerController extends Entity<Screen0011>{
     p.image(ImageAsset.select,tcx-tl,tcy+tl,tl,-tl);
     p.image(ImageAsset.select,tcx+tl,tcy+tl,-tl,-tl);
     p.noTint();
-    // p.endBlend();
   }
   public void drawSelectBlock() {
-    // p.beginBlend();
-    // p.fill(0,127);
     int tw=player.pw.blockWidth,
       th=player.pw.blockHeight;
     switch(selectBlock.data.task) {
       case BlockPointer.idle: {
-        // p.fill(0,127);
         p.fill(0,127);
-        // p.rect(selectBlock.x*tw,selectBlock.y*th,tw,th);
         float r=1;
         float tx1=selectBlock.data.x*tw-r;
         float ty1=selectBlock.data.y*th-r;
@@ -111,7 +104,6 @@ public class PlayerController extends Entity<Screen0011>{
         break;
       case BlockPointer.destroy: {
         p.tint(255,191);
-        // p.println(selectBlock.progress,0,selectBlock.block.type.destroyTime,0,7,UtilMath.map(selectBlock.progress,0,selectBlock.block.type.destroyTime,0,7));
         p.image(ImageAsset.tiles[20][(int)UtilMath.map(selectBlock.data.progress,0,selectBlock.data.block.type.destroyTime,0,7)],selectBlock.data.x*tw,selectBlock.data.y*th);
       }
         break;
@@ -119,7 +111,6 @@ public class PlayerController extends Entity<Screen0011>{
         Item ti=selectBlock.data.slot().item;
         if(ti!=null) {
           p.tint(255,191);
-          // p.println(selectBlock.progress,0,selectBlock.slot().item.type.blockType.buildTime,0,7,UtilMath.map(selectBlock.progress,0,selectBlock.slot().item.type.blockType.buildTime,0,7));
           p.image(
             ImageAsset.tiles[21][(int)UtilMath.map(selectBlock.data.progress,
               0,ti.type.blockType.buildTime+selectBlock.data.block.type.destroyTime,0,7)],
@@ -129,9 +120,7 @@ public class PlayerController extends Entity<Screen0011>{
       default:
         break;
     }
-    // if(selectBlock.task!=BlockPointer.idle)
     p.noTint();
-    // p.endBlend();
   }
   public void updateCtrlInfo() {
     updateKeyInfo();
@@ -200,12 +189,8 @@ public class PlayerController extends Entity<Screen0011>{
       float tp2=UtilMath.abs((x-player.cx())/(y-player.cy()));
       if(tp2>=tp1) tx=x<player.cx()?limitBox.x1-1:limitBox.x2+1;
       else ty=y<player.cy()?limitBox.y1-1:limitBox.y2+1;
-      // Block block=player.getBlock(tx,ty);
-      // selectBlock.testStopTaskWithBlock(block);
-      // return;
     }
     // Block block=player.getBlock(tx,ty);
-    // selectBlock.data.testStopTaskWithBlock(block);
     selectBlock.testStopTask(info);
   }
   public boolean testInPlayerOuterBoxAndUpdateSelectBlock(float x,float y,int tx,int ty) {
@@ -300,18 +285,14 @@ public class PlayerController extends Entity<Screen0011>{
   }
   public boolean inPlayerOuterBox(int tx,int ty) {
     return Tools.inBoxInclude(tx,ty,limitBox.x1,limitBox.y1,limitBox.w,limitBox.h);
-    // return player.inOuterBox(tx,ty);
   }
   @Override
   public void mouseWheel(float x,float y) {
-    // p.println(x,y);
     selectHotSlot(player.inventory.selectSlot+(int)y);
-    // player.inventory.selectSlot+=y;
     player.inventory.testSelectSlot();
   }
   public void selectHotSlot(int in) {
     player.inventory.select(in);
-    // selectBlock.slot=player.inventory.select().data;
   }
   @Override
   public void keyPressed(char key,int keyCode) {
@@ -349,7 +330,6 @@ public class PlayerController extends Entity<Screen0011>{
         player.dir=false;
       }
     }else walkSlowDown();
-    // inAir=player.point.pos.y<floor;
     limitBox.doInAirTest();
     if(limitBox.inAir) player.point.vel.y+=player.pw.g;
     else {

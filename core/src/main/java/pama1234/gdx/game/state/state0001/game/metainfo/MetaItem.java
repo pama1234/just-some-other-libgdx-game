@@ -1,6 +1,7 @@
 package pama1234.gdx.game.state.state0001.game.metainfo;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
 import pama1234.gdx.game.state.state0001.game.item.Item;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemCenter0001;
@@ -8,13 +9,19 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemC
 public class MetaItem extends MetaInfoBase{
   public MetaItemCenter0001 pc;
   // public String name;
+  @Tag(2)
   public ItemCountType countType=ItemCountType.INT;
-  public int maxCount=1;
-  public int floatDivider=8;//TODO
+  @Tag(3)
+  public int maxCount=-1;
+  // public int floatDivider=8;//TODO
+  @Tag(4)
   public float hardness,lightIntensity;//TODO
+  @Tag(5)
   public MetaBlock blockType;
   public TextureRegion[] tiles;
+  @Tag(6)
   public int displayTypeSize=1;
+  @Tag(7)
   public int defaultDisplayType;
   public InitFunction initer;
   public MetaItem(MetaItemCenter0001 pc,String name,int id,InitFunction initer) {
