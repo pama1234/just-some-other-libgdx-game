@@ -65,20 +65,24 @@ public class Inventory{
       case noDisplay: {}
         break;
       case displayHoldSlot: {
-        holdSlot.centerUpdate(pc);
+        holdSlot.centerUpdate(pc,0,12);
       }
         break;
       case displayFullInventory: {
-        if(displayState!=displayFullInventory) return;
-        r.update();
-        Screen0011 p=pc.p;
-        for(int i=0;i<hotSlots.length;i++) hotSlots[i].circleUpdate(pc,
-          (float)i/hotSlots.length+(float)(p.frameCount%timeF)/timeF+circleDeg,
-          r.pos);
-        holdSlot.centerUpdate(pc);
+        updateFullInventory();
       }
         break;
     }
+  }
+  public void updateFullInventory() {
+    // if(displayState!=displayFullInventory) return;
+    r.update();
+    Screen0011 p=pc.p;
+    for(int i=0;i<hotSlots.length;i++) hotSlots[i].circleUpdate(pc,
+      (float)i/hotSlots.length+(float)(p.frameCount%timeF)/timeF+circleDeg,
+      r.pos);
+    holdSlot.centerUpdate(pc,0,12);
+    // for(DisplaySlot e:backpackSlots) e.centerUpdate(pc,0,0);
   }
   public void display() {
     Screen0011 p=pc.p;
@@ -141,7 +145,6 @@ public class Inventory{
     Item ti=ths.data.item;
     drawSlotBackground(p,ths);
     // drawSlotBackground(p,ths.x1,ths.y1);
-    // p.noTint();
     if(ti!=null) drawSlotItem(p,ths,ti);
   }
   public void drawSlotItem(Screen0011 p,DisplaySlot ths,Item ti) {
@@ -176,9 +179,9 @@ public class Inventory{
     public DisplaySlot(InventorySlot pos) {
       this.data=pos;
     }
-    public void centerUpdate(LivingEntity pc) {
-      cx=pc.cx();
-      cy=pc.cy()+12;
+    public void centerUpdate(LivingEntity pc,float x,float y) {
+      cx=pc.cx()+x;
+      cy=pc.cy()+y;
       setDisplaySize(data.item);
       updatePosition();
     }

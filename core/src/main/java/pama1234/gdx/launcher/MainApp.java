@@ -1,5 +1,9 @@
 package pama1234.gdx.launcher;
 
+import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
+import java.util.List;
+
 import com.badlogic.gdx.Game;
 
 import pama1234.gdx.game.app.*;
@@ -7,67 +11,33 @@ import pama1234.gdx.game.app.app0001.*;
 import pama1234.gdx.game.app.app0002.*;
 import pama1234.gdx.game.app.app0003.*;
 import pama1234.gdx.game.app.app0004.*;
+import pama1234.gdx.util.app.UtilScreen;
 
 public class MainApp extends Game{
+  public List<Class<? extends UtilScreen>> screenList;
   public int screenType=11;
+  public MainApp() {
+    screenList=Arrays.asList(null,
+      Screen0001.class,
+      Screen0002.class,
+      Screen0003.class,
+      Screen0004.class,
+      Screen0005.class,
+      Screen0006.class,
+      Screen0007.class,
+      Screen0008.class,
+      Screen0009.class,
+      Screen0010.class,
+      Screen0011.class,
+      Screen0012.class,
+      Screen0013.class);
+  }
   @Override
   public void create() {
-    switch(screenType) {
-      case 1: {
-        setScreen(new Screen0001());// 3D 粒子系统 单机模式
-      }
-        break;
-      case 2: {
-        setScreen(new Screen0002());
-      }
-        break;
-      case 3: {
-        setScreen(new Screen0003());
-      }
-        break;
-      case 4: {
-        setScreen(new Screen0004());
-      }
-        break;
-      case 5: {
-        setScreen(new Screen0005());
-      }
-        break;
-      case 6: {
-        setScreen(new Screen0006());
-      }
-        break;
-      case 7: {
-        setScreen(new Screen0007());
-      }
-        break;
-      case 8: {
-        setScreen(new Screen0008());
-      }
-        break;
-      case 9: {
-        setScreen(new Screen0009());
-      }
-        break;
-      case 10: {
-        setScreen(new Screen0010());
-      }
-        break;
-      case 11: {
-        setScreen(new Screen0011());
-      }
-        break;
-      case 12: {
-        setScreen(new Screen0012());
-      }
-        break;
-      case 13: {
-        setScreen(new Screen0013());
-      }
-        break;
-      default:
-        System.err.println("Screen App not found screenType="+screenType);
-        break;
+    try {
+      setScreen(screenList.get(screenType).getDeclaredConstructor().newInstance());
+    }catch(InstantiationException|IllegalAccessException|IllegalArgumentException|InvocationTargetException|NoSuchMethodException|SecurityException e) {
+      e.printStackTrace();
     }
   }
   @Override

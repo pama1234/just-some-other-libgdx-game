@@ -219,25 +219,29 @@ public class PlayerController extends Entity<Screen0011>{
     return false;
   }
   public boolean updateAndTestInventorySlot(float x,float y,int button) {
-    if(player.inventory.displayState==Inventory.displayFullInventory) for(int i=0;i<player.inventory.hotSlots.length;i++) {
-      DisplaySlot e=player.inventory.hotSlots[i];
-      if(Tools.inBox(x,y,e.x1,e.y1,e.w1,e.h1)) {
-        switch(getTouchInfoButton(button)) {
-          case Buttons.LEFT: {
-            // player.inventory.selectSlot=i;
-            selectSlot(i);
-          }
-            break;
-          case Buttons.RIGHT: {
-            // player.inventory.select(i);
-            player.inventory.switchHold(e);
-          }
-            break;
-        }
-        return true;
+    if(player.inventory.displayState==Inventory.displayFullInventory) {
+      for(int i=0;i<player.inventory.hotSlots.length;i++) {
+        if(testSlot(x,y,button,player.inventory.hotSlots,i)) return true;
       }
     }
     return false;
+  }
+  public boolean testSlot(float x,float y,int button,DisplaySlot[] slots,int i) {
+    DisplaySlot e=slots[i];
+    if(Tools.inBox(x,y,e.x1,e.y1,e.w1,e.h1)) {
+      switch(getTouchInfoButton(button)) {
+        case Buttons.LEFT: {
+          selectHotSlot(i);
+        }
+          break;
+        case Buttons.RIGHT: {
+          player.inventory.switchHold(e);
+        }
+          break;
+      }
+      return true;
+    }
+    return true;
   }
   public void creativeModeUpdateSelectBlock(TouchInfo info,int tx,int ty,Block block) {
     if(block!=null) switch(getTouchInfoButton(info.button)) {
@@ -283,11 +287,11 @@ public class PlayerController extends Entity<Screen0011>{
   @Override
   public void mouseWheel(float x,float y) {
     // p.println(x,y);
-    selectSlot(player.inventory.selectSlot+(int)y);
+    selectHotSlot(player.inventory.selectSlot+(int)y);
     // player.inventory.selectSlot+=y;
     player.inventory.testSelectSlot();
   }
-  public void selectSlot(int in) {
+  public void selectHotSlot(int in) {
     player.inventory.select(in);
     // selectBlock.slot=player.inventory.select().data;
   }
