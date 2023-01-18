@@ -13,6 +13,7 @@ public class Dirt extends MetaBlock{
       in.light.set(16);
     },(in,type)-> {//change from dirt
     });
+    blockType=dirtType;
     destroyTime=30;
     buildTime=15;
     initFullBlockLambda();

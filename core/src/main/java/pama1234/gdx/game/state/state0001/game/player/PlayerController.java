@@ -129,15 +129,26 @@ public class PlayerController extends Entity<Screen0011>{
       walking=tb;
       walkEvent();
     }
-    if(!player.pw.p.isAndroid) {
-      if(testPosInButtons(p.mouse.x,p.mouse.y)) return;
-      if(testPosInInventorySlot(p.mouse.x,p.mouse.y)) return;
-      int tx=player.xToBlockCord(p.mouse.x),
-        ty=player.xToBlockCord(p.mouse.y);
-      if(testInPlayerOuterBoxAndUpdateSelectBlock(p.mouse.x,p.mouse.y,tx,ty)) return;
-      Block block=player.getBlock(tx,ty);
-      selectBlock.data.update(block,tx,ty);
+    if(!player.pw.p.isAndroid) updateMouseInfo();
+  }
+  public void updateMouseInfo() {
+    if(testPosInButtons(p.mouse.x,p.mouse.y)) {
+      selectBlock.data.task=BlockPointer.hide;
+      return;
     }
+    if(testPosInInventorySlot(p.mouse.x,p.mouse.y)) {
+      selectBlock.data.task=BlockPointer.hide;
+      return;
+    }
+    int tx=player.xToBlockCord(p.mouse.x),
+      ty=player.xToBlockCord(p.mouse.y);
+    if(testInPlayerOuterBoxAndUpdateSelectBlock(p.mouse.x,p.mouse.y,tx,ty)) {
+      selectBlock.data.task=BlockPointer.hide;
+      return;
+    }
+    if(selectBlock.data.task==BlockPointer.hide) selectBlock.data.task=BlockPointer.idle;
+    Block block=player.getBlock(tx,ty);
+    selectBlock.data.update(block,tx,ty);
   }
   public void updateKeyInfo() {
     left=p.isKeyPressed(29)||p.isKeyPressed(21);
@@ -180,27 +191,25 @@ public class PlayerController extends Entity<Screen0011>{
   }
   @Override
   public void touchEnded(TouchInfo info) {
-    // if(selectBlock.task)
-    float x=info.x,y=info.y;
-    int tx=player.xToBlockCord(info.x),
-      ty=player.xToBlockCord(info.y);
-    if(inPlayerOuterBox(tx,ty)) {
-      float tp1=UtilMath.abs(limitBox.w/(float)limitBox.h);
-      float tp2=UtilMath.abs((x-player.cx())/(y-player.cy()));
-      if(tp2>=tp1) tx=x<player.cx()?limitBox.x1-1:limitBox.x2+1;
-      else ty=y<player.cy()?limitBox.y1-1:limitBox.y2+1;
-    }
-    // Block block=player.getBlock(tx,ty);
+    // float x=info.x,y=info.y;
+    // int tx=player.xToBlockCord(info.x),
+    //   ty=player.xToBlockCord(info.y);
+    // if(inPlayerOuterBox(tx,ty)) {
+    //   float tp1=UtilMath.abs(limitBox.w/(float)limitBox.h);
+    //   float tp2=UtilMath.abs((x-player.cx())/(y-player.cy()));
+    //   if(tp2>=tp1) tx=x<player.cx()?limitBox.x1-1:limitBox.x2+1;
+    //   else ty=y<player.cy()?limitBox.y1-1:limitBox.y2+1;
+    // }
     selectBlock.testStopTask(info);
   }
   public boolean testInPlayerOuterBoxAndUpdateSelectBlock(float x,float y,int tx,int ty) {
     if(inPlayerOuterBox(tx,ty)) {
-      float tp1=UtilMath.abs(limitBox.w/(float)limitBox.h);
-      float tp2=UtilMath.abs((x-player.cx())/(y-player.cy()));
-      if(tp2>=tp1) tx=x<player.cx()?limitBox.x1-1:limitBox.x2+1;
-      else ty=y<player.cy()?limitBox.y1-1:limitBox.y2+1;
-      Block block=player.getBlock(tx,ty);
-      selectBlock.data.update(block,tx,ty);
+      // float tp1=UtilMath.abs(limitBox.w/(float)limitBox.h);
+      // float tp2=UtilMath.abs((x-player.cx())/(y-player.cy()));
+      // if(tp2>=tp1) tx=x<player.cx()?limitBox.x1-1:limitBox.x2+1;
+      // else ty=y<player.cy()?limitBox.y1-1:limitBox.y2+1;
+      // Block block=player.getBlock(tx,ty);
+      // selectBlock.data.update(block,tx,ty);
       return true;
     }
     return false;

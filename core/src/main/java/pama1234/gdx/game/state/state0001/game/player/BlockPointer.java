@@ -14,11 +14,12 @@ public class BlockPointer{
   public interface GetInventorySlot{
     public InventorySlot get();
   }
-  public static final int idle=0,build=1,destroy=2;
+  public static final int hide=-1,idle=0,build=1,destroy=2;
   public World0001 pw;
   public GetInventorySlot slot;
   public Block block;
   public int x,y;
+  // public boolean active;
   public int task;
   public float progress;
   public BlockPointer(World0001 in) {

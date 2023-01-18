@@ -14,6 +14,7 @@ public class TreeLog extends MetaBlock{
       in.light.set(16);
     },(in,type)-> {//change from log
     });
+    blockType=woodType;
     destroyTime=60;
     buildTime=10;
     fullBlock=false;
