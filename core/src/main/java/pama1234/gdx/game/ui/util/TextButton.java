@@ -11,21 +11,27 @@ public class TextButton<T extends UtilScreen>extends Button<T>{
   public boolean textOffset=true;//TODO
   public GetInt bu;
   public RectF rect;
-  public TextButton(T p,boolean textOffset,GetBoolean active,ButtonEvent press,ButtonEvent clickStart,ButtonEvent clickEnd,String text,GetInt bu,GetFloat x,GetFloat y) {
-    this(p,textOffset,active,press,clickStart,clickEnd,text,bu,x,y,null,bu::get);//()->bu.get()*2);
+  public ButtonEvent updateText;
+  public TextButton(T p,boolean textOffset,GetBoolean active,ButtonEvent press,ButtonEvent clickStart,ButtonEvent clickEnd,ButtonEvent updateText,GetInt bu,GetFloat x,GetFloat y) {
+    this(p,textOffset,active,press,clickStart,clickEnd,updateText,bu,x,y,null,bu::get);//()->bu.get()*2);
     this.rect.w=()->p.textWidthCam(this.text)*p.pus+(this.textOffset?p.pu:0);//TODO
   }
-  public TextButton(T p,boolean textOffset,GetBoolean active,ButtonEvent press,ButtonEvent clickStart,ButtonEvent clickEnd,String text,GetInt bu,GetFloat x,GetFloat y,GetFloat h,boolean mouseLimit) {
-    this(p,textOffset,active,press,clickStart,clickEnd,text,bu,x,y,null,h);//()->bu.get()*2);
+  public TextButton(T p,boolean textOffset,GetBoolean active,ButtonEvent press,ButtonEvent clickStart,ButtonEvent clickEnd,ButtonEvent updateText,GetInt bu,GetFloat x,GetFloat y,GetFloat h,boolean mouseLimit) {
+    this(p,textOffset,active,press,clickStart,clickEnd,updateText,bu,x,y,null,h);//()->bu.get()*2);
     this.rect.w=()->p.textWidthCam(this.text)*p.pus+(this.textOffset?p.pu:0);//TODO
     this.mouseLimit=mouseLimit;
   }
-  public TextButton(T p,boolean textOffset,GetBoolean active,ButtonEvent press,ButtonEvent clickStart,ButtonEvent clickEnd,String text,GetInt bu,GetFloat x,GetFloat y,GetFloat w,GetFloat h) {
+  public TextButton(T p,boolean textOffset,GetBoolean active,ButtonEvent press,ButtonEvent clickStart,ButtonEvent clickEnd,ButtonEvent updateText,GetInt bu,GetFloat x,GetFloat y,GetFloat w,GetFloat h) {
     super(p,active,press,clickStart,clickEnd);
-    this.text=text;
+    this.updateText=updateText;
+    updateText();
     this.textOffset=textOffset;
     this.bu=bu;
     this.rect=new RectF(x,y,w,h);
+  }
+  @Override
+  public void updateText() {
+    updateText.execute(this);
   }
   @Override
   public void display() {
@@ -55,4 +61,8 @@ public class TextButton<T extends UtilScreen>extends Button<T>{
     // System.out.println(rect.w());
     return Tools.inBox(xIn,yIn,rect.x.get(),rect.y.get(),rect.w.get(),rect.h.get());
   }
+  // @FunctionalInterface
+  // public interface ButtonTextUpdate{
+  //   public String execute(Button<?> button);
+  // }
 }

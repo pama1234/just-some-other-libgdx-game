@@ -20,6 +20,7 @@ public abstract class Button<T extends UtilScreen>extends Entity<T>{
     this.clickStart=clickStart;
     this.clickEnd=clickEnd;
   }
+  public void updateText() {}//TODO
   @Override
   public void update() {
     if(touch!=null) {

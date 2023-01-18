@@ -10,8 +10,8 @@ import pama1234.math.UtilMath;
 public class Slider<T extends UtilScreen>extends TextButtonCam<T>{
   public float min,max=1;
   public float pos;
-  public Slider(T p,boolean textOffset,GetBoolean active,ButtonEvent press,ButtonEvent clickStart,ButtonEvent clickEnd,String text,GetInt bu,GetFloat x,GetFloat y,float pos) {
-    super(p,textOffset,active,press,clickStart,clickEnd,text,bu,x,y);
+  public Slider(T p,boolean textOffset,GetBoolean active,ButtonEvent press,ButtonEvent clickStart,ButtonEvent clickEnd,ButtonEvent updateText,GetInt bu,GetFloat x,GetFloat y,float pos) {
+    super(p,textOffset,active,press,clickStart,clickEnd,updateText,bu,x,y);
     this.pos=pos;
   }
   @Override
