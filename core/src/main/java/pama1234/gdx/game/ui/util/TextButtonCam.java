@@ -31,8 +31,9 @@ public class TextButtonCam<T extends UtilScreen>extends TextButton<T>{
       p.fill(127,191);
       p.textColor(255,200);
     }
-    p.rect(tx+1,ty,tw+(textOffset?-1:1),th);
-    p.text(text,tx+(textOffset?8:1),ty+(th-16)/2f-1);
+    p.rect(tx,ty,tw,th);
+    // p.rect(tx+1,ty,tw+(textOffset?-1:1),th);
+    p.text(text,tx+(textOffset?8:0),ty+(th-16)/2f-1);
     p.endBlend();
   }
 }

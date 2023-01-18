@@ -14,26 +14,30 @@ public class Settings extends StateEntity0001{
   public Button<?>[] buttons;
   public TextButtonCam<?>[] buttonsCam;
   public Slider<?> volumeSlider;
-  public TextField[] textFields;
+  public TextField[] screenTextFields,camTextFields;
   public Settings(Screen0011 p) {
     super(p);
     buttons=UiGenerator.genButtons_0004(p);
     buttonsCam=UiGenerator.genButtons_0006(p,this);
-    textFields=UiGenerator.genTextFields_0001(p);
+    screenTextFields=UiGenerator.genTextFields_0001(p);
+    camTextFields=UiGenerator.genTextFields_0002(p);
   }
   @Override
   public void from(State0001 in) {
-    p.backgroundColor(0);
+    // p.backgroundColor(0);
+    p.backgroundColor(255);
     // p.cam.noGrab();
     for(Button<?> e:buttons) p.centerScreen.add.add(e);
     for(Button<?> e:buttonsCam) p.centerCam.add.add(e);
-    for(TextField e:textFields) p.screenStage.addActor(e);
+    for(TextField e:screenTextFields) p.screenStage.addActor(e);
+    for(TextField e:camTextFields) p.camStage.addActor(e);
   }
   @Override
   public void to(State0001 in) {
     for(Button<?> e:buttons) p.centerScreen.remove.add(e);
     for(Button<?> e:buttonsCam) p.centerCam.remove.add(e);
-    for(TextField e:textFields) e.remove();
+    for(TextField e:screenTextFields) e.remove();
+    for(TextField e:camTextFields) e.remove();
   }
   @Override
   public void displayCam() {}

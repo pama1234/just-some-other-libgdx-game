@@ -38,31 +38,19 @@ public class TextButton<T extends UtilScreen>extends Button<T>{
     if(!active.get()) return;
     final float tx=rect.x.get(),ty=rect.y.get(),tw=rect.w.get(),th=rect.h.get();
     if(touch!=null) {
-      // p.fill(127,240);
       // if(inButton(p.mouse.x,p.mouse.y)) p.fill(0,90,130,200); else 
       p.fill(94,203,234,200);
       p.textColor(255,220);
     }else {
       p.fill(127,191);
-      // p.fill(94,203,234,191);
       p.textColor(255,200);
     }
     p.beginBlend();//TODO
-    // p.rect(tx+p.pus,ty+p.pus,tw+(textOffset?-p.pus:p.pus),th-p.pus);
-    p.rect(tx+p.pus,ty,tw+(textOffset?-p.pus:p.pus),th);
-    // float tl=tw-(textOffset?p.pu*3/2:p.pu);//TODO
-    // p.text(text,tx+(tw-tl)/2f,ty+(th-p.pu)/2f);
-    p.text(text,tx+(textOffset?p.pu/2:p.pus),ty+(th-p.pu)/2f-p.pus);
-    // p.text(text,tx+(textOffset?p.pu/2:p.pus),ty+(th-p.pu)/2f);
-    // p.text(text,tx+(textOffset?(tw-p.pus*8)/2f:0),ty+(th-p.pu)/2f);
+    p.rect(tx,ty,tw,th);
+    p.text(text,tx+(textOffset?p.pu/2:0),ty+(th-p.pu)/2f-p.pus);
     p.endBlend();
   }
   public boolean inButton(float xIn,float yIn) {
-    // System.out.println(rect.w());
     return Tools.inBox(xIn,yIn,rect.x.get(),rect.y.get(),rect.w.get(),rect.h.get());
   }
-  // @FunctionalInterface
-  // public interface ButtonTextUpdate{
-  //   public String execute(Button<?> button);
-  // }
 }

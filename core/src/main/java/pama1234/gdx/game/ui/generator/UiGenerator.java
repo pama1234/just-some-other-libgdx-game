@@ -20,6 +20,14 @@ import pama1234.gdx.game.util.RectF;
 import pama1234.gdx.util.app.ScreenCore3D;
 
 public class UiGenerator{
+  public static TextField[] genTextFields_0002(Screen0011 p) {
+    TextField[] out=new TextField[] {new TextField("测试文本输入框02",new CodeTextFieldStyle(p),
+      new RectF(()->0,()->-20,()->256,()->20),
+      ()->20)};
+    for(TextField e:out) e.setOnscreenKeyboard(new NormalOnscreenKeyboard());
+    return out;
+    // return new TextField[0];
+  }
   public static TextField[] genTextFields_0001(Screen0011 p) {
     TextField[] out=new TextField[] {new TextField("测试文本输入框",new CodeTextFieldStyle(p),
       new RectF(()->p.u*5,()->p.u,()->p.width-p.u*6,()->p.u+p.pus),

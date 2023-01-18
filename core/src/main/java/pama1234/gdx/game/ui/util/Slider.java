@@ -16,7 +16,8 @@ public class Slider<T extends UtilScreen>extends TextButtonCam<T>{
   }
   @Override
   public void press() {
-    pos=UtilMath.constrain(Tools.map(nx.get(),rect.x()+1,rect.x()+rect.w(),min,max),min,max);//TODO
+    pos=UtilMath.constrain(Tools.map(nx.get(),rect.x(),rect.x()+rect.w(),min,max),min,max);//TODO
+    // pos=UtilMath.constrain(Tools.map(nx.get(),rect.x()+1,rect.x()+rect.w(),min,max),min,max);
     super.press();
   }
   @Override
@@ -31,11 +32,12 @@ public class Slider<T extends UtilScreen>extends TextButtonCam<T>{
       p.fill(127,191);
       p.textColor(255,200);
     }
-    float tw2=tw+(textOffset?-1:1);
-    p.rect(tx+1,ty,tw2,th);
+    // float tw2=tw+(textOffset?-1:1);
+    p.rect(tx,ty,tw,th);
+    // p.rect(tx+1,ty,tw2,th);
     p.fill(144,222,196,191);
-    p.rect(tx+1,ty,tw2*pos,th);
-    p.text(text,tx+(textOffset?8:1),ty+(th-16)/2f-1);
+    p.rect(tx,ty,tw*pos,th);
+    p.text(text,tx+(textOffset?8:0),ty+(th-16)/2f-1);
     p.endBlend();
   }
 }
