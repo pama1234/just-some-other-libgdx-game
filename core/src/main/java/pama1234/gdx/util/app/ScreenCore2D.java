@@ -24,6 +24,7 @@ public abstract class ScreenCore2D extends UtilScreen2D{
     screenStage=new Stage(screenViewport=new ScalingViewport(Scaling.fit,width,height,screenCam),imageBatch);
     camStage=new Stage(camViewport=new ScalingViewport(Scaling.fit,width,height,cam2d.camera),imageBatch);
     inputProcessor.sub.add.add(screenStage);
+    inputProcessor.sub.add.add(camStage);
     center.list.add(new EntityListener() {
       @Override
       public void update() {

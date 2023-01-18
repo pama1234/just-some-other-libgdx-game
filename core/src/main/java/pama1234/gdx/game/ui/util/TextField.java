@@ -89,6 +89,8 @@ public class TextField extends Widget implements Disableable{
   };
   final KeyRepeatTask keyRepeatTask=new KeyRepeatTask();
   boolean programmaticChangeEvents;
+  public RectF rectF;//TODO
+  public GetFloat textSize;
   public TextField(@Null String text,Skin skin) {
     this(text,skin.get(TextFieldStyle.class));
   }
@@ -102,8 +104,6 @@ public class TextField extends Widget implements Disableable{
     setText(text);
     setSize(getPrefWidth(),getPrefHeight());
   }
-  public RectF rectF;
-  public GetFloat textSize;
   public TextField(String string,TextFieldStyle style,RectF rectF,GetFloat textSize) {//TODO
     this(string,style);
     this.rectF=rectF;
@@ -232,20 +232,25 @@ public class TextField extends Widget implements Disableable{
     if(style.focusedBackground!=null&&hasKeyboardFocus()) return style.focusedBackground;
     return style.background;
   }
-  public void draw(Batch batch,float parentAlpha) {
+  public void draw(Batch batch,float parentAlpha) {//TODO
     if(rectF!=null) {
       setPosition(rectF.x(),rectF.y());
       setSize(rectF.w(),rectF.h());
     }
     if(textSize!=null) {
-      BitmapFontData td=style.font.getData();
+      BitmapFont font=style.font;
+      BitmapFontData td=font.getData();
       float tx=td.scaleX,
         ty=td.scaleY;
+      boolean tb=font.usesIntegerPositions();
+      if(tb) font.setUseIntegerPositions(false);
       td.setScale(textSize.get());
-      textHeight=style.font.getCapHeight()-style.font.getDescent()*2;
+      textHeight=font.getCapHeight()-font.getDescent()*2;
+      // System.out.println(style.font.getDescent());
       if(text!=null) updateDisplayText();
       doDraw(batch,parentAlpha);
       td.setScale(tx,ty);
+      if(tb) font.setUseIntegerPositions(true);
     }else doDraw(batch,parentAlpha);
   }
   public void doDraw(Batch batch,float parentAlpha) {//TODO
@@ -318,7 +323,6 @@ public class TextField extends Widget implements Disableable{
     cursorPatch.draw(batch,
       x+textOffset+glyphPositions.get(cursor)-glyphPositions.get(visibleTextStart)+font.getData().cursorX,
       y,
-      // y-font.getDescent(),
       cursorPatch.getMinWidth(),
       font.getLineHeight());
   }

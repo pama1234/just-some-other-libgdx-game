@@ -21,9 +21,9 @@ import pama1234.gdx.util.app.ScreenCore3D;
 
 public class UiGenerator{
   public static TextField[] genTextFields_0002(Screen0011 p) {
-    TextField[] out=new TextField[] {new TextField("测试文本输入框02",new CodeTextFieldStyle(p),
-      new RectF(()->0,()->-20,()->256,()->20),
-      ()->20)};
+    TextField[] out=new TextField[] {new TextField("写好联机后，这里输入IP地址",new CodeTextFieldStyle(p),
+      new RectF(()->0,()->-19,()->256,()->17),
+      ()->1)};
     for(TextField e:out) e.setOnscreenKeyboard(new NormalOnscreenKeyboard());
     return out;
     // return new TextField[0];

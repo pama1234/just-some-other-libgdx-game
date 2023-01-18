@@ -14,24 +14,19 @@ public class MultiChunkFont extends BitmapFont{
   public FileHandle[] fontFile;
   public int length;
   public boolean loadOnDemand;
-  // public boolean allLoaded;
   public int digitShift;
-  // public int loadedArea;
   public BitmapFont[] data;
   public MultiChunkFontData mfontData;
   public Array<TextureRegion> multiRegions;
-  // public Array<TextureRegion> mregion=new Array<>();
   //---
   public SpriteBatch fontBatch;
   //---
   public float defaultSize=16,size=defaultSize;
   public Color foreground=Color.WHITE,background=Color.BLACK;
   public float scale=1;
-  // public Color foregroundColor;
   public MultiChunkFont(FileHandle[] fontFile,boolean loadOnDemand) {
     super(new MultiChunkFontData(fontFile[0],true),(TextureRegion)null,true);
-    // super(new MultiChunkFontData(fontFile[0],false),(TextureRegion)null,true);
-  
+    // usesIntegerPositions();
     mfontData=(MultiChunkFontData)getData();//TODO
     mfontData.mfont=this;
     this.fontFile=fontFile;
@@ -45,16 +40,11 @@ public class MultiChunkFont extends BitmapFont{
     data[0]=this;
     if(!loadOnDemand) for(int i=0;i<fontFile.length;i++) loadFont(i);
   }
-  // @Override
-  // public float getDescent() {
-  //   return super.getDescent();
-  // }
   public void load(int in) {
     loadFont(in);
     loadOnDemand=isAllLoaded();
   }
   public boolean isAllLoaded() {
-    // for(int i=0;i<length;i++) if(((loadedArea>>i)&1)==0) return true;
     for(int i=0;i<length;i++) if(data[i]==null) return true;
     return false;
   }
@@ -69,7 +59,6 @@ public class MultiChunkFont extends BitmapFont{
         if(tg!=null) tg.page=in;
       }
     }
-    // data[in]=createBitmapFont(fontFile[in]);
     multiRegions.set(in,data[in].getRegion());
   }
   public BitmapFont createBitmapFont(FileHandle fontFile) {

@@ -11,7 +11,7 @@ public class CodeTextFieldStyle extends TextFieldStyle{
       new DrawableEntity(p,(batch,x,y,w,h)-> {
         p.beginBlend();
         p.fill(0,191);
-        p.rect(x,y,p.pus,h);
+        p.rect(x,y,p.usedCamera==p.screenCam?p.pus:1,h);
         p.rect(x,y,w,h);
         p.endBlend();
       }),
