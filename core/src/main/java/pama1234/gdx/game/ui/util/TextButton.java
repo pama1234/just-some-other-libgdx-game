@@ -21,6 +21,16 @@ public class TextButton<T extends UtilScreen>extends Button<T>{
     this.rect.w=()->p.textWidthCam(this.text)*p.pus+(this.textOffset?p.pu:0);//TODO
     this.mouseLimit=mouseLimit;
   }
+  public TextButton(T p,boolean textOffset,GetBoolean active,ButtonEvent press,ButtonEvent clickStart,ButtonEvent clickEnd,ButtonEvent updateText,String textIn,GetInt bu,GetFloat x,GetFloat y,GetFloat h,boolean mouseLimit) {
+    super(p,active,press,clickStart,clickEnd);
+    this.updateText=updateText;
+    text=textIn;
+    // updateText();
+    this.textOffset=textOffset;
+    this.bu=bu;
+    this.rect=new RectF(x,y,()->p.textWidthCam(this.text)*p.pus+(this.textOffset?p.pu:0),h);
+    this.mouseLimit=mouseLimit;
+  }
   public TextButton(T p,boolean textOffset,GetBoolean active,ButtonEvent press,ButtonEvent clickStart,ButtonEvent clickEnd,ButtonEvent updateText,GetInt bu,GetFloat x,GetFloat y,GetFloat w,GetFloat h) {
     super(p,active,press,clickStart,clickEnd);
     this.updateText=updateText;

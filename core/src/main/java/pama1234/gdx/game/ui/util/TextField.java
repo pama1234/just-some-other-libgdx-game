@@ -242,15 +242,15 @@ public class TextField extends Widget implements Disableable{
       BitmapFontData td=font.getData();
       float tx=td.scaleX,
         ty=td.scaleY;
-      boolean tb=font.usesIntegerPositions();
-      if(tb) font.setUseIntegerPositions(false);
+      // boolean tb=font.usesIntegerPositions();
+      // if(tb) font.setUseIntegerPositions(false);
       td.setScale(textSize.get());
       textHeight=font.getCapHeight()-font.getDescent()*2;
       // System.out.println(style.font.getDescent());
       if(text!=null) updateDisplayText();
       doDraw(batch,parentAlpha);
       td.setScale(tx,ty);
-      if(tb) font.setUseIntegerPositions(true);
+      // if(tb) font.setUseIntegerPositions(true);
     }else doDraw(batch,parentAlpha);
   }
   public void doDraw(Batch batch,float parentAlpha) {//TODO

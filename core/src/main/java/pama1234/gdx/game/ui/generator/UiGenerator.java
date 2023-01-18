@@ -21,8 +21,8 @@ import pama1234.gdx.util.app.ScreenCore3D;
 
 public class UiGenerator{
   public static TextField[] genTextFields_0002(Screen0011 p) {
-    TextField[] out=new TextField[] {new TextField("写好联机后，这里输入IP地址",new CodeTextFieldStyle(p),
-      new RectF(()->0,()->-19,()->256,()->17),
+    TextField[] out=new TextField[] {new TextField("联机写好后，这里输入IP地址哦",new CodeTextFieldStyle(p),
+      new RectF(()->0,()->-20,()->256,()->18),
       ()->1)};
     for(TextField e:out) e.setOnscreenKeyboard(new NormalOnscreenKeyboard());
     return out;
@@ -30,7 +30,7 @@ public class UiGenerator{
   }
   public static TextField[] genTextFields_0001(Screen0011 p) {
     TextField[] out=new TextField[] {new TextField("测试文本输入框",new CodeTextFieldStyle(p),
-      new RectF(()->p.u*5,()->p.u,()->p.width-p.u*6,()->p.u+p.pus),
+      new RectF(()->p.u*5,()->p.u,()->p.width-p.u*6,()->p.u+p.pus*2),
       ()->p.pus)};
     for(TextField e:out) e.setOnscreenKeyboard(new NormalOnscreenKeyboard());
     return out;
@@ -46,7 +46,10 @@ public class UiGenerator{
         pg.world().yourself.ctrl.shift(!pg.world().yourself.ctrl.shift);
         self.updateText();
       },self-> {},
-        self->self.text=pg.world().yourself.ctrl.shift?"S":"s",p::getButtonUnitLength,()->p.width-p.bu*2.5f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,true),
+        self-> {
+          self.text=pg.world().yourself.ctrl.shift?"S":"s";
+          // self.text=pg.world().yourself==null?"s":(pg.world().yourself.ctrl.shift?"S":"s");
+        },"s",p::getButtonUnitLength,()->p.width-p.bu*2.5f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,true),
       new TextButton<T>(p,true,()->true,self-> {},self-> {
         p.inputProcessor.keyDown(Input.Keys.A);
       },self-> {

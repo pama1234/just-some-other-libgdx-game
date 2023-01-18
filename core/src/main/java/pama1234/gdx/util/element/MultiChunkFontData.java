@@ -9,8 +9,9 @@ public class MultiChunkFontData extends BitmapFontData{
   public MultiChunkFontData() {}
   public MultiChunkFontData(FileHandle fontFile,boolean flip) {
     super(fontFile,flip);
-    descent=-1.5f;//TODO why??
-    // descent=-2;
+    // descent=-1.5f;//TODO why??
+    descent=-2;
+    lineHeight=18;
   }
   @Override
   public Glyph getGlyph(char ch) {

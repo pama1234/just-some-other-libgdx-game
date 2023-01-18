@@ -132,23 +132,12 @@ public class PlayerController extends Entity<Screen0011>{
     if(!player.pw.p.isAndroid) updateMouseInfo();
   }
   public void updateMouseInfo() {
-    if(testPosInButtons(p.mouse.x,p.mouse.y)) {
-      // selectBlock.data.task=BlockPointer.hide;
-      selectBlock.data.active=false;
-      return;
-    }
-    if(testPosInInventorySlot(p.mouse.x,p.mouse.y)) {
-      // selectBlock.data.task=BlockPointer.hide;
-      selectBlock.data.active=false;
-      return;
-    }
+    selectBlock.data.active=false;
+    if(testPosInButtons(p.mouse.x,p.mouse.y)) return;
+    if(testPosInInventorySlot(p.mouse.x,p.mouse.y)) return;
     int tx=player.xToBlockCord(p.mouse.x),
       ty=player.xToBlockCord(p.mouse.y);
-    if(inPlayerOuterBox(tx,ty)) {
-      // selectBlock.data.task=BlockPointer.hide;
-      selectBlock.data.active=false;
-      return;
-    }
+    if(inPlayerOuterBox(tx,ty)) return;
     // if(selectBlock.data.task==BlockPointer.hide) selectBlock.data.task=BlockPointer.idle;
     selectBlock.data.active=true;
     Block block=player.getBlock(tx,ty);
@@ -173,6 +162,7 @@ public class PlayerController extends Entity<Screen0011>{
     }
     if(updateAndTestSelectEntity(tx,ty)) return;
     Block block=player.getBlock(tx,ty);
+    selectBlock.data.active=true;
     selectBlock.data.update(block,tx,ty);
     selectBlock.info(info);
     selectBlock.data.startTaskButtonInfo(getTouchInfoButton(info.button));
@@ -195,6 +185,7 @@ public class PlayerController extends Entity<Screen0011>{
   }
   @Override
   public void touchEnded(TouchInfo info) {
+    if(p.isAndroid) selectBlock.data.active=false;
     selectBlock.testStopTask(info);
   }
   public boolean updateAndTestSelectEntity(int tx,int ty) {
