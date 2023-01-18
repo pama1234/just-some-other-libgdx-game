@@ -2,9 +2,10 @@ package pama1234.gdx.game.state.state0001.game.player;
 
 import com.badlogic.gdx.Input.Buttons;
 
-import pama1234.gdx.game.state.state0001.game.item.Item;
 import pama1234.gdx.game.state.state0001.game.item.Inventory.InventorySlot;
+import pama1234.gdx.game.state.state0001.game.item.Item;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
+import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 
@@ -59,10 +60,20 @@ public class BlockPointer{
   }
   public void updateTask() {
     progress+=getSpeed(slot.get().item,block);
+    // System.out.println(getSpeed(slot.get().item,block));
     testTaskComplete();
   }
-  public float getSpeed(Item item,Block block2) {
-    return 1;
+  public static float getSpeed(Item item,Block block) {
+    if(item==null||block==null) return 1;
+    MetaItem mi=item.type;
+    MetaBlock mb=block.type;
+    int itemType=mi.toolType;
+    int blockType=mb.blockType;
+    // System.out.println(itemType+" "+blockType);
+    if(itemType==MetaItem.notTool) return 1;
+    else if(itemType==MetaItem.allTool) return blockType==MetaBlock.noType?1:mi.digSpeed;
+    else if(itemType!=MetaItem.chisel) return itemType==blockType?mi.digSpeed:1;
+    else return 1;
   }
   public void testTaskComplete() {
     switch(task) {

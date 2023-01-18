@@ -70,6 +70,7 @@ public class World0001Generator{
     metaItems.list.add(metaItems.pickaxe=new MetaItem(metaItems,"pickaxe",metaItems.id(),in-> {
       // in.blockType=pw.metaBlocks.;
       in.toolType=MetaItem.pickaxe;
+      in.digSpeed=4;
       in.tiles=new TextureRegion[1];
       in.tiles[0]=ImageAsset.items[2][1];
     }));

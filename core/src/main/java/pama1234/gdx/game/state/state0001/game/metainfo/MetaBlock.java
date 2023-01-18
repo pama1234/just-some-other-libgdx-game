@@ -9,7 +9,7 @@ import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.math.UtilMath;
 
 public class MetaBlock extends MetaInfoBase{
-  public static final int noType=0,everyType=1,dirtType=1,stoneType=2,woodType=3;
+  public static final int noType=0,everyType=1,dirtType=2,stoneType=3,woodType=4;
   public MetaBlockCenter0001 pc;
   public boolean display,empty,light;//TODO need light boolean?
   public TextureRegion[] tiles;

@@ -16,6 +16,7 @@ public class MainPlayer extends Player{
     ctrl=new PlayerController(p,this);
     inventory=new Inventory(this,52,9);
     // gameMode=GameMode.creative;
+    inventory.data[6].item=pw.metaItems.pickaxe.createItem(1);
     inventory.data[5].item=pw.metaItems.workbench.createItem(16);
     inventory.data[4].item=pw.metaItems.dirt.createItem(64);//TODO
     inventory.data[3].item=pw.metaItems.stone.createItem(64);

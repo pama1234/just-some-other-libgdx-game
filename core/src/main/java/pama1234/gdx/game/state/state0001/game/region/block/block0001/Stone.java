@@ -13,6 +13,7 @@ public class Stone extends MetaBlock{
       in.light.set(16);
     },(in,type)-> {//change from stone
     });
+    blockType=stoneType;
     destroyTime=60;
     buildTime=15;
     // setLightIntensity(2);
