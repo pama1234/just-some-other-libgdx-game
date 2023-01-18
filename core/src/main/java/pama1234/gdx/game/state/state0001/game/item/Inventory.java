@@ -14,6 +14,7 @@ public class Inventory{
   public LivingEntity pc;
   public InventorySlot[] data;
   public int displayState=displayHoldSlot;
+  public DisplaySlot[][] displaySlots;
   public DisplaySlot[] hotSlots,backpackSlots;
   public DisplaySlot holdSlot;
   public float rSize;
@@ -29,6 +30,7 @@ public class Inventory{
     holdSlot=new DisplaySlot(data[data.length-1]);
     backpackSlots=new DisplaySlot[size-hotSlotSize-1];
     for(int i=0;i<backpackSlots.length;i++) backpackSlots[i]=new DisplaySlot(data[i+hotSlots.length]);
+    displaySlots=new DisplaySlot[][] {hotSlots,backpackSlots};
     r=new PathVar(rSize=UtilMath.min(pc.type.w,pc.type.h));
   }
   public void switchHold(DisplaySlot in) {
@@ -81,6 +83,19 @@ public class Inventory{
     for(int i=0;i<hotSlots.length;i++) hotSlots[i].circleUpdate(pc,
       (float)i/hotSlots.length+(float)(p.frameCount%timeF)/timeF+circleDeg,
       r.pos);
+    int ts=18;
+    if(backpackSlots.length>ts) {
+      for(int i=0;i<ts;i++) backpackSlots[i].circleUpdate(pc,
+        (float)i/ts+(float)(p.frameCount%timeF)/timeF+circleDeg,
+        r.pos*2);
+      for(int i=ts;i<backpackSlots.length;i++) backpackSlots[i].circleUpdate(pc,
+        (float)(i-ts)/(backpackSlots.length-ts)+(float)(p.frameCount%timeF)/timeF+circleDeg,
+        r.pos*3);
+    }else {
+      for(int i=0;i<backpackSlots.length;i++) backpackSlots[i].circleUpdate(pc,
+        (float)i/backpackSlots.length+(float)(p.frameCount%timeF)/timeF+circleDeg,
+        r.pos*2);
+    }
     holdSlot.centerUpdate(pc,0,12);
     // for(DisplaySlot e:backpackSlots) e.centerUpdate(pc,0,0);
   }
@@ -98,6 +113,7 @@ public class Inventory{
         drawSelectRect(p);
         displayHotSlotCircle();
         displayBackpackSlot();
+        displaySlotWhenNotNull(p,holdSlot);
         drawMouseHold(p,holdSlot);
       }
         break;
@@ -106,16 +122,13 @@ public class Inventory{
     // if(displayState==displayFullInventory) displayHotSlotCircle();
   }
   public void displayBackpackSlot() {
-    // Screen0011 p=pc.p;
-    // for(int i=0;i<hotSlots.length;i++) displayHotSlot(p,hotSlots[i]);
-    // displayHotSlot(p,holdSlot);
-    // p.noTint();
-    // drawMouseHold(p,holdSlot);
+    Screen0011 p=pc.p;
+    for(int i=0;i<backpackSlots.length;i++) displaySlot(p,backpackSlots[i]);
+    p.noTint();
   }
   public void displayHotSlotCircle() {
     Screen0011 p=pc.p;
     for(int i=0;i<hotSlots.length;i++) displaySlot(p,hotSlots[i]);
-    displaySlotWhenNotNull(p,holdSlot);
     p.noTint();
   }
   public void drawMouseHold(Screen0011 p,DisplaySlot ths) {
@@ -167,8 +180,8 @@ public class Inventory{
     // p.tint(255,127);
     p.image(tr,ths.x1,ths.y1);
   }
-  public void displayHotSlot() {}
-  public void displayInventoryCircle() {}
+  // public void displayHotSlot() {}
+  // public void displayInventoryCircle() {}
   //------------------------------------------------------------------------------------
   public static class InventorySlot{
     public Item item;

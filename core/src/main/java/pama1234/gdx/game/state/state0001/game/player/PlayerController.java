@@ -223,13 +223,29 @@ public class PlayerController extends Entity<Screen0011>{
   public boolean updateAndTestInventorySlot(float x,float y,int button) {
     if(player.inventory.displayState==Inventory.displayFullInventory) {
       DisplaySlot[] hotSlots=player.inventory.hotSlots;
-      for(int i=0;i<hotSlots.length;i++) {
-        if(testSlot(x,y,button,hotSlots,i)) return true;
-      }
+      for(int i=0;i<hotSlots.length;i++) if(testAndSelectSlot(x,y,button,hotSlots,i)) return true;
+      hotSlots=player.inventory.backpackSlots;
+      for(DisplaySlot e:hotSlots) if(testSlot(x,y,button,e)) return true;
     }
     return false;
   }
-  public boolean testSlot(float x,float y,int button,DisplaySlot[] slots,int i) {
+  public boolean testSlot(float x,float y,int button,DisplaySlot e) {
+    if(Tools.inBox(x,y,e.x1,e.y1,e.w1,e.h1)) {
+      switch(getTouchInfoButton(button)) {
+        case Buttons.LEFT: {
+          // selectHotSlot(i);
+        }
+          break;
+        case Buttons.RIGHT: {
+          player.inventory.switchHold(e);
+        }
+          break;
+      }
+      return true;
+    }
+    return false;
+  }
+  public boolean testAndSelectSlot(float x,float y,int button,DisplaySlot[] slots,int i) {
     DisplaySlot e=slots[i];
     if(Tools.inBox(x,y,e.x1,e.y1,e.w1,e.h1)) {
       switch(getTouchInfoButton(button)) {
@@ -269,7 +285,7 @@ public class PlayerController extends Entity<Screen0011>{
     return p.isAndroid?(player.pw.pg.androidRightMouseButton?Buttons.RIGHT:Buttons.LEFT):in;
   }
   public boolean testPosInInventorySlot(float x,float y) {
-    if(player.inventory.displayState==Inventory.displayFullInventory) for(DisplaySlot e:player.inventory.hotSlots) if(Tools.inBox(x,y,e.x1,e.y1,e.w1,e.h1)) return true;
+    if(player.inventory.displayState==Inventory.displayFullInventory) for(DisplaySlot[] i:player.inventory.displaySlots) for(DisplaySlot e:i) if(Tools.inBox(x,y,e.x1,e.y1,e.w1,e.h1)) return true;
     return false;
   }
   public boolean testPosInOtherEntity(int x,int y) {

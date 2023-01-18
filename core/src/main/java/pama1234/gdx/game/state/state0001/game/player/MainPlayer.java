@@ -14,7 +14,7 @@ public class MainPlayer extends Player{
     super(p,pw,x,y,pw.metaEntitys.player);
     this.cam=p.cam2d;
     ctrl=new PlayerController(p,this);
-    inventory=new Inventory(this,32,9);
+    inventory=new Inventory(this,52,9);
     // gameMode=GameMode.creative;
     inventory.data[5].item=pw.metaItems.workbench.createItem(16);
     inventory.data[4].item=pw.metaItems.dirt.createItem(64);//TODO

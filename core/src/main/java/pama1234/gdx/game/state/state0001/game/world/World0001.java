@@ -65,6 +65,7 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
   public int skyColorPos,skyColorCount;
   public float daySkyGridSize;
   public Color backgroundColor,colorA,colorB;
+  public float[] skyHsb=new float[3];
   public World0001(Screen0011 p,Game pg) {
     super(p,pg,2);
     metaBlocks=World0001Generator.createBlockC(this);
@@ -204,7 +205,6 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
   public Block getBlock(float x,float y) {
     return regions.getBlock(xToBlockCord(x),yToBlockCord(y));
   }
-  public float[] skyHsb=new float[3];
   public float skyLight() {
     return skyHsb[2];
   }
