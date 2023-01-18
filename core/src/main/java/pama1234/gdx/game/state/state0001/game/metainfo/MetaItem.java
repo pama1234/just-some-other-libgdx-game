@@ -7,21 +7,23 @@ import pama1234.gdx.game.state.state0001.game.item.Item;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemCenter0001;
 
 public class MetaItem extends MetaInfoBase{
+  public static final int notTool=0,allTool=1,shovel=2,pickaxe=3,axe=4,chisel=5;
   public MetaItemCenter0001 pc;
   // public String name;
   @Tag(2)
   public ItemCountType countType=ItemCountType.INT;
   @Tag(3)
   public int maxCount=-1;
-  // public int floatDivider=8;//TODO
   @Tag(4)
-  public float hardness,lightIntensity;//TODO
+  public float digSpeed,lightIntensity;
   @Tag(5)
+  public int toolType;
+  @Tag(6)
   public MetaBlock blockType;
   public TextureRegion[] tiles;
-  @Tag(6)
-  public int displayTypeSize=1;
   @Tag(7)
+  public int displayTypeSize=1;
+  @Tag(8)
   public int defaultDisplayType;
   public InitFunction initer;
   public MetaItem(MetaItemCenter0001 pc,String name,int id,InitFunction initer) {

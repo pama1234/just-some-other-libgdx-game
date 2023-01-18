@@ -9,75 +9,13 @@ import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.math.UtilMath;
 
 public class MetaBlock extends MetaInfoBase{
-  public static final BlockUpdater doNothing=(in,x,y)-> {},lightUpdater=(in,x,y)-> {
-    in.light.update();
-  },fullBlockDisplayUpdater=(in,x,y)-> {
-    World0001 world=in.type.pc.pw;
-    int typeCache=0;
-    if(Block.isNotFullBlock(world.getBlock(x,y-1))) typeCache+=1;// up
-    if(Block.isNotFullBlock(world.getBlock(x,y+1))) typeCache+=2;// down
-    if(Block.isNotFullBlock(world.getBlock(x-1,y))) typeCache+=4;// left
-    if(Block.isNotFullBlock(world.getBlock(x+1,y))) typeCache+=8;// right
-    in.displayType[0]=typeCache;
-    typeCache=0;
-    if(Block.isNotFullBlock(world.getBlock(x-1,y-1))) typeCache+=1;
-    if(Block.isNotFullBlock(world.getBlock(x-1,y+1))) typeCache+=2;
-    if(Block.isNotFullBlock(world.getBlock(x+1,y+1))) typeCache+=4;
-    if(Block.isNotFullBlock(world.getBlock(x+1,y-1))) typeCache+=8;
-    in.displayType[1]=typeCache;
-    //---
-    if(in.updateLighting) lightingUpdate(in,x,y,world);
-    // in.light.update();
-  },defaultDisplayUpdater=(in,x,y)-> {
-    World0001 world=in.type.pc.pw;
-    if(in.updateLighting) lightingUpdate(in,x,y,world);
-    // in.light.update();
-  };
-  public static void lightingUpdate(Block in,int x,int y,World0001 world) {
-    float cr=0;
-    int lDist=world.lightDist;
-    for(int i=-lDist;i<=lDist;i++) for(int j=-lDist;j<=lDist;j++) {
-      float mag=UtilMath.mag(i,j);
-      if(mag>lDist) continue;
-      Block block=world.regions.getBlock(x+i,y+j);
-      if(Block.isNotFullBlock(block)) cr+=world.skyLight();
-      if(block!=null&&block.type.light) cr+=block.type.lightIntensity*(1-mag/lDist);
-      // if(block!=null&&block.type.light) cr+=block.type.lightIntensity*((lDist-mag)/lDist);
-    }
-    in.light.set(worldLighting(world.lightCount,cr));
-  }
-  public static int worldLighting(float in,float count) {
-    return UtilMath.constrain(UtilMath.floor(UtilMath.map(count*2,0,in,0,16)),0,16);
-  }
-  public static final BlockDisplayer defaultBlockDisplayer=(p,in,x,y)-> {
-    World0001 world=in.type.pc.pw;
-    p.tint(
-      getLighting(in.light.r()),
-      getLighting(in.light.g()),
-      getLighting(in.light.b()));
-    int tp_0=in.displayType[0];
-    p.innerImage(in.type.tiles[tp_0],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
-  },fullBlockDisplayer=(p,in,x,y)-> {
-    World0001 world=in.type.pc.pw;
-    p.tint(
-      getLighting(in.light.r()),
-      getLighting(in.light.g()),
-      getLighting(in.light.b()));
-    int tp_0=in.displayType[0];
-    p.innerImage(in.type.tiles[tp_0],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
-    int tp_1=in.displayType[1];
-    if(tp_1!=0) {
-      if((tp_0&2)+(tp_0&8)==0&&(tp_1&4)!=0) p.innerImage(in.type.tiles[16],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
-      if((tp_0&2)+(tp_0&4)==0&&(tp_1&2)!=0) p.innerImage(in.type.tiles[17],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
-      if((tp_0&1)+(tp_0&8)==0&&(tp_1&8)!=0) p.innerImage(in.type.tiles[18],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
-      if((tp_0&1)+(tp_0&4)==0&&(tp_1&1)!=0) p.innerImage(in.type.tiles[19],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
-    }
-  };
+  public static final int noType=0,everyType=1,dirtType=1,stoneType=2,woodType=3;
   public MetaBlockCenter0001 pc;
   public boolean display,empty,light;//TODO need light boolean?
   public TextureRegion[] tiles;
   public int buildTime=1,destroyTime=1;
-  public float hardness,lightIntensity;
+  public float hardness=1,lightIntensity;
+  public int blockType;
   public boolean fullBlock=true;
   public ItemDropAttr[] itemDrop;
   public int displayTypeSize;
@@ -183,4 +121,68 @@ public class MetaBlock extends MetaInfoBase{
   public interface BlockChanger{
     void change(Block block,MetaBlock type);
   }
+  public static final BlockUpdater doNothing=(in,x,y)-> {},lightUpdater=(in,x,y)-> {
+    in.light.update();
+  },fullBlockDisplayUpdater=(in,x,y)-> {
+    World0001 world=in.type.pc.pw;
+    int typeCache=0;
+    if(Block.isNotFullBlock(world.getBlock(x,y-1))) typeCache+=1;// up
+    if(Block.isNotFullBlock(world.getBlock(x,y+1))) typeCache+=2;// down
+    if(Block.isNotFullBlock(world.getBlock(x-1,y))) typeCache+=4;// left
+    if(Block.isNotFullBlock(world.getBlock(x+1,y))) typeCache+=8;// right
+    in.displayType[0]=typeCache;
+    typeCache=0;
+    if(Block.isNotFullBlock(world.getBlock(x-1,y-1))) typeCache+=1;
+    if(Block.isNotFullBlock(world.getBlock(x-1,y+1))) typeCache+=2;
+    if(Block.isNotFullBlock(world.getBlock(x+1,y+1))) typeCache+=4;
+    if(Block.isNotFullBlock(world.getBlock(x+1,y-1))) typeCache+=8;
+    in.displayType[1]=typeCache;
+    //---
+    if(in.updateLighting) lightingUpdate(in,x,y,world);
+    // in.light.update();
+  },defaultDisplayUpdater=(in,x,y)-> {
+    World0001 world=in.type.pc.pw;
+    if(in.updateLighting) lightingUpdate(in,x,y,world);
+    // in.light.update();
+  };
+  public static void lightingUpdate(Block in,int x,int y,World0001 world) {
+    float cr=0;
+    int lDist=world.lightDist;
+    for(int i=-lDist;i<=lDist;i++) for(int j=-lDist;j<=lDist;j++) {
+      float mag=UtilMath.mag(i,j);
+      if(mag>lDist) continue;
+      Block block=world.regions.getBlock(x+i,y+j);
+      if(Block.isNotFullBlock(block)) cr+=world.skyLight();
+      if(block!=null&&block.type.light) cr+=block.type.lightIntensity*(1-mag/lDist);
+      // if(block!=null&&block.type.light) cr+=block.type.lightIntensity*((lDist-mag)/lDist);
+    }
+    in.light.set(worldLighting(world.lightCount,cr));
+  }
+  public static int worldLighting(float in,float count) {
+    return UtilMath.constrain(UtilMath.floor(UtilMath.map(count*2,0,in,0,16)),0,16);
+  }
+  public static final BlockDisplayer defaultBlockDisplayer=(p,in,x,y)-> {
+    World0001 world=in.type.pc.pw;
+    p.tint(
+      getLighting(in.light.r()),
+      getLighting(in.light.g()),
+      getLighting(in.light.b()));
+    int tp_0=in.displayType[0];
+    p.innerImage(in.type.tiles[tp_0],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
+  },fullBlockDisplayer=(p,in,x,y)-> {
+    World0001 world=in.type.pc.pw;
+    p.tint(
+      getLighting(in.light.r()),
+      getLighting(in.light.g()),
+      getLighting(in.light.b()));
+    int tp_0=in.displayType[0];
+    p.innerImage(in.type.tiles[tp_0],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
+    int tp_1=in.displayType[1];
+    if(tp_1!=0) {
+      if((tp_0&2)+(tp_0&8)==0&&(tp_1&4)!=0) p.innerImage(in.type.tiles[16],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
+      if((tp_0&2)+(tp_0&4)==0&&(tp_1&2)!=0) p.innerImage(in.type.tiles[17],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
+      if((tp_0&1)+(tp_0&8)==0&&(tp_1&8)!=0) p.innerImage(in.type.tiles[18],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
+      if((tp_0&1)+(tp_0&4)==0&&(tp_1&1)!=0) p.innerImage(in.type.tiles[19],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
+    }
+  };
 }

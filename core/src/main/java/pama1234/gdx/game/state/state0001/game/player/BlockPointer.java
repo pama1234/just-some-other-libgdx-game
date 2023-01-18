@@ -2,6 +2,7 @@ package pama1234.gdx.game.state.state0001.game.player;
 
 import com.badlogic.gdx.Input.Buttons;
 
+import pama1234.gdx.game.state.state0001.game.item.Item;
 import pama1234.gdx.game.state.state0001.game.item.Inventory.InventorySlot;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
@@ -18,7 +19,7 @@ public class BlockPointer{
   public Block block;
   public int x,y;
   public int task;
-  public int progress;
+  public float progress;
   public BlockPointer(World0001 in) {
     pw=in;
   }
@@ -57,8 +58,11 @@ public class BlockPointer{
     }
   }
   public void updateTask() {
-    progress++;
+    progress+=getSpeed(slot.get().item,block);
     testTaskComplete();
+  }
+  public float getSpeed(Item item,Block block2) {
+    return 1;
   }
   public void testTaskComplete() {
     switch(task) {

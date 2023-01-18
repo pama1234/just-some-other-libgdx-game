@@ -67,6 +67,12 @@ public class World0001Generator{
       in.tiles=new TextureRegion[1];
       in.tiles[0]=ImageAsset.items[2][0];
     }));
+    metaItems.list.add(metaItems.pickaxe=new MetaItem(metaItems,"pickaxe",metaItems.id(),in-> {
+      // in.blockType=pw.metaBlocks.;
+      in.toolType=MetaItem.pickaxe;
+      in.tiles=new TextureRegion[1];
+      in.tiles[0]=ImageAsset.items[2][1];
+    }));
     return metaItems;
   }
   public static MetaCreatureCenter0001 createCreatureC(World0001 in) {
