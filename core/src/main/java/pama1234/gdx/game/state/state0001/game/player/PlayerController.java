@@ -70,7 +70,7 @@ public class PlayerController extends Entity<Screen0011>{
   public void display() {
     // p.beginBlend();
     if(selectEntity!=null) drawSelectEntity();
-    drawSelectBlock();
+    if(selectBlock.data.active) drawSelectBlock();
     // p.endBlend();
   }
   public void drawSelectEntity() {
@@ -133,20 +133,24 @@ public class PlayerController extends Entity<Screen0011>{
   }
   public void updateMouseInfo() {
     if(testPosInButtons(p.mouse.x,p.mouse.y)) {
-      selectBlock.data.task=BlockPointer.hide;
+      // selectBlock.data.task=BlockPointer.hide;
+      selectBlock.data.active=false;
       return;
     }
     if(testPosInInventorySlot(p.mouse.x,p.mouse.y)) {
-      selectBlock.data.task=BlockPointer.hide;
+      // selectBlock.data.task=BlockPointer.hide;
+      selectBlock.data.active=false;
       return;
     }
     int tx=player.xToBlockCord(p.mouse.x),
       ty=player.xToBlockCord(p.mouse.y);
-    if(testInPlayerOuterBoxAndUpdateSelectBlock(p.mouse.x,p.mouse.y,tx,ty)) {
-      selectBlock.data.task=BlockPointer.hide;
+    if(inPlayerOuterBox(tx,ty)) {
+      // selectBlock.data.task=BlockPointer.hide;
+      selectBlock.data.active=false;
       return;
     }
-    if(selectBlock.data.task==BlockPointer.hide) selectBlock.data.task=BlockPointer.idle;
+    // if(selectBlock.data.task==BlockPointer.hide) selectBlock.data.task=BlockPointer.idle;
+    selectBlock.data.active=true;
     Block block=player.getBlock(tx,ty);
     selectBlock.data.update(block,tx,ty);
   }
@@ -181,7 +185,7 @@ public class PlayerController extends Entity<Screen0011>{
     //---
     int tx=player.xToBlockCord(info.x),
       ty=player.xToBlockCord(info.y);
-    if(testInPlayerOuterBoxAndUpdateSelectBlock(info.x,info.y,tx,ty)) return;
+    if(inPlayerOuterBox(tx,ty)) return;
     Block block=player.getBlock(tx,ty);
     selectBlock.data.update(block,tx,ty);
     if(player.gameMode!=GameMode.creative) return;
@@ -191,28 +195,7 @@ public class PlayerController extends Entity<Screen0011>{
   }
   @Override
   public void touchEnded(TouchInfo info) {
-    // float x=info.x,y=info.y;
-    // int tx=player.xToBlockCord(info.x),
-    //   ty=player.xToBlockCord(info.y);
-    // if(inPlayerOuterBox(tx,ty)) {
-    //   float tp1=UtilMath.abs(limitBox.w/(float)limitBox.h);
-    //   float tp2=UtilMath.abs((x-player.cx())/(y-player.cy()));
-    //   if(tp2>=tp1) tx=x<player.cx()?limitBox.x1-1:limitBox.x2+1;
-    //   else ty=y<player.cy()?limitBox.y1-1:limitBox.y2+1;
-    // }
     selectBlock.testStopTask(info);
-  }
-  public boolean testInPlayerOuterBoxAndUpdateSelectBlock(float x,float y,int tx,int ty) {
-    if(inPlayerOuterBox(tx,ty)) {
-      // float tp1=UtilMath.abs(limitBox.w/(float)limitBox.h);
-      // float tp2=UtilMath.abs((x-player.cx())/(y-player.cy()));
-      // if(tp2>=tp1) tx=x<player.cx()?limitBox.x1-1:limitBox.x2+1;
-      // else ty=y<player.cy()?limitBox.y1-1:limitBox.y2+1;
-      // Block block=player.getBlock(tx,ty);
-      // selectBlock.data.update(block,tx,ty);
-      return true;
-    }
-    return false;
   }
   public boolean updateAndTestSelectEntity(int tx,int ty) {
     for(EntityCenter<Screen0011,? extends GamePointEntity<?>> l:player.pw.entities.list) {
