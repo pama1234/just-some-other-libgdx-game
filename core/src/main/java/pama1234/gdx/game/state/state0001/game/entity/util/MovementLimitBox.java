@@ -40,7 +40,7 @@ public class MovementLimitBox extends OuterBox{
   }
   public void updateLimit() {
     // if(inAir&&p.point.vel.y>0) y2-=1;
-    // if(inAir&&p.point.vel.y>0) h-=1;
+    if(inAir&&p.point.vel.y<0&&h>1) h-=1;
     Block block;
     flagCache=false;
     //------------------------------------------ ceiling
@@ -68,6 +68,7 @@ public class MovementLimitBox extends OuterBox{
       flagCache=false;
     }else floor=(y2+4)*p.pw.blockHeight;
     //------------------------------------------ left
+    // System.out.println(h);
     for(int i=0;i<=h;i++) {
       block=p.getBlock(x1-1,y1+i);
       if(!Block.isNotFullBlock(block)) {

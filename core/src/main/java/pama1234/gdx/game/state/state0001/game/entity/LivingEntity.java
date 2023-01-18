@@ -113,10 +113,12 @@ public class LivingEntity extends GamePointEntity<MassPoint>{
     return yToBlockCord(y()+type.dy);
   }
   public int blockX2() {
-    return xToBlockCord(x()+type.dx+type.w-0.01f);//TODO
+    // return xToBlockCord(x()+type.dx+type.w);//TODO
+    return xToBlockCord(x()+type.dx+type.w-0.01f);
   }
   public int blockY2() {
-    return yToBlockCord(y()+type.dy+type.h-0.01f);//TODO
+    // return yToBlockCord(y()+type.dy+type.h);//TODO
+    return yToBlockCord(y()+type.dy+type.h-0.01f);
   }
   public int xToBlockCord(float in) {
     // return UtilMath.floor(in/pw.blockWidth);
