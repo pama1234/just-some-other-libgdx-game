@@ -67,15 +67,19 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   }
   @Override
   public void load() {
-    add.add(pool.get(0,-1));
-    add.add(pool.get(-1,-1));
-    add.add(pool.get(-1,0));
-    add.add(pool.get(0,0));
+    // add.add(pool.get(0,-1));
+    // add.add(pool.get(-1,-1));
+    // add.add(pool.get(-1,0));
+    // add.add(pool.get(0,0));
+    testAddChunk();
   }
   @Override
   public void save() {
     refresh();
     shutdownAllLoop();
+    innerSave();
+  }
+  public void innerSave() {
     synchronized(list) {//TODO
       for(Region e:list) e.save();
       list.clear();

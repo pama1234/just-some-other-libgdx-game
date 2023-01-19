@@ -122,8 +122,8 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
   }
   @Override
   public void resume() {
+    if(p.isAndroid) regions.load();
     super.resume();
-    // if(p.isAndroid) regions.load();
     // innerResume();
   }
   public void innerResume() {
@@ -143,7 +143,7 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
     // synchronized(regions.list) {
     //   for(Region e:regions.list) e.save();
     // }
-    // if(p.isAndroid) regions.save();
+    if(p.isAndroid) regions.innerSave();
     // innerPause();
   }
   public void innerPause() {
@@ -165,15 +165,20 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
     for(MetaCreature<?> e:metaEntitys.list) {
       if(e.spawnDatas==null) continue;
       if(e.count>=e.naturalMaxCount) continue;
-      float tdist=regions.regionLoadDist/20f;
-      float tx=player.cx()+random(-tdist,tdist),
-        ty=player.cy()+random(-tdist,tdist);
+      // float tdist=regions.regionLoadDist/20f;
+      float rdeg=random(UtilMath.PI2);
+      float rdist=random(36,regions.regionLoadDist/2f);
+      // float tx=player.cx()+random(-tdist,tdist),
+      //   ty=player.cy()+random(-tdist,tdist);
+      float tx=player.cx()+UtilMath.sin(rdeg)*rdist*blockWidth,
+        ty=player.cy()+UtilMath.cos(rdeg)*rdist*blockHeight;
       Block block=getBlock(tx,ty);
       if(block==null) continue;
       for(SpawnData i:e.spawnDatas) {
         if(random(1)>i.rate) continue;
         if(i.block==block.type) {
-          LivingEntity out=e.createCreature(tx*blockWidth,ty*blockHeight);
+          LivingEntity out=e.createCreature(tx,ty);
+          // LivingEntity out=e.createCreature(tx*blockWidth,ty*blockHeight);
           if(out instanceof MobEntity mob) {
             mob.target=player;
             entities.mobEntities.add.add(mob);
