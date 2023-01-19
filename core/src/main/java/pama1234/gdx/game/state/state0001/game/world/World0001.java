@@ -165,7 +165,6 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
     for(MetaCreature<?> e:metaEntitys.list) {
       if(e.spawnDatas==null) continue;
       if(e.count>=e.naturalMaxCount) continue;
-      // System.out.println("World0001.update()");
       float tdist=regions.regionLoadDist/20f;
       float tx=player.cx()+random(-tdist,tdist),
         ty=player.cy()+random(-tdist,tdist);
@@ -173,7 +172,6 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
       if(block==null) continue;
       for(SpawnData i:e.spawnDatas) {
         if(random(1)>i.rate) continue;
-        // System.out.println("World0001.update()");
         if(i.block==block.type) {
           LivingEntity out=e.createCreature(tx*blockWidth,ty*blockHeight);
           if(out instanceof MobEntity mob) {

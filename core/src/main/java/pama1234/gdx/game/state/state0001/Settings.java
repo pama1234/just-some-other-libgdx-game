@@ -24,8 +24,8 @@ public class Settings extends StateEntity0001{
   }
   @Override
   public void from(State0001 in) {
-    // p.backgroundColor(0);
-    p.backgroundColor(255);
+    p.backgroundColor(0);
+    // p.backgroundColor(255);
     // p.cam.noGrab();
     for(Button<?> e:buttons) p.centerScreen.add.add(e);
     for(Button<?> e:buttonsCam) p.centerCam.add.add(e);

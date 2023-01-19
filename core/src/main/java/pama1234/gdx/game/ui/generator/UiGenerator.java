@@ -29,12 +29,12 @@ public class UiGenerator{
     // return new TextField[0];
   }
   public static TextField[] genTextFields_0001(Screen0011 p) {
-    TextField[] out=new TextField[] {new TextField("测试文本输入框",new CodeTextFieldStyle(p),
-      new RectF(()->p.u*5,()->p.u,()->p.width-p.u*6,()->p.u+p.pus*2),
-      ()->p.pus)};
-    for(TextField e:out) e.setOnscreenKeyboard(new NormalOnscreenKeyboard());
-    return out;
-    // return new TextField[0];
+    // TextField[] out=new TextField[] {new TextField("测试文本输入框",new CodeTextFieldStyle(p),
+    //   new RectF(()->p.u*5,()->p.u,()->p.width-p.u*6,()->p.u+p.pus*2),
+    //   ()->p.pus)};
+    // for(TextField e:out) e.setOnscreenKeyboard(new NormalOnscreenKeyboard());
+    // return out;
+    return new TextField[0];
   }
   public static <T extends Screen0011> TextButton<?>[] genButtons_0007(T p,Game pg) {
     return new TextButton[] {

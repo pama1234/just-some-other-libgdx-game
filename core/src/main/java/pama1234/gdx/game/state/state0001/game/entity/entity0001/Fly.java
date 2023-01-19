@@ -2,26 +2,30 @@ package pama1234.gdx.game.state.state0001.game.entity.entity0001;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
+import pama1234.gdx.game.state.state0001.game.entity.util.MovementLimitBox;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaCreatureCenter0001;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.math.UtilMath;
 
 public class Fly extends MobEntity{
+  public MovementLimitBox limitBox;
   public Fly(Screen0011 p,World0001 pw,float x,float y) {
     super(p,pw,x,y,pw.metaEntitys.fly);
+    limitBox=new MovementLimitBox(this);
   }
   @Override
   public void update() {
+    limitBox.update();
+    limitBox.updateLimit();
+    limitBox.doInAirTest();
     super.update();
+    limitBox.constrain();
     playerAttract();
   }
   public void playerAttract() {
     if(target==null) return;
-    // float td=UtilMath.dist(target.x(),target.y(),x(),y());
-    // e.point.vel.add((x()-e.x())*p.random(0.1f,0.2f),(y()-e.y())*p.random(0.1f,0.2f));
-    float minVel=0.1f,maxVel=0.2f;
-    // float minVel=0.05f,maxVel=0.1f;
+    float minVel=0.05f,maxVel=0.1f;
     point.vel.set((target.x()-x())*p.random(minVel,maxVel),(target.y()-y())*p.random(minVel,maxVel));
     float td=UtilMath.dist(target.x(),target.y(),x(),y());
     if(td<36) target.life.des-=0.1f;
