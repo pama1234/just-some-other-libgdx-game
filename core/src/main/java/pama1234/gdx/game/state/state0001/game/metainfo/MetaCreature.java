@@ -11,6 +11,8 @@ public class MetaCreature<T extends LivingEntity>extends MetaInfoBase{
   public float dx,dy;
   public float maxLife=32;
   public boolean immortal;//TODO
+  public int count,naturalMaxCount;
+  public SpawnData[] spawnDatas;
   public TextureRegion[][] tiles;
   public MetaCreature(MetaCreatureCenter0001 pc,String name,int id,float maxLife,TextureRegion[][] tiles) {
     super(name,id);
@@ -21,6 +23,17 @@ public class MetaCreature<T extends LivingEntity>extends MetaInfoBase{
   public MetaCreature(MetaCreatureCenter0001 pc,String name,int id,float maxLife,int tileWidth,int tileHeight) {
     this(pc,name,id,maxLife,new TextureRegion[tileHeight][tileWidth]);
   }
+  public T createCreature(float x,float y) {
+    return null;
+  }
   @Override
   public void init() {}
+  public static class SpawnData{
+    public MetaBlock block;
+    public float rate;
+    public SpawnData(MetaBlock block,float rate) {
+      this.block=block;
+      this.rate=rate;
+    }
+  }
 }

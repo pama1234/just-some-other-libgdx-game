@@ -20,10 +20,18 @@ public class Fly extends TextureLivingEntity{
     }
     public FlyType(MetaCreatureCenter0001 pc,int id) {
       super(pc,"fly",id,4,3,1);
+      naturalMaxCount=4;
+      spawnDatas=new SpawnData[] {new SpawnData(pc.pw.metaBlocks.air,1f)};
     }
     @Override
     public void init() {
       for(int i=0;i<tiles[0].length;i++) tiles[0][i]=ImageAsset.creature[6+i][2];
+    }
+    @Override
+    public Fly createCreature(float x,float y) {
+      count++;
+      pc.pw.p.println(x,y);
+      return new Fly(pc.pw.p,pc.pw,x,y);
     }
   }
 }

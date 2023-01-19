@@ -14,11 +14,13 @@ import pama1234.gdx.game.state.state0001.game.entity.GameEntityCenter;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
+import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature.SpawnData;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaCreatureCenter0001;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemCenter0001;
 import pama1234.gdx.game.state.state0001.game.player.BlockPointer;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
+import pama1234.gdx.game.state.state0001.game.player.Player;
 import pama1234.gdx.game.state.state0001.game.player.Player.PlayerCenter;
 import pama1234.gdx.game.state.state0001.game.region.RegionCenter;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
@@ -153,6 +155,28 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
   public void update() {
     super.update();
     time+=1;
+    updateSkyColor();
+    for(Player player:entities.players.list) testSpawnWithPlayer(player);
+    testSpawnWithPlayer(yourself);
+  }
+  public void testSpawnWithPlayer(Player player) {
+    for(MetaCreature<?> e:metaEntitys.list) {
+      if(e.spawnDatas==null) continue;
+      if(e.count>e.naturalMaxCount) continue;
+      // System.out.println("World0001.update()");
+      float tdist=regions.regionLoadDist/20f;
+      float tx=player.cx()+random(-tdist,tdist),
+        ty=player.cy()+random(-tdist,tdist);
+      Block block=getBlock(tx,ty);
+      if(block==null) continue;
+      for(SpawnData i:e.spawnDatas) {
+        if(random(1)>i.rate) continue;
+        // System.out.println("World0001.update()");
+        if(i.block==block.type) entities.pointEntities.add.add(e.createCreature(tx*blockWidth,ty*blockHeight));
+      }
+    }
+  }
+  public void updateSkyColor() {
     int tp=getSkyPos(time);
     if(skyColorPos!=tp) {
       skyColorPos=tp;
