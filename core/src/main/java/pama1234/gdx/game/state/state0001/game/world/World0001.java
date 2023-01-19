@@ -176,8 +176,10 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
         // System.out.println("World0001.update()");
         if(i.block==block.type) {
           LivingEntity out=e.createCreature(tx*blockWidth,ty*blockHeight);
-          if(out instanceof MobEntity mob) mob.target=player;
-          entities.pointEntities.add.add(out);
+          if(out instanceof MobEntity mob) {
+            mob.target=player;
+            entities.mobEntities.add.add(mob);
+          }else entities.pointEntities.add.add(out);
           return;
         }
       }
