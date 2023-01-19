@@ -119,6 +119,7 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
   @Override
   public void resume() {
     super.resume();
+    // if(p.isAndroid) regions.load();
     // innerResume();
   }
   public void innerResume() {
@@ -134,6 +135,11 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
   @Override
   public void pause() {
     super.pause();
+    // regions.save();
+    // synchronized(regions.list) {
+    //   for(Region e:regions.list) e.save();
+    // }
+    // if(p.isAndroid) regions.save();
     // innerPause();
   }
   public void innerPause() {

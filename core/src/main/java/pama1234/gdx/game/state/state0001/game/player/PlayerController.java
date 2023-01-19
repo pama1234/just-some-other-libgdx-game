@@ -54,14 +54,13 @@ public class PlayerController extends Entity<Screen0011>{
     this.player=player;
     if(p.isAndroid) {
       cullRects=new RectF[] {
-        new RectF(()->p.bu*1.5f,()->p.height-p.bu*1.5f-p.pus,()->p.bu*2.75f+p.pus*3,()->p.bu+p.pus),
+        new RectF(()->p.bu*1.5f-p.pus,()->p.height-p.bu*1.5f-p.pus,()->p.bu*2.75f+p.pus*4,()->p.bu+p.pus),
         // new RectF(()->p.width-p.bu*4f,()->p.height-p.bu*2.5f-p.pus,()->p.pu*3.75f+p.pus,()->p.bu*2+p.pus),
-        new RectF(()->p.width-p.bu*4f,()->p.height-p.bu*1.5f-p.pus,()->p.bu*2.5f+p.pus,()->p.bu+p.pus),
-        new RectF(()->p.width-p.bu*2.5f,()->p.height-p.bu*2.5f-p.pus,()->p.bu+p.pus,()->p.bu+p.pus),
+        new RectF(()->p.width-p.bu*4f-p.pus,()->p.height-p.bu*1.5f-p.pus,()->p.bu*2.5f+p.pus*2,()->p.bu+p.pus),
+        new RectF(()->p.width-p.bu*2.5f-p.pus,()->p.height-p.bu*2.5f-p.pus,()->p.bu+p.pus*2,()->p.bu+p.pus),
       };
-    }else {
-      cullRects=new RectF[0];
-    }
+    }else cullRects=new RectF[0];
+    // System.out.println(cullRects.length);
     limitBox=new MovementLimitBox(player);
     selectBlock=new ControllerBlockPointer(new BlockPointer(player.pw,()->player.inventory.select().data));
     // player.outerBox=limitBox;//TODO
@@ -133,7 +132,7 @@ public class PlayerController extends Entity<Screen0011>{
   }
   public void updateMouseInfo() {
     selectBlock.data.active=false;
-    if(testPosInButtons(p.mouse.x,p.mouse.y)) return;
+    if(testPosInButtons(p.mouse.ox,p.mouse.oy)) return;
     if(testPosInInventorySlot(p.mouse.x,p.mouse.y)) return;
     int tx=player.xToBlockCord(p.mouse.x),
       ty=player.xToBlockCord(p.mouse.y);
@@ -151,7 +150,7 @@ public class PlayerController extends Entity<Screen0011>{
   @Override
   public void touchStarted(TouchInfo info) {
     if(info.state!=0) return;
-    if(testPosInButtons(info.x,info.y)) return;
+    if(testPosInButtons(info.ox,info.oy)) return;
     //---
     int tx=player.xToBlockCord(info.x),
       ty=player.xToBlockCord(info.y);
@@ -170,7 +169,7 @@ public class PlayerController extends Entity<Screen0011>{
   public void touchUpdate(TouchInfo info) {
     if(!player.pw.p.isAndroid) return;
     if(info.state!=0) return;
-    if(testPosInButtons(info.x,info.y)) return;
+    if(testPosInButtons(info.ox,info.oy)) return;
     if(testPosInInventorySlot(info.x,info.y)) return;
     //---
     int tx=player.xToBlockCord(info.x),
@@ -279,6 +278,7 @@ public class PlayerController extends Entity<Screen0011>{
     return false;
   }
   public boolean testPosInButtons(float x,float y) {
+    // for(RectF e:cullRects) p.println(Tools.inBox(x,y,e.x(),e.y(),e.w(),e.h()),x,y,e.x(),e.y(),e.w(),e.h());
     for(RectF e:cullRects) if(Tools.inBox(x,y,e.x(),e.y(),e.w(),e.h())) return true;
     return false;
   }
