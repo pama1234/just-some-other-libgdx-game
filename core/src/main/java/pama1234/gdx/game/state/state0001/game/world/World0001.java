@@ -76,16 +76,13 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
     metaItems=World0001Generator.createItemC(this);
     for(MetaBlock e:metaBlocks.list) e.initItemDrop();
     metaEntitys=World0001Generator.createCreatureC(this);
-    // list[0]=players=new PlayerCenter2D(p);
     list[0]=entities=new GameEntityCenter(p);
     entities.list.add(entities.players=new PlayerCenter(p));
     list[1]=regions=new RegionCenter(p,this);
-    // regions.load();
     yourself=new MainPlayer(p,this,0,0);
     backgroundColor=p.color(0);
     colorA=p.color(0);
     colorB=p.color(0);
-    // entities.pointEntities.add.add(new Fly(p,this,0,18*10));//TODO
   }
   public float random(float max) {
     return p.random(max);
@@ -124,7 +121,6 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
   public void resume() {
     if(p.isAndroid) regions.load();
     super.resume();
-    // innerResume();
   }
   public void innerResume() {
     if(p.isAndroid) p.cam2d.activeDrag=false;
@@ -139,12 +135,7 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
   @Override
   public void pause() {
     super.pause();
-    // regions.save();
-    // synchronized(regions.list) {
-    //   for(Region e:regions.list) e.save();
-    // }
     if(p.isAndroid) regions.innerSave();
-    // innerPause();
   }
   public void innerPause() {
     if(p.isAndroid) p.cam2d.activeDrag=true;
@@ -165,11 +156,8 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
     for(MetaCreature<?> e:metaEntitys.list) {
       if(e.spawnDatas==null) continue;
       if(e.count>=e.naturalMaxCount) continue;
-      // float tdist=regions.regionLoadDist/20f;
       float rdeg=random(UtilMath.PI2);
       float rdist=random(36,regions.regionLoadDist/2f);
-      // float tx=player.cx()+random(-tdist,tdist),
-      //   ty=player.cy()+random(-tdist,tdist);
       float tx=player.cx()+UtilMath.sin(rdeg)*rdist*blockWidth,
         ty=player.cy()+UtilMath.cos(rdeg)*rdist*blockHeight;
       Block block=getBlock(tx,ty);
@@ -178,7 +166,6 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
         if(random(1)>i.rate) continue;
         if(i.block==block.type) {
           LivingEntity out=e.createCreature(tx,ty);
-          // LivingEntity out=e.createCreature(tx*blockWidth,ty*blockHeight);
           if(out instanceof MobEntity mob) {
             mob.target=player;
             entities.mobEntities.add.add(mob);
@@ -196,8 +183,7 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
       colorB.set(getSkyColor(tp));
     }
     p.lerpColor(colorA,colorB,backgroundColor,Tools.moveInRange(time,0,daySkyGridSize)/daySkyGridSize);
-    backgroundColor.toHsv(skyHsb);//TODO
-    // System.out.println(skyHsb[2]);
+    backgroundColor.toHsv(skyHsb);
     p.backgroundColor(backgroundColor);
   }
   public int getSkyColor(int pos) {

@@ -29,3 +29,4 @@
 区块存档读档
 RegionCenter的异步刷新导致的refresh和RegionsUpdateDisplayLoop撞车（解决方案1是在视角显示刷新里把视角有可能覆盖的区块全部提取出来，并创建新的列表，2是将refresh作为一个新的线程，然后每次视角显示刷新时lock+unlock）
 蝙蝠小怪
+安卓在pause时需要存档，不然清后台的时候来不及
