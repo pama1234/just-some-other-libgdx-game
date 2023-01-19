@@ -11,6 +11,8 @@ import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntityListener0001;
 import pama1234.gdx.game.state.state0001.game.entity.GameEntityCenter;
+import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
+import pama1234.gdx.game.state.state0001.game.entity.entity0001.MobEntity;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
@@ -162,7 +164,7 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
   public void testSpawnWithPlayer(Player player) {
     for(MetaCreature<?> e:metaEntitys.list) {
       if(e.spawnDatas==null) continue;
-      if(e.count>e.naturalMaxCount) continue;
+      if(e.count>=e.naturalMaxCount) continue;
       // System.out.println("World0001.update()");
       float tdist=regions.regionLoadDist/20f;
       float tx=player.cx()+random(-tdist,tdist),
@@ -172,7 +174,12 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
       for(SpawnData i:e.spawnDatas) {
         if(random(1)>i.rate) continue;
         // System.out.println("World0001.update()");
-        if(i.block==block.type) entities.pointEntities.add.add(e.createCreature(tx*blockWidth,ty*blockHeight));
+        if(i.block==block.type) {
+          LivingEntity out=e.createCreature(tx*blockWidth,ty*blockHeight);
+          if(out instanceof MobEntity mob) mob.target=player;
+          entities.pointEntities.add.add(out);
+          return;
+        }
       }
     }
   }

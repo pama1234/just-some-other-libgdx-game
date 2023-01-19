@@ -14,7 +14,8 @@ public class TextureLivingEntity extends LivingEntity{
   public float timeStep=1/6f;
   public boolean dir,pdir;
   public int moveState;
-  public <T extends TextureLivingEntity> TextureLivingEntity(Screen0011 p,World0001 pw,float x,float y,MetaCreature<T> type) {
+  // public <T extends TextureLivingEntity> TextureLivingEntity(Screen0011 p,World0001 pw,float x,float y,MetaCreature<T> type) {
+  public TextureLivingEntity(Screen0011 p,World0001 pw,float x,float y,MetaCreature<? extends TextureLivingEntity> type) {
     super(p,pw,new MassPoint(x,y),type);
   }
   @Override
