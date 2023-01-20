@@ -14,9 +14,9 @@ public class MovementLimitBox extends OuterBox{
       ()->p.type.w/2f,//left
       // ()->p.type.w/2f+0.01f,//left
       ()->p.type.h,//ceiling
-      ()->p.pw.blockWidth-p.type.w/2f,//right
+      ()->p.pw.settings.blockWidth-p.type.w/2f,//right
       // ()->p.pw.blockWidth-p.type.w/2f-0.01f,//right
-      ()->p.pw.blockHeight//floor
+      ()->p.pw.settings.blockHeight//floor
     );
   }
   public void constrain() {
@@ -40,6 +40,8 @@ public class MovementLimitBox extends OuterBox{
   }
   public void updateLimit() {
     // if(inAir&&p.point.vel.y>0) y2-=1;
+    int blockWidth=p.pw.settings.blockWidth;
+    int blockHeight=p.pw.settings.blockHeight;
     if(inAir&&p.point.vel.y<0&&h>1) h-=1;
     Block block;
     flagCache=false;
@@ -52,9 +54,9 @@ public class MovementLimitBox extends OuterBox{
       }
     }
     if(flagCache) {
-      ceiling=y1*p.pw.blockHeight+rectConst.y1();
+      ceiling=y1*blockHeight+rectConst.y1();
       flagCache=false;
-    }else ceiling=(y1-4)*p.pw.blockHeight;
+    }else ceiling=(y1-4)*blockHeight;
     //------------------------------------------ floor
     for(int i=0;i<=w;i++) {
       block=p.getBlock(x1+i,y2+1);
@@ -64,9 +66,9 @@ public class MovementLimitBox extends OuterBox{
       }
     }
     if(flagCache) {
-      floor=y2*p.pw.blockHeight+rectConst.y2();
+      floor=y2*blockHeight+rectConst.y2();
       flagCache=false;
-    }else floor=(y2+4)*p.pw.blockHeight;
+    }else floor=(y2+4)*blockHeight;
     //------------------------------------------ left
     // System.out.println(h);
     for(int i=0;i<=h;i++) {
@@ -77,9 +79,9 @@ public class MovementLimitBox extends OuterBox{
       }
     }
     if(flagCache) {
-      leftWall=(x1)*p.pw.blockWidth+rectConst.x1();
+      leftWall=(x1)*blockWidth+rectConst.x1();
       flagCache=false;
-    }else leftWall=(x1-4)*p.pw.blockWidth;
+    }else leftWall=(x1-4)*blockWidth;
     //------------------------------------------ right
     for(int i=0;i<=h;i++) {
       block=p.getBlock(x2+1,y1+i);
@@ -89,8 +91,8 @@ public class MovementLimitBox extends OuterBox{
       }
     }
     if(flagCache) {
-      rightWall=(x2)*p.pw.blockWidth+rectConst.x2();
+      rightWall=(x2)*blockWidth+rectConst.x2();
       flagCache=false;
-    }else rightWall=(x2+4)*p.pw.blockWidth;
+    }else rightWall=(x2+4)*blockWidth;
   }
 }

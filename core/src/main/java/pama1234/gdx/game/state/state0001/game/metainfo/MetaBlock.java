@@ -147,7 +147,7 @@ public class MetaBlock extends MetaInfoBase{
   };
   public static void lightingUpdate(Block in,int x,int y,World0001 world) {
     float cr=0;
-    int lDist=world.lightDist;
+    int lDist=world.settings.lightDist;
     for(int i=-lDist;i<=lDist;i++) for(int j=-lDist;j<=lDist;j++) {
       float mag=UtilMath.mag(i,j);
       if(mag>lDist) continue;
@@ -156,7 +156,7 @@ public class MetaBlock extends MetaInfoBase{
       if(block!=null&&block.type.light) cr+=block.type.lightIntensity*(1-mag/lDist);
       // if(block!=null&&block.type.light) cr+=block.type.lightIntensity*((lDist-mag)/lDist);
     }
-    in.light.set(worldLighting(world.lightCount,cr));
+    in.light.set(worldLighting(world.settings.lightCount,cr));
   }
   public static int worldLighting(float in,float count) {
     return UtilMath.constrain(UtilMath.floor(UtilMath.map(count*2,0,in,0,16)),0,16);
@@ -168,7 +168,7 @@ public class MetaBlock extends MetaInfoBase{
       getLighting(in.light.g()),
       getLighting(in.light.b()));
     int tp_0=in.displayType[0];
-    p.innerImage(in.type.tiles[tp_0],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
+    p.innerImage(in.type.tiles[tp_0],x,y,world.settings.blockWidth+0.01f,world.settings.blockHeight+0.01f);
   },fullBlockDisplayer=(p,in,x,y)-> {
     World0001 world=in.type.pc.pw;
     p.tint(
@@ -176,13 +176,15 @@ public class MetaBlock extends MetaInfoBase{
       getLighting(in.light.g()),
       getLighting(in.light.b()));
     int tp_0=in.displayType[0];
-    p.innerImage(in.type.tiles[tp_0],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
+    int tw=world.settings.blockWidth,
+      th=world.settings.blockHeight;
+    p.innerImage(in.type.tiles[tp_0],x,y,tw+0.01f,th+0.01f);
     int tp_1=in.displayType[1];
     if(tp_1!=0) {
-      if((tp_0&2)+(tp_0&8)==0&&(tp_1&4)!=0) p.innerImage(in.type.tiles[16],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
-      if((tp_0&2)+(tp_0&4)==0&&(tp_1&2)!=0) p.innerImage(in.type.tiles[17],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
-      if((tp_0&1)+(tp_0&8)==0&&(tp_1&8)!=0) p.innerImage(in.type.tiles[18],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
-      if((tp_0&1)+(tp_0&4)==0&&(tp_1&1)!=0) p.innerImage(in.type.tiles[19],x,y,world.blockWidth+0.01f,world.blockHeight+0.01f);
+      if((tp_0&2)+(tp_0&8)==0&&(tp_1&4)!=0) p.innerImage(in.type.tiles[16],x,y,tw+0.01f,th+0.01f);
+      if((tp_0&2)+(tp_0&4)==0&&(tp_1&2)!=0) p.innerImage(in.type.tiles[17],x,y,tw+0.01f,th+0.01f);
+      if((tp_0&1)+(tp_0&8)==0&&(tp_1&8)!=0) p.innerImage(in.type.tiles[18],x,y,tw+0.01f,th+0.01f);
+      if((tp_0&1)+(tp_0&4)==0&&(tp_1&1)!=0) p.innerImage(in.type.tiles[19],x,y,tw+0.01f,th+0.01f);
     }
   };
 }

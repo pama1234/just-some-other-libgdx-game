@@ -117,8 +117,8 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
     forLoopDisplay();
   }
   public void forLoopDisplay() {
-    int tcw=pr.chunkWidth*pr.pw.blockWidth,
-      tch=pr.chunkHeight*pr.pw.blockHeight;
+    int tcw=pr.chunkWidth*pr.pw.settings.blockWidth,
+      tch=pr.chunkHeight*pr.pw.settings.blockHeight;
     int rx=x*pr.regionWidth,
       ry=y*pr.regionHeight;
     if(!p.cam2d.boxIntersect(rx*tcw,ry*tch,tcw*pr.regionWidth,tch*pr.regionHeight)) return;
@@ -135,11 +135,11 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
             MetaBlock blockType=block.type;
             int txi=(rx+i)*pr.chunkWidth+n,
               tyi=(ry+j)*pr.chunkHeight+m;
-            int tx=txi*pr.pw.blockWidth,
-              ty=tyi*pr.pw.blockHeight;
+            int tx=txi*pr.pw.settings.blockWidth,
+              ty=tyi*pr.pw.settings.blockHeight;
             blockType.updateDisplay(block,txi,tyi);
             if(!blockType.display) continue;
-            if(!p.cam2d.boxIntersect(tx,ty,pr.pw.blockWidth,pr.pw.blockHeight)) continue;
+            if(!p.cam2d.boxIntersect(tx,ty,pr.pw.settings.blockWidth,pr.pw.settings.blockHeight)) continue;
             blockType.display(p,block,tx,ty);
           }
         }

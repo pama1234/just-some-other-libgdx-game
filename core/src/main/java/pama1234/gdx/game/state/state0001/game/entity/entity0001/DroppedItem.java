@@ -29,7 +29,7 @@ public class DroppedItem extends LivingEntity{
     limitBox.update();
     limitBox.updateLimit();
     limitBox.doInAirTest();
-    if(limitBox.inAir) point.vel.y+=pw.g;
+    if(limitBox.inAir) point.vel.y+=pw.settings.g;
     super.update();
     limitBox.constrain();
     itemAttract();

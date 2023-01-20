@@ -83,8 +83,8 @@ public class PlayerController extends Entity<Screen0011>{
     p.noTint();
   }
   public void drawSelectBlock() {
-    int tw=player.pw.blockWidth,
-      th=player.pw.blockHeight;
+    int tw=player.pw.settings.blockWidth,
+      th=player.pw.settings.blockHeight;
     switch(selectBlock.data.task) {
       case BlockPointer.idle: {
         p.fill(0,127);
@@ -330,7 +330,7 @@ public class PlayerController extends Entity<Screen0011>{
       }
     }else walkSlowDown();
     limitBox.doInAirTest();
-    if(limitBox.inAir) player.point.vel.y+=player.pw.g;
+    if(limitBox.inAir) player.point.vel.y+=player.pw.settings.g;
     else {
       if(player.point.pos.y!=limitBox.floor) {
         player.point.vel.y=0;
@@ -338,7 +338,7 @@ public class PlayerController extends Entity<Screen0011>{
       }
       if(jumpCool>0) jumpCool--;
       else if(jump) {
-        player.point.vel.y=player.pw.jumpForce*jumpForceMult;
+        player.point.vel.y=player.pw.settings.jumpForce*jumpForceMult;
         jumpCool=2;
       }
     }

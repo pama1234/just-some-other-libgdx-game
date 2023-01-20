@@ -46,19 +46,8 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
   public GameEntityCenter entities;
   public RegionCenter regions;
   public MainPlayer yourself;
-  public int blockWidth=18,blockHeight=18;
-  public float g=1f,jumpForce=-blockHeight*1.5f;
-  // public int daySize=216000/3;
-  public int daySize=72000;//20 minute
-  // public int daySize=7200;//2 minute
-  // public int daySize=3600;//1 minute
-  // public int time=daySize/4*3;
+  public WorldSettings settings=new WorldSettings();
   public int time=12000;
-  public float ambientLight;
-  public int lightDist=7;
-  // public int lightDist=7,lightCount=(int)(UtilMath.sq(lightDist)*UtilMath.PI);
-  public float lightCount=UtilMath.sq(lightDist)*UtilMath.PI;
-  // public int lightDist=7,lightCount=UtilMath.sq(lightDist*2+1);
   public Sky sky;
   public World0001(Screen0011 p,Game pg) {
     super(p,pg,2);
@@ -132,17 +121,17 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
     super.update();
     time+=1;
     sky.updateColor();
-    for(Player player:entities.players.list) testSpawnWithPlayer(player);
-    testSpawnWithPlayer(yourself);
+    for(Player player:entities.players.list) testCreatureSpawnWithPlayer(player);
+    testCreatureSpawnWithPlayer(yourself);
   }
-  public void testSpawnWithPlayer(Player player) {
+  public void testCreatureSpawnWithPlayer(Player player) {
     for(MetaCreature<?> e:metaEntitys.list) {
       if(e.spawnDatas==null) continue;
       if(e.count>=e.naturalMaxCount) continue;
       float rdeg=random(UtilMath.PI2);
       float rdist=random(36,regions.regionLoadDist/2f);
-      float tx=player.cx()+UtilMath.sin(rdeg)*rdist*blockWidth,
-        ty=player.cy()+UtilMath.cos(rdeg)*rdist*blockHeight;
+      float tx=player.cx()+UtilMath.sin(rdeg)*rdist*settings.blockWidth,
+        ty=player.cy()+UtilMath.cos(rdeg)*rdist*settings.blockHeight;
       Block block=getBlock(tx,ty);
       if(block==null) continue;
       for(SpawnData i:e.spawnDatas) {
@@ -165,7 +154,7 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
     regions.dispose();
   }
   public void updateRectLighting(int x,int y) {
-    for(int i=-lightDist;i<=lightDist;i++) for(int j=-lightDist;j<=lightDist;j++) {
+    for(int i=-settings.lightDist;i<=settings.lightDist;i++) for(int j=-settings.lightDist;j<=settings.lightDist;j++) {
       Block tb=regions.getBlock(x+i,y+j);
       if(tb!=null) tb.updateLighting=true;
     }
@@ -188,10 +177,10 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
     block.type(in);
   }
   public int xToBlockCord(float in) {
-    return UtilMath.floor(in/blockWidth);
+    return UtilMath.floor(in/settings.blockWidth);
   }
   public int yToBlockCord(float in) {
-    return UtilMath.floor(in/blockHeight);
+    return UtilMath.floor(in/settings.blockHeight);
   }
   public Block getBlock(int x,int y) {
     return regions.getBlock(x,y);

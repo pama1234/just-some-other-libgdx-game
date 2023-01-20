@@ -114,8 +114,8 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     }
   }
   public void testChunkUpdateWithPlayer(Player player) {
-    float tcx=player.cx()/pw.blockWidth,
-      tcy=player.cy()/pw.blockHeight;
+    float tcx=player.cx()/pw.settings.blockWidth,
+      tcy=player.cy()/pw.settings.blockHeight;
     for(Region e:list) {
       float tx_1=(((e.x+0.5f)*regionWidth)*chunkWidth),
         ty_1=(((e.y+0.5f)*regionHeight)*chunkHeight);
@@ -137,10 +137,10 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     testAddChunkWithPlayer(pw.yourself);//TODO
   }
   public void testAddChunkWithPlayer(Player player) {
-    int tx_1=UtilMath.round(player.cx()/(regionWidth*chunkWidth*pw.blockWidth)),
-      ty_1=UtilMath.round(player.cy()/(regionHeight*chunkHeight*pw.blockHeight));
-    float tx_2=player.cx()/pw.blockWidth,
-      ty_2=player.cy()/pw.blockHeight;
+    int tx_1=UtilMath.round(player.cx()/(regionWidth*chunkWidth*pw.settings.blockWidth)),
+      ty_1=UtilMath.round(player.cy()/(regionHeight*chunkHeight*pw.settings.blockHeight));
+    float tx_2=player.cx()/pw.settings.blockWidth,
+      ty_2=player.cy()/pw.settings.blockHeight;
     for(int i=-regionLoadDistInt;i<=regionLoadDistInt;i++) {
       for(int j=-regionLoadDistInt;j<=regionLoadDistInt;j++) {
         int tx_3=tx_1+i,
@@ -175,8 +175,8 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
       y2=pw.xToBlockCord(p.cam2d.y2());
     for(int i=x1;i<=x2;i++) {
       for(int j=y1;j<=y2;j++) {
-        int tx=i*pw.blockWidth,
-          ty=j*pw.blockHeight;
+        int tx=i*pw.settings.blockWidth,
+          ty=j*pw.settings.blockHeight;
         Block block=getBlock(i,j);
         if(block==null) continue;//TODO
         MetaBlock blockType=block.type;

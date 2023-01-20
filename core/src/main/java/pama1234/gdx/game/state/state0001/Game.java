@@ -66,8 +66,8 @@ public class Game extends StateEntity0001{
       by1=limitBox.y1,
       bx2=limitBox.x2,
       by2=limitBox.y2;
-    int bw=tw.blockWidth,
-      bh=tw.blockHeight;
+    int bw=tw.settings.blockWidth,
+      bh=tw.settings.blockHeight;
     int ta=191;
     p.fill(255,127,191,ta);
     rectStroke(1,limitBox.leftWall,limitBox.ceiling,limitBox.rightWall,limitBox.floor);

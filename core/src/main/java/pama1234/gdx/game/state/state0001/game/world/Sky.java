@@ -27,7 +27,7 @@ public class Sky{
     ImageAsset.sky.getTexture().getTextureData().prepare();
     skyColorMap=ImageAsset.sky.getTexture().getTextureData().consumePixmap();
     skyColorCount=skyColorMap.getWidth();
-    daySkyGridSize=(float)pw.daySize/skyColorCount;
+    daySkyGridSize=(float)pw.settings.daySize/skyColorCount;
   }
   public void updateColor() {
     int tp=getSkyPos(pw.time);
@@ -44,6 +44,6 @@ public class Sky{
     return skyColorMap.getPixel(pos,0);
   }
   public int getSkyPos(int in) {
-    return UtilMath.floor(Tools.map(in%pw.daySize,0,pw.daySize,0,skyColorCount));
+    return UtilMath.floor(Tools.map(in%pw.settings.daySize,0,pw.settings.daySize,0,skyColorCount));
   }
 }
