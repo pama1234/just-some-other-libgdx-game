@@ -356,19 +356,19 @@ public abstract class UtilScreen extends UtilScreenCore{
   public void color(Color c,float r,float g,float b,float a) {
     c.set(r/255f,g/255f,b/255f,a/255f);
   }
-  public Color color(float gray) {
+  public static Color color(float gray) {
     return new Color(gray/255f,gray/255f,gray/255f,1);
   }
-  public Color color(float gray,float a) {
+  public static Color color(float gray,float a) {
     return new Color(gray/255f,gray/255f,gray/255f,a/255f);
   }
-  public Color color(float r,float g,float b) {
+  public static Color color(float r,float g,float b) {
     return new Color(r/255f,g/255f,b/255f,1);
   }
-  public Color color(float r,float g,float b,float a) {
+  public static Color color(float r,float g,float b,float a) {
     return new Color(r/255f,g/255f,b/255f,a/255f);
   }
-  public void lerpColor(Color a,Color b,Color out,float pos) {
+  public static void lerpColor(Color a,Color b,Color out,float pos) {
     if(pos==0) out.set(a);
     else if(pos==1) out.set(b);
     float tr=b.r-a.r,

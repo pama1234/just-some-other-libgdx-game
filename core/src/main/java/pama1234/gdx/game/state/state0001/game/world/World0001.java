@@ -1,12 +1,9 @@
 package pama1234.gdx.game.state.state0001.game.world;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
 import pama1234.gdx.game.app.Screen0011;
-import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntityListener0001;
@@ -15,8 +12,8 @@ import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
 import pama1234.gdx.game.state.state0001.game.entity.entity0001.MobEntity;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
-import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature.SpawnData;
+import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaCreatureCenter0001;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemCenter0001;
@@ -26,7 +23,6 @@ import pama1234.gdx.game.state.state0001.game.player.Player;
 import pama1234.gdx.game.state.state0001.game.player.Player.PlayerCenter;
 import pama1234.gdx.game.state.state0001.game.region.RegionCenter;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
-import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 
 public class World0001 extends World<Screen0011,Game> implements StateEntityListener0001{
@@ -63,12 +59,7 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
   // public int lightDist=7,lightCount=(int)(UtilMath.sq(lightDist)*UtilMath.PI);
   public float lightCount=UtilMath.sq(lightDist)*UtilMath.PI;
   // public int lightDist=7,lightCount=UtilMath.sq(lightDist*2+1);
-  public int typeCache;
-  public Pixmap skyColorMap;
-  public int skyColorPos,skyColorCount;
-  public float daySkyGridSize;
-  public Color backgroundColor,colorA,colorB;
-  public float[] skyHsb=new float[3];
+  public Sky sky;
   public World0001(Screen0011 p,Game pg) {
     super(p,pg,2);
     metaBlocks=World0001Generator.createBlockC(this);
@@ -79,9 +70,7 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
     entities.list.add(entities.players=new PlayerCenter(p));
     list[1]=regions=new RegionCenter(p,this);
     yourself=new MainPlayer(p,this,0,0);
-    backgroundColor=p.color(0);
-    colorA=p.color(0);
-    colorB=p.color(0);
+    sky=new Sky(this);
   }
   public float random(float max) {
     return p.random(max);
@@ -95,18 +84,13 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
   @Override
   public void init() {
     super.init();
-    initSky();
+    // initSky();
+    sky.init();
     for(MetaBlock e:metaBlocks.list) e.init();
     for(MetaItem e:metaItems.list) e.init();
     for(MetaCreature<?> e:metaEntitys.list) e.init();
     regions.load();
     Gdx.files.local(dataDir+"regions/").mkdirs();//TODO
-  }
-  public void initSky() {
-    ImageAsset.sky.getTexture().getTextureData().prepare();
-    skyColorMap=ImageAsset.sky.getTexture().getTextureData().consumePixmap();
-    skyColorCount=skyColorMap.getWidth();
-    daySkyGridSize=(float)daySize/skyColorCount;
   }
   @Override
   public void from(State0001 in) {
@@ -147,7 +131,7 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
   public void update() {
     super.update();
     time+=1;
-    updateSkyColor();
+    sky.updateColor();
     for(Player player:entities.players.list) testSpawnWithPlayer(player);
     testSpawnWithPlayer(yourself);
   }
@@ -173,23 +157,6 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
         }
       }
     }
-  }
-  public void updateSkyColor() {
-    int tp=getSkyPos(time);
-    if(skyColorPos!=tp) {
-      skyColorPos=tp;
-      colorA.set(colorB);
-      colorB.set(getSkyColor(tp));
-    }
-    p.lerpColor(colorA,colorB,backgroundColor,Tools.moveInRange(time,0,daySkyGridSize)/daySkyGridSize);
-    backgroundColor.toHsv(skyHsb);
-    p.backgroundColor(backgroundColor);
-  }
-  public int getSkyColor(int pos) {
-    return skyColorMap.getPixel(pos,0);
-  }
-  public int getSkyPos(int in) {
-    return UtilMath.floor(Tools.map(in%daySize,0,daySize,0,skyColorCount));
   }
   @Override
   public void dispose() {
@@ -233,6 +200,6 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
     return regions.getBlock(xToBlockCord(x),yToBlockCord(y));
   }
   public float skyLight() {
-    return skyHsb[2];
+    return sky.skyHsb[2];
   }
 }

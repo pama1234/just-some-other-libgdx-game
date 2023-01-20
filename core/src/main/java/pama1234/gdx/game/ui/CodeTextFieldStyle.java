@@ -7,7 +7,7 @@ import pama1234.gdx.util.app.UtilScreen;
 public class CodeTextFieldStyle extends TextFieldStyle{
   public UtilScreen p;
   public CodeTextFieldStyle(UtilScreen p) {//TODO
-    super(p.font,p.color(0),
+    super(p.font,UtilScreen.color(0),
       new DrawableEntity(p,(batch,x,y,w,h)-> {
         p.beginBlend();
         p.fill(0,191);

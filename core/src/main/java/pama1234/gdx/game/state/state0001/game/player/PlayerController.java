@@ -108,7 +108,7 @@ public class PlayerController extends Entity<Screen0011>{
         break;
       case BlockPointer.build: {
         Item ti=selectBlock.data.slot().item;
-        if(ti!=null) {
+        if(ti!=null&&ti.type.blockType!=null) {
           p.tint(255,191);
           p.image(
             ImageAsset.tiles[21][(int)UtilMath.map(selectBlock.data.progress,

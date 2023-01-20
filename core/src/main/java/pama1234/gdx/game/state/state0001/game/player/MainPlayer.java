@@ -62,6 +62,11 @@ public class MainPlayer extends Player{
     p.cam.point.des.set(cx(),cy());
     //---
     inventory.update();
+    if(life.pos<=0) respawn();
+  }
+  public void respawn() {
+    point.pos.set(0,0);
+    life.des=type.maxLife;
   }
   @Override
   public void display() {

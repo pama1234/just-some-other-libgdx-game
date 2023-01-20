@@ -103,7 +103,7 @@ public class Game extends StateEntity0001{
   @Override
   public void from(State0001 in) {
     World0001 tw=world();
-    p.backgroundColor(tw.backgroundColor);
+    p.backgroundColor(tw.sky.backgroundColor);
     Vec2f tpos=tw.yourself.point.pos;
     p.cam.point.pos.set(tpos.x,tpos.y,0);
     p.cam.point.des.set(tpos.x,tpos.y,0);

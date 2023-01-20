@@ -4,7 +4,6 @@ import static pama1234.math.Tools.getFloatString;
 import static pama1234.math.Tools.getMillisString;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 
 import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.state.state0002.State0002;
@@ -120,14 +119,5 @@ public class Screen0012 extends ScreenCore2D implements StateChanger{
     stateNull();
     super.dispose();
     State0002.disposeAll();
-  }
-  public void lerpColor(Color a,Color b,Color out,float pos) {
-    if(pos==0) out.set(a);
-    else if(pos==1) out.set(b);
-    float tr=b.r-a.r,
-      tg=b.g-a.g,
-      tb=b.b-a.b,
-      ta=b.a-a.a;
-    out.set(a.r+tr*pos,a.g+tg*pos,a.b+tb*pos,a.a+ta*pos);
   }
 }
