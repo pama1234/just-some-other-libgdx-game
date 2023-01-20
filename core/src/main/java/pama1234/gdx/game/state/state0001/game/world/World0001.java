@@ -48,7 +48,6 @@ public class World0001 extends World<Screen0011,Game> implements StateEntityList
   public MetaCreatureCenter0001 metaEntitys;
   //---
   public GameEntityCenter entities;
-  // public PlayerCenter players;
   public RegionCenter regions;
   public MainPlayer yourself;
   public int blockWidth=18,blockHeight=18;
