@@ -90,8 +90,7 @@ public class UiGenerator{
         Game game=(Game)State0001.Game.entity;
         game.debugGraphics=!game.debugGraphics;
         if(game.debugGraphics) game.createDebugDisplay();
-        if(game.debugGraphics) self.text="显示图形调试信息：是";
-        else self.text="显示图形调试信息：否";
+        self.updateText();
       },self->self.text=((Game)State0001.Game.entity).debugGraphics?"显示图形调试信息：是":"显示图形调试信息：否",()->18,()->0,()->60),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         //TODO
@@ -100,6 +99,10 @@ public class UiGenerator{
         System.gc();
         Runtime.getRuntime().runFinalization();
       },self->self.text="清理内存垃圾",()->18,()->0,()->100),
+      new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
+        p.settings.showEarth=!p.settings.showEarth;
+        self.updateText();
+      },self->self.text="开始界面显示地球："+(p.settings.showEarth?"是":"否"),()->18,()->0,()->120),
     };
   }
   public static <T extends Screen0011> Button<?>[] genButtons_0005(T p) {

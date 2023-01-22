@@ -4,17 +4,33 @@ import static pama1234.math.Tools.getFloatString;
 import static pama1234.math.Tools.getMemory;
 import static pama1234.math.Tools.getMillisString;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
+import com.esotericsoftware.kryo.KryoException;
+import com.esotericsoftware.kryo.io.Input;
+import com.esotericsoftware.kryo.io.Output;
+import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
 import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.state.state0001.State0001.StateChanger;
 import pama1234.gdx.game.state.state0001.StateGenerator0001;
+import pama1234.gdx.game.state.state0001.game.region.Region;
 import pama1234.gdx.util.app.ScreenCore2D;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.math.Tools;
 
 public class Screen0011 extends ScreenCore2D implements StateChanger{
+  public static class SettingsData{
+    @Tag(0)
+    public boolean showEarth=true;
+  }
+  public SettingsData settings;
+  public FileHandle settingsFile=Gdx.files.local("data/settings.bin");
   public State0001 state;
   public boolean firstRun;
   public boolean debugInfo;
@@ -26,6 +42,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   @Override
   public void setup() {
     noStroke();
+    loadSettings();
     MusicAsset.load_init();
     StateGenerator0001.loadState0001(this);
     firstRun=!Gdx.files.local("data/firstRun.txt").exists();
@@ -35,6 +52,28 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
       Gdx.files.local("data/firstRun.txt").writeString("1234",false);
     }else {
       state(State0001.Loading);
+    }
+  }
+  public void loadSettings() {
+    if(!settingsFile.exists()) {
+      settings=new SettingsData();
+      return;
+    }
+    try(Input input=new Input(new FileInputStream(settingsFile.file()))) {
+      SettingsData out=Region.kryo.readObject(input,SettingsData.class);
+      input.close();
+      settings=out;
+    }catch(FileNotFoundException|KryoException e) {
+      e.printStackTrace();
+    }
+    if(settings==null) settings=new SettingsData();
+  }
+  public void saveSettings() {
+    try(Output output=new Output(new FileOutputStream(settingsFile.file()))) {
+      Region.kryo.writeObject(output,settings);
+      output.close();
+    }catch(FileNotFoundException|KryoException e) {
+      e.printStackTrace();
     }
   }
   @Override
@@ -131,5 +170,6 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     stateNull();
     super.dispose();
     State0001.disposeAll();
+    saveSettings();
   }
 }

@@ -3,11 +3,9 @@ package pama1234.gdx.game.app.app0002;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.Mesh;
-import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.VertexAttribute;
 import com.badlogic.gdx.graphics.VertexAttributes;
-import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
 import pama1234.gdx.util.app.ScreenCore3D;
@@ -39,7 +37,7 @@ public class Screen0015 extends ScreenCore3D{
     shader.bind();
     shader.setUniformMatrix("u_projTrans",screenCam.combined);
     // shader.setUniformf("v_color",1,1,1,1);
-    shader.setUniformf("tileSize",18f/tiles.getWidth(),18f/tiles.getHeight());
+    shader.setUniformf("tileSize",20f/tiles.getWidth(),20f/tiles.getHeight());
     shader.setUniformi("tiles",1);
     shader.setUniformi("tilesData",2);
   }
@@ -77,9 +75,12 @@ public class Screen0015 extends ScreenCore3D{
   }
   public void updateTilesData() {
     tilesData.beginDraw();
-    background(frameCount%256,frameCount%256,0);
-    fill(mouse.ox,mouse.oy,0);
-    rect(8,8,16,16);
+    // background(frameCount%256,frameCount%256,0);
+    background((int)((float)mouse.ox/width*256),(int)((float)mouse.oy/height*256),0);
+    // fill((int)((float)mouse.ox/width*256),(int)((float)mouse.oy/height*256),0);
+    // rect(8,8,16,16);
+    // fill(0,1,0);
+    // rect(8,8,16,16);
     tilesData.endDraw();
     // pixmap.drawPixel(0,0,tileToColor(mouse.ox,mouse.oy));
   }

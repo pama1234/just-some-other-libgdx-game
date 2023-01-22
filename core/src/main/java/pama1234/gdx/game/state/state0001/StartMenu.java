@@ -51,19 +51,34 @@ public class StartMenu extends StateEntity0001{
   }
   @Override
   public void displayCam() {
-    TextureRegion kf=GifAsset.bigEarth.getKeyFrame(time);
-    p.image(kf,-128,-128);
+    if(p.settings.showEarth) {
+      TextureRegion kf=GifAsset.bigEarth.getKeyFrame(time);
+      p.image(kf,-128,-128);
+    }else {
+      // p.println(p.textSize(),p.textScale());
+      p.textColor(0);
+      p.textScale(4);
+      // p.text("空想世界",96-128,-32);
+      // p.text("空想",96-64,-48);
+      // p.text("世界",96-64,32);
+      p.text("空想",-32,-64);
+      p.text("世界",-32,16);
+      p.textScale(1);
+      p.textColor(255);
+    }
   }
   float tx,tw;
   @Override
   public void display() {
     if(p.isAndroid) return;
-    p.fill(60,136,136);
+    p.beginBlend();
+    p.fill(60,136,136,127);
     p.rect(tx,0,tw,p.height);
-    p.fill(120,200,196);
+    p.fill(120,200,196,127);
     p.rect(tx,p.height/4f-p.bu/2f,tw,p.bu);
     p.rect(tx,p.height/2f-p.bu/2f,tw,p.bu);
     p.rect(tx,p.height/4f*3-p.bu/2f,tw,p.bu);
+    p.endBlend();
   }
   @Override
   public void frameResized(int w,int h) {

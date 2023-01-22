@@ -30,7 +30,7 @@ void main() {
   // gl_FragColor=texture2D(tilesData,v_texCoords);
   vec4 tileDataCell=texture2D(tilesData,v_texCoords);
   // tileDataCell.xy*=resolution;
-  // tileDataCell.xy*=tileSize;
+  tileDataCell.xy*=tileSize*255.0;
   // vec4 tileDataCell=flip(texture2D(tilesData,v_texCoords));
   gl_FragColor=texture2D(tiles,mod(v_texCoords,tileDataCell.xy));
   // gl_FragColor=texture2D(tiles,flip(mod(v_texCoords,tileDataCell.xy)));

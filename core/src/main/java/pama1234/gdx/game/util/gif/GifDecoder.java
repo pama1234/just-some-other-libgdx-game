@@ -279,13 +279,12 @@ public class GifDecoder{
     lct=null;
   }
   protected int read() {
-    int curByte=0;
     try {
-      curByte=in.read();
+      return in.read();
     }catch(Exception e) {
       status=STATUS_FORMAT_ERROR;
+      return 0;
     }
-    return curByte;
   }
   protected int readBlock() {
     blockSize=read();
@@ -382,10 +381,9 @@ public class GifDecoder{
     read();
   }
   protected void readHeader() {
-    String id="";
-    for(int i=0;i<6;i++) {
-      id+=(char)read();
-    }
+    StringBuilder sb=new StringBuilder();
+    for(int i=0;i<6;i++) sb.append((char)read());
+    String id=sb.toString();
     if(!id.startsWith("GIF")) {
       status=STATUS_FORMAT_ERROR;
       return;
