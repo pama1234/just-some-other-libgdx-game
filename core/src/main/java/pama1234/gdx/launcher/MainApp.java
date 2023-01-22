@@ -14,6 +14,8 @@ import pama1234.gdx.game.app.app0002.Screen0004;
 import pama1234.gdx.game.app.app0002.Screen0005;
 import pama1234.gdx.game.app.app0002.Screen0006;
 import pama1234.gdx.game.app.app0002.Screen0010;
+import pama1234.gdx.game.app.app0002.Screen0014;
+import pama1234.gdx.game.app.app0002.Screen0015;
 import pama1234.gdx.game.app.app0003.Screen0008;
 import pama1234.gdx.game.app.app0003.Screen0009;
 import pama1234.gdx.game.app.app0003.Screen0013;
@@ -23,7 +25,7 @@ import pama1234.gdx.util.app.UtilScreen;
 
 public class MainApp extends Game{
   public List<Class<? extends UtilScreen>> screenList;
-  public int screenType=5;
+  public int screenType=15;
   public MainApp() {
     screenList=Arrays.asList(null,
       Screen0001.class,//3D 粒子系统 单机
@@ -38,8 +40,9 @@ public class MainApp extends Game{
       Screen0010.class,//测试 天空着色器
       Screen0011.class,//main game
       Screen0012.class,//空白游戏框架
-      Screen0013.class//测试 透明渲染模式
-    );
+      Screen0013.class,//测试 透明渲染模式
+      Screen0014.class,
+      Screen0015.class);
   }
   @Override
   public void create() {

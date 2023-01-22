@@ -2,38 +2,36 @@ package pama1234.gdx.game.app.app0002;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL30;
+import com.badlogic.gdx.graphics.Mesh;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.VertexAttribute;
+import com.badlogic.gdx.graphics.VertexAttributes;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
 import pama1234.gdx.util.app.ScreenCore3D;
 import pama1234.gdx.util.element.Graphics;
 import pama1234.gdx.util.listener.EntityListener;
 
-/**
- * 对于 https://github.com/davudk/OpenGL-TileMap-Demos 的测试
- */
-public class Screen0005 extends ScreenCore3D{
-  public Graphics gbackground,tilesData;
+public class Screen0015 extends ScreenCore3D{
+  public Graphics tilesData;
   public ShaderProgram shader;
   public float[] idata=new float[8];
   public Texture tiles;
+  public Mesh mesh;
+  public float[] verts=new float[30];
   // public int texturePos=GL30.GL_MAX_TEXTURE_UNITS-1;
   public EntityListener shaderTester=new EntityListener() {
     @Override
     public void display() {
       Gdx.gl20.glClear(GL30.GL_COLOR_BUFFER_BIT);
       Gdx.gl20.glEnable(GL30.GL_TEXTURE_2D);
-      // beginBlend();
-      imageBatch.setShader(shader);
-      imageBatch.begin();
-      imageBatch.draw(gbackground.texture,0,0,width,height);
-      imageBatch.end();
-      imageBatch.setShader(null);
+      beginBlend();
+      mesh.render(shader,GL30.GL_TRIANGLES);
     }
   };
   public void shaderUpdate() {
-    Gdx.gl.glActiveTexture(GL30.GL_TEXTURE1);
-    Gdx.gl.glBindTexture(tiles.glTarget,GL30.GL_TEXTURE1);
+    // Gdx.gl.glActiveTexture(GL30.GL_TEXTURE1);
+    // Gdx.gl.glBindTexture(tiles.glTarget,GL30.GL_TEXTURE1);
     tiles.bind(1);
     tilesData.texture.bind(2);
     shader.bind();
@@ -47,13 +45,14 @@ public class Screen0005 extends ScreenCore3D{
     noStroke();
     background=false;
     tiles=new Texture(Gdx.files.internal("image/tiles.png"));
-    gbackground=new Graphics(this,width,height);
     ShaderProgram.pedantic=false;
     shader=new ShaderProgram(
       Gdx.files.internal("shader/main0002/tilemap.vert").readString(),
       Gdx.files.internal("shader/main0002/tilemap.frag").readString());
-    // System.out.println(Gdx.files.internal("shader/main0002/tilemap.vert").readString());
-    // imageBatch.setShader(shader);
+    mesh=new Mesh(true,6,0,
+      new VertexAttribute(VertexAttributes.Usage.Position,3,ShaderProgram.POSITION_ATTRIBUTE),
+      new VertexAttribute(VertexAttributes.Usage.TextureCoordinates,2,ShaderProgram.TEXCOORD_ATTRIBUTE+"0"));
+    updateMesh();
     printLog(shader.getLog());
     // font.load(0);
     tilesData=new Graphics(this,32,32);
@@ -64,11 +63,15 @@ public class Screen0005 extends ScreenCore3D{
   }
   @Override
   public void update() {
+    // updateMesh();
+    updateTilesData();
+    shaderUpdate();
+  }
+  private void updateTilesData() {
     tilesData.beginDraw();
     fill(frameCount%256);
     rect(8,8,8,8);
     tilesData.endDraw();
-    shaderUpdate();
   }
   @Override
   public void displayWithCam() {}
@@ -76,19 +79,53 @@ public class Screen0005 extends ScreenCore3D{
   public void display() {}
   @Override
   public void frameResized() {
-    gbackground.dispose();
-    gbackground=new Graphics(this,width,height);
-    gbackground.beginDraw();
-    // image(tiles,0,0);
-    background(255,0,0);
-    gbackground.endDraw();
-    // imageBatch.begin();
-    // imageBatch.setShader(shader);
+    updateMesh();
     idata[1]=width;
     idata[2]=height;
     shader.bind();
     shader.setUniform2fv("resolution",idata,0,2);
-    // imageBatch.end();
+  }
+  public void updateMesh() {
+    int i=0;
+    float x=0,y=0; // Mesh location in the world
+    float width=this.width/2f,height=this.height; // Mesh width and height
+    //Top Left Vertex Triangle 1
+    verts[i++]=x; //X
+    verts[i++]=y+height; //Y
+    verts[i++]=0; //Z
+    verts[i++]=0f; //U
+    verts[i++]=0f; //V
+    //Top Right Vertex Triangle 1
+    verts[i++]=x+width;
+    verts[i++]=y+height;
+    verts[i++]=0;
+    verts[i++]=1f;
+    verts[i++]=0f;
+    //Bottom Left Vertex Triangle 1
+    verts[i++]=x;
+    verts[i++]=y;
+    verts[i++]=0;
+    verts[i++]=0f;
+    verts[i++]=1f;
+    //Top Right Vertex Triangle 2
+    verts[i++]=x+width;
+    verts[i++]=y+height;
+    verts[i++]=0;
+    verts[i++]=1f;
+    verts[i++]=0f;
+    //Bottom Right Vertex Triangle 2
+    verts[i++]=x+width;
+    verts[i++]=y;
+    verts[i++]=0;
+    verts[i++]=1f;
+    verts[i++]=1f;
+    //Bottom Left Vertex Triangle 2
+    verts[i++]=x;
+    verts[i++]=y;
+    verts[i++]=0;
+    verts[i++]=0f;
+    verts[i]=1f;
+    mesh.setVertices(verts);
   }
   public void createAndPrintDefaultShader() {
     ShaderProgram shader=createDefaultShader();
