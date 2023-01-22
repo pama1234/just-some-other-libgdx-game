@@ -26,6 +26,8 @@ public class Screen0015 extends ScreenCore3D{
       Gdx.gl20.glClear(GL30.GL_COLOR_BUFFER_BIT);
       Gdx.gl20.glEnable(GL30.GL_TEXTURE_2D);
       beginBlend();
+      // System.out.println(123);
+      shaderUpdate();
       mesh.render(shader,GL30.GL_TRIANGLES);
     }
   };
@@ -35,6 +37,8 @@ public class Screen0015 extends ScreenCore3D{
     tiles.bind(1);
     tilesData.texture.bind(2);
     shader.bind();
+    shader.setUniformMatrix("u_projTrans",imageBatch.getProjectionMatrix());
+    // shader.setUniformMatrix("u_projTrans",cam.camera.projection);
     shader.setUniformi("tiles",1);
     shader.setUniformi("tilesData",2);
   }
@@ -49,11 +53,11 @@ public class Screen0015 extends ScreenCore3D{
     shader=new ShaderProgram(
       Gdx.files.internal("shader/main0002/tilemap.vert").readString(),
       Gdx.files.internal("shader/main0002/tilemap.frag").readString());
-    mesh=new Mesh(true,6,0,
+    printLog(shader.getLog());
+    mesh=new Mesh(false,6,0,
       new VertexAttribute(VertexAttributes.Usage.Position,3,ShaderProgram.POSITION_ATTRIBUTE),
       new VertexAttribute(VertexAttributes.Usage.TextureCoordinates,2,ShaderProgram.TEXCOORD_ATTRIBUTE+"0"));
     updateMesh();
-    printLog(shader.getLog());
     // font.load(0);
     tilesData=new Graphics(this,32,32);
     centerScreen.add.add(shaderTester);
@@ -65,9 +69,9 @@ public class Screen0015 extends ScreenCore3D{
   public void update() {
     // updateMesh();
     updateTilesData();
-    shaderUpdate();
+    // shaderUpdate();
   }
-  private void updateTilesData() {
+  public void updateTilesData() {
     tilesData.beginDraw();
     fill(frameCount%256);
     rect(8,8,8,8);
@@ -76,7 +80,10 @@ public class Screen0015 extends ScreenCore3D{
   @Override
   public void displayWithCam() {}
   @Override
-  public void display() {}
+  public void display() {
+    // fill(frameCount%256);
+    // rect(8,8,8,8);
+  }
   @Override
   public void frameResized() {
     updateMesh();
@@ -88,7 +95,7 @@ public class Screen0015 extends ScreenCore3D{
   public void updateMesh() {
     int i=0;
     float x=0,y=0; // Mesh location in the world
-    float width=this.width/2f,height=this.height; // Mesh width and height
+    float width=this.width,height=this.height; // Mesh width and height
     //Top Left Vertex Triangle 1
     verts[i++]=x; //X
     verts[i++]=y+height; //Y
