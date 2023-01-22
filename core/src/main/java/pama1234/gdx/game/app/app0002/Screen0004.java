@@ -24,13 +24,10 @@ public class Screen0004 extends ScreenCore3D{
   public void setup() {
     cam.point.set(0,0,-320);
     noStroke();
-    // font.getData().markupEnabled=true;
     font.load(0);
     textField=new TextField("1234",new CodeTextFieldStyle(this),
-      new RectF(()->u,()->u,()->width-u*2,()->pu),()->pus);
+      new RectF(()->u,()->u,()->width-u*2,()->u+pus*2),()->pus);
     textField.setOnscreenKeyboard(new NormalOnscreenKeyboard());
-    // textField.setFocusTraversal(true);
-    // textField.setAlignment(Align.left);
     stage.addActor(textField);
     centerScreen.add.add(new ConfigInfo(this));
     //---
@@ -38,7 +35,6 @@ public class Screen0004 extends ScreenCore3D{
     model=modelBuilder.createBox(512,1152,128,
       new Material(
         ColorAttribute.createDiffuse(color(0))
-      // TextureAttribute.createDiffuse(FileUtil.loadTexture("logo/logo-ingame.png"))
       // new BlendingAttribute(GL20.GL_SRC_ALPHA,GL20.GL_ONE_MINUS_SRC_ALPHA)
       ),
       Usage.Position|Usage.Normal);
@@ -48,12 +44,8 @@ public class Screen0004 extends ScreenCore3D{
   public void update() {}
   @Override
   public void displayWithCam() {
-    // fill(255,0,0);
-    // rect(-256,-576,512,1152);
-    // circle(0,0,64);
     model(instance);
     flushModel();
-    // circle(0,-128,64);
   }
   @Override
   public void mousePressed(MouseInfo info) {}

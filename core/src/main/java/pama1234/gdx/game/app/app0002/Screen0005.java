@@ -22,22 +22,19 @@ public class Screen0005 extends ScreenCore3D{
   @Override
   public void setup() {
     noStroke();
-    // background=false;
     gbackground=new Graphics(this,width,height);
     ShaderProgram.pedantic=false;
     shader=new ShaderProgram(
-      // Gdx.files.internal("shader/main0001/atmosphericScattering.vert"),
-      imageBatch.getShader().getVertexShaderSource(),
-      Gdx.files.internal("shader/temp.frag").readString());
-      // Gdx.files.internal("shader/main0001/atmosphericScattering.frag").readString());
-    // shader.bind();
+      // imageBatch.getShader().getVertexShaderSource(),
+      // Gdx.files.internal("shader/temp.frag").readString());
+      Gdx.files.internal("shader/main0001/atmosphericScattering.vert").readString(),
+      Gdx.files.internal("shader/main0001/atmosphericScattering.frag").readString());
     System.out.println(shader.getLog());
     font.load(0);
     textField=new TextField(shader.getLog().replace('\n',' '),new CodeTextFieldStyle(this),
       new RectF(()->u,()->u,()->width-u*2,()->pu),()->pus);
     textField.setOnscreenKeyboard(new NormalOnscreenKeyboard());
     stage.addActor(textField);
-    // String[] ts=shader.getLog().split("\n");
     centerScreen.add.add(new EntityListener() {
       @Override
       public void display() {
@@ -47,8 +44,6 @@ public class Screen0005 extends ScreenCore3D{
         imageBatch.draw(gbackground.texture,0,0,width,height);
         imageBatch.end();
         imageBatch.setShader(null);
-        // fill(255);
-        // for(int i=0;i<ts.length;i++) text(ts[i],0,i*pu);
       }
     });
   }

@@ -24,17 +24,18 @@ public class Screen0002 extends UtilScreen2D{
     // playerCenter.update();
   }
   @Override
-  public void displayWithCam() {}
-  @Override
-  public void display() {
+  public void displayWithCam() {
     int circleSeg=circleSeg(CellGroup2D.SIZE*cam2d.scale.pos*(1/cam.frameScale));
     for(int i=0;i<group.size;i++) {
+      float tx=group.x(i),
+        ty=group.y(i);
+      if(!cam2d.inbox(tx,ty)) continue;
       fillHex(group.color(i));
-      circle(group.x(i),group.y(i),CellGroup2D.SIZE,circleSeg);
+      circle(tx,ty,CellGroup2D.SIZE,circleSeg);
     }
-    // System.out.println(cam.scale.pos);
-    // System.out.println();
   }
+  @Override
+  public void display() {}
   @Override
   public void frameResized() {}
 }

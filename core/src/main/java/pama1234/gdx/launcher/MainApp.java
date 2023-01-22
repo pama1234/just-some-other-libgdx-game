@@ -15,22 +15,23 @@ import pama1234.gdx.util.app.UtilScreen;
 
 public class MainApp extends Game{
   public List<Class<? extends UtilScreen>> screenList;
-  public int screenType=11;
+  public int screenType=10;
   public MainApp() {
     screenList=Arrays.asList(null,
-      Screen0001.class,//particle system
-      Screen0002.class,
-      Screen0003.class,
-      Screen0004.class,
-      Screen0005.class,
-      Screen0006.class,
-      Screen0007.class,
+      Screen0001.class,//3D 粒子系统 单机
+      Screen0002.class,//2D 粒子系统
+      Screen0003.class,//3D 粒子系统 联机 客户端
+      Screen0004.class,//测试 3D渲染 文本框UI
+      Screen0005.class,//测试 天空着色器
+      Screen0006.class,//测试 按钮UI
+      Screen0007.class,//粒子系统libgdx服务器
       Screen0008.class,//TextArea test
-      Screen0009.class,
-      Screen0010.class,
+      Screen0009.class,//测试 GIF加载
+      Screen0010.class,//测试 天空着色器
       Screen0011.class,//main game
-      Screen0012.class,
-      Screen0013.class);
+      Screen0012.class,//空白游戏框架
+      Screen0013.class//测试 透明渲染模式
+    );
   }
   @Override
   public void create() {
