@@ -270,12 +270,12 @@ public abstract class UtilScreen extends UtilScreenCore{
   }
   public void beginBlend() {
     Gdx.gl.glEnable(GL20.GL_BLEND);
-    // Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA,GL20.GL_ONE_MINUS_SRC_ALPHA);
-    Gdx.gl.glBlendFuncSeparate(
-      GL20.GL_SRC_ALPHA,
-      GL20.GL_ONE_MINUS_SRC_ALPHA,
-      GL20.GL_SRC_ALPHA,
-      GL20.GL_ONE_MINUS_SRC_ALPHA);
+    Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA,GL20.GL_ONE_MINUS_SRC_ALPHA);
+    // Gdx.gl.glBlendFuncSeparate(
+    //   GL20.GL_SRC_ALPHA,
+    //   GL20.GL_ONE_MINUS_SRC_ALPHA,
+    //   GL20.GL_SRC_ALPHA,
+    //   GL20.GL_ONE_MINUS_SRC_ALPHA);
   }
   public void endBlend() {
     Gdx.gl.glDisable(GL20.GL_BLEND);
