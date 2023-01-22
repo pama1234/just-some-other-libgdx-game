@@ -46,8 +46,8 @@ public class Screen0010 extends ScreenCore3D{
   }
   public void shaderUpdate() {
     shader.setUniformf("iTime",frameCount/30f);
-    idata[0]=mouse.x;
-    idata[1]=height-mouse.y;
+    // idata[0]=mouse.x;
+    // idata[1]=height-mouse.y;
     shader.setUniform4fv("iMouse",idata,0,4);
     // idata[0]=(cam3d.viewDir.x()-UtilMath.PI);
     // idata[1]=(cam3d.viewDir.y()+UtilMath.PI);
