@@ -6,13 +6,11 @@ import java.util.stream.Stream;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
-import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock.TilemapRenderer;
 import pama1234.gdx.game.state.state0001.game.player.Player;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
@@ -22,41 +20,6 @@ import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 
 public class RegionCenter extends EntityCenter<Screen0011,Region> implements LoadAndSave{
-  public static class TilemapRenderer0001 implements TilemapRenderer{
-    public World0001 pw;
-    public SpriteBatch batch;
-    public ShaderProgram shader;
-    public int tileSizeAttr;
-    public TilemapRenderer0001(World0001 pw,SpriteBatch tilemapBatch) {
-      this.pw=pw;
-      this.batch=tilemapBatch;
-      shader=tilemapBatch.getShader();
-      initInfo();
-    }
-    public void initInfo() {
-      tileSizeAttr=shader.getAttributeLocation("tileSize");
-    }
-    public void updateInfo() {
-      shader.bind();
-      // shader.setUniformi(tileSizeAttr,pw.settings.blockWidth,pw.settings.blockHeight);
-      shader.setUniformf(tileSizeAttr,pw.settings.blockWidth+0.01f,pw.settings.blockHeight+0.01f);
-    }
-    @Override
-    public void tint(float r,float g,float b) {
-      batch.setColor(r/255f,g/255f,b/255f,1);
-    }
-    @Override
-    public void tile(TextureRegion in,boolean next) {}
-    @Override
-    public void tile(TextureRegion in,float x,float y) {
-      batch.draw(in,x,y,pw.settings.blockWidth+0.01f,pw.settings.blockHeight+0.01f);
-    }
-    @Deprecated
-    @Override
-    public void tile(TextureRegion in,float x,float y,float w,float h) {
-      batch.draw(in,x,y,w,h);
-    }
-  }
   public static class RegionData{
     @Tag(0)
     public String name;
@@ -204,7 +167,6 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   @Override
   public void update() {
     // super.update();
-    tilemapRenderer.batch.setProjectionMatrix(pw.p.cam.camera.combined);
     tilemapRenderer.updateInfo();
   }
   @Override

@@ -1,7 +1,6 @@
 package pama1234.gdx.game.state.state0001.game.world;
 
 import com.badlogic.gdx.Gdx;
-import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.Game;
@@ -26,17 +25,6 @@ import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.math.UtilMath;
 
 public class World0001 extends World<Screen0011,Game> implements StateEntityListener0001{
-  public static class WorldData{
-    @Tag(0)
-    public String name;
-    @Tag(1)
-    public int version;
-    public WorldData(String name,int version) {
-      this.name=name;
-      this.version=version;
-    }
-  }
-  public WorldData data;
   public String dataDir="data/saved/test-world/";
   //---
   public MetaBlockCenter0001 metaBlocks;
