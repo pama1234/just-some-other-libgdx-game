@@ -7,6 +7,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
 import pama1234.gdx.game.app.Screen0011;
@@ -16,28 +17,46 @@ import pama1234.gdx.game.state.state0001.game.player.Player;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.gdx.game.util.Mutex;
-import pama1234.gdx.util.app.UtilScreen;
 import pama1234.gdx.util.wrapper.EntityCenter;
 import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 
 public class RegionCenter extends EntityCenter<Screen0011,Region> implements LoadAndSave{
-  // public static class TilemapRenderer0001 extends TilemapRenderer{
-  //   @Override
-  //   public void tint(float r,float g,float b) {
-  //     tilemapBatch.setColor(r/255f,g/255f,b/255f,1);
-  //   }
-  //   @Override
-  //   public void tile(TextureRegion in,boolean next) {}
-  //   @Override
-  //   public void tile(TextureRegion in,float x,float y) {
-  //     tilemapBatch.draw(in,x,y,pw.settings.blockWidth+0.01f,pw.settings.blockHeight+0.01f);
-  //   }
-  //   @Override
-  //   public void tile(TextureRegion in,float x,float y,float w,float h) {
-  //     tilemapBatch.draw(in,x,y,w,h);
-  //   }
-  // }
+  public static class TilemapRenderer0001 implements TilemapRenderer{
+    public World0001 pw;
+    public SpriteBatch batch;
+    public ShaderProgram shader;
+    public int tileSizeAttr;
+    public TilemapRenderer0001(World0001 pw,SpriteBatch tilemapBatch) {
+      this.pw=pw;
+      this.batch=tilemapBatch;
+      shader=tilemapBatch.getShader();
+      initInfo();
+    }
+    public void initInfo() {
+      tileSizeAttr=shader.getAttributeLocation("tileSize");
+    }
+    public void updateInfo() {
+      shader.bind();
+      // shader.setUniformi(tileSizeAttr,pw.settings.blockWidth,pw.settings.blockHeight);
+      shader.setUniformf(tileSizeAttr,pw.settings.blockWidth+0.01f,pw.settings.blockHeight+0.01f);
+    }
+    @Override
+    public void tint(float r,float g,float b) {
+      batch.setColor(r/255f,g/255f,b/255f,1);
+    }
+    @Override
+    public void tile(TextureRegion in,boolean next) {}
+    @Override
+    public void tile(TextureRegion in,float x,float y) {
+      batch.draw(in,x,y,pw.settings.blockWidth+0.01f,pw.settings.blockHeight+0.01f);
+    }
+    @Deprecated
+    @Override
+    public void tile(TextureRegion in,float x,float y,float w,float h) {
+      batch.draw(in,x,y,w,h);
+    }
+  }
   public static class RegionData{
     @Tag(0)
     public String name;
@@ -60,8 +79,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   public RegionPool pool;
   public LoopThread[] loops;
   public LoopThread updateLoop,fullMapUpdateDisplayLoop,updateDisplayLoop;
-  public TilemapRenderer tilemapRenderer;
-  public SpriteBatch tilemapBatch;
+  public TilemapRenderer0001 tilemapRenderer;
   public RegionCenter(Screen0011 p,World0001 pw) {
     this(p,pw,Gdx.files.local(pw.dataDir+"regions.bin"));
   }
@@ -78,23 +96,9 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     fullMapUpdateDisplayLoop.start();
     updateDisplayLoop=loops[2]=createUpdateDisplayLoop();
     updateDisplayLoop.start();
-    tilemapBatch=new SpriteBatch(1000,UtilScreen.createDefaultShader());
-    tilemapRenderer=new TilemapRenderer() {
-      @Override
-      public void tint(float r,float g,float b) {
-        tilemapBatch.setColor(r/255f,g/255f,b/255f,1);
-      }
-      @Override
-      public void tile(TextureRegion in,boolean next) {}
-      @Override
-      public void tile(TextureRegion in,float x,float y) {
-        tilemapBatch.draw(in,x,y,pw.settings.blockWidth+0.01f,pw.settings.blockHeight+0.01f);
-      }
-      @Override
-      public void tile(TextureRegion in,float x,float y,float w,float h) {
-        tilemapBatch.draw(in,x,y,w,h);
-      }
-    };
+    tilemapRenderer=new TilemapRenderer0001(pw,new SpriteBatch(1000,new ShaderProgram(
+      Gdx.files.internal("shader/main0002/tilemap.vert").readString(),
+      Gdx.files.internal("shader/main0002/tilemap.frag").readString())));
   }
   @Override
   public void resume() {
@@ -200,7 +204,8 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   @Override
   public void update() {
     // super.update();
-    tilemapBatch.setProjectionMatrix(pw.p.cam.camera.combined);
+    tilemapRenderer.batch.setProjectionMatrix(pw.p.cam.camera.combined);
+    tilemapRenderer.updateInfo();
   }
   @Override
   public void display() {
@@ -209,7 +214,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   }
   public void fourPointDisplay() {
     // p.imageBatch.begin();
-    tilemapBatch.begin();
+    tilemapRenderer.batch.begin();
     int x1=pw.xToBlockCord(p.cam2d.x1()),
       y1=pw.xToBlockCord(p.cam2d.y1()),
       x2=pw.xToBlockCord(p.cam2d.x2()),
@@ -227,8 +232,8 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
         blockType.display(tilemapRenderer,block,tx,ty);
       }
     }
-    tilemapBatch.end();
-    tilemapBatch.setColor(1,1,1,1);
+    tilemapRenderer.batch.end();
+    tilemapRenderer.batch.setColor(1,1,1,1);
     // p.imageBatch.end();
     // p.noTint();
   }
