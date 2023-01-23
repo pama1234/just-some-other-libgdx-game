@@ -10,6 +10,8 @@ import java.io.FileOutputStream;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.esotericsoftware.kryo.KryoException;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
@@ -34,6 +36,8 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     public boolean mute;
     @Tag(3)
     public float volume=1;
+    @Tag(4)
+    public String serverIp="127.0.0.1";
   }
   public SettingsData settings;
   public FileHandle settingsFile=Gdx.files.local("data/settings.bin");
@@ -42,20 +46,27 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   //---
   public long renderTime,updateTime;
   public float debugTextX,debugTextY,debugTextH,debugTextCountY;
+  //---
+  public SpriteBatch tilemapBatch;
   @Override
   public void setup() {
     noStroke();
     loadSettings();
-    MusicAsset.load_init();
+    tilemapBatch=new SpriteBatch(1000,createDefaultShader());
     StateGenerator0001.loadState0001(this);
     firstRun=!Gdx.files.local("data/firstRun.txt").exists();
     // firstRun=true;
     if(firstRun) {
+      MusicAsset.load_init();
       state(State0001.FirstRun);
       Gdx.files.local("data/firstRun.txt").writeString("1234",false);
-    }else {
-      state(State0001.Loading);
-    }
+    }else state(State0001.Loading);
+  }
+  public void tile(TextureRegion in,float x,float y) {
+    image(in,x,y);
+  }
+  public void tile(TextureRegion in,float x,float y,float w,float h) {
+    image(in,x,y,w,h);
   }
   public void loadSettings() {
     if(!settingsFile.exists()) {

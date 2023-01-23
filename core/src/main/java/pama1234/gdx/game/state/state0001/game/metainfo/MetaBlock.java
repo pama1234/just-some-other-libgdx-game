@@ -2,7 +2,6 @@ package pama1234.gdx.game.state.state0001.game.metainfo;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
@@ -72,7 +71,7 @@ public class MetaBlock extends MetaInfoBase{
     // if(displayUpdater!=null)
     displayUpdater.update(in,x,y);
   }
-  public void display(Screen0011 p,Block in,int x,int y) {
+  public void display(TilemapRenderer p,Block in,int x,int y) {
     // p.image(tiles[in.displayType],x,y,pc.pw.blockWidth+0.01f,pc.pw.blockHeight+0.01f);
     displayer.display(p,in,x,y);
   }
@@ -115,11 +114,17 @@ public class MetaBlock extends MetaInfoBase{
   }
   @FunctionalInterface
   public interface BlockDisplayer{
-    void display(Screen0011 p,Block in,int x,int y);
+    void display(TilemapRenderer p,Block in,int x,int y);
   }
   @FunctionalInterface
   public interface BlockChanger{
     void change(Block block,MetaBlock type);
+  }
+  public interface TilemapRenderer{
+    public void tint(float x,float y,float z);
+    public void tile(TextureRegion in,boolean next);
+    public void tile(TextureRegion in,float x,float y);
+    public void tile(TextureRegion in,float x,float y,float w,float h);
   }
   public static final BlockUpdater doNothing=(in,x,y)-> {},lightUpdater=(in,x,y)-> {
     in.light.update();
@@ -162,29 +167,29 @@ public class MetaBlock extends MetaInfoBase{
     return UtilMath.constrain(UtilMath.floor(UtilMath.map(count*2,0,in,0,16)),0,16);
   }
   public static final BlockDisplayer defaultBlockDisplayer=(p,in,x,y)-> {
-    World0001 world=in.type.pc.pw;
+    // World0001 world=in.type.pc.pw;
     p.tint(
       getLighting(in.light.r()),
       getLighting(in.light.g()),
       getLighting(in.light.b()));
     int tp_0=in.displayType[0];
-    p.innerImage(in.type.tiles[tp_0],x,y,world.settings.blockWidth+0.01f,world.settings.blockHeight+0.01f);
+    p.tile(in.type.tiles[tp_0],x,y);
   },fullBlockDisplayer=(p,in,x,y)-> {
-    World0001 world=in.type.pc.pw;
+    // World0001 world=in.type.pc.pw;
     p.tint(
       getLighting(in.light.r()),
       getLighting(in.light.g()),
       getLighting(in.light.b()));
     int tp_0=in.displayType[0];
-    int tw=world.settings.blockWidth,
-      th=world.settings.blockHeight;
-    p.innerImage(in.type.tiles[tp_0],x,y,tw+0.01f,th+0.01f);
+    // int tw=world.settings.blockWidth,
+    //   th=world.settings.blockHeight;
+    p.tile(in.type.tiles[tp_0],x,y);
     int tp_1=in.displayType[1];
     if(tp_1!=0) {
-      if((tp_0&2)+(tp_0&8)==0&&(tp_1&4)!=0) p.innerImage(in.type.tiles[16],x,y,tw+0.01f,th+0.01f);
-      if((tp_0&2)+(tp_0&4)==0&&(tp_1&2)!=0) p.innerImage(in.type.tiles[17],x,y,tw+0.01f,th+0.01f);
-      if((tp_0&1)+(tp_0&8)==0&&(tp_1&8)!=0) p.innerImage(in.type.tiles[18],x,y,tw+0.01f,th+0.01f);
-      if((tp_0&1)+(tp_0&4)==0&&(tp_1&1)!=0) p.innerImage(in.type.tiles[19],x,y,tw+0.01f,th+0.01f);
+      if((tp_0&2)+(tp_0&8)==0&&(tp_1&4)!=0) p.tile(in.type.tiles[16],x,y);
+      if((tp_0&2)+(tp_0&4)==0&&(tp_1&2)!=0) p.tile(in.type.tiles[17],x,y);
+      if((tp_0&1)+(tp_0&8)==0&&(tp_1&8)!=0) p.tile(in.type.tiles[18],x,y);
+      if((tp_0&1)+(tp_0&4)==0&&(tp_1&1)!=0) p.tile(in.type.tiles[19],x,y);
     }
   };
 }

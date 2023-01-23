@@ -19,6 +19,7 @@ public class Settings extends StateEntity0001{
     super(p);
     buttons=UiGenerator.genButtons_0004(p);
     buttonsCam=UiGenerator.genButtons_0006(p,this);
+    volumeSlider.pos=p.settings.volume;
     screenTextFields=UiGenerator.genTextFields_0001(p);
     camTextFields=UiGenerator.genTextFields_0002(p);
   }

@@ -5,19 +5,39 @@ import java.util.stream.Stream;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
+import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock.TilemapRenderer;
 import pama1234.gdx.game.state.state0001.game.player.Player;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.gdx.game.util.Mutex;
+import pama1234.gdx.util.app.UtilScreen;
 import pama1234.gdx.util.wrapper.EntityCenter;
 import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 
 public class RegionCenter extends EntityCenter<Screen0011,Region> implements LoadAndSave{
+  // public static class TilemapRenderer0001 extends TilemapRenderer{
+  //   @Override
+  //   public void tint(float r,float g,float b) {
+  //     tilemapBatch.setColor(r/255f,g/255f,b/255f,1);
+  //   }
+  //   @Override
+  //   public void tile(TextureRegion in,boolean next) {}
+  //   @Override
+  //   public void tile(TextureRegion in,float x,float y) {
+  //     tilemapBatch.draw(in,x,y,pw.settings.blockWidth+0.01f,pw.settings.blockHeight+0.01f);
+  //   }
+  //   @Override
+  //   public void tile(TextureRegion in,float x,float y,float w,float h) {
+  //     tilemapBatch.draw(in,x,y,w,h);
+  //   }
+  // }
   public static class RegionData{
     @Tag(0)
     public String name;
@@ -40,6 +60,8 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   public RegionPool pool;
   public LoopThread[] loops;
   public LoopThread updateLoop,fullMapUpdateDisplayLoop,updateDisplayLoop;
+  public TilemapRenderer tilemapRenderer;
+  public SpriteBatch tilemapBatch;
   public RegionCenter(Screen0011 p,World0001 pw) {
     this(p,pw,Gdx.files.local(pw.dataDir+"regions.bin"));
   }
@@ -56,6 +78,23 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     fullMapUpdateDisplayLoop.start();
     updateDisplayLoop=loops[2]=createUpdateDisplayLoop();
     updateDisplayLoop.start();
+    tilemapBatch=new SpriteBatch(1000,UtilScreen.createDefaultShader());
+    tilemapRenderer=new TilemapRenderer() {
+      @Override
+      public void tint(float r,float g,float b) {
+        tilemapBatch.setColor(r/255f,g/255f,b/255f,1);
+      }
+      @Override
+      public void tile(TextureRegion in,boolean next) {}
+      @Override
+      public void tile(TextureRegion in,float x,float y) {
+        tilemapBatch.draw(in,x,y,pw.settings.blockWidth+0.01f,pw.settings.blockHeight+0.01f);
+      }
+      @Override
+      public void tile(TextureRegion in,float x,float y,float w,float h) {
+        tilemapBatch.draw(in,x,y,w,h);
+      }
+    };
   }
   @Override
   public void resume() {
@@ -161,6 +200,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   @Override
   public void update() {
     // super.update();
+    tilemapBatch.setProjectionMatrix(pw.p.cam.camera.combined);
   }
   @Override
   public void display() {
@@ -168,7 +208,8 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     fourPointDisplay();
   }
   public void fourPointDisplay() {
-    p.imageBatch.begin();
+    // p.imageBatch.begin();
+    tilemapBatch.begin();
     int x1=pw.xToBlockCord(p.cam2d.x1()),
       y1=pw.xToBlockCord(p.cam2d.y1()),
       x2=pw.xToBlockCord(p.cam2d.x2()),
@@ -183,11 +224,13 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
         if(blockType==null) continue;
         // blockType.updateDisplay(block,i,j);
         if(!blockType.display) continue;
-        blockType.display(p,block,tx,ty);
+        blockType.display(tilemapRenderer,block,tx,ty);
       }
     }
-    p.imageBatch.end();
-    p.noTint();
+    tilemapBatch.end();
+    tilemapBatch.setColor(1,1,1,1);
+    // p.imageBatch.end();
+    // p.noTint();
   }
   public void unlockAllLoop() {
     for(LoopThread e:loops) e.lock.unlock();
