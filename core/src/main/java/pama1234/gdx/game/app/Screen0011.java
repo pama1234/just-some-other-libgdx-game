@@ -28,14 +28,17 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   public static class SettingsData{
     @Tag(0)
     public boolean showEarth=true;
+    @Tag(1)
+    public boolean debugInfo;
+    @Tag(2)
+    public boolean mute;
+    @Tag(3)
+    public float volume=1;
   }
   public SettingsData settings;
   public FileHandle settingsFile=Gdx.files.local("data/settings.bin");
   public State0001 state;
   public boolean firstRun;
-  public boolean debugInfo;
-  public boolean mute;
-  public float volume=1;
   //---
   public long renderTime,updateTime;
   public float debugTextX,debugTextY,debugTextH,debugTextCountY;
@@ -121,7 +124,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   }
   @Override
   public void doDraw() {
-    if(debugInfo) {
+    if(settings.debugInfo) {
       Tools.time();
       super.doDraw();
       renderTime=Tools.period();
@@ -129,7 +132,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   }
   @Override
   public void doUpdate() {
-    if(debugInfo) {
+    if(settings.debugInfo) {
       Tools.time();
       super.doUpdate();
       updateTime=Tools.period();
@@ -137,7 +140,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   }
   @Override
   public void display() {
-    if(debugInfo) {
+    if(settings.debugInfo) {
       textScale(pus/2f);
       initDebugText();
       debugText("Memory   ="+getMemory()+"Mb");

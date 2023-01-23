@@ -1,9 +1,12 @@
 package pama1234.gdx.game.ui.generator;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.g2d.Animation;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.app.app0002.Screen0006;
+import pama1234.gdx.game.asset.GifAsset;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.Settings;
@@ -71,21 +74,21 @@ public class UiGenerator{
   public static <T extends Screen0011> TextButtonCam<?>[] genButtons_0006(T p,Settings ps) {
     return new TextButtonCam[] {
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
-        p.mute=!p.mute;
-        if(p.mute) self.updateText();
-      },self->self.text=p.mute?"静音：是":"静音：否",()->18,()->0,()->0),
+        p.settings.mute=!p.settings.mute;
+        if(p.settings.mute) self.updateText();
+      },self->self.text=p.settings.mute?"静音：是":"静音：否",()->18,()->0,()->0),
       ps.volumeSlider=new Slider<T>(p,true,()->true,self-> {
-        p.volume=ps.volumeSlider.pos;
+        p.settings.volume=ps.volumeSlider.pos;
         self.updateText();
       },self-> {},self-> {},
-        self->self.text="音量 "+String.format("%6.2f",p.volume*100),()->18,()->0,()->20,1),
+        self->self.text="音量 "+String.format("%6.2f",p.settings.volume*100),()->18,()->0,()->20,1),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
-        p.debugInfo=!p.debugInfo;
+        p.settings.debugInfo=!p.settings.debugInfo;
         Game game=(Game)State0001.Game.entity;
         // game.debug=p.debugInfo;
-        if(game.debug=p.debugInfo) game.createDebugDisplay();
+        if(game.debug=p.settings.debugInfo) game.createDebugDisplay();
         self.updateText();
-      },self->self.text=p.debugInfo?"显示文本调试信息：是":"显示文本调试信息：否",()->18,()->0,()->40),
+      },self->self.text=p.settings.debugInfo?"显示文本调试信息：是":"显示文本调试信息：否",()->18,()->0,()->40),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         Game game=(Game)State0001.Game.entity;
         game.debugGraphics=!game.debugGraphics;
@@ -101,6 +104,7 @@ public class UiGenerator{
       },self->self.text="清理内存垃圾",()->18,()->0,()->100),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.showEarth=!p.settings.showEarth;
+        if(p.settings.showEarth&&GifAsset.bigEarth==null) GifAsset.bigEarth=GifAsset.load(Animation.PlayMode.LOOP,Gdx.files.internal("image/bigEarth.gif").read());
         self.updateText();
       },self->self.text="开始界面显示地球："+(p.settings.showEarth?"是":"否"),()->18,()->0,()->120),
     };

@@ -25,8 +25,8 @@ public class Settings extends StateEntity0001{
   @Override
   public void from(State0001 in) {
     p.backgroundColor(0);
-    // p.backgroundColor(255);
-    // p.cam.noGrab();
+    p.cam2d.minScale=p.isAndroid?0.5f:1f;
+    p.cam2d.testScale();
     for(Button<?> e:buttons) p.centerScreen.add.add(e);
     for(Button<?> e:buttonsCam) p.centerCam.add.add(e);
     for(TextField e:screenTextFields) p.screenStage.addActor(e);
@@ -38,6 +38,8 @@ public class Settings extends StateEntity0001{
     for(Button<?> e:buttonsCam) p.centerCam.remove.add(e);
     for(TextField e:screenTextFields) e.remove();
     for(TextField e:camTextFields) e.remove();
+    p.cam2d.minScale=1;
+    p.cam2d.testScale();
   }
   @Override
   public void displayCam() {}

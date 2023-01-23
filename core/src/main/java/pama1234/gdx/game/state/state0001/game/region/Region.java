@@ -54,7 +54,7 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
   }
   @Override
   public void load() {//TODO
-    if(p.debugInfo) System.out.println("inner load region "+x+" "+y);
+    if(p.settings.debugInfo) System.out.println("inner load region "+x+" "+y);
     try(Input input=new Input(new FileInputStream(dataLocation.file()))) {
       Region out=kryo.readObject(input,Region.class);
       input.close();
@@ -65,7 +65,7 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
   }
   @Override
   public void save() {//TODO
-    if(p.debugInfo) System.out.println("inner save region "+x+" "+y);
+    if(p.settings.debugInfo) System.out.println("inner save region "+x+" "+y);
     boolean tb_1=false;
     for(int i=0;i<data.length;i++) {
       for(int j=0;j<data[i].length;j++) {
