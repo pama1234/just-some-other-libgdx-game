@@ -18,7 +18,7 @@ else {
 }
 
 sourceSets.main.resources.srcDirs += [ rootProject.file('assets').path ]
-mainClassName = 'pama1234.gdx.game.app.lwjgl3.Lwjgl3Launcher'
+mainClassName = 'pama1234.gdx.game.app.lwjgl3.Launcher'
 eclipse.project.name = appName + '-lwjgl3'
 sourceCompatibility = 17
 
