@@ -95,7 +95,7 @@ public class World0001Generator{
       // in.toolType=MetaItem.no;
       in.weaponType=MetaItem.hack;
       in.speed=2;
-      in.damage=4;
+      in.damage=0.04f;
       in.tiles=new TextureRegion[1];
       in.tiles[0]=ImageAsset.items[2][4];
     }));

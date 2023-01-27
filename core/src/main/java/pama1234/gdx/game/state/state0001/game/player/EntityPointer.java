@@ -14,7 +14,6 @@ public class EntityPointer{
   public World0001 pw;
   public GetInventorySlot slot;
   public LivingEntity entity;
-  public boolean active;
   public int task;
   public EntityPointer(World0001 in) {
     pw=in;
@@ -41,7 +40,11 @@ public class EntityPointer{
   }
   public void updateTask() {
     if(entity==null) task=idle;
-    if(task==attack) entity.life.des-=slot().item.type.damage;
+    else if(task==attack) {
+      Item item=slot().item;
+      if(item!=null) entity.life.des-=item.type.damage;
+      else entity.life.des-=0.01f;
+    }
     testTaskComplete();
   }
   public static float getSpeed(Item item) {

@@ -77,7 +77,7 @@ public class PlayerController extends Entity<Screen0011>{
     LivingEntity entity=selectEntity.entity;
     float tl=UtilMath.mag(entity.type.w,entity.type.h)/2f+2;
     float tcx=entity.cx(),tcy=entity.cy();
-    p.tint(255,191);
+    p.tint(255,127);
     p.image(ImageAsset.select,tcx-tl,tcy-tl,tl,tl);
     p.image(ImageAsset.select,tcx+tl,tcy-tl,-tl,tl);
     p.image(ImageAsset.select,tcx-tl,tcy+tl,tl,-tl);
