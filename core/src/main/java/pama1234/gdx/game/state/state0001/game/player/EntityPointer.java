@@ -13,11 +13,9 @@ public class EntityPointer{
   public static final int idle=0,attack=1;
   public World0001 pw;
   public GetInventorySlot slot;
-  // public List<LivingEntity> entityList;
-  public LivingEntity selectEntity;
+  public LivingEntity entity;
   public boolean active;
   public int task;
-  // public float progress;
   public EntityPointer(World0001 in) {
     pw=in;
   }
@@ -30,7 +28,6 @@ public class EntityPointer{
   }
   public void startTask(int type) {
     task=type;
-    // progress=0;
   }
   public void startTaskButtonInfo(int button) {
     switch(button) {
@@ -38,35 +35,32 @@ public class EntityPointer{
         startTask(attack);
       }
         break;
-      case Buttons.RIGHT: {
-        // startTask(attack);//TODO
-      }
+      case Buttons.RIGHT: {}
         break;
     }
   }
   public void updateTask() {
-    // progress+=getSpeed(slot.get().item);
-    // System.out.println(getSpeed(slot.get().item,block));
+    if(entity==null) task=idle;
+    if(task==attack) entity.life.des-=slot().item.type.damage;
     testTaskComplete();
   }
   public static float getSpeed(Item item) {
     if(item==null) return 1;
     MetaItem mi=item.type;
     int itemType=mi.toolType;
-    // System.out.println(itemType+" "+blockType);
     if(itemType==MetaItem.notWeapon) return 1;
     else return mi.speed;
   }
   public void testTaskComplete() {
     switch(task) {
       case attack: {
-        if(selectEntity.life.des<=0) stopTask();
+        if(entity.life.des<=0) stopTask();
       }
         break;
     }
   }
   public void stopTask() {
     task=idle;
-    // progress=0;
+    entity=null;
   }
 }

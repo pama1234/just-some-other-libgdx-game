@@ -45,7 +45,8 @@ public class PlayerController extends Entity<Screen0011>{
   public float jumpForceMult=1.5f;
   public MovementLimitBox limitBox;
   public RectF[] cullRects;
-  public LivingEntity selectEntity;
+  // public LivingEntity selectEntity;
+  public EntityPointer selectEntity;
   public ControllerBlockPointer selectBlock;
   public float camScale=2;
   public float itemPickDist=18,itemPickMoveDist=72;
@@ -61,19 +62,21 @@ public class PlayerController extends Entity<Screen0011>{
       };
     }else cullRects=new RectF[0];
     limitBox=new MovementLimitBox(player);
+    selectEntity=new EntityPointer(player.pw,()->player.inventory.select().data);
     selectBlock=new ControllerBlockPointer(new BlockPointer(player.pw,()->player.inventory.select().data));
     // player.outerBox=limitBox;//TODO
   }
   @Override
   public void display() {
     // p.beginBlend();
-    if(selectEntity!=null) drawSelectEntity();
+    if(selectEntity.entity!=null) drawSelectEntity();
     if(selectBlock.data.active) drawSelectBlock();
     // p.endBlend();
   }
   public void drawSelectEntity() {
-    float tl=UtilMath.mag(selectEntity.type.w,selectEntity.type.h)/2f+2;
-    float tcx=selectEntity.cx(),tcy=selectEntity.cy();
+    LivingEntity entity=selectEntity.entity;
+    float tl=UtilMath.mag(entity.type.w,entity.type.h)/2f+2;
+    float tcx=entity.cx(),tcy=entity.cy();
     p.tint(255,191);
     p.image(ImageAsset.select,tcx-tl,tcy-tl,tl,tl);
     p.image(ImageAsset.select,tcx+tl,tcy-tl,-tl,tl);
@@ -128,6 +131,7 @@ public class PlayerController extends Entity<Screen0011>{
       walkEvent();
     }
     if(!player.pw.p.isAndroid) updateMouseInfo();
+    selectEntity.updateTask();//TODO
   }
   public void updateMouseInfo() {
     selectBlock.data.active=false;
@@ -158,7 +162,7 @@ public class PlayerController extends Entity<Screen0011>{
       player.inventory.displayStateChange();
       return;
     }
-    if(updateAndTestSelectEntity(tx,ty)) return;
+    if(updateAndTestSelectEntity(tx,ty,info.button)) return;
     Block block=player.getBlock(tx,ty);
     selectBlock.data.active=true;
     selectBlock.data.update(block,tx,ty);
@@ -186,19 +190,20 @@ public class PlayerController extends Entity<Screen0011>{
     if(p.isAndroid) selectBlock.data.active=false;
     selectBlock.testStopTask(info);
   }
-  public boolean updateAndTestSelectEntity(int tx,int ty) {
+  public boolean updateAndTestSelectEntity(int tx,int ty,int button) {
     for(EntityCenter<Screen0011,? extends GamePointEntity<?>> l:player.pw.entities.list) {
       if(l==player.pw.entities.items) continue;
       for(GamePointEntity<?> e:l.list) {
         if(e instanceof LivingEntity live) {
           if(live.inOuterBox(tx,ty)) {
-            selectEntity=live;
+            if(selectEntity.entity!=live) selectEntity.entity=live;
+            else selectEntity.startTaskButtonInfo(button);
             return true;
           }
         }
       }
     }
-    selectEntity=null;
+    selectEntity.entity=null;
     return false;
   }
   public boolean updateAndTestInventorySlot(float x,float y,int button) {
