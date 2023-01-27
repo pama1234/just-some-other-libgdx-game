@@ -16,6 +16,7 @@ public class MainPlayer extends Player{
     ctrl=new PlayerController(p,this);
     inventory=new Inventory(this,52,9);
     // gameMode=GameMode.creative;
+    inventory.data[10].item=pw.metaItems.sapling.createItem(64);
     inventory.data[9].item=pw.metaItems.stoneSword.createItem(1);
     inventory.data[8].item=pw.metaItems.chisel.createItem(1);
     inventory.data[7].item=pw.metaItems.axe.createItem(1);

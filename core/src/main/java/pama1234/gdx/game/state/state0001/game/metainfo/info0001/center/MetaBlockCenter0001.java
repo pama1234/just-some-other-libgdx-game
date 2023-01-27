@@ -3,6 +3,7 @@ package pama1234.gdx.game.state.state0001.game.metainfo.info0001.center;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaInfoUtil.MetaBlockCenter;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Dirt;
+import pama1234.gdx.game.state.state0001.game.region.block.block0001.Sapling;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Stone;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.TreeBranch;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.TreeLeaf;
@@ -21,6 +22,7 @@ public class MetaBlockCenter0001 extends MetaBlockCenter{
   public TreeBranch branch;
   public TreeLeaf leaf;
   public Workbench workbench;
+  public Sapling sapling;
   public MetaBlockCenter0001(World0001 pw) {
     this.pw=pw;
     idg=new IDGenerator();

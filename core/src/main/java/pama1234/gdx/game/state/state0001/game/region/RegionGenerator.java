@@ -61,6 +61,7 @@ public class RegionGenerator{
               else if(random>0.3f) tb=new Block(pr.pw.metaBlocks.dirt);
               else tb=new Block(pr.pw.metaBlocks.air);
               blockData[n][m]=tb;
+              // if(random>0.2f&&random<=0.3f) {}
             }
           }
         }

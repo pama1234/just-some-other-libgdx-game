@@ -5,7 +5,6 @@ import com.badlogic.gdx.Gdx;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.State0001;
-import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntityListener0001;
 import pama1234.gdx.game.state.state0001.game.entity.GameEntityCenter;
 import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
 import pama1234.gdx.game.state.state0001.game.entity.entity0001.MobEntity;
@@ -24,7 +23,7 @@ import pama1234.gdx.game.state.state0001.game.region.RegionCenter;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.math.UtilMath;
 
-public class World0001 extends World<Screen0011,Game> implements StateEntityListener0001{
+public class World0001 extends WorldBase2D{
   public String dataDir="data/saved/test-world/";
   //---
   public MetaBlockCenter0001 metaBlocks;

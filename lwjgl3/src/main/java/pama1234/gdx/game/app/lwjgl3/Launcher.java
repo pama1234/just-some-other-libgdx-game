@@ -21,7 +21,8 @@ public class Launcher{
 		Lwjgl3ApplicationConfiguration configuration=new Lwjgl3ApplicationConfiguration();
 		configuration.setTitle("just-another-particle-system");
 		configuration.useVsync(true);
-		configuration.setForegroundFPS(Lwjgl3ApplicationConfiguration.getDisplayMode().refreshRate);
+		configuration.setForegroundFPS(60);
+		// configuration.setForegroundFPS(Lwjgl3ApplicationConfiguration.getDisplayMode().refreshRate);
 		configuration.setWindowedMode(640,480);
 		configuration.setWindowIcon("icon/icon128.png","icon/icon64.png","icon/icon32.png","icon/icon16.png");
 		return configuration;

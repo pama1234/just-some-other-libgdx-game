@@ -12,6 +12,7 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaCreat
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemCenter0001;
 import pama1234.gdx.game.state.state0001.game.player.Player.PlayerType;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Dirt;
+import pama1234.gdx.game.state.state0001.game.region.block.block0001.Sapling;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Stone;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.TreeBranch;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.TreeLeaf;
@@ -28,6 +29,7 @@ public class World0001Generator{
     metaBlocks.list.add(metaBlocks.branch=new TreeBranch(metaBlocks,metaBlocks.id()));
     metaBlocks.list.add(metaBlocks.leaf=new TreeLeaf(metaBlocks,metaBlocks.id()));
     metaBlocks.list.add(metaBlocks.workbench=new Workbench(metaBlocks,metaBlocks.id()));
+    metaBlocks.list.add(metaBlocks.sapling=new Sapling(metaBlocks,metaBlocks.id()));
     return metaBlocks;
   }
   public static MetaItemCenter0001 createItemC(World0001 pw) {
@@ -95,6 +97,11 @@ public class World0001Generator{
       in.damage=4;
       in.tiles=new TextureRegion[1];
       in.tiles[0]=ImageAsset.items[2][4];
+    }));
+    metaItems.list.add(metaItems.sapling=new MetaItem(metaItems,"sapling",metaItems.id(),in-> {
+      in.blockType=pw.metaBlocks.sapling;
+      in.tiles=new TextureRegion[1];
+      in.tiles[0]=ImageAsset.items[1][3];
     }));
     return metaItems;
   }

@@ -13,6 +13,7 @@ public class AndroidLauncher extends AndroidApplication {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration configuration = new AndroidApplicationConfiguration();
+		// configuration.useGyroscope=true;
 		initialize(new MainApp(), configuration);
 		// initialize(new Game(), configuration);
 	}
