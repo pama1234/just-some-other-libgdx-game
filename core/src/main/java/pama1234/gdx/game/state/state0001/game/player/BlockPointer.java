@@ -3,6 +3,7 @@ package pama1234.gdx.game.state.state0001.game.player;
 import com.badlogic.gdx.Input.Buttons;
 
 import pama1234.gdx.game.state.state0001.game.item.Inventory.InventorySlot;
+import pama1234.gdx.game.state.state0001.game.item.Inventory.InventorySlot.GetInventorySlot;
 import pama1234.gdx.game.state.state0001.game.item.Item;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
@@ -10,10 +11,6 @@ import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 
 public class BlockPointer{
-  @FunctionalInterface
-  public interface GetInventorySlot{
-    public InventorySlot get();
-  }
   public static final int idle=0,build=1,destroy=2;
   public World0001 pw;
   public GetInventorySlot slot;
@@ -72,8 +69,8 @@ public class BlockPointer{
     int blockType=mb.blockType;
     // System.out.println(itemType+" "+blockType);
     if(itemType==MetaItem.notTool) return 1;
-    else if(itemType==MetaItem.allTool) return blockType==MetaBlock.noType?1:mi.digSpeed;
-    else if(itemType!=MetaItem.chisel) return itemType==blockType?mi.digSpeed:1;
+    else if(itemType==MetaItem.allTool) return blockType==MetaBlock.noType?1:mi.speed;
+    else if(itemType!=MetaItem.chisel) return itemType==blockType?mi.speed:1;
     else return 1;
   }
   public void testTaskComplete() {
@@ -91,11 +88,12 @@ public class BlockPointer{
         }
       }
         break;
-      case destroy:
+      case destroy: {
         if(progress>=block.type.destroyTime) {
           pw.destroyBlock(this,block,x,y);
           progress=0;
         }
+      }
         break;
     }
   }

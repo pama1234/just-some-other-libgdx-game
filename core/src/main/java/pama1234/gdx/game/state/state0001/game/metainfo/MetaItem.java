@@ -6,12 +6,14 @@ import pama1234.gdx.game.state.state0001.game.item.Item;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemCenter0001;
 
 public class MetaItem extends MetaInfoBase{
-  public static final int notTool=0,allTool=1,shovel=2,pickaxe=3,axe=4,chisel=5;
+  public static final int notTool=0,allTool=1,shovel=2,pickaxe=3,axe=4,chisel=5;//工具类型
+  public static final int notWeapon=0,allWeapon=1,stab=2,hack=3,toss=4,fly=5;//武器类型
   public MetaItemCenter0001 pc;
   public ItemCountType countType=ItemCountType.INT;
   public int maxCount=-1;
-  public float digSpeed,lightIntensity;
+  public float speed,lightIntensity;
   public int toolType;
+  public int weaponType;
   public float damage;
   public MetaBlock blockType;
   public TextureRegion[] tiles;

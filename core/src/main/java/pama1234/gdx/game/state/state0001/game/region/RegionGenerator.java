@@ -20,10 +20,7 @@ public class RegionGenerator{
   }
   public Region get(int x,int y) {
     Region region=new Region(p,pr,x,y,Gdx.files.local(pr.pw.dataDir+"regions/"+x+"."+y+".bin"));
-    if(region.dataLocation.exists()) {
-      region.load();
-      // return region;
-    }
+    if(region.dataLocation.exists()) region.load();
     get(region);
     return region;
   }
@@ -36,8 +33,8 @@ public class RegionGenerator{
       for(int j=0;j<data[i].length;j++) {
         Chunk tc=data[i][j];
         if(tc!=null) {
-          // p.println(tc,i,j);
-          tc.innerInit(region);
+          if(tc.p==null)//TODO
+            tc.innerInit(region);
         }else {
           tc=data[i][j]=new Chunk(region);
           tc.data=new Block[pr.chunkWidth][pr.chunkHeight];
@@ -50,7 +47,6 @@ public class RegionGenerator{
             if(tb!=null) {
               tb.innerInit(types[tb.typeId]);
               tb.changed=true;
-              // p.println(i,j,n,m,tb.type.name);
             }else {
               float tx=x(region.x,i,n)/64f,ty=y(region.y,j,m)/64f;
               // float tx2=tx>0?doPow(tx):-doPow(-tx),ty2=ty>0?doPow(ty):-doPow(-ty);
@@ -61,7 +57,7 @@ public class RegionGenerator{
               else if(random>0.3f) tb=new Block(pr.pw.metaBlocks.dirt);
               else tb=new Block(pr.pw.metaBlocks.air);
               blockData[n][m]=tb;
-              // if(random>0.2f&&random<=0.3f) {}
+              // if(random>0.2f&&random<=0.3f) {}//spawn tree sapling
             }
           }
         }

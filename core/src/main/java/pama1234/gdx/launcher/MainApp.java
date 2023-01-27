@@ -35,14 +35,15 @@ public class MainApp extends Game{
       Screen0005.class,//空白
       Screen0006.class,//测试 按钮UI
       Screen0007.class,//粒子系统libgdx服务器
-      Screen0008.class,//TextArea test
+      Screen0008.class,//测试 TextArea
       Screen0009.class,//测试 GIF加载
       Screen0010.class,//测试 天空着色器
-      Screen0011.class,//main game
+      Screen0011.class,//游戏本体            <---------# √
       Screen0012.class,//空白游戏框架
       Screen0013.class,//测试 透明渲染模式
-      Screen0014.class,
-      Screen0015.class);
+      Screen0014.class,//测试 贴图渲染优化
+      Screen0015.class//测试 贴图渲染优化
+      );
   }
   @Override
   public void create() {

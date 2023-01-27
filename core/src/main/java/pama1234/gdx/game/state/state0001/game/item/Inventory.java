@@ -185,6 +185,10 @@ public class Inventory{
   //------------------------------------------------------------------------------------
   public static class InventorySlot{
     public Item item;
+    @FunctionalInterface
+    public interface GetInventorySlot{
+      public InventorySlot get();
+    }
   }
   public static class DisplaySlot{
     public InventorySlot data;

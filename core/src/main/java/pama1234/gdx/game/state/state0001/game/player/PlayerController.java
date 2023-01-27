@@ -60,7 +60,6 @@ public class PlayerController extends Entity<Screen0011>{
         new RectF(()->p.width-p.bu*2.5f-p.pus,()->p.height-p.bu*2.5f-p.pus,()->p.bu+p.pus*2,()->p.bu+p.pus),
       };
     }else cullRects=new RectF[0];
-    // System.out.println(cullRects.length);
     limitBox=new MovementLimitBox(player);
     selectBlock=new ControllerBlockPointer(new BlockPointer(player.pw,()->player.inventory.select().data));
     // player.outerBox=limitBox;//TODO
