@@ -22,6 +22,13 @@
     },
     {
       "type": "java",
+      "name": "Server",
+      "request": "launch",
+      "mainClass": "pama1234.game.app.server.launcher.ServerLauncher",
+      "projectName": "just-another-particle-system-server"
+    },
+    {
+      "type": "java",
       "name": "Client",
       "request": "launch",
       "mainClass": "pama1234.gdx.game.app.lwjgl3.Launcher",
@@ -81,13 +88,6 @@
       "request": "launch",
       "mainClass": "pama1234.gdx.game.app.headless.HeadlessLauncher",
       "projectName": "just-another-particle-system-headless"
-    },
-    {
-      "type": "java",
-      "name": "Launch ServerLauncher",
-      "request": "launch",
-      "mainClass": "pama1234.gdx.game.app.server.ServerLauncher",
-      "projectName": "just-another-particle-system-server"
     },
     {
       "type": "java",
