@@ -42,9 +42,9 @@ public class World0001 extends WorldBase2D{
     metaItems=World0001Generator.createItemC(this);
     for(MetaBlock e:metaBlocks.list) e.initItemDrop();
     metaEntitys=World0001Generator.createCreatureC(this);
-    list[0]=entities=new GameEntityCenter(p);
+    list[0]=regions=new RegionCenter(p,this);
+    list[1]=entities=new GameEntityCenter(p);
     entities.list.add(entities.players=new PlayerCenter(p));
-    list[1]=regions=new RegionCenter(p,this);
     yourself=new MainPlayer(p,this,0,0);
     sky=new Sky(this);
   }

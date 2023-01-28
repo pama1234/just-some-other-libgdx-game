@@ -178,7 +178,7 @@ public class Tools{
   public static float fractionalPart(float in) {
     return in-UtilMath.floor(in);
   }
-  public static float mag(float a,float b) {
+  public static float dist(float a,float b) {
     return a>b?a-b:b-a;
   }
   public static void println(Object... in) {

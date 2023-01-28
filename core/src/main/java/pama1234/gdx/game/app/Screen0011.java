@@ -16,6 +16,7 @@ import com.esotericsoftware.kryo.io.Output;
 import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
 import pama1234.gdx.game.asset.MusicAsset;
+import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.state.state0001.State0001.StateChanger;
 import pama1234.gdx.game.state.state0001.StateGenerator0001;
@@ -50,6 +51,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     noStroke();
     loadSettings();
     StateGenerator0001.loadState0001(this);
+    postSettings();
     firstRun=!Gdx.files.local("data/firstRun.txt").exists();
     // firstRun=true;
     if(firstRun) {
@@ -57,6 +59,10 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
       state(State0001.FirstRun);
       Gdx.files.local("data/firstRun.txt").writeString("1234",false);
     }else state(State0001.Loading);
+  }
+  public void postSettings() {
+    Game game=(Game)State0001.Game.entity;
+    if(game.debug=settings.debugInfo) game.createDebugDisplay();
   }
   public void loadSettings() {
     if(!settingsFile.exists()) {

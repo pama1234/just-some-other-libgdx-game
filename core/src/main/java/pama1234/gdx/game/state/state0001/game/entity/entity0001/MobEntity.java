@@ -11,4 +11,8 @@ public class MobEntity extends TextureLivingEntity{
   public MobEntity(Screen0011 p,World0001 pw,float x,float y,MetaCreature<? extends MobEntity> type) {
     super(p,pw,x,y,type);
   }
+  @Override
+  public void dispose() {
+    type.count-=1;
+  }
 }

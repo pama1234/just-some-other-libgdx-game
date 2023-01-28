@@ -85,7 +85,6 @@ public class UiGenerator{
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.debugInfo=!p.settings.debugInfo;
         Game game=(Game)State0001.Game.entity;
-        // game.debug=p.debugInfo;
         if(game.debug=p.settings.debugInfo) game.createDebugDisplay();
         self.updateText();
       },self->self.text=p.settings.debugInfo?"显示文本调试信息：是":"显示文本调试信息：否",()->18,()->0,()->40),

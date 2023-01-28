@@ -45,7 +45,6 @@ public class PlayerController extends Entity<Screen0011>{
   public float jumpForceMult=1.5f;
   public MovementLimitBox limitBox;
   public RectF[] cullRects;
-  // public LivingEntity selectEntity;
   public EntityPointer selectEntity;
   public ControllerBlockPointer selectBlock;
   public float camScale=2;

@@ -46,7 +46,10 @@ public class GameEntityCenter extends MultiEntityCenter<Screen0011,EntityCenter<
     }
     @Override
     public void refresh() {
-      for (MobEntity e : list) if(e.life.des<=0) remove.add(e);
+      for(MobEntity e:list) if(e.life.pos<=0) {
+        e.dispose();
+        remove.add(e);
+      }
       super.refresh();
     }
   }

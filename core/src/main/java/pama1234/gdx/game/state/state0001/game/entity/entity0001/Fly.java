@@ -25,8 +25,15 @@ public class Fly extends MobEntity{
   }
   public void playerAttract() {
     if(target==null) return;
-    float minVel=0.05f,maxVel=0.1f;
-    point.vel.set((target.x()-x())*p.random(minVel,maxVel),(target.y()-y())*p.random(minVel,maxVel));
+    // float minVel=0.05f,maxVel=0.1f;
+    // float vx=(target.x()-x())*p.random(minVel,maxVel),
+    //   vy=(target.y()-y())*p.random(minVel,maxVel);
+    // point.vel.set(vx/l,vy/l);
+    float minVel=1.2f,maxVel=0.8f;
+    float vx=(target.x()-x()),
+      vy=(target.y()-y());
+    float l=UtilMath.mag(vx,vy)/type.moveSpeed;
+    point.vel.set(vx/l*p.random(minVel,maxVel),vy/l*p.random(minVel,maxVel));//set or add
     float td=UtilMath.dist(target.x(),target.y(),x(),y());
     if(td<36) target.life.des-=0.1f;
   }
@@ -40,6 +47,7 @@ public class Fly extends MobEntity{
     public FlyType(MetaCreatureCenter0001 pc,int id) {
       super(pc,"fly",id,4,3,1);
       naturalMaxCount=4;
+      moveSpeed=4;
       spawnDatas=new SpawnData[] {new SpawnData(pc.pw.metaBlocks.air,0.01f)};
     }
     @Override

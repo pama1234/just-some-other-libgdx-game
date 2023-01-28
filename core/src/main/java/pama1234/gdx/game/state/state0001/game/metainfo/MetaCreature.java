@@ -10,6 +10,7 @@ public class MetaCreature<T extends LivingEntity>extends MetaInfoBase{
   public int w,h;
   public float dx,dy;
   public float maxLife=32;
+  public float moveSpeed=1;
   public boolean immortal;//TODO
   public int count,naturalMaxCount;
   public SpawnData[] spawnDatas;
