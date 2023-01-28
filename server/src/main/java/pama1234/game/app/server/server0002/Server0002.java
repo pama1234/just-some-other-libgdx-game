@@ -11,11 +11,17 @@ import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import com.esotericsoftware.kryo.serializers.FieldSerializer;
 import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer;
+import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
 import pama1234.game.app.server.ServerCore;
+import pama1234.game.app.server.server0002.ui.ScannerThread;
 import pama1234.util.net.ServerInfo;
 
 public class Server0002 extends ServerCore{
+  public static class ServerSettings{
+    @Tag(0)
+    public ServerInfo serverInfo;
+  }
   public Kryo kryo;
   public File mainDir=new File(System.getProperty("user.dir")+"/data/server/server0002");
   public File settingsFile=new File(mainDir,"settings.bin");

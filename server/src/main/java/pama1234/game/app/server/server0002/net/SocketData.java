@@ -1,10 +1,11 @@
-package pama1234.game.app.server.server0002;
+package pama1234.game.app.server.server0002.net;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
 import pama1234.game.app.server.server0001.game.net.state.ClientState;
+import pama1234.game.app.server.server0001.game.net.state.SceneState;
 import pama1234.game.app.server.server0001.game.net.state.ServerState;
 import pama1234.util.net.SocketInterface;
 
@@ -16,7 +17,7 @@ public class SocketData{
   // public ServerState serverState=ServerState.ServerAuthentication;//TODO why avoiding state 0???
   public ClientState clientState=ClientState.ClientProtocolVersion;
   public ServerState serverState=ServerState.ServerProtocolVersion;
-  public SceneState sceneState=SceneState.testWorld;
+  public SceneState sceneState=SceneState.TestWorld;
   public String name;//TODO replace with FullToken data class
   //---
   public SocketInterface s;

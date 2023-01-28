@@ -1,6 +1,8 @@
-package pama1234.game.app.server.server0002;
+package pama1234.game.app.server.server0002.ui;
 
 import java.util.Scanner;
+
+import pama1234.game.app.server.server0002.Server0002;
 
 public class ScannerThread extends Thread{
   public Server0002 p;
