@@ -5,7 +5,7 @@ import com.badlogic.gdx.Gdx;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.State0001;
-import pama1234.gdx.game.state.state0001.game.entity.GameEntityCenter;
+import pama1234.gdx.game.state.state0001.game.entity.MultiGameEntityCenter;
 import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
 import pama1234.gdx.game.state.state0001.game.entity.entity0001.MobEntity;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
@@ -30,7 +30,7 @@ public class World0001 extends WorldBase2D{
   public MetaItemCenter0001 metaItems;
   public MetaCreatureCenter0001 metaEntitys;
   //---
-  public GameEntityCenter entities;
+  public MultiGameEntityCenter entities;
   public RegionCenter regions;
   public MainPlayer yourself;
   public WorldSettings settings=new WorldSettings();
@@ -43,7 +43,7 @@ public class World0001 extends WorldBase2D{
     for(MetaBlock e:metaBlocks.list) e.initItemDrop();
     metaEntitys=World0001Generator.createCreatureC(this);
     list[0]=regions=new RegionCenter(p,this);
-    list[1]=entities=new GameEntityCenter(p);
+    list[1]=entities=new MultiGameEntityCenter(p,this);
     entities.list.add(entities.players=new PlayerCenter(p));
     yourself=new MainPlayer(p,this,0,0);
     sky=new Sky(this);
@@ -108,32 +108,32 @@ public class World0001 extends WorldBase2D{
     super.update();
     time+=1;
     sky.updateColor();
-    for(Player player:entities.players.list) testCreatureSpawnWithPlayer(player);
-    testCreatureSpawnWithPlayer(yourself);
+    // for(Player player:entities.players.list) testCreatureSpawnWithPlayer(player);
+    // testCreatureSpawnWithPlayer(yourself);
   }
-  public void testCreatureSpawnWithPlayer(Player player) {
-    for(MetaCreature<?> e:metaEntitys.list) {
-      if(e.spawnDatas==null) continue;
-      if(e.count>=e.naturalMaxCount) continue;
-      float rdeg=random(UtilMath.PI2);
-      float rdist=random(36,regions.regionLoadDist/2f);
-      float tx=player.cx()+UtilMath.sin(rdeg)*rdist*settings.blockWidth,
-        ty=player.cy()+UtilMath.cos(rdeg)*rdist*settings.blockHeight;
-      Block block=getBlock(tx,ty);
-      if(block==null) continue;
-      for(SpawnData i:e.spawnDatas) {
-        if(random(1)>i.rate) continue;
-        if(i.block==block.type) {
-          LivingEntity out=e.createCreature(tx,ty);
-          if(out instanceof MobEntity mob) {
-            mob.target=player;
-            entities.mobEntities.add.add(mob);
-          }else entities.pointEntities.add.add(out);
-          return;
-        }
-      }
-    }
-  }
+  // public void testCreatureSpawnWithPlayer(Player player) {
+  //   for(MetaCreature<?> e:metaEntitys.list) {
+  //     if(e.spawnDatas==null) continue;
+  //     if(e.count>=e.naturalMaxCount) continue;
+  //     float rdeg=random(UtilMath.PI2);
+  //     float rdist=random(36,regions.regionLoadDist/2f);
+  //     float tx=player.cx()+UtilMath.sin(rdeg)*rdist*settings.blockWidth,
+  //       ty=player.cy()+UtilMath.cos(rdeg)*rdist*settings.blockHeight;
+  //     Block block=getBlock(tx,ty);
+  //     if(block==null) continue;
+  //     for(SpawnData i:e.spawnDatas) {
+  //       if(random(1)>i.rate) continue;
+  //       if(i.block==block.type) {
+  //         LivingEntity out=e.createCreature(tx,ty);
+  //         if(out instanceof MobEntity mob) {
+  //           mob.target=player;
+  //           entities.mobEntities.add.add(mob);
+  //         }else entities.pointEntities.add.add(out);
+  //         return;
+  //       }
+  //     }
+  //   }
+  // }
   @Override
   public void dispose() {
     super.dispose();
