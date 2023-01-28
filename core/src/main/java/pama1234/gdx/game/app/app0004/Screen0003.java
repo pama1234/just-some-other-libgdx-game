@@ -17,7 +17,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.net.SocketHints;
 
 import pama1234.game.app.server.server0001.game.net.SocketData;
-import pama1234.game.app.server.server0001.game.net.data.ClientCore;
+import pama1234.game.app.server.server0001.game.net.data.Client0001Core;
 import pama1234.game.app.server.server0001.game.net.io.ClientRead;
 import pama1234.game.app.server.server0001.game.net.io.ClientWrite;
 import pama1234.game.app.server.server0001.particle.Var;
@@ -44,7 +44,7 @@ public class Screen0003 extends ScreenCore3D{
   //---
   public SocketData clientSocket;
   // public volatile CellData[] cellData;
-  public ClientCore clientCore;
+  public Client0001Core clientCore;
   //---
   public ClientRead clientRead;
   public ClientWrite clientWrite;
@@ -112,7 +112,7 @@ public class Screen0003 extends ScreenCore3D{
     // group=gen.GenerateFromMiniCore();
     // serverTypeData=new int[gen.arraySizeOut];
     // cellData=new CellData[gen.arraySizeOut];
-    clientCore=new ClientCore(tempSize,"pama"+String.format("%04d",(int)(random(0,10000))));
+    clientCore=new Client0001Core(tempSize,"pama"+String.format("%04d",(int)(random(0,10000))));
     // cellData=new CellData[tempSize];
     // for(int i=0;i<cellData.length;i++) cellData[i]=new CellData();
     playerCenter=new ClientPlayerCenter3D(this);

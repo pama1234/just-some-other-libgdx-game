@@ -7,6 +7,8 @@ import pama1234.util.net.ServerSocketData;
 import pama1234.util.wrapper.Center;
 
 public abstract class ServerCore extends UtilServer{
+  public boolean doUpdate=true;
+  //---
   public ServerInfo serverInfo;
   public ServerSocketData serverSocket;
   public Center<SocketData> socketCenter;

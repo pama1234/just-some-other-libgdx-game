@@ -3,10 +3,10 @@ package pama1234.game.app.server.server0001.game;
 import java.util.Scanner;
 
 public class ScannerThread extends Thread{
-  public Server3D p;
+  public Server0001 p;
   public Scanner scanner;
   // public ScannerThread(String name,Server3D p) {
-  public ScannerThread(Server3D p) {
+  public ScannerThread(Server0001 p) {
     super("ScannerThread");
     this.p=p;
     scanner=new Scanner(System.in);

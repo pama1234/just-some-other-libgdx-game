@@ -10,12 +10,12 @@ import java.net.SocketException;
 
 import pama1234.data.ByteUtil;
 import pama1234.game.app.server.server0001.game.net.SocketData;
-import pama1234.game.app.server.server0001.game.net.data.ClientCore;
+import pama1234.game.app.server.server0001.game.net.data.Client0001Core;
 
 public class ClientWrite extends Thread{
-  public ClientCore p;
+  public Client0001Core p;
   public SocketData s;
-  public ClientWrite(ClientCore p,SocketData dataSocket) {
+  public ClientWrite(Client0001Core p,SocketData dataSocket) {
     super("ClientWrite "+dataSocket.s.getRemoteAddress());
     this.p=p;
     this.s=dataSocket;

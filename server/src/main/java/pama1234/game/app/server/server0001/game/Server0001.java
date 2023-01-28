@@ -1,31 +1,31 @@
 package pama1234.game.app.server.server0001.game;
 
+import pama1234.game.app.server.ServerCore;
 import pama1234.game.app.server.server0001.game.net.SocketData;
-import pama1234.game.app.server.server0001.game.net.data.ServerCore;
+import pama1234.game.app.server.server0001.game.net.data.Server0001Core;
 import pama1234.game.app.server.server0001.game.net.io.ServerRead;
 import pama1234.game.app.server.server0001.game.net.io.ServerWrite;
 import pama1234.game.app.server.server0001.game.particle.CellGroup3D;
 import pama1234.game.app.server.server0001.game.particle.CellGroupGenerator3D;
-import pama1234.util.UtilServer;
 import pama1234.util.net.ServerInfo;
 import pama1234.util.net.ServerSocketData;
 import pama1234.util.net.SocketWrapper;
 import pama1234.util.wrapper.Center;
 
-public class Server3D extends UtilServer{
+public class Server0001 extends ServerCore{//particle server 3d
   public CellGroup3D group;
-  public boolean doUpdate=true;
+  // public boolean doUpdate=true;
   public Thread updateCell;
   //---
   public ServerPlayerCenter3D playerCenter;
   //---
-  public ServerInfo dataServerInfo;
-  public ServerSocketData serverSocket;
-  public Center<SocketData> socketCenter;
+  // public ServerInfo serverInfo;
+  // public ServerSocketData serverSocket;
+  // public Center<SocketData> socketCenter;
   public Center<ServerRead> serverReadPool;
   public Center<ServerWrite> serverWritePool;
   public Thread acceptSocket;
-  public ServerCore serverCore;
+  public Server0001Core serverCore;
   //---
   // public Scanner scanner;
   public ScannerThread scannerThread;
@@ -52,12 +52,12 @@ public class Server3D extends UtilServer{
     //---
     playerCenter=new ServerPlayerCenter3D();
     //---
-    dataServerInfo=new ServerInfo("192.168.2.105",12347);
-    serverSocket=new ServerSocketData(dataServerInfo);
+    serverInfo=new ServerInfo("192.168.2.105",12347);
+    serverSocket=new ServerSocketData(serverInfo);
     socketCenter=new Center<>();
     serverReadPool=new Center<>();
     serverWritePool=new Center<>();
-    serverCore=new ServerCore(socketCenter,serverReadPool,serverWritePool,group,playerCenter);
+    serverCore=new Server0001Core(socketCenter,serverReadPool,serverWritePool,group,playerCenter);
     acceptSocket=new Thread(()-> {
       while(!stop) {
         // synchronized(centerSocket.add) {
@@ -92,6 +92,6 @@ public class Server3D extends UtilServer{
     playerCenter.dispose();
   }
   public static void main(String[] args) {
-    new Server3D().run();
+    new Server0001().run();
   }
 }

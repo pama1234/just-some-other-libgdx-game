@@ -8,7 +8,7 @@ import com.badlogic.gdx.net.SocketHints;
 
 import pama1234.game.app.server.server0001.game.ServerPlayerCenter3D;
 import pama1234.game.app.server.server0001.game.net.SocketData;
-import pama1234.game.app.server.server0001.game.net.data.ServerCore;
+import pama1234.game.app.server.server0001.game.net.data.Server0001Core;
 import pama1234.game.app.server.server0001.game.net.io.ServerRead;
 import pama1234.game.app.server.server0001.game.net.io.ServerWrite;
 import pama1234.game.app.server.server0001.game.particle.CellGroup3D;
@@ -31,7 +31,7 @@ public class Screen0007 extends UtilScreen3D{
   public Thread acceptSocket;
   public Center<ServerRead> serverReadPool;
   public Center<ServerWrite> serverWritePool;
-  public ServerCore serverCore;
+  public Server0001Core serverCore;
   //---
   public CellGroup3D group;
   public boolean doUpdate=true;
@@ -68,7 +68,7 @@ public class Screen0007 extends UtilScreen3D{
     socketCenter=new Center<>();
     serverReadPool=new Center<>();
     serverWritePool=new Center<>();
-    serverCore=new ServerCore(socketCenter,serverReadPool,serverWritePool,group,playerCenter);
+    serverCore=new Server0001Core(socketCenter,serverReadPool,serverWritePool,group,playerCenter);
     acceptSocket=new Thread(()-> {
       while(!stop) {
         // synchronized(centerSocket.add) {

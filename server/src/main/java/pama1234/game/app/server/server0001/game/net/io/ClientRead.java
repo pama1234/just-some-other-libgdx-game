@@ -12,14 +12,14 @@ import java.util.Arrays;
 
 import pama1234.data.ByteUtil;
 import pama1234.game.app.server.server0001.game.net.SocketData;
-import pama1234.game.app.server.server0001.game.net.data.ClientCore;
+import pama1234.game.app.server.server0001.game.net.data.Client0001Core;
 import pama1234.game.app.server.server0001.game.net.state.ClientState;
 import pama1234.game.app.server.server0001.game.net.state.ServerState;
 
 public class ClientRead extends Thread{
-  public ClientCore p;
+  public Client0001Core p;
   public SocketData s;
-  public ClientRead(ClientCore p,SocketData dataSocket) {
+  public ClientRead(Client0001Core p,SocketData dataSocket) {
     super("ClientRead "+dataSocket.s.getRemoteAddress());
     this.p=p;
     this.s=dataSocket;

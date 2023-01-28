@@ -7,14 +7,14 @@ import pama1234.game.app.server.server0001.game.net.io.ServerWrite;
 import pama1234.game.app.server.server0001.game.particle.CellGroup3D;
 import pama1234.util.wrapper.Center;
 
-public class ServerCore{
+public class Server0001Core{
   public Center<SocketData> socketCenter;
   public Center<ServerRead> serverReadPool;
   public Center<ServerWrite> serverWritePool;
   //---
   public CellGroup3D group;
   public ServerPlayerCenter3D playerCenter;
-  public ServerCore(Center<SocketData> socketCenter,Center<ServerRead> serverReadPool,Center<ServerWrite> serverWritePool,CellGroup3D group,ServerPlayerCenter3D playerCenter) {
+  public Server0001Core(Center<SocketData> socketCenter,Center<ServerRead> serverReadPool,Center<ServerWrite> serverWritePool,CellGroup3D group,ServerPlayerCenter3D playerCenter) {
     this.socketCenter=socketCenter;
     this.serverReadPool=serverReadPool;
     this.serverWritePool=serverWritePool;

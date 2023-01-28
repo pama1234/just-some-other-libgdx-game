@@ -27,7 +27,7 @@ public class Server0002 extends ServerCore{
   public File settingsFile=new File(mainDir,"settings.bin");
   public ServerSettings settings;
   public ScannerThread scannerThread;
-  public boolean doUpdate=true;
+  // public boolean doUpdate=true;
   @Override
   public void init() {
     initKryo();
