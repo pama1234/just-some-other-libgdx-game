@@ -5,6 +5,7 @@
 
 要素：
 
+SettingsData换成非tag的序列化方式
 使得EntityPointer可选择多个生物实体
 使得BlockPointer可选择多个方块
 使得120fps时游戏不会过于流畅

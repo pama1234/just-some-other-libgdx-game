@@ -6,18 +6,14 @@ import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.state.state0001.game.entity.MultiGameEntityCenter;
-import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
-import pama1234.gdx.game.state.state0001.game.entity.entity0001.MobEntity;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
-import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature.SpawnData;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaCreatureCenter0001;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemCenter0001;
 import pama1234.gdx.game.state.state0001.game.player.BlockPointer;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
-import pama1234.gdx.game.state.state0001.game.player.Player;
 import pama1234.gdx.game.state.state0001.game.player.Player.PlayerCenter;
 import pama1234.gdx.game.state.state0001.game.region.RegionCenter;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
@@ -108,32 +104,7 @@ public class World0001 extends WorldBase2D{
     super.update();
     time+=1;
     sky.updateColor();
-    // for(Player player:entities.players.list) testCreatureSpawnWithPlayer(player);
-    // testCreatureSpawnWithPlayer(yourself);
   }
-  // public void testCreatureSpawnWithPlayer(Player player) {
-  //   for(MetaCreature<?> e:metaEntitys.list) {
-  //     if(e.spawnDatas==null) continue;
-  //     if(e.count>=e.naturalMaxCount) continue;
-  //     float rdeg=random(UtilMath.PI2);
-  //     float rdist=random(36,regions.regionLoadDist/2f);
-  //     float tx=player.cx()+UtilMath.sin(rdeg)*rdist*settings.blockWidth,
-  //       ty=player.cy()+UtilMath.cos(rdeg)*rdist*settings.blockHeight;
-  //     Block block=getBlock(tx,ty);
-  //     if(block==null) continue;
-  //     for(SpawnData i:e.spawnDatas) {
-  //       if(random(1)>i.rate) continue;
-  //       if(i.block==block.type) {
-  //         LivingEntity out=e.createCreature(tx,ty);
-  //         if(out instanceof MobEntity mob) {
-  //           mob.target=player;
-  //           entities.mobEntities.add.add(mob);
-  //         }else entities.pointEntities.add.add(out);
-  //         return;
-  //       }
-  //     }
-  //   }
-  // }
   @Override
   public void dispose() {
     super.dispose();

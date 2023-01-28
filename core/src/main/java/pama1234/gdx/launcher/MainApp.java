@@ -44,7 +44,8 @@ public class MainApp extends Game{
       Screen0013.class,//测试 透明渲染模式
       Screen0014.class,//测试 贴图渲染优化
       Screen0015.class,//测试 贴图渲染优化
-      Screen0016.class);
+      Screen0016.class//测试 联机游戏 客户端
+      );
   }
   @Override
   public void create() {
