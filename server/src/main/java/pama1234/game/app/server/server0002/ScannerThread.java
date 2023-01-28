@@ -33,12 +33,12 @@ public class ScannerThread extends Thread{
           break;
         case "stop": {
           p.doUpdate=false;
-          System.out.println("CellGroup3D update stopped.");
+          System.out.println("server update stopped.");
         }
           break;
         case "start": {
           p.doUpdate=true;
-          System.out.println("CellGroup3D update started.");
+          System.out.println("server update started.");
         }
           break;
         case "exit": {
@@ -48,9 +48,7 @@ public class ScannerThread extends Thread{
         }
           break;
         case "ip": {
-          p.doUpdate=false;
-          p.stop=true;
-          System.out.println(p.serverInfo.addr+":"+p.serverInfo.port);
+          System.out.println(p.serverInfo.toString());
         }
           break;
         default:
@@ -60,5 +58,9 @@ public class ScannerThread extends Thread{
           break;
       }
     }
+  }
+  @FunctionalInterface
+  public interface Command{
+    public void execute(Server0002 p,String[] data);
   }
 }

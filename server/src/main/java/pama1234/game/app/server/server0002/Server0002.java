@@ -28,6 +28,7 @@ public class Server0002 extends ServerCore{
     // settingsFile.getParentFile().mkdirs();
     mainDir.mkdirs();
     loadSettings();
+    testSettings();
     serverInfo=settings.serverInfo;
     scannerThread=new ScannerThread(this);
     scannerThread.start();
@@ -38,9 +39,12 @@ public class Server0002 extends ServerCore{
     kryo.register(ServerSettings.class);
     kryo.register(ServerInfo.class,new FieldSerializer<ServerInfo>(kryo,ServerInfo.class));
   }
+  public void testSettings() {
+    if(settings.serverInfo==null) settings.serverInfo=new ServerInfo("127.0.0.1",12347);
+  }
   public void loadSettings() {
     if(!settingsFile.exists()) {
-      settings=createServerSettings();
+      settings=new ServerSettings();
       return;
     }
     try(Input input=new Input(new FileInputStream(settingsFile))) {
@@ -50,12 +54,7 @@ public class Server0002 extends ServerCore{
     }catch(FileNotFoundException|KryoException e) {
       e.printStackTrace();
     }
-    if(settings==null) settings=createServerSettings();
-  }
-  public ServerSettings createServerSettings() {
-    ServerSettings out=new ServerSettings();
-    out.serverInfo=new ServerInfo("127.0.0.1",12347);
-    return out;
+    if(settings==null) settings=new ServerSettings();
   }
   public void saveSettings() {
     try(Output output=new Output(new FileOutputStream(settingsFile))) {
