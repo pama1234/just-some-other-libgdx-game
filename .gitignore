@@ -151,17 +151,17 @@ Thumbs.db
 *.*#
 *#*#
 
-fontOut/
-data/
+/fontOut/
+/data/
 
 ## TODO
-assets/vector/*.tvgt
-assets/vector/*.tga
-assets/vector/*.svg
+/assets/vector/*.tvgt
+/assets/vector/*.tga
+/assets/vector/*.svg
 
-*.jar
+/*.jar
 
 
-assets/image/src
+/assets/image/src
 
 .VSCodeCounter/
