@@ -8,6 +8,7 @@ import com.badlogic.gdx.Game;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.app.Screen0012;
+import pama1234.gdx.game.app.Screen0016;
 import pama1234.gdx.game.app.app0001.Screen0002;
 import pama1234.gdx.game.app.app0001.Screen0007;
 import pama1234.gdx.game.app.app0002.Screen0004;
@@ -25,7 +26,7 @@ import pama1234.gdx.util.app.UtilScreen;
 
 public class MainApp extends Game{
   public List<Class<? extends UtilScreen>> screenList;
-  public int screenType=11;
+  public int screenType=16;
   public MainApp() {
     screenList=Arrays.asList(null,
       Screen0001.class,//3D 粒子系统 单机
@@ -42,8 +43,8 @@ public class MainApp extends Game{
       Screen0012.class,//空白游戏框架
       Screen0013.class,//测试 透明渲染模式
       Screen0014.class,//测试 贴图渲染优化
-      Screen0015.class//测试 贴图渲染优化
-      );
+      Screen0015.class,//测试 贴图渲染优化
+      Screen0016.class);
   }
   @Override
   public void create() {
