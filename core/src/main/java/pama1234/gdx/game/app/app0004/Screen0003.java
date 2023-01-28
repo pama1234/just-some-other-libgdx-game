@@ -16,11 +16,11 @@ import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.net.SocketHints;
 
-import pama1234.game.app.server.game.net.SocketData;
-import pama1234.game.app.server.game.net.data.ClientCore;
-import pama1234.game.app.server.game.net.io.ClientRead;
-import pama1234.game.app.server.game.net.io.ClientWrite;
-import pama1234.game.app.server.particle.Var;
+import pama1234.game.app.server.server0001.game.net.SocketData;
+import pama1234.game.app.server.server0001.game.net.data.ClientCore;
+import pama1234.game.app.server.server0001.game.net.io.ClientRead;
+import pama1234.game.app.server.server0001.game.net.io.ClientWrite;
+import pama1234.game.app.server.server0001.particle.Var;
 import pama1234.gdx.game.net.SocketWrapperGDX;
 import pama1234.gdx.game.ui.ConfigInfo;
 import pama1234.gdx.game.ui.generator.UiGenerator;

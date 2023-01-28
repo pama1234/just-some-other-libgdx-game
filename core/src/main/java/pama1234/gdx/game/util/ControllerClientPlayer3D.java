@@ -1,6 +1,6 @@
 package pama1234.gdx.game.util;
 
-import pama1234.game.app.server.game.ServerPlayer3D;
+import pama1234.game.app.server.server0001.game.ServerPlayer3D;
 import pama1234.gdx.util.app.UtilScreen;
 
 public class ControllerClientPlayer3D extends ClientPlayer3D{

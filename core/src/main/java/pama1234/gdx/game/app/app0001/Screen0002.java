@@ -1,7 +1,7 @@
 package pama1234.gdx.game.app.app0001;
 
-import pama1234.game.app.server.particle.with2d.CellGroup2D;
-import pama1234.game.app.server.particle.with2d.CellGroupGenerator2D;
+import pama1234.game.app.server.server0001.particle.with2d.CellGroup2D;
+import pama1234.game.app.server.server0001.particle.with2d.CellGroupGenerator2D;
 import pama1234.gdx.util.app.UtilScreen2D;
 
 /**

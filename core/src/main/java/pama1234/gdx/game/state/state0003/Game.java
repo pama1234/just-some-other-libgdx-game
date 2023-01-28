@@ -2,7 +2,7 @@ package pama1234.gdx.game.state.state0003;
 
 import static com.badlogic.gdx.Input.Keys.ESCAPE;
 
-import pama1234.game.app.server.game.net.SocketData;
+import pama1234.game.app.server.server0001.game.net.SocketData;
 import pama1234.gdx.game.app.Screen0016;
 import pama1234.gdx.game.state.state0003.StateGenerator0003.StateEntity0003;
 import pama1234.gdx.game.state.state0003.game.World;

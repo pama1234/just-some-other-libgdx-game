@@ -13,10 +13,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.badlogic.gdx.math.Vector3;
 
-import pama1234.game.app.server.game.ServerPlayer3D;
-import pama1234.game.app.server.game.particle.CellGroup3D;
-import pama1234.game.app.server.game.particle.CellGroupGenerator3D;
-import pama1234.game.app.server.particle.Var;
+import pama1234.game.app.server.server0001.game.ServerPlayer3D;
+import pama1234.game.app.server.server0001.game.particle.CellGroup3D;
+import pama1234.game.app.server.server0001.game.particle.CellGroupGenerator3D;
+import pama1234.game.app.server.server0001.particle.Var;
 import pama1234.gdx.game.ui.ConfigInfo;
 import pama1234.gdx.game.ui.generator.UiGenerator;
 import pama1234.gdx.game.ui.util.Button;
