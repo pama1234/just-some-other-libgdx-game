@@ -1,4 +1,4 @@
-# just-another-particle-system
+# just-some-other-libgdx-game
 
 [中文](#空想世界) | [English](#game-with-java)
 
