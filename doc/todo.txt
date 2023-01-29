@@ -5,6 +5,8 @@
 
 要素：
 
+修正textArea的消息文本y位置错误的问题
+方块设置成链表式的，从后往前，用于正确的表示墙壁和墙壁前的非完整方块
 SettingsData换成非tag的序列化方式
 使得EntityPointer可选择多个生物实体
 使得BlockPointer可选择多个方块

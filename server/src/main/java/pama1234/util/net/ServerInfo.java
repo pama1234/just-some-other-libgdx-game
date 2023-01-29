@@ -13,4 +13,14 @@ public class ServerInfo{
   public String toString() {
     return addr+":"+port;
   }
+  public void setFromString(String in,int defaultPort) {
+    int pos=in.lastIndexOf(':');
+    if(pos<0) {
+      addr=in;
+      port=defaultPort;
+    }else {
+      addr=in.substring(0,pos);
+      port=Integer.parseInt(in.substring(pos+1));
+    }
+  }
 }

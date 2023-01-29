@@ -24,6 +24,7 @@ import pama1234.gdx.game.state.state0001.game.region.Region;
 import pama1234.gdx.util.app.ScreenCore2D;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.math.Tools;
+import pama1234.util.net.ServerInfo;
 
 public class Screen0011 extends ScreenCore2D implements StateChanger{
   public static class SettingsData{
@@ -36,7 +37,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     @Tag(3)
     public float volume=1;
     @Tag(4)
-    public String serverIp="127.0.0.1";
+    public ServerInfo serverInfo;
   }
   public SettingsData settings;
   public FileHandle settingsFile=Gdx.files.local("data/settings.bin");
@@ -77,6 +78,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
       e.printStackTrace();
     }
     if(settings==null) settings=new SettingsData();
+    if(settings.serverInfo==null) settings.serverInfo=new ServerInfo("127.0.0.1",12347);
   }
   public void saveSettings() {
     try(Output output=new Output(new FileOutputStream(settingsFile.file()))) {

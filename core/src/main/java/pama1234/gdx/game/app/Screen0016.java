@@ -4,6 +4,7 @@ import static pama1234.math.Tools.getFloatString;
 import static pama1234.math.Tools.getMillisString;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 
 import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.state.state0003.State0003;
@@ -27,11 +28,12 @@ public class Screen0016 extends ScreenCore2D implements StateChanger{
     noStroke();
     MusicAsset.load_init();
     StateGenerator0003.loadState0001(this);
-    firstRun=!Gdx.files.local("data/firstRun.txt").exists();
+    FileHandle firstRunFile=Gdx.files.local("data/firstRun.txt");
+    firstRun=!firstRunFile.exists();
     // firstRun=true;
     if(firstRun) {
       state(State0003.FirstRun);
-      Gdx.files.local("data/firstRun.txt").writeString("1234",false);
+      firstRunFile.writeString("1234",false);
     }else {
       state(State0003.Loading);
     }

@@ -27,6 +27,7 @@ public class UiGenerator{
     TextField[] out=new TextField[] {new TextField("联机写好后，这里输入IP地址哦",new CodeTextFieldStyle(p),
       new RectF(()->0,()->-20,()->256,()->18),
       ()->1)};
+      out[0].setMessageText("联机网络地址");
     for(TextField e:out) e.setOnscreenKeyboard(new NormalOnscreenKeyboard());
     return out;
     // return new TextField[0];

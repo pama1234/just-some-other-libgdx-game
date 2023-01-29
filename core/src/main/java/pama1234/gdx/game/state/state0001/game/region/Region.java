@@ -9,6 +9,7 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.KryoException;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
+import com.esotericsoftware.kryo.serializers.FieldSerializer;
 import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer;
 import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
@@ -17,6 +18,7 @@ import pama1234.gdx.game.app.Screen0011.SettingsData;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.util.entity.Entity;
+import pama1234.util.net.ServerInfo;
 
 public class Region extends Entity<Screen0011> implements LoadAndSave{
   public static final Kryo kryo=new Kryo();
@@ -30,6 +32,7 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
     kryo.register(Block[].class);
     kryo.register(Block.class);
     kryo.register(SettingsData.class);
+    kryo.register(ServerInfo.class,new FieldSerializer<ServerInfo>(kryo,ServerInfo.class));
   }
   public RegionCenter pr;
   public FileHandle dataLocation;
