@@ -17,6 +17,7 @@ import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.net.SocketHints;
 
 import pama1234.game.app.server.server0001.game.net.SocketData;
+import pama1234.game.app.server.server0001.game.net.SocketData.Token;
 import pama1234.game.app.server.server0001.game.net.data.Client0001Core;
 import pama1234.game.app.server.server0001.game.net.io.ClientRead;
 import pama1234.game.app.server.server0001.game.net.io.ClientWrite;
@@ -134,7 +135,7 @@ public class Screen0003 extends ScreenCore3D{
     //---
     // sleep(10000);   
     // clientStateSocket=new SocketData("pama1234",Gdx.net.newClientSocket(Protocol.TCP,stateServerInfo.addr,stateServerInfo.port,tsh));
-    clientSocket=new SocketData(yourself.data.name(),new SocketWrapperGDX(Gdx.net.newClientSocket(Protocol.TCP,dataServerInfo.addr,dataServerInfo.port,tsh)));
+    clientSocket=new SocketData(new Token(yourself.data.name()),new SocketWrapperGDX(Gdx.net.newClientSocket(Protocol.TCP,dataServerInfo.addr,dataServerInfo.port,tsh)));
     new Thread() {
       public void run() {
         while(!clientSocket.s.isConnected()) {

@@ -13,6 +13,7 @@ import java.net.SocketException;
 import pama1234.data.ByteUtil;
 import pama1234.game.app.server.server0001.game.ServerPlayer3D;
 import pama1234.game.app.server.server0001.game.net.data.Server0001Core;
+import pama1234.game.app.server.server0002.net.SocketData.Token;
 import pama1234.game.app.server.server0002.net.State0002.ClientState;
 import pama1234.game.app.server.server0002.net.State0002.ServerState;
 
@@ -49,16 +50,16 @@ public class ServerCore{
         case ClientAuthentication: {
           byte[] nameBytes=new byte[readSize];
           readNBytes(e,nameBytes,0,readSize);
-          e.name=new String(nameBytes);
+          e.token.name=new String(nameBytes);
           e.serverState=ServerDataTransfer;
-          p.playerCenter.add.add(new ServerPlayer3D(e.name,0,0,0));//TODO ?
+          p.playerCenter.add.add(new ServerPlayer3D(e.name(),0,0,0));//TODO ?
           p.playerCenter.refresh();
-          System.out.println("Auth "+e.name);
+          System.out.println("Auth "+e.name());
         }
           break;
         case ClientDataTransfer: {
           readNBytes(e,inData,0,4*3);
-          ServerPlayer3D tp=p.playerCenter.hashMap.get(e.name);
+          ServerPlayer3D tp=p.playerCenter.hashMap.get(new Token(e.name()));
           if(tp==null) {
             e.clientState=ClientState.ClientAuthentication;
             return;

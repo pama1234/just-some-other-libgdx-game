@@ -12,6 +12,7 @@ import java.net.SocketException;
 import pama1234.data.ByteUtil;
 import pama1234.game.app.server.server0001.game.ServerPlayer3D;
 import pama1234.game.app.server.server0001.game.net.SocketData;
+import pama1234.game.app.server.server0001.game.net.SocketData.Token;
 import pama1234.game.app.server.server0001.game.net.data.Server0001Core;
 import pama1234.game.app.server.server0001.game.net.state.ClientState;
 import pama1234.game.app.server.server0001.game.net.state.ServerState;
@@ -48,16 +49,16 @@ public class ServerRead extends Thread{
       case ClientAuthentication: {
         byte[] nameBytes=new byte[readSize];
         readNBytes(e,nameBytes,0,readSize);
-        e.name=new String(nameBytes);
+        e.token=new Token(new String(nameBytes));
         e.serverState=ServerDataTransfer;
-        p.playerCenter.add.add(new ServerPlayer3D(e.name,0,0,0));//TODO ?
+        p.playerCenter.add.add(new ServerPlayer3D(e.name(),0,0,0));//TODO ?
         p.playerCenter.refresh();
-        System.out.println("Auth "+e.name);
+        System.out.println("Auth "+e.name());
       }
         break;
       case ClientDataTransfer: {
         readNBytes(e,inData,0,4*3);
-        ServerPlayer3D tp=p.playerCenter.hashMap.get(e.name);
+        ServerPlayer3D tp=p.playerCenter.hashMap.get(e.name());
         if(tp==null) {
           e.clientState=ClientState.ClientAuthentication;
           return;
@@ -78,8 +79,7 @@ public class ServerRead extends Thread{
         byte[] nameBytes=new byte[readSize];
         readNBytes(s,nameBytes,0,readSize);
         String version=new String(nameBytes);
-        if(!version.equals(protocolVersion)) 
-        throw new RuntimeException("!version.equals(protocolVersion)"+version+" "+protocolVersion);
+        if(!version.equals(protocolVersion)) throw new RuntimeException("!version.equals(protocolVersion)"+version+" "+protocolVersion);
         s.serverState=ServerState.ServerAuthentication;
       }
         break;

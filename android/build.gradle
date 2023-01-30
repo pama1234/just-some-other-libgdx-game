@@ -109,10 +109,10 @@ dependencies {
 	implementation project(':core')
 	// implementation "com.github.lyze237:gdx-TinyVG:$gdxTinyVGVersion"
 
-	natives "com.badlogicgames.gdx:gdx-bullet-platform:$gdxVersion:natives-arm64-v8a"
-	natives "com.badlogicgames.gdx:gdx-bullet-platform:$gdxVersion:natives-armeabi-v7a"
-	natives "com.badlogicgames.gdx:gdx-bullet-platform:$gdxVersion:natives-x86"
-	natives "com.badlogicgames.gdx:gdx-bullet-platform:$gdxVersion:natives-x86_64"
+	// natives "com.badlogicgames.gdx:gdx-bullet-platform:$gdxVersion:natives-arm64-v8a"
+	// natives "com.badlogicgames.gdx:gdx-bullet-platform:$gdxVersion:natives-armeabi-v7a"
+	// natives "com.badlogicgames.gdx:gdx-bullet-platform:$gdxVersion:natives-x86"
+	// natives "com.badlogicgames.gdx:gdx-bullet-platform:$gdxVersion:natives-x86_64"
 	natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a"
 	natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
 	natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86"

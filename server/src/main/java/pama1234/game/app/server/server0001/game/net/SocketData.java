@@ -10,21 +10,17 @@ import pama1234.game.app.server.server0001.game.net.state.ServerState;
 import pama1234.util.net.SocketInterface;
 
 public class SocketData{
-  // public int authCooling;//TODO server only
-  //---
   public boolean stop;
-  // public ClientState clientState=ClientState.ClientAuthentication;
-  // public ServerState serverState=ServerState.ServerAuthentication;//TODO why avoiding state 0???
   public ClientState clientState=ClientState.ClientProtocolVersion;
   public ServerState serverState=ServerState.ServerProtocolVersion;
   public SceneState sceneState=SceneState.JustParticleSystem;
-  public String name;//TODO replace with FullToken data class
+  public Token token;
   //---
   public SocketInterface s;
   public InputStream i;
   public OutputStream o;
-  public SocketData(String name,SocketInterface s) {
-    this.name=name;
+  public SocketData(Token token,SocketInterface s) {
+    this.token=token;
     this.s=s;
     i=s.getInputStream();
     o=s.getOutputStream();
@@ -43,6 +39,15 @@ public class SocketData{
       e.printStackTrace();
     }finally {
       s.dispose();
+    }
+  }
+  public String name() {
+    return token.name;
+  }
+  public static class Token{
+    public String name;
+    public Token(String name) {
+      this.name=name;
     }
   }
 }

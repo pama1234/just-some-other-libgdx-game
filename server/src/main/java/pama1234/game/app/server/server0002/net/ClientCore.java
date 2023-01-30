@@ -113,7 +113,7 @@ public class ClientCore{
       if(debug) System.out.println("ClientWrite state="+s.clientState);
       switch(s.clientState) {
         case ClientAuthentication: {
-          byte[] nameBytes=s.name.getBytes();
+          byte[] nameBytes=s.name().getBytes();
           writeClientHeader(s,outData,nameBytes.length);
           s.o.write(nameBytes);
           s.o.flush();

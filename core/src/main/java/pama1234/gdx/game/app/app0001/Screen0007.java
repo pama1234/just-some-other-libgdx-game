@@ -111,8 +111,8 @@ public class Screen0007 extends UtilScreen3D{
     for(SocketData i:socketCenter.list) {
       if(i.stop) {
         socketCenter.remove.add(i);
-        playerCenter.remove(i.name);
-        System.out.println("Disconnect "+i.name);
+        playerCenter.remove(i.name());
+        System.out.println("Disconnect "+i.name());
         i.dispose();
       }
     }
