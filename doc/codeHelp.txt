@@ -12,31 +12,31 @@ core/
         └── java
             └── pama1234
                 └── gdx
-                    ├── game      //场景和一些实体 场景通过改变 "state" 的方式来实现一些效果 如FirstRun,Loading
+                    ├── game      //场景和一些实体 场景通过改变 "state" 的方式来实现一些效果 如FirstRunLoading
                     │   ├── DrawableEntity.java
                     │   ├── StageEntity.java
                     │   ├── StageUtil.java
-                    │   ├── app
-                    │   │   ├── Screen0011.java
-                    │   │   ├── Screen0012.java
-                    │   │   ├── Screen0016.java
+                    │   ├── app     //Screen的注释来自 MainApp.java
+                    │   │   ├── Screen0011.java//游戏本体            <---------# √
+                    │   │   ├── Screen0012.java//空白游戏框架
+                    │   │   ├── Screen0016.java//测试 联机游戏 客户端
                     │   │   ├── app0001
-                    │   │   │   ├── Screen0002.java
-                    │   │   │   └── Screen0007.java
+                    │   │   │   ├── Screen0002.java//2D 粒子系统
+                    │   │   │   └── Screen0007.java//粒子系统libgdx服务器
                     │   │   ├── app0002
-                    │   │   │   ├── Screen0004.java
-                    │   │   │   ├── Screen0005.java
-                    │   │   │   ├── Screen0006.java
-                    │   │   │   ├── Screen0010.java
-                    │   │   │   ├── Screen0014.java
-                    │   │   │   └── Screen0015.java
+                    │   │   │   ├── Screen0004.java//测试 3D渲染 文本框UI
+                    │   │   │   ├── Screen0005.java//空白
+                    │   │   │   ├── Screen0006.java//测试 按钮UI
+                    │   │   │   ├── Screen0010.java//测试 天空着色器
+                    │   │   │   ├── Screen0014.java//测试 贴图渲染优化
+                    │   │   │   └── Screen0015.java//测试 贴图渲染优化
                     │   │   ├── app0003
-                    │   │   │   ├── Screen0008.java
-                    │   │   │   ├── Screen0009.java
-                    │   │   │   └── Screen0013.java
+                    │   │   │   ├── Screen0008.java//测试 TextArea
+                    │   │   │   ├── Screen0009.java//测试 GIF加载
+                    │   │   │   └── Screen0013.java//测试 透明渲染模式
                     │   │   └── app0004
-                    │   │       ├── Screen0001.java
-                    │   │       └── Screen0003.java
+                    │   │       ├── Screen0001.java//3D 粒子系统 单机
+                    │   │       └── Screen0003.java//3D 粒子系统 联机 客户端
                     │   ├── asset
                     │   │   ├── GifAsset.java
                     │   │   ├── ImageAsset.java
@@ -186,7 +186,7 @@ core/
                     │           └── GifParameter.java
                     ├── launcher
                     │   ├── DebugApp.java
-                    │   ├── MainApp.java
+                    │   ├── MainApp.java  //游戏开始的地方
                     │   └── ServerApp.java
                     └── util
                         ├── FileUtil.java
