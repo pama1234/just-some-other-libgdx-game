@@ -52,7 +52,6 @@ public class MainPlayer extends Player{
   public void update() {
     for(TouchInfo e:p.touches) if(e.active) ctrl.touchUpdate(e);
     ctrl.updateOuterBox();
-    //---
     ctrl.updateCtrlInfo();
     ctrl.doWalkAndJump();
     //---

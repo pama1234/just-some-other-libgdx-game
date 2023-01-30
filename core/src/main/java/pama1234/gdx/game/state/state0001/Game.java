@@ -54,6 +54,7 @@ public class Game extends StateEntity0001{
         World0001 tw=world();
         MainPlayer tp=tw.yourself;
         drawLimitBox(tw,tp,tp.ctrl.limitBox);
+        // System.out.println(tp.ctrl.limitBox.h);
         // for(EntityCenter<Screen0011,? extends GamePointEntity<?>> i:tw.entities.list) for(GamePointEntity<?> e:i.list) drawLimitBox(tw,e,e.limitBox);
         // for(MobEntity e:tw.entities.mobEntities.list) drawLimitBox(tw,e,e.limitBox);
         for(DroppedItem e:tw.entities.items.list) drawLimitBox(tw,e,e.limitBox);

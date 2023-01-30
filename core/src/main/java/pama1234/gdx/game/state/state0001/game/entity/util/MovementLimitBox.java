@@ -39,12 +39,17 @@ public class MovementLimitBox extends OuterBox{
     inAir=p.point.pos.y<floor;
   }
   public void updateLimit() {
-    // if(inAir&&p.point.vel.y>0) y2-=1;
     int blockWidth=p.pw.settings.blockWidth;
     int blockHeight=p.pw.settings.blockHeight;
-    // if(inAir&&h>1) h-=1;
-    if(inAir&&p.point.vel.y<0&&h>1) h-=1;
-    // if(inAir&&p.point.vel.y<0&&h>1) h+=1;
+    if(inAir&&h>1) {
+      h-=1;
+      y2-=1;
+      // if(p.point.vel.y<0) y1+=1;
+    }
+    // if(inAir&&p.point.vel.y<0&&h>1) {
+    //   h-=1;
+    //   y2-=1;
+    // }
     Block block;
     flagCache=false;
     //------------------------------------------ ceiling
