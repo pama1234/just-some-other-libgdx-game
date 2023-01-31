@@ -67,7 +67,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   }
   public void loadSettings() {
     if(!settingsFile.exists()) {
-      settings=new SettingsData();
+      initSettings();
       return;
     }
     try(Input input=new Input(new FileInputStream(settingsFile.file()))) {
@@ -77,8 +77,12 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     }catch(FileNotFoundException|KryoException e) {
       e.printStackTrace();
     }
-    if(settings==null) settings=new SettingsData();
-    if(settings.serverInfo==null) settings.serverInfo=new ServerInfo("127.0.0.1",12347);
+    if(settings==null) initSettings();
+  }
+  public void initSettings() {
+    settings=new SettingsData();
+    // if(settings.serverInfo==null)
+    settings.serverInfo=new ServerInfo("127.0.0.1",12347);
   }
   public void saveSettings() {
     try(Output output=new Output(new FileOutputStream(settingsFile.file()))) {

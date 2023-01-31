@@ -25,6 +25,7 @@ public class Settings extends StateEntity0001{
   }
   @Override
   public void from(State0001 in) {
+    // System.out.println(p.settings.serverInfo);
     camTextFields[0].setText(p.settings.serverInfo.toString());
     p.backgroundColor(0);
     p.cam2d.minScale=p.isAndroid?0.5f:1f;
