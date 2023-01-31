@@ -37,7 +37,7 @@ core/
                     │   │   └── app0004
                     │   │       ├── Screen0001.java//3D 粒子系统 单机
                     │   │       └── Screen0003.java//3D 粒子系统 联机 客户端
-                    │   ├── asset
+                    │   ├── asset      //储存游戏的资源
                     │   │   ├── GifAsset.java
                     │   │   ├── ImageAsset.java
                     │   │   ├── MusicAsset.java
@@ -56,7 +56,7 @@ core/
                     │   │   │   ├── State0001.java
                     │   │   │   ├── StateGenerator0001.java
                     │   │   │   └── game
-                    │   │   │       ├── entity
+                    │   │   │       ├── entity     //ECS系统【构建你自己的ECS系统 1-什么是ECS-哔哩哔哩】 https://b23.tv/GjYufAh
                     │   │   │       │   ├── GameEntity.java
                     │   │   │       │   ├── GamePointEntity.java
                     │   │   │       │   ├── LivingEntity.java
