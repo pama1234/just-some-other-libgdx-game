@@ -10,6 +10,8 @@
 
 主要类位置：pama1234.gdx.launcher.MainApp
 
+项目代码帮助文档：`doc\codeHelp.txt`
+
 命名规则：tx是temp-x的缩写，一般用于局部变量中,其他还有ty，tw，th，这些分别表示位置x，位置y，体积w，体积z，之类的
 
 待办事项请看doc文件的todo.txt,若完成了某一项，请将其剪切粘贴到solved.txt，编译安卓项目请用自己的签名文件, 可以使用中英文或其他语言作为待办项，但不能修改已有待办项的语言类型
@@ -23,6 +25,8 @@ The git repo of the open-source game project series of Game-With-Java (the engli
 Libraries used: libgdx, kryo, vecmath, aparapi
 
 Main class location: pama1234.gdx.launcher.MainApp
+
+Code help doc: `doc\codeHelp.txt`
 
 Naming rules: tx is the abbreviation of temp-x, which is generally used in local variables. Other variables include ty, tw, and th, which represent position x, position y, volume w, and volume z respectively, and so on.
 
