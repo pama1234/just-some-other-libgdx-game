@@ -19,6 +19,7 @@ public class Block{
   public boolean updateLighting=true;
   public int[] displayType;
   public PathVarLighting light;
+  public int referenceCount;//TODO
   public int[] blockData;
   public Item[] itemData;
   public Block nextBlockData;
