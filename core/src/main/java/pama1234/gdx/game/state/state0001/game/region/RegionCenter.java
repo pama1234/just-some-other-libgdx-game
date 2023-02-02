@@ -43,6 +43,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   public LoopThread[] loops;
   public LoopThread updateLoop,fullMapUpdateDisplayLoop,updateDisplayLoop;
   public TilemapRenderer0001 tilemapRenderer;
+  public Region cachedRegion;
   public RegionCenter(Screen0011 p,World0001 pw) {
     this(p,pw,Gdx.files.local(pw.dataDir+"regions.bin"));
   }
@@ -115,6 +116,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     for(Player player:pw.entities.players.list) testChunkUpdateWithPlayer(player);
     testChunkUpdateWithPlayer(pw.yourself);//TODO
     for(Region e:list) if(!e.keep) {
+      if(cachedRegion==e) cachedRegion=null;
       remove.add(e);
       pool.put(e);
     }
@@ -269,8 +271,12 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     int tx=UtilMath.floor((float)cx/regionWidth),ty=UtilMath.floor((float)cy/regionHeight);
     int prx=Tools.moveInRange(cx,0,regionWidth),pry=Tools.moveInRange(cy,0,regionHeight);
     int px=Tools.moveInRange(x,0,chunkWidth),py=Tools.moveInRange(y,0,chunkHeight);
+    if(cachedRegion!=null&&cachedRegion.x==tx&&cachedRegion.y==ty) return cachedRegion.data[prx][pry].data[px][py];
     synchronized(list) {//TODO
-      for(Region r:list) if(r.x==tx&&r.y==ty) return r.data[prx][pry].data[px][py];
+      for(Region r:list) if(r.x==tx&&r.y==ty) {
+        cachedRegion=r;
+        return r.data[prx][pry].data[px][py];
+      }
     }
     return null;
   }
