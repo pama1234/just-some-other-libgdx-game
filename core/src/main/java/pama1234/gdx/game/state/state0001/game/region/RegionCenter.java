@@ -116,9 +116,11 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     for(Player player:pw.entities.players.list) testChunkUpdateWithPlayer(player);
     testChunkUpdateWithPlayer(pw.yourself);//TODO
     for(Region e:list) if(!e.keep) {
-      if(cachedRegion==e) cachedRegion=null;
       remove.add(e);
       pool.put(e);
+    }
+    if(cachedRegion!=null) for(Region e:remove) if(cachedRegion==e) synchronized(cachedRegion) {
+      cachedRegion=null;
     }
   }
   public void testChunkUpdateWithPlayer(Player player) {
@@ -271,8 +273,10 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     int tx=UtilMath.floor((float)cx/regionWidth),ty=UtilMath.floor((float)cy/regionHeight);
     int prx=Tools.moveInRange(cx,0,regionWidth),pry=Tools.moveInRange(cy,0,regionHeight);
     int px=Tools.moveInRange(x,0,chunkWidth),py=Tools.moveInRange(y,0,chunkHeight);
+    if(cachedRegion!=null) synchronized(cachedRegion) {
+      if(cachedRegion.x==tx&&cachedRegion.y==ty) return cachedRegion.data[prx][pry].data[px][py];
+    }
     synchronized(list) {//TODO
-      if(cachedRegion!=null&&cachedRegion.x==tx&&cachedRegion.y==ty) return cachedRegion.data[prx][pry].data[px][py];
       for(Region r:list) if(r.x==tx&&r.y==ty) {
         cachedRegion=r;
         return r.data[prx][pry].data[px][py];

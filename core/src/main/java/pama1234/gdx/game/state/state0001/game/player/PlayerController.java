@@ -140,13 +140,6 @@ public class PlayerController extends Entity<Screen0011>{
     left=p.isKeyPressed(29)||p.isKeyPressed(21);
     right=p.isKeyPressed(32)||p.isKeyPressed(22);
     jump=p.isKeyPressed(62);
-	if(jump&&jumpForceMult<1.5f&&player.point.vel.y<0) {
-		jumpForceMult+=.1f;
-		player.point.vel.y-=jumpForceMult;
-	}else{
-		player.point.vel.y+=player.pw.settings.g;
-		jumpForceMult=.7f;
-	}
   }
   @Override
   public void touchStarted(TouchInfo info) {
@@ -332,8 +325,17 @@ public class PlayerController extends Entity<Screen0011>{
       }
     }else walkSlowDown();
     limitBox.doInAirTest();
-    if(limitBox.inAir) player.point.vel.y+=player.pw.settings.g;
-    else {
+    // if(jump&&jumpForceMult<1.5f&&player.point.vel.y<0) {
+    //   jumpForceMult+=.1f;
+    //   player.point.vel.y-=jumpForceMult;
+    // }else {
+    //   player.point.vel.y+=player.pw.settings.g;
+    //   jumpForceMult=.7f;
+    // }
+    if(limitBox.inAir) {
+      if(jump) player.point.vel.y+=player.pw.settings.g;
+      else player.point.vel.y+=player.pw.settings.g*2;
+    }else {
       if(player.point.pos.y!=limitBox.floor) {
         player.point.vel.y=0;
         player.point.pos.y=limitBox.floor;
