@@ -4,6 +4,7 @@ import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.entity.entity0001.DroppedItem;
+import pama1234.gdx.game.state.state0001.game.item.Item;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock.ItemDropAttr;
 import pama1234.gdx.game.state.state0001.game.region.PathVarLighting;
@@ -17,10 +18,10 @@ public class Block{
   @Tag(1)
   public boolean updateLighting=true;
   public int[] displayType;
-  // public int lighting=0xffffff;
-  // public int lighting=16;
   public PathVarLighting light;
   public int[] blockData;
+  public Item[] itemData;
+  public Block nextBlockData;
   @Deprecated
   public Block() {//只能用于kryo
   }
@@ -41,6 +42,7 @@ public class Block{
       displayType=new int[type.displayTypeSize];
       displayType[0]=type.getDisplayType();
     }else displayType=null;
+    type.initBlock(this);
   }
   public void type(MetaBlock in) {
     MetaBlock t=type;

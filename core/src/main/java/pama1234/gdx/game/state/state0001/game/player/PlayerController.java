@@ -23,19 +23,6 @@ import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 
 public class PlayerController extends Entity<Screen0011>{
-  public static class ControllerBlockPointer{
-    public TouchInfo info;
-    public BlockPointer data;
-    public ControllerBlockPointer(BlockPointer in) {
-      data=in;
-    }
-    public void info(TouchInfo in) {
-      info=in;
-    }
-    public void testStopTask(TouchInfo in) {
-      if(info==in) data.stopTask();
-    }
-  }
   public MainPlayer player;
   public boolean walking;
   public boolean left,right,jump,shift;
@@ -378,6 +365,19 @@ public class PlayerController extends Entity<Screen0011>{
       }else if(td<itemPickMoveDist) {
         e.point.vel.set((player.x()-e.x())*p.random(0.1f,0.2f),(player.y()-e.y())*p.random(0.1f,0.2f));
       }
+    }
+  }
+  public static class ControllerBlockPointer{
+    public TouchInfo info;
+    public BlockPointer data;
+    public ControllerBlockPointer(BlockPointer in) {
+      data=in;
+    }
+    public void info(TouchInfo in) {
+      info=in;
+    }
+    public void testStopTask(TouchInfo in) {
+      if(info==in) data.stopTask();
     }
   }
 }

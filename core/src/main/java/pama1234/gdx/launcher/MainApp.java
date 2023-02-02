@@ -9,6 +9,7 @@ import com.badlogic.gdx.Game;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.app.Screen0012;
 import pama1234.gdx.game.app.Screen0016;
+import pama1234.gdx.game.app.Screen0017;
 import pama1234.gdx.game.app.app0001.Screen0002;
 import pama1234.gdx.game.app.app0001.Screen0007;
 import pama1234.gdx.game.app.app0002.Screen0004;
@@ -44,7 +45,8 @@ public class MainApp extends Game{
       Screen0013.class,//测试 透明渲染模式
       Screen0014.class,//测试 贴图渲染优化
       Screen0015.class,//测试 贴图渲染优化
-      Screen0016.class//测试 联机游戏 客户端
+      Screen0016.class,//测试 联机游戏 客户端
+      Screen0017.class//某个音游项目
       );
   }
   @Override

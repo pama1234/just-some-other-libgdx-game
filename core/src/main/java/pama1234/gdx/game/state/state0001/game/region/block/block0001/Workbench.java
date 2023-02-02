@@ -3,8 +3,10 @@ package pama1234.gdx.game.state.state0001.game.region.block.block0001;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import pama1234.gdx.game.asset.ImageAsset;
+import pama1234.gdx.game.state.state0001.game.item.Item;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
+import pama1234.gdx.game.state.state0001.game.region.block.Block;
 
 public class Workbench extends MetaBlock{
   public Workbench(MetaBlockCenter0001 pc,int id) {
@@ -26,5 +28,10 @@ public class Workbench extends MetaBlock{
     TextureRegion[][] tsrc=ImageAsset.tiles;
     //-----------------------------------------------------
     tiles[0]=tsrc[6][8];
+  }
+  @Override
+  public void initBlock(Block in) {
+    // in.blockData=new int[3];
+    in.itemData=new Item[3];
   }
 }
