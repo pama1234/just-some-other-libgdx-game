@@ -29,7 +29,7 @@ public class PlayerController extends Entity<Screen0011>{
   public int walkCool,jumpCool;
   public float speed=1f,shiftSpeedMult=2f;
   public float slowDownSpeed=1/4f;
-  public float jumpForceMult=1.5f;
+  public float jumpForceMult=1.5f,jumpHeight=0;
   public MovementLimitBox limitBox;
   public RectF[] cullRects;
   public EntityPointer selectEntity;
@@ -325,16 +325,12 @@ public class PlayerController extends Entity<Screen0011>{
       }
     }else walkSlowDown();
     limitBox.doInAirTest();
-    // if(jump&&jumpForceMult<1.5f&&player.point.vel.y<0) {
-    //   jumpForceMult+=.1f;
-    //   player.point.vel.y-=jumpForceMult;
-    // }else {
-    //   player.point.vel.y+=player.pw.settings.g;
-    //   jumpForceMult=.7f;
-    // }
     if(limitBox.inAir) {
-      if(jump) player.point.vel.y+=player.pw.settings.g;
-      else player.point.vel.y+=player.pw.settings.g*2;
+      if(jump&&jumpHeight<-player.pw.settings.jumpForce*jumpForceMult) {
+		player.point.vel.y-=player.pw.settings.g*2;
+		jumpHeight+=player.pw.settings.g*2;
+	  }			
+      else player.point.vel.y+=player.pw.settings.g;
     }else {
       if(player.point.pos.y!=limitBox.floor) {
         player.point.vel.y=0;
@@ -342,8 +338,9 @@ public class PlayerController extends Entity<Screen0011>{
       }
       if(jumpCool>0) jumpCool--;
       else if(jump) {
-        player.point.vel.y=player.pw.settings.jumpForce*jumpForceMult;
+        player.point.vel.y=player.pw.settings.jumpForce*jumpForceMult*.5f;
         jumpCool=2;
+		jumpHeight=-player.point.vel.y;		
       }
     }
   }
