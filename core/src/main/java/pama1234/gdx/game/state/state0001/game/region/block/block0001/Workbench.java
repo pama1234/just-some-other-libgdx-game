@@ -3,6 +3,8 @@ package pama1234.gdx.game.state.state0001.game.region.block.block0001;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import pama1234.gdx.game.asset.ImageAsset;
+import pama1234.gdx.game.state.state0001.game.item.Inventory.DisplaySlot;
+import pama1234.gdx.game.state.state0001.game.item.Inventory.InventorySlot;
 import pama1234.gdx.game.state.state0001.game.item.Item;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
@@ -21,10 +23,12 @@ public class Workbench extends MetaBlock{
     fullBlock=false;
     destroyTime=120;
     buildTime=10;
-    // initFullBlockLambda();
+    // initLambda();
+    initLambda();
+  }
+  public void initLambda() {
     updater=(in,x,y)-> {
       lightUpdater.update(in,x,y);
-      // for(int i=1;i<in.itemData.length;i++);
       tag:
       for(CraftRecipe e:recipeList) {
         for(CraftItem i:e.input) {
@@ -60,6 +64,9 @@ public class Workbench extends MetaBlock{
         }
       }
     };
+    displayer=(p,in,x,y)-> {
+      defaultBlockDisplayer.display(p,in,x,y);
+    };
   }
   @Override
   public void initItemDrop() {
@@ -78,6 +85,8 @@ public class Workbench extends MetaBlock{
   public void initBlock(Block in) {
     // in.blockData=new int[3];
     in.itemData=new Item[3];
+    in.displaySlot=new DisplaySlot[in.itemData.length];
+    for(int i=0;i<in.displaySlot.length;i++) in.displaySlot[i]=new DisplaySlot(new InventorySlot(in.itemData[i]));
   }
   public CraftRecipe[] recipeList;
   public static class CraftRecipe{

@@ -17,6 +17,7 @@ public class Inventory{
   public DisplaySlot[][] displaySlots;
   public DisplaySlot[] hotSlots,backpackSlots;
   public DisplaySlot holdSlot;
+  // public DisplaySlot[] workStationSlots;
   public float rSize;
   public PathVar r;
   public int selectSlot;
@@ -185,6 +186,10 @@ public class Inventory{
   //------------------------------------------------------------------------------------
   public static class InventorySlot{
     public Item item;
+    public InventorySlot() {}
+    public InventorySlot(Item item) {
+      this.item=item;
+    }
     @FunctionalInterface
     public interface GetInventorySlot{
       public InventorySlot get();
