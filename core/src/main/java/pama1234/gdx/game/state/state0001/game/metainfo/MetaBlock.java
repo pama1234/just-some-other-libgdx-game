@@ -16,6 +16,7 @@ public class MetaBlock extends MetaInfoBase{
   public float hardness=1,lightIntensity;
   public int blockType;
   public boolean fullBlock=true;
+  public boolean workStation;
   public ItemDropAttr[] itemDrop;
   public int displayTypeSize;
   public int defaultDisplayType;

@@ -34,6 +34,7 @@ public class PlayerController extends Entity<Screen0011>{
   public RectF[] cullRects;
   public EntityPointer selectEntity;
   public ControllerBlockPointer selectBlock;
+  // public BlockPointer workStationPointer;
   public float camScale=2;
   public float itemPickDist=18,itemPickMoveDist=72;
   public PlayerController(Screen0011 p,MainPlayer player) {
@@ -50,6 +51,7 @@ public class PlayerController extends Entity<Screen0011>{
     limitBox=new MovementLimitBox(player);
     selectEntity=new EntityPointer(player.pw,()->player.inventory.select().data);
     selectBlock=new ControllerBlockPointer(new BlockPointer(player.pw,()->player.inventory.select().data));
+    // workStationPointer=new BlockPointer(player.pw);
     // player.outerBox=limitBox;//TODO
   }
   @Override
@@ -57,6 +59,7 @@ public class PlayerController extends Entity<Screen0011>{
     // p.beginBlend();
     if(selectEntity.entity!=null) drawSelectEntity();
     if(selectBlock.data.active) drawSelectBlock();
+    // if(workStationPointer.active) drawSelectBlock();
     // p.endBlend();
   }
   public void drawSelectEntity() {
@@ -103,6 +106,8 @@ public class PlayerController extends Entity<Screen0011>{
               0,ti.type.blockType.buildTime+selectBlock.data.block.type.destroyTime,0,7)],
             selectBlock.data.x*tw,selectBlock.data.y*th);
         }
+      }
+      case BlockPointer.use: {//TODO
       }
       default:
         break;

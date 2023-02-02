@@ -11,7 +11,7 @@ import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 
 public class BlockPointer{
-  public static final int idle=0,build=1,destroy=2;
+  public static final int idle=0,build=1,destroy=2,use=3;
   public World0001 pw;
   public GetInventorySlot slot;
   public Block block;
