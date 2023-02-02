@@ -20,6 +20,7 @@ public class Block{
   // public int lighting=0xffffff;
   // public int lighting=16;
   public PathVarLighting light;
+  public int[] blockData;
   @Deprecated
   public Block() {//只能用于kryo
   }
