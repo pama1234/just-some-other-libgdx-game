@@ -78,6 +78,7 @@ public class MetaBlock extends MetaInfoBase{
   public int getDisplayType() {//TODO
     return defaultDisplayType;
   }
+  public void initBlock(Block in) {}
   public void from(Block block,MetaBlock type) {
     if(from!=null) from.change(block,type);
   }
@@ -94,7 +95,7 @@ public class MetaBlock extends MetaInfoBase{
     lightIntensity=in;
   }
   public void initItemDrop() {}
-  public class ItemDropAttr{
+  public static class ItemDropAttr{
     public MetaItem item;
     public int min,max;
     public float probability;

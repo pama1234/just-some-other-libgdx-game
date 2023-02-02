@@ -1,11 +1,19 @@
 package pama1234.gdx.game.state.state0001.game.item;
 
+import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
+
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
 
 public class Item{
   public MetaItem type;
+  @Tag(0)
+  public int typeId;
   public int[] displayType;
+  @Tag(1)
   public int count=1;
+  public int referenceCount;//TODO
+  @Deprecated
+  public Item() {}
   public Item(MetaItem type) {
     this.type=type;
     init(type);
