@@ -33,3 +33,4 @@ RegionCenter的异步刷新导致的refresh和RegionsUpdateDisplayLoop撞车（�
 蝙蝠小怪
 安卓在pause时需要存档，不然清后台的时候来不及
 将生物生成逻辑移动到mobcenter
+之前跳跃是定高的，玩家跳跃时可以松开空格按钮来提前减速
