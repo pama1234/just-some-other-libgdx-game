@@ -73,7 +73,7 @@ core/
                     │   │   │       ├── item
                     │   │   │       │   ├── Inventory.java
                     │   │   │       │   └── Item.java
-                    │   │   │       ├── metainfo
+                    │   │   │       ├── metainfo    //方块材质
                     │   │   │       │   ├── MetaBlock.java
                     │   │   │       │   ├── MetaCreature.java
                     │   │   │       │   ├── MetaInfoBase.java
@@ -103,7 +103,7 @@ core/
                     │   │   │       │   ├── TilemapRenderer0002.java
                     │   │   │       │   └── block
                     │   │   │       │       ├── Block.java
-                    │   │   │       │       └── block0001
+                    │   │   │       │       └── block0001    //具体的方块类型
                     │   │   │       │           ├── Dirt.java
                     │   │   │       │           ├── Sapling.java
                     │   │   │       │           ├── Stone.java
