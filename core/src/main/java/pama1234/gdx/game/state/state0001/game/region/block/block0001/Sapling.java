@@ -5,19 +5,24 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
+import pama1234.gdx.game.state.state0001.game.region.block.Block;
+import pama1234.gdx.game.state.state0001.game.world.World0001;
+import pama1234.math.UtilMath;
 
 public class Sapling extends MetaBlock{
   public Sapling(MetaBlockCenter0001 pc,int id) {
-    super(pc,"sapling",id,1,1,(in,type)-> {//change to log
+    super(pc,"sapling",id,1,1,(in,type)-> {//change to me
       in.light.set(16);
-    },(in,type)-> {//change from log
+      in.blockData=new int[1];
+    },(in,type)-> {//change from me
+      in.blockData=null;
     });
     blockType=woodType;
     destroyTime=10;
     buildTime=5;
     fullBlock=false;
     // initFullBlockLambda();
-    initTreeLogLambda();
+    initSaplingLambda();
   }
   @Override
   public void initItemDrop() {
@@ -29,25 +34,36 @@ public class Sapling extends MetaBlock{
     //-----------------------------------------------------
     tiles[0]=tsrc[6][6];
   }
-  public void initTreeLogLambda() {
-    // updater=lightUpdater;
-    // displayUpdater=(in,x,y)-> {
-    //   World0001 world=in.type.pc.pw;
-    //   int typeCache=0;
-    //   if(isTreeLog(world.getBlock(x,y+1),this)) {// down
-    //     if(isTreeLeaf(world.getBlock(x,y-2),pc.leaf)&&// up 2
-    //       isTreeLog(world.getBlock(x,y-1),this)) typeCache=1;// up
-    //     else {
-    //       typeCache=2;// down
-    //       if(isTreeBranch(world.getBlock(x-1,y),pc.branch)) typeCache+=1;// left
-    //       if(isTreeBranch(world.getBlock(x+1,y),pc.branch)) typeCache+=2;// right
-    //     }
-    //   }
-    //   in.displayType[0]=typeCache;
-    //   //---
-    //   if(in.updateLighting) lightingUpdate(in,x,y,world);
-    //   // in.light.update();
-    // };
-    // displayer=fullBlockDisplayer;
+  @Override
+  public void initBlock(Block in) {
+    in.blockData=new int[1];
+  }
+  public void initSaplingLambda() {
+    updater=(in,x,y)-> {
+      lightUpdater.update(in,x,y);
+      if(in.blockData[0]<20) {
+        World0001 world=pc.pw;
+        Block tb=world.getBlock(x,y+1);
+        if(tb!=null&&tb.type!=pc.dirt) world.destroyBlock(in,x,y);
+      }else if(in.blockData[0]<200) in.blockData[0]+=1;
+      else {
+        in.blockData[0]=0;
+        World0001 world=pc.pw;
+        int th=4+UtilMath.floor(world.random(12));
+        int ty=y-th;
+        int n=1+UtilMath.floor(world.random(2));
+        int m=1+UtilMath.floor(world.random(2));
+        for(int i=1;i<th;i++) {
+          Block block=world.getBlock(x,y-i);
+          if(block==null||block.type!=pc.air) return;
+        }
+        for(int i=-n;i<=n;i++) for(int j=-m;j<=m;j++) {
+          Block block=world.getBlock(x+i,ty+j);
+          if(block==null||block.type!=pc.air) return;
+        }
+        for(int i=0;i<th;i++) world.setBlock(pc.log,x,y-i);
+        for(int i=-n;i<=n;i++) for(int j=-m;j<=m;j++) world.setBlock(pc.leaf,x+i,ty+j);
+      }
+    };
   }
 }

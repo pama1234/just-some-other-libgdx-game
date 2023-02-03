@@ -211,6 +211,7 @@ public class Inventory{
   // public void displayInventoryCircle() {}
   //------------------------------------------------------------------------------------
   public static class InventorySlot{
+    public int referenceCount;//TODO
     public Item item;
     public InventorySlot() {}
     public InventorySlot(Item item) {
