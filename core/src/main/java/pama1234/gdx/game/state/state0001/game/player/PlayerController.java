@@ -173,7 +173,6 @@ public class PlayerController extends Entity<Screen0011>{
     selectBlock.data.update(block,tx,ty);
     if(player.gameMode!=GameMode.creative) return;
     if(testPosInOtherEntity(tx,ty)) return;
-    // if(player.gameMode==GameMode.creative)
     creativeModeUpdateSelectBlock(info,tx,ty,block);
   }
   @Override
@@ -199,10 +198,10 @@ public class PlayerController extends Entity<Screen0011>{
   }
   public boolean updateAndTestInventorySlot(float x,float y,int button) {
     if(player.inventory.displayState==Inventory.displayFullInventory) {
-      DisplaySlot[] hotSlots=player.inventory.hotSlots;
-      for(int i=0;i<hotSlots.length;i++) if(testAndSelectSlot(x,y,button,hotSlots,i)) return true;
-      hotSlots=player.inventory.backpackSlots;
-      for(DisplaySlot e:hotSlots) if(testSlot(x,y,button,e)) return true;
+      DisplaySlot[] slots=player.inventory.hotSlots;
+      for(int i=0;i<slots.length;i++) if(testAndSelectSlot(x,y,button,slots,i)) return true;
+      slots=player.inventory.backpackSlots;
+      for(DisplaySlot e:slots) if(testSlot(x,y,button,e)) return true;
     }
     return false;
   }
@@ -211,10 +210,11 @@ public class PlayerController extends Entity<Screen0011>{
       switch(getTouchInfoButton(button)) {
         case Buttons.LEFT: {
           // selectHotSlot(i);
+          player.inventory.switchHold(e,Inventory.moveOne);
         }
           break;
         case Buttons.RIGHT: {
-          player.inventory.switchHold(e);
+          player.inventory.switchHold(e,Inventory.moveAll);
         }
           break;
       }
@@ -231,7 +231,7 @@ public class PlayerController extends Entity<Screen0011>{
         }
           break;
         case Buttons.RIGHT: {
-          player.inventory.switchHold(e);
+          player.inventory.switchHold(e,Inventory.moveAll);
         }
           break;
       }

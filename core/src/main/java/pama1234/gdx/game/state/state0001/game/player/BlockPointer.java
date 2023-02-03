@@ -51,7 +51,8 @@ public class BlockPointer{
       }
         break;
       case Buttons.RIGHT: {
-        startTask(build);
+        if(block.type.workStation) startTask(use);
+        else startTask(build);
       }
         break;
     }

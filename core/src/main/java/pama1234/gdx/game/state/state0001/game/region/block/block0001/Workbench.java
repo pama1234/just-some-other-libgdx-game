@@ -30,7 +30,7 @@ public class Workbench extends MetaBlock{
   public void initLambda() {
     updater=(in,x,y)-> {
       lightUpdater.update(in,x,y);
-      tag:
+      tag_1:
       for(CraftRecipe e:recipeList) {
         for(CraftItem i:e.input) {
           int count=0;
@@ -39,8 +39,9 @@ public class Workbench extends MetaBlock{
             if(ti==null) continue;
             if(ti.type==i.type) count+=ti.count;
           }
-          if(count<i.count) continue tag;
+          if(count<i.count) continue tag_1;
         }
+        tag_2:
         for(CraftItem i:e.input) {
           int count=i.count;
           for(int j=outputSlotSize;j<in.itemData.length;j++) {
@@ -53,10 +54,11 @@ public class Workbench extends MetaBlock{
               }else {
                 ti.count-=count;
                 count=0;
+                continue tag_2;
               }
             }
           }
-          if(count<i.count) continue tag;
+          // if(count>0) continue tag;
         }
         for(int k=0;k<e.output.length;k++) {
           if(k>=outputSlotSize) break;

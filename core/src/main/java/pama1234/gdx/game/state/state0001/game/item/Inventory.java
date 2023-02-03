@@ -10,6 +10,7 @@ import pama1234.math.physics.PathVar;
 
 public class Inventory{
   public static final int noDisplay=0,displayHoldSlot=1,displayFullInventory=2;
+  public static final int moveAll=0,moveOne=1;
   public static int timeF=7200;
   public LivingEntity pc;
   public InventorySlot[] data;
@@ -34,10 +35,21 @@ public class Inventory{
     displaySlots=new DisplaySlot[][] {hotSlots,backpackSlots};
     r=new PathVar(rSize=UtilMath.min(pc.type.w,pc.type.h));
   }
-  public void switchHold(DisplaySlot in) {
-    Item ti=holdSlot.data.item;
-    holdSlot.data.item=in.data.item;
-    in.data.item=ti;
+  public void switchHold(DisplaySlot in,int type) {
+    switch(type) {
+      case moveAll: {
+        Item ti=holdSlot.data.item;
+        holdSlot.data.item=in.data.item;
+        in.data.item=ti;
+      }
+        break;
+      case moveOne: {
+        if(in.data.item==null) {}else {}//TODO
+      }
+        break;
+      default:
+        break;
+    }
   }
   public DisplaySlot select() {
     return hotSlots[selectSlot];
