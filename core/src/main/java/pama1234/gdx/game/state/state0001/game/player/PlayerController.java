@@ -327,10 +327,9 @@ public class PlayerController extends Entity<Screen0011>{
     limitBox.doInAirTest();
     if(limitBox.inAir) {
       if(jump&&jumpHeight<-player.pw.settings.jumpForce*jumpForceMult) {
-		player.point.vel.y-=player.pw.settings.g*2;
-		jumpHeight+=player.pw.settings.g*2;
-	  }			
-      else player.point.vel.y+=player.pw.settings.g;
+        player.point.vel.y-=player.pw.settings.g*2;
+        jumpHeight+=player.pw.settings.g*2;
+      }else player.point.vel.y+=player.pw.settings.g;
     }else {
       if(player.point.pos.y!=limitBox.floor) {
         player.point.vel.y=0;
@@ -340,7 +339,7 @@ public class PlayerController extends Entity<Screen0011>{
       else if(jump) {
         player.point.vel.y=player.pw.settings.jumpForce*jumpForceMult*.5f;
         jumpCool=2;
-		jumpHeight=-player.point.vel.y;		
+        jumpHeight=-player.point.vel.y;
       }
     }
   }

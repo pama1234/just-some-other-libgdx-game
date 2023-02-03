@@ -145,7 +145,7 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
             blockType.updateDisplay(block,txi,tyi);
             if(!blockType.display) continue;
             if(!p.cam2d.boxIntersect(tx,ty,pr.pw.settings.blockWidth,pr.pw.settings.blockHeight)) continue;
-            blockType.display(pr.tilemapRenderer,block,tx,ty);
+            blockType.display(pr.tilemapRenderer,p,block,tx,ty);
           }
         }
       }

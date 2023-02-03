@@ -195,7 +195,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
         if(blockType==null) continue;
         // blockType.updateDisplay(block,i,j);
         if(!blockType.display) continue;
-        blockType.display(tilemapRenderer,block,tx,ty);
+        blockType.display(tilemapRenderer,p,block,tx,ty);
       }
     }
     tilemapRenderer.batch.end();

@@ -90,9 +90,9 @@ public class TreeLeaf extends MetaBlock{
       if(in.updateLighting) lightingUpdate(in,x,y,world);
       // in.light.update();
     };
-    displayer=(p,in,x,y)-> {
+    displayer=(r,p,in,x,y)-> {
       // World0001 world=in.type.pc.pw;
-      p.tint(
+      r.tint(
         getLighting(in.light.r()),
         getLighting(in.light.g()),
         getLighting(in.light.b()));
@@ -100,33 +100,33 @@ public class TreeLeaf extends MetaBlock{
       // if(tp_0!=0)
       // int tw=world.settings.blockWidth,
       //   th=world.settings.blockHeight;
-      p.tile(in.type.tiles[tp_0],x,y);
+      r.tile(in.type.tiles[tp_0],x,y);
       int tp_1=in.displayType[1];
       // if(tp_1!=0) {
       TextureRegion tr;
       if((tp_0&2)+(tp_0&8)==0) {// down and right is leaf
         if((tp_1&4)!=0) tr=in.type.tiles[16];// down right is not leaf
         else tr=in.type.tiles[20];
-        p.tile(tr,x,y);
+        r.tile(tr,x,y);
       }
       if((tp_0&2)+(tp_0&4)==0) {// down and left is leaf
         if((tp_1&2)!=0) tr=in.type.tiles[17];// down left is not leaf
         else tr=in.type.tiles[21];
-        p.tile(tr,x,y);
+        r.tile(tr,x,y);
       }
       if((tp_0&1)+(tp_0&8)==0) {// up and right is leaf
         if((tp_1&8)!=0) tr=in.type.tiles[18];// up right is not leaf
         else tr=in.type.tiles[22];
-        p.tile(tr,x,y);
+        r.tile(tr,x,y);
       }
       if((tp_0&1)+(tp_0&4)==0) {// up and left is leaf
         if((tp_1&1)!=0) tr=in.type.tiles[19];// up left is not leaf
         else tr=in.type.tiles[23];
-        p.tile(tr,x,y);
+        r.tile(tr,x,y);
       }
       // }
       int tp_2=in.displayType[2];
-      if(tp_2!=0) p.tile(in.type.tiles[24],x,y);
+      if(tp_2!=0) r.tile(in.type.tiles[24],x,y);
     };
   }
 }

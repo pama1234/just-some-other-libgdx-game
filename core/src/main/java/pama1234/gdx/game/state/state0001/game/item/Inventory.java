@@ -148,29 +148,26 @@ public class Inventory{
       drawSlotItem(p,ths,ti);
     }
   }
-  public void drawSlotBackground(Screen0011 p,DisplaySlot ths) {
-    // public void drawSlotBackground(Screen0011 p,float x,float y) {
-    p.tint(255,127);
-    p.image(pc.pw.metaItems.inventoryConfig.tiles[0],ths.x1,ths.y1);
-    // p.image(pc.pw.metaItems.inventoryConfig.tiles[0],x,y);
-    p.noTint();
-  }
   public void displaySlot(Screen0011 p,DisplaySlot ths) {
     Item ti=ths.data.item;
     drawSlotBackground(p,ths);
-    // drawSlotBackground(p,ths.x1,ths.y1);
     if(ti!=null) drawSlotItem(p,ths,ti);
   }
-  public void drawSlotItem(Screen0011 p,DisplaySlot ths,Item ti) {
+  public void drawSlotBackground(Screen0011 p,DisplaySlot ths) {
+    p.tint(255,127);
+    p.image(pc.pw.metaItems.inventoryConfig.tiles[0],ths.x1,ths.y1);
+    p.noTint();
+  }
+  public static void drawSlotItem(Screen0011 p,DisplaySlot ths,Item ti) {
     TextureRegion tr=ti.type.tiles[ti.displayType[0]];
     p.image(tr,ths.x1+ths.w3(),ths.y1+ths.h3(),ths.w2,ths.h2);
     displayItemCount(p,ti,ths.x1,ths.y1);
   }
-  public void displaySlotItem(Screen0011 p,DisplaySlot ths) {
+  public static void displaySlotItem(Screen0011 p,DisplaySlot ths) {
     Item ti=ths.data.item;
     if(ti!=null) drawSlotItem(p,ths,ti);
   }
-  private void displayItemCount(Screen0011 p,Item ti,float x,float y) {
+  public static void displayItemCount(Screen0011 p,Item ti,float x,float y) {
     p.textColor(255,191);
     p.text(Integer.toString(ti.count),x,y);
   }
@@ -200,6 +197,12 @@ public class Inventory{
     public float cx,cy,x1,y1,x2,y2,w1,h1,w2,h2;
     public DisplaySlot(InventorySlot pos) {
       this.data=pos;
+    }
+    public void update(float x,float y) {
+      cx=x+9;
+      cy=y+9;
+      setDisplaySize(data.item);
+      updatePosition();
     }
     public void centerUpdate(LivingEntity pc,float x,float y) {
       cx=pc.cx()+x;
