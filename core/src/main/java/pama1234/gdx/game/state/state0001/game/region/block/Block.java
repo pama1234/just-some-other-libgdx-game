@@ -5,7 +5,7 @@ import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.entity.entity0001.DroppedItem;
 import pama1234.gdx.game.state.state0001.game.item.Inventory.DisplaySlot;
-import pama1234.gdx.game.state.state0001.game.item.Item;
+import pama1234.gdx.game.state.state0001.game.item.Inventory.InventorySlot;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock.ItemDropAttr;
 import pama1234.gdx.game.state.state0001.game.region.PathVarLighting;
@@ -22,7 +22,7 @@ public class Block{
   public PathVarLighting light;
   public int referenceCount;//TODO
   public int[] blockData;
-  public Item[] itemData;
+  public InventorySlot[] itemData;
   public Block nextBlockData;
   public DisplaySlot[] displaySlot;
   @Deprecated

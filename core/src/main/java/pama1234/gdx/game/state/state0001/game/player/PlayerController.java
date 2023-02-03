@@ -152,6 +152,7 @@ public class PlayerController extends Entity<Screen0011>{
     int tx=player.xToBlockCord(info.x),
       ty=player.xToBlockCord(info.y);
     if(updateAndTestInventorySlot(info.x,info.y,info.button)) return;
+    if(updateAndTestWorkStationSlot(info.x,info.y,info.button)) return;
     if(p.isAndroid&&inPlayerOuterBox(tx,ty)) {
       player.inventory.displayStateChange();
       return;
@@ -197,6 +198,13 @@ public class PlayerController extends Entity<Screen0011>{
       }
     }
     selectEntity.entity=null;
+    return false;
+  }
+  public boolean updateAndTestWorkStationSlot(float x,float y,int button) {
+    if(selectBlock.data.task==BlockPointer.use) {
+      DisplaySlot[] slots=selectBlock.data.block.displaySlot;
+      for(DisplaySlot e:slots) if(testSlot(x,y,button,e)) return true;
+    }
     return false;
   }
   public boolean updateAndTestInventorySlot(float x,float y,int button) {

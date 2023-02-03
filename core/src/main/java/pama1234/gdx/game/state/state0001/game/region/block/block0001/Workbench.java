@@ -30,40 +30,48 @@ public class Workbench extends MetaBlock{
   public void initLambda() {
     updater=(in,x,y)-> {
       lightUpdater.update(in,x,y);
+      // System.out.println(recipeList[0]);
+      // System.out.println(in.itemData[0]);
+      // System.out.println(in.displaySlot[0].data.item);
       tag_1:
       for(CraftRecipe e:recipeList) {
         for(CraftItem i:e.input) {
           int count=0;
+          // System.out.println(i.type);
           for(int j=outputSlotSize;j<in.itemData.length;j++) {
-            Item ti=in.itemData[j];
+            Item ti=in.itemData[j].item;
+            // System.out.println(ti);
             if(ti==null) continue;
             if(ti.type==i.type) count+=ti.count;
+            // System.out.println(ti.count);
           }
+          // System.out.println(count);
           if(count<i.count) continue tag_1;
         }
-        tag_2:
         for(CraftItem i:e.input) {
           int count=i.count;
           for(int j=outputSlotSize;j<in.itemData.length;j++) {
-            Item ti=in.itemData[j];
+            Item ti=in.itemData[j].item;
             if(ti==null) continue;
             if(ti.type==i.type) {
               if(count>ti.count) {
                 count-=ti.count;
-                in.itemData[j]=null;
+                in.itemData[j].item=null;
               }else {
                 ti.count-=count;
+                if(ti.count==0) in.itemData[j].item=null;
                 count=0;
-                continue tag_2;
+                break;
               }
             }
           }
           // if(count>0) continue tag;
         }
+        // System.out.println("Workbench.initLambda()");
         for(int k=0;k<e.output.length;k++) {
           if(k>=outputSlotSize) break;
           CraftItem i=e.output[k];
-          in.itemData[k]=i.type.createItem(i.count);
+          in.itemData[k].item=i.type.createItem(i.count);
         }
       }
     };
@@ -72,11 +80,13 @@ public class Workbench extends MetaBlock{
       float tw=pc.pw.settings.blockWidth,
         th=pc.pw.settings.blockHeight;
       float tx=(in.displaySlot.length-1)/2*tw;
-      for(int i=0;i<in.displaySlot.length;i++) {//TODO
+      for(int i=0;i<in.displaySlot.length;i++) {//TODO waste efficiency
         DisplaySlot slot=in.displaySlot[i];
         slot.update(x-tx+i*tw,y-th);
       }
+      p.textScale(0.5f);
       for(DisplaySlot e:in.displaySlot) Inventory.displaySlot(p,e);
+      p.textScale(1);
     };
   }
   @Override
@@ -95,9 +105,9 @@ public class Workbench extends MetaBlock{
   @Override
   public void initBlock(Block in) {
     // in.blockData=new int[3];
-    in.itemData=new Item[3];
+    in.itemData=new InventorySlot[3];
     in.displaySlot=new DisplaySlot[in.itemData.length];
-    for(int i=0;i<in.displaySlot.length;i++) in.displaySlot[i]=new DisplaySlot(new InventorySlot(in.itemData[i]));
+    for(int i=0;i<in.displaySlot.length;i++) in.displaySlot[i]=new DisplaySlot(in.itemData[i]=new InventorySlot());
   }
   public CraftRecipe[] recipeList;
   public static class CraftRecipe{
