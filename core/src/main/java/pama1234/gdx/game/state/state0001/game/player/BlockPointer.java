@@ -31,6 +31,7 @@ public class BlockPointer{
     y=yIn;
   }
   public void update(Block in,int x,int y) {
+    if(task==use) return;
     pos(x,y);
     if(in!=block) {
       block=in;
@@ -102,6 +103,7 @@ public class BlockPointer{
     if(in==block) stopTask();
   }
   public void stopTask() {
+    if(task==use) return;
     task=idle;
     progress=0;
   }

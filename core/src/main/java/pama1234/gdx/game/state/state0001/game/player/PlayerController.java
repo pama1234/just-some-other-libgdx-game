@@ -131,7 +131,6 @@ public class PlayerController extends Entity<Screen0011>{
     int tx=player.xToBlockCord(p.mouse.x),
       ty=player.xToBlockCord(p.mouse.y);
     if(inPlayerOuterBox(tx,ty)) return;
-    // if(selectBlock.data.task==BlockPointer.hide) selectBlock.data.task=BlockPointer.idle;
     selectBlock.data.active=true;
     Block block=player.getBlock(tx,ty);
     selectBlock.data.update(block,tx,ty);
