@@ -37,15 +37,31 @@ public class Inventory{
     r=new PathVar(rSize=UtilMath.min(pc.type.w,pc.type.h));
   }
   public void switchHold(DisplaySlot in,int type) {
+    Item itemIn=in.data.item;
+    Item item=holdSlot.data.item;
     switch(type) {
       case moveAll: {
-        Item ti=holdSlot.data.item;
-        holdSlot.data.item=in.data.item;
-        in.data.item=ti;
+        if(item!=null&&itemIn!=null&&itemIn.type==item.type) {
+          item.count+=itemIn.count;
+          itemIn.count=0;
+          in.data.item=null;
+        }else {
+          holdSlot.data.item=itemIn;
+          in.data.item=item;
+        }
       }
         break;
       case moveOne: {
-        if(in.data.item==null) {}else {}//TODO
+        if(item!=null) {
+          if(itemIn==null) {
+            in.data.item=item.type.createItem(1);
+            item.count-=1;
+          }else if(itemIn.type==item.type) {
+            in.data.item.count+=1;
+            item.count-=1;
+          }
+          if(item.count==0) holdSlot.data.item=null;
+        }
       }
         break;
       default:
