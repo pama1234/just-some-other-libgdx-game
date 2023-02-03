@@ -35,6 +35,7 @@ public class Workbench extends MetaBlock{
       // System.out.println(in.displaySlot[0].data.item);
       tag_1:
       for(CraftRecipe e:recipeList) {
+        if(e.output.length>outputSlotSize) continue;
         for(CraftItem i:e.input) {
           int count=0;
           // System.out.println(i.type);
@@ -69,9 +70,12 @@ public class Workbench extends MetaBlock{
         }
         // System.out.println("Workbench.initLambda()");
         for(int k=0;k<e.output.length;k++) {
-          if(k>=outputSlotSize) break;
+          // if(k>=outputSlotSize) break;
           CraftItem i=e.output[k];
-          in.itemData[k].item=i.type.createItem(i.count);
+          InventorySlot slot=in.itemData[k];
+          if(slot.item==null) slot.item=i.type.createItem(i.count);
+          else if(slot.item.type==i.type) slot.item.count+=i.count;
+          // else //TODO
         }
       }
     };
