@@ -107,7 +107,11 @@ public class PlayerController extends Entity<Screen0011>{
             selectBlock.data.x*tw,selectBlock.data.y*th);
         }
       }
-      case BlockPointer.use: {//TODO
+      case BlockPointer.use: {
+        p.tint(255,191);
+        p.image(
+          ImageAsset.tiles[7][8],
+          selectBlock.data.x*tw,selectBlock.data.y*th);
       }
       default:
         break;

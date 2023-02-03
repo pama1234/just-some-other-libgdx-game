@@ -2,8 +2,8 @@ package pama1234.gdx.game.state.state0001.game.region.block.block0001;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
+import pama1234.gdx.game.state.state0001.game.item.Inventory;
 import pama1234.gdx.game.state.state0001.game.item.Inventory.DisplaySlot;
 import pama1234.gdx.game.state.state0001.game.item.Inventory.InventorySlot;
 import pama1234.gdx.game.state.state0001.game.item.Item;
@@ -76,27 +76,8 @@ public class Workbench extends MetaBlock{
         DisplaySlot slot=in.displaySlot[i];
         slot.update(x-tx+i*tw,y-th);
       }
-      for(DisplaySlot e:in.displaySlot) displaySlot(p,e);
+      for(DisplaySlot e:in.displaySlot) Inventory.displaySlot(p,e);
     };
-  }
-  public void displaySlot(Screen0011 p,DisplaySlot ths) {//TODO dup with Inventory method
-    Item ti=ths.data.item;
-    drawSlotBackground(p,ths);
-    if(ti!=null) drawSlotItem(p,ths,ti);
-  }
-  public void drawSlotBackground(Screen0011 p,DisplaySlot ths) {
-    p.tint(255,127);
-    p.image(pc.pw.metaItems.inventoryConfig.tiles[0],ths.x1,ths.y1);
-    p.noTint();
-  }
-  public void drawSlotItem(Screen0011 p,DisplaySlot ths,Item ti) {
-    TextureRegion tr=ti.type.tiles[ti.displayType[0]];
-    p.image(tr,ths.x1+ths.w3(),ths.y1+ths.h3(),ths.w2,ths.h2);
-    displayItemCount(p,ti,ths.x1,ths.y1);
-  }
-  public void displayItemCount(Screen0011 p,Item ti,float x,float y) {
-    p.textColor(255,191);
-    p.text(Integer.toString(ti.count),x,y);
   }
   @Override
   public void initItemDrop() {

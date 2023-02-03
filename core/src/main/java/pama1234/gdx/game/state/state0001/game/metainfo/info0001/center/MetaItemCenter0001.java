@@ -8,7 +8,7 @@ import pama1234.gdx.game.state.state0001.game.world.World0001;
 public class MetaItemCenter0001 extends MetaItemCenter{
   public World0001 pw;
   public IDGenerator idg;
-  public MetaItem inventoryConfig;
+  // public MetaItem inventoryConfig;
   public MetaItem dirt;
   public MetaItem stone;
   public MetaItem log;

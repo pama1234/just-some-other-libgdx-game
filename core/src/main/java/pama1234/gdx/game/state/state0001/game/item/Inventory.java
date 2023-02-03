@@ -3,6 +3,7 @@ package pama1234.gdx.game.state.state0001.game.item;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import pama1234.gdx.game.app.Screen0011;
+import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
 import pama1234.math.Tools;
 import pama1234.math.UtilMath;
@@ -160,14 +161,14 @@ public class Inventory{
       drawSlotItem(p,ths,ti);
     }
   }
-  public void displaySlot(Screen0011 p,DisplaySlot ths) {
+  public static void displaySlot(Screen0011 p,DisplaySlot ths) {
     Item ti=ths.data.item;
     drawSlotBackground(p,ths);
     if(ti!=null) drawSlotItem(p,ths,ti);
   }
-  public void drawSlotBackground(Screen0011 p,DisplaySlot ths) {
+  public static void drawSlotBackground(Screen0011 p,DisplaySlot ths) {
     p.tint(255,127);
-    p.image(pc.pw.metaItems.inventoryConfig.tiles[0],ths.x1,ths.y1);
+    p.image(ImageAsset.items[0][0],ths.x1,ths.y1);
     p.noTint();
   }
   public static void drawSlotItem(Screen0011 p,DisplaySlot ths,Item ti) {
@@ -186,7 +187,7 @@ public class Inventory{
   public void drawSelectRect(Screen0011 p) {
     p.tint(255,191);
     DisplaySlot ths=selectSlot>=hotSlots.length?backpackSlots[selectSlot-hotSlots.length]:hotSlots[selectSlot];
-    TextureRegion tr=pc.pw.metaItems.inventoryConfig.tiles[1];
+    TextureRegion tr=ImageAsset.items[0][1];
     // p.tint(255,127);
     p.image(tr,ths.x1,ths.y1);
   }

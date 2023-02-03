@@ -34,11 +34,11 @@ public class World0001Generator{
   }
   public static MetaItemCenter0001 createItemC(World0001 pw) {
     MetaItemCenter0001 metaItems=new MetaItemCenter0001(pw);
-    metaItems.list.add(metaItems.inventoryConfig=new MetaItem(metaItems,"empty",metaItems.id(),in-> {
-      in.tiles=new TextureRegion[2];
-      in.tiles[0]=ImageAsset.items[0][0];
-      in.tiles[1]=ImageAsset.items[0][1];
-    }));
+    // metaItems.list.add(metaItems.inventoryConfig=new MetaItem(metaItems,"empty",metaItems.id(),in-> {
+    //   in.tiles=new TextureRegion[2];
+    //   in.tiles[0]=ImageAsset.items[0][0];
+    //   in.tiles[1]=ImageAsset.items[0][1];
+    // }));
     metaItems.list.add(metaItems.dirt=new MetaItem(metaItems,"dirt",metaItems.id(),in-> {
       in.blockType=pw.metaBlocks.dirt;
       in.tiles=new TextureRegion[1];
