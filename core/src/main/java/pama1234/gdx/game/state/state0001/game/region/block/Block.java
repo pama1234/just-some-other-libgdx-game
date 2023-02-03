@@ -23,7 +23,7 @@ public class Block{
   public int referenceCount;//TODO
   public int[] blockData;
   public InventorySlot[] itemData;
-  public Block nextBlockData;
+  public Block nextBlock;
   public DisplaySlot[] displaySlot;
   @Deprecated
   public Block() {//只能用于kryo

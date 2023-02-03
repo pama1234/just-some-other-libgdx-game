@@ -122,12 +122,29 @@ public class World0001 extends WorldBase2D{
   }
   public void placeBlock(MainPlayer player,Block block,MetaBlock in,int x,int y) {
     block.doItemDrop(p,x,y);
+    setBlock(block,in,x,y);
+  }
+  public void setBlock(Block block,MetaBlock in,int x,int y) {
     block.type(in);
     // block.type.updateDisplay(block,x,y);
-    updateRectLighting(x,y);
+    // updateRectLighting(x,y);
+  }
+  public void setBlock(MetaBlock in,int x,int y) {
+    Block block=getBlock(x,y);
+    block.type(in);
+    // if(block!=null) block.type(in);
+    // else System.err.println("World0001.setBlock() "+x+" "+y+" block==null");
   }
   public void destroyBlock(BlockPointer bp,Block block,int x,int y) {
     placeBlock(bp,block,metaBlocks.air,x,y);
+  }
+  public void destroyBlock(Block block,int x,int y) {
+    placeBlock(block,metaBlocks.air,x,y);
+  }
+  public void placeBlock(Block block,MetaBlock in,int x,int y) {
+    updateRectLighting(x,y);
+    block.doItemDrop(p,x,y);
+    block.type(in);
   }
   public void placeBlock(BlockPointer bp,Block block,MetaBlock in,int x,int y) {
     updateRectLighting(x,y);

@@ -11,7 +11,6 @@ public class Item{
   public int[] displayType;
   @Tag(1)
   public int count=1;
-  public int referenceCount;//TODO
   @Deprecated
   public Item() {}
   public Item(MetaItem type) {
