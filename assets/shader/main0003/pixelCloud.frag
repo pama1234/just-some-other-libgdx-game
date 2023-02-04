@@ -21,14 +21,14 @@ const float skytint=0.5;
 const vec3 skycolour1=vec3(0.2, 0.4, 0.6);
 const vec3 skycolour2=vec3(0.4, 0.7, 1.0);
 
-const mat2 m=mat2( 1.6,  1.2, -1.2,  1.6 );
+const mat2 m=mat2( 1.6,  1.2,-1.2,  1.6 );
 
 uniform float uv_in;
-uniform float iTime;
+uniform float time_in;
 
 vec2 hash( vec2 p ) {
   p=vec2(dot(p,vec2(127.1,311.7)), dot(p,vec2(269.5,183.3)));
-  return -1.0 + 2.0*fract(sin(p)*43758.5453123);
+  return-1.0 + 2.0*fract(sin(p)*43758.5453123);
 }
 
 float noise( in vec2 p ) {
@@ -61,16 +61,16 @@ float fbm(vec2 n) {
 
 void main() {
   vec2 p=v_texCoords;
-  vec2 uv_o=vec2(uv_in,1.0);
+  vec2 uv_o=p*1.0;
   // vec2 uv_o=p*vec2(uv_in,1.0);
   vec2 uv=vec2(uv_o);
-  float time=iTime*speed;
+  float time=time_in*speed;
   float q=fbm(uv*cloudscale*0.5);
 
   //ridged noise shape
   float r=0.0;
   uv*=cloudscale;
-  uv -=q-time;
+  uv-=q-time;
   float weight=0.8;
   for (int i=0; i<8; i++){
     r +=abs(weight*noise( uv ));
@@ -82,7 +82,7 @@ void main() {
   float f=0.0;
   uv=vec2(uv_o);
   uv*=cloudscale;
-  uv -=q-time;
+  uv-=q-time;
   weight=0.7;
   for (int i=0; i<8; i++){
     f +=weight*noise( uv );
@@ -94,10 +94,10 @@ void main() {
 
   //noise colour
   float c=0.0;
-  time=iTime*speed*2.0;
+  time=time_in*speed*2.0;
   uv=vec2(uv_o);
   uv*=cloudscale*2.0;
-  uv -=q-time;
+  uv-=q-time;
   weight=0.4;
   for (int i=0; i<7; i++){
     c +=weight*noise( uv );
@@ -107,10 +107,10 @@ void main() {
 
   //noise ridge colour
   float c1=0.0;
-  time=iTime*speed*3.0;
+  time=time_in*speed*3.0;
   uv=vec2(uv_o);
   uv*=cloudscale*3.0;
-  uv -=q-time;
+  uv-=q-time;
   weight=0.4;
   for (int i=0; i<7; i++){
     c1 +=abs(weight*noise( uv ));

@@ -19,7 +19,7 @@ public class BackGroundCloud extends BackGround{
       // defaultShader.getFragmentShaderSource());
       Gdx.files.internal("shader/main0003/pixelCloud.frag").readString());
     uvPos=pixelCloud.getAttributeLocation("uv_in");
-    timePos=pixelCloud.getAttributeLocation("iTime");
+    timePos=pixelCloud.getAttributeLocation("time_in");
     System.out.println(pixelCloud.getLog());
   }
   @Override
@@ -32,7 +32,8 @@ public class BackGroundCloud extends BackGround{
   @Override
   public void update() {
     pixelCloud.bind();
-    pixelCloud.setUniformf(timePos,pc.pw.time);
+    pixelCloud.setUniformf(timePos,pc.pw.timeF);
+    // System.out.println(pc.pw.timeF);
   }
   @Override
   public void frameResized(int w,int h) {
