@@ -14,11 +14,13 @@ public class BackGround0001 extends Entity<Screen0011> {
     public float width,height,proportion=1f;
     MainPlayer mp;
     Texture bg;
-    byte xp,yp;
-    float x,y;
+    float x,y,tx,ty;
     CameraController2D cam;
+    byte[] side[]={{-1,-1},{0,-1},{1,-1},
+        {-1,0},{1,0},
+        {-1,1},{0,1},{1,1}};
     public BackGround0001(Screen0011 s,BackGroundCenter0001 pb,MainPlayer player) {
-        this(s,pb,player,null,1980,1080);
+        this(s,pb,player,null,5760,3240);
     }
 
     public BackGround0001(Screen0011 s,BackGroundCenter0001 pb,MainPlayer player,Texture bg,float w,float h) {
@@ -32,7 +34,6 @@ public class BackGround0001 extends Entity<Screen0011> {
         cam=p.cam2d;
         x=-width/2;
         y=height/2;
-        xp=yp=0;
     } 
     public BackGround0001 setBgTexture(Texture t) {
         bg=t;
@@ -40,27 +41,28 @@ public class BackGround0001 extends Entity<Screen0011> {
     }
     @Override
     public void display() {
-        xp=yp=0;
         pb.batch.draw(bg,x,y,width,height);
-        pb.batch.draw(bg,x-width,y,width,height);
-        pb.batch.draw(bg,x+width,y,width,height);
-        pb.batch.draw(bg,x,y-height,width,height);
-        pb.batch.draw(bg,x,y+height,width,height);
-        
-        if(x>cam.x1()) {
-            xp=-1;          
+        for(int i = 0; i<8; i++) {
+            tx=x;
+            ty=y;
+            tx+=side[i][0]*width;
+            ty+=side[i][1]*height;
+            pb.batch.draw(bg,tx,ty,width,height);
         }
-        if(x+width<cam.x2()) {
-            xp=1;
+        while(x-width>cam.x1()) {
+            x-=width;
         }
-        if(y>cam.y1()) {
-            yp=-1;     
+        while(x+width<cam.x2()) {
+            x+=width;
         }
-        if(y+height<cam.y2()) {
-            yp=1;
+        while(y-height>cam.y1()) {
+            y-=height;
         }
-        x+=xp*width;
-        y+=yp*height;
+        while(y+height<cam.y2()) {
+            y+=height;
+        }
+        //x+=xp*width;
+        //y+=yp*height;
     }
 
     @Override
