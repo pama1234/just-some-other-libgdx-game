@@ -18,13 +18,17 @@ const float cloudlight=0.3;
 const float cloudcover=0.2;
 const float cloudalpha=8.0;
 const float skytint=0.5;
-const vec3 skycolour1=vec3(0.2,0.4,0.6);
-const vec3 skycolour2=vec3(0.4,0.7,1.0);
+// const vec3 skycolour1=vec3(0.2,0.4,0.6);
+// const vec3 skycolour2=vec3(0.4,0.7,1.0);
+// const vec4 skyColour=vec3(0.0,0.0,0.0,0.0);
+const vec3 cloudcolour_const=vec3(1.0,1.0,1.0);
 
 const mat2 m=mat2(1.6,1.2,-1.2,1.6);
 
-uniform float uv_in;
+uniform vec2 uv_in;
+uniform vec2 pos_in;
 uniform float time_in;
+uniform float scale_in;
 
 vec2 hash(vec2 p) {
   p=vec2(dot(p,vec2(127.1,311.7)),dot(p,vec2(269.5,183.3)));
@@ -60,9 +64,8 @@ float fbm(vec2 n) {
 // }
 
 void main() {
-  vec2 p=v_texCoords;
-  // vec2 uv_o=p*1.0;
-  vec2 uv_o=p*vec2(uv_in,1.0);
+  // vec2 uv_o=v_texCoords*1.0;
+  vec2 uv_o=v_texCoords*uv_in*scale_in+pos_in;
   vec2 uv=vec2(uv_o);
   float time=time_in*speed;
   float q=fbm(uv*cloudscale*0.5);
@@ -120,13 +123,14 @@ void main() {
 
   c+=c1;
 
-  vec3 skycolour=mix(skycolour2,skycolour1,p.y);
-  vec3 cloudcolour=vec3(1.1,1.1,0.9)*clamp((clouddark+cloudlight*c),0.0,1.0);
+  // vec3 skycolour=mix(skycolour2,skycolour1,p.y);
+  vec3 cloudcolour=cloudcolour_const*clamp((clouddark+cloudlight*c),0.0,1.0);
  
   f=cloudcover+cloudalpha*f*r;
 
-  vec3 result=mix(skycolour,clamp(skytint*skycolour+cloudcolour,0.0,1.0),clamp(f+c,0.0,1.0));
+  // vec3 result=mix(skycolour,clamp(skytint*skycolour+cloudcolour,0.0,1.0),clamp(f+c,0.0,1.0));
 
-  gl_FragColor=vec4(result,1.0);
+  gl_FragColor=vec4(clamp(cloudcolour,0.0,1.1),clamp(f+c,0.0,1.0));
+  // gl_FragColor=vec4(result,1.0);
   // gl_FragColor=vec4(result,fract(time_in));
 }

@@ -34,10 +34,11 @@ public class BackGroundCloud extends BackGround{
     p.clear();
     // p.background(255,0,0);
     p.imageBatch.setShader(pixelCloud);
-    p.image(ImageAsset.shaderOnly,0,3000,w,-h);
+    p.image(ImageAsset.shaderOnly,0,3000,w+1,-h-1);
     // p.image(ImageAsset.background,0,3000);
     p.imageBatch.setShader(defaultShader);
     pixelGraphics.end();
+    // p.image(pixelRegion,UtilMath.floor(cam.x1()),UtilMath.floor(cam.y1()),cam.w(),cam.h());
     p.image(pixelRegion,cam.x1(),cam.y1(),cam.w(),cam.h());
   }
   @Override
@@ -56,13 +57,13 @@ public class BackGroundCloud extends BackGround{
     // p.println(w,h);
     pixelCloud.bind();
     pixelCloud.setUniformf("time_in",pc.pw.timeF);
-    pixelCloud.setUniformf("uv_in",(float)p.width/p.height);//TODO
+    pixelCloud.setUniformf("uv_in",((float)p.width/p.height)/cam.scale.pos,1/cam.scale.pos);
+    pixelCloud.setUniformf("pos_in",player.point.pos.x,player.point.pos.y);
+    pixelCloud.setUniformf("scale_in",0.1f);
+    pixelCloud.setUniformf("pos_in",player.point.pos.x/cam.w(),-player.point.pos.y/cam.w());
   }
   @Override
-  public void frameResized(int w,int h) {
-    // pixelCloud.bind();
-    // pixelCloud.setUniformf("uv_in",(float)w/h);
-  }
+  public void frameResized(int w,int h) {}
   @Override
   public void dispose() {
     super.dispose();
