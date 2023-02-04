@@ -39,7 +39,8 @@ public class BackGround0002 extends BackGround{
   }
   @Override
   public void display() {
-    p.imageBatch.begin();
+    // p.tint(pc.pw.skyLight());
+    p.tint((int)(pc.pw.skyLight()*256));
     p.imageBatch.draw(img,x,y,width,height);
     for(int i=0;i<8;i++) {
       tx=x;
@@ -48,7 +49,6 @@ public class BackGround0002 extends BackGround{
       ty+=side[i][1]*height;
       p.imageBatch.draw(img,tx,ty,width,height);
     }
-    p.imageBatch.end();
   }
   @Override
   public void update() {

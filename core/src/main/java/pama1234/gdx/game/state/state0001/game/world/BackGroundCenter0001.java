@@ -14,4 +14,11 @@ public class BackGroundCenter0001 extends EntityCenter<Screen0011,BackGround>{
 		super(p);
 		this.pw=pw;
 	}
+	@Override
+	public void display() {
+		p.imageBatch.begin();
+		super.display();
+		p.imageBatch.end();
+		p.noTint();
+	}
 }

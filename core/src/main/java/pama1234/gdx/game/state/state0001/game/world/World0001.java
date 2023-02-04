@@ -36,6 +36,7 @@ public class World0001 extends WorldBase2D{
   public MainPlayer yourself;
   public WorldSettings settings=new WorldSettings();
   public int time=12000;
+  // public int time=72000;
   public float timeF;
   public Sky sky;
   public World0001(Screen0011 p,Game pg) {
