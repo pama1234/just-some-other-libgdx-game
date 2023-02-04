@@ -11,10 +11,10 @@ import pama1234.gdx.util.element.CameraController2D;
 
 public class BackGround0001 extends Entity<Screen0011> {
     BackGroundCenter0001 pb;
-    public float width,height,proportion=1f;
+    public float width,height,proportion=0f;
     MainPlayer mp;
     Texture bg;
-    float x,y,tx,ty;
+    float x,y,tx,ty,dx,dy;
     CameraController2D cam;
     byte[] side[]={{-1,-1},{0,-1},{1,-1},
         {-1,0},{1,0},
@@ -34,7 +34,11 @@ public class BackGround0001 extends Entity<Screen0011> {
         cam=p.cam2d;
         x=-width/2;
         y=height/2;
+        dx=dy=0;
     } 
+    public void setProportion(float value){//设置跟随角色移动比例,区分近景远景
+        proportion=value;
+    }
     public BackGround0001 setBgTexture(Texture t) {
         bg=t;
         return this;
@@ -49,6 +53,10 @@ public class BackGround0001 extends Entity<Screen0011> {
             ty+=side[i][1]*height;
             pb.batch.draw(bg,tx,ty,width,height);
         }
+        x+=(mp.x()-dx)*proportion;
+        y+=(mp.y()-dy)*proportion;
+        dx=mp.x();
+        dy=mp.y();
         while(x-width>cam.x1()) {
             x-=width;
         }
