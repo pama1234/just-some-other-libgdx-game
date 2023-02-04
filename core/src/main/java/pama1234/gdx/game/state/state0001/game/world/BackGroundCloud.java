@@ -19,42 +19,49 @@ public class BackGroundCloud extends BackGround{
     cam=p.cam2d;
     pixelGraphics=new Graphics(p,3000,3000);
     pixelRegion=new TextureRegion(pixelGraphics.texture);
+    // pixelRegion.flip(false,true);
     defaultShader=p.imageBatch.getShader();
     pixelCloud=new ShaderProgram(
       defaultShader.getVertexShaderSource(),
       // defaultShader.getFragmentShaderSource());
       Gdx.files.internal("shader/main0003/pixelCloud.frag").readString());
+    // pixelCloud.setUniformf("uv_in",(float)p.width/p.height);
     System.out.println(pixelCloud.getLog());
   }
   @Override
   public void display() {
     pixelGraphics.begin();
     p.clear();
+    // p.background(255,0,0);
     p.imageBatch.setShader(pixelCloud);
-    p.image(ImageAsset.shaderOnly,0,0,w,h);
-    // p.image(ImageAsset.shaderOnly,cam.x1(),cam.y1(),cam.w(),cam.h());
+    p.image(ImageAsset.shaderOnly,0,3000,w,-h);
+    // p.image(ImageAsset.background,0,3000);
     p.imageBatch.setShader(defaultShader);
     pixelGraphics.end();
-    p.image(pixelGraphics.texture,cam.x1(),cam.y1(),cam.w(),cam.h());
+    p.image(pixelRegion,cam.x1(),cam.y1(),cam.w(),cam.h());
   }
   @Override
   public void update() {
     World0001 world=pc.pw;
-    x1=world.xToBlockCord(cam.x1());
-    y1=world.xToBlockCord(cam.y1());
-    x2=world.xToBlockCord(cam.x2());
-    y2=world.xToBlockCord(cam.y2());
+    int tw=world.blockWidth(),
+      th=world.blockHeight();
+    x1=world.xToBlockCord(cam.x1())*tw;
+    x2=world.xToBlockCord(cam.x2())*tw;
+    y1=world.xToBlockCord(cam.y1())*th;
+    y2=world.xToBlockCord(cam.y2())*th;
     w=x2-x1;
     h=y2-y1;
     pixelRegion.setRegion(0,0,w,h);
-    // System.out.println((x2-x1)*world.settings.blockWidth+" "+(y2-y1)*world.settings.blockHeight);
+    // pixelRegion.flip(false,true);
+    // p.println(w,h);
     pixelCloud.bind();
     pixelCloud.setUniformf("time_in",pc.pw.timeF);
+    pixelCloud.setUniformf("uv_in",(float)p.width/p.height);//TODO
   }
   @Override
   public void frameResized(int w,int h) {
-    pixelCloud.bind();
-    pixelCloud.setUniformf("uv_in",(float)w/h);
+    // pixelCloud.bind();
+    // pixelCloud.setUniformf("uv_in",(float)w/h);
   }
   @Override
   public void dispose() {

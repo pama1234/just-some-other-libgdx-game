@@ -33,7 +33,10 @@ public class ImageAsset{
     manager.load("image/select.png",Texture.class);
   }
   public static void put_0001(AssetManager manager) {
-    shaderOnly=new Texture(new Pixmap(1,1,Format.Alpha));
+    Pixmap tp=new Pixmap(1,1,Format.Alpha);
+    tp.setColor(1,0,0,1);
+    tp.drawPixel(0,0);
+    shaderOnly=new Texture(tp);
     exit=loadFromTexture(manager.get("image/exit.png"));
     background=loadFromTexture(manager.get("image/background.png"));
     tiles=loadFromTexture_0001(manager.get("image/tiles.png"),18,18,2,2);
