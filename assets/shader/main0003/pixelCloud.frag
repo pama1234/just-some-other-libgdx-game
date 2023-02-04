@@ -12,7 +12,7 @@ varying HIGHP vec2 v_texCoords;
 uniform sampler2D u_texture;
 
 const float cloudscale=1.1;
-const float speed=0.3;
+const float speed=0.003;
 const float clouddark=0.5;
 const float cloudlight=0.3;
 const float cloudcover=0.2;
@@ -128,4 +128,5 @@ void main() {
   vec3 result=mix(skycolour,clamp(skytint*skycolour+cloudcolour,0.0,1.0),clamp(f+c,0.0,1.0));
 
   gl_FragColor=vec4(result,1.0);
+  // gl_FragColor=vec4(result,fract(time_in));
 }

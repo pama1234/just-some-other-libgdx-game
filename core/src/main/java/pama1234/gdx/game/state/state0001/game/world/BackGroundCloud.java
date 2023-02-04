@@ -6,10 +6,12 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
+import pama1234.gdx.util.element.Graphics;
 
 public class BackGroundCloud extends BackGround{
+  public Graphics pixelGraphics;
   public ShaderProgram pixelCloud,defaultShader;
-  public int uvPos,timePos;
+  // public int uvPos,timePos;
   public BackGroundCloud(Screen0011 p,BackGroundCenter0001 pc,MainPlayer player) {
     super(p,pc,player);
     cam=p.cam2d;
@@ -18,10 +20,15 @@ public class BackGroundCloud extends BackGround{
       defaultShader.getVertexShaderSource(),
       // defaultShader.getFragmentShaderSource());
       Gdx.files.internal("shader/main0003/pixelCloud.frag").readString());
-    uvPos=pixelCloud.getAttributeLocation("uv_in");
-    timePos=pixelCloud.getAttributeLocation("time_in");
     System.out.println(pixelCloud.getLog());
   }
+  // public void initUniformPos() {
+  //   pixelCloud.bind();
+  //   uvPos=pixelCloud.fetchUniformLocation("uv_in",false);
+  //   // uvPos=pixelCloud.getAttributeLocation("uv_in");
+  //   timePos=pixelCloud.getAttributeLocation("time_in");
+  //   System.out.println(uvPos+" "+timePos);
+  // }
   @Override
   public void display() {
     p.imageBatch.setShader(pixelCloud);
@@ -32,12 +39,20 @@ public class BackGroundCloud extends BackGround{
   @Override
   public void update() {
     pixelCloud.bind();
-    pixelCloud.setUniformf(timePos,pc.pw.timeF);
+    pixelCloud.setUniformf("time_in",pc.pw.timeF);
+    // pixelCloud.setUniformf(timePos,pc.pw.timeF);
     // System.out.println(pc.pw.timeF);
   }
   @Override
   public void frameResized(int w,int h) {
+    // initUniformPos();
     pixelCloud.bind();
-    pixelCloud.setUniformf(uvPos,(float)w/h);
+    pixelCloud.setUniformf("uv_in",(float)w/h);
+    // pixelCloud.setUniformf(uvPos,(float)w/h);
+  }
+  @Override
+  public void dispose() {
+    super.dispose();
+    pixelCloud.dispose();
   }
 }
