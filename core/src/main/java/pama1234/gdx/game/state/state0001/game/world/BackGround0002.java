@@ -26,7 +26,7 @@ public class BackGround0002 extends BackGround{
     width=w;
     height=h;
     this.player=player;
-    setBgTexture(img);
+    setTexture(img);
     //li=ri=li=di=1;
     cam=p.cam2d;
     x=-width/2;
@@ -37,7 +37,7 @@ public class BackGround0002 extends BackGround{
     proportion=value;
     return this;
   }
-  public BackGround0002 setBgTexture(TextureRegion t) {
+  public BackGround0002 setTexture(TextureRegion t) {
     img=t;
     return this;
   }

@@ -1,10 +1,12 @@
 package pama1234.gdx.game.state.state0001.game.world;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import pama1234.gdx.game.app.Screen0011;
+import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.state.state0001.game.entity.MultiGameEntityCenter;
@@ -51,11 +53,13 @@ public class World0001 extends WorldBase2D{
     sky=new Sky(this);
   }
   public void createBackground() {
-    background.list.add(new BackGround0002(p,background,yourself).setBgTexture(new TextureRegion(new Texture("5.png"))).setProportion(0));
-    background.list.add(new BackGround0002(p,background,yourself).setBgTexture(new TextureRegion(new Texture("4.png"))).setProportion(.1f));
-    background.list.add(new BackGround0002(p,background,yourself).setBgTexture(new TextureRegion(new Texture("3.png"))).setProportion(.2f));
-    background.list.add(new BackGround0002(p,background,yourself).setBgTexture(new TextureRegion(new Texture("2.png"))).setProportion(.3f));
-    background.list.add(new BackGround0002(p,background,yourself).setBgTexture(new TextureRegion(new Texture("1.png"))).setProportion(1));
+    background.cloudList=new ArrayList<BackGround0002>(Arrays.asList(new BackGround0002[] {
+      new BackGround0002(p,background,yourself).setProportion(0),
+      new BackGround0002(p,background,yourself).setProportion(0.2f),
+      new BackGround0002(p,background,yourself).setProportion(0.3f),
+      new BackGround0002(p,background,yourself).setProportion(0.4f)
+    }));
+    background.list.addAll(background.cloudList);
   }
   public float random(float max) {
     return p.random(max);
@@ -74,6 +78,7 @@ public class World0001 extends WorldBase2D{
     for(MetaBlock e:metaBlocks.list) e.init();
     for(MetaItem e:metaItems.list) e.init();
     for(MetaCreature<?> e:metaEntitys.list) e.init();
+    for(int i=0;i<background.cloudList.size();i++) background.cloudList.get(i).setTexture(ImageAsset.backgroundList[4-i]);
     regions.load();
     // background.clouds0001.setTexture(ImageAsset.background);
     Gdx.files.local(dataDir+"regions/").mkdirs();//TODO

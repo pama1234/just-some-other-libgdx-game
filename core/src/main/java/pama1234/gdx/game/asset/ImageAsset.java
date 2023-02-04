@@ -14,6 +14,7 @@ public class ImageAsset{
   public static TextureRegion //
   exit,
     background,sky,select;
+  public static TextureRegion[] backgroundList=new TextureRegion[5];
   // public static int //
   // tileWidth=18,
   //   tileHeight=18,
@@ -24,7 +25,8 @@ public class ImageAsset{
   public static void load_0001(AssetManager manager) {
     // background=load("background.png");
     manager.load("image/exit.png",Texture.class);
-    manager.load("image/background.png",Texture.class);
+    manager.load("image/background/background.png",Texture.class);
+    for(int i=1;i<=5;i++) manager.load("image/background/"+i+".png",Texture.class);
     manager.load("image/tiles.png",Texture.class);
     manager.load("image/items.png",Texture.class);
     manager.load("image/player04.png",Texture.class);
@@ -38,7 +40,8 @@ public class ImageAsset{
     tp.drawPixel(0,0);
     shaderOnly=new Texture(tp);
     exit=loadFromTexture(manager.get("image/exit.png"));
-    background=loadFromTexture(manager.get("image/background.png"));
+    background=loadFromTexture(manager.get("image/background/background.png"));
+    for(int i=0;i<5;i++) backgroundList[i]=loadFromTexture(manager.get("image/background/"+(i+1)+".png",Texture.class));
     tiles=loadFromTexture_0001(manager.get("image/tiles.png"),18,18,2,2);
     items=loadFromTexture_0001(manager.get("image/items.png"),18,18,2,2);
     player=loadFromTexture_0001(manager.get("image/player04.png"),36,54,0,0);
