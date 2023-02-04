@@ -8,7 +8,7 @@ import pama1234.gdx.util.entity.Entity;
 
 public abstract class BackGround extends Entity<Screen0011>{
   public BackGroundCenter0001 pc;
-  public float proportion=0f;//背景跟随角色移动比例,区分近景远景
+  public float proportion;//背景跟随角色移动比例,区分近景远景
   public MainPlayer player;
   public CameraController2D cam;
   public TextureRegion img;
@@ -21,8 +21,8 @@ public abstract class BackGround extends Entity<Screen0011>{
     proportion=value;
     return this;
   }
-    public BackGround setTexture(TextureRegion t) {
-        img=t;
-        return this;
-    }
+  public BackGround setTexture(TextureRegion t) {
+    img=t;
+    return this;
+  }
 }

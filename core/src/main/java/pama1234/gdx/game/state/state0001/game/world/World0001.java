@@ -3,6 +3,7 @@ package pama1234.gdx.game.state.state0001.game.world;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.State0001;
@@ -19,6 +20,7 @@ import pama1234.gdx.game.state.state0001.game.player.Player.PlayerCenter;
 import pama1234.gdx.game.state.state0001.game.region.RegionCenter;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.math.UtilMath;
+
 public class World0001 extends WorldBase2D{
   public String dataDir="data/saved/test-world/";
   //---
@@ -49,12 +51,11 @@ public class World0001 extends WorldBase2D{
     sky=new Sky(this);
   }
   public void createBackground() {
-      background.list.add(new BackGround0002(p,background,yourself).setBgTexture(new TextureRegion(new Texture("5.png"))).setProportion(0));     
-      background.list.add(new BackGround0002(p,background,yourself).setBgTexture(new TextureRegion(new Texture("4.png"))).setProportion(.1f));
-      background.list.add(new BackGround0002(p,background,yourself).setBgTexture(new TextureRegion(new Texture("3.png"))).setProportion(.2f));
-      background.list.add(new BackGround0002(p,background,yourself).setBgTexture(new TextureRegion(new Texture("2.png"))).setProportion(.3f));
-      background.list.add(new BackGround0002(p,background,yourself).setBgTexture(new TextureRegion(new Texture("1.png"))).setProportion(1));
-      
+    background.list.add(new BackGround0002(p,background,yourself).setBgTexture(new TextureRegion(new Texture("5.png"))).setProportion(0));
+    background.list.add(new BackGround0002(p,background,yourself).setBgTexture(new TextureRegion(new Texture("4.png"))).setProportion(.1f));
+    background.list.add(new BackGround0002(p,background,yourself).setBgTexture(new TextureRegion(new Texture("3.png"))).setProportion(.2f));
+    background.list.add(new BackGround0002(p,background,yourself).setBgTexture(new TextureRegion(new Texture("2.png"))).setProportion(.3f));
+    background.list.add(new BackGround0002(p,background,yourself).setBgTexture(new TextureRegion(new Texture("1.png"))).setProportion(1));
   }
   public float random(float max) {
     return p.random(max);

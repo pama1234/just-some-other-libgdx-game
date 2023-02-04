@@ -38,14 +38,21 @@ public class Tools{
     return in;
   }
   // public static void main(String[] args) {
-  //   System.out.println(moveInRange(9,0,8));
-  //   System.out.println(moveInRange(9,0,9));
-  //   System.out.println(moveInRange(9,0,10));
+  //   System.out.println(moveInRange(9,0,8));//1
+  //   System.out.println(moveInRange(9,0,9));//0
+  //   System.out.println(moveInRange(9,0,10));//9
   // }
   public static float moveInRange(float in,float a,float b) {
     b-=a;
     in-=a;
     in-=(int)Math.floor(in/b)*b;
+    in+=a;
+    return in;
+  }
+  public static float moveInRange(float in,float a,float b,float c) {
+    b-=a;
+    in-=a;
+    in-=(int)Math.floor(in/c)*c;
     in+=a;
     return in;
   }
