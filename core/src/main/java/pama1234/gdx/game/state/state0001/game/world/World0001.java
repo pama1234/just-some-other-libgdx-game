@@ -18,6 +18,7 @@ import pama1234.gdx.game.state.state0001.game.player.Player.PlayerCenter;
 import pama1234.gdx.game.state.state0001.game.region.RegionCenter;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.math.UtilMath;
+import pama1234.gdx.game.asset.ImageAsset;
 
 public class World0001 extends WorldBase2D{
   public String dataDir="data/saved/test-world/";
@@ -32,16 +33,19 @@ public class World0001 extends WorldBase2D{
   public WorldSettings settings=new WorldSettings();
   public int time=12000;
   public Sky sky;
+  public BackGroundCenter0001<Screen0011> background;
   public World0001(Screen0011 p,Game pg) {
-    super(p,pg,2);
+    super(p,pg,3);
     metaBlocks=World0001Generator.createBlockC(this);
     metaItems=World0001Generator.createItemC(this);
     for(MetaBlock e:metaBlocks.list) e.initItemDrop();
     metaEntitys=World0001Generator.createCreatureC(this);
-    list[0]=regions=new RegionCenter(p,this);
-    list[1]=entities=new MultiGameEntityCenter(p,this);
+    list[0]=background=new BackGroundCenter0001<Screen0011>(p);
+    list[1]=regions=new RegionCenter(p,this);
+    list[2]=entities=new MultiGameEntityCenter(p,this);
     entities.list.add(entities.players=new PlayerCenter(p));
     yourself=new MainPlayer(p,this,0,0);
+	  background.list.add(new BackGround0001(p,background,yourself));
     sky=new Sky(this);
   }
   public float random(float max) {
@@ -62,6 +66,7 @@ public class World0001 extends WorldBase2D{
     for(MetaItem e:metaItems.list) e.init();
     for(MetaCreature<?> e:metaEntitys.list) e.init();
     regions.load();
+    background.list.peekLast().setBgTexture(ImageAsset.background.getTexture());
     Gdx.files.local(dataDir+"regions/").mkdirs();//TODO
   }
   @Override
