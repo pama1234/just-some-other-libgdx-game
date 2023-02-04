@@ -29,11 +29,11 @@ public class World0001 extends WorldBase2D{
   //---
   public MultiGameEntityCenter entities;
   public RegionCenter regions;
+  public BackGroundCenter0001 background;
   public MainPlayer yourself;
   public WorldSettings settings=new WorldSettings();
   public int time=12000;
   public Sky sky;
-  public BackGroundCenter0001 background;
   public World0001(Screen0011 p,Game pg) {
     super(p,pg,3);
     metaBlocks=World0001Generator.createBlockC(this);
@@ -45,8 +45,9 @@ public class World0001 extends WorldBase2D{
     list[2]=entities=new MultiGameEntityCenter(p,this);
     entities.list.add(entities.players=new PlayerCenter(p));
     yourself=new MainPlayer(p,this,0,0);
-    background.list.add(background.clouds=new BackGround0001(p,background,yourself));
-    background.clouds.setProportion(0.8f);
+    background.list.add(background.clouds0001=new BackGround0001(p,background,yourself));
+    background.list.add(background.clouds0002=new BackGroundCloud(p,background,yourself));
+    background.clouds0001.setProportion(0.8f);
     sky=new Sky(this);
   }
   public float random(float max) {
@@ -67,7 +68,7 @@ public class World0001 extends WorldBase2D{
     for(MetaItem e:metaItems.list) e.init();
     for(MetaCreature<?> e:metaEntitys.list) e.init();
     regions.load();
-    background.list.peekLast().setBgTexture(ImageAsset.background.getTexture());
+    background.clouds0001.setTexture(ImageAsset.background.getTexture());
     Gdx.files.local(dataDir+"regions/").mkdirs();//TODO
   }
   @Override
