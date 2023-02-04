@@ -61,8 +61,8 @@ float fbm(vec2 n) {
 
 void main() {
   vec2 p=v_texCoords;
-  vec2 uv_o=p*1.0;
-  // vec2 uv_o=p*vec2(uv_in,1.0);
+  // vec2 uv_o=p*1.0;
+  vec2 uv_o=p*vec2(uv_in,1.0);
   vec2 uv=vec2(uv_o);
   float time=time_in*speed;
   float q=fbm(uv*cloudscale*0.5);

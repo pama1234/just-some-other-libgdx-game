@@ -160,6 +160,12 @@ public class World0001 extends WorldBase2D{
       if(tb!=null) tb.updateLighting=true;
     }
   }
+  public int blockWidth() {
+    return settings.blockWidth;
+  }
+  public int blockHeight() {
+    return settings.blockHeight;
+  }
   public int xToBlockCord(float in) {
     return UtilMath.floor(in/settings.blockWidth);
   }

@@ -1,5 +1,6 @@
 package pama1234.gdx.util.element;
 
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
@@ -12,6 +13,7 @@ public class Graphics{
   public UtilScreen p;
   public FrameBuffer buffer;
   public OrthographicCamera cam;
+  public Camera tempCam;
   public Texture texture;
   public Graphics(UtilScreen p,int w,int h) {
     this.p=p;
@@ -28,13 +30,21 @@ public class Graphics{
     return texture.getHeight();
   }
   public void beginDraw() {
-    buffer.begin();
-    p.setCamera(cam);
+    begin();
     p.beginDraw();
   }
   public void endDraw() {
     p.endDraw();
+    end();
+  }
+  public void begin() {
+    buffer.begin();
+    tempCam=p.usedCamera;
+    p.setCamera(cam);
+  }
+  public void end() {
     buffer.end();
+    p.setCamera(tempCam);
   }
   //TODO
   @Deprecated
