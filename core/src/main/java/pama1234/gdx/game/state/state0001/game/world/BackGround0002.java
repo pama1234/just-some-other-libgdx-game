@@ -4,16 +4,13 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
-import pama1234.gdx.util.element.CameraController2D;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.math.Tools;
 
 public class BackGround0002 extends BackGround{
-  BackGroundCenter0001 pb;
   public float width,height;
   float x,y,tx,ty,dx,dy;
-  CameraController2D cam;
   byte[] side[]= {{-1,-1},{0,-1},{1,-1},
     {-1,0},{1,0},
     {-1,1},{0,1},{1,1}};
@@ -22,7 +19,6 @@ public class BackGround0002 extends BackGround{
   }
   public BackGround0002(Screen0011 p,BackGroundCenter0001 pc,MainPlayer player,TextureRegion img,float w,float h) {
     super(p,pc,player);
-    this.pb=pc;
     width=w;
     height=h;
     this.player=player;

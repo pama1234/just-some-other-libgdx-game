@@ -54,7 +54,7 @@ public class World0001 extends WorldBase2D{
   }
   public void createBackground() {
     background.cloudList=new ArrayList<BackGround0002>(Arrays.asList(new BackGround0002[] {
-      new BackGround0002(p,background,yourself).setProportion(0),
+      new BackGround0002(p,background,yourself).setProportion(0.1f),
       new BackGround0002(p,background,yourself).setProportion(0.2f),
       new BackGround0002(p,background,yourself).setProportion(0.3f),
       new BackGround0002(p,background,yourself).setProportion(0.4f)
