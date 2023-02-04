@@ -7,8 +7,7 @@ import pama1234.gdx.util.entity.Entity;
 
 public abstract class BackGround extends Entity<Screen0011>{
   public BackGroundCenter0001 pc;
-  // public float width,height;
-  public float proportion=0f;
+  public float proportion=0f;//背景跟随角色移动比例,区分近景远景
   public MainPlayer player;
   public CameraController2D cam;
   public BackGround(Screen0011 p,BackGroundCenter0001 pc,MainPlayer player) {
@@ -16,7 +15,7 @@ public abstract class BackGround extends Entity<Screen0011>{
     this.pc=pc;
     this.player=player;
   }
-  public void setProportion(float value) {//设置跟随角色移动比例,区分近景远景
+  public void setProportion(float value) {
     proportion=value;
   }
 }

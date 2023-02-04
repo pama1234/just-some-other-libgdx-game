@@ -1,8 +1,9 @@
 package pama1234.gdx.game.state.state0001.game.world;
 
-import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import pama1234.gdx.game.app.Screen0011;
+import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
@@ -10,18 +11,15 @@ import pama1234.gdx.util.info.TouchInfo;
 public class BackGround0001 extends BackGround{
   public BackGroundCenter0001 pc;
   public float width,height;
-  // public float width,height,proportion=0f;
-  // public MainPlayer player;
-  public Texture img;
+  public TextureRegion img;
   public float x,y,tx,ty,dx,dy;
-  // public CameraController2D cam;
   public byte[] side[]= {{-1,-1},{0,-1},{1,-1},
     {-1,0},{1,0},
     {-1,1},{0,1},{1,1}};
   public BackGround0001(Screen0011 p,BackGroundCenter0001 pb,MainPlayer player) {
     this(p,pb,player,null,5760,3240);
   }
-  public BackGround0001(Screen0011 p,BackGroundCenter0001 pc,MainPlayer player,Texture bg,float w,float h) {
+  public BackGround0001(Screen0011 p,BackGroundCenter0001 pc,MainPlayer player,TextureRegion bg,float w,float h) {
     super(p,pc,player);
     width=w;
     height=h;
@@ -35,12 +33,13 @@ public class BackGround0001 extends BackGround{
   public void setProportion(float value) {//设置跟随角色移动比例,区分近景远景
     proportion=value;
   }
-  public BackGround0001 setTexture(Texture t) {
+  public BackGround0001 setTexture(TextureRegion t) {
     img=t;
     return this;
   }
   @Override
   public void display() {
+    p.imageBatch.begin();
     p.imageBatch.draw(img,x,y,width,height);
     //大哥，记得修密铺算法
     for(int i=0;i<8;i++) {
@@ -50,6 +49,7 @@ public class BackGround0001 extends BackGround{
       ty+=side[i][1]*height;
       p.imageBatch.draw(img,tx,ty,width,height);
     }
+    p.imageBatch.end();
   }
   @Override
   public void update() {
@@ -67,7 +67,10 @@ public class BackGround0001 extends BackGround{
   @Override
   public void dispose() {}
   @Override
-  public void init() {}
+  public void init() {
+    setTexture(ImageAsset.background);
+    // System.out.println("BackGround0001.init()");
+  }
   @Override
   public void pause() {}
   @Override

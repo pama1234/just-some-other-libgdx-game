@@ -1,13 +1,16 @@
 package pama1234.gdx.game.asset;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import pama1234.gdx.util.FileUtil;
 import pama1234.math.UtilMath;
 
 public class ImageAsset{
+  public static Texture shaderOnly;
   public static TextureRegion //
   exit,
     background,sky,select;
@@ -30,6 +33,7 @@ public class ImageAsset{
     manager.load("image/select.png",Texture.class);
   }
   public static void put_0001(AssetManager manager) {
+    shaderOnly=new Texture(new Pixmap(1,1,Format.Alpha));
     exit=loadFromTexture(manager.get("image/exit.png"));
     background=loadFromTexture(manager.get("image/background.png"));
     tiles=loadFromTexture_0001(manager.get("image/tiles.png"),18,18,2,2);
