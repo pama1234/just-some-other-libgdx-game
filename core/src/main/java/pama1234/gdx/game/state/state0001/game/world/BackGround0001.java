@@ -30,8 +30,9 @@ public class BackGround0001 extends BackGround{
     y=height/2;
     dx=dy=0;
   }
-  public void setProportion(float value) {//设置跟随角色移动比例,区分近景远景
+  public BackGround0001 setProportion(float value) {//设置跟随角色移动比例,区分近景远景
     proportion=value;
+    return this;
   }
   public BackGround0001 setTexture(TextureRegion t) {
     img=t;
