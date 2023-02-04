@@ -32,6 +32,7 @@ public class World0001 extends WorldBase2D{
   public MainPlayer yourself;
   public WorldSettings settings=new WorldSettings();
   public int time=12000;
+  public float timeF;
   public Sky sky;
   public World0001(Screen0011 p,Game pg) {
     super(p,pg,3);
@@ -39,7 +40,7 @@ public class World0001 extends WorldBase2D{
     metaItems=World0001Generator.createItemC(this);
     for(MetaBlock e:metaBlocks.list) e.initItemDrop();
     metaEntitys=World0001Generator.createCreatureC(this);
-    list[0]=background=new BackGroundCenter0001(p);
+    list[0]=background=new BackGroundCenter0001(p,this);
     list[1]=regions=new RegionCenter(p,this);
     list[2]=entities=new MultiGameEntityCenter(p,this);
     entities.list.add(entities.players=new PlayerCenter(p));
@@ -113,6 +114,7 @@ public class World0001 extends WorldBase2D{
   public void update() {
     super.update();
     time+=1;
+    timeF+=p.frameRate;
     sky.updateColor();
   }
   @Override

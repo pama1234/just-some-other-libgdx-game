@@ -9,7 +9,7 @@ import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
 
 public class BackGroundCloud extends BackGround{
   public ShaderProgram pixelCloud,defaultShader;
-  public int uvPos;
+  public int uvPos,timePos;
   public BackGroundCloud(Screen0011 p,BackGroundCenter0001 pc,MainPlayer player) {
     super(p,pc,player);
     cam=p.cam2d;
@@ -19,6 +19,7 @@ public class BackGroundCloud extends BackGround{
       // defaultShader.getFragmentShaderSource());
       Gdx.files.internal("shader/main0003/pixelCloud.frag").readString());
     uvPos=pixelCloud.getAttributeLocation("uv_in");
+    timePos=pixelCloud.getAttributeLocation("iTime");
     System.out.println(pixelCloud.getLog());
   }
   @Override
@@ -29,7 +30,10 @@ public class BackGroundCloud extends BackGround{
     p.imageBatch.setShader(defaultShader);
   }
   @Override
-  public void update() {}
+  public void update() {
+    pixelCloud.bind();
+    pixelCloud.setUniformf(timePos,pc.pw.time);
+  }
   @Override
   public void frameResized(int w,int h) {
     pixelCloud.bind();

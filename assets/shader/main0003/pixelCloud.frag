@@ -61,7 +61,7 @@ float fbm(vec2 n) {
 
 void main() {
     vec2 p = v_texCoords;
-	  vec2 uv = p*vec2(uv_in.y,1.0);    
+	  vec2 uv = p*vec2(uv_in,1.0);    
     float time = iTime * speed;
     float q = fbm(uv * cloudscale * 0.5);
     
@@ -93,7 +93,7 @@ void main() {
     //noise colour
     float c = 0.0;
     time = iTime * speed * 2.0;
-    uv = p*vec2(iResolution.x/iResolution.y,1.0);
+    uv = p*vec2(uv_in,1.0);
 	uv *= cloudscale*2.0;
     uv -= q - time;
     weight = 0.4;
@@ -106,7 +106,7 @@ void main() {
     //noise ridge colour
     float c1 = 0.0;
     time = iTime * speed * 3.0;
-    uv = p*vec2(iResolution.x/iResolution.y,1.0);
+    uv = p*vec2(uv_in,1.0);
 	uv *= cloudscale*3.0;
     uv -= q - time;
     weight = 0.4;
