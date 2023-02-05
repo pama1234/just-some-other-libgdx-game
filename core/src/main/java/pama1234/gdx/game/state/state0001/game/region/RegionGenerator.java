@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
+import pama1234.gdx.game.state.state0001.game.region.Chunk.BlockData;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.math.hash.HashNoise2f;
 import pama1234.math.hash.PerlinNoise2f;
@@ -33,13 +34,15 @@ public class RegionGenerator{
         if(tc.p==null) tc.innerInit(region);
       }else {
         tc=data[i][j]=new Chunk(region);
-        tc.data=new Block[pr.chunkWidth][pr.chunkHeight];
+        tc.data=new BlockData[pr.chunkWidth][pr.chunkHeight];
       }
       Chunk chunk=data[i][j];
-      Block[][] blockData=chunk.data;
+      BlockData[][] blockData=chunk.data;
       for(int n=0;n<blockData.length;n++) for(int m=0;m<blockData[n].length;m++) {
-        Block tb=blockData[n][m];
-        if(tb!=null) {
+        BlockData tbd=blockData[n][m];
+        Block tb;
+        if(tbd!=null) {
+          tb=tbd.block;
           tb.innerInit(types[tb.typeId]);
           tb.changed=true;
         }else {
@@ -48,7 +51,7 @@ public class RegionGenerator{
           if(random>0.6f) tb=new Block(pr.pw.metaBlocks.stone);
           else if(random>0.3f) tb=new Block(pr.pw.metaBlocks.dirt);
           else tb=new Block(pr.pw.metaBlocks.air);
-          blockData[n][m]=tb;
+          blockData[n][m]=new BlockData(tb);
         }
       }
     }

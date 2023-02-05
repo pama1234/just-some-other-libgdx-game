@@ -10,9 +10,11 @@ import java.io.FileOutputStream;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
+import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.KryoException;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
+import com.esotericsoftware.kryo.serializers.FieldSerializer;
 import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
 import pama1234.gdx.game.asset.MusicAsset;
@@ -20,13 +22,17 @@ import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.state.state0001.State0001.StateChanger;
 import pama1234.gdx.game.state.state0001.StateGenerator0001;
-import pama1234.gdx.game.state.state0001.game.region.Region;
 import pama1234.gdx.util.app.ScreenCore2D;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.math.Tools;
 import pama1234.util.net.ServerInfo;
 
 public class Screen0011 extends ScreenCore2D implements StateChanger{
+  public static final Kryo kryo=new Kryo();
+  static {
+    kryo.register(SettingsData.class);
+    kryo.register(ServerInfo.class,new FieldSerializer<ServerInfo>(kryo,ServerInfo.class));
+  }
   public static class SettingsData{
     @Tag(0)
     public boolean showEarth=true;
@@ -71,7 +77,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
       return;
     }
     try(Input input=new Input(new FileInputStream(settingsFile.file()))) {
-      SettingsData out=Region.kryo.readObject(input,SettingsData.class);
+      SettingsData out=kryo.readObject(input,SettingsData.class);
       input.close();
       settings=out;
     }catch(FileNotFoundException|KryoException e) {
@@ -86,7 +92,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   }
   public void saveSettings() {
     try(Output output=new Output(new FileOutputStream(settingsFile.file()))) {
-      Region.kryo.writeObject(output,settings);
+      kryo.writeObject(output,settings);
       output.close();
     }catch(FileNotFoundException|KryoException e) {
       e.printStackTrace();
