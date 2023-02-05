@@ -149,8 +149,7 @@ public class MetaBlock extends MetaInfoBase{
     if(in.updateLighting) lightingUpdate(in,x,y,world);
     // in.light.update();
   },defaultDisplayUpdater=(in,x,y)-> {
-    World0001 world=in.type.pc.pw;
-    if(in.updateLighting) lightingUpdate(in,x,y,world);
+    if(in.updateLighting) lightingUpdate(in,x,y,in.type.pc.pw);
     // in.light.update();
   };
   public static void lightingUpdate(Block in,int x,int y,World0001 world) {
@@ -170,7 +169,6 @@ public class MetaBlock extends MetaInfoBase{
     return UtilMath.constrain(UtilMath.floor(UtilMath.map(count*2,0,in,0,16)),0,16);
   }
   public static final BlockDisplayer defaultBlockDisplayer=(r,p,in,x,y)-> {
-    // World0001 world=in.type.pc.pw;
     r.tint(
       getLighting(in.light.r()),
       getLighting(in.light.g()),
@@ -178,14 +176,12 @@ public class MetaBlock extends MetaInfoBase{
     if(in.displayType==null) r.tile(in.type.tiles[0],x,y);
     else r.tile(in.type.tiles[in.displayType[0]],x,y);
   },fullBlockDisplayer=(r,p,in,x,y)-> {
-    // World0001 world=in.type.pc.pw;
+    // if(in.light.isDark())
     r.tint(
       getLighting(in.light.r()),
       getLighting(in.light.g()),
       getLighting(in.light.b()));
     int tp_0=in.displayType[0];
-    // int tw=world.settings.blockWidth,
-    //   th=world.settings.blockHeight;
     r.tile(in.type.tiles[tp_0],x,y);
     int tp_1=in.displayType[1];
     if(tp_1!=0) {

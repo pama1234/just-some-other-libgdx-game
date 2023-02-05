@@ -14,7 +14,7 @@ public class Torch extends MetaBlock{
     });
     destroyTime=15;
     buildTime=8;
-    setLightIntensity(16);
+    setLightIntensity(64);
     fullBlock=false;
   }
   @Override

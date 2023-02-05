@@ -36,7 +36,7 @@ public class ImageAsset{
   }
   public static void put_0001(AssetManager manager) {
     Pixmap tp=new Pixmap(1,1,Format.Alpha);
-    tp.setColor(1,0,0,1);
+    tp.setColor(0,0,0,1);
     tp.drawPixel(0,0);
     shaderOnly=new Texture(tp);
     exit=loadFromTexture(manager.get("image/exit.png"));
