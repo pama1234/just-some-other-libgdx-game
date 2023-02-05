@@ -5,6 +5,7 @@ import pama1234.gdx.game.state.state0001.game.metainfo.MetaInfoUtil.MetaBlockCen
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Dirt;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Sapling;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Stone;
+import pama1234.gdx.game.state.state0001.game.region.block.block0001.Torch;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.TreeBranch;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.TreeLeaf;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.TreeLog;
@@ -23,6 +24,7 @@ public class MetaBlockCenter0001 extends MetaBlockCenter{
   public TreeLeaf leaf;
   public Workbench workbench;
   public Sapling sapling;
+  public Torch torch;
   public MetaBlockCenter0001(World0001 pw) {
     this.pw=pw;
     idg=new IDGenerator();

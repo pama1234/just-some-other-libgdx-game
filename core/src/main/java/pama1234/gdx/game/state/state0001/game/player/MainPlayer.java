@@ -16,13 +16,14 @@ public class MainPlayer extends Player{
     ctrl=new PlayerController(p,this);
     inventory=new Inventory(this,52,9);
     // gameMode=GameMode.creative;
+    inventory.data[11].item=pw.metaItems.torch.createItem(64);//TODO
     inventory.data[10].item=pw.metaItems.sapling.createItem(64);
     inventory.data[9].item=pw.metaItems.stoneSword.createItem(1);
     inventory.data[8].item=pw.metaItems.chisel.createItem(1);
     inventory.data[7].item=pw.metaItems.axe.createItem(1);
     inventory.data[6].item=pw.metaItems.pickaxe.createItem(1);
     inventory.data[5].item=pw.metaItems.workbench.createItem(16);
-    inventory.data[4].item=pw.metaItems.dirt.createItem(64);//TODO
+    inventory.data[4].item=pw.metaItems.dirt.createItem(64);
     inventory.data[3].item=pw.metaItems.stone.createItem(64);
     inventory.data[2].item=pw.metaItems.log.createItem(64);
     inventory.data[1].item=pw.metaItems.branch.createItem(64);

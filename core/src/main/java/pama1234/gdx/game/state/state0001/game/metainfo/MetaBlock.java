@@ -175,8 +175,8 @@ public class MetaBlock extends MetaInfoBase{
       getLighting(in.light.r()),
       getLighting(in.light.g()),
       getLighting(in.light.b()));
-    int tp_0=in.displayType[0];
-    r.tile(in.type.tiles[tp_0],x,y);
+    if(in.displayType==null) r.tile(in.type.tiles[0],x,y);
+    else r.tile(in.type.tiles[in.displayType[0]],x,y);
   },fullBlockDisplayer=(r,p,in,x,y)-> {
     // World0001 world=in.type.pc.pw;
     r.tint(

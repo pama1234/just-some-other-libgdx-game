@@ -16,7 +16,7 @@ import pama1234.gdx.game.state.state0001.game.region.block.Block;
 public class Workbench extends MetaBlock{
   public int outputSlotSize=1;
   public Workbench(MetaBlockCenter0001 pc,int id) {
-    super(pc,"workbench",id,1,2,(in,type)-> {//change to workbench
+    super(pc,"workbench",id,1,0,(in,type)-> {//change to workbench
       in.light.set(16);
     },(in,type)-> {//change from workbench
     });
@@ -30,23 +30,16 @@ public class Workbench extends MetaBlock{
   public void initLambda() {
     updater=(in,x,y)-> {
       lightUpdater.update(in,x,y);
-      // System.out.println(recipeList[0]);
-      // System.out.println(in.itemData[0]);
-      // System.out.println(in.displaySlot[0].data.item);
       tag_1:
       for(CraftRecipe e:recipeList) {
         if(e.output.length>outputSlotSize) continue;
         for(CraftItem i:e.input) {
           int count=0;
-          // System.out.println(i.type);
           for(int j=outputSlotSize;j<in.itemData.length;j++) {
             Item ti=in.itemData[j].item;
-            // System.out.println(ti);
             if(ti==null) continue;
             if(ti.type==i.type) count+=ti.count;
-            // System.out.println(ti.count);
           }
-          // System.out.println(count);
           if(count<i.count) continue tag_1;
         }
         for(CraftItem i:e.input) {
@@ -66,16 +59,12 @@ public class Workbench extends MetaBlock{
               }
             }
           }
-          // if(count>0) continue tag;
         }
-        // System.out.println("Workbench.initLambda()");
         for(int k=0;k<e.output.length;k++) {
-          // if(k>=outputSlotSize) break;
           CraftItem i=e.output[k];
           InventorySlot slot=in.itemData[k];
           if(slot.item==null) slot.item=i.type.createItem(i.count);
           else if(slot.item.type==i.type) slot.item.count+=i.count;
-          // else //TODO
         }
       }
     };

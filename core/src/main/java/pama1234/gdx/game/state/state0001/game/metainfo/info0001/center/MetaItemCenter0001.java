@@ -9,17 +9,7 @@ public class MetaItemCenter0001 extends MetaItemCenter{
   public World0001 pw;
   public IDGenerator idg;
   // public MetaItem inventoryConfig;
-  public MetaItem dirt;
-  public MetaItem stone;
-  public MetaItem log;
-  public MetaItem branch;
-  public MetaItem leaf;
-  public MetaItem workbench;
-  public MetaItem pickaxe;
-  public MetaItem axe;
-  public MetaItem chisel;
-  public MetaItem stoneSword;
-  public MetaItem sapling;
+  public MetaItem dirt,stone,log,branch,leaf,workbench,pickaxe,axe,chisel,stoneSword,sapling,torch;
   public MetaItemCenter0001(World0001 pw) {
     this.pw=pw;
     idg=new IDGenerator();
