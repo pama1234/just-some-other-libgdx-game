@@ -104,7 +104,11 @@ public class Workbench extends MetaBlock{
     tiles[0]=tsrc[6][8];
     //-----------------------------------------------------
     MetaItemCenter0001 mi=pc.pw.metaItems;
-    recipeList=new CraftRecipe[] {new CraftRecipe(new CraftItem[] {new CraftItem(mi.branch),new CraftItem(mi.stone)},new CraftItem[] {new CraftItem(mi.pickaxe)})};
+    recipeList=new CraftRecipe[] {
+      new CraftRecipe(new CraftItem[] {new CraftItem(mi.branch),new CraftItem(mi.stone)},new CraftItem[] {new CraftItem(mi.pickaxe)}),
+      new CraftRecipe(new CraftItem[] {new CraftItem(mi.branch,4)},new CraftItem[] {new CraftItem(mi.log)}),
+      new CraftRecipe(new CraftItem[] {new CraftItem(mi.log)},new CraftItem[] {new CraftItem(mi.branch,4)}),
+    };
   }
   @Override
   public void initBlock(Block in) {

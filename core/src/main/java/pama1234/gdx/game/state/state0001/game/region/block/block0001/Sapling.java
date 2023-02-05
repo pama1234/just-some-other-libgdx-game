@@ -41,18 +41,21 @@ public class Sapling extends MetaBlock{
   public void initSaplingLambda() {
     updater=(in,x,y)-> {
       lightUpdater.update(in,x,y);
-      if(in.blockData[0]<20) {
-        World0001 world=pc.pw;
-        Block tb=world.getBlock(x,y+1);
-        if(tb!=null&&tb.type!=pc.dirt) world.destroyBlock(in,x,y);
-      }else if(in.blockData[0]<200) in.blockData[0]+=1;
-      else {
+      if(in.blockData[0]<200) {
+        in.blockData[0]+=1;
+        if(in.blockData[0]==1) {
+          World0001 world=pc.pw;
+          Block tb=world.getBlock(x,y+1);
+          if(tb!=null&&tb.type!=pc.dirt) world.destroyBlock(in,x,y);
+        }
+      }else {
         in.blockData[0]=0;
         World0001 world=pc.pw;
         int th=4+UtilMath.floor(world.random(12));
         int ty=y-th;
         int n=1+UtilMath.floor(world.random(2));
         int m=1+UtilMath.floor(world.random(2));
+        System.out.println("Sapling.initSaplingLambda()");
         for(int i=1;i<th;i++) {
           Block block=world.getBlock(x,y-i);
           if(block==null||block.type!=pc.air) return;
