@@ -1,4 +1,4 @@
-package pama1234.gdx.game.state.state0001.game.world;
+package pama1234.gdx.game.state.state0001.game.world.background;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -14,10 +14,10 @@ public class TextureBackground extends Background{
   byte[] side[]= {{-1,-1},{0,-1},{1,-1},
     {-1,0},{1,0},
     {-1,1},{0,1},{1,1}};
-  public TextureBackground(Screen0011 p,BackgroundCenter pc,MainPlayer player) {
+  public TextureBackground(Screen0011 p,BackgroundSet pc,MainPlayer player) {
     this(p,pc,player,null,3840,2160);
   }
-  public TextureBackground(Screen0011 p,BackgroundCenter pc,MainPlayer player,TextureRegion img,float w,float h) {
+  public TextureBackground(Screen0011 p,BackgroundSet pc,MainPlayer player,TextureRegion img,float w,float h) {
     super(p,pc,player);
     width=w;
     height=h;
@@ -40,7 +40,7 @@ public class TextureBackground extends Background{
   @Override
   public void display() {
     // p.tint(pc.pw.skyLight());
-    p.tint((int)(pc.pw.skyLight()*256));
+    p.tint((int)(pc.pc.pw.skyLight()*256));
     p.imageBatch.draw(img,x,y,width,height);
     for(int i=0;i<8;i++) {
       tx=x;

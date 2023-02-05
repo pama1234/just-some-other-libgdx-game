@@ -1,6 +1,5 @@
 package pama1234.gdx.game.state.state0001.game.world;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 import com.badlogic.gdx.Gdx;
@@ -21,6 +20,10 @@ import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
 import pama1234.gdx.game.state.state0001.game.player.Player.PlayerCenter;
 import pama1234.gdx.game.state.state0001.game.region.RegionCenter;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
+import pama1234.gdx.game.state.state0001.game.world.background.BackgroundCenter;
+import pama1234.gdx.game.state.state0001.game.world.background.BackgroundSet;
+import pama1234.gdx.game.state.state0001.game.world.background.Sky;
+import pama1234.gdx.game.state.state0001.game.world.background.TextureBackground;
 import pama1234.math.UtilMath;
 
 public class World0001 extends WorldBase2D{
@@ -54,13 +57,14 @@ public class World0001 extends WorldBase2D{
     sky=new Sky(this);
   }
   public void createBackground() {
-    background.cloudList=new ArrayList<TextureBackground>(Arrays.asList(new TextureBackground[] {
-      new TextureBackground(p,background,yourself).setProportion(0.1f),
-      new TextureBackground(p,background,yourself).setProportion(0.2f),
-      new TextureBackground(p,background,yourself).setProportion(0.3f),
-      new TextureBackground(p,background,yourself).setProportion(0.4f)
+    background.list.add(background.background0001=new BackgroundSet(p,background));
+    BackgroundSet ts=background.background0001;
+    ts.list.addAll(Arrays.asList(new TextureBackground[] {
+      new TextureBackground(p,ts,yourself).setProportion(0.1f),
+      new TextureBackground(p,ts,yourself).setProportion(0.2f),
+      new TextureBackground(p,ts,yourself).setProportion(0.3f),
+      new TextureBackground(p,ts,yourself).setProportion(0.4f)
     }));
-    background.list.addAll(background.cloudList);
   }
   public float random(float max) {
     return p.random(max);
@@ -78,7 +82,7 @@ public class World0001 extends WorldBase2D{
     for(MetaBlock e:metaBlocks.list) e.init();
     for(MetaItem e:metaItems.list) e.init();
     for(MetaCreature<?> e:metaEntitys.list) e.init();
-    for(int i=0;i<background.cloudList.size();i++) background.cloudList.get(i).setTexture(ImageAsset.backgroundList[4-i]);
+    for(int i=0;i<background.background0001.list.size();i++) background.background0001.list.get(i).setTexture(ImageAsset.backgroundList[4-i]);
     regions.load();
     // background.clouds0001.setTexture(ImageAsset.background);
     Gdx.files.local(dataDir+"regions/").mkdirs();//TODO

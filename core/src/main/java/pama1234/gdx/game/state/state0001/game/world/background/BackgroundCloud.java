@@ -1,4 +1,4 @@
-package pama1234.gdx.game.state.state0001.game.world;
+package pama1234.gdx.game.state.state0001.game.world.background;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
+import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.gdx.util.element.Graphics;
 
 public class BackgroundCloud extends Background{
@@ -14,7 +15,7 @@ public class BackgroundCloud extends Background{
   public TextureRegion pixelRegion;
   public ShaderProgram pixelCloud,defaultShader;
   public int x1,y1,x2,y2,w,h;
-  public BackgroundCloud(Screen0011 p,BackgroundCenter pc,MainPlayer player) {
+  public BackgroundCloud(Screen0011 p,BackgroundSet pc,MainPlayer player) {
     super(p,pc,player);
     cam=p.cam2d;
     pixelGraphics=new Graphics(p,3000,3000);
@@ -43,7 +44,7 @@ public class BackgroundCloud extends Background{
   }
   @Override
   public void update() {
-    World0001 world=pc.pw;
+    World0001 world=pc.pc.pw;
     int tw=world.blockWidth(),
       th=world.blockHeight();
     x1=world.xToBlockCord(cam.x1())*tw;
@@ -56,7 +57,7 @@ public class BackgroundCloud extends Background{
     // pixelRegion.flip(false,true);
     // p.println(w,h);
     pixelCloud.bind();
-    pixelCloud.setUniformf("time_in",pc.pw.timeF);
+    pixelCloud.setUniformf("time_in",world.timeF);
     pixelCloud.setUniformf("uv_in",((float)p.width/p.height)/cam.scale.pos,1/cam.scale.pos);
     pixelCloud.setUniformf("pos_in",player.point.pos.x,player.point.pos.y);
     pixelCloud.setUniformf("scale_in",0.1f);
