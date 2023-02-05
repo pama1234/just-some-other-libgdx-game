@@ -9,6 +9,7 @@ import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.ui.util.Slider;
 import pama1234.gdx.game.ui.util.TextButtonCam;
 import pama1234.gdx.game.ui.util.TextField;
+import pama1234.util.net.ServerInfo;
 
 public class Settings extends StateEntity0001{
   public Button<?>[] buttons;
@@ -25,7 +26,7 @@ public class Settings extends StateEntity0001{
   }
   @Override
   public void from(State0001 in) {
-    // System.out.println(p.settings.serverInfo);
+    if(p.settings.serverInfo==null) p.settings.serverInfo=new ServerInfo("127.0.0.1",12347);
     camTextFields[0].setText(p.settings.serverInfo.toString());
     p.backgroundColor(0);
     p.cam2d.minScale=p.isAndroid?0.5f:1f;

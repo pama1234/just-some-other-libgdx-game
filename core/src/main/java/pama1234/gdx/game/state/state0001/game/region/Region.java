@@ -9,16 +9,14 @@ import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.KryoException;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
-import com.esotericsoftware.kryo.serializers.FieldSerializer;
 import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer;
 import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
 import pama1234.gdx.game.app.Screen0011;
-import pama1234.gdx.game.app.Screen0011.SettingsData;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
+import pama1234.gdx.game.state.state0001.game.region.Chunk.BlockData;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.util.entity.Entity;
-import pama1234.util.net.ServerInfo;
 
 public class Region extends Entity<Screen0011> implements LoadAndSave{
   public static final Kryo kryo=new Kryo();
@@ -28,11 +26,10 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
     kryo.register(Chunk[][].class);
     kryo.register(Chunk[].class);
     kryo.register(Chunk.class);
-    kryo.register(Block[][].class);
-    kryo.register(Block[].class);
+    kryo.register(BlockData[][].class);
+    kryo.register(BlockData[].class);
+    kryo.register(BlockData.class);
     kryo.register(Block.class);
-    kryo.register(SettingsData.class);
-    kryo.register(ServerInfo.class,new FieldSerializer<ServerInfo>(kryo,ServerInfo.class));
   }
   public RegionCenter pr;
   public FileHandle dataLocation;
@@ -72,11 +69,11 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
     boolean tb_1=false;
     for(int i=0;i<data.length;i++) {
       for(int j=0;j<data[i].length;j++) {
-        Block[][] blockData=data[i][j].data;
+        BlockData[][] blockData=data[i][j].data;
         boolean tb_2=true;
         for(int n=0;n<blockData.length;n++) {
           for(int m=0;m<blockData[n].length;m++) {
-            if(!blockData[n][m].changed) blockData[n][m]=null;
+            if(!blockData[n][m].block.changed) blockData[n][m]=null;
             else tb_2=false;
             // else p.println(i,j,n,m,blockData[n][m].type.name);
           }
@@ -100,12 +97,12 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
       for(int j=0;j<data[i].length;j++) {
         Chunk chunk=data[i][j];
         if(chunk==null||!chunk.update) continue;//TODO
-        Block[][] blockData=chunk.data;
+        BlockData[][] blockData=chunk.data;
         int tx_2=(tx_1+i)*pr.chunkWidth,
           ty_2=(ty_1+j)*pr.chunkHeight;
         for(int n=0;n<blockData.length;n++) {
           for(int m=0;m<blockData[n].length;m++) {
-            Block block=blockData[n][m];
+            Block block=blockData[n][m].block;
             if(block==null) continue;//TODO 性能
             MetaBlock blockType=block.type;
             if(blockType==null) continue;
@@ -130,13 +127,13 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
     for(int i=0;i<data.length;i++) {
       for(int j=0;j<data[i].length;j++) {
         Chunk chunk=data[i][j];
-        Block[][] blockData=chunk.data;
+        BlockData[][] blockData=chunk.data;
         int tcx=(rx+i)*tcw,
           tcy=(ry+j)*tch;
         if(!p.cam2d.boxIntersect(tcx,tcy,tcw,tch)) continue;
         for(int n=0;n<blockData.length;n++) {
           for(int m=0;m<blockData[n].length;m++) {
-            Block block=blockData[n][m];
+            Block block=blockData[n][m].block;
             MetaBlock blockType=block.type;
             int txi=(rx+i)*pr.chunkWidth+n,
               tyi=(ry+j)*pr.chunkHeight+m;
@@ -159,12 +156,12 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
       for(int j=0;j<data[i].length;j++) {
         Chunk chunk=data[i][j];
         if(chunk==null||!chunk.update) continue;//TODO
-        Block[][] blockData=chunk.data;
+        BlockData[][] blockData=chunk.data;
         int tx_2=(tx_1+i)*pr.chunkWidth,
           ty_2=(ty_1+j)*pr.chunkHeight;
         for(int n=0;n<blockData.length;n++) {
           for(int m=0;m<blockData[n].length;m++) {
-            Block block=blockData[n][m];
+            Block block=blockData[n][m].block;
             if(block==null) continue;//TODO 性能
             MetaBlock blockType=block.type;
             if(blockType==null) continue;
