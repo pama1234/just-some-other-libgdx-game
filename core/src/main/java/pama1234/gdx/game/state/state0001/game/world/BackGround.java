@@ -6,22 +6,22 @@ import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
 import pama1234.gdx.util.element.CameraController2D;
 import pama1234.gdx.util.entity.Entity;
 
-public abstract class BackGround extends Entity<Screen0011>{
-  public BackGroundCenter0001 pc;
+public abstract class Background extends Entity<Screen0011>{
+  public BackgroundCenter pc;
   public float proportion;//背景跟随角色移动比例,区分近景远景
   public MainPlayer player;
   public CameraController2D cam;
   public TextureRegion img;
-  public BackGround(Screen0011 p,BackGroundCenter0001 pc,MainPlayer player) {
+  public Background(Screen0011 p,BackgroundCenter pc,MainPlayer player) {
     super(p);
     this.pc=pc;
     this.player=player;
   }
-  public BackGround setProportion(float value) {//链式调用
+  public Background setProportion(float value) {//链式调用
     proportion=value;
     return this;
   }
-  public BackGround setTexture(TextureRegion t) {
+  public Background setTexture(TextureRegion t) {
     img=t;
     return this;
   }

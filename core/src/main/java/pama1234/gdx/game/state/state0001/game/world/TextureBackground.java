@@ -8,16 +8,16 @@ import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.math.Tools;
 
-public class BackGround0002 extends BackGround{
+public class TextureBackground extends Background{
   public float width,height;
   float x,y,tx,ty,dx,dy;
   byte[] side[]= {{-1,-1},{0,-1},{1,-1},
     {-1,0},{1,0},
     {-1,1},{0,1},{1,1}};
-  public BackGround0002(Screen0011 p,BackGroundCenter0001 pc,MainPlayer player) {
+  public TextureBackground(Screen0011 p,BackgroundCenter pc,MainPlayer player) {
     this(p,pc,player,null,3840,2160);
   }
-  public BackGround0002(Screen0011 p,BackGroundCenter0001 pc,MainPlayer player,TextureRegion img,float w,float h) {
+  public TextureBackground(Screen0011 p,BackgroundCenter pc,MainPlayer player,TextureRegion img,float w,float h) {
     super(p,pc,player);
     width=w;
     height=h;
@@ -29,11 +29,11 @@ public class BackGround0002 extends BackGround{
     y=height/2;
     dx=dy=0;
   }
-  public BackGround0002 setProportion(float value) {//设置跟随角色移动比例,区分近景远景
+  public TextureBackground setProportion(float value) {//设置跟随角色移动比例,区分近景远景
     proportion=value;
     return this;
   }
-  public BackGround0002 setTexture(TextureRegion t) {
+  public TextureBackground setTexture(TextureRegion t) {
     img=t;
     return this;
   }

@@ -32,7 +32,7 @@ public class World0001 extends WorldBase2D{
   //---
   public MultiGameEntityCenter entities;
   public RegionCenter regions;
-  public BackGroundCenter0001 background;
+  public BackgroundCenter background;
   public MainPlayer yourself;
   public WorldSettings settings=new WorldSettings();
   public int time=12000;
@@ -45,7 +45,7 @@ public class World0001 extends WorldBase2D{
     metaItems=World0001Generator.createItemC(this);
     for(MetaBlock e:metaBlocks.list) e.initItemDrop();
     metaEntitys=World0001Generator.createCreatureC(this);
-    list[0]=background=new BackGroundCenter0001(p,this);
+    list[0]=background=new BackgroundCenter(p,this);
     list[1]=regions=new RegionCenter(p,this);
     list[2]=entities=new MultiGameEntityCenter(p,this);
     entities.list.add(entities.players=new PlayerCenter(p));
@@ -54,11 +54,11 @@ public class World0001 extends WorldBase2D{
     sky=new Sky(this);
   }
   public void createBackground() {
-    background.cloudList=new ArrayList<BackGround0002>(Arrays.asList(new BackGround0002[] {
-      new BackGround0002(p,background,yourself).setProportion(0.1f),
-      new BackGround0002(p,background,yourself).setProportion(0.2f),
-      new BackGround0002(p,background,yourself).setProportion(0.3f),
-      new BackGround0002(p,background,yourself).setProportion(0.4f)
+    background.cloudList=new ArrayList<TextureBackground>(Arrays.asList(new TextureBackground[] {
+      new TextureBackground(p,background,yourself).setProportion(0.1f),
+      new TextureBackground(p,background,yourself).setProportion(0.2f),
+      new TextureBackground(p,background,yourself).setProportion(0.3f),
+      new TextureBackground(p,background,yourself).setProportion(0.4f)
     }));
     background.list.addAll(background.cloudList);
   }
@@ -74,7 +74,6 @@ public class World0001 extends WorldBase2D{
   @Override
   public void init() {
     super.init();
-    // initSky();
     sky.init();
     for(MetaBlock e:metaBlocks.list) e.init();
     for(MetaItem e:metaItems.list) e.init();

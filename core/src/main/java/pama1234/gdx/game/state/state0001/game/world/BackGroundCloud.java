@@ -9,12 +9,12 @@ import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
 import pama1234.gdx.util.element.Graphics;
 
-public class BackGroundCloud extends BackGround{
+public class BackgroundCloud extends Background{
   public Graphics pixelGraphics;
   public TextureRegion pixelRegion;
   public ShaderProgram pixelCloud,defaultShader;
   public int x1,y1,x2,y2,w,h;
-  public BackGroundCloud(Screen0011 p,BackGroundCenter0001 pc,MainPlayer player) {
+  public BackgroundCloud(Screen0011 p,BackgroundCenter pc,MainPlayer player) {
     super(p,pc,player);
     cam=p.cam2d;
     pixelGraphics=new Graphics(p,3000,3000);
