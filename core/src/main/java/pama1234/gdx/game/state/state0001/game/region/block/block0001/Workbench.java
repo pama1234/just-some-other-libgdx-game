@@ -16,7 +16,7 @@ import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.math.Tools;
 
 public class Workbench extends MetaBlock{
-  public int outputSlotSize=1;
+  public int outputSlotSize=2,sloatSize=5;
   public Workbench(MetaBlockCenter0001 pc,int id) {
     super(pc,"workbench",id,1,0,(in,type)-> {//change to workbench
       in.light.set(16);
@@ -32,7 +32,8 @@ public class Workbench extends MetaBlock{
   public void initLambda() {
     updater=(in,x,y)-> {
       lightUpdater.update(in,x,y);
-      in.intData[0]=Tools.moveInRange(in.intData[0],0,recipeList.length-1);
+      if(in.intData[1]!=0) return;
+      in.intData[0]=Tools.moveInRange(in.intData[0],0,recipeList.length);
       checkRecipe(in,recipeList[in.intData[0]]);
       for(CraftRecipe e:recipeList) checkRecipe(in,e);
     };
@@ -61,6 +62,7 @@ public class Workbench extends MetaBlock{
       for(CraftItem j:recipe.output) drawItemWithCount(p,x+(i+=1)*tw,y-th*2,j.type,j.count);
       i+=1;
       for(CraftItem j:recipe.input) drawItemWithCount(p,x+(i+=1)*tw,y-th*2,j.type,j.count);
+      p.noTint();
     };
   }
   public static void drawItemWithCount(Screen0011 p,float x,float y,MetaItem type,int count) {
@@ -132,8 +134,8 @@ public class Workbench extends MetaBlock{
   }
   @Override
   public void initBlock(Block in) {
-    in.intData=new int[1];
-    in.itemData=new InventorySlot[3];
+    in.intData=new int[2];
+    in.itemData=new InventorySlot[sloatSize];
     in.displaySlot=new DisplaySlot[in.itemData.length];
     for(int i=0;i<in.displaySlot.length;i++) in.displaySlot[i]=new DisplaySlot(in.itemData[i]=new InventorySlot());
   }
