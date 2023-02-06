@@ -26,10 +26,6 @@ public class Fly extends MobEntity{
   }
   public void playerAttract() {
     if(target==null) return;
-    // float minVel=0.05f,maxVel=0.1f;
-    // float vx=(target.x()-x())*p.random(minVel,maxVel),
-    //   vy=(target.y()-y())*p.random(minVel,maxVel);
-    // point.vel.set(vx/l,vy/l);
     float minVel=1.2f,maxVel=0.8f;
     float vx=(target.x()-x()),
       vy=(target.y()-y());
@@ -58,7 +54,6 @@ public class Fly extends MobEntity{
     @Override
     public Fly createCreature(float x,float y) {
       count++;
-      // pc.pw.p.println(x,y);
       return new Fly(pc.pw.p,pc.pw,x,y);
     }
   }

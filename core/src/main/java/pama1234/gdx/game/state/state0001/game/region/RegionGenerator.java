@@ -3,9 +3,13 @@ package pama1234.gdx.game.state.state0001.game.region;
 import com.badlogic.gdx.Gdx;
 
 import pama1234.gdx.game.app.Screen0011;
+import pama1234.gdx.game.state.state0001.game.item.Item;
+import pama1234.gdx.game.state.state0001.game.item.Item.ItemSlot;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
+import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
 import pama1234.gdx.game.state.state0001.game.region.Chunk.BlockData;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
+import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.math.hash.HashNoise2f;
 import pama1234.math.hash.PerlinNoise2f;
 import pama1234.math.hash.Random2f;
@@ -28,7 +32,9 @@ public class RegionGenerator{
     return region;
   }
   public void get(Region region) {
-    MetaBlock[] types=pr.pw.metaBlocks.list.toArray(new MetaBlock[pr.pw.metaBlocks.list.size()]);
+    World0001 world=pr.pw;
+    MetaBlock[] mblock=world.metaBlocks.list.toArray(new MetaBlock[world.metaBlocks.list.size()]);
+    MetaItem[] mitem=world.metaItems.list.toArray(new MetaItem[world.metaItems.list.size()]);
     Chunk[][] data=region.data;
     if(data==null) data=region.data=new Chunk[pr.regionWidth][pr.regionHeight];
     for(int i=0;i<data.length;i++) for(int j=0;j<data[i].length;j++) {
@@ -46,16 +52,22 @@ public class RegionGenerator{
         Block tb;
         if(tbd!=null) {
           tb=tbd.block;
-          tb.innerInit(types[tb.typeId]);
+          tb.innerInit(mblock[tb.typeId]);
+          ItemSlot[] itemData=tb.itemData;
+          if(itemData!=null) for(ItemSlot e:itemData) if(e!=null) {
+            Item ti=e.item;
+            System.out.println(ti);
+            if(ti!=null) ti.type=mitem[ti.typeId];
+          }
           tb.changed=true;
         }else {
           float posX=x(region.x,i,n),posY=y(region.y,j,m);
           float tx=posX/64f,ty=posY/64f;
           float random=noise.get(tx,ty);
-          if(random>0.6f) tb=new Block(pr.pw.metaBlocks.stone);
-          else if(random>0.3f) tb=new Block(pr.pw.metaBlocks.dirt);
-          else if(noise.get(tx,(posY+1)/64f)>0.3f&&rng.get(tx,ty)<0.1f) tb=new Block(pr.pw.metaBlocks.sapling);
-          else tb=new Block(pr.pw.metaBlocks.air);
+          if(random>0.6f) tb=new Block(world.metaBlocks.stone);
+          else if(random>0.3f) tb=new Block(world.metaBlocks.dirt);
+          else if(noise.get(tx,(posY+1)/64f)>0.3f&&rng.get(tx,ty)<0.1f) tb=new Block(world.metaBlocks.sapling);
+          else tb=new Block(world.metaBlocks.air);
           blockData[n][m]=new BlockData(tb);
         }
       }

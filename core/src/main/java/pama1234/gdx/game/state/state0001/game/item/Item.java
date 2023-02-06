@@ -13,9 +13,10 @@ public class Item{
   @Tag(1)
   public int count=1;
   @Deprecated
-  public Item() {}
+  public Item() {}//kryo
   public Item(MetaItem type) {
     this.type=type;
+    typeId=type.id;
     init(type);
     count=1;
   }
@@ -32,6 +33,7 @@ public class Item{
   }
   public static class ItemSlot{
     public int referenceCount;//TODO
+    @Tag(0)
     public Item item;
     public ItemSlot() {}
     public ItemSlot(Item item) {

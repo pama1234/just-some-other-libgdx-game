@@ -22,8 +22,13 @@ public class Workbench extends MetaBlock{
   public CraftRecipe[] recipeList;
   public Workbench(MetaBlockCenter0001 pc,int id) {
     super(pc,"workbench",id,1,0,(in,type)-> {//change to workbench
+      // in.intData=new int[2];
+      // System.out.println("Workbench.Workbench()");
       in.light.set(16);
     },(in,type)-> {//change from workbench
+      in.intData=null;
+      in.itemData=null;
+      in.displaySlot=null;
     });
     workStation=true;
     fullBlock=false;
@@ -139,8 +144,9 @@ public class Workbench extends MetaBlock{
   }
   @Override
   public void initBlock(Block in) {
-    in.intData=new int[2];
-    in.itemData=new ItemSlot[sloatSize];
+    // System.out.println("Workbench.initBlock()");
+    if(in.intData==null) in.intData=new int[2];
+    if(in.itemData==null) in.itemData=new ItemSlot[sloatSize];
     in.displaySlot=new DisplaySlot[in.itemData.length];
     for(int i=0;i<in.displaySlot.length;i++) in.displaySlot[i]=new DisplaySlot(in.itemData[i]=new ItemSlot());
   }

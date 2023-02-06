@@ -12,7 +12,6 @@ public class TextureLivingEntity extends LivingEntity{
   public int frameTime;
   public float timeCount;
   public float timeStep=1/6f;
-  // public boolean dir,pdir;
   public boolean flipX;
   public int moveState;
   public TextureLivingEntity(Screen0011 p,World0001 pw,float x,float y,MetaCreature<? extends TextureLivingEntity> type) {
@@ -29,10 +28,6 @@ public class TextureLivingEntity extends LivingEntity{
       frameTime+=1;
       testFrameTime();
     }
-    // if(pdir!=dir) {
-    //   for(TextureRegion[] i:type.tiles) for(TextureRegion e:i) e.flip(true,false);
-    //   pdir=dir;
-    // }
   }
   public void testFrameTime() {
     frameTime%=type.tiles[moveState].length;

@@ -85,6 +85,7 @@ public class MetaBlock extends MetaInfoBase{
     if(from!=null) from.change(block,type);
   }
   public void to(Block block,MetaBlock in) {
+    // block.intData=null;
     if(to!=null) to.change(block,in);
   }
   public void initFullBlockLambda() {

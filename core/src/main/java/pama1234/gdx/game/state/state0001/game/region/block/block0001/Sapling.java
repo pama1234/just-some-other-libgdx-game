@@ -12,7 +12,7 @@ import pama1234.math.UtilMath;
 public class Sapling extends MetaBlock{
   public Sapling(MetaBlockCenter0001 pc,int id) {
     super(pc,"sapling",id,1,0,(in,type)-> {//change to me
-      in.light.set(16);
+      // in.light.set(16);
       in.intData=new int[1];
     },(in,type)-> {//change from me
       in.intData=null;
@@ -36,7 +36,7 @@ public class Sapling extends MetaBlock{
   }
   @Override
   public void initBlock(Block in) {
-    in.intData=new int[1];
+    if(in.intData==null) in.intData=new int[1];
   }
   public void initSaplingLambda() {
     updater=(in,x,y)-> {

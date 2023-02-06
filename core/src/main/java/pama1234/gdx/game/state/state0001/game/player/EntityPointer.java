@@ -43,7 +43,7 @@ public class EntityPointer{
     else if(task==attack) {
       Item item=slot().item;
       if(item!=null) entity.life.des-=item.type.damage;
-      else entity.life.des-=0.01f;
+      else entity.life.des-=1/60f;
     }
     testTaskComplete();
   }

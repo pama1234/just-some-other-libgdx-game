@@ -52,11 +52,13 @@ public class World0001 extends WorldBase2D{
     kryo.register(BlockData.class);
     kryo.register(Block.class);
     kryo.register(Inventory.class);
+    kryo.register(ItemSlot[].class);
     kryo.register(ItemSlot.class);
     kryo.register(Item.class);
     kryo.register(MassPoint.class,new FieldSerializer<MassPoint>(kryo,MassPoint.class));
     kryo.register(PathPoint.class,new FieldSerializer<PathPoint>(kryo,PathPoint.class));
     kryo.register(PathVar.class,new FieldSerializer<PathVar>(kryo,PathVar.class));
+    kryo.register(int[].class);
   }
   @Tag(0)
   public String dataDir;
