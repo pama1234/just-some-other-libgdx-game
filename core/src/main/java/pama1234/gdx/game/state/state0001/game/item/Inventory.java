@@ -1,6 +1,7 @@
 package pama1234.gdx.game.state.state0001.game.item;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
@@ -15,6 +16,7 @@ public class Inventory{
   public static final int moveAll=0,moveOne=1;
   public static int timeF=7200;
   public LivingEntity pc;
+  @Tag(0)
   public ItemSlot[] data;
   public int displayState=displayHoldSlot;
   public DisplaySlot[][] displaySlots;

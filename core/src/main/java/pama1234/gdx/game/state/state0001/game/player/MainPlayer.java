@@ -16,18 +16,7 @@ public class MainPlayer extends Player{
     ctrl=new PlayerController(p,this);
     inventory=new Inventory(this,52,9);
     // gameMode=GameMode.creative;
-    // inventory.data[11].item=pw.metaItems.torch.createItem(64);
-    // inventory.data[10].item=pw.metaItems.sapling.createItem(64);
-    // inventory.data[9].item=pw.metaItems.stoneSword.createItem(1);
-    // inventory.data[8].item=pw.metaItems.stoneChisel.createItem(1);
-    // inventory.data[7].item=pw.metaItems.stoneAxe.createItem(1);
-    // inventory.data[6].item=pw.metaItems.stonePickaxe.createItem(1);
     inventory.data[5].item=pw.metaItems.workbench.createItem(16);
-    // inventory.data[4].item=pw.metaItems.dirt.createItem(64);
-    // inventory.data[3].item=pw.metaItems.stone.createItem(64);
-    // inventory.data[2].item=pw.metaItems.log.createItem(64);
-    // inventory.data[1].item=pw.metaItems.branch.createItem(64);
-    // inventory.data[0].item=pw.metaItems.leaf.createItem(64);
   }
   @Override
   public void keyPressed(char key,int keyCode) {

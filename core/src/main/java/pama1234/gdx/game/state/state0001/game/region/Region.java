@@ -13,7 +13,9 @@ import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer;
 import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
 import pama1234.gdx.game.app.Screen0011;
+import pama1234.gdx.game.state.state0001.game.item.Inventory;
 import pama1234.gdx.game.state.state0001.game.item.Item;
+import pama1234.gdx.game.state.state0001.game.item.Item.ItemSlot;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.region.Chunk.BlockData;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
@@ -31,6 +33,8 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
     kryo.register(BlockData[].class);
     kryo.register(BlockData.class);
     kryo.register(Block.class);
+    kryo.register(Inventory.class);
+    kryo.register(ItemSlot.class);
     kryo.register(Item.class);
   }
   public RegionCenter pr;
