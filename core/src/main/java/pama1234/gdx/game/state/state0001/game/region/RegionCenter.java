@@ -12,6 +12,7 @@ import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.player.Player;
+import pama1234.gdx.game.state.state0001.game.region.Chunk.BlockData;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.gdx.game.util.Mutex;
@@ -274,12 +275,18 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     int prx=Tools.moveInRange(cx,0,regionWidth),pry=Tools.moveInRange(cy,0,regionHeight);
     int px=Tools.moveInRange(x,0,chunkWidth),py=Tools.moveInRange(y,0,chunkHeight);
     if(cachedRegion!=null) synchronized(cachedRegion) {
-      if(cachedRegion.x==tx&&cachedRegion.y==ty) return cachedRegion.data[prx][pry].data[px][py].block;
+      if(cachedRegion.x==tx&&cachedRegion.y==ty) {
+        BlockData blockData=cachedRegion.data[prx][pry].data[px][py];
+        if(blockData==null) return null;
+        return blockData.block;
+      }
     }
     synchronized(list) {//TODO
       for(Region r:list) if(r.x==tx&&r.y==ty) {
         cachedRegion=r;
-        return r.data[prx][pry].data[px][py].block;
+        BlockData blockData=r.data[prx][pry].data[px][py];
+        if(blockData==null) return null;
+        return blockData.block;
       }
     }
     return null;
