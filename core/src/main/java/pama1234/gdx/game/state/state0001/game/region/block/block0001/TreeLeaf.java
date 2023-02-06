@@ -5,9 +5,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
+import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 
 public class TreeLeaf extends MetaBlock{
+  public int maxLogCount=64;
   public TreeLeaf(MetaBlockCenter0001 pc,int id) {
     super(pc,"tree-leaf",id,25,3,(in,type)-> {//change to log
       in.light.set(16);
@@ -67,8 +69,50 @@ public class TreeLeaf extends MetaBlock{
     //-----------------------------------------------------
     tiles[24]=tsrc[17][4];
   }
+  @Override
+  public void initBlock(Block in) {
+    in.intData=new int[] {32,0};
+  }
+  public boolean testLogCountAndNotNull(Block in,Block tb) {
+    return tb!=null&&testLogCount(in,tb);
+  }
+  public boolean testLogCount(Block in,Block tb) {
+    return tb.type==pc.leaf;
+  }
   public void initTreeLeafLambda() {
-    // updater=lightUpdater;
+    updater=(in,x,y)-> {
+      lightUpdater.update(in,x,y);
+      in.intData[0]+=in.intData[1];
+      in.intData[1]=0;
+      World0001 world=pc.pw;
+      Block tb=world.getBlock(x,y+1);
+      if(tb!=null&&tb.type==pc.log) in.intData[0]=maxLogCount;
+      else in.intData[1]-=2;
+      int count=0;
+      int ti=0;
+      if(testLogCountAndNotNull(in,tb)) {
+        ti+=1;
+        count+=tb.intData[0];
+      }
+      if(testLogCountAndNotNull(in,tb=world.getBlock(x,y-1))) {
+        ti+=1;
+        count+=tb.intData[0];
+      }
+      if(testLogCountAndNotNull(in,tb=world.getBlock(x+1,y))) {
+        ti+=1;
+        count+=tb.intData[0];
+      }
+      if(testLogCountAndNotNull(in,tb=world.getBlock(x-1,y))) {
+        ti+=1;
+        count+=tb.intData[0];
+      }
+      if(count>0) in.intData[1]+=(count/ti)/4;
+      // if(count>0) in.intData[0]+=ti/2;
+      else in.intData[1]-=2;
+      // in.intData[0]+=count;
+      if(in.intData[0]<=0) world.destroyBlock(in,x,y);
+      else if(in.intData[0]>maxLogCount) in.intData[0]=maxLogCount;
+    };
     displayUpdater=(in,x,y)-> {
       World0001 world=in.type.pc.pw;
       int typeCache=0;
@@ -127,6 +171,9 @@ public class TreeLeaf extends MetaBlock{
       // }
       int tp_2=in.displayType[2];
       if(tp_2!=0) r.tile(in.type.tiles[24],x,y);
+      r.end();
+      p.text(Integer.toString(in.intData[0]),x,y);
+      r.begin();
     };
   }
 }

@@ -10,9 +10,10 @@ import pama1234.gdx.game.state.state0001.game.world.World0001;
 
 public class TreeLog extends MetaBlock{
   public TreeLog(MetaBlockCenter0001 pc,int id) {
-    super(pc,"tree-log",id,6,1,(in,type)-> {//change to log
+    super(pc,"tree-log",id,6,2,(in,type)-> {//change to log
       in.light.set(16);
     },(in,type)-> {//change from log
+      in.intData=null;
     });
     blockType=woodType;
     destroyTime=60;
@@ -37,9 +38,14 @@ public class TreeLog extends MetaBlock{
     tiles[4]=tsrc[18][6];
   }
   public void initTreeLogLambda() {
-    // updater=lightUpdater;
+    updater=(in,x,y)-> {
+      lightUpdater.update(in,x,y);
+      World0001 world=pc.pw;
+      Block tb=world.getBlock(x,y+1);
+      if(tb!=null&&tb.type!=pc.log&&tb.type!=pc.dirt) world.destroyBlock(in,x,y);
+    };
     displayUpdater=(in,x,y)-> {
-      World0001 world=in.type.pc.pw;
+      World0001 world=pc.pw;
       int typeCache=0;
       if(isTreeLog(world.getBlock(x,y+1),this)) {// down
         if(isTreeLeaf(world.getBlock(x,y-2),pc.leaf)&&// up 2
@@ -55,7 +61,6 @@ public class TreeLog extends MetaBlock{
       if(in.updateLighting) lightingUpdate(in,x,y,world);
       // in.light.update();
     };
-    // displayer=fullBlockDisplayer;
   }
   public static boolean isTreeLog(Block in,TreeLog type) {
     return in!=null&&in.type==type;

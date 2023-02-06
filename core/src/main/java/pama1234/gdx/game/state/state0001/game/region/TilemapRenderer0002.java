@@ -177,4 +177,8 @@ public class TilemapRenderer0002 implements TilemapRenderer{
     }
     batch.draw(region.getTexture(),vertices,0,NUM_VERTICES);
   }
+  @Override
+  public void begin() {}
+  @Override
+  public void end() {}
 }

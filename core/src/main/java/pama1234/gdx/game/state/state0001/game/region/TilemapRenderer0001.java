@@ -11,20 +11,15 @@ public class TilemapRenderer0001 implements TilemapRenderer{
   public World0001 pw;
   public SpriteBatch batch;
   public ShaderProgram shader;
-  // public int tileSizeAttr;
   public TilemapRenderer0001(World0001 pw,SpriteBatch tilemapBatch) {
     this.pw=pw;
     this.batch=tilemapBatch;
     shader=tilemapBatch.getShader();
     initInfo();
   }
-  public void initInfo() {
-    // tileSizeAttr=shader.getAttributeLocation("tileSize");
-  }
+  public void initInfo() {}
   public void updateInfo() {
     batch.setProjectionMatrix(pw.p.cam.camera.combined);
-    // shader.bind();
-    // shader.setUniformf(tileSizeAttr,pw.settings.blockWidth+0.01f,pw.settings.blockHeight+0.01f);
   }
   @Override
   public void tint(float r,float g,float b) {
@@ -40,5 +35,13 @@ public class TilemapRenderer0001 implements TilemapRenderer{
   @Override
   public void tile(TextureRegion in,float x,float y,float w,float h) {
     batch.draw(in,x,y,w,h);
+  }
+  @Override
+  public void begin() {
+    batch.begin();
+  }
+  @Override
+  public void end() {
+    batch.end();
   }
 }

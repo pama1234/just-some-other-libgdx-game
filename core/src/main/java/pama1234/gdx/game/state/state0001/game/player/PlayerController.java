@@ -397,6 +397,7 @@ public class PlayerController extends Entity<Screen0011>{
   }
   public static class ControllerBlockPointer extends BlockPointer{
     public TouchInfo info;
+    // public float moveX,moveY;
     public ControllerBlockPointer(World0001 in,GetItemSlot slot) {
       super(in,slot);
     }

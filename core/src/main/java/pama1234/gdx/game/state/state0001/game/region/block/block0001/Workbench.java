@@ -22,11 +22,8 @@ public class Workbench extends MetaBlock{
   public CraftRecipe[] recipeList;
   public Workbench(MetaBlockCenter0001 pc,int id) {
     super(pc,"workbench",id,1,0,(in,type)-> {//change to workbench
-      // in.intData=new int[2];
-      // System.out.println("Workbench.Workbench()");
       in.light.set(16);
     },(in,type)-> {//change from workbench
-      // System.out.println("Workbench.Workbench()");
       in.intData=null;
       in.itemData=null;
       in.displaySlot=null;
@@ -122,6 +119,17 @@ public class Workbench extends MetaBlock{
     }
   }
   @Override
+  public void initBlock(Block in) {
+    if(in.intData==null) in.intData=new int[2];
+    if(in.itemData==null) {
+      in.itemData=new ItemSlot[sloatSize];
+      for(int i=0;i<in.itemData.length;i++) in.itemData[i]=new ItemSlot();
+    }
+    in.displaySlot=new DisplaySlot[in.itemData.length];
+    for(int i=0;i<in.displaySlot.length;i++) in.displaySlot[i]=new DisplaySlot(in.itemData[i]);
+    in.changed=true;
+  }
+  @Override
   public void initItemDrop() {
     itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pw.metaItems.workbench,1)};
   }
@@ -142,17 +150,5 @@ public class Workbench extends MetaBlock{
       new CraftRecipe(new CraftItem[] {new CraftItem(mi.leaf)},new CraftItem[] {new CraftItem(mi.sapling,2)}),
       new CraftRecipe(new CraftItem[] {new CraftItem(mi.leaf),new CraftItem(mi.branch)},new CraftItem[] {new CraftItem(mi.torch,4)}),
     };
-  }
-  @Override
-  public void initBlock(Block in) {
-    // System.out.println("Workbench.initBlock()");
-    if(in.intData==null) in.intData=new int[2];
-    if(in.itemData==null) {
-      in.itemData=new ItemSlot[sloatSize];
-      for(int i=0;i<in.itemData.length;i++) in.itemData[i]=new ItemSlot();
-    }
-    in.displaySlot=new DisplaySlot[in.itemData.length];
-    for(int i=0;i<in.displaySlot.length;i++) in.displaySlot[i]=new DisplaySlot(in.itemData[i]);
-    in.changed=true;
   }
 }

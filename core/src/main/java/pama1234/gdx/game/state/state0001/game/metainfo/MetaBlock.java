@@ -129,10 +129,13 @@ public class MetaBlock extends MetaInfoBase{
     public void tile(TextureRegion in,boolean next);
     public void tile(TextureRegion in,float x,float y);
     public void tile(TextureRegion in,float x,float y,float w,float h);
+    public void begin();
+    public void end();
   }
   public static final BlockUpdater doNothing=(in,x,y)-> {},lightUpdater=(in,x,y)-> {
     in.light.update();
-  },fullBlockDisplayUpdater=(in,x,y)-> {
+  };
+  public static final BlockUpdater fullBlockDisplayUpdater=(in,x,y)-> {
     World0001 world=in.type.pc.pw;
     int typeCache=0;
     if(Block.isNotFullBlock(world.getBlock(x,y-1))) typeCache+=1;// up
