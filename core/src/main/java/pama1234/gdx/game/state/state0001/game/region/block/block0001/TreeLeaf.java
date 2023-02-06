@@ -11,9 +11,10 @@ import pama1234.gdx.game.state.state0001.game.world.World0001;
 public class TreeLeaf extends MetaBlock{
   public int maxLogCount=64;
   public TreeLeaf(MetaBlockCenter0001 pc,int id) {
-    super(pc,"tree-leaf",id,25,3,(in,type)-> {//change to log
+    super(pc,"tree-leaf",id,25,3,(in,type)-> {//change to me
       in.light.set(16);
-    },(in,type)-> {//change from log
+    },(in,type)-> {//change from me
+      in.intData=null;
     });
     destroyTime=15;
     buildTime=8;
@@ -73,15 +74,16 @@ public class TreeLeaf extends MetaBlock{
   public void initBlock(Block in) {
     in.intData=new int[] {32,0};
   }
-  public boolean testLogCountAndNotNull(Block in,Block tb) {
-    return tb!=null&&testLogCount(in,tb);
+  public boolean testLeafAndNotNull(Block in,Block tb) {
+    return tb!=null&&testLeaf(in,tb)&&tb.intData!=null;
   }
-  public boolean testLogCount(Block in,Block tb) {
+  public boolean testLeaf(Block in,Block tb) {
     return tb.type==pc.leaf;
   }
   public void initTreeLeafLambda() {
     updater=(in,x,y)-> {
       lightUpdater.update(in,x,y);
+      if(in.intData==null) return;
       in.intData[0]+=in.intData[1];
       in.intData[1]=0;
       World0001 world=pc.pw;
@@ -90,24 +92,24 @@ public class TreeLeaf extends MetaBlock{
       else in.intData[1]-=2;
       int count=0;
       int ti=0;
-      if(testLogCountAndNotNull(in,tb)) {
+      if(testLeafAndNotNull(in,tb)) {
         ti+=1;
         count+=tb.intData[0];
       }
-      if(testLogCountAndNotNull(in,tb=world.getBlock(x,y-1))) {
+      if(testLeafAndNotNull(in,tb=world.getBlock(x,y-1))) {
         ti+=1;
         count+=tb.intData[0];
       }
-      if(testLogCountAndNotNull(in,tb=world.getBlock(x+1,y))) {
+      if(testLeafAndNotNull(in,tb=world.getBlock(x+1,y))) {
         ti+=1;
         count+=tb.intData[0];
       }
-      if(testLogCountAndNotNull(in,tb=world.getBlock(x-1,y))) {
+      if(testLeafAndNotNull(in,tb=world.getBlock(x-1,y))) {
         ti+=1;
         count+=tb.intData[0];
       }
       if(count>0) in.intData[1]+=(count/ti)/4;
-      // if(count>0) in.intData[0]+=ti/2;
+      // if(count>0) in.intData[1]+=ti/2;
       else in.intData[1]-=2;
       // in.intData[0]+=count;
       if(in.intData[0]<=0) world.destroyBlock(in,x,y);
@@ -171,6 +173,7 @@ public class TreeLeaf extends MetaBlock{
       // }
       int tp_2=in.displayType[2];
       if(tp_2!=0) r.tile(in.type.tiles[24],x,y);
+      if(in.intData==null) return;
       r.end();
       p.text(Integer.toString(in.intData[0]),x,y);
       r.begin();
