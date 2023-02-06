@@ -160,6 +160,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   @Override
   public void display() {
     if(settings.debugInfo) {
+      textColor(255,191);
       textScale(pus/2f);
       initDebugText();
       debugText("Memory   ="+getMemory()+"Mb");

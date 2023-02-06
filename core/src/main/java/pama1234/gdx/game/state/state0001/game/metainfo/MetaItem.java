@@ -17,7 +17,7 @@ public class MetaItem extends MetaInfoBase{
   public float damage;
   public MetaBlock blockType;
   public TextureRegion[] tiles;
-  public int displayTypeSize=1;
+  public int displayTypeSize;
   public int defaultDisplayType;
   public InitFunction initer;
   public MetaItem(MetaItemCenter0001 pc,String name,int id,InitFunction initer) {

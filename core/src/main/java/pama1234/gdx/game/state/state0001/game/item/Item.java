@@ -16,7 +16,6 @@ public class Item{
   public Item() {}//kryo
   public Item(MetaItem type) {
     this.type=type;
-    typeId=type.id;
     init(type);
     count=1;
   }
@@ -26,6 +25,7 @@ public class Item{
     this.count=count;
   }
   public void init(MetaItem type) {
+    typeId=type.id;
     if(type.displayTypeSize>0) {
       displayType=new int[type.displayTypeSize];
       displayType[0]=type.getDisplayType();
@@ -43,5 +43,8 @@ public class Item{
     public interface GetItemSlot{
       public ItemSlot get();
     }
+  }
+  public int displayType() {
+    return displayType==null?0:displayType[0];
   }
 }

@@ -71,7 +71,6 @@ public class Workbench extends MetaBlock{
       i+=1;
       for(CraftItem j:recipe.input) drawItemWithCount(p,x+(i+=1)*tw,y-th*2,j.type,j.count);
       p.noTint();
-      p.textColor(255);
     };
   }
   public static void drawItemWithCount(Screen0011 p,float x,float y,MetaItem type,int count) {
@@ -148,8 +147,12 @@ public class Workbench extends MetaBlock{
   public void initBlock(Block in) {
     // System.out.println("Workbench.initBlock()");
     if(in.intData==null) in.intData=new int[2];
-    if(in.itemData==null) in.itemData=new ItemSlot[sloatSize];
+    if(in.itemData==null) {
+      in.itemData=new ItemSlot[sloatSize];
+      for(int i=0;i<in.itemData.length;i++) in.itemData[i]=new ItemSlot();
+    }
     in.displaySlot=new DisplaySlot[in.itemData.length];
-    for(int i=0;i<in.displaySlot.length;i++) in.displaySlot[i]=new DisplaySlot(in.itemData[i]=new ItemSlot());
+    for(int i=0;i<in.displaySlot.length;i++) in.displaySlot[i]=new DisplaySlot(in.itemData[i]);
+    in.changed=true;
   }
 }

@@ -54,7 +54,6 @@ public class Game extends StateEntity0001{
         World0001 tw=world();
         MainPlayer tp=tw.yourself;
         drawLimitBox(tw,tp,tp.ctrl.limitBox);
-        // System.out.println(tp.ctrl.limitBox.h);
         // for(EntityCenter<Screen0011,? extends GamePointEntity<?>> i:tw.entities.list) for(GamePointEntity<?> e:i.list) drawLimitBox(tw,e,e.limitBox);
         // for(MobEntity e:tw.entities.mobEntities.list) drawLimitBox(tw,e,e.limitBox);
         for(DroppedItem e:tw.entities.items.list) drawLimitBox(tw,e,e.limitBox);
@@ -146,6 +145,7 @@ public class Game extends StateEntity0001{
       for(RectF e:cullRects) p.rect(e.x(),e.y(),e.w(),e.h());
       p.endBlend();
       Block tb=tw.getBlock(p.mouse.x,p.mouse.y);
+      p.textColor(255,191);
       p.textScale(p.pus/2f);
       initDebugText();
       debugText("Lighting  block="+(tb!=null?tb.light.toString():"null")+" player="+tw.yourself.light.toString());

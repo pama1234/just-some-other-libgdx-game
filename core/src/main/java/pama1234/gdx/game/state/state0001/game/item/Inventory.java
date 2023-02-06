@@ -167,7 +167,7 @@ public class Inventory{
   public void drawMouseHold(Screen0011 p,DisplaySlot ths) {
     Item ti=ths.data.item;
     if(ti!=null) {
-      TextureRegion tr=ti.type.tiles[ti.displayType[0]];
+      TextureRegion tr=ti.type.tiles[ti.displayType()];
       p.image(tr,p.mouse.x-ths.w2/2f,p.mouse.y-ths.h2/2f,ths.w2,ths.h2);
       displayItemCount(p,ti,p.mouse.x-ths.w1/2f,p.mouse.y-ths.h1/2f);
     }
@@ -191,7 +191,7 @@ public class Inventory{
     p.noTint();
   }
   public static void drawSlotItem(Screen0011 p,DisplaySlot ths,Item ti) {
-    TextureRegion tr=ti.type.tiles[ti.displayType[0]];
+    TextureRegion tr=ti.type.tiles[ti.displayType()];
     p.image(tr,ths.x1+ths.w3(),ths.y1+ths.h3(),ths.w2,ths.h2);
     displayItemCount(p,ti,ths.x1,ths.y1);
   }
@@ -248,7 +248,7 @@ public class Inventory{
         w1=h1=18;
         w2=h2=0;
       }else {
-        TextureRegion tr=in.type.tiles[in.displayType[0]];
+        TextureRegion tr=in.type.tiles[in.displayType()];
         w1=tr.getRegionWidth();
         h1=tr.getRegionHeight();
         w2=tr.getRegionWidth()/3f*2;
