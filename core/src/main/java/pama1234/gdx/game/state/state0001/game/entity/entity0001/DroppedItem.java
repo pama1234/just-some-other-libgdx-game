@@ -48,9 +48,7 @@ public class DroppedItem extends LivingEntity{
         e.data.count=0;
         pc.remove.add(e);
       }else if(td<pc.itemMergeMoveDist) {
-        // e.point.vel.add((x()-e.x())*p.random(0.1f,0.2f),(y()-e.y())*p.random(0.1f,0.2f));
         float minVel=0.1f,maxVel=0.2f;
-        // float minVel=0.05f,maxVel=0.1f;
         e.point.vel.set((x()-e.x())*p.random(minVel,maxVel),(y()-e.y())*p.random(minVel,maxVel));
       }
     }
@@ -74,15 +72,9 @@ public class DroppedItem extends LivingEntity{
     public void init() {}
   }
   public static class DroppedItemCenter extends GameEntityCenter<Screen0011,DroppedItem>{
-    // public int w=12,h=12,
-    //   dx=-6,dy=-12;
     public float itemMergeMoveDist=54,itemMergeDist=18;
     public DroppedItemCenter(Screen0011 p,MultiGameEntityCenter pc) {
       super(p,pc);
-    }
-    @Override
-    public void update() {
-      super.update();
     }
   }
 }

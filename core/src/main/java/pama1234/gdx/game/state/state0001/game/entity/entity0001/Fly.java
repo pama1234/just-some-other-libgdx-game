@@ -22,6 +22,7 @@ public class Fly extends MobEntity{
     super.update();
     limitBox.constrain();
     playerAttract();
+    if((point.vel.x>0)!=flipX) flipX=!flipX;
   }
   public void playerAttract() {
     if(target==null) return;

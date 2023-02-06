@@ -19,6 +19,32 @@ public class MainPlayer extends Player{
     inventory.data[5].item=pw.metaItems.workbench.createItem(16);
   }
   @Override
+  public void update() {
+    for(TouchInfo e:p.touches) if(e.active) ctrl.touchUpdate(e);
+    ctrl.updateOuterBox();
+    ctrl.updateCtrlInfo();
+    ctrl.doWalkAndJump();
+    //---
+    super.update();
+    ctrl.constrain();
+    ctrl.updatePickItem();
+    p.cam.point.des.set(cx(),cy());
+    //---
+    inventory.update();
+    if(life.pos<=0) respawn();
+  }
+  public void respawn() {
+    point.pos.set(0,0);
+    life.des=type.maxLife;
+  }
+  @Override
+  public void display() {
+    super.display();
+    ctrl.display();
+    inventory.display();
+    p.noTint();
+  }
+  @Override
   public void keyPressed(char key,int keyCode) {
     ctrl.keyPressed(key,keyCode);
   }
@@ -37,32 +63,5 @@ public class MainPlayer extends Player{
   @Override
   public void touchEnded(TouchInfo info) {
     ctrl.touchEnded(info);
-  }
-  @Override
-  public void update() {
-    for(TouchInfo e:p.touches) if(e.active) ctrl.touchUpdate(e);
-    ctrl.updateOuterBox();
-    ctrl.updateCtrlInfo();
-    ctrl.doWalkAndJump();
-    //---
-    super.update();
-    ctrl.constrain();
-    ctrl.updatePickItem();
-    // p.cam.point.des.set(cx(),Tools.mag(point.y(),ctrl.limitBox.floor)<48?ctrl.limitBox.floor+type.dy+type.h/2f:cy(),0);//TODO
-    p.cam.point.des.set(cx(),cy());
-    //---
-    inventory.update();
-    if(life.pos<=0) respawn();
-  }
-  public void respawn() {
-    point.pos.set(0,0);
-    life.des=type.maxLife;
-  }
-  @Override
-  public void display() {
-    super.display();
-    ctrl.display();
-    inventory.display();
-    p.noTint();
   }
 }

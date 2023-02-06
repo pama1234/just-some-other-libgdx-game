@@ -1,5 +1,7 @@
 package pama1234.gdx.game.state.state0001.game.entity;
 
+import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
+
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.entity.util.OuterBox;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
@@ -16,10 +18,13 @@ public class LivingEntity extends GamePointEntity<MassPoint>{
   //---
   public OuterBox outerBox;
   //---
+  @Tag(0)
   public GameMode gameMode=GameMode.survival;
   public MetaCreature<?> type;
+  @Tag(1)
+  public int typeId;
+  @Tag(2)
   public PathVar life;
-  // public PathVar lighting;
   public PathVarLighting light;
   public LivingEntity(Screen0011 p,World0001 pw,MassPoint in,MetaCreature<?> type) {
     super(p,pw,in);
@@ -27,7 +32,6 @@ public class LivingEntity extends GamePointEntity<MassPoint>{
     outerBox=new OuterBox(this);
     this.type=type;
     life=new PathVar(type.maxLife);
-    // lighting=new PathVar(255,0.05f);
     light=new PathVarLighting();
   }
   @Override
@@ -54,15 +58,12 @@ public class LivingEntity extends GamePointEntity<MassPoint>{
         cb+=16;
       }
     }
-    // System.out.println(outerBox.w);
     int tr=(outerBox.w+1)*(outerBox.h+1);
-    // System.out.println(tr);
     cr/=tr;
     cg/=tr;
     cb/=tr;
     light.set(cr,cg,cb);
     light.update();
-    // lighting.update();
   }
   @Override
   public void display() {
@@ -114,12 +115,10 @@ public class LivingEntity extends GamePointEntity<MassPoint>{
     return yToBlockCord(y()+type.dy);
   }
   public int blockX2() {
-    // return xToBlockCord(x()+type.dx+type.w);//TODO
-    return xToBlockCord(x()+type.dx+type.w-0.01f);
+    return xToBlockCord(x()+type.dx+type.w-0.01f);//TODO
   }
   public int blockY2() {
-    // return yToBlockCord(y()+type.dy+type.h);//TODO
-    return yToBlockCord(y()+type.dy+type.h-0.01f);
+    return yToBlockCord(y()+type.dy+type.h-0.01f);//TODO
   }
   public int xToBlockCord(float in) {
     // return UtilMath.floor(in/pw.blockWidth);

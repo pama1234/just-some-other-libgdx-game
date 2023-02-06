@@ -3,6 +3,9 @@ package pama1234.gdx.game.state.state0001.game.world;
 import java.util.Arrays;
 
 import com.badlogic.gdx.Gdx;
+import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryo.serializers.FieldSerializer;
+import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer;
 import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
 import pama1234.gdx.game.app.Screen0011;
@@ -10,6 +13,9 @@ import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.state.state0001.game.entity.MultiGameEntityCenter;
+import pama1234.gdx.game.state.state0001.game.item.Inventory;
+import pama1234.gdx.game.state.state0001.game.item.Item;
+import pama1234.gdx.game.state.state0001.game.item.Item.ItemSlot;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
@@ -19,6 +25,9 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemC
 import pama1234.gdx.game.state.state0001.game.player.BlockPointer;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
 import pama1234.gdx.game.state.state0001.game.player.Player.PlayerCenter;
+import pama1234.gdx.game.state.state0001.game.region.Chunk;
+import pama1234.gdx.game.state.state0001.game.region.Chunk.BlockData;
+import pama1234.gdx.game.state.state0001.game.region.Region;
 import pama1234.gdx.game.state.state0001.game.region.RegionCenter;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.background.BackgroundCenter;
@@ -26,18 +35,39 @@ import pama1234.gdx.game.state.state0001.game.world.background.BackgroundList;
 import pama1234.gdx.game.state.state0001.game.world.background.Sky;
 import pama1234.gdx.game.state.state0001.game.world.background.TextureBackground;
 import pama1234.math.UtilMath;
+import pama1234.math.physics.MassPoint;
+import pama1234.math.physics.PathPoint;
+import pama1234.math.physics.PathVar;
 
 public class World0001 extends WorldBase2D{
+  public static final Kryo kryo=new Kryo();
+  static {
+    kryo.setDefaultSerializer(TaggedFieldSerializer.class);
+    kryo.register(Region.class);
+    kryo.register(Chunk[][].class);
+    kryo.register(Chunk[].class);
+    kryo.register(Chunk.class);
+    kryo.register(BlockData[][].class);
+    kryo.register(BlockData[].class);
+    kryo.register(BlockData.class);
+    kryo.register(Block.class);
+    kryo.register(Inventory.class);
+    kryo.register(ItemSlot.class);
+    kryo.register(Item.class);
+    kryo.register(MassPoint.class,new FieldSerializer<MassPoint>(kryo,MassPoint.class));
+    kryo.register(PathPoint.class,new FieldSerializer<PathPoint>(kryo,PathPoint.class));
+    kryo.register(PathVar.class,new FieldSerializer<PathVar>(kryo,PathVar.class));
+  }
   @Tag(0)
-  public String dataDir="data/saved/test-world/";
+  public String dataDir;
   //---
-  public MetaBlockCenter0001 metaBlocks;
-  public MetaItemCenter0001 metaItems;
-  public MetaCreatureCenter0001 metaEntitys;
+  public MetaBlockCenter0001 metaBlocks;//方块
+  public MetaItemCenter0001 metaItems;//物品
+  public MetaCreatureCenter0001 metaEntitys;//生物
   //---
-  public MultiGameEntityCenter entities;
-  public RegionCenter regions;
-  public BackgroundCenter background;
+  public MultiGameEntityCenter entities;//实体
+  public RegionCenter regions;//地图系统
+  public BackgroundCenter background;//背景
   //---
   public MainPlayer yourself;
   public WorldSettings settings=new WorldSettings();
@@ -48,6 +78,7 @@ public class World0001 extends WorldBase2D{
   public Sky sky;
   public World0001(Screen0011 p,Game pg) {
     super(p,pg,3);
+    dataDir="data/saved/test-world/";
     metaBlocks=World0001Generator.createBlockC(this);
     metaItems=World0001Generator.createItemC(this);
     for(MetaBlock e:metaBlocks.list) e.initItemDrop();

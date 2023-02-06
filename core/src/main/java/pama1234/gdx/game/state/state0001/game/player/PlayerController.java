@@ -334,10 +334,10 @@ public class PlayerController extends Entity<Screen0011>{
       float speedMult=shift?shiftSpeedMult:1;
       if(left) {
         player.point.vel.x-=speed*speedMult;
-        player.dir=true;
+        player.flipX=true;
       }else {
         player.point.vel.x+=speed*speedMult;
-        player.dir=false;
+        player.flipX=false;
       }
     }else walkSlowDown();
     limitBox.doInAirTest();
