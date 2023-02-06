@@ -5,10 +5,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.item.CraftRecipe;
+import pama1234.gdx.game.state.state0001.game.item.CraftRecipe.CraftItem;
 import pama1234.gdx.game.state.state0001.game.item.Inventory;
 import pama1234.gdx.game.state.state0001.game.item.Inventory.DisplaySlot;
 import pama1234.gdx.game.state.state0001.game.item.Item;
-import pama1234.gdx.game.state.state0001.game.item.CraftRecipe.CraftItem;
 import pama1234.gdx.game.state.state0001.game.item.Item.ItemSlot;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
@@ -26,6 +26,7 @@ public class Workbench extends MetaBlock{
       // System.out.println("Workbench.Workbench()");
       in.light.set(16);
     },(in,type)-> {//change from workbench
+      // System.out.println("Workbench.Workbench()");
       in.intData=null;
       in.itemData=null;
       in.displaySlot=null;
@@ -70,6 +71,7 @@ public class Workbench extends MetaBlock{
       i+=1;
       for(CraftItem j:recipe.input) drawItemWithCount(p,x+(i+=1)*tw,y-th*2,j.type,j.count);
       p.noTint();
+      p.textColor(255);
     };
   }
   public static void drawItemWithCount(Screen0011 p,float x,float y,MetaItem type,int count) {
