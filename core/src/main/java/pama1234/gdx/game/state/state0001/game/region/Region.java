@@ -59,7 +59,6 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
       BlockData[][] blockData=data[i][j].data;
       boolean tb_2=true;
       for(int n=0;n<blockData.length;n++) for(int m=0;m<blockData[n].length;m++) {
-        // if(blockData[n][m].block.itemData!=null) for(ItemSlot e:blockData[n][m].block.itemData) System.out.println(e.item);
         if(!blockData[n][m].block.changed) blockData[n][m]=null;
         else tb_2=false;
       }

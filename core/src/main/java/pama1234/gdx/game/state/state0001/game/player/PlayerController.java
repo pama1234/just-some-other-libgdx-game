@@ -13,8 +13,10 @@ import pama1234.gdx.game.state.state0001.game.item.Inventory;
 import pama1234.gdx.game.state.state0001.game.item.Inventory.DisplaySlot;
 import pama1234.gdx.game.state.state0001.game.item.Item;
 import pama1234.gdx.game.state.state0001.game.item.Item.ItemSlot;
+import pama1234.gdx.game.state.state0001.game.item.Item.ItemSlot.GetItemSlot;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
+import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.gdx.game.util.RectF;
 import pama1234.gdx.util.entity.Entity;
 import pama1234.gdx.util.info.TouchInfo;
@@ -50,7 +52,7 @@ public class PlayerController extends Entity<Screen0011>{
     }else cullRects=new RectF[0];
     limitBox=new MovementLimitBox(player);
     selectEntity=new EntityPointer(player.pw,()->player.inventory.select().data);
-    selectBlock=new ControllerBlockPointer(new BlockPointer(player.pw,()->player.inventory.select().data));
+    selectBlock=new ControllerBlockPointer(player.pw,()->player.inventory.select().data);
     // workStationPointer=new BlockPointer(player.pw);
     // player.outerBox=limitBox;//TODO
   }
@@ -58,7 +60,7 @@ public class PlayerController extends Entity<Screen0011>{
   public void display() {
     // p.beginBlend();
     if(selectEntity.entity!=null) drawSelectEntity();
-    if(selectBlock.data.active) drawSelectBlock();
+    if(selectBlock.active) drawSelectBlock();
     // if(workStationPointer.active) drawSelectBlock();
     // p.endBlend();
   }
@@ -76,14 +78,14 @@ public class PlayerController extends Entity<Screen0011>{
   public void drawSelectBlock() {
     int tw=player.pw.settings.blockWidth,
       th=player.pw.settings.blockHeight;
-    switch(selectBlock.data.task) {
+    switch(selectBlock.task) {
       case BlockPointer.idle: {
         p.fill(0,127);
         float r=1;
-        float tx1=selectBlock.data.x*tw-r;
-        float ty1=selectBlock.data.y*th-r;
-        float tx2=(selectBlock.data.x+1)*tw+r;
-        float ty2=(selectBlock.data.y+1)*th+r;
+        float tx1=selectBlock.x*tw-r;
+        float ty1=selectBlock.y*th-r;
+        float tx2=(selectBlock.x+1)*tw+r;
+        float ty2=(selectBlock.y+1)*th+r;
         float tw1=tw+r*2;
         float th1=th+r*2;
         p.rect(tx1,ty1,1,th1);
@@ -94,17 +96,17 @@ public class PlayerController extends Entity<Screen0011>{
         break;
       case BlockPointer.destroy: {
         p.tint(255,191);
-        p.image(ImageAsset.tiles[20][(int)UtilMath.map(selectBlock.data.progress,0,selectBlock.data.block.type.destroyTime,0,7)],selectBlock.data.x*tw,selectBlock.data.y*th);
+        p.image(ImageAsset.tiles[20][(int)UtilMath.map(selectBlock.progress,0,selectBlock.block.type.destroyTime,0,7)],selectBlock.x*tw,selectBlock.y*th);
       }
         break;
       case BlockPointer.build: {
-        Item ti=selectBlock.data.slot().item;
+        Item ti=selectBlock.slot().item;
         if(ti!=null&&ti.type.blockType!=null) {
           p.tint(255,191);
           p.image(
-            ImageAsset.tiles[21][(int)UtilMath.map(selectBlock.data.progress,
-              0,ti.type.blockType.buildTime+selectBlock.data.block.type.destroyTime,0,7)],
-            selectBlock.data.x*tw,selectBlock.data.y*th);
+            ImageAsset.tiles[21][(int)UtilMath.map(selectBlock.progress,
+              0,ti.type.blockType.buildTime+selectBlock.block.type.destroyTime,0,7)],
+            selectBlock.x*tw,selectBlock.y*th);
         }
       }
         break;
@@ -112,7 +114,7 @@ public class PlayerController extends Entity<Screen0011>{
         p.tint(255,191);
         p.image(
           ImageAsset.tiles[7][8],
-          selectBlock.data.x*tw,selectBlock.data.y*th);
+          selectBlock.x*tw,selectBlock.y*th);
       }
         break;
       default:
@@ -131,15 +133,15 @@ public class PlayerController extends Entity<Screen0011>{
     selectEntity.updateTask();//TODO
   }
   public void updateMouseInfo() {
-    selectBlock.data.active=false;
+    selectBlock.active=false;
     if(testPosInButtons(p.mouse.ox,p.mouse.oy)) return;
     if(testPosInInventorySlot(p.mouse.x,p.mouse.y)) return;
     int tx=player.xToBlockCord(p.mouse.x),
       ty=player.xToBlockCord(p.mouse.y);
     if(inPlayerOuterBox(tx,ty)) return;
-    selectBlock.data.active=true;
+    selectBlock.active=true;
     Block block=player.getBlock(tx,ty);
-    selectBlock.data.update(block,tx,ty);
+    selectBlock.update(block,tx,ty);
   }
   public void updateKeyInfo() {
     left=p.isKeyPressed(29)||p.isKeyPressed(21);
@@ -161,10 +163,10 @@ public class PlayerController extends Entity<Screen0011>{
     }
     if(updateAndTestSelectEntity(tx,ty,info.button)) return;
     Block block=player.getBlock(tx,ty);
-    selectBlock.data.active=true;
-    selectBlock.data.update(block,tx,ty);
+    selectBlock.active=true;
+    selectBlock.update(block,tx,ty);
     selectBlock.info(info);
-    selectBlock.data.startTaskButtonInfo(getTouchInfoButton(info.button));
+    selectBlock.startTaskButtonInfo(getTouchInfoButton(info.button));
   }
   public void touchUpdate(TouchInfo info) {
     if(!player.pw.p.isAndroid) return;
@@ -176,14 +178,14 @@ public class PlayerController extends Entity<Screen0011>{
       ty=player.xToBlockCord(info.y);
     if(inPlayerOuterBox(tx,ty)) return;
     Block block=player.getBlock(tx,ty);
-    selectBlock.data.update(block,tx,ty);
+    selectBlock.update(block,tx,ty);
     if(player.gameMode!=GameMode.creative) return;
     if(testPosInOtherEntity(tx,ty)) return;
     creativeModeUpdateSelectBlock(info,tx,ty,block);
   }
   @Override
   public void touchEnded(TouchInfo info) {
-    if(p.isAndroid) selectBlock.data.active=false;
+    if(p.isAndroid) selectBlock.active=false;
     selectBlock.testStopTask(info);
   }
   public boolean updateAndTestSelectEntity(int tx,int ty,int button) {
@@ -203,8 +205,8 @@ public class PlayerController extends Entity<Screen0011>{
     return false;
   }
   public boolean updateAndTestWorkStationSlot(float x,float y,int button) {
-    if(selectBlock.data.task==BlockPointer.use) {
-      DisplaySlot[] slots=selectBlock.data.block.displaySlot;
+    if(selectBlock.task==BlockPointer.use) {
+      DisplaySlot[] slots=selectBlock.block.displaySlot;
       for(DisplaySlot e:slots) if(testSlot(x,y,button,e)) return true;
     }
     return false;
@@ -295,7 +297,7 @@ public class PlayerController extends Entity<Screen0011>{
   }
   @Override
   public void mouseWheel(float x,float y) {
-    if(selectBlock.data.task==BlockPointer.use) selectBlock.data.block.intData[0]+=(int)y;
+    if(selectBlock.task==BlockPointer.use) selectBlock.block.intData[0]+=(int)y;
     else {
       selectHotSlot(player.inventory.selectSlot+(int)y);
       player.inventory.testSelectSlot();
@@ -393,17 +395,21 @@ public class PlayerController extends Entity<Screen0011>{
       }
     }
   }
-  public static class ControllerBlockPointer{
+  public static class ControllerBlockPointer extends BlockPointer{
     public TouchInfo info;
-    public BlockPointer data;
-    public ControllerBlockPointer(BlockPointer in) {
-      data=in;
+    public ControllerBlockPointer(World0001 in,GetItemSlot slot) {
+      super(in,slot);
     }
     public void info(TouchInfo in) {
       info=in;
     }
     public void testStopTask(TouchInfo in) {
-      if(info==in) data.stopTask();
+      if(info==in) stopTask();
+    }
+    @Override
+    public void taskComplete() {
+      super.taskComplete();
+      // if(info!=null) info.x+=pw.blockWidth();
     }
   }
 }

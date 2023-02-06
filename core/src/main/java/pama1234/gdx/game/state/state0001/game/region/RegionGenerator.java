@@ -56,7 +56,6 @@ public class RegionGenerator{
           ItemSlot[] itemData=tb.itemData;
           if(itemData!=null) for(ItemSlot e:itemData) if(e!=null) {
             Item ti=e.item;
-            // System.out.println(ti);
             if(ti!=null) ti.type=mitem[ti.typeId];
           }
           tb.changed=true;

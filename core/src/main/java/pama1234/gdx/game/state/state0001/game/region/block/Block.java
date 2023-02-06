@@ -12,6 +12,14 @@ import pama1234.gdx.game.state.state0001.game.region.PathVarLighting;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 
 public class Block{
+  public static class Linker{
+    @Tag(0)
+    public int[] intArray;
+    @Tag(1)
+    public ItemSlot[] itemArray;
+    @Tag(2)
+    public Block[] blockArray;
+  }
   public MetaBlock type;
   @Tag(0)
   public int typeId;
@@ -25,11 +33,11 @@ public class Block{
   public int[] intData;
   @Tag(3)
   public ItemSlot[] itemData;
-  public Block nextBlock;
+  // @Tag(4)
+  // public Block nextBlock;
   public DisplaySlot[] displaySlot;
   @Deprecated
-  public Block() {//只能用于kryo
-  }
+  public Block() {}//只能用于kryo
   public Block(MetaBlock type) {
     innerInit(type);
   }

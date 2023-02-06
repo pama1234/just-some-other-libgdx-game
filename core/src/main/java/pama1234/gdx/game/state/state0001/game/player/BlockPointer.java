@@ -81,23 +81,26 @@ public class BlockPointer{
         ItemSlot ts=slot();
         if(ts.item==null) break;
         MetaBlock tbt=ts.item.type.blockType;
-        if(tbt==null||block==null||block.type==tbt) progress=0;
+        if(tbt==null||block==null||block.type==tbt) taskComplete();
         else if(progress>=tbt.buildTime+block.type.destroyTime) {
-          progress=0;
           pw.placeBlock(this,block,tbt,x,y);
           ts.item.count-=1;
           if(ts.item.count==0) ts.item=null;
+          taskComplete();
         }
       }
         break;
       case destroy: {
         if(progress>=block.type.destroyTime) {
           pw.destroyBlock(this,block,x,y);
-          progress=0;
+          taskComplete();
         }
       }
         break;
     }
+  }
+  public void taskComplete() {
+    progress=0;
   }
   public void testStopTaskWithBlock(Block in) {
     if(in==block) stopTask();
@@ -105,6 +108,7 @@ public class BlockPointer{
   public void stopTask() {
     if(task==use) return;
     task=idle;
+    // taskComplete();
     progress=0;
   }
 }
