@@ -29,7 +29,6 @@ public class Workbench extends MetaBlock{
     fullBlock=false;
     destroyTime=120;
     buildTime=10;
-    // initLambda();
     initLambda();
   }
   public void initLambda() {

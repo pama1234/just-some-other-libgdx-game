@@ -3,6 +3,7 @@ package pama1234.gdx.game.state.state0001.game.world;
 import java.util.Arrays;
 
 import com.badlogic.gdx.Gdx;
+import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
@@ -21,12 +22,13 @@ import pama1234.gdx.game.state.state0001.game.player.Player.PlayerCenter;
 import pama1234.gdx.game.state.state0001.game.region.RegionCenter;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.background.BackgroundCenter;
-import pama1234.gdx.game.state.state0001.game.world.background.BackgroundSet;
+import pama1234.gdx.game.state.state0001.game.world.background.BackgroundList;
 import pama1234.gdx.game.state.state0001.game.world.background.Sky;
 import pama1234.gdx.game.state.state0001.game.world.background.TextureBackground;
 import pama1234.math.UtilMath;
 
 public class World0001 extends WorldBase2D{
+  @Tag(0)
   public String dataDir="data/saved/test-world/";
   //---
   public MetaBlockCenter0001 metaBlocks;
@@ -36,8 +38,10 @@ public class World0001 extends WorldBase2D{
   public MultiGameEntityCenter entities;
   public RegionCenter regions;
   public BackgroundCenter background;
+  //---
   public MainPlayer yourself;
   public WorldSettings settings=new WorldSettings();
+  @Tag(1)
   public int time=12000;
   // public int time=72000;
   public float timeF;
@@ -57,13 +61,13 @@ public class World0001 extends WorldBase2D{
     sky=new Sky(this);
   }
   public void createBackground() {
-    background.list.add(background.background0001=new BackgroundSet(p,background));
-    BackgroundSet ts=background.background0001;
-    ts.list.addAll(Arrays.asList(new TextureBackground[] {
-      new TextureBackground(p,ts,yourself).setProportion(0.1f),
-      new TextureBackground(p,ts,yourself).setProportion(0.2f),
-      new TextureBackground(p,ts,yourself).setProportion(0.3f),
-      new TextureBackground(p,ts,yourself).setProportion(0.4f)
+    background.list.add(background.background0001=new BackgroundList(p,background));
+    BackgroundList tbl=background.background0001;
+    tbl.list.addAll(Arrays.asList(new TextureBackground[] {
+      new TextureBackground(p,tbl,yourself).setProportion(0.1f),
+      new TextureBackground(p,tbl,yourself).setProportion(0.2f),
+      new TextureBackground(p,tbl,yourself).setProportion(0.3f),
+      new TextureBackground(p,tbl,yourself).setProportion(0.4f)
     }));
   }
   public float random(float max) {

@@ -14,10 +14,10 @@ public class TextureBackground extends Background{
   byte[] side[]= {{-1,-1},{0,-1},{1,-1},
     {-1,0},{1,0},
     {-1,1},{0,1},{1,1}};
-  public TextureBackground(Screen0011 p,BackgroundSet pc,MainPlayer player) {
+  public TextureBackground(Screen0011 p,BackgroundList pc,MainPlayer player) {
     this(p,pc,player,null,3840,2160);
   }
-  public TextureBackground(Screen0011 p,BackgroundSet pc,MainPlayer player,TextureRegion img,float w,float h) {
+  public TextureBackground(Screen0011 p,BackgroundList pc,MainPlayer player,TextureRegion img,float w,float h) {
     super(p,pc,player);
     width=w;
     height=h;

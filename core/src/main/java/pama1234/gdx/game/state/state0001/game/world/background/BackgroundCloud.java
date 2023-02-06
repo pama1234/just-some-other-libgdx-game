@@ -15,7 +15,7 @@ public class BackgroundCloud extends Background{
   public TextureRegion pixelRegion;
   public ShaderProgram pixelCloud,defaultShader;
   public int x1,y1,x2,y2,w,h;
-  public BackgroundCloud(Screen0011 p,BackgroundSet pc,MainPlayer player) {
+  public BackgroundCloud(Screen0011 p,BackgroundList pc,MainPlayer player) {
     super(p,pc,player);
     cam=p.cam2d;
     pixelGraphics=new Graphics(p,3000,3000);

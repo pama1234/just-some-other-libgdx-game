@@ -7,12 +7,12 @@ import pama1234.gdx.util.element.CameraController2D;
 import pama1234.gdx.util.entity.Entity;
 
 public abstract class Background extends Entity<Screen0011>{
-  public BackgroundSet pc;
+  public BackgroundList pc;
   public float proportion;//背景跟随角色移动比例,区分近景远景
   public MainPlayer player;
   public CameraController2D cam;
   public TextureRegion img;
-  public Background(Screen0011 p,BackgroundSet pc,MainPlayer player) {
+  public Background(Screen0011 p,BackgroundList pc,MainPlayer player) {
     super(p);
     this.pc=pc;
     this.player=player;
