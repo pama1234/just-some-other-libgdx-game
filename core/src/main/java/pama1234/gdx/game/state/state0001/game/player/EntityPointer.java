@@ -3,26 +3,26 @@ package pama1234.gdx.game.state.state0001.game.player;
 import com.badlogic.gdx.Input.Buttons;
 
 import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
-import pama1234.gdx.game.state.state0001.game.item.Inventory.InventorySlot;
-import pama1234.gdx.game.state.state0001.game.item.Inventory.InventorySlot.GetInventorySlot;
 import pama1234.gdx.game.state.state0001.game.item.Item;
+import pama1234.gdx.game.state.state0001.game.item.Item.ItemSlot;
+import pama1234.gdx.game.state.state0001.game.item.Item.ItemSlot.GetItemSlot;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 
 public class EntityPointer{
   public static final int idle=0,attack=1;
   public World0001 pw;
-  public GetInventorySlot slot;
+  public GetItemSlot slot;
   public LivingEntity entity;
   public int task;
   public EntityPointer(World0001 in) {
     pw=in;
   }
-  public EntityPointer(World0001 in,GetInventorySlot slot) {
+  public EntityPointer(World0001 in,GetItemSlot slot) {
     pw=in;
     this.slot=slot;
   }
-  public InventorySlot slot() {
+  public ItemSlot slot() {
     return slot.get();
   }
   public void startTask(int type) {

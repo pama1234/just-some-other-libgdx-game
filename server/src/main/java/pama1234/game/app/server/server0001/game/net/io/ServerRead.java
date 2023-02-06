@@ -58,7 +58,7 @@ public class ServerRead extends Thread{
         break;
       case ClientDataTransfer: {
         readNBytes(e,inData,0,4*3);
-        ServerPlayer3D tp=p.playerCenter.hashMap.get(e.name());
+        ServerPlayer3D tp=p.playerCenter.hashMap.get(new Token(e.name()));
         if(tp==null) {
           e.clientState=ClientState.ClientAuthentication;
           return;

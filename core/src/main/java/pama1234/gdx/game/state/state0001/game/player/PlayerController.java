@@ -11,8 +11,8 @@ import pama1234.gdx.game.state.state0001.game.entity.entity0001.DroppedItem;
 import pama1234.gdx.game.state.state0001.game.entity.util.MovementLimitBox;
 import pama1234.gdx.game.state.state0001.game.item.Inventory;
 import pama1234.gdx.game.state.state0001.game.item.Inventory.DisplaySlot;
-import pama1234.gdx.game.state.state0001.game.item.Inventory.InventorySlot;
 import pama1234.gdx.game.state.state0001.game.item.Item;
+import pama1234.gdx.game.state.state0001.game.item.Item.ItemSlot;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.util.RectF;
@@ -259,7 +259,7 @@ public class PlayerController extends Entity<Screen0011>{
       }
         break;
       case Buttons.RIGHT: {
-        InventorySlot td=player.inventory.select().data;
+        ItemSlot td=player.inventory.select().data;
         Item ti=td.item;
         if(ti!=null) {
           MetaBlock tb=ti.type.blockType;

@@ -2,9 +2,9 @@ package pama1234.gdx.game.state.state0001.game.player;
 
 import com.badlogic.gdx.Input.Buttons;
 
-import pama1234.gdx.game.state.state0001.game.item.Inventory.InventorySlot;
-import pama1234.gdx.game.state.state0001.game.item.Inventory.InventorySlot.GetInventorySlot;
 import pama1234.gdx.game.state.state0001.game.item.Item;
+import pama1234.gdx.game.state.state0001.game.item.Item.ItemSlot;
+import pama1234.gdx.game.state.state0001.game.item.Item.ItemSlot.GetItemSlot;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
@@ -13,7 +13,7 @@ import pama1234.gdx.game.state.state0001.game.world.World0001;
 public class BlockPointer{
   public static final int idle=0,build=1,destroy=2,use=3;
   public World0001 pw;
-  public GetInventorySlot slot;
+  public GetItemSlot slot;
   public Block block;
   public int x,y;
   public boolean active;
@@ -22,7 +22,7 @@ public class BlockPointer{
   public BlockPointer(World0001 in) {
     pw=in;
   }
-  public BlockPointer(World0001 in,GetInventorySlot slot) {
+  public BlockPointer(World0001 in,GetItemSlot slot) {
     pw=in;
     this.slot=slot;
   }
@@ -38,7 +38,7 @@ public class BlockPointer{
       progress=0;
     }else updateTask();
   }
-  public InventorySlot slot() {
+  public ItemSlot slot() {
     return slot.get();
   }
   public void startTask(int type) {
@@ -78,7 +78,7 @@ public class BlockPointer{
   public void testTaskComplete() {
     switch(task) {
       case build: {
-        InventorySlot ts=slot();
+        ItemSlot ts=slot();
         if(ts.item==null) break;
         MetaBlock tbt=ts.item.type.blockType;
         if(tbt==null||block==null||block.type==tbt) progress=0;

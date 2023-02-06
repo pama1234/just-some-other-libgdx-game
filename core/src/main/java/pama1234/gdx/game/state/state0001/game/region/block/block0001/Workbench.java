@@ -6,8 +6,8 @@ import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.item.Inventory;
 import pama1234.gdx.game.state.state0001.game.item.Inventory.DisplaySlot;
-import pama1234.gdx.game.state.state0001.game.item.Inventory.InventorySlot;
 import pama1234.gdx.game.state.state0001.game.item.Item;
+import pama1234.gdx.game.state.state0001.game.item.Item.ItemSlot;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
@@ -82,7 +82,7 @@ public class Workbench extends MetaBlock{
       if(count<i.count) return;
     }
     for(int k=0;k<e.output.length;k++) {
-      InventorySlot slot=in.itemData[k];
+      ItemSlot slot=in.itemData[k];
       if(slot.item!=null&&slot.item.type!=e.output[k].type) return;
     }
     for(CraftItem i:e.input) {
@@ -105,7 +105,7 @@ public class Workbench extends MetaBlock{
     }
     for(int k=0;k<e.output.length;k++) {
       CraftItem i=e.output[k];
-      InventorySlot slot=in.itemData[k];
+      ItemSlot slot=in.itemData[k];
       if(slot.item==null) slot.item=i.type.createItem(i.count);
       else if(slot.item.type==i.type) slot.item.count+=i.count;
     }
@@ -135,9 +135,9 @@ public class Workbench extends MetaBlock{
   @Override
   public void initBlock(Block in) {
     in.intData=new int[2];
-    in.itemData=new InventorySlot[sloatSize];
+    in.itemData=new ItemSlot[sloatSize];
     in.displaySlot=new DisplaySlot[in.itemData.length];
-    for(int i=0;i<in.displaySlot.length;i++) in.displaySlot[i]=new DisplaySlot(in.itemData[i]=new InventorySlot());
+    for(int i=0;i<in.displaySlot.length;i++) in.displaySlot[i]=new DisplaySlot(in.itemData[i]=new ItemSlot());
   }
   public CraftRecipe[] recipeList;
   public static class CraftRecipe{

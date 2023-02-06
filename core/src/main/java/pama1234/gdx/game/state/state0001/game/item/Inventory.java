@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
+import pama1234.gdx.game.state.state0001.game.item.Item.ItemSlot;
 import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 import pama1234.math.physics.PathVar;
@@ -14,7 +15,7 @@ public class Inventory{
   public static final int moveAll=0,moveOne=1;
   public static int timeF=7200;
   public LivingEntity pc;
-  public InventorySlot[] data;
+  public ItemSlot[] data;
   public int displayState=displayHoldSlot;
   public DisplaySlot[][] displaySlots;
   public DisplaySlot[] hotSlots,backpackSlots;
@@ -26,8 +27,8 @@ public class Inventory{
   public float circleDeg;
   public Inventory(LivingEntity pc,int size,int hotSlotSize) {
     this.pc=pc;
-    data=new InventorySlot[size];
-    for(int i=0;i<data.length;i++) data[i]=new InventorySlot();
+    data=new ItemSlot[size];
+    for(int i=0;i<data.length;i++) data[i]=new ItemSlot();
     hotSlots=new DisplaySlot[hotSlotSize];
     for(int i=0;i<hotSlots.length;i++) hotSlots[i]=new DisplaySlot(data[i]);
     holdSlot=new DisplaySlot(data[data.length-1]);
@@ -210,22 +211,10 @@ public class Inventory{
   // public void displayHotSlot() {}
   // public void displayInventoryCircle() {}
   //------------------------------------------------------------------------------------
-  public static class InventorySlot{
-    public int referenceCount;//TODO
-    public Item item;
-    public InventorySlot() {}
-    public InventorySlot(Item item) {
-      this.item=item;
-    }
-    @FunctionalInterface
-    public interface GetInventorySlot{
-      public InventorySlot get();
-    }
-  }
   public static class DisplaySlot{
-    public InventorySlot data;
+    public ItemSlot data;
     public float cx,cy,x1,y1,x2,y2,w1,h1,w2,h2;
-    public DisplaySlot(InventorySlot pos) {
+    public DisplaySlot(ItemSlot pos) {
       this.data=pos;
     }
     public void update(float x,float y) {
@@ -272,12 +261,12 @@ public class Inventory{
     }
   }
   public void accept(Item in) {
-    for(InventorySlot e:data) if(e.item!=null&&e.item.type==in.type) {
+    for(ItemSlot e:data) if(e.item!=null&&e.item.type==in.type) {
       e.item.count+=in.count;
       in.count=0;
       return;
     }
-    for(InventorySlot e:data) if(e.item==null) {
+    for(ItemSlot e:data) if(e.item==null) {
       e.item=in;
       return;
     }
