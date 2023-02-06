@@ -21,7 +21,7 @@ public class Block{
   public int[] displayType;
   public PathVarLighting light;
   public int referenceCount;//TODO
-  public int[] blockData;
+  public int[] intData;
   public InventorySlot[] itemData;
   public Block nextBlock;
   public DisplaySlot[] displaySlot;

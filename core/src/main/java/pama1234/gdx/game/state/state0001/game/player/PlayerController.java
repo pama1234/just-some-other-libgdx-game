@@ -295,8 +295,11 @@ public class PlayerController extends Entity<Screen0011>{
   }
   @Override
   public void mouseWheel(float x,float y) {
-    selectHotSlot(player.inventory.selectSlot+(int)y);
-    player.inventory.testSelectSlot();
+    if(selectBlock.data.task==BlockPointer.use) selectBlock.data.block.intData[0]+=(int)y;
+    else {
+      selectHotSlot(player.inventory.selectSlot+(int)y);
+      player.inventory.testSelectSlot();
+    }
   }
   public void selectHotSlot(int in) {
     player.inventory.select(in);

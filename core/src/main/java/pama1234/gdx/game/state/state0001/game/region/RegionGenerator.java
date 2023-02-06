@@ -8,15 +8,18 @@ import pama1234.gdx.game.state.state0001.game.region.Chunk.BlockData;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.math.hash.HashNoise2f;
 import pama1234.math.hash.PerlinNoise2f;
+import pama1234.math.hash.Random2f;
 
 public class RegionGenerator{
   public Screen0011 p;
   public RegionCenter pr;
   public PerlinNoise2f noise;
+  public Random2f rng;
   public RegionGenerator(Screen0011 p,RegionCenter pr,float seed) {
     this.p=p;
     this.pr=pr;
     noise=new PerlinNoise2f(new HashNoise2f(seed));//TODO
+    rng=new Random2f(seed);
   }
   public Region get(int x,int y) {
     Region region=new Region(p,pr,x,y,Gdx.files.local(pr.pw.dataDir+"regions/"+x+"."+y+".bin"));
@@ -46,10 +49,12 @@ public class RegionGenerator{
           tb.innerInit(types[tb.typeId]);
           tb.changed=true;
         }else {
-          float tx=x(region.x,i,n)/64f,ty=y(region.y,j,m)/64f;
+          float posX=x(region.x,i,n),posY=y(region.y,j,m);
+          float tx=posX/64f,ty=posY/64f;
           float random=noise.get(tx,ty);
           if(random>0.6f) tb=new Block(pr.pw.metaBlocks.stone);
           else if(random>0.3f) tb=new Block(pr.pw.metaBlocks.dirt);
+          else if(noise.get(tx,(posY+1)/64f)>0.3f&&rng.get(tx,ty)<0.1f) tb=new Block(pr.pw.metaBlocks.sapling);
           else tb=new Block(pr.pw.metaBlocks.air);
           blockData[n][m]=new BlockData(tb);
         }

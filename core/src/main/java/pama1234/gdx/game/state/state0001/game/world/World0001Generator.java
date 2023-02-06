@@ -71,21 +71,21 @@ public class World0001Generator{
       in.tiles=new TextureRegion[1];
       in.tiles[0]=ImageAsset.items[2][0];
     }));
-    metaItems.list.add(metaItems.pickaxe=new MetaItem(metaItems,"pickaxe",metaItems.id(),in-> {
+    metaItems.list.add(metaItems.stonePickaxe=new MetaItem(metaItems,"pickaxe",metaItems.id(),in-> {
       // in.blockType=pw.metaBlocks.;
       in.toolType=MetaItem.pickaxe;
       in.speed=2;
       in.tiles=new TextureRegion[1];
       in.tiles[0]=ImageAsset.items[2][1];
     }));
-    metaItems.list.add(metaItems.axe=new MetaItem(metaItems,"axe",metaItems.id(),in-> {
+    metaItems.list.add(metaItems.stoneAxe=new MetaItem(metaItems,"axe",metaItems.id(),in-> {
       // in.blockType=pw.metaBlocks.;
       in.toolType=MetaItem.axe;
       in.speed=2;
       in.tiles=new TextureRegion[1];
       in.tiles[0]=ImageAsset.items[2][2];
     }));
-    metaItems.list.add(metaItems.chisel=new MetaItem(metaItems,"chisel",metaItems.id(),in-> {
+    metaItems.list.add(metaItems.stoneChisel=new MetaItem(metaItems,"chisel",metaItems.id(),in-> {
       // in.blockType=pw.metaBlocks.;
       in.toolType=MetaItem.chisel;
       in.speed=2;

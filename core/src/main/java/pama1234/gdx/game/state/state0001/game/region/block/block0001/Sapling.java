@@ -13,9 +13,9 @@ public class Sapling extends MetaBlock{
   public Sapling(MetaBlockCenter0001 pc,int id) {
     super(pc,"sapling",id,1,0,(in,type)-> {//change to me
       in.light.set(16);
-      in.blockData=new int[1];
+      in.intData=new int[1];
     },(in,type)-> {//change from me
-      in.blockData=null;
+      in.intData=null;
     });
     blockType=woodType;
     destroyTime=10;
@@ -36,26 +36,25 @@ public class Sapling extends MetaBlock{
   }
   @Override
   public void initBlock(Block in) {
-    in.blockData=new int[1];
+    in.intData=new int[1];
   }
   public void initSaplingLambda() {
     updater=(in,x,y)-> {
       lightUpdater.update(in,x,y);
-      if(in.blockData[0]<200) {
-        in.blockData[0]+=1;
-        if(in.blockData[0]==1) {
+      if(in.intData[0]<200) {
+        in.intData[0]+=1;
+        if(in.intData[0]==1) {
           World0001 world=pc.pw;
           Block tb=world.getBlock(x,y+1);
           if(tb!=null&&tb.type!=pc.dirt) world.destroyBlock(in,x,y);
         }
       }else {
-        in.blockData[0]=0;
+        in.intData[0]=0;
         World0001 world=pc.pw;
         int th=4+UtilMath.floor(world.random(12));
         int ty=y-th;
         int n=1+UtilMath.floor(world.random(2));
         int m=1+UtilMath.floor(world.random(2));
-        System.out.println("Sapling.initSaplingLambda()");
         for(int i=1;i<th;i++) {
           Block block=world.getBlock(x,y-i);
           if(block==null||block.type!=pc.air) return;

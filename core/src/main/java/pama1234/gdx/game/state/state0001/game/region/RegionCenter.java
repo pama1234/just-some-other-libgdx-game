@@ -276,7 +276,9 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     int px=Tools.moveInRange(x,0,chunkWidth),py=Tools.moveInRange(y,0,chunkHeight);
     if(cachedRegion!=null) synchronized(cachedRegion) {
       if(cachedRegion.x==tx&&cachedRegion.y==ty) {
-        BlockData blockData=cachedRegion.data[prx][pry].data[px][py];
+        Chunk chunk=cachedRegion.data[prx][pry];
+        if(chunk==null) return null;
+        BlockData blockData=chunk.data[px][py];
         if(blockData==null) return null;
         return blockData.block;
       }
@@ -284,7 +286,9 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     synchronized(list) {//TODO
       for(Region r:list) if(r.x==tx&&r.y==ty) {
         cachedRegion=r;
-        BlockData blockData=r.data[prx][pry].data[px][py];
+        Chunk chunk=r.data[prx][pry];
+        if(chunk==null) return null;
+        BlockData blockData=chunk.data[px][py];
         if(blockData==null) return null;
         return blockData.block;
       }
