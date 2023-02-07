@@ -9,7 +9,7 @@ import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 
 public class TreeLeaf extends MetaBlock{
-  public int maxLogCount=64;
+  public int maxLogCount=512;
   public TreeLeaf(MetaBlockCenter0001 pc,int id) {
     super(pc,"tree-leaf",id,25,3,(in,type)-> {//change to me
       in.light.set(16);
@@ -72,62 +72,44 @@ public class TreeLeaf extends MetaBlock{
   }
   @Override
   public void initBlock(Block in) {
-    in.intData=new int[] {32,0};
+    if(in.intData==null) in.intData=new int[] {maxLogCount,0};
   }
-  public boolean testLeafAndNotNull(Block in,Block tb) {
-    return tb!=null&&testLeaf(in,tb)&&tb.intData!=null;
+  public boolean isLeafAndNotNull(Block tb) {
+    return tb!=null&&tb.type==pc.leaf;
+    // return tb!=null&&tb.type==pc.leaf&&tb.intData!=null;
   }
-  public boolean testLeaf(Block in,Block tb) {
-    return tb.type==pc.leaf;
+  public void testCount(Block in,Block tb) {
+    int ti;
+    int tc=in.intData[1];
+    if(isLeafAndNotNull(tb)&&tb.intData[0]>tc) {
+      ti=tb.intData[0]-tc;
+      ti/=4;
+      in.intData[1]+=ti;
+      tb.intData[1]-=ti;
+    }
   }
   public void initTreeLeafLambda() {
     updater=(in,x,y)-> {
       lightUpdater.update(in,x,y);
-      if(in.intData==null) return;
+      int[] array=in.intData;
+      // if(array==null) return;
       if(pc.pw.time%2==0) {
-        in.intData[0]+=in.intData[1];
-        in.intData[1]=0;
+        array[0]+=array[1];
+        array[1]=0;
         return;
       }
       World0001 world=pc.pw;
-      Block tb_1=world.getBlock(x,y+1);
-      if(tb_1!=null&&tb_1.type==pc.log) in.intData[0]=maxLogCount;
-      else in.intData[1]-=1;
-      int count=0;
-      int ti=0;
-      int b=in.intData[0];
-      Block tb_2,tb_3,tb_4;
-      if(testLeafAndNotNull(in,tb_1)&&tb_1.intData[0]>b) {
-        ti+=1;
-        count+=b-tb_1.intData[0];
-      }else tb_1=null;
-      if(testLeafAndNotNull(in,tb_2=world.getBlock(x,y-1))&&tb_2.intData[0]>b) {
-        ti+=1;
-        count+=b-tb_2.intData[0];
-      }else tb_2=null;
-      if(testLeafAndNotNull(in,tb_3=world.getBlock(x+1,y))&&tb_3.intData[0]>b) {
-        ti+=1;
-        count+=b-tb_3.intData[0];
-      }else tb_3=null;
-      if(testLeafAndNotNull(in,tb_4=world.getBlock(x-1,y))&&tb_4.intData[0]>b) {
-        ti+=1;
-        count+=b-tb_4.intData[0];
-      }else tb_4=null;
-      if(count>0) {
-        // int a=2;
-        int a=count/ti;
-        in.intData[1]+=count;
-        // in.intData[1]+=a*ti;
-        if(tb_1!=null&&tb_1.intData!=null) tb_1.intData[1]-=a;
-        if(tb_2!=null&&tb_2.intData!=null) tb_2.intData[1]-=a;
-        if(tb_3!=null&&tb_3.intData!=null) tb_3.intData[1]-=a;
-        if(tb_4!=null&&tb_4.intData!=null) tb_4.intData[1]-=a;
-      }
-      // if(count>0) in.intData[1]+=ti/2;
-      // else in.intData[1]-=1;
-      // in.intData[0]+=count;
-      if(in.intData[0]<=0) world.destroyBlock(in,x,y);
-      else if(in.intData[0]>maxLogCount) in.intData[0]=maxLogCount;
+      Block tb=world.getBlock(x,y+1);
+      if(tb!=null&&tb.type==pc.log) array[0]=maxLogCount;
+      else array[1]-=4;
+      //------------------------------------------------------------
+      testCount(in,tb);
+      testCount(in,world.getBlock(x,y-1));
+      testCount(in,world.getBlock(x+1,y));
+      testCount(in,world.getBlock(x-1,y));
+      //------------------------------------------------------------
+      if(array[0]<=0) world.destroyBlock(in,x,y);
+      else if(array[0]>maxLogCount) array[0]=maxLogCount;
     };
     displayUpdater=(in,x,y)-> {
       World0001 world=in.type.pc.pw;
@@ -187,9 +169,11 @@ public class TreeLeaf extends MetaBlock{
       // }
       int tp_2=in.displayType[2];
       if(tp_2!=0) r.tile(in.type.tiles[24],x,y);
-      if(in.intData==null) return;
+      // if(in.intData==null) return;
       r.end();
+      p.textScale(0.5f);
       p.text(Integer.toString(in.intData[0]),x,y);
+      p.textScale(1);
       r.begin();
     };
   }

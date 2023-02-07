@@ -63,8 +63,8 @@ public class Block{
     changed=true;
     // updateLighting=true;
     innerSetType(in);
-    init(in);
     t.to(this,in);
+    init(in);
     in.from(this,t);
   }
   public static boolean isEmpty(Block in) {
