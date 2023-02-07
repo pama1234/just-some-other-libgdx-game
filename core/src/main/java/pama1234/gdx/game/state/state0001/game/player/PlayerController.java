@@ -380,10 +380,6 @@ public class PlayerController extends Entity<Screen0011>{
   public void constrain() {
     limitBox.constrain();
   }
-  public void updateOuterBox() {
-    limitBox.update();
-    limitBox.updateLimit();
-  }
   public void updatePickItem() {
     for(DroppedItem e:player.pw.entities.items.list) {
       float td=UtilMath.dist(player.x(),player.y(),e.x(),e.y());
