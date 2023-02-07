@@ -84,41 +84,47 @@ public class TreeLeaf extends MetaBlock{
     updater=(in,x,y)-> {
       lightUpdater.update(in,x,y);
       if(in.intData==null) return;
-      in.intData[0]+=in.intData[1];
-      in.intData[1]=0;
+      if(pc.pw.time%2==0) {
+        in.intData[0]+=in.intData[1];
+        in.intData[1]=0;
+        return;
+      }
       World0001 world=pc.pw;
       Block tb_1=world.getBlock(x,y+1);
       if(tb_1!=null&&tb_1.type==pc.log) in.intData[0]=maxLogCount;
-      else in.intData[1]-=2;
+      else in.intData[1]-=1;
       int count=0;
       int ti=0;
+      int b=in.intData[0];
       Block tb_2,tb_3,tb_4;
-      if(testLeafAndNotNull(in,tb_1)) {
+      if(testLeafAndNotNull(in,tb_1)&&tb_1.intData[0]>b) {
         ti+=1;
-        count+=tb_1.intData[0]/4;
+        count+=b-tb_1.intData[0];
       }else tb_1=null;
-      if(testLeafAndNotNull(in,tb_2=world.getBlock(x,y-1))) {
+      if(testLeafAndNotNull(in,tb_2=world.getBlock(x,y-1))&&tb_2.intData[0]>b) {
         ti+=1;
-        count+=tb_2.intData[0]/4;
+        count+=b-tb_2.intData[0];
       }else tb_2=null;
-      if(testLeafAndNotNull(in,tb_3=world.getBlock(x+1,y))) {
+      if(testLeafAndNotNull(in,tb_3=world.getBlock(x+1,y))&&tb_3.intData[0]>b) {
         ti+=1;
-        count+=tb_3.intData[0]/4;
+        count+=b-tb_3.intData[0];
       }else tb_3=null;
-      if(testLeafAndNotNull(in,tb_4=world.getBlock(x-1,y))) {
+      if(testLeafAndNotNull(in,tb_4=world.getBlock(x-1,y))&&tb_4.intData[0]>b) {
         ti+=1;
-        count+=tb_4.intData[0]/4;
+        count+=b-tb_4.intData[0];
       }else tb_4=null;
       if(count>0) {
+        // int a=2;
         int a=count/ti;
         in.intData[1]+=count;
+        // in.intData[1]+=a*ti;
         if(tb_1!=null&&tb_1.intData!=null) tb_1.intData[1]-=a;
         if(tb_2!=null&&tb_2.intData!=null) tb_2.intData[1]-=a;
         if(tb_3!=null&&tb_3.intData!=null) tb_3.intData[1]-=a;
         if(tb_4!=null&&tb_4.intData!=null) tb_4.intData[1]-=a;
       }
       // if(count>0) in.intData[1]+=ti/2;
-      else in.intData[1]-=2;
+      // else in.intData[1]-=1;
       // in.intData[0]+=count;
       if(in.intData[0]<=0) world.destroyBlock(in,x,y);
       else if(in.intData[0]>maxLogCount) in.intData[0]=maxLogCount;

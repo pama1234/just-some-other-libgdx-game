@@ -1,7 +1,6 @@
 package pama1234.gdx.game.state.state0001.game.entity.util;
 
 import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
-import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.util.RectF;
 
