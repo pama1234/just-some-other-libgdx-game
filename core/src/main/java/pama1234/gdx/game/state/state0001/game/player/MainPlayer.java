@@ -24,6 +24,7 @@ public class MainPlayer extends Player{
     ctrl.limitBox.update();
     ctrl.updateCtrlInfo();
     ctrl.doWalkAndJump();
+    // ctrl.constrain();
     ctrl.limitBox.updateLimit();
     //---
     super.update();

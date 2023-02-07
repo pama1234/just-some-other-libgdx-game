@@ -54,7 +54,7 @@ public class PlayerController extends Entity<Screen0011>{
     selectEntity=new EntityPointer(player.pw,()->player.inventory.select().data);
     selectBlock=new ControllerBlockPointer(player.pw,()->player.inventory.select().data);
     // workStationPointer=new BlockPointer(player.pw);
-    // player.outerBox=limitBox;//TODO
+    player.outerBox=limitBox;
   }
   @Override
   public void display() {
