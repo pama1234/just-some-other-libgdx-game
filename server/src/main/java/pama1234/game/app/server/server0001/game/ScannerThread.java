@@ -13,7 +13,7 @@ public class ScannerThread extends Thread{
   }
   @Override
   public void run() {
-    System.out.println("just-another-particle-system v0.1 server");
+    System.out.println("just-some-other-libgdx-game v0.1 server");
     while(!p.stop) {
       String in=scanner.nextLine();
       String[] data=in.replaceAll("^\"","").split("\"?( |$)(?=(([^\"]*\"){2})*[^\"]*$)\"?");//TODO faster

@@ -28,10 +28,9 @@ public class StartMenu extends StateEntity0001{
       MusicAsset.moonlightSonata.play();
     }
     p.cam2d.active(false);
-    p.cam2d.scale.des=3;
-    p.cam2d.scale.pos=3;
+    p.cam2d.scale.pos=p.cam2d.scale.des=p.isAndroid&&!p.settings.showEarth?1:3;
     p.cam2d.point.des.set(96,0,0);
-    p.cam2d.point.pos.set(96,0,0);
+    p.cam2d.point.pos.set(p.cam2d.point.des);
     // p.cam.noGrab();
     frameResized(p.width,p.height);
   }
@@ -40,10 +39,9 @@ public class StartMenu extends StateEntity0001{
     MusicAsset.moonlightSonata.pause();
     for(Button<?> e:buttons) p.centerScreen.remove.add(e);
     p.cam2d.active(true);
-    p.cam2d.scale.pos=1;
-    p.cam2d.scale.des=1;
+    p.cam2d.scale.pos=p.cam2d.scale.des=1;
     p.cam2d.point.des.set(0,0,0);
-    p.cam2d.point.pos.set(0,0,0);
+    p.cam2d.point.pos.set(p.cam2d.point.des);
   }
   @Override
   public void update() {
@@ -55,14 +53,10 @@ public class StartMenu extends StateEntity0001{
       TextureRegion kf=GifAsset.bigEarth.getKeyFrame(time);
       p.image(kf,-128,-128);
     }else {
-      // p.println(p.textSize(),p.textScale());
       p.textColor(0);
       p.textScale(4);
-      // p.text("空想世界",96-128,-32);
-      // p.text("空想",96-64,-48);
-      // p.text("世界",96-64,32);
-      p.text("空想",-32,-64);
-      p.text("世界",-32,16);
+      p.text("空想",-32,-80);
+      p.text("世界",-32,0);
       p.textScale(1);
       p.textColor(255);
     }

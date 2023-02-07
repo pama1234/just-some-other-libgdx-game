@@ -14,7 +14,7 @@ public class LauncherServer{
   }
   public static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
     Lwjgl3ApplicationConfiguration configuration=new Lwjgl3ApplicationConfiguration();
-    configuration.setTitle("just-another-particle-system");
+    configuration.setTitle("空想世界：啥也没有（服务端）");
     configuration.useVsync(true);
     //// Limits FPS to the refresh rate of the currently active monitor.
     configuration.setForegroundFPS(Lwjgl3ApplicationConfiguration.getDisplayMode().refreshRate);

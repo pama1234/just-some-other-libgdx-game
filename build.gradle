@@ -54,7 +54,7 @@ configure(subprojects - project(':android')) {
 
 subprojects {
 	version = '0.0.1'
-	ext.appName = 'just-another-particle-system'
+	ext.appName = 'just-some-other-libgdx-game'
 	repositories {
 		mavenCentral()
 		maven { url 'https://s01.oss.sonatype.org' }
@@ -66,4 +66,4 @@ subprojects {
 	}
 }
 
-eclipse.project.name = 'just-another-particle-system' + '-parent'
+eclipse.project.name = 'just-some-other-libgdx-game' + '-parent'

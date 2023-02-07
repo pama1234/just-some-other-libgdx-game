@@ -143,6 +143,7 @@ public class World0001 extends WorldBase2D{
     p.cam2d.scale.pos=yourself.ctrl.camScale;
     p.cam2d.scale.des=yourself.ctrl.camScale;
     p.cam2d.minScale=p.isAndroid?0.25f:0.5f;
+    p.cam2d.testScale();
     p.cam.point.pos.set(yourself.point.pos);
     p.cam.point.des.set(yourself.point.pos);
     p.centerCam.add.add(yourself);
@@ -156,6 +157,7 @@ public class World0001 extends WorldBase2D{
     if(p.isAndroid) p.cam2d.activeDrag=true;
     else p.cam2d.active(true);
     p.cam2d.minScale=1;
+    p.cam2d.testScale();
     yourself.ctrl.camScale=p.cam2d.scale.des;
     p.centerCam.remove.add(yourself);
   }

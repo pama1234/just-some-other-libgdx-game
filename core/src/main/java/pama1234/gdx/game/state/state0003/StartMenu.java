@@ -8,8 +8,6 @@ import pama1234.gdx.game.ui.util.Button;
 
 public class StartMenu extends StateEntity0003{
   public Button<?>[] buttons;
-  //---
-  // public float time;
   public StartMenu(Screen0016 p) {
     super(p);
     buttons=UiGenerator0003.genButtons_0003(p);
@@ -43,14 +41,9 @@ public class StartMenu extends StateEntity0003{
     p.cam2d.point.pos.set(0,0,0);
   }
   @Override
-  public void update() {
-    // time+=p.frameRate/4;
-  }
+  public void update() {}
   @Override
-  public void displayCam() {
-    // TextureRegion kf=GifAsset.bigEarth.getKeyFrame(time);
-    // p.image(kf,-128,-128);
-  }
+  public void displayCam() {}
   float tx,tw;
   @Override
   public void display() {

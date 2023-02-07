@@ -22,7 +22,6 @@ import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.game.util.RectF;
 import pama1234.gdx.util.listener.EntityListener;
-import pama1234.math.vec.Vec2f;
 
 public class Game extends StateEntity0001{
   public Button<?>[] menuButtons;
@@ -112,12 +111,10 @@ public class Game extends StateEntity0001{
   public void from(State0001 in) {
     World0001 tw=world();
     p.backgroundColor(tw.sky.backgroundColor);
-    Vec2f tpos=tw.yourself.point.pos;
-    p.cam.point.pos.set(tpos.x,tpos.y,0);
-    p.cam.point.des.set(tpos.x,tpos.y,0);
+    MainPlayer tp=tw.yourself;
+    p.cam.point.des.set(tp.cx(),tp.cy(),0);
+    p.cam.point.pos.set(p.cam.point.des);
     // p.cam2d.activeDrag=false;
-    // p.cam.noGrab();
-    // tvgRefresh();
     for(Button<?> e:menuButtons) p.centerScreen.add.add(e);
     if(ctrlButtons!=null) for(Button<?> e:ctrlButtons) p.centerScreen.add.add(e);
     if(firstInit) {

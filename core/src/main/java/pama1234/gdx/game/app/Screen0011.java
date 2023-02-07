@@ -195,4 +195,9 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     State0001.disposeAll();
     saveSettings();
   }
+  @Override
+  public void pause() {
+    super.pause();
+    if(isAndroid) saveSettings();
+  }
 }
