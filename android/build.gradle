@@ -1,12 +1,11 @@
 apply plugin: 'com.android.application'
 
-
 android {
 	namespace 'pama1234'
 	compileSdkVersion 32
 	signingConfigs {
 		release {
-			// storeFile file('pama1234Release.jks')
+			// storeFile file('sign.jks')
 			// storePassword ''
 			// keyAlias 'xxx'
 			// keyPassword ''
@@ -24,17 +23,18 @@ android {
 		}
 	}
 	packagingOptions {
+		exclude 'assets/image/src/*'
 		//无法理解的屎山+1
-		merge "win/libgcc_s_seh_x86_64.dll"
-		merge "win/libstdc++-6_x86.dll"
-		merge "win/libgcc_s_sjlj_x86.dll"
-		merge "win/libstdc++-6_x86_64.dll"
-		merge "win/libaparapi_x86_64.dll"
-		merge "win/libaparapi_x86.dll"
-		merge "osx/libaparapi_x86_64.dylib"
-		merge "javax/vecmath/ExceptionStrings.properties"
-		merge "library.properties"
-		merge "rootdoc.txt"
+		pickFirst "win/libgcc_s_seh_x86_64.dll"
+		pickFirst "win/libstdc++-6_x86.dll"
+		pickFirst "win/libgcc_s_sjlj_x86.dll"
+		pickFirst "win/libstdc++-6_x86_64.dll"
+		pickFirst "win/libaparapi_x86_64.dll"
+		pickFirst "win/libaparapi_x86.dll"
+		pickFirst "osx/libaparapi_x86_64.dylib"
+		pickFirst "javax/vecmath/ExceptionStrings.properties"
+		pickFirst "library.properties"
+		pickFirst "rootdoc.txt"
 		// Preventing from license violations (more or less):
 		pickFirst 'META-INF/LICENSE.txt'
 		pickFirst 'META-INF/LICENSE'

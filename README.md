@@ -18,6 +18,8 @@
 
 待办事项请看doc文件的todo.txt,若完成了某一项，请将其剪切粘贴到solved.txt，编译安卓项目请用自己的签名文件, 可以使用中英文或其他语言作为待办项，但不能修改已有待办项的语言类型
 
+安卓版改native依赖项的时候记得手动删除`android\libs\`内的文件和文件夹
+
 ## Game-With-Java
 
 The git repo of the open-source game project series of Game-With-Java (the english name is to be determined)
@@ -35,3 +37,5 @@ Naming rules: tx is the abbreviation of temp-x, which is generally used in local
 For to-do items, please view `/doc/todo.txt` file, when you finished a to-do item ,please move it to `/doc/solved.txt`. You can write to-do items freely with different languages , but you cannot change the language of existing to-do items.
 
 Please use your own signature file to compile Android sub-project
+
+Please delete files and folders in `android\libs\` manually when changing native dependencies in Android sub-project
