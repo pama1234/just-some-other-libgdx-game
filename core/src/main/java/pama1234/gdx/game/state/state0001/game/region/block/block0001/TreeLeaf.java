@@ -87,28 +87,36 @@ public class TreeLeaf extends MetaBlock{
       in.intData[0]+=in.intData[1];
       in.intData[1]=0;
       World0001 world=pc.pw;
-      Block tb=world.getBlock(x,y+1);
-      if(tb!=null&&tb.type==pc.log) in.intData[0]=maxLogCount;
+      Block tb_1=world.getBlock(x,y+1);
+      if(tb_1!=null&&tb_1.type==pc.log) in.intData[0]=maxLogCount;
       else in.intData[1]-=2;
       int count=0;
       int ti=0;
-      if(testLeafAndNotNull(in,tb)) {
+      Block tb_2,tb_3,tb_4;
+      if(testLeafAndNotNull(in,tb_1)) {
         ti+=1;
-        count+=tb.intData[0];
-      }
-      if(testLeafAndNotNull(in,tb=world.getBlock(x,y-1))) {
+        count+=tb_1.intData[0]/4;
+      }else tb_1=null;
+      if(testLeafAndNotNull(in,tb_2=world.getBlock(x,y-1))) {
         ti+=1;
-        count+=tb.intData[0];
-      }
-      if(testLeafAndNotNull(in,tb=world.getBlock(x+1,y))) {
+        count+=tb_2.intData[0]/4;
+      }else tb_2=null;
+      if(testLeafAndNotNull(in,tb_3=world.getBlock(x+1,y))) {
         ti+=1;
-        count+=tb.intData[0];
-      }
-      if(testLeafAndNotNull(in,tb=world.getBlock(x-1,y))) {
+        count+=tb_3.intData[0]/4;
+      }else tb_3=null;
+      if(testLeafAndNotNull(in,tb_4=world.getBlock(x-1,y))) {
         ti+=1;
-        count+=tb.intData[0];
+        count+=tb_4.intData[0]/4;
+      }else tb_4=null;
+      if(count>0) {
+        int a=count/ti;
+        in.intData[1]+=count;
+        if(tb_1!=null&&tb_1.intData!=null) tb_1.intData[1]-=a;
+        if(tb_2!=null&&tb_2.intData!=null) tb_2.intData[1]-=a;
+        if(tb_3!=null&&tb_3.intData!=null) tb_3.intData[1]-=a;
+        if(tb_4!=null&&tb_4.intData!=null) tb_4.intData[1]-=a;
       }
-      if(count>0) in.intData[1]+=(count/ti)/4;
       // if(count>0) in.intData[1]+=ti/2;
       else in.intData[1]-=2;
       // in.intData[0]+=count;

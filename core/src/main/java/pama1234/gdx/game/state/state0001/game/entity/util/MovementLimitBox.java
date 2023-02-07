@@ -1,6 +1,7 @@
 package pama1234.gdx.game.state.state0001.game.entity.util;
 
 import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
+import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.util.RectF;
 
@@ -45,27 +46,21 @@ public class MovementLimitBox extends OuterBox{
       h-=1;
       y2-=1;
     }
-    Block block;
     flagCache=false;
+    // if(p instanceof MainPlayer) System.out.println(w+" "+h);
     //------------------------------------------ ceiling
-    for(int i=0;i<=w;i++) {
-      block=p.getBlock(x1+i,y1-1);
-      if(!Block.isNotFullBlock(block)) {
-        flagCache=true;
-        break;
-      }
+    for(int i=0;i<=w;i++) if(!Block.isNotFullBlock(p.getBlock(x1+i,y1-1))) {
+      flagCache=true;
+      break;
     }
     if(flagCache) {
       ceiling=y1*blockHeight+rectConst.y1();
       flagCache=false;
     }else ceiling=(y1-4)*blockHeight;
     //------------------------------------------ floor
-    for(int i=0;i<=w;i++) {
-      block=p.getBlock(x1+i,y2+1);
-      if(!Block.isNotFullBlock(block)) {
-        flagCache=true;
-        break;
-      }
+    for(int i=0;i<=w;i++) if(!Block.isNotFullBlock(p.getBlock(x1+i,y2+1))) {
+      flagCache=true;
+      break;
     }
     if(flagCache) {
       floor=y2*blockHeight+rectConst.y2();
@@ -73,24 +68,18 @@ public class MovementLimitBox extends OuterBox{
     }else floor=(y2+4)*blockHeight;
     //------------------------------------------ left
     // System.out.println(h);
-    for(int i=0;i<=h;i++) {
-      block=p.getBlock(x1-1,y1+i);
-      if(!Block.isNotFullBlock(block)) {
-        flagCache=true;
-        break;
-      }
+    for(int i=0;i<=h;i++) if(!Block.isNotFullBlock(p.getBlock(x1-1,y1+i))) {
+      flagCache=true;
+      break;
     }
     if(flagCache) {
       leftWall=(x1)*blockWidth+rectConst.x1();
       flagCache=false;
     }else leftWall=(x1-4)*blockWidth;
     //------------------------------------------ right
-    for(int i=0;i<=h;i++) {
-      block=p.getBlock(x2+1,y1+i);
-      if(!Block.isNotFullBlock(block)) {
-        flagCache=true;
-        break;
-      }
+    for(int i=0;i<=h;i++) if(!Block.isNotFullBlock(p.getBlock(x2+1,y1+i))) {
+      flagCache=true;
+      break;
     }
     if(flagCache) {
       rightWall=(x2)*blockWidth+rectConst.x2();
