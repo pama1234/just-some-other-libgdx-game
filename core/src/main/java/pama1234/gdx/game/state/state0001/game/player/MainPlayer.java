@@ -22,10 +22,8 @@ public class MainPlayer extends Player{
   public void update() {
     for(TouchInfo e:p.touches) if(e.active) ctrl.touchUpdate(e);
     ctrl.limitBox.update();
-    // ctrl.limitBox.updateLimit();
     ctrl.updateCtrlInfo();
     ctrl.doWalkAndJump();
-    // ctrl.limitBox.update();
     ctrl.limitBox.updateLimit();
     //---
     super.update();

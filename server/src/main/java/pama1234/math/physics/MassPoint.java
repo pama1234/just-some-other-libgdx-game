@@ -44,6 +44,12 @@ public class MassPoint extends Point implements ByteBufferData{
       }
     }
   }
+  public float dx() {
+    return vel.x*step;
+  }
+  public float dy() {
+    return vel.y*step;
+  }
   @Override
   public void add(float x,float y) {
     vel.add(x,y);
