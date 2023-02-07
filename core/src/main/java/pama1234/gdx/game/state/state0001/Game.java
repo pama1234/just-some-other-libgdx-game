@@ -8,6 +8,7 @@ import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
 import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
 import pama1234.gdx.game.state.state0001.game.entity.entity0001.DroppedItem;
+import pama1234.gdx.game.state.state0001.game.entity.entity0001.Fly;
 import pama1234.gdx.game.state.state0001.game.entity.entity0001.MobEntity;
 import pama1234.gdx.game.state.state0001.game.entity.util.MovementLimitBox;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
@@ -58,7 +59,7 @@ public class Game extends StateEntity0001{
         // for(EntityCenter<Screen0011,? extends GamePointEntity<?>> i:tw.entities.list) for(GamePointEntity<?> e:i.list) drawLimitBox(tw,e,e.limitBox);
         // for(MobEntity e:tw.entities.mobEntities.list) drawLimitBox(tw,e,e.limitBox);
         for(DroppedItem e:tw.entities.items.list) drawLimitBox(tw,e,e.limitBox);
-        for(MobEntity e:tw.entities.mobEntities.list) if(e.outerBox instanceof MovementLimitBox a) drawLimitBox(tw,e,a);
+        for(MobEntity e:tw.entities.mobEntities.list) if(e instanceof Fly a) drawLimitBox(tw,e,a.limitBox);
         p.endBlend();
       }
     };

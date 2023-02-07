@@ -36,7 +36,6 @@ public class PlayerController extends Entity<Screen0011>{
   public RectF[] cullRects;
   public EntityPointer selectEntity;
   public ControllerBlockPointer selectBlock;
-  // public BlockPointer workStationPointer;
   public float camScale=2;
   public float itemPickDist=18,itemPickMoveDist=72;
   public PlayerController(Screen0011 p,MainPlayer player) {
@@ -53,16 +52,12 @@ public class PlayerController extends Entity<Screen0011>{
     limitBox=new MovementLimitBox(player);
     selectEntity=new EntityPointer(player.pw,()->player.inventory.select().data);
     selectBlock=new ControllerBlockPointer(player.pw,()->player.inventory.select().data);
-    // workStationPointer=new BlockPointer(player.pw);
-    player.outerBox=limitBox;
+    // player.outerBox=limitBox;
   }
   @Override
   public void display() {
-    // p.beginBlend();
     if(selectEntity.entity!=null) drawSelectEntity();
     if(selectBlock.active) drawSelectBlock();
-    // if(workStationPointer.active) drawSelectBlock();
-    // p.endBlend();
   }
   public void drawSelectEntity() {
     LivingEntity entity=selectEntity.entity;
@@ -377,9 +372,6 @@ public class PlayerController extends Entity<Screen0011>{
     }
     player.testFrameTime();
   }
-  public void constrain() {
-    limitBox.constrain();
-  }
   public void updatePickItem() {
     for(DroppedItem e:player.pw.entities.items.list) {
       float td=UtilMath.dist(player.x(),player.y(),e.x(),e.y());
@@ -403,10 +395,10 @@ public class PlayerController extends Entity<Screen0011>{
     public void testStopTask(TouchInfo in) {
       if(info==in) stopTask();
     }
-    @Override
-    public void taskComplete() {
-      super.taskComplete();
-      // if(info!=null) info.x+=pw.blockWidth();
-    }
+    // @Override
+    // public void taskComplete() {
+    //   super.taskComplete();
+    //   if(info!=null) info.x+=pw.blockWidth();
+    // }
   }
 }

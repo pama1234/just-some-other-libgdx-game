@@ -54,9 +54,9 @@ public class MovementLimitBox extends OuterBox{
     // if(leftUp||leftDown||rightUp||rightDown) p.p.println(leftUp,leftDown,rightUp,rightDown);
   }
   public void updateLimit() {
-    updateDes();
-    int blockWidth=p.pw.settings.blockWidth;
-    int blockHeight=p.pw.settings.blockHeight;
+    // updateDes();
+    int blockWidth=p.pw.settings.blockWidth,
+      blockHeight=p.pw.settings.blockHeight;
     if(testCeiling()) doCeiling(blockHeight);
     else ceiling=(y1-4)*blockHeight;
     if(testFloor()) doFloor(blockHeight);
@@ -66,9 +66,11 @@ public class MovementLimitBox extends OuterBox{
     if(testRight()) doRight(blockWidth);
     else rightWall=(x2+4)*blockWidth;
     // System.out.println("MovementLimitBox.updateLimit()");
-    cornerFix(blockWidth,blockHeight);
+    // cornerFix();
   }
-  public void cornerFix(int blockWidth,int blockHeight) {
+  public void cornerFix() {
+    int blockWidth=p.pw.settings.blockWidth;
+    //  blockHeight=p.pw.settings.blockHeight;
     if(leftUp&&!Block.isNotFullBlock(p.getBlock(desX1,desY1))) doLeft(blockWidth);
     if(leftDown&&!Block.isNotFullBlock(p.getBlock(desX1,desY2))) doLeft(blockWidth);
     if(rightUp&&!Block.isNotFullBlock(p.getBlock(desX2,desY1))) doRight(blockWidth);
