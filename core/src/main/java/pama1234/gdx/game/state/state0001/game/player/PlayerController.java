@@ -47,6 +47,8 @@ public class PlayerController extends Entity<Screen0011>{
         // new RectF(()->p.width-p.bu*4f,()->p.height-p.bu*2.5f-p.pus,()->p.pu*3.75f+p.pus,()->p.bu*2+p.pus),
         new RectF(()->p.width-p.bu*4f-p.pus,()->p.height-p.bu*1.5f-p.pus,()->p.bu*2.5f+p.pus*2,()->p.bu+p.pus),
         new RectF(()->p.width-p.bu*2.5f-p.pus,()->p.height-p.bu*2.5f-p.pus,()->p.bu+p.pus*2,()->p.bu+p.pus),
+        //---
+        new RectF(()->p.width-p.bu*3.5f-p.pus,()->p.bu*0.5f-p.pus,()->p.bu*2.75f+p.pus*4,()->p.bu+p.pus),
       };
     }else cullRects=new RectF[0];
     limitBox=new MovementLimitBox(player);
@@ -180,7 +182,7 @@ public class PlayerController extends Entity<Screen0011>{
   }
   @Override
   public void touchEnded(TouchInfo info) {
-    if(p.isAndroid) selectBlock.active=false;
+    if(p.isAndroid&&selectBlock.task!=BlockPointer.use) selectBlock.active=false;
     selectBlock.testStopTask(info);
   }
   public boolean updateAndTestSelectEntity(int tx,int ty,int button) {

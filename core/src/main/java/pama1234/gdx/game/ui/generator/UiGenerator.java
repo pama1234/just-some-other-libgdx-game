@@ -27,7 +27,7 @@ public class UiGenerator{
     TextField[] out=new TextField[] {new TextField("联机写好后，这里输入IP地址哦",new CodeTextFieldStyle(p),
       new RectF(()->0,()->-20,()->256,()->18),
       ()->1)};
-      out[0].setMessageText("联机网络地址");
+    out[0].setMessageText("联机网络地址");
     for(TextField e:out) e.setOnscreenKeyboard(new NormalOnscreenKeyboard());
     return out;
     // return new TextField[0];
@@ -70,6 +70,12 @@ public class UiGenerator{
       },self-> {
         p.inputProcessor.keyUp(Input.Keys.SPACE);
       },self->self.text="↑",p::getButtonUnitLength,()->p.width-p.bu*2.5f,()->p.height-p.bu*2.5f,()->p.bu-p.pus,false),
+      new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {
+        p.inputProcessor.scrolled(0,1);
+      },self->self.text="+ ",p::getButtonUnitLength,()->p.width-p.bu*3.5f,()->p.bu*0.5f,()->p.bu-p.pus,false),
+      new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {
+        p.inputProcessor.scrolled(0,-1);
+      },self->self.text=" -",p::getButtonUnitLength,()->p.width-p.bu*2f,()->p.bu*0.5f,()->p.bu-p.pus,false),
     };
   }
   public static <T extends Screen0011> TextButtonCam<?>[] genButtons_0006(T p,Settings ps) {

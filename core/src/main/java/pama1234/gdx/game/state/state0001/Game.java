@@ -142,13 +142,15 @@ public class Game extends StateEntity0001{
   }
   @Override
   public void display() {
-    if(debug) {
+    if(debugGraphics) {
       p.beginBlend();
       p.fill(94,203,234,127);
-      World0001 tw=world();
-      RectF[] cullRects=tw.yourself.ctrl.cullRects;
+      RectF[] cullRects=world().yourself.ctrl.cullRects;
       for(RectF e:cullRects) p.rect(e.x(),e.y(),e.w(),e.h());
       p.endBlend();
+    }
+    if(debug) {
+      World0001 tw=world();
       Block tb=tw.getBlock(p.mouse.x,p.mouse.y);
       p.textColor(255,191);
       p.textScale(p.pus/2f);
