@@ -89,7 +89,7 @@ public class World0001 extends WorldBase2D{
     list[1]=regions=new RegionCenter(p,this);
     list[2]=entities=new MultiGameEntityCenter(p,this);
     entities.list.add(entities.players=new PlayerCenter(p));
-    yourself=new MainPlayer(p,this,0,0);
+    yourself=new MainPlayer(p,this,0,0,Gdx.files.local(dataDir+"/main-player.bin"));
     createBackground();
     sky=new Sky(this);
   }
@@ -120,9 +120,10 @@ public class World0001 extends WorldBase2D{
     for(MetaItem e:metaItems.list) e.init();
     for(MetaCreature<?> e:metaEntitys.list) e.init();
     for(int i=0;i<background.background0001.list.size();i++) background.background0001.list.get(i).setTexture(ImageAsset.backgroundList[4-i]);
-    regions.load();
-    // background.clouds0001.setTexture(ImageAsset.background);
     Gdx.files.local(dataDir+"regions/").mkdirs();//TODO
+    regions.load();
+    yourself.load();
+    yourself.init();
   }
   @Override
   public void from(State0001 in) {
@@ -134,7 +135,10 @@ public class World0001 extends WorldBase2D{
   }
   @Override
   public void resume() {
-    if(p.isAndroid) regions.load();
+    if(p.isAndroid) {
+      regions.load();
+      // yourself.load();
+    }
     super.resume();
   }
   public void innerResume() {
@@ -151,7 +155,10 @@ public class World0001 extends WorldBase2D{
   @Override
   public void pause() {
     super.pause();
-    if(p.isAndroid) regions.innerSave();
+    if(p.isAndroid) {
+      regions.innerSave();
+      yourself.save();
+    }
   }
   public void innerPause() {
     if(p.isAndroid) p.cam2d.activeDrag=true;
@@ -173,6 +180,8 @@ public class World0001 extends WorldBase2D{
     super.dispose();
     regions.save();
     regions.dispose();
+    yourself.save();
+    // yourself.dispose();
   }
   public void destroyBlock(MainPlayer player,Block block,int x,int y) {
     placeBlock(player,block,metaBlocks.air,x,y);

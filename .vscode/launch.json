@@ -8,6 +8,13 @@
   "configurations": [
     {
       "type": "java",
+      "name": "Launcher",
+      "request": "launch",
+      "mainClass": "pama1234.gdx.game.app.lwjgl3.Launcher",
+      "projectName": "just-some-other-libgdx-game-lwjgl3"
+    },
+    {
+      "type": "java",
       "name": "Current File",
       "request": "launch",
       "mainClass": "${file}"
@@ -32,13 +39,6 @@
       "request": "launch",
       "mainClass": "pama1234.gdx.game.app.headless.HeadlessLauncher",
       "projectName": "just-some-other-libgdx-game-headless"
-    },
-    {
-      "type": "java",
-      "name": "Launcher",
-      "request": "launch",
-      "mainClass": "pama1234.gdx.game.app.lwjgl3.Launcher",
-      "projectName": "just-some-other-libgdx-game-lwjgl3"
     },
     {
       "type": "java",

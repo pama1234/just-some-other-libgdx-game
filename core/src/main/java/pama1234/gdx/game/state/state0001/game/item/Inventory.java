@@ -18,6 +18,8 @@ public class Inventory{
   public LivingEntity pc;
   @Tag(0)
   public ItemSlot[] data;
+  @Tag(1)
+  int hotSlotSize;
   public int displayState=displayHoldSlot;
   public DisplaySlot[][] displaySlots;
   public DisplaySlot[] hotSlots,backpackSlots;
@@ -25,16 +27,22 @@ public class Inventory{
   // public DisplaySlot[] workStationSlots;
   public float rSize;
   public PathVar r;
+  @Tag(2)
   public int selectSlot;
   public float circleDeg;
+  public Inventory() {}
   public Inventory(LivingEntity pc,int size,int hotSlotSize) {
     this.pc=pc;
+    this.hotSlotSize=hotSlotSize;
     data=new ItemSlot[size];
     for(int i=0;i<data.length;i++) data[i]=new ItemSlot();
+    innerInit();
+  }
+  public void innerInit() {
     hotSlots=new DisplaySlot[hotSlotSize];
     for(int i=0;i<hotSlots.length;i++) hotSlots[i]=new DisplaySlot(data[i]);
     holdSlot=new DisplaySlot(data[data.length-1]);
-    backpackSlots=new DisplaySlot[size-hotSlotSize-1];
+    backpackSlots=new DisplaySlot[data.length-hotSlotSize-1];
     for(int i=0;i<backpackSlots.length;i++) backpackSlots[i]=new DisplaySlot(data[i+hotSlots.length]);
     displaySlots=new DisplaySlot[][] {hotSlots,backpackSlots};
     r=new PathVar(rSize=UtilMath.min(pc.type.w,pc.type.h));
