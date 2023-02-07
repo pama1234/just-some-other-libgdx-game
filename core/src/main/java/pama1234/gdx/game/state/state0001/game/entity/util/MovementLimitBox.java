@@ -3,6 +3,7 @@ package pama1234.gdx.game.state.state0001.game.entity.util;
 import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.util.RectF;
+import pama1234.math.UtilMath;
 
 public class MovementLimitBox extends OuterBox{
   public boolean inAir;
@@ -41,48 +42,82 @@ public class MovementLimitBox extends OuterBox{
   public void updateLimit() {
     int blockWidth=p.pw.settings.blockWidth;
     int blockHeight=p.pw.settings.blockHeight;
+    // bugFix();
+    // if(p instanceof MainPlayer) System.out.println(w+" "+h);
+    // if(p instanceof MainPlayer) {
+    //   if(xFlag) System.out.println("xFlag "+x1+" "+desX);
+    //   if(yFlag) System.out.println("yFlag "+y1+" "+desY);
+    // }
+    if(testCeiling()) doCeiling(blockHeight);
+    else ceiling=(y1-4)*blockHeight;
+    if(testFloor()) doFloor(blockHeight);
+    else floor=(y2+4)*blockHeight;
+    if(testLeft()) doLeft(blockWidth);
+    else leftWall=(x1-4)*blockWidth;
+    if(testRight()) doRight(blockWidth);
+    else rightWall=(x2+4)*blockWidth;
+    if(xFlag&&yFlag) {
+      System.out.println("MovementLimitBox.updateLimit()");
+      boolean flag=UtilMath.abs(p.point.vel.y)>UtilMath.abs(p.point.vel.x);
+      if(p.point.vel.x>0) {//右
+        if(p.point.vel.y>0) {//右下
+          if(!Block.isNotFullBlock(p.getBlock(x2+1,y2+1))) {
+            if(flag) doRight(blockWidth);
+            else doFloor(blockHeight);
+          }
+        }else {//右上
+          if(!Block.isNotFullBlock(p.getBlock(x2+1,y1-1))) {
+            if(flag) doRight(blockWidth);
+            else doCeiling(blockHeight);
+          }
+        }
+      }else {//左
+        if(p.point.vel.y>0) {//左下
+          if(!Block.isNotFullBlock(p.getBlock(x1-1,y2+1))) {
+            if(flag) doLeft(blockWidth);
+            else doFloor(blockHeight);
+          }
+        }else {//左上
+          if(!Block.isNotFullBlock(p.getBlock(x1-1,y1-1))) {
+            if(flag) doLeft(blockWidth);
+            else doCeiling(blockHeight);
+          }
+        }
+      }
+    }
+  }
+  public void doRight(int blockWidth) {
+    rightWall=x2*blockWidth+rectConst.x2();
+  }
+  public void doLeft(int blockWidth) {
+    leftWall=x1*blockWidth+rectConst.x1();
+  }
+  public void doFloor(int blockHeight) {
+    floor=y2*blockHeight+rectConst.y2();
+  }
+  public void doCeiling(int blockHeight) {
+    ceiling=y1*blockHeight+rectConst.y1();
+  }
+  public void bugFix() {
     if(inAir&&p.point.vel.y<0&&h>1) {
       h-=1;
       y2-=1;
     }
-    flagCache=false;
-    // if(p instanceof MainPlayer) System.out.println(w+" "+h);
-    //------------------------------------------ ceiling
-    for(int i=0;i<=w;i++) if(!Block.isNotFullBlock(p.getBlock(x1+i,y1-1))) {
-      flagCache=true;
-      break;
-    }
-    if(flagCache) {
-      ceiling=y1*blockHeight+rectConst.y1();
-      flagCache=false;
-    }else ceiling=(y1-4)*blockHeight;
-    //------------------------------------------ floor
-    for(int i=0;i<=w;i++) if(!Block.isNotFullBlock(p.getBlock(x1+i,y2+1))) {
-      flagCache=true;
-      break;
-    }
-    if(flagCache) {
-      floor=y2*blockHeight+rectConst.y2();
-      flagCache=false;
-    }else floor=(y2+4)*blockHeight;
-    //------------------------------------------ left
-    // System.out.println(h);
-    for(int i=0;i<=h;i++) if(!Block.isNotFullBlock(p.getBlock(x1-1,y1+i))) {
-      flagCache=true;
-      break;
-    }
-    if(flagCache) {
-      leftWall=(x1)*blockWidth+rectConst.x1();
-      flagCache=false;
-    }else leftWall=(x1-4)*blockWidth;
-    //------------------------------------------ right
-    for(int i=0;i<=h;i++) if(!Block.isNotFullBlock(p.getBlock(x2+1,y1+i))) {
-      flagCache=true;
-      break;
-    }
-    if(flagCache) {
-      rightWall=(x2)*blockWidth+rectConst.x2();
-      flagCache=false;
-    }else rightWall=(x2+4)*blockWidth;
+  }
+  public boolean testRight() {
+    for(int i=0;i<=h;i++) if(!Block.isNotFullBlock(p.getBlock(x2+1,y1+i))) return true;
+    return false;
+  }
+  public boolean testLeft() {
+    for(int i=0;i<=h;i++) if(!Block.isNotFullBlock(p.getBlock(x1-1,y1+i))) return true;
+    return false;
+  }
+  public boolean testFloor() {
+    for(int i=0;i<=w;i++) if(!Block.isNotFullBlock(p.getBlock(x1+i,y2+1))) return true;
+    return false;
+  }
+  public boolean testCeiling() {
+    for(int i=0;i<=w;i++) if(!Block.isNotFullBlock(p.getBlock(x1+i,y1-1))) return true;
+    return false;
   }
 }
