@@ -77,6 +77,7 @@ public class MainPlayer extends Player implements LoadAndSave{
     ctrl.limitBox.update();
     ctrl.updateCtrlInfo();
     ctrl.doWalkAndJump();
+    ctrl.limitBox.updateDes();
     ctrl.limitBox.updateLimit();
     //---
     super.update();
