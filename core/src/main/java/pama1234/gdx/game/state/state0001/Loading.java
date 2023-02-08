@@ -9,6 +9,7 @@ import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.asset.TvgAsset;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
 import pama1234.math.Tools;
+import com.badlogic.gdx.graphics.Texture;
 
 public class Loading extends StateEntity0001{
   public int frame;
@@ -16,9 +17,11 @@ public class Loading extends StateEntity0001{
   public Loading(Screen0011 p) {
     super(p);
     manager=new AssetManager();
+    Texture.setAssetManager(manager);
   }
   @Override
   public void from(State0001 in) {
+    manager.clear();//如果先前有残留的资源，先清除
     p.backgroundColor(0);
     p.textColor(255);
     // SVGAssets.init();
@@ -48,5 +51,10 @@ public class Loading extends StateEntity0001{
       ImageAsset.put_0001(manager);
       p.state(State0001.StartMenu);
     }
+  }
+
+  @Override
+  public void dispose() {
+    manager.dispose();
   }
 }

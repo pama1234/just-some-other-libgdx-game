@@ -102,8 +102,8 @@ public class UiGenerator{
         self.updateText();
       },self->self.text=((Game)State0001.Game.entity).debugGraphics?"显示图形调试信息：是":"显示图形调试信息：否",()->18,()->0,()->60),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
-        //TODO
-      },self->self.text="重新加载图片素材（未实现）",()->18,()->0,()->80),
+    	p.state(State0001.Loading);
+      },self->self.text="重新加载图片素材",()->18,()->0,()->80),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         System.gc();
         Runtime.getRuntime().runFinalization();
