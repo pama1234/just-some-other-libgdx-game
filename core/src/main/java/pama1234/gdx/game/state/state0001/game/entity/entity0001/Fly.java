@@ -17,7 +17,7 @@ public class Fly extends MobEntity{
   @Override
   public void update() {
     limitBox.update();
-    playerAttract();
+    // playerAttract();
     limitBox.updateLimit();
     limitBox.doInAirTest();
     super.update();

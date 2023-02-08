@@ -11,7 +11,7 @@ public class MovementLimitBox extends OuterBox{
   //---
   public boolean leftDownDesSlopFlag,leftUpDesSlopFlag,rightDownDesSlopFlag,rightUpDesSlopFlag;
   public boolean leftDownPosSlopFlag,leftUpPosSlopFlag,rightDownPosSlopFlag,rightUpPosSlopFlag;
-  public boolean leftDown,leftUp,rightDown,rightUp;
+  public boolean leftDownMoved,leftUpMoved,rightDownMoved,rightUpMoved;
   public int desX1,desY1,desX2,desY2;
   public MovementLimitBox(LivingEntity p) {
     super(p);
@@ -42,46 +42,58 @@ public class MovementLimitBox extends OuterBox{
     inAir=p.point.pos.y<floor;
   }
   public void updateDes() {
-    float tx_1=p.x1(),
-      ty_1=p.y1(),
-      tx_2=p.x2(),
-      ty_2=p.y2();
+    float tx1=p.x1(),
+      ty1=p.y1(),
+      tx2=p.x2(),
+      ty2=p.y2();
     float dx=p.point.dx(),
       dy=p.point.dy();
-    float tx_a1=tx_1+dx,
-      ty_a1=ty_1+dy,
-      tx_a2=tx_2+dx,
-      ty_a2=ty_2+dy;
-    desX1=p.xToBlockCord(tx_a1);
-    desY1=p.xToBlockCord(ty_a1);
-    desX2=p.xToBlockCord(tx_a2);
-    desY2=p.xToBlockCord(ty_a2);
-    leftUp=x1!=desX1&&y1!=desY1;
-    leftDown=x1!=desX1&&y2!=desY2;
-    rightUp=x2!=desX2&&y1!=desY1;
-    rightDown=x2!=desX2&&y2!=desY2;
+    float tx1_a=tx1+dx,
+      ty1_a=ty1+dy,
+      tx2_a=tx2+dx,
+      ty2_a=ty2+dy;
+    desX1=p.xToBlockCord(tx1_a);
+    desY1=p.xToBlockCord(ty1_a);
+    desX2=p.xToBlockCord(tx2_a);
+    desY2=p.xToBlockCord(ty2_a);
+    leftUpMoved=x1!=desX1&&y1!=desY1;
+    leftDownMoved=x1!=desX1&&y2!=desY2;
+    rightUpMoved=x2!=desX2&&y1!=desY1;
+    rightDownMoved=x2!=desX2&&y2!=desY2;
     int blockWidth=p.pw.settings.blockWidth,
       blockHeight=p.pw.settings.blockHeight;
-    float tx_b1=(desX1+1)*blockWidth-tx_a1,
-      ty_b1=(desY1+1)*blockHeight-ty_a1,
-      tx_b2=tx_a2-desX2*blockWidth,
-      ty_b2=ty_a2-desY2*blockHeight;
-    leftUpDesSlopFlag=tx_b1>ty_b1;
-    leftDownDesSlopFlag=tx_b1>ty_b2;
-    rightUpDesSlopFlag=tx_b2>ty_b1;
-    rightDownDesSlopFlag=tx_b2>ty_b2;
-    // leftUpW=tx_b1<ty_b1;
-    // leftDownW=tx_b1<ty_b2;
-    // rightUpW=tx_b2<ty_b1;
-    // rightDownW=tx_b2<ty_b2;
-    float tx_c1=(tx_1+1)*blockWidth-tx_a1,
-      ty_c1=(ty_1+1)*blockHeight-ty_a1,
-      tx_c2=tx_a2-tx_2*blockWidth,
-      ty_c2=ty_a2-ty_2*blockHeight;
-    leftUpPosSlopFlag=tx_b1/ty_b1>tx_c1/ty_c1;
-    leftDownDesSlopFlag=tx_b1/ty_b2>tx_c1/ty_c2;
-    rightUpDesSlopFlag=tx_b2/ty_b1>tx_c2/ty_c1;
-    rightDownDesSlopFlag=tx_b2/ty_b2>tx_c2/ty_c2;
+    float tx1_b=(desX1+1)*blockWidth-tx1_a,
+      ty1_b=(desY1+1)*blockHeight-ty1_a,
+      tx2_b=tx2_a-desX2*blockWidth,
+      ty2_b=ty2_a-desY2*blockHeight;
+    tx1_b%=blockWidth;
+    ty1_b%=blockHeight;
+    tx2_b%=blockWidth;
+    ty2_b%=blockHeight;
+    // System.out.println(tx2_b+" "+ty2_b);
+    leftUpDesSlopFlag=tx1_b>=ty1_b;
+    leftDownDesSlopFlag=tx1_b>=ty2_b;
+    rightUpDesSlopFlag=tx2_b>=ty1_b;
+    rightDownDesSlopFlag=tx2_b>=ty2_b;
+    float tx1_c=(x1+1)*blockWidth-tx1_a,
+      ty1_c=(y1+1)*blockHeight-ty1_a,
+      tx2_c=tx2_a-x2*blockWidth,
+      ty2_c=ty2_a-y2*blockHeight;
+    tx1_c%=blockWidth;
+    ty1_c%=blockHeight;
+    tx2_c%=blockWidth;
+    ty2_c%=blockHeight;
+    // System.out.println(tx2_b+" "+ty2_b+" "+tx2_c+" "+ty2_c);
+    // System.out.println(tx1_b+" "+ty1_b+" "+tx1_c+" "+ty1_c);
+    leftUpPosSlopFlag=tx1_b/ty1_b>tx1_c/ty1_c;
+    leftDownPosSlopFlag=tx1_b/ty2_b>tx1_c/ty2_c;
+    rightUpPosSlopFlag=tx2_b/ty1_b>tx2_c/ty1_c;
+    rightDownPosSlopFlag=tx2_b/ty2_b>tx2_c/ty2_c;
+    // System.out.println(leftUpPosSlopFlag);
+    leftUpDesSlopFlag=leftUpPosSlopFlag==leftUpDesSlopFlag;
+    leftDownPosSlopFlag=leftDownPosSlopFlag==leftDownDesSlopFlag;
+    rightUpPosSlopFlag=rightUpPosSlopFlag==rightUpDesSlopFlag;
+    rightDownPosSlopFlag=rightDownPosSlopFlag==rightDownDesSlopFlag;
   }
   public void updateLimit() {
     int blockWidth=p.pw.settings.blockWidth,
@@ -89,39 +101,39 @@ public class MovementLimitBox extends OuterBox{
     int a,b;
     a=0;
     b=w;
-    if(leftUp&&leftUpDesSlopFlag) {
+    if(leftUpMoved&&leftUpDesSlopFlag) {
       a-=1;
       b+=1;
     }
-    if(rightUp&&rightUpDesSlopFlag) b+=1;
+    if(rightUpMoved&&rightUpDesSlopFlag) b+=1;
     if(testCeiling(a,b)) doCeiling(blockHeight);
     else ceiling=(y1-4)*blockHeight;
     a=0;
     b=w;
-    if(leftDown&&leftDownDesSlopFlag) {
+    if(leftDownMoved&&leftDownDesSlopFlag) {
       a-=1;
       b+=1;
     }
-    if(rightDown&&rightDownDesSlopFlag) b+=1;
+    if(rightDownMoved&&rightDownDesSlopFlag) b+=1;
     if(testFloor(a,b)) doFloor(blockHeight);
     else floor=(y2+4)*blockHeight;
     //---
     a=0;
     b=h;
-    if(leftUp&&!leftUpDesSlopFlag) {
+    if(leftUpMoved&&!leftUpDesSlopFlag) {
       a-=1;
       b+=1;
     }
-    if(leftDown&&!leftDownDesSlopFlag) b+=1;
+    if(leftDownMoved&&!leftDownDesSlopFlag) b+=1;
     if(testLeft(a,b)) doLeft(blockWidth);
     else leftWall=(x1-4)*blockWidth;
     a=0;
     b=h;
-    if(rightUp&&!rightUpDesSlopFlag) {
+    if(rightUpMoved&&!rightUpDesSlopFlag) {
       a-=1;
       b+=1;
     }
-    if(rightDown&&!rightDownDesSlopFlag) b+=1;
+    if(rightDownMoved&&!rightDownDesSlopFlag) b+=1;
     if(testRight(a,b)) doRight(blockWidth);
     else rightWall=(x2+4)*blockWidth;
   }
