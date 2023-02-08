@@ -68,27 +68,62 @@ public class MovementLimitBox extends OuterBox{
     leftDownW=tx_b1<ty_b2;
     rightUpW=tx_b2<ty_b1;
     rightDownW=tx_b2<ty_b2;
+    // leftUp&=tx_b1<ty_b1;
+    // leftDown&=tx_b1<ty_b2;
+    // rightUp&=tx_b2<ty_b1;
+    // rightDown&=tx_b2<ty_b2;
     // if(p instanceof Player) {
     //   p.p.println(tx1,ty1,tx2,ty2);
     //   p.p.println(leftUpW,leftDownW,rightUpW,rightDownW);
     // }
   }
-  @Override
-  public void update() {
-    super.update();
-    // updateFlag();
-  }
+  // @Override
+  // public void update() {
+  //   super.update();
+  //   // updateFlag();
+  // }
   // public void updateFlag() {}
   public void updateLimit() {
     int blockWidth=p.pw.settings.blockWidth,
       blockHeight=p.pw.settings.blockHeight;
-    if(testCeiling(0,w)) doCeiling(blockHeight);
+    int a,b;
+    a=0;
+    b=w;
+    if(leftUp&&leftUpW) {
+      a-=1;
+      b+=1;
+    }
+    if(rightUp&&rightUpW) b+=1;
+    if(testCeiling(a,b)) doCeiling(blockHeight);
     else ceiling=(y1-4)*blockHeight;
-    if(testFloor(0,w)) doFloor(blockHeight);
+    a=0;
+    b=w;
+    if(leftDown&&leftDownW) {
+      a-=1;
+      b+=1;
+    }
+    if(rightDown&&rightDownW) b+=1;
+    if(testFloor(a,b)) doFloor(blockHeight);
     else floor=(y2+4)*blockHeight;
-    if(testLeft(0,h)) doLeft(blockWidth);
+    //---
+    a=0;
+    b=h;
+    if(leftUp&&!leftUpW) {
+      a-=1;
+      b+=1;
+    }
+    if(leftDown&&!leftDownW) b+=1;
+    if(testLeft(a,b)) doLeft(blockWidth);
     else leftWall=(x1-4)*blockWidth;
-    if(testRight(0,h)) doRight(blockWidth);
+    a=0;
+    b=h;
+    if(rightUp&&!rightUpW) {
+      a-=1;
+      b+=1;
+    }
+    if(rightDown&&!rightDownW) b+=1;
+    if(testRight(a,b)) doRight(blockWidth);
+    else rightWall=(x2+4)*blockWidth;
   }
   public void doRight(int blockWidth) {
     rightWall=x2*blockWidth+rectConst.x2();
