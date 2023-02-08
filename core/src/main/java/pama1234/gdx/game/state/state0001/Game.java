@@ -53,62 +53,66 @@ public class Game extends StateEntity0001{
       public void display() {
         p.beginBlend();
         World0001 tw=world();
+        int bw=tw.settings.blockWidth,
+          bh=tw.settings.blockHeight;
         MainPlayer tp=tw.yourself;
-        drawLimitBox(tw,tp,tp.ctrl.limitBox);
+        drawLimitBox(p,bw,bh,tp.ctrl.limitBox);
         // for(EntityCenter<Screen0011,? extends GamePointEntity<?>> i:tw.entities.list) for(GamePointEntity<?> e:i.list) drawLimitBox(tw,e,e.limitBox);
         // for(MobEntity e:tw.entities.mobEntities.list) drawLimitBox(tw,e,e.limitBox);
-        for(DroppedItem e:tw.entities.items.list) drawLimitBox(tw,e,e.limitBox);
-        for(MobEntity e:tw.entities.mobEntities.list) if(e instanceof Fly a) drawLimitBox(tw,e,a.limitBox);
+        for(DroppedItem e:tw.entities.items.list) drawLimitBox(p,bw,bh,e.limitBox);
+        for(MobEntity e:tw.entities.mobEntities.list) if(e instanceof Fly a) drawLimitBox(p,bw,bh,a.limitBox);
         p.endBlend();
       }
     };
   }
-  public void drawLimitBox(World0001 tw,LivingEntity in,MovementLimitBox limitBox) {
+  public static void drawLimitBox(Screen0011 p,int bw,int bh,MovementLimitBox limitBox) {
     int bx1=limitBox.x1,
       by1=limitBox.y1,
       bx2=limitBox.x2,
       by2=limitBox.y2;
-    int bw=tw.settings.blockWidth,
-      bh=tw.settings.blockHeight;
+    // int bw=tw.settings.blockWidth,
+    //   bh=tw.settings.blockHeight;
+    LivingEntity in=limitBox.p;
     int ta=191;
+    // Screen0011 p=tw.p;
     p.fill(255,127,191,ta);
-    rectStroke(1,limitBox.leftWall,limitBox.ceiling,limitBox.rightWall,limitBox.floor);
+    rectStroke(p,1,limitBox.leftWall,limitBox.ceiling,limitBox.rightWall,limitBox.floor);
     p.fill(127,255,191,ta);
-    boxStroke(1,in.x()+in.type.dx,in.y()+in.type.dy,in.type.w,in.type.h);
+    boxStroke(p,1,in.x()+in.type.dx,in.y()+in.type.dy,in.type.w,in.type.h);
     p.fill(94,203,234,ta);
-    rectStroke(1,bx1*bw,by1*bh,(bx2+1)*bw,(by2+1)*bh);
+    rectStroke(p,1,bx1*bw,by1*bh,(bx2+1)*bw,(by2+1)*bh);
     // p.fill(255,203,234,ta);
     int a=191,b=95;
     p.fill(255,203,234,limitBox.leftUpMoved?a:b);
-    if(limitBox.leftUpDesSlopFlag) boxStroke(1,limitBox.desX1*bw,limitBox.desY1*bh,bw,bh/2f);
-    else boxStroke(1,limitBox.desX1*bw,limitBox.desY1*bh,bw/2f,bh);
+    if(limitBox.leftUpDesSlopFlag) boxStroke(p,1,limitBox.desX1*bw,limitBox.desY1*bh,bw,bh/2f);
+    else boxStroke(p,1,limitBox.desX1*bw,limitBox.desY1*bh,bw/2f,bh);
     p.fill(255,203,234,limitBox.leftDownMoved?a:b);
-    if(limitBox.leftDownDesSlopFlag) boxStroke(1,limitBox.desX1*bw,(limitBox.desY2+0.5f)*bh,bw,bh/2f);
-    else boxStroke(1,limitBox.desX1*bw,limitBox.desY2*bh,bw/2f,bh);
+    if(limitBox.leftDownDesSlopFlag) boxStroke(p,1,limitBox.desX1*bw,(limitBox.desY2+0.5f)*bh,bw,bh/2f);
+    else boxStroke(p,1,limitBox.desX1*bw,limitBox.desY2*bh,bw/2f,bh);
     p.fill(255,203,234,limitBox.rightUpMoved?a:b);
-    if(limitBox.rightUpDesSlopFlag) boxStroke(1,limitBox.desX2*bw,limitBox.desY1*bh,bw,bh/2f);
-    else boxStroke(1,(limitBox.desX2+0.5f)*bw,limitBox.desY1*bh,bw/2f,bh);
+    if(limitBox.rightUpDesSlopFlag) boxStroke(p,1,limitBox.desX2*bw,limitBox.desY1*bh,bw,bh/2f);
+    else boxStroke(p,1,(limitBox.desX2+0.5f)*bw,limitBox.desY1*bh,bw/2f,bh);
     p.fill(255,203,234,limitBox.rightDownMoved?a:b);
-    if(limitBox.rightDownDesSlopFlag) boxStroke(1,limitBox.desX2*bw,(limitBox.desY2+0.5f)*bh,bw,bh/2f);
-    else boxStroke(1,(limitBox.desX2+0.5f)*bw,limitBox.desY2*bh,bw/2f,bh);
+    if(limitBox.rightDownDesSlopFlag) boxStroke(p,1,limitBox.desX2*bw,(limitBox.desY2+0.5f)*bh,bw,bh/2f);
+    else boxStroke(p,1,(limitBox.desX2+0.5f)*bw,limitBox.desY2*bh,bw/2f,bh);
     //---
     p.fill(175,203,234,limitBox.leftUpMoved?a:b);
-    if(limitBox.leftUpPosSlopFlag) boxStroke(1,(limitBox.x1-1)*bw,limitBox.y1*bh,bw/2f,bh/2f);
-    else boxStroke(1,limitBox.x1*bw,(limitBox.y1-1)*bh,bw/2f,bh/2f);
+    if(limitBox.leftUpPosSlopFlag) boxStroke(p,1,(limitBox.x1-1)*bw,limitBox.y1*bh,bw/2f,bh/2f);
+    else boxStroke(p,1,limitBox.x1*bw,(limitBox.y1-1)*bh,bw/2f,bh/2f);
     //---
     p.fill(175,203,234,limitBox.leftDownMoved?a:b);
-    if(limitBox.leftDownPosSlopFlag) boxStroke(1,(limitBox.x1-1)*bw,(limitBox.y2+0.5f)*bh,bw/2f,bh/2f);
-    else boxStroke(1,limitBox.x1*bw,(limitBox.y2+1.5f)*bh,bw/2f,bh/2f);
+    if(limitBox.leftDownPosSlopFlag) boxStroke(p,1,(limitBox.x1-1)*bw,(limitBox.y2+0.5f)*bh,bw/2f,bh/2f);
+    else boxStroke(p,1,limitBox.x1*bw,(limitBox.y2+1.5f)*bh,bw/2f,bh/2f);
     //---
     p.fill(175,203,234,limitBox.rightUpMoved?a:b);
-    if(limitBox.rightUpPosSlopFlag) boxStroke(1,(limitBox.x2+1.5f)*bw,limitBox.y1*bh,bw/2f,bh/2f);
-    else boxStroke(1,(limitBox.x2+0.5f)*bw,(limitBox.y1-1)*bh,bw/2f,bh/2f);
+    if(limitBox.rightUpPosSlopFlag) boxStroke(p,1,(limitBox.x2+1.5f)*bw,limitBox.y1*bh,bw/2f,bh/2f);
+    else boxStroke(p,1,(limitBox.x2+0.5f)*bw,(limitBox.y1-1)*bh,bw/2f,bh/2f);
     //---
     p.fill(175,203,234,limitBox.rightDownMoved?a:b);
-    if(limitBox.rightDownPosSlopFlag) boxStroke(1,(limitBox.x2+1.5f)*bw,(limitBox.y2+0.5f)*bh,bw/2f,bh/2f);
-    else boxStroke(1,(limitBox.x2+0.5f)*bw,(limitBox.y2+1.5f)*bh,bw/2f,bh/2f);
+    if(limitBox.rightDownPosSlopFlag) boxStroke(p,1,(limitBox.x2+1.5f)*bw,(limitBox.y2+0.5f)*bh,bw/2f,bh/2f);
+    else boxStroke(p,1,(limitBox.x2+0.5f)*bw,(limitBox.y2+1.5f)*bh,bw/2f,bh/2f);
   }
-  public void rectStroke(float r,float tx1,float ty1,float tx2,float ty2) {
+  public static void rectStroke(Screen0011 p,float r,float tx1,float ty1,float tx2,float ty2) {
     float tw1=tx2-tx1+r*2;
     float th1=ty2-ty1+r*2;
     tx1-=r;
@@ -120,7 +124,7 @@ public class Game extends StateEntity0001{
     p.rect(tx2-r,ty1,r,th1);
     p.rect(tx1,ty2-r,tw1,r);
   }
-  public void boxStroke(float r,float tx1,float ty1,float tw1,float th1) {
+  public static void boxStroke(Screen0011 p,float r,float tx1,float ty1,float tw1,float th1) {
     float tx2=tx1+tw1+r;
     float ty2=ty1+th1+r;
     tx1-=r;

@@ -119,6 +119,9 @@ public class UiGenerator{
         else for(TextButton<?> e:p.buttons) p.centerScreen.remove.add(e);
         self.updateText();
       },self->self.text="显示缩放按钮："+(p.settings.zoomButton?"是":"否"),()->18,()->0,()->140),
+      new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
+        p.state(State0001.Debug);
+      },self->self.text="别按这个",()->18,()->0,()->160),
     };
   }
   public static <T extends Screen0011> TextButton<?>[] genButtons_0008(T p) {

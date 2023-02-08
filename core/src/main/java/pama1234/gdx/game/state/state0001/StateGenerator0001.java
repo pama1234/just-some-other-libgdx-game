@@ -15,6 +15,7 @@ public class StateGenerator0001{
     put(State0001.Settings,new Settings(in));
     put(State0001.Announcement,new Announcement(in));
     put(State0001.Exception,new ExceptionState(in));
+    put(State0001.Debug,new Debug(in));
   }
   public static <T extends StateEntityListener0001> void put(State0001 data,T in) {
     data.entity=in;

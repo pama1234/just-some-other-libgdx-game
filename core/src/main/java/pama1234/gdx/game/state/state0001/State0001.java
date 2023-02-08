@@ -13,7 +13,8 @@ public enum State0001 implements EntityListener{
   Game,
   Settings,
   Announcement,
-  Exception;
+  Exception,
+  Debug;
   public StateEntityListener0001 entity;
   public EntityListener displayCam;
   //---------------------------------------------------------------
