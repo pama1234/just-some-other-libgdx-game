@@ -21,6 +21,8 @@ import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.state.state0001.State0001.StateChanger;
+import pama1234.gdx.game.ui.generator.UiGenerator;
+import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.game.state.state0001.StateGenerator0001;
 import pama1234.gdx.util.app.ScreenCore2D;
 import pama1234.gdx.util.info.MouseInfo;
@@ -44,6 +46,8 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     public float volume=1;
     @Tag(4)
     public ServerInfo serverInfo;
+    @Tag(5)
+    public boolean zoomButton;
   }
   public SettingsData settings;
   public FileHandle settingsFile=Gdx.files.local("data/settings.bin");
@@ -53,10 +57,13 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   public long renderTime,updateTime;
   public float debugTextX,debugTextY,debugTextH,debugTextCountY;
   //---
+  public TextButton<?>[] buttons;
   @Override
   public void setup() {
     noStroke();
     loadSettings();
+    buttons=UiGenerator.genButtons_0008(this);
+    if(settings.zoomButton) for(TextButton<?> e:buttons) centerScreen.add.add(e);
     StateGenerator0001.loadState0001(this);
     postSettings();
     firstRun=!Gdx.files.local("data/firstRun.txt").exists();

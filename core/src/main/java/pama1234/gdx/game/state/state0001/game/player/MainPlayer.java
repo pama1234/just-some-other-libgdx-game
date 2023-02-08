@@ -64,7 +64,7 @@ public class MainPlayer extends Player implements LoadAndSave{
   }
   @Override
   public void save() {
-    try(Output output=new Output(new FileOutputStream(dataLocation.file()))) {
+    if(inventory!=null) try(Output output=new Output(new FileOutputStream(dataLocation.file()))) {
       World0001.kryo.writeObject(output,inventory);
       output.close();
     }catch(FileNotFoundException|KryoException e) {

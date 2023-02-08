@@ -113,6 +113,24 @@ public class UiGenerator{
         if(p.settings.showEarth&&GifAsset.bigEarth==null) GifAsset.bigEarth=GifAsset.load(Animation.PlayMode.LOOP,Gdx.files.internal("image/bigEarth.gif").read());
         self.updateText();
       },self->self.text="开始界面显示地球："+(p.settings.showEarth?"是":"否"),()->18,()->0,()->120),
+      new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
+        p.settings.zoomButton=!p.settings.zoomButton;
+        if(p.settings.zoomButton) for(TextButton<?> e:p.buttons) p.centerScreen.add.add(e);
+        else for(TextButton<?> e:p.buttons) p.centerScreen.remove.add(e);
+        self.updateText();
+      },self->self.text="显示缩放按钮："+(p.settings.zoomButton?"是":"否"),()->18,()->0,()->140),
+    };
+  }
+  public static <T extends Screen0011> TextButton<?>[] genButtons_0008(T p) {
+    return new TextButton[] {
+      new TextButton<T>(p,true,()->true,self-> {
+        p.cam2d.scale.des+=1/32f;
+        p.cam2d.testScale();
+      },self-> {},self-> {},self->self.text="+",p::getButtonUnitLength,()->p.bu*0.5f,()->p.bu*1.5f+p.pus,()->p.bu-p.pus,false),
+      new TextButton<T>(p,true,()->true,self-> {
+        p.cam2d.scale.des-=1/32f;
+        p.cam2d.testScale();
+      },self-> {},self-> {},self->self.text="-",p::getButtonUnitLength,()->p.bu*0.5f,()->p.bu*2.5f+p.pus,()->p.bu-p.pus,false),
     };
   }
   public static <T extends Screen0011> Button<?>[] genButtons_0005(T p) {

@@ -38,6 +38,7 @@ public class UtilInputProcesser implements EssentialListener,InputProcessor{
   }
   public char keyCodeToChar(int kc) {
     String ts=Keys.toString(kc);
+    if(ts==null) return '?';
     return ts.length()==1?ts.charAt(0):'?';
   }
   @Override

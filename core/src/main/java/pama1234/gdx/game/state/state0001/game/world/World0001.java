@@ -127,22 +127,7 @@ public class World0001 extends WorldBase2D{
   }
   @Override
   public void from(State0001 in) {
-    innerResume();
-  }
-  @Override
-  public void to(State0001 in) {
-    innerPause();
-  }
-  @Override
-  public void resume() {
-    if(p.isAndroid) {
-      regions.load();
-      // yourself.load();
-    }
-    super.resume();
-  }
-  public void innerResume() {
-    if(p.isAndroid) p.cam2d.activeDrag=false;
+    if(p.isAndroid) p.cam2d.activeDrag=p.cam2d.activeScrollZoom=false;
     else p.cam2d.active(false);
     p.cam2d.scale.pos=yourself.ctrl.camScale;
     p.cam2d.scale.des=yourself.ctrl.camScale;
@@ -151,6 +136,23 @@ public class World0001 extends WorldBase2D{
     p.cam.point.pos.set(yourself.point.pos);
     p.cam.point.des.set(yourself.point.pos);
     p.centerCam.add.add(yourself);
+  }
+  @Override
+  public void to(State0001 in) {
+    p.cam2d.activeDrag=true;
+    p.cam2d.active(true);
+    p.cam2d.minScale=1;
+    p.cam2d.testScale();
+    yourself.ctrl.camScale=p.cam2d.scale.des;
+    p.centerCam.remove.add(yourself);
+  }
+  @Override
+  public void resume() {
+    if(p.isAndroid) {
+      regions.load();
+      // yourself.load();
+    }
+    super.resume();
   }
   @Override
   public void pause() {

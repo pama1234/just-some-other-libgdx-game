@@ -18,7 +18,7 @@ public class CameraController2D extends CameraController{
   // public PathPoint point;
   public Vector2 cache;
   public boolean pixelPerfect;
-  public boolean activeDrag=true,activeZoom=true;
+  public boolean activeDrag=true,activeTouchZoom=true,activeScrollZoom=true;
   public PathVar scale,rotate;
   public float minScale=1,maxScale=8;
   public CameraController2D(UtilScreen2D p,boolean pixelPerfect,float x,float y,float s,float r,float frameU) {
@@ -32,8 +32,7 @@ public class CameraController2D extends CameraController{
     this.pixelPerfect=pixelPerfect;
   }
   public void active(boolean in) {
-    activeDrag=in;
-    activeZoom=in;
+    activeDrag=activeTouchZoom=activeScrollZoom=in;
   }
   public void preResizeEvent(int w,int h) {
     ocam.setToOrtho(p.flip,w,h);
@@ -74,7 +73,7 @@ public class CameraController2D extends CameraController{
   }
   @Override
   public void mouseWheel(float x,float y) {
-    if(!activeZoom) return;
+    if(!activeScrollZoom) return;
     // scale.des+=y/6f;
     scale.des+=y;
     testScale();
@@ -111,7 +110,7 @@ public class CameraController2D extends CameraController{
     }
     if(activeUpdate) if(a!=null&&a.state==0) {
       if(b!=null&&b.state==0) {
-        if(activeZoom) {
+        if(activeTouchZoom) {
           scale.des=iScale*dist(a.ox,a.oy,b.ox,b.oy)/iDist;
           testScale();
         }
