@@ -76,18 +76,11 @@ public class MainPlayer extends Player implements LoadAndSave{
     for(TouchInfo e:p.touches) if(e.active) ctrl.touchUpdate(e);
     ctrl.limitBox.update();
     ctrl.updateCtrlInfo();
-    // ctrl.limitBox.updateDes();
     ctrl.doWalkAndJump();
-    // ctrl.constrain();
-    // ctrl.limitBox.updateDes();
     ctrl.limitBox.updateLimit();
-    ctrl.limitBox.cornerFix();
     //---
     super.update();
     ctrl.limitBox.constrain();
-    // ctrl.limitBox.updateDes();
-    // ctrl.limitBox.cornerFix();
-    // ctrl.limitBox.constrain();
     ctrl.updatePickItem();
     p.cam.point.des.set(cx(),cy());
     //---

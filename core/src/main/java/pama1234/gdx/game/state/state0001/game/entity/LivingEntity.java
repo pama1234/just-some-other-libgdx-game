@@ -74,18 +74,18 @@ public class LivingEntity extends GamePointEntity<MassPoint>{
     if(!flag&&UtilMath.abs(life.des-type.maxLife)<=0.1f) return;
     p.beginBlend();
     p.fill(127,127);
-    p.rect(x()+type.dx,y()+type.dy-4,type.w,2);
+    p.rect(x1(),y1()-4,type.w,2);
     p.fill(255,63,63,191);
     float tp=type.w/type.maxLife;
     float tw=tp*life.pos;
-    p.rect(x()+type.dx,y()+type.dy-4,tw,2);
+    p.rect(x1(),y1()-4,tw,2);
     if(flag) {
       if(life.des>life.pos) {
         p.fill(156,95,255,191);
-        p.rect(x()+type.dx+tw,y()+type.dy-4,tp*(life.des-life.pos),2);
+        p.rect(x1()+tw,y1()-4,tp*(life.des-life.pos),2);
       }else {
         p.fill(255,255,63,191);
-        p.rect(x()+type.dx+tw,y()+type.dy-4,tp*(life.pos-life.des),2);
+        p.rect(x1()+tw,y1()-4,tp*(life.pos-life.des),2);
       }
     }
     p.endBlend();
@@ -108,17 +108,29 @@ public class LivingEntity extends GamePointEntity<MassPoint>{
   public int blockY() {
     return yToBlockCord(y());
   }
+  public float x1() {
+    return x()+type.dx;
+  }
+  public float y1() {
+    return y()+type.dy;
+  }
+  public float x2() {
+    return x()+type.dx+type.w-0.01f;//TODO
+  }
+  public float y2() {
+    return y()+type.dy+type.h-0.01f;//TODO
+  }
   public int blockX1() {
-    return xToBlockCord(x()+type.dx);
+    return xToBlockCord(x1());
   }
   public int blockY1() {
-    return yToBlockCord(y()+type.dy);
+    return yToBlockCord(y1());
   }
   public int blockX2() {
-    return xToBlockCord(x()+type.dx+type.w-0.01f);//TODO
+    return xToBlockCord(x2());
   }
   public int blockY2() {
-    return yToBlockCord(y()+type.dy+type.h-0.01f);//TODO
+    return yToBlockCord(y2());
   }
   public int xToBlockCord(float in) {
     // return UtilMath.floor(in/pw.blockWidth);
@@ -132,6 +144,6 @@ public class LivingEntity extends GamePointEntity<MassPoint>{
     return Tools.inBoxInclude(tx,ty,outerBox.x1,outerBox.y1,outerBox.w,outerBox.h);
   }
   public boolean inInnerBox(float tx,float ty) {
-    return Tools.inBox(tx,ty,x()+type.dx,y()+type.dy,type.w,type.h);
+    return Tools.inBox(tx,ty,x1(),y1(),type.w,type.h);
   }
 }

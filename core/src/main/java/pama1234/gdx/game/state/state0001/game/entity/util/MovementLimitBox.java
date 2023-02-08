@@ -1,16 +1,16 @@
 package pama1234.gdx.game.state.state0001.game.entity.util;
 
 import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
+import pama1234.gdx.game.state.state0001.game.player.Player;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.util.RectF;
 
 public class MovementLimitBox extends OuterBox{
   public boolean inAir;
-  public float floor,leftWall,rightWall,ceiling;
+  public float ceiling,floor,leftWall,rightWall;
   public RectF rectConst;
   //---
   public boolean leftDown,leftUp,rightDown,rightUp;
-  // public int desX1,desY1,desX2,desY2;
   public MovementLimitBox(LivingEntity p) {
     super(p);
     rectConst=new RectF(
@@ -21,12 +21,12 @@ public class MovementLimitBox extends OuterBox{
     );
   }
   public void constrain() {
-    if(p.point.pos.y>floor) {
-      if(p.point.vel.y>0) p.point.vel.y=0;
-      p.point.pos.y=floor;
-    }else if(p.point.pos.y<ceiling) {
+    if(p.point.pos.y<ceiling) {
       if(p.point.vel.y<0) p.point.vel.y=0;
       p.point.pos.y=ceiling;
+    }else if(p.point.pos.y>floor) {
+      if(p.point.vel.y>0) p.point.vel.y=0;
+      p.point.pos.y=floor;
     }
     if(p.point.pos.x<leftWall) {
       if(p.point.vel.x<0) p.point.vel.x=0;
@@ -39,42 +39,35 @@ public class MovementLimitBox extends OuterBox{
   public void doInAirTest() {
     inAir=p.point.pos.y<floor;
   }
-  // public void updateDes() {
-  // constrain();
-  // float tx=p.x()+p.type.dx+p.point.dx(),
-  //   ty=p.y()+p.type.dy+p.point.dy();
-  // desX1=p.xToBlockCord(tx);
-  // desY1=p.xToBlockCord(ty);
-  // desX2=p.xToBlockCord(tx+p.type.w-0.01f);
-  // desY2=p.xToBlockCord(ty+p.type.h-0.01f);
-  // leftUp=x1!=desX1&&y1!=desY1;
-  // leftDown=x1!=desX1&&y2!=desY2;
-  // rightUp=x2!=desX2&&y1!=desY1;
-  // rightDown=x2!=desX2&&y2!=desY2;
-  // if(leftUp||leftDown||rightUp||rightDown) p.p.println(leftUp,leftDown,rightUp,rightDown);
-  // }
-  public void updateLimit() {
-    // updateDes();
+  @Override
+  public void update() {
+    super.update();
     int blockWidth=p.pw.settings.blockWidth,
       blockHeight=p.pw.settings.blockHeight;
-    if(testCeiling(0,w)) doCeiling(blockHeight);
-    else ceiling=(y1-4)*blockHeight;
-    if(testFloor(0,w)) doFloor(blockHeight);
-    else floor=(y2+4)*blockHeight;
-    if(testLeft(0,h)) doLeft(blockWidth);
-    else leftWall=(x1-4)*blockWidth;
-    if(testRight(0,h)) doRight(blockWidth);
-    else rightWall=(x2+4)*blockWidth;
-    // System.out.println("MovementLimitBox.updateLimit()");
-    // cornerFix();
+    float tx1=(x1+1)*blockWidth-p.x1();
+    float ty1=(y1+1)*blockHeight-p.y1();
+    float tx2=p.x2()-x2*blockWidth;
+    float ty2=p.y2()-y2*blockHeight;
+    leftUp=tx1<ty1;
+    leftDown=tx1<ty2;
+    rightUp=tx2<ty1;
+    rightDown=tx2<ty2;
+    if(p instanceof Player) {
+      p.p.println(tx1,ty1,tx2,ty2);
+      p.p.println(leftUp,leftDown,rightUp,rightDown);
+    }
   }
-  public void cornerFix() {
-    // int blockWidth=p.pw.settings.blockWidth;
-    // int blockHeight=p.pw.settings.blockHeight;
-    // if(leftUp&&!Block.isNotFullBlock(p.getBlock(desX1,desY1))) doLeft(blockWidth);
-    // if(leftDown&&!Block.isNotFullBlock(p.getBlock(desX1,desY2))) doLeft(blockWidth);
-    // if(rightUp&&!Block.isNotFullBlock(p.getBlock(desX2,desY1))) doRight(blockWidth);
-    // if(rightDown&&!Block.isNotFullBlock(p.getBlock(desX2,desY2))) doRight(blockWidth);
+  public void updateLimit() {
+    int blockWidth=p.pw.settings.blockWidth,
+      blockHeight=p.pw.settings.blockHeight;
+    if(testCeiling(leftUp?-1:0,w+(leftUp?1:0)+(rightUp?1:0))) doCeiling(blockHeight);
+    else ceiling=(y1-4)*blockHeight;
+    if(testFloor(leftDown?-1:0,w+(leftDown?1:0)+(rightDown?1:0))) doFloor(blockHeight);
+    else floor=(y2+4)*blockHeight;
+    if(testLeft(!leftUp?-1:0,h+(!leftUp?1:0)+(!leftDown?1:0))) doLeft(blockWidth);
+    else leftWall=(x1-4)*blockWidth;
+    if(testRight(!rightUp?-1:0,h+(!rightUp?1:0)+(!rightDown?1:0))) doRight(blockWidth);
+    else rightWall=(x2+4)*blockWidth;
   }
   public void doRight(int blockWidth) {
     rightWall=x2*blockWidth+rectConst.x2();
