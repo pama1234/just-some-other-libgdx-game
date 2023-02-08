@@ -66,8 +66,6 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
   public boolean background=true;
   public Color backgroundColor;
   public EntityCenter<UtilScreen,EntityListener> center,centerCam,centerScreen;
-  // public EntityCenter<EntityListener> centerCam;
-  // public EntityCenter<EntityListener> centerScreen;
   public ServerEntityCenter<ServerEntityListener> serverCenter;
   public UtilInputProcesser inputProcessor;
   public Random rng=new Random();
@@ -142,10 +140,6 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
     //---
     center.frameResized(w,h);
   }
-  // public void camResizeEvent(int w,int h) {
-  //   cam.o.setToOrtho(flip,w,h);
-  //   cam.oInt.setToOrtho(flip,w,h);
-  // }
   @Override
   public void pause() {
     center.pause();
@@ -162,10 +156,8 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
     stop=true;
     fontBatch.dispose();
     font.dispose();
-    // fontGenerator.dispose();
     // center.refresh();
     center.dispose();
-    // centerScreen.dispose();
     serverCenter.dispose();
   }
   public void strokeWeight(float in) {

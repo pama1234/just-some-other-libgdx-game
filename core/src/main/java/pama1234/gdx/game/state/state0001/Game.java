@@ -77,11 +77,11 @@ public class Game extends StateEntity0001{
     boxStroke(1,in.x()+in.type.dx,in.y()+in.type.dy,in.type.w,in.type.h);
     p.fill(94,203,234,ta);
     rectStroke(1,bx1*bw,by1*bh,(bx2+1)*bw,(by2+1)*bh);
-    p.fill(255,203,234,ta);
-    boxStroke(1,limitBox.desX1*bw,limitBox.desY1*bh,bw,bh);
-    boxStroke(1,limitBox.desX1*bw,limitBox.desY2*bh,bw,bh);
-    boxStroke(1,limitBox.desX2*bw,limitBox.desY1*bh,bw,bh);
-    boxStroke(1,limitBox.desX2*bw,limitBox.desY2*bh,bw,bh);
+    // p.fill(255,203,234,ta);
+    // boxStroke(1,limitBox.desX1*bw,limitBox.desY1*bh,bw,bh);
+    // boxStroke(1,limitBox.desX1*bw,limitBox.desY2*bh,bw,bh);
+    // boxStroke(1,limitBox.desX2*bw,limitBox.desY1*bh,bw,bh);
+    // boxStroke(1,limitBox.desX2*bw,limitBox.desY2*bh,bw,bh);
   }
   public void rectStroke(float r,float tx1,float ty1,float tx2,float ty2) {
     float tw1=tx2-tx1+r*2;

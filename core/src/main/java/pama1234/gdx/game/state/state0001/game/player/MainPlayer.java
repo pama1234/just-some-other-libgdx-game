@@ -79,7 +79,7 @@ public class MainPlayer extends Player implements LoadAndSave{
     // ctrl.limitBox.updateDes();
     ctrl.doWalkAndJump();
     // ctrl.constrain();
-    ctrl.limitBox.updateDes();
+    // ctrl.limitBox.updateDes();
     ctrl.limitBox.updateLimit();
     ctrl.limitBox.cornerFix();
     //---
