@@ -19,6 +19,7 @@ public class Loading extends StateEntity0001{
   }
   @Override
   public void from(State0001 in) {
+    manager.clear();//如果先前有残留的资源，先清除
     p.backgroundColor(0);
     p.textColor(255);
     // SVGAssets.init();
