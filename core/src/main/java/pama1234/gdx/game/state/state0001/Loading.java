@@ -1,6 +1,7 @@
 package pama1234.gdx.game.state.state0001;
 
 import com.badlogic.gdx.assets.AssetManager;
+import com.badlogic.gdx.graphics.Texture;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.GifAsset;
@@ -9,7 +10,6 @@ import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.asset.TvgAsset;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
 import pama1234.math.Tools;
-import com.badlogic.gdx.graphics.Texture;
 
 public class Loading extends StateEntity0001{
   public int frame;
@@ -52,7 +52,6 @@ public class Loading extends StateEntity0001{
       p.state(State0001.StartMenu);
     }
   }
-
   @Override
   public void dispose() {
     manager.dispose();
