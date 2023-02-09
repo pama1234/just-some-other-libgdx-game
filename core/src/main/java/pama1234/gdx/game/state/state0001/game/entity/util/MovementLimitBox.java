@@ -17,6 +17,56 @@ public class MovementLimitBox extends OuterBox{
       ()->p.pw.settings.blockHeight//floor
     );
   }
+  public void prePointUpdate() {
+    update();
+    updateLimitBox();
+  }
+  public void postPointUpdate() {
+    testCornerStuck();
+    constrain();
+  }
+  public void testInAir() {
+    inAir=p.point.pos.y<floor;
+  }
+  public void updateLimitBox() {
+    int bw=p.pw.settings.blockWidth,
+      bh=p.pw.settings.blockHeight;
+    if(testCeiling(0,w)) doCeiling(bh,y1);
+    else clearCeiling(bh);
+    //---
+    if(testFloor(0,w)) doFloor(bh,y2);
+    else clearFloor(bh);
+    //---
+    if(testLeft(0,h)) doLeft(bw,x1);
+    else clearLeft(bw);
+    //---
+    if(testRight(0,h)) doRight(bw,x2);
+    else clearRight(bw);
+  }
+  public void testCornerStuck() {
+    int bw=p.pw.settings.blockWidth,
+      bh=p.pw.settings.blockHeight;
+    float tx1=p.blockX1()*bw-p.x1();
+    float ty1=p.blockY1()*bh-p.y1();
+    float tx2=(p.blockX2()+1)*bw-p.x2();
+    float ty2=(p.blockY2()+1)*bh-p.y2();
+    if(!Block.isNotFullBlock(p.getBlock(x1,y1))) {
+      if(tx1>ty1) doLeft(bw,x1+1);
+      else doCeiling(bh,y1+1);
+    }
+    if(!Block.isNotFullBlock(p.getBlock(x1,y2))) {
+      if(tx1>ty2) doLeft(bw,x1+1);
+      else doFloor(bh,y2-1);
+    }
+    if(!Block.isNotFullBlock(p.getBlock(x2,y1))) {
+      if(tx2>ty1) doRight(bw,x2-1);
+      else doCeiling(bh,y1+1);
+    }
+    if(!Block.isNotFullBlock(p.getBlock(x2,y2))) {
+      if(tx2>ty2) doRight(bw,x2-1);
+      else doFloor(bh,y2-1);
+    }
+  }
   public void constrain() {
     if(p.point.pos.y<ceiling) {
       if(p.point.vel.y<0) p.point.vel.y=0;
@@ -33,41 +83,35 @@ public class MovementLimitBox extends OuterBox{
       p.point.pos.x=rightWall;
     }
   }
-  public void doInAirTest() {
-    inAir=p.point.pos.y<floor;
-  }
-  public void updateLimit() {
-    int blockWidth=p.pw.settings.blockWidth,
-      blockHeight=p.pw.settings.blockHeight;
-    if(testCeiling(0,w)) doCeiling(blockHeight);
-    else ceiling=(y1-4)*blockHeight;
-    //---
-    if(testFloor(0,w)) doFloor(blockHeight);
-    else floor=(y2+4)*blockHeight;
-    //---
-    if(testLeft(0,h)) doLeft(blockWidth);
-    else leftWall=(x1-4)*blockWidth;
-    //---
-    if(testRight(0,h)) doRight(blockWidth);
-    else rightWall=(x2+4)*blockWidth;
-  }
-  public void doRight(int blockWidth) {
-    rightWall=x2*blockWidth+rectConst.x2();
-  }
-  public void doLeft(int blockWidth) {
-    leftWall=x1*blockWidth+rectConst.x1();
-  }
-  public void doFloor(int blockHeight) {
-    floor=y2*blockHeight+rectConst.y2();
-  }
-  public void doCeiling(int blockHeight) {
-    ceiling=y1*blockHeight+rectConst.y1();
-  }
   public void bugFix() {
     if(inAir&&p.point.vel.y<0&&h>1) {
       h-=1;
       y2-=1;
     }
+  }
+  public float clearCeiling(int bh) {
+    return ceiling=(y1-4)*bh;
+  }
+  public float clearFloor(int bh) {
+    return floor=(y2+4)*bh;
+  }
+  public float clearLeft(int bw) {
+    return leftWall=(x1-4)*bw;
+  }
+  public float clearRight(int bw) {
+    return rightWall=(x2+4)*bw;
+  }
+  public void doCeiling(int bh,int y1) {
+    ceiling=y1*bh+rectConst.y1();
+  }
+  public void doFloor(int bh,int y2) {
+    floor=y2*bh+rectConst.y2();
+  }
+  public void doLeft(int bw,int x1) {
+    leftWall=x1*bw+rectConst.x1();
+  }
+  public void doRight(int bw,int x2) {
+    rightWall=x2*bw+rectConst.x2();
   }
   public boolean testRight(int a,int b) {
     for(int i=a;i<=b;i++) if(!Block.isNotFullBlock(p.getBlock(x2+1,y1+i))) return true;
