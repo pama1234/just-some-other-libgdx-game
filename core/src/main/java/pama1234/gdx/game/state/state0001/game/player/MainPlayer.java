@@ -73,21 +73,26 @@ public class MainPlayer extends Player implements LoadAndSave{
   }
   @Override
   public void update() {
-    for(TouchInfo e:p.touches) if(e.active) ctrl.touchUpdate(e);
-    ctrl.limitBox.update();
-    ctrl.updateCtrlInfo();
-    ctrl.doWalkAndJump();
-    // ctrl.limitBox.updateDes();
-    ctrl.limitBox.updateLimit();
+    ctrl.preUpdate();
     //---
     super.update();
-    ctrl.limitBox.constrain();
-    ctrl.updatePickItem();
-    p.cam.point.des.set(cx(),cy());
+    ctrl.postUpdate();
     //---
     inventory.update();
     if(life.pos<=0) respawn();
   }
+  // public void preUpdate() {
+  //   for(TouchInfo e:p.touches) if(e.active) ctrl.touchUpdate(e);
+  //   ctrl.limitBox.update();
+  //   ctrl.updateCtrlInfo();
+  //   ctrl.doWalkAndJump();
+  //   ctrl.limitBox.updateLimit();
+  // }
+  // public void postUpdate() {
+  //   ctrl.limitBox.constrain();
+  //   ctrl.updatePickItem();
+  //   p.cam.point.des.set(cx(),cy());
+  // }
   public void respawn() {
     point.pos.set(0,0);
     life.des=type.maxLife;

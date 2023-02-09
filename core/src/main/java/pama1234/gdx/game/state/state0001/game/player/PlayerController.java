@@ -120,6 +120,18 @@ public class PlayerController extends Entity<Screen0011>{
     }
     p.noTint();
   }
+  public void preUpdate() {
+    for(TouchInfo e:p.touches) if(e.active) touchUpdate(e);
+    limitBox.update();
+    updateCtrlInfo();
+    doWalkAndJump();
+    limitBox.updateLimit();
+  }
+  public void postUpdate() {
+    limitBox.constrain();
+    updatePickItem();
+    p.cam.point.des.set(player.cx(),player.cy());
+  }
   public void updateCtrlInfo() {
     updateKeyInfo();
     boolean tb=left!=right;
