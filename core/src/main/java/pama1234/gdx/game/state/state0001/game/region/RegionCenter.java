@@ -46,7 +46,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   public TilemapRenderer0001 tilemapRenderer;
   public Region cachedRegion;
   public RegionCenter(Screen0011 p,World0001 pw) {
-    this(p,pw,Gdx.files.local(pw.dataDir+"regions.bin"));
+    this(p,pw,Gdx.files.local(pw.dir()+"regions.bin"));
   }
   public RegionCenter(Screen0011 p,World0001 pw,FileHandle metadata) {
     super(p);

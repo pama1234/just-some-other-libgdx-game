@@ -26,7 +26,7 @@ public class RegionGenerator{
     rng=new Random2f(seed);
   }
   public Region get(int x,int y) {
-    Region region=new Region(p,pr,x,y,Gdx.files.local(pr.pw.dataDir+"regions/"+x+"."+y+".bin"));
+    Region region=new Region(p,pr,x,y,Gdx.files.local(pr.pw.dir()+"regions/"+x+"."+y+".bin"));
     if(region.dataLocation.exists()) region.load();
     get(region);
     return region;

@@ -1,9 +1,16 @@
 package pama1234.gdx.game.state.state0001.game.world;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.util.Arrays;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryo.KryoException;
+import com.esotericsoftware.kryo.io.Input;
+import com.esotericsoftware.kryo.io.Output;
 import com.esotericsoftware.kryo.serializers.FieldSerializer;
 import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer;
 import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
@@ -40,6 +47,30 @@ import pama1234.math.physics.PathPoint;
 import pama1234.math.physics.PathVar;
 
 public class World0001 extends WorldBase2D{
+  public static class WorldData{
+    @Tag(0)
+    public String dir;
+    @Tag(1)
+    public int time=12000;
+    public static WorldData load(FileHandle file) {
+      if(file.exists()) try(Input input=new Input(new FileInputStream(file.file()))) {
+        WorldData out=kryo.readObject(input,WorldData.class);
+        input.close();
+        return out;
+      }catch(FileNotFoundException|KryoException e) {
+        e.printStackTrace();
+      }
+      return new WorldData();
+    }
+    public static void save(FileHandle file,WorldData in) {
+      try(Output output=new Output(new FileOutputStream(file.file()))) {
+        kryo.writeObject(output,in);
+        output.close();
+      }catch(FileNotFoundException|KryoException e) {
+        e.printStackTrace();
+      }
+    }
+  }
   public static final Kryo kryo=new Kryo();
   static {
     kryo.setDefaultSerializer(TaggedFieldSerializer.class);
@@ -59,9 +90,10 @@ public class World0001 extends WorldBase2D{
     kryo.register(PathPoint.class,new FieldSerializer<PathPoint>(kryo,PathPoint.class));
     kryo.register(PathVar.class,new FieldSerializer<PathVar>(kryo,PathVar.class));
     kryo.register(int[].class);
+    kryo.register(WorldData.class);
   }
-  @Tag(0)
-  public String dataDir;
+  public FileHandle worldDataDir=Gdx.files.local("data/saved/test-world.bin");
+  public WorldData data;
   //---
   public MetaBlockCenter0001 metaBlocks;//方块
   public MetaItemCenter0001 metaItems;//物品
@@ -73,14 +105,13 @@ public class World0001 extends WorldBase2D{
   //---
   public MainPlayer yourself;
   public WorldSettings settings=new WorldSettings();
-  @Tag(1)
-  public int time=12000;
   // public int time=72000;
   public float timeF;
   public Sky sky;
   public World0001(Screen0011 p,Game pg) {
     super(p,pg,3);
-    dataDir="data/saved/test-world/";
+    data=WorldData.load(worldDataDir);
+    if(data.dir==null) data.dir="data/saved/test-world/";
     metaBlocks=World0001Generator.createBlockC(this);
     metaItems=World0001Generator.createItemC(this);
     for(MetaBlock e:metaBlocks.list) e.initItemDrop();
@@ -89,9 +120,12 @@ public class World0001 extends WorldBase2D{
     list[1]=regions=new RegionCenter(p,this);
     list[2]=entities=new MultiGameEntityCenter(p,this);
     entities.list.add(entities.players=new PlayerCenter(p));
-    yourself=new MainPlayer(p,this,0,0,Gdx.files.local(dataDir+"/main-player.bin"));
+    yourself=new MainPlayer(p,this,0,0,Gdx.files.local(data.dir+"/main-player.bin"));
     createBackground();
     sky=new Sky(this);
+  }
+  public String dir() {
+    return data.dir;
   }
   public void createBackground() {
     background.list.add(background.background0001=new BackgroundList(p,background));
@@ -120,7 +154,7 @@ public class World0001 extends WorldBase2D{
     for(MetaItem e:metaItems.list) e.init();
     for(MetaCreature<?> e:metaEntitys.list) e.init();
     for(int i=0;i<background.background0001.list.size();i++) background.background0001.list.get(i).setTexture(ImageAsset.backgroundList[4-i]);
-    Gdx.files.local(dataDir+"regions/").mkdirs();//TODO
+    Gdx.files.local(dir()+"regions/").mkdirs();//TODO
     regions.load();
     yourself.load();
     yourself.init();
@@ -160,6 +194,7 @@ public class World0001 extends WorldBase2D{
     if(p.isAndroid) {
       regions.innerSave();
       yourself.save();
+      WorldData.save(worldDataDir,data);
     }
   }
   public void innerPause() {
@@ -173,7 +208,7 @@ public class World0001 extends WorldBase2D{
   @Override
   public void update() {
     super.update();
-    time+=1;
+    data.time+=1;
     timeF+=p.frameRate;
     sky.updateColor();
   }
@@ -183,6 +218,7 @@ public class World0001 extends WorldBase2D{
     regions.save();
     regions.dispose();
     yourself.save();
+    WorldData.save(worldDataDir,data);
     // yourself.dispose();
   }
   public void destroyBlock(MainPlayer player,Block block,int x,int y) {

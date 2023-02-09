@@ -92,7 +92,7 @@ public class TreeLeaf extends MetaBlock{
       lightUpdater.update(in,x,y);
       int[] array=in.intData;
       // if(array==null) return;
-      if(pc.pw.time%2==0) {
+      if(pc.pw.data.time%2==0) {
         array[0]+=array[1];
         array[1]=0;
         return;

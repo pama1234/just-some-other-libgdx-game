@@ -31,13 +31,13 @@ public class Sky{
     daySkyGridSize=(float)pw.settings.daySize/skyColorCount;
   }
   public void updateColor() {
-    int tp=getSkyPos(pw.time);
+    int tp=getSkyPos(pw.data.time);
     if(skyColorPos!=tp) {
       skyColorPos=tp;
       colorA.set(colorB);
       colorB.set(getSkyColor(tp));
     }
-    lerpColor(colorA,colorB,backgroundColor,Tools.moveInRange(pw.time,0,daySkyGridSize)/daySkyGridSize);
+    lerpColor(colorA,colorB,backgroundColor,Tools.moveInRange(pw.data.time,0,daySkyGridSize)/daySkyGridSize);
     backgroundColor.toHsv(skyHsb);
     pw.p.backgroundColor(backgroundColor);//TODO
   }
