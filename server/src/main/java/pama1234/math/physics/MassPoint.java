@@ -11,6 +11,8 @@ public class MassPoint extends Point implements ByteBufferData{
   {
     f=0.8f;
   }
+  @Deprecated
+  public MassPoint() {}
   public MassPoint(Vec2f pos,Vec2f vel) {
     this.pos=pos;
     this.vel=vel;

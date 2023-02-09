@@ -45,6 +45,7 @@ import pama1234.math.UtilMath;
 import pama1234.math.physics.MassPoint;
 import pama1234.math.physics.PathPoint;
 import pama1234.math.physics.PathVar;
+import pama1234.math.vec.Vec2f;
 
 public class World0001 extends WorldBase2D{
   public static class WorldData{
@@ -91,6 +92,7 @@ public class World0001 extends WorldBase2D{
     kryo.register(PathVar.class,new FieldSerializer<PathVar>(kryo,PathVar.class));
     kryo.register(int[].class);
     kryo.register(WorldData.class);
+    kryo.register(Vec2f.class,new FieldSerializer<PathPoint>(kryo,Vec2f.class));
   }
   public FileHandle worldDataDir=Gdx.files.local("data/saved/test-world.bin");
   public WorldData data;
