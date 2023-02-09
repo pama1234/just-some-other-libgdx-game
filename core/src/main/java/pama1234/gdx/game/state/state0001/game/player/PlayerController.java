@@ -55,7 +55,7 @@ public class PlayerController extends Entity<Screen0011>{
     limitBox=new MovementLimitBox(player);
     selectEntity=new EntityPointer(player.pw,()->player.inventory.select().data);
     selectBlock=new ControllerBlockPointer(player.pw,()->player.inventory.select().data);
-    // player.outerBox=limitBox;
+    player.outerBox=limitBox;
   }
   @Override
   public void display() {
@@ -125,10 +125,10 @@ public class PlayerController extends Entity<Screen0011>{
     updateCtrlInfo();
     limitBox.preCtrlUpdate();
     doWalkAndJump();
-    limitBox.prePointUpdate();
+    // limitBox.prePointUpdate();
   }
   public void postUpdate() {
-    limitBox.postPointUpdate();
+    // limitBox.postPointUpdate();
     updatePickItem();
     p.cam.point.des.set(player.cx(),player.cy());
   }

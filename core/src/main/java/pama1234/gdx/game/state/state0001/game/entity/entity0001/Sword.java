@@ -20,14 +20,10 @@ public class Sword extends LivingEntity{
   }
   @Override
   public void update() {
-    // limitBox.update();
-    // limitBox.updateLimitBox();
-    // limitBox.testInAir();
     limitBox.preCtrlUpdate();
     move();
     if(limitBox.inAir) point.vel.y+=pw.settings.g;
     super.update();
-    // limitBox.constrain();
   }
   public void move() {}
   @Override

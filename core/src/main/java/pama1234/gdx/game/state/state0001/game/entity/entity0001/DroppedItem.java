@@ -23,17 +23,17 @@ public class DroppedItem extends LivingEntity{
     super(p,pw,new MassPoint(x,y,xVel,yVel),type);
     this.data=data;
     pc=data.type.pc.pw.entities.items;
-    limitBox=new MovementLimitBox(this);
+    outerBox=limitBox=new MovementLimitBox(this);
   }
   @Override
   public void update() {
-    limitBox.update();
+    // limitBox.update();
+    limitBox.preCtrlUpdate();
     itemAttract();
-    limitBox.updateLimitBox();
-    limitBox.testInAir();
+    // limitBox.updateLimitBox();
+    // limitBox.testInAir();
     if(limitBox.inAir) point.vel.y+=pw.settings.g;
     super.update();
-    limitBox.constrain();
   }
   public void itemAttract() {
     Iterator<DroppedItem> di=pc.list.descendingIterator();

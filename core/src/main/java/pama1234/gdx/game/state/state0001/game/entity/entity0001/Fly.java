@@ -16,13 +16,9 @@ public class Fly extends MobEntity{
   }
   @Override
   public void update() {
-    // limitBox.update();
     limitBox.preCtrlUpdate();
     playerAttract();
-    // limitBox.updateLimitBox();
-    // limitBox.testInAir();
     super.update();
-    // limitBox.constrain();
     if((point.vel.x>0)!=flipX) flipX=!flipX;
   }
   public void playerAttract() {
