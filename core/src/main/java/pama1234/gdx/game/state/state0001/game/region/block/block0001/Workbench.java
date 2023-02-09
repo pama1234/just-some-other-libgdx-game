@@ -21,6 +21,7 @@ import pama1234.gdx.game.ui.util.TextButtonCam;
 import pama1234.math.Tools;
 
 public class Workbench extends MetaBlock{
+  public static final int stepMod=2,stopMod=1,updateMod=0;
   public int outputSlotSize=2,sloatSize=5;
   public CraftRecipe[] recipeList;
   public Workbench(MetaBlockCenter0001 pc,int id) {
@@ -43,18 +44,21 @@ public class Workbench extends MetaBlock{
       lightUpdater.update(in,x,y);
       int tw=pc.pw.settings.blockWidth,
         th=pc.pw.settings.blockHeight;
-      int tl=in.ui.camButton.length;
+      // int tl=in.ui.camButton.length;
       // for(int i=0;i<tl;i++) {
       //   int ti=i;
       //   in.ui.camButton[i].rect.x=()->x*tw;
       //   in.ui.camButton[i].rect.y=()->(y-2-tl+ti)*th;
       // }
+      // int tx=(in.ui.displaySlot.length-1)/2*tw;
+      // in.intData[2]=(x-tx)*tw;
       in.intData[2]=(x-2)*tw;
-      in.intData[3]=(y-2-tl)*th;
-      if(in.intData[1]!=0) return;
-      in.intData[0]=Tools.moveInRange(in.intData[0],0,recipeList.length);
-      checkRecipe(in,recipeList[in.intData[0]]);
-      for(CraftRecipe e:recipeList) checkRecipe(in,e);
+      in.intData[3]=(y-3)*th;
+      // in.intData[3]=(y-2-tl)*th;
+      // in.intData[0]=Tools.moveInRange(in.intData[0],0,recipeList.length);
+      if(in.intData[1]==stopMod) return;
+      checkRecipe(in,recipeList[in.intData[0]],in.intData[1]);
+      for(CraftRecipe e:recipeList) checkRecipe(in,e,in.intData[1]);
     };
     displayer=(r,p,in,x,y)-> {
       defaultBlockDisplayer.display(r,p,in,x,y);
@@ -90,10 +94,10 @@ public class Workbench extends MetaBlock{
     p.image(tr,x,y);
     p.text(Integer.toString(count),x,y);
   }
-  public void checkRecipe(Block in,CraftRecipe e) {
-    checkRecipe(in.itemData,e,outputSlotSize);
+  public void checkRecipe(Block in,CraftRecipe e,int type) {
+    checkRecipe(in.itemData,e,outputSlotSize,type);
   }
-  public static void checkRecipe(ItemSlot[] itemData,CraftRecipe e,int outputSlotSize) {
+  public static void checkRecipe(ItemSlot[] itemData,CraftRecipe e,int outputSlotSize,int type) {
     if(e.output.length>outputSlotSize) return;
     for(CraftItem i:e.input) {
       int count=0;
@@ -104,9 +108,13 @@ public class Workbench extends MetaBlock{
       }
       if(count<i.count) return;
     }
-    for(int k=0;k<e.output.length;k++) {
-      ItemSlot slot=itemData[k];
-      if(slot.item!=null&&slot.item.type!=e.output[k].type) return;
+    if(type==stepMod) {
+      for(int k=0;k<e.output.length;k++) if(itemData[k].item!=null) return;
+    }else {
+      for(int k=0;k<e.output.length;k++) {
+        ItemSlot slot=itemData[k];
+        if(slot.item!=null&&slot.item.type!=e.output[k].type) return;
+      }
     }
     for(CraftItem i:e.input) {
       int count=i.count;
@@ -168,5 +176,6 @@ public class Workbench extends MetaBlock{
       new CraftRecipe(new CraftItem[] {new CraftItem(mi.leaf)},new CraftItem[] {new CraftItem(mi.sapling,2)}),
       new CraftRecipe(new CraftItem[] {new CraftItem(mi.leaf),new CraftItem(mi.branch)},new CraftItem[] {new CraftItem(mi.torch,4)}),
     };
+    intData=new int[] {recipeList.length};
   }
 }

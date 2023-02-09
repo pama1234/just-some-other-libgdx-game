@@ -234,12 +234,7 @@ public class PlayerController extends Entity<Screen0011>{
           e.clickStart();
           return true;
         }
-        // if(e.inButton(x,y)) {
-        //   e.clickStart();
-        //   e.press();
-        //   e.clickEnd();
-        //   return true;
-        // }
+        e.touch=temp;
       }
     }
     return false;
@@ -248,15 +243,7 @@ public class PlayerController extends Entity<Screen0011>{
     if(selectBlock.task==BlockPointer.use) {
       BlockUi ui=selectBlock.block.ui;
       TextButtonCam<?>[] camButton=ui.camButton;
-      for(TextButtonCam<?> e:camButton) {
-        if(info==e.touch) e.clickEnd();
-        // if(e.inButton(x,y)) {
-        //   e.clickStart();
-        //   e.press();
-        //   e.clickEnd();
-        //   return true;
-        // }
-      }
+      for(TextButtonCam<?> e:camButton) if(info==e.touch) e.clickEnd();
     }
   }
   public boolean updateAndTestInventorySlot(float x,float y,int button) {
@@ -345,11 +332,11 @@ public class PlayerController extends Entity<Screen0011>{
   }
   @Override
   public void mouseWheel(float x,float y) {
-    if(selectBlock.task==BlockPointer.use) selectBlock.block.intData[0]+=(int)y;
-    else {
-      selectHotSlot(player.inventory.selectSlot+(int)y);
-      player.inventory.testSelectSlot();
-    }
+    // if(selectBlock.task==BlockPointer.use) selectBlock.block.intData[0]+=(int)y;
+    // else {
+    selectHotSlot(player.inventory.selectSlot+(int)y);
+    player.inventory.testSelectSlot();
+    // }
   }
   public void selectHotSlot(int in) {
     player.inventory.select(in);

@@ -4,7 +4,6 @@ import pama1234.gdx.game.util.function.GetBoolean;
 import pama1234.gdx.game.util.function.GetFloat;
 import pama1234.gdx.game.util.function.GetInt;
 import pama1234.gdx.util.app.UtilScreen;
-import pama1234.math.Tools;
 
 public class TextButtonCam<T extends UtilScreen>extends TextButton<T>{
   {
@@ -14,10 +13,6 @@ public class TextButtonCam<T extends UtilScreen>extends TextButton<T>{
   public TextButtonCam(T p,boolean textOffset,GetBoolean active,ButtonEvent press,ButtonEvent clickStart,ButtonEvent clickEnd,ButtonEvent updateText,GetInt bu,GetFloat x,GetFloat y) {
     super(p,textOffset,active,press,clickStart,clickEnd,updateText,bu,x,y);
     this.rect.w=()->p.textWidthCam(this.text)+(this.textOffset?16:0);//TODO
-  }
-  @Override
-  public boolean inButton(float xIn,float yIn) {
-    return Tools.inBox(xIn,yIn,rect.x.get(),rect.y.get(),rect.w.get(),rect.h.get());
   }
   @Override
   public void display() {

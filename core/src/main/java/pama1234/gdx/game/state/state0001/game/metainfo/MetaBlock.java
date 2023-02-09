@@ -20,6 +20,7 @@ public class MetaBlock extends MetaInfoBase{
   public boolean workStation;
   public int width=1,height=1;
   public boolean[][] rectSolid;
+  public int[] intData;
   public ItemDropAttr[] itemDrop;
   public int displayTypeSize;
   public int defaultDisplayType;

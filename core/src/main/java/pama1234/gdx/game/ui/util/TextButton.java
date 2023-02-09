@@ -60,6 +60,7 @@ public class TextButton<T extends UtilScreen>extends Button<T>{
     p.text(text,tx+(textOffset?p.pu/2:0),ty+(th-p.pu)/2f-p.pus);
     p.endBlend();
   }
+  @Override
   public boolean inButton(float xIn,float yIn) {
     return Tools.inBox(xIn,yIn,rect.x.get(),rect.y.get(),rect.w.get(),rect.h.get());
   }
