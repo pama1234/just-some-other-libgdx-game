@@ -18,8 +18,11 @@ public class Debug extends StateEntity0001{
   public World0001 world;
   public MainPlayer player;
   public PlayerController controller;
+  public boolean firstInit;
   public Debug(Screen0011 p) {
     super(p);
+  }
+  public void innerInit(Screen0011 p) {
     buttons=UiGenerator.genButtons_0004(p);
     world=new World0001(p,null);
     world.dataDir="data/saved/debug-world";
@@ -33,6 +36,7 @@ public class Debug extends StateEntity0001{
   @Override
   public void from(State0001 in) {
     for(Button<?> e:buttons) p.centerScreen.add.add(e);
+    if(firstInit) innerInit(p);
   }
   @Override
   public void to(State0001 in) {

@@ -17,6 +17,7 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemC
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.region.block.Block.BlockUi;
 import pama1234.gdx.game.ui.generator.UiGenerator;
+import pama1234.gdx.game.ui.util.TextButtonCam;
 import pama1234.math.Tools;
 
 public class Workbench extends MetaBlock{
@@ -40,14 +41,16 @@ public class Workbench extends MetaBlock{
   public void initLambda() {
     updater=(in,x,y)-> {
       lightUpdater.update(in,x,y);
-      float tw=pc.pw.settings.blockWidth,
+      int tw=pc.pw.settings.blockWidth,
         th=pc.pw.settings.blockHeight;
       int tl=in.ui.camButton.length;
-      for(int i=0;i<tl;i++) {
-        int ti=i;
-        in.ui.camButton[i].rect.x=()->x*tw;
-        in.ui.camButton[i].rect.y=()->(y-2-tl+ti)*th;
-      }
+      // for(int i=0;i<tl;i++) {
+      //   int ti=i;
+      //   in.ui.camButton[i].rect.x=()->x*tw;
+      //   in.ui.camButton[i].rect.y=()->(y-2-tl+ti)*th;
+      // }
+      in.intData[2]=(x-2)*tw;
+      in.intData[3]=(y-2-tl)*th;
       if(in.intData[1]!=0) return;
       in.intData[0]=Tools.moveInRange(in.intData[0],0,recipeList.length);
       checkRecipe(in,recipeList[in.intData[0]]);
@@ -75,10 +78,11 @@ public class Workbench extends MetaBlock{
       p.tint(255,160);
       p.textColor(255,160);
       float i=-2;
-      for(CraftItem j:recipe.output) drawItemWithCount(p,x+(i+=1)*tw,y-th*2,j.type,j.count);
+      for(CraftItem e:recipe.output) drawItemWithCount(p,x+(i+=1)*tw,y-th*2,e.type,e.count);
       i+=1;
-      for(CraftItem j:recipe.input) drawItemWithCount(p,x+(i+=1)*tw,y-th*2,j.type,j.count);
+      for(CraftItem e:recipe.input) drawItemWithCount(p,x+(i+=1)*tw,y-th*2,e.type,e.count);
       p.noTint();
+      for(TextButtonCam<?> e:in.ui.camButton) e.display();
     };
   }
   public static void drawItemWithCount(Screen0011 p,float x,float y,MetaItem type,int count) {
@@ -131,7 +135,8 @@ public class Workbench extends MetaBlock{
   }
   @Override
   public void initBlock(Block in) {
-    if(in.intData==null) in.intData=new int[2];
+    if(in.intData==null) in.intData=new int[4];
+    else if(in.intData.length<4) in.intData=new int[4];
     if(in.itemData==null) {
       in.itemData=new ItemSlot[sloatSize];
       for(int i=0;i<in.itemData.length;i++) in.itemData[i]=new ItemSlot();

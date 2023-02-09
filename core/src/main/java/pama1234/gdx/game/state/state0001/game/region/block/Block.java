@@ -46,33 +46,33 @@ public class Block{
   public BlockUi ui;
   @Deprecated
   public Block() {}//只能用于kryo
-  public Block(MetaBlock type,int x,int y) {
-    innerInit(type,x,y);
+  public Block(MetaBlock type) {
+    innerInit(type);
   }
-  public void innerInit(MetaBlock type,int x,int y) {
+  public void innerInit(MetaBlock type) {
     innerSetType(type);
-    init(type,x,y);
+    init(type);
     light=new PathVarLighting();
   }
   public void innerSetType(MetaBlock in) {
     type=in;
     typeId=in.id;
   }
-  public void init(MetaBlock type,int x,int y) {
+  public void init(MetaBlock type) {
     if(type.displayTypeSize>0) {
       displayType=new int[type.displayTypeSize];
       displayType[0]=type.getDisplayType();
     }else displayType=null;
-    type.initBlock(this,x,y);
+    type.initBlock(this);
   }
-  public void type(MetaBlock in,int x,int y) {
+  public void type(MetaBlock in) {
     MetaBlock t=type;
     if(in==t) return;
     changed=true;
     // updateLighting=true;
     innerSetType(in);
     t.to(this,in);
-    init(in,x,y);
+    init(in);
     in.from(this,t);
   }
   public static boolean isEmpty(Block in) {

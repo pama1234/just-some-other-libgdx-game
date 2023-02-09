@@ -16,7 +16,9 @@ import pama1234.gdx.game.state.state0001.game.item.Item.ItemSlot;
 import pama1234.gdx.game.state.state0001.game.item.Item.ItemSlot.GetItemSlot;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
+import pama1234.gdx.game.state.state0001.game.region.block.Block.BlockUi;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
+import pama1234.gdx.game.ui.util.TextButtonCam;
 import pama1234.gdx.game.util.RectF;
 import pama1234.gdx.util.entity.Entity;
 import pama1234.gdx.util.info.TouchInfo;
@@ -166,7 +168,7 @@ public class PlayerController extends Entity<Screen0011>{
     int tx=player.xToBlockCord(info.x),
       ty=player.xToBlockCord(info.y);
     if(updateAndTestInventorySlot(info.x,info.y,info.button)) return;
-    if(updateAndTestWorkStationSlot(info.x,info.y,info.button)) return;
+    if(updateAndTestWorkStationUi(info)) return;
     if(p.isAndroid&&inPlayerOuterBox(tx,ty)) {
       player.inventory.displayStateChange();
       return;
@@ -197,6 +199,7 @@ public class PlayerController extends Entity<Screen0011>{
   public void touchEnded(TouchInfo info) {
     if(p.isAndroid&&selectBlock.task!=BlockPointer.use) selectBlock.active=false;
     selectBlock.testStopTask(info);
+    testWorkStationUiTouchEnded(info);
   }
   public boolean updateAndTestSelectEntity(int tx,int ty,int button) {
     for(EntityCenter<Screen0011,? extends GamePointEntity<?>> l:player.pw.entities.list) {
@@ -214,12 +217,47 @@ public class PlayerController extends Entity<Screen0011>{
     selectEntity.entity=null;
     return false;
   }
-  public boolean updateAndTestWorkStationSlot(float x,float y,int button) {
+  public boolean updateAndTestWorkStationUi(TouchInfo info) {
     if(selectBlock.task==BlockPointer.use) {
-      DisplaySlot[] slots=selectBlock.block.ui.displaySlot;
+      BlockUi ui=selectBlock.block.ui;
+      DisplaySlot[] slots=ui.displaySlot;
+      float x=info.x;
+      float y=info.y;
+      int button=info.button;
       for(DisplaySlot e:slots) if(testSlot(x,y,button,e)) return true;
+      TextButtonCam<?>[] camButton=ui.camButton;
+      for(TextButtonCam<?> e:camButton) {
+        TouchInfo temp=e.touch;
+        if(info==temp||!info.active) continue;
+        e.touch=info;
+        if(e.inButton(e.nx.get(),e.ny.get())) {
+          e.clickStart();
+          return true;
+        }
+        // if(e.inButton(x,y)) {
+        //   e.clickStart();
+        //   e.press();
+        //   e.clickEnd();
+        //   return true;
+        // }
+      }
     }
     return false;
+  }
+  public void testWorkStationUiTouchEnded(TouchInfo info) {
+    if(selectBlock.task==BlockPointer.use) {
+      BlockUi ui=selectBlock.block.ui;
+      TextButtonCam<?>[] camButton=ui.camButton;
+      for(TextButtonCam<?> e:camButton) {
+        if(info==e.touch) e.clickEnd();
+        // if(e.inButton(x,y)) {
+        //   e.clickStart();
+        //   e.press();
+        //   e.clickEnd();
+        //   return true;
+        // }
+      }
+    }
   }
   public boolean updateAndTestInventorySlot(float x,float y,int button) {
     if(player.inventory.displayState==Inventory.displayFullInventory) {

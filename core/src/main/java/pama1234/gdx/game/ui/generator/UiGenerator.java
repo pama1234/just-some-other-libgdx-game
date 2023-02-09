@@ -24,11 +24,12 @@ import pama1234.gdx.game.util.RectF;
 import pama1234.gdx.util.app.ScreenCore3D;
 
 public class UiGenerator{
-  public static <T extends Screen0011> TextButtonCam<?>[] genButtons_0009(Screen0011 p,Block in,int x,int y) {
+  public static <T extends Screen0011> TextButtonCam<?>[] genButtons_0009(Screen0011 p,Block in) {
     return new TextButtonCam[] {
       new TextButtonCam<Screen0011>(p,true,()->true,self-> {},self-> {},self-> {
         in.intData[1]=(in.intData[1]+1)%2;
-      },self->self.text="合成刷新："+(in.intData[1]==0?"是":"否"),()->18,()->0,()->0),
+        self.updateText();
+      },self->self.text="合成刷新："+(in.intData[1]==0?"是":"否"),()->18,()->in.intData[2],()->in.intData[3]),
     };
   }
   public static TextField[] genTextFields_0002(Screen0011 p) {
