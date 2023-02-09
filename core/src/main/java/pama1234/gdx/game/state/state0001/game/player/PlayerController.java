@@ -216,7 +216,7 @@ public class PlayerController extends Entity<Screen0011>{
   }
   public boolean updateAndTestWorkStationSlot(float x,float y,int button) {
     if(selectBlock.task==BlockPointer.use) {
-      DisplaySlot[] slots=selectBlock.block.displaySlot;
+      DisplaySlot[] slots=selectBlock.block.ui.displaySlot;
       for(DisplaySlot e:slots) if(testSlot(x,y,button,e)) return true;
     }
     return false;

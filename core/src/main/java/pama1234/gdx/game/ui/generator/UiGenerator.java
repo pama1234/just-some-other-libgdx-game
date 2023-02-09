@@ -11,6 +11,7 @@ import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.Settings;
 import pama1234.gdx.game.state.state0001.State0001;
+import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.ui.CodeTextFieldStyle;
 import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.ui.util.NormalOnscreenKeyboard;
@@ -23,6 +24,13 @@ import pama1234.gdx.game.util.RectF;
 import pama1234.gdx.util.app.ScreenCore3D;
 
 public class UiGenerator{
+  public static <T extends Screen0011> TextButtonCam<?>[] genButtons_0009(Screen0011 p,Block in,int x,int y) {
+    return new TextButtonCam[] {
+      new TextButtonCam<Screen0011>(p,true,()->true,self-> {},self-> {},self-> {
+        in.intData[1]=(in.intData[1]+1)%2;
+      },self->self.text="合成刷新："+(in.intData[1]==0?"是":"否"),()->18,()->0,()->0),
+    };
+  }
   public static TextField[] genTextFields_0002(Screen0011 p) {
     TextField[] out=new TextField[] {new TextField("联机写好后，这里输入IP地址哦",new CodeTextFieldStyle(p),
       new RectF(()->0,()->-20,()->256,()->18),

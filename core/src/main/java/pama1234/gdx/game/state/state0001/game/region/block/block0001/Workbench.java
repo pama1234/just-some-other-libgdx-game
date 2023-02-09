@@ -15,6 +15,8 @@ import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemCenter0001;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
+import pama1234.gdx.game.state.state0001.game.region.block.Block.BlockUi;
+import pama1234.gdx.game.ui.generator.UiGenerator;
 import pama1234.math.Tools;
 
 public class Workbench extends MetaBlock{
@@ -26,7 +28,8 @@ public class Workbench extends MetaBlock{
     },(in,type)-> {//change from workbench
       in.intData=null;
       in.itemData=null;
-      in.displaySlot=null;
+      in.ui=null;
+      // in.ui.displaySlot=null;
     });
     workStation=true;
     fullBlock=false;
@@ -37,6 +40,14 @@ public class Workbench extends MetaBlock{
   public void initLambda() {
     updater=(in,x,y)-> {
       lightUpdater.update(in,x,y);
+      float tw=pc.pw.settings.blockWidth,
+        th=pc.pw.settings.blockHeight;
+      int tl=in.ui.camButton.length;
+      for(int i=0;i<tl;i++) {
+        int ti=i;
+        in.ui.camButton[i].rect.x=()->x*tw;
+        in.ui.camButton[i].rect.y=()->(y-2-tl+ti)*th;
+      }
       if(in.intData[1]!=0) return;
       in.intData[0]=Tools.moveInRange(in.intData[0],0,recipeList.length);
       checkRecipe(in,recipeList[in.intData[0]]);
@@ -46,13 +57,13 @@ public class Workbench extends MetaBlock{
       defaultBlockDisplayer.display(r,p,in,x,y);
       float tw=pc.pw.settings.blockWidth,
         th=pc.pw.settings.blockHeight;
-      float tx=(in.displaySlot.length-1)/2*tw;
-      for(int i=0;i<in.displaySlot.length;i++) {//TODO waste efficiency
-        DisplaySlot slot=in.displaySlot[i];
+      float tx=(in.ui.displaySlot.length-1)/2*tw;
+      for(int i=0;i<in.ui.displaySlot.length;i++) {//TODO waste efficiency
+        DisplaySlot slot=in.ui.displaySlot[i];
         slot.update(x-tx+i*tw,y-th);
       }
       p.textScale(0.5f);
-      for(DisplaySlot e:in.displaySlot) Inventory.displaySlot(p,e);
+      for(DisplaySlot e:in.ui.displaySlot) Inventory.displaySlot(p,e);
       p.textScale(1);
       // p.text(Integer.toString(in.intData[0]),x,y-tw*2);
       int ti=in.intData[0];
@@ -125,8 +136,10 @@ public class Workbench extends MetaBlock{
       in.itemData=new ItemSlot[sloatSize];
       for(int i=0;i<in.itemData.length;i++) in.itemData[i]=new ItemSlot();
     }
-    in.displaySlot=new DisplaySlot[in.itemData.length];
-    for(int i=0;i<in.displaySlot.length;i++) in.displaySlot[i]=new DisplaySlot(in.itemData[i]);
+    in.ui=new BlockUi();
+    in.ui.displaySlot=new DisplaySlot[in.itemData.length];
+    for(int i=0;i<in.ui.displaySlot.length;i++) in.ui.displaySlot[i]=new DisplaySlot(in.itemData[i]);
+    in.ui.camButton=UiGenerator.genButtons_0009(pc.pw.p,in);
     in.changed=true;
   }
   @Override

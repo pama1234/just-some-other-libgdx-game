@@ -217,6 +217,8 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
         // refresh();
         // Stream<Region> stream=list.stream().parallel();
         // stream.forEach(r->r.update());
+        // Iterator<Region> it=list.iterator();
+        // while(it.hasNext()) it.next().update();
         RegionCenter.super.update();
         // refresh();
         // for(Region e:list) e.update();

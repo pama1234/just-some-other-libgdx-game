@@ -10,8 +10,15 @@ import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock.ItemDropAttr;
 import pama1234.gdx.game.state.state0001.game.region.PathVarLighting;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
+import pama1234.gdx.game.ui.util.TextButton;
+import pama1234.gdx.game.ui.util.TextButtonCam;
 
 public class Block{
+  public static class BlockUi{
+    public DisplaySlot[] displaySlot;
+    public TextButtonCam<?>[] camButton;
+    public TextButton<?>[] button;
+  }
   public static class Linker{
     @Tag(0)
     public int[] intArray;
@@ -35,36 +42,37 @@ public class Block{
   public ItemSlot[] itemData;
   // @Tag(4)
   // public Block nextBlock;
-  public DisplaySlot[] displaySlot;
+  // public DisplaySlot[] displaySlot;
+  public BlockUi ui;
   @Deprecated
   public Block() {}//只能用于kryo
-  public Block(MetaBlock type) {
-    innerInit(type);
+  public Block(MetaBlock type,int x,int y) {
+    innerInit(type,x,y);
   }
-  public void innerInit(MetaBlock type) {
+  public void innerInit(MetaBlock type,int x,int y) {
     innerSetType(type);
-    init(type);
+    init(type,x,y);
     light=new PathVarLighting();
   }
   public void innerSetType(MetaBlock in) {
     type=in;
     typeId=in.id;
   }
-  public void init(MetaBlock type) {
+  public void init(MetaBlock type,int x,int y) {
     if(type.displayTypeSize>0) {
       displayType=new int[type.displayTypeSize];
       displayType[0]=type.getDisplayType();
     }else displayType=null;
-    type.initBlock(this);
+    type.initBlock(this,x,y);
   }
-  public void type(MetaBlock in) {
+  public void type(MetaBlock in,int x,int y) {
     MetaBlock t=type;
     if(in==t) return;
     changed=true;
     // updateLighting=true;
     innerSetType(in);
     t.to(this,in);
-    init(in);
+    init(in,x,y);
     in.from(this,t);
   }
   public static boolean isEmpty(Block in) {
