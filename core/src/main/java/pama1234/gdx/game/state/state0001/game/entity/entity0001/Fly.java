@@ -12,16 +12,17 @@ public class Fly extends MobEntity{
   public MovementLimitBox limitBox;
   public Fly(Screen0011 p,World0001 pw,float x,float y) {
     super(p,pw,x,y,pw.metaEntitys.fly);
-    limitBox=new MovementLimitBox(this);
+    outerBox=limitBox=new MovementLimitBox(this);
   }
   @Override
   public void update() {
-    limitBox.update();
-    // playerAttract();
-    limitBox.updateLimitBox();
-    limitBox.testInAir();
+    // limitBox.update();
+    limitBox.preCtrlUpdate();
+    playerAttract();
+    // limitBox.updateLimitBox();
+    // limitBox.testInAir();
     super.update();
-    limitBox.constrain();
+    // limitBox.constrain();
     if((point.vel.x>0)!=flipX) flipX=!flipX;
   }
   public void playerAttract() {

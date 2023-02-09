@@ -8,6 +8,10 @@ public class OuterBox{
   public OuterBox(LivingEntity p) {
     this.p=p;
   }
+  public void prePointUpdate() {}
+  public void postPointUpdate() {
+    update();
+  }
   public void update() {
     x1=p.blockX1();
     y1=p.blockY1();

@@ -122,16 +122,13 @@ public class PlayerController extends Entity<Screen0011>{
   }
   public void preUpdate() {
     for(TouchInfo e:p.touches) if(e.active) touchUpdate(e);
-    // limitBox.update();
     updateCtrlInfo();
+    limitBox.preCtrlUpdate();
     doWalkAndJump();
-    // limitBox.updateLimitBox();
     limitBox.prePointUpdate();
   }
   public void postUpdate() {
     limitBox.postPointUpdate();
-    // limitBox.testCornerStuck();
-    // limitBox.constrain();
     updatePickItem();
     p.cam.point.des.set(player.cx(),player.cy());
   }
@@ -355,7 +352,7 @@ public class PlayerController extends Entity<Screen0011>{
         player.flipX=false;
       }
     }else walkSlowDown();
-    limitBox.testInAir();
+    // limitBox.testInAir();
     if(limitBox.inAir) {
       if(jump&&jumpHeight<-player.pw.settings.jumpForce*jumpForceMult) {
         player.point.vel.y-=player.pw.settings.g*2;

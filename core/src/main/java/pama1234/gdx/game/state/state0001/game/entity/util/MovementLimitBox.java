@@ -17,10 +17,15 @@ public class MovementLimitBox extends OuterBox{
       ()->p.pw.settings.blockHeight//floor
     );
   }
+  public void preCtrlUpdate() {
+    testInAir();
+  }
+  @Override
   public void prePointUpdate() {
     update();
     updateLimitBox();
   }
+  @Override
   public void postPointUpdate() {
     testCornerStuck();
     constrain();

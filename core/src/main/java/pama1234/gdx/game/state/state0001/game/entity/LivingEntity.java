@@ -36,9 +36,10 @@ public class LivingEntity extends GamePointEntity<MassPoint>{
   }
   @Override
   public void update() {
+    outerBox.prePointUpdate();
     super.update();
     life.update();
-    outerBox.update();
+    outerBox.postPointUpdate();
     lightingUpdate();
   }
   public void lightingUpdate() {
