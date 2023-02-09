@@ -35,7 +35,9 @@ public class Loading extends StateEntity0001{
     ImageAsset.load_0001(manager);
   }
   @Override
-  public void to(State0001 in) {}
+  public void to(State0001 in) {
+    frame=0;
+  }
   @Override
   public void display() {
     String text="加载中 "+frame+"tick "+Tools.cutToLastDigit(manager.getProgress()*100)+"%";

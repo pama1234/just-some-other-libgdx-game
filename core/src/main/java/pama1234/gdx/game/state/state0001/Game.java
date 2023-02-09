@@ -82,35 +82,35 @@ public class Game extends StateEntity0001{
     p.fill(94,203,234,ta);
     rectStroke(p,1,bx1*bw,by1*bh,(bx2+1)*bw,(by2+1)*bh);
     // p.fill(255,203,234,ta);
-    int a=191,b=95;
-    p.fill(255,203,234,limitBox.leftUpMoved?a:b);
-    if(limitBox.leftUpDesSlopFlag) boxStroke(p,1,limitBox.desX1*bw,limitBox.desY1*bh,bw,bh/2f);
-    else boxStroke(p,1,limitBox.desX1*bw,limitBox.desY1*bh,bw/2f,bh);
-    p.fill(255,203,234,limitBox.leftDownMoved?a:b);
-    if(limitBox.leftDownDesSlopFlag) boxStroke(p,1,limitBox.desX1*bw,(limitBox.desY2+0.5f)*bh,bw,bh/2f);
-    else boxStroke(p,1,limitBox.desX1*bw,limitBox.desY2*bh,bw/2f,bh);
-    p.fill(255,203,234,limitBox.rightUpMoved?a:b);
-    if(limitBox.rightUpDesSlopFlag) boxStroke(p,1,limitBox.desX2*bw,limitBox.desY1*bh,bw,bh/2f);
-    else boxStroke(p,1,(limitBox.desX2+0.5f)*bw,limitBox.desY1*bh,bw/2f,bh);
-    p.fill(255,203,234,limitBox.rightDownMoved?a:b);
-    if(limitBox.rightDownDesSlopFlag) boxStroke(p,1,limitBox.desX2*bw,(limitBox.desY2+0.5f)*bh,bw,bh/2f);
-    else boxStroke(p,1,(limitBox.desX2+0.5f)*bw,limitBox.desY2*bh,bw/2f,bh);
-    //---
-    p.fill(175,203,234,limitBox.leftUpMoved?a:b);
-    if(limitBox.leftUpPosSlopFlag) boxStroke(p,1,(limitBox.x1-1)*bw,limitBox.y1*bh,bw/2f,bh/2f);
-    else boxStroke(p,1,limitBox.x1*bw,(limitBox.y1-1)*bh,bw/2f,bh/2f);
-    //---
-    p.fill(175,203,234,limitBox.leftDownMoved?a:b);
-    if(limitBox.leftDownPosSlopFlag) boxStroke(p,1,(limitBox.x1-1)*bw,(limitBox.y2+0.5f)*bh,bw/2f,bh/2f);
-    else boxStroke(p,1,limitBox.x1*bw,(limitBox.y2+1.5f)*bh,bw/2f,bh/2f);
-    //---
-    p.fill(175,203,234,limitBox.rightUpMoved?a:b);
-    if(limitBox.rightUpPosSlopFlag) boxStroke(p,1,(limitBox.x2+1.5f)*bw,limitBox.y1*bh,bw/2f,bh/2f);
-    else boxStroke(p,1,(limitBox.x2+0.5f)*bw,(limitBox.y1-1)*bh,bw/2f,bh/2f);
-    //---
-    p.fill(175,203,234,limitBox.rightDownMoved?a:b);
-    if(limitBox.rightDownPosSlopFlag) boxStroke(p,1,(limitBox.x2+1.5f)*bw,(limitBox.y2+0.5f)*bh,bw/2f,bh/2f);
-    else boxStroke(p,1,(limitBox.x2+0.5f)*bw,(limitBox.y2+1.5f)*bh,bw/2f,bh/2f);
+    // int a=191,b=95;
+    // p.fill(255,203,234,limitBox.leftUpMoved?a:b);
+    // if(limitBox.leftUpDesSlopFlag) boxStroke(p,1,limitBox.desX1*bw,limitBox.desY1*bh,bw,bh/2f);
+    // else boxStroke(p,1,limitBox.desX1*bw,limitBox.desY1*bh,bw/2f,bh);
+    // p.fill(255,203,234,limitBox.leftDownMoved?a:b);
+    // if(limitBox.leftDownDesSlopFlag) boxStroke(p,1,limitBox.desX1*bw,(limitBox.desY2+0.5f)*bh,bw,bh/2f);
+    // else boxStroke(p,1,limitBox.desX1*bw,limitBox.desY2*bh,bw/2f,bh);
+    // p.fill(255,203,234,limitBox.rightUpMoved?a:b);
+    // if(limitBox.rightUpDesSlopFlag) boxStroke(p,1,limitBox.desX2*bw,limitBox.desY1*bh,bw,bh/2f);
+    // else boxStroke(p,1,(limitBox.desX2+0.5f)*bw,limitBox.desY1*bh,bw/2f,bh);
+    // p.fill(255,203,234,limitBox.rightDownMoved?a:b);
+    // if(limitBox.rightDownDesSlopFlag) boxStroke(p,1,limitBox.desX2*bw,(limitBox.desY2+0.5f)*bh,bw,bh/2f);
+    // else boxStroke(p,1,(limitBox.desX2+0.5f)*bw,limitBox.desY2*bh,bw/2f,bh);
+    // //---
+    // p.fill(175,203,234,limitBox.leftUpMoved?a:b);
+    // if(limitBox.leftUpPosSlopFlag) boxStroke(p,1,(limitBox.x1-1)*bw,limitBox.y1*bh,bw/2f,bh/2f);
+    // else boxStroke(p,1,limitBox.x1*bw,(limitBox.y1-1)*bh,bw/2f,bh/2f);
+    // //---
+    // p.fill(175,203,234,limitBox.leftDownMoved?a:b);
+    // if(limitBox.leftDownPosSlopFlag) boxStroke(p,1,(limitBox.x1-1)*bw,(limitBox.y2+0.5f)*bh,bw/2f,bh/2f);
+    // else boxStroke(p,1,limitBox.x1*bw,(limitBox.y2+1.5f)*bh,bw/2f,bh/2f);
+    // //---
+    // p.fill(175,203,234,limitBox.rightUpMoved?a:b);
+    // if(limitBox.rightUpPosSlopFlag) boxStroke(p,1,(limitBox.x2+1.5f)*bw,limitBox.y1*bh,bw/2f,bh/2f);
+    // else boxStroke(p,1,(limitBox.x2+0.5f)*bw,(limitBox.y1-1)*bh,bw/2f,bh/2f);
+    // //---
+    // p.fill(175,203,234,limitBox.rightDownMoved?a:b);
+    // if(limitBox.rightDownPosSlopFlag) boxStroke(p,1,(limitBox.x2+1.5f)*bw,(limitBox.y2+0.5f)*bh,bw/2f,bh/2f);
+    // else boxStroke(p,1,(limitBox.x2+0.5f)*bw,(limitBox.y2+1.5f)*bh,bw/2f,bh/2f);
   }
   public static void rectStroke(Screen0011 p,float r,float tx1,float ty1,float tx2,float ty2) {
     float tw1=tx2-tx1+r*2;

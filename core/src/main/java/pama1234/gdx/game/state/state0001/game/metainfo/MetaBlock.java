@@ -18,6 +18,8 @@ public class MetaBlock extends MetaInfoBase{
   public int blockType;
   public boolean fullBlock=true;
   public boolean workStation;
+  public int width=1,height=1;
+  public boolean[][] rectSolid;
   public ItemDropAttr[] itemDrop;
   public int displayTypeSize;
   public int defaultDisplayType;
@@ -70,7 +72,6 @@ public class MetaBlock extends MetaInfoBase{
     if(updater!=null) updater.update(in,x,y);
   }
   public void updateDisplay(Block in,int x,int y) {
-    // if(displayUpdater!=null)
     displayUpdater.update(in,x,y);
   }
   public void display(TilemapRenderer r,Screen0011 p,Block in,int x,int y) {
