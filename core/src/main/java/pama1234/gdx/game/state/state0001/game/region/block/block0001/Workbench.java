@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
+import pama1234.gdx.game.state.state0001.game.entity.entity0001.DroppedItem;
 import pama1234.gdx.game.state.state0001.game.item.CraftRecipe;
 import pama1234.gdx.game.state.state0001.game.item.CraftRecipe.CraftItem;
 import pama1234.gdx.game.state.state0001.game.item.Inventory;
@@ -16,6 +17,7 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlock
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemCenter0001;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.region.block.Block.BlockUi;
+import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.gdx.game.ui.generator.UiGenerator;
 import pama1234.gdx.game.ui.util.TextButtonCam;
 import pama1234.math.Tools;
@@ -28,6 +30,11 @@ public class Workbench extends MetaBlock{
     super(pc,"workbench",id,1,0,(in,type)-> {//change to workbench
       in.light.set(16);
     },(in,type)-> {//change from workbench
+      World0001 world=pc.pw;
+      int x=in.intData[4],y=in.intData[5];
+      boolean flag=world.isEmpty(world.getBlock(x,y-1));
+      float randomConst=0.8f;
+      for(ItemSlot e:in.itemData) if(e.item!=null) DroppedItem.dropItem(world.p,x,y,world,flag,randomConst,e.item);
       in.intData=null;
       in.itemData=null;
       in.ui=null;
@@ -44,18 +51,12 @@ public class Workbench extends MetaBlock{
       lightUpdater.update(in,x,y);
       int tw=pc.pw.settings.blockWidth,
         th=pc.pw.settings.blockHeight;
-      // int tl=in.ui.camButton.length;
-      // for(int i=0;i<tl;i++) {
-      //   int ti=i;
-      //   in.ui.camButton[i].rect.x=()->x*tw;
-      //   in.ui.camButton[i].rect.y=()->(y-2-tl+ti)*th;
-      // }
       // int tx=(in.ui.displaySlot.length-1)/2*tw;
       // in.intData[2]=(x-tx)*tw;
+      in.intData[4]=x;
+      in.intData[5]=y;
       in.intData[2]=(x-2)*tw;
       in.intData[3]=(y-3)*th;
-      // in.intData[3]=(y-2-tl)*th;
-      // in.intData[0]=Tools.moveInRange(in.intData[0],0,recipeList.length);
       if(in.intData[1]==stopMod) return;
       checkRecipe(in,recipeList[in.intData[0]],in.intData[1]);
       for(CraftRecipe e:recipeList) checkRecipe(in,e,in.intData[1]);
@@ -143,8 +144,8 @@ public class Workbench extends MetaBlock{
   }
   @Override
   public void initBlock(Block in) {
-    if(in.intData==null) in.intData=new int[4];
-    else if(in.intData.length<4) in.intData=new int[4];
+    if(in.intData==null) in.intData=new int[6];
+    else if(in.intData.length<6) in.intData=new int[6];
     if(in.itemData==null) {
       in.itemData=new ItemSlot[sloatSize];
       for(int i=0;i<in.itemData.length;i++) in.itemData[i]=new ItemSlot();

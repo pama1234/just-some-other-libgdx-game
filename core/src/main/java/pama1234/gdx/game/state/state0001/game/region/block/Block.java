@@ -88,13 +88,6 @@ public class Block{
     World0001 world=type.pc.pw;
     boolean flag=world.isEmpty(world.getBlock(x,y-1));
     float randomConst=0.8f;
-    for(ItemDropAttr e:type.itemDrop) world.entities.items.add.add(
-      new DroppedItem(p,world,
-        (x+0.5f)*world.settings.blockWidth,
-        (y+1)*world.settings.blockHeight,
-        // 0,0,
-        world.random(-randomConst,randomConst)*world.settings.blockWidth,
-        world.random(randomConst/2,randomConst)*world.settings.blockHeight*(flag?-1:1),
-        world.metaEntitys.droppedItem,e.item.createItem(e.dropNumber(world))));
+    for(ItemDropAttr e:type.itemDrop) DroppedItem.dropItem(p,x,y,world,flag,randomConst,e.item.createItem(e.dropNumber(world)));
   }
 }

@@ -57,6 +57,16 @@ public class DroppedItem extends LivingEntity{
   public void display() {
     p.image(data.type.tiles[0],x()+type.dx,y()+type.dy,type.w,type.h);
   }
+  public static void dropItem(Screen0011 p,int x,int y,World0001 world,boolean ceilingEmpty,float randomConst,Item e) {
+    world.entities.items.add.add(
+      new DroppedItem(p,world,
+        (x+0.5f)*world.settings.blockWidth,
+        (y+1)*world.settings.blockHeight,
+        // 0,0,
+        world.random(-randomConst,randomConst)*world.settings.blockWidth,
+        world.random(randomConst/2,randomConst)*world.settings.blockHeight*(ceilingEmpty?-1:1),
+        world.metaEntitys.droppedItem,e));
+  }
   public static class DroppedItemType extends MetaCreature<DroppedItem>{
     {
       w=12;
