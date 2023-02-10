@@ -17,6 +17,7 @@ public class MetaBlock extends MetaInfoBase{
   public float hardness=1,lightIntensity;
   public int blockType;
   public boolean fullBlock=true;
+  public int fullBlockType;
   public boolean workStation;
   public int width=1,height=1;
   public boolean[][] rectSolid;
@@ -140,16 +141,26 @@ public class MetaBlock extends MetaInfoBase{
   public static final BlockUpdater fullBlockDisplayUpdater=(in,x,y)-> {
     World0001 world=in.type.pc.pw;
     int typeCache=0;
-    if(Block.isNotFullBlock(world.getBlock(x,y-1))) typeCache+=1;// up
-    if(Block.isNotFullBlock(world.getBlock(x,y+1))) typeCache+=2;// down
-    if(Block.isNotFullBlock(world.getBlock(x-1,y))) typeCache+=4;// left
-    if(Block.isNotFullBlock(world.getBlock(x+1,y))) typeCache+=8;// right
+    if(isNotFullBlockOrNotSameType(in,world.getBlock(x,y-1))) typeCache+=1;// up
+    if(isNotFullBlockOrNotSameType(in,world.getBlock(x,y+1))) typeCache+=2;// down
+    if(isNotFullBlockOrNotSameType(in,world.getBlock(x-1,y))) typeCache+=4;// left
+    if(isNotFullBlockOrNotSameType(in,world.getBlock(x+1,y))) typeCache+=8;// right
     in.displayType[0]=typeCache;
     typeCache=0;
-    if(Block.isNotFullBlock(world.getBlock(x-1,y-1))) typeCache+=1;
-    if(Block.isNotFullBlock(world.getBlock(x-1,y+1))) typeCache+=2;
-    if(Block.isNotFullBlock(world.getBlock(x+1,y+1))) typeCache+=4;
-    if(Block.isNotFullBlock(world.getBlock(x+1,y-1))) typeCache+=8;
+    if(isNotFullBlockOrNotSameType(in,world.getBlock(x-1,y-1))) typeCache+=1;
+    if(isNotFullBlockOrNotSameType(in,world.getBlock(x-1,y+1))) typeCache+=2;
+    if(isNotFullBlockOrNotSameType(in,world.getBlock(x+1,y+1))) typeCache+=4;
+    if(isNotFullBlockOrNotSameType(in,world.getBlock(x+1,y-1))) typeCache+=8;
+    // if(Block.isNotFullBlock(world.getBlock(x,y-1))) typeCache+=1;// up
+    // if(Block.isNotFullBlock(world.getBlock(x,y+1))) typeCache+=2;// down
+    // if(Block.isNotFullBlock(world.getBlock(x-1,y))) typeCache+=4;// left
+    // if(Block.isNotFullBlock(world.getBlock(x+1,y))) typeCache+=8;// right
+    // in.displayType[0]=typeCache;
+    // typeCache=0;
+    // if(Block.isNotFullBlock(world.getBlock(x-1,y-1))) typeCache+=1;
+    // if(Block.isNotFullBlock(world.getBlock(x-1,y+1))) typeCache+=2;
+    // if(Block.isNotFullBlock(world.getBlock(x+1,y+1))) typeCache+=4;
+    // if(Block.isNotFullBlock(world.getBlock(x+1,y-1))) typeCache+=8;
     in.displayType[1]=typeCache;
     //---
     if(in.updateLighting) lightingUpdate(in,x,y,world);
@@ -158,6 +169,9 @@ public class MetaBlock extends MetaInfoBase{
     if(in.updateLighting) lightingUpdate(in,x,y,in.type.pc.pw);
     // in.light.update();
   };
+  public static boolean isNotFullBlockOrNotSameType(Block b,Block a) {
+    return Block.isNotFullBlock(a)||(a.type.fullBlockType!=b.type.fullBlockType);
+  }
   public static void lightingUpdate(Block in,int x,int y,World0001 world) {
     float cr=0;
     int lDist=world.settings.lightDist;
