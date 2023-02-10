@@ -193,11 +193,12 @@ public class World0001 extends WorldBase2D{
   @Override
   public void pause() {
     super.pause();
-    if(p.isAndroid) {
-      regions.innerSave();
-      yourself.save();
-      WorldData.save(worldDataDir,data);
-    }
+    if(p.isAndroid) pauseSave();
+  }
+  public void pauseSave() {
+    regions.innerSave();
+    yourself.save();
+    WorldData.save(worldDataDir,data);
   }
   public void innerPause() {
     if(p.isAndroid) p.cam2d.activeDrag=true;
