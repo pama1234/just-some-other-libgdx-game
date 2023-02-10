@@ -140,7 +140,9 @@ public class PlayerController extends Entity<Screen0011>{
     updatePickItem();
     p.cam.point.des.set(player.cx(),player.cy());
     float ty=player.point.vel.y;
-    if(player.displayState==2) {
+    if(player.displayState==1) {
+      player.timeStep=1/UtilMath.abs(player.point.vel.x);
+    }else if(player.displayState==2) {
       if(ty<0) player.frameTime=0;
       else if(ty<8) player.frameTime=1;
       else player.frameTime=2;
@@ -163,7 +165,7 @@ public class PlayerController extends Entity<Screen0011>{
       player.frameTime=0;
       player.displayState=2;
     }else if(walking) {
-      player.timeStep=(1/8f)/speedMult;
+      player.timeStep=(1/16f)/speedMult;
       player.frameTime=0;
       player.displayState=1;
     }else {
