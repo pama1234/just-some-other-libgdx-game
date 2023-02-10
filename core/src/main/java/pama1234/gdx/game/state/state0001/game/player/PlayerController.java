@@ -165,7 +165,7 @@ public class PlayerController extends Entity<Screen0011>{
       player.frameTime=0;
       player.displayState=2;
     }else if(walking) {
-      player.timeStep=(1/16f)/speedMult;
+      player.timeStep=-1;
       player.frameTime=0;
       player.displayState=1;
     }else {
