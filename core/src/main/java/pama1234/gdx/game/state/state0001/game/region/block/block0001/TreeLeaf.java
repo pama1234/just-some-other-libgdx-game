@@ -74,7 +74,7 @@ public class TreeLeaf extends MetaBlock{
   }
   @Override
   public void initBlock(Block in) {
-    if(in.intData==null||in.intData.length<2) in.intData=new int[] {maxLogCount,maxLogCount};
+    if(in.intData==null||in.intData.length<2) in.intData=new int[] {0,1};
   }
   public boolean isLeafAndNotNull(Block tb) {
     return tb!=null&&tb.type==pc.leaf;
@@ -97,7 +97,7 @@ public class TreeLeaf extends MetaBlock{
         Block tb=world.getBlock(x,y+1);
         if(tb!=null&&tb.type==pc.log) array[0]=array[1]=maxLogCount;
         else if(array[0]<=0) world.destroyBlock(in,x,y);
-        else if(array[0]>maxLogCount) array[0]=maxLogCount;
+        // else if(array[0]>maxLogCount) array[0]=maxLogCount;
       }else if(pointer==1) {
         testCount(in,world.getBlock(x,y+1));
         testCount(in,world.getBlock(x,y-1));

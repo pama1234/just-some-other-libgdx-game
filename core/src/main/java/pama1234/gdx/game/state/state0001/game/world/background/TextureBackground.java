@@ -10,8 +10,8 @@ import pama1234.math.Tools;
 
 public class TextureBackground extends Background{
   public float width,height;
-  float x,y,tx,ty,dx,dy;
-  byte[] side[]= {{-1,-1},{0,-1},{1,-1},
+  public float x,y,dx,dy;
+  public byte[] side[]= {{-1,-1},{0,-1},{1,-1},
     {-1,0},{1,0},
     {-1,1},{0,1},{1,1}};
   public TextureBackground(Screen0011 p,BackgroundList pc,MainPlayer player) {
@@ -39,16 +39,12 @@ public class TextureBackground extends Background{
   }
   @Override
   public void display() {
-    // p.tint(pc.pw.skyLight());
     p.tint((int)(pc.pc.pw.skyLight()*256));
     p.imageBatch.draw(img,x,y,width,height);
-    for(int i=0;i<8;i++) {
-      tx=x;
-      ty=y;
-      tx+=side[i][0]*width;
-      ty+=side[i][1]*height;
-      p.imageBatch.draw(img,tx,ty,width,height);
-    }
+    for(int i=0;i<8;i++) drawImage(x+side[i][0]*width,y+side[i][1]*height);
+  }
+  public void drawImage(float xIn,float yIn) {
+    p.imageBatch.draw(img,xIn,yIn,width,height);
   }
   @Override
   public void update() {
@@ -59,38 +55,4 @@ public class TextureBackground extends Background{
     x=Tools.moveInRange(x,cam.x1(),cam.x2(),width);
     y=Tools.moveInRange(y,cam.y1(),cam.y2(),height);
   }
-  @Override
-  public void dispose() {}
-  @Override
-  public void init() {}
-  @Override
-  public void pause() {}
-  @Override
-  public void resume() {}
-  @Override
-  public void frameMoved(int x,int y) {}
-  @Override
-  public void frameResized(int w,int h) {}
-  @Override
-  public void keyPressed(char key,int keyCode) {}
-  @Override
-  public void keyReleased(char key,int keyCode) {}
-  @Override
-  public void keyTyped(char key) {}
-  @Override
-  public void mouseDragged() {}
-  @Override
-  public void mouseMoved() {}
-  @Override
-  public void mousePressed(MouseInfo info) {}
-  @Override
-  public void mouseReleased(MouseInfo info) {}
-  @Override
-  public void mouseWheel(float x,float y) {}
-  @Override
-  public void touchEnded(TouchInfo info) {}
-  @Override
-  public void touchMoved(TouchInfo info) {}
-  @Override
-  public void touchStarted(TouchInfo info) {}
 }
