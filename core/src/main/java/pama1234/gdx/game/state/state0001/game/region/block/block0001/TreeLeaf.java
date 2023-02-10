@@ -85,34 +85,24 @@ public class TreeLeaf extends MetaBlock{
       if(ti>in.intData[1]) in.intData[1]=ti;
     }
   }
-  // int count;
-  // int dx,dy;
   public void initTreeLeafLambda() {
     updater=(in,x,y)-> {
       lightUpdater.update(in,x,y);
       int[] array=in.intData;
-      int pointer=pc.pw.data.tick%3;
-      // if(dx==dy&&dx==0) {
-      //   dx=x;
-      //   dy=y;
-      // }else if(dx==x&&dy==y) {
-      //   System.out.println(pointer);
-      // }
+      int pointer=pc.pw.data.tick%2;
       World0001 world=pc.pw;
       if(pointer==0) {
         array[0]=array[1];
-        // array[1]-=2;
         array[1]=0;
         Block tb=world.getBlock(x,y+1);
         if(tb!=null&&tb.type==pc.log) array[0]=array[1]=maxLogCount;
+        else if(array[0]<=0) world.destroyBlock(in,x,y);
+        else if(array[0]>maxLogCount) array[0]=maxLogCount;
       }else if(pointer==1) {
         testCount(in,world.getBlock(x,y+1));
         testCount(in,world.getBlock(x,y-1));
         testCount(in,world.getBlock(x+1,y));
         testCount(in,world.getBlock(x-1,y));
-      }else {
-        if(array[0]<=0) world.destroyBlock(in,x,y);
-        else if(array[0]>maxLogCount) array[0]=maxLogCount;
       }
     };
     displayUpdater=(in,x,y)-> {
