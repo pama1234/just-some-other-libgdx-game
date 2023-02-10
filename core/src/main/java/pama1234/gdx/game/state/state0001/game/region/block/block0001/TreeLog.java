@@ -71,4 +71,7 @@ public class TreeLog extends MetaBlock{
   public static boolean isTreeLeaf(Block in,TreeLeaf type) {
     return in!=null&&in.type==type;
   }
+  public static boolean isTreeLeafOrNull(Block in,TreeLeaf type) {
+    return in==null||in.type==type;
+  }
 }

@@ -76,11 +76,13 @@ public class TreeLeaf extends MetaBlock{
   public void initBlock(Block in) {
     if(in.intData==null||in.intData.length<2) in.intData=new int[] {0,1};
   }
-  public boolean isLeafAndNotNull(Block tb) {
-    return tb!=null&&tb.type==pc.leaf;
+  public boolean isTreeLeaf(Block tb) {
+    return tb.type==pc.leaf;
   }
   public void testCount(Block in,Block tb) {
-    if(isLeafAndNotNull(tb)&&tb.intData[0]>in.intData[1]) {
+    if(tb==null) {
+      if(in.intData[1]<1) in.intData[1]=1;
+    }else if(isTreeLeaf(tb)&&tb.intData[0]>in.intData[1]) {
       int ti=tb.intData[0]-1;
       if(ti>in.intData[1]) in.intData[1]=ti;
     }

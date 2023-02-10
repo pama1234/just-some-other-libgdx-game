@@ -49,6 +49,7 @@ public class Sapling extends MetaBlock{
           if(tb!=null&&tb.type!=pc.dirt) world.destroyBlock(in,x,y);
         }
       }else {
+        // if(pc.pw.data.tick%2==0) return;
         in.intData[0]=0;
         World0001 world=pc.pw;
         int th=4+UtilMath.floor(world.random(12));

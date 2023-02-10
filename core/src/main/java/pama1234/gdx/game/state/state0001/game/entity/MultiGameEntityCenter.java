@@ -103,5 +103,15 @@ public class MultiGameEntityCenter extends MultiEntityCenter<Screen0011,EntityCe
       super(p);
       this.pc=pc;
     }
+    @Override
+    public void refresh() {//TODO
+      synchronized(add) {
+        synchronized(list) {
+          synchronized(remove) {
+            super.refresh();
+          }
+        }
+      }
+    }
   }
 }
