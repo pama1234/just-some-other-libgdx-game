@@ -169,8 +169,8 @@ public class World0001 extends WorldBase2D{
     p.cam2d.scale.des=yourself.ctrl.camScale;
     p.cam2d.minScale=p.isAndroid?0.25f:0.5f;
     p.cam2d.testScale();
-    p.cam.point.pos.set(yourself.point.pos);
-    p.cam.point.des.set(yourself.point.pos);
+    p.cam.point.pos.set(yourself.cx(),yourself.cy());
+    p.cam.point.des.set(p.cam.point.pos);
     p.centerCam.add.add(yourself);
   }
   @Override
@@ -186,7 +186,7 @@ public class World0001 extends WorldBase2D{
   public void resume() {
     if(p.isAndroid) {
       regions.load();
-      // yourself.load();
+      yourself.load();
     }
     super.resume();
   }
@@ -214,6 +214,7 @@ public class World0001 extends WorldBase2D{
     data.time+=1;
     timeF+=p.frameRate;
     sky.updateColor();
+    // System.out.println(yourself.point.pos);
   }
   @Override
   public void dispose() {

@@ -94,17 +94,17 @@ public class MovementLimitBox extends OuterBox{
       y2-=1;
     }
   }
-  public float clearCeiling(int bh) {
-    return ceiling=(y1-4)*bh;
+  public void clearCeiling(int bh) {
+    ceiling=(y1-4)*bh;
   }
-  public float clearFloor(int bh) {
-    return floor=(y2+4)*bh;
+  public void clearFloor(int bh) {
+    floor=(y2+4)*bh;
   }
-  public float clearLeft(int bw) {
-    return leftWall=(x1-4)*bw;
+  public void clearLeft(int bw) {
+    leftWall=(x1-4)*bw;
   }
-  public float clearRight(int bw) {
-    return rightWall=(x2+4)*bw;
+  public void clearRight(int bw) {
+    rightWall=(x2+4)*bw;
   }
   public void doCeiling(int bh,int y1) {
     ceiling=y1*bh+rectConst.y1();

@@ -9,7 +9,7 @@ import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 
 public class TreeLeaf extends MetaBlock{
-  public int maxLogCount=512;
+  public int maxLogCount=7;
   public TreeLeaf(MetaBlockCenter0001 pc,int id) {
     super(pc,"tree-leaf",id,25,3,(in,type)-> {//change to me
       in.light.set(16);
@@ -73,19 +73,22 @@ public class TreeLeaf extends MetaBlock{
   }
   @Override
   public void initBlock(Block in) {
-    if(in.intData==null) in.intData=new int[] {maxLogCount,0};
+    if(in.intData==null||in.intData.length<2) in.intData=new int[] {maxLogCount,maxLogCount};
   }
   public boolean isLeafAndNotNull(Block tb) {
     return tb!=null&&tb.type==pc.leaf;
   }
   public void testCount(Block in,Block tb) {
-    int ti;
     int tc=in.intData[1];
     if(isLeafAndNotNull(tb)&&tb.intData[0]>tc) {
-      ti=tb.intData[0]-tc;
-      ti/=4;
-      in.intData[1]+=ti;
-      tb.intData[1]-=ti;
+      // int ti=tb.intData[0]-tc;
+      // ti/=4;
+      // in.intData[1]+=ti;
+      // tb.intData[1]-=ti;
+      //---
+      // in.intData[1]+=tb.intData[0]-tb.intData[0]-1;
+      int ti=tb.intData[0]-1;
+      if(ti>in.intData[1]) in.intData[1]=ti;
     }
   }
   public void initTreeLeafLambda() {
@@ -93,23 +96,30 @@ public class TreeLeaf extends MetaBlock{
       lightUpdater.update(in,x,y);
       int[] array=in.intData;
       // if(array==null) return;
-      if(pc.pw.data.time%2==0) {
-        array[0]+=array[1];
-        array[1]=0;
-        return;
-      }
+      int pointer=pc.pw.data.time%4;
       World0001 world=pc.pw;
-      Block tb=world.getBlock(x,y+1);
-      if(tb!=null&&tb.type==pc.log) array[0]=maxLogCount;
-      else array[1]-=2;
-      //------------------------------------------------------------
-      testCount(in,tb);
-      testCount(in,world.getBlock(x,y-1));
-      testCount(in,world.getBlock(x+1,y));
-      testCount(in,world.getBlock(x-1,y));
-      //------------------------------------------------------------
-      if(array[0]<=0) world.destroyBlock(in,x,y);
-      else if(array[0]>maxLogCount) array[0]=maxLogCount;
+      if(pointer==0) {
+        array[0]=array[1];
+        // array[0]+=array[1];
+        array[1]-=2;
+        // if(array[1]>1) array[1]=1;
+        // else array[1]=0;
+      }else if(pointer==1) {
+        Block tb=world.getBlock(x,y+1);
+        if(tb!=null&&tb.type==pc.log) array[0]=array[1]=maxLogCount;
+      }else if(pointer==2) {
+        Block tb=world.getBlock(x,y+1);
+        // if(tb!=null&&tb.type==pc.log) array[0]=array[1]=maxLogCount;
+        //------------------------------------------------------------
+        testCount(in,tb);
+        testCount(in,world.getBlock(x,y-1));
+        testCount(in,world.getBlock(x+1,y));
+        testCount(in,world.getBlock(x-1,y));
+        // else array[1]-=2;
+      }else {
+        if(array[0]<=0) world.destroyBlock(in,x,y);
+        else if(array[0]>maxLogCount) array[0]=maxLogCount;
+      }
     };
     displayUpdater=(in,x,y)-> {
       World0001 world=in.type.pc.pw;
