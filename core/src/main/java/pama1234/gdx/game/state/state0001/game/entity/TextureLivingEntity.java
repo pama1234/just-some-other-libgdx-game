@@ -13,7 +13,7 @@ public class TextureLivingEntity extends LivingEntity{
   public float timeCount;
   public float timeStep=1/6f;
   public boolean flipX;
-  public int moveState;
+  public int displayState;
   public TextureLivingEntity(Screen0011 p,World0001 pw,float x,float y,MetaCreature<? extends TextureLivingEntity> type) {
     super(p,pw,new MassPoint(x,y),type);
   }
@@ -23,14 +23,14 @@ public class TextureLivingEntity extends LivingEntity{
     frameUpdate();
   }
   public void frameUpdate() {
-    if((timeCount+=p.frameRate)>=timeStep) {
+    if(timeStep>0&&(timeCount+=p.frameRate)>=timeStep) {
       timeCount-=timeStep;
       frameTime+=1;
       testFrameTime();
     }
   }
   public void testFrameTime() {
-    frameTime%=type.tiles[moveState].length;
+    frameTime%=type.tiles[displayState].length;
   }
   @Override
   public void display() {
@@ -39,7 +39,7 @@ public class TextureLivingEntity extends LivingEntity{
       MetaBlock.getLighting(light.r()),
       MetaBlock.getLighting(light.g()),
       MetaBlock.getLighting(light.b()));
-    TextureRegion tr=type.tiles[moveState][frameTime];
+    TextureRegion tr=type.tiles[displayState][frameTime];
     if(flipX!=tr.isFlipX()) tr.flip(true,false);
     p.image(tr,x()+type.dx,y()+type.dy);
   }

@@ -40,6 +40,7 @@ public class PlayerController extends Entity<Screen0011>{
   public ControllerBlockPointer selectBlock;
   public float camScale=2;
   public float itemPickDist=18,itemPickMoveDist=72;
+  public boolean pInAir;
   public PlayerController(Screen0011 p,MainPlayer player) {
     super(p);
     this.player=player;
@@ -125,7 +126,12 @@ public class PlayerController extends Entity<Screen0011>{
   public void preUpdate() {
     for(TouchInfo e:p.touches) if(e.active) touchUpdate(e);
     updateCtrlInfo();
+    // pInAir=limitBox.inAir;
     limitBox.preCtrlUpdate();
+    if(pInAir!=limitBox.inAir) {
+      pInAir=limitBox.inAir;
+      moveEvent();
+    }
     doWalkAndJump();
     // limitBox.prePointUpdate();
   }
@@ -133,16 +139,39 @@ public class PlayerController extends Entity<Screen0011>{
     // limitBox.postPointUpdate();
     updatePickItem();
     p.cam.point.des.set(player.cx(),player.cy());
+    float ty=player.point.vel.y;
+    if(player.displayState==2) {
+      if(ty<0) player.frameTime=0;
+      else if(ty<8) player.frameTime=1;
+      else player.frameTime=2;
+    }
   }
   public void updateCtrlInfo() {
     updateKeyInfo();
     boolean tb=left!=right;
     if(walking!=tb) {
       walking=tb;
-      walkEvent();
+      moveEvent();
     }
     if(!player.pw.p.isAndroid) updateMouseInfo();
     selectEntity.updateTask();//TODO
+  }
+  public void moveEvent() {
+    float speedMult=shift?shiftSpeedMult:1;
+    if(limitBox.inAir) {
+      player.timeStep=-1;
+      player.frameTime=0;
+      player.displayState=2;
+    }else if(walking) {
+      player.timeStep=(1/8f)/speedMult;
+      player.frameTime=0;
+      player.displayState=1;
+    }else {
+      player.timeStep=(1/2f)/speedMult;
+      player.frameTime=0;
+      player.displayState=0;
+    }
+    player.testFrameTime();
   }
   public void updateMouseInfo() {
     selectBlock.active=false;
@@ -398,19 +427,6 @@ public class PlayerController extends Entity<Screen0011>{
   }
   public void walkSlowDown() {
     player.point.vel.x*=slowDownSpeed;
-  }
-  public void walkEvent() {
-    float speedMult=shift?shiftSpeedMult:1;
-    if(walking) {
-      player.timeStep=(1/8f)/speedMult;
-      player.frameTime=0;
-      player.moveState=1;
-    }else {
-      player.timeStep=(1/2f)/speedMult;
-      player.frameTime=0;
-      player.moveState=0;
-    }
-    player.testFrameTime();
   }
   public void updatePickItem() {
     for(DroppedItem e:player.pw.entities.items.list) {

@@ -4,8 +4,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
-import pama1234.gdx.util.info.MouseInfo;
-import pama1234.gdx.util.info.TouchInfo;
 import pama1234.math.Tools;
 
 public class TextureBackground extends Background{
