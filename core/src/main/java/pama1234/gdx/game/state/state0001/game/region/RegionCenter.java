@@ -220,6 +220,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
         // Iterator<Region> it=list.iterator();
         // while(it.hasNext()) it.next().update();
         RegionCenter.super.update();
+        pw.data.tick+=1;
         // refresh();
         // for(Region e:list) e.update();
       }

@@ -53,6 +53,8 @@ public class World0001 extends WorldBase2D{
     public String dir;
     @Tag(1)
     public int time=12000;
+    @Tag(2)
+    public int tick;
     public static WorldData load(FileHandle file) {
       if(file.exists()) try(Input input=new Input(new FileInputStream(file.file()))) {
         WorldData out=kryo.readObject(input,WorldData.class);

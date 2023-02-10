@@ -23,6 +23,7 @@ public class TreeLeaf extends MetaBlock{
     // fullBlock=false;
     // initFullBlockLambda();
     initTreeLeafLambda();
+    intData=new int[1];
   }
   @Override
   public void initItemDrop() {
@@ -79,43 +80,36 @@ public class TreeLeaf extends MetaBlock{
     return tb!=null&&tb.type==pc.leaf;
   }
   public void testCount(Block in,Block tb) {
-    int tc=in.intData[1];
-    if(isLeafAndNotNull(tb)&&tb.intData[0]>tc) {
-      // int ti=tb.intData[0]-tc;
-      // ti/=4;
-      // in.intData[1]+=ti;
-      // tb.intData[1]-=ti;
-      //---
-      // in.intData[1]+=tb.intData[0]-tb.intData[0]-1;
+    if(isLeafAndNotNull(tb)&&tb.intData[0]>in.intData[1]) {
       int ti=tb.intData[0]-1;
       if(ti>in.intData[1]) in.intData[1]=ti;
     }
   }
+  // int count;
+  // int dx,dy;
   public void initTreeLeafLambda() {
     updater=(in,x,y)-> {
       lightUpdater.update(in,x,y);
       int[] array=in.intData;
-      // if(array==null) return;
-      int pointer=pc.pw.data.time%4;
+      int pointer=pc.pw.data.tick%3;
+      // if(dx==dy&&dx==0) {
+      //   dx=x;
+      //   dy=y;
+      // }else if(dx==x&&dy==y) {
+      //   System.out.println(pointer);
+      // }
       World0001 world=pc.pw;
       if(pointer==0) {
         array[0]=array[1];
-        // array[0]+=array[1];
-        array[1]-=2;
-        // if(array[1]>1) array[1]=1;
-        // else array[1]=0;
-      }else if(pointer==1) {
+        // array[1]-=2;
+        array[1]=0;
         Block tb=world.getBlock(x,y+1);
         if(tb!=null&&tb.type==pc.log) array[0]=array[1]=maxLogCount;
-      }else if(pointer==2) {
-        Block tb=world.getBlock(x,y+1);
-        // if(tb!=null&&tb.type==pc.log) array[0]=array[1]=maxLogCount;
-        //------------------------------------------------------------
-        testCount(in,tb);
+      }else if(pointer==1) {
+        testCount(in,world.getBlock(x,y+1));
         testCount(in,world.getBlock(x,y-1));
         testCount(in,world.getBlock(x+1,y));
         testCount(in,world.getBlock(x-1,y));
-        // else array[1]-=2;
       }else {
         if(array[0]<=0) world.destroyBlock(in,x,y);
         else if(array[0]>maxLogCount) array[0]=maxLogCount;
