@@ -74,14 +74,15 @@ public class TreeLeaf extends MetaBlock{
   }
   @Override
   public void initBlock(Block in) {
-    if(in.intData==null||in.intData.length<2) in.intData=new int[] {0,-60};
+    if(in.intData==null||in.intData.length<3) in.intData=new int[] {0,0,0};
   }
   public boolean isTreeLeaf(Block tb) {
     return tb.type==this;
   }
   public void testCount(Block in,Block tb) {
     if(tb==null) {
-      if(in.intData[1]<1) in.intData[1]=1;
+      // if(in.intData[1]<maxLogCount)
+      in.intData[1]=maxLogCount;
     }else if(isTreeLeaf(tb)) {
       int ti=tb.intData[0]-1;
       if(ti>in.intData[1]) in.intData[1]=ti;
@@ -92,23 +93,26 @@ public class TreeLeaf extends MetaBlock{
       lightUpdater.update(in,x,y);
       int[] array=in.intData;
       World0001 world=pc.pw;
-      if(array[1]<0) {
-        array[1]++;
-        if(array[1]==0) {
-          // array[1]=0;
-          testCount(in,world.getBlock(x,y+1));
-          testCount(in,world.getBlock(x,y-1));
-          testCount(in,world.getBlock(x+1,y));
-          testCount(in,world.getBlock(x-1,y));
-        }
-      }else {
+      if(array[2]>=0) array[2]=(array[2]+1)%3;
+      else array[2]++;
+      if(array[2]==0) {
+        // if(array[2]==0) {
+        // array[1]=0;
+        testCount(in,world.getBlock(x,y+1));
+        testCount(in,world.getBlock(x,y-1));
+        testCount(in,world.getBlock(x+1,y));
+        testCount(in,world.getBlock(x-1,y));
+        // }
+      }else if(array[2]==1) {
         array[0]=array[1];
-        array[1]=-1;
+        array[1]=0;
+        array[2]=-1;
+      }else {
         Block tb=world.getBlock(x,y+1);
         if(tb!=null) {
           if(tb.type==pc.log) array[0]=array[1]=maxLogCount;
           else if(array[0]<=0) world.destroyBlock(in,x,y);
-        }
+        }else array[1]=maxLogCount;
       }
     };
     displayUpdater=(in,x,y)-> {
@@ -173,6 +177,7 @@ public class TreeLeaf extends MetaBlock{
       r.end();
       p.textScale(0.5f);
       p.text(Integer.toString(in.intData[0]),x,y);
+      p.text(Integer.toString(in.intData[1]),x,y+9);
       p.textScale(1);
       r.begin();
     };

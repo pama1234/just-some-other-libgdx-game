@@ -32,9 +32,9 @@ com_crashlytics_export_strings.xml
 
 
 /android/pama1234.*
-/android/*.jks
-/android/*.p12
-/android/signing.properties
+*.jks
+*.p12
+*/signing.properties
 /android/release
 
 ## Robovm:

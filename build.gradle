@@ -30,7 +30,7 @@ allprojects {
 	apply plugin: 'idea'
 }
 
-configure(subprojects - project(':android')) {
+configure(subprojects - project(':android') - project(':pico4')) {
 	apply plugin: 'java-library'
 	sourceCompatibility = 17
 	compileJava {
