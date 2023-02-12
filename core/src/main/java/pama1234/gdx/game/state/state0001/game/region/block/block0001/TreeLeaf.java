@@ -79,12 +79,12 @@ public class TreeLeaf extends MetaBlock{
   public boolean isTreeLeaf(Block tb) {
     return tb.type==this;
   }
-  public void testCount(Block in,Block tb) {
+  public void testCount(int[] array,Block tb) {
     if(tb==null) {
-      in.intData[1]=maxLogCount;
+      array[1]=maxLogCount;
     }else if(isTreeLeaf(tb)) {
       int ti=tb.intData[0]-1;
-      if(ti>in.intData[1]) in.intData[1]=ti;
+      if(ti>array[1]) array[1]=ti;
     }
   }
   public void initTreeLeafLambda() {
@@ -94,15 +94,15 @@ public class TreeLeaf extends MetaBlock{
       World0001 world=pc.pw;
       if(array[1]<0) {
         array[1]++;
-        if(array[1]>=-1) {
+        if(array[1]>=-20) {
           int ti=array[1];
           array[1]=0;
           // array[1]=0;
-          testCount(in,world.getBlock(x,y+1));
-          testCount(in,world.getBlock(x,y-1));
-          testCount(in,world.getBlock(x+1,y));
-          testCount(in,world.getBlock(x-1,y));
-          if(array[1]==0) array[1]=ti+1;
+          testCount(array,world.getBlock(x,y+1));
+          testCount(array,world.getBlock(x,y-1));
+          testCount(array,world.getBlock(x+1,y));
+          testCount(array,world.getBlock(x-1,y));
+          if(ti<=-2&&array[1]==0) array[1]=ti+1;
         }
       }else {
         array[0]=array[1];
@@ -172,7 +172,7 @@ public class TreeLeaf extends MetaBlock{
       // }
       int tp_2=in.displayType[2];
       if(tp_2!=0) r.tile(in.type.tiles[24],x,y);
-      if(!pc.pw.pg.debugGraphics) return;
+      if(!pc.pw.pg.debugGraphics||in.intData==null) return;
       r.end();
       p.textScale(0.5f);
       p.text(Integer.toString(in.intData[0]),x,y);
