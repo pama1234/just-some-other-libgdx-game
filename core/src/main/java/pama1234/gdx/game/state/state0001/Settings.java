@@ -51,7 +51,7 @@ public class Settings extends StateEntity0001{
   public void displayCam() {
     ty=0;
     text(p.gyroscope?"陀螺仪：  可用":"陀螺仪：不可用");
-    text(p.compass?"罗盘  ：  可用":"罗盘  ：不可用");
+    text(p.compass?"指南针：  可用":"指南针：不可用");
     text(p.accelerometer?"加速计：  可用":"加速计：不可用");
   }
   public void text(String in) {

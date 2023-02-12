@@ -16,7 +16,6 @@ import com.esotericsoftware.kryo.KryoException;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import com.esotericsoftware.kryo.serializers.FieldSerializer;
-import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
 import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.state.state0001.Game;
@@ -33,22 +32,18 @@ import pama1234.util.net.ServerInfo;
 public class Screen0011 extends ScreenCore2D implements StateChanger{
   public static final Kryo kryo=new Kryo();
   static {
-    kryo.register(SettingsData.class);
+    kryo.register(SettingsData.class,new FieldSerializer<SettingsData>(kryo,SettingsData.class));
     kryo.register(ServerInfo.class,new FieldSerializer<ServerInfo>(kryo,ServerInfo.class));
   }
   public static class SettingsData{
-    @Tag(0)
     public boolean showEarth=true;
-    @Tag(1)
     public boolean debugInfo;
-    @Tag(2)
     public boolean mute;
-    @Tag(3)
     public float volume=1;
-    @Tag(4)
     public ServerInfo serverInfo;
-    @Tag(5)
     public boolean zoomButton;
+    public boolean useGyroscope,useAccelerometer;
+    // public boolean useCompass;
   }
   public SettingsData settings;
   public FileHandle settingsFile=Gdx.files.local("data/settings.bin");
