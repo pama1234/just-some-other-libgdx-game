@@ -74,7 +74,7 @@ public class TreeLeaf extends MetaBlock{
   }
   @Override
   public void initBlock(Block in) {
-    if(in.intData==null||in.intData.length<2) in.intData=new int[] {0,-60};
+    if(in.intData==null||in.intData.length<3) in.intData=new int[] {0,-60,-maxLogCount*2};
   }
   public boolean isTreeLeaf(Block tb) {
     return tb.type==this;
@@ -92,21 +92,26 @@ public class TreeLeaf extends MetaBlock{
       lightUpdater.update(in,x,y);
       int[] array=in.intData;
       World0001 world=pc.pw;
-      if(array[1]<0) {
-        array[1]++;
-        if(array[1]>=-20) {
-          int ti=array[1];
+      if(array[2]<1) {
+        if(array[2]%2==0) {
           array[1]=0;
-          // array[1]=0;
-          testCount(array,world.getBlock(x,y+1));
+          Block tb;
+          testCount(array,tb=world.getBlock(x,y+1));
           testCount(array,world.getBlock(x,y-1));
           testCount(array,world.getBlock(x+1,y));
           testCount(array,world.getBlock(x-1,y));
-          if(ti<=-2&&array[1]==0) array[1]=ti+1;
+          // Block tb=world.getBlock(x,y+1);
+          if(tb!=null&&tb.type==pc.log) array[0]=array[1]=maxLogCount;
+        }else {
+          // array[2]=0;
+          array[0]=array[1];
+          // array[1]=-1;
         }
+        array[2]++;
       }else {
+        array[2]=0;
         array[0]=array[1];
-        array[1]=-1;
+        // array[1]=-1;
         Block tb=world.getBlock(x,y+1);
         if(tb!=null) {
           if(tb.type==pc.log) array[0]=array[1]=maxLogCount;

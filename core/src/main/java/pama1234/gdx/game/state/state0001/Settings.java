@@ -16,6 +16,7 @@ public class Settings extends StateEntity0001{
   public TextButtonCam<?>[] buttonsCam;
   public Slider<?> volumeSlider;
   public TextField[] screenTextFields,camTextFields;
+  public int tx=-128,ty;
   public Settings(Screen0011 p) {
     super(p);
     buttons=UiGenerator.genButtons_0004(p);
@@ -47,7 +48,16 @@ public class Settings extends StateEntity0001{
     p.settings.serverInfo.setFromString(camTextFields[0].getText(),12347);
   }
   @Override
-  public void displayCam() {}
+  public void displayCam() {
+    ty=0;
+    text(p.gyroscope?"陀螺仪：  可用":"陀螺仪：不可用");
+    text(p.compass?"罗盘  ：  可用":"罗盘  ：不可用");
+    text(p.accelerometer?"加速计：  可用":"加速计：不可用");
+  }
+  public void text(String in) {
+    p.text(in,tx,ty);
+    ty+=18;
+  }
   @Override
   public void keyReleased(char key,int keyCode) {
     if(keyCode==ESCAPE) p.state(State0001.StartMenu);

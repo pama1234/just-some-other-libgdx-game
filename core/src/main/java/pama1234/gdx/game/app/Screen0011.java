@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input.Peripheral;
 import com.badlogic.gdx.files.FileHandle;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.KryoException;
@@ -21,9 +22,9 @@ import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.state.state0001.State0001.StateChanger;
+import pama1234.gdx.game.state.state0001.StateGenerator0001;
 import pama1234.gdx.game.ui.generator.UiGenerator;
 import pama1234.gdx.game.ui.util.TextButton;
-import pama1234.gdx.game.state.state0001.StateGenerator0001;
 import pama1234.gdx.util.app.ScreenCore2D;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.math.Tools;
@@ -58,6 +59,8 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   public float debugTextX,debugTextY,debugTextH,debugTextCountY;
   //---
   public TextButton<?>[] buttons;
+  //---
+  public boolean gyroscope,accelerometer,compass;
   @Override
   public void setup() {
     noStroke();
@@ -67,6 +70,9 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     StateGenerator0001.loadState0001(this);
     postSettings();
     firstRun=!Gdx.files.local("data/firstRun.txt").exists();
+    gyroscope=Gdx.input.isPeripheralAvailable(Peripheral.Gyroscope);
+    accelerometer=Gdx.input.isPeripheralAvailable(Peripheral.Accelerometer);
+    compass=Gdx.input.isPeripheralAvailable(Peripheral.Compass);
     // firstRun=true;
     if(firstRun) {
       MusicAsset.load_init();
