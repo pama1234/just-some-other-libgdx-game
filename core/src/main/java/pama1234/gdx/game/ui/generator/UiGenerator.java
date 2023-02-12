@@ -141,6 +141,12 @@ public class UiGenerator{
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.state(State0001.Debug);
       },self->self.text="别按这个（Debug视图）",()->18,()->0,()->160),
+      new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
+        //TODO
+      },self->self.text="使用陀螺仪：否",()->18,()->0,()->180),
+      new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
+        //TODO
+      },self->self.text="使用加速计：否",()->18,()->0,()->200),
     };
   }
   public static <T extends Screen0011> TextButton<?>[] genButtons_0008(T p) {
