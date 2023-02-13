@@ -156,6 +156,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
       gVel.rotateX(UtilMath.rad(tx));
       gVel.rotateY(UtilMath.rad(ty));
       gVel.rotateZ(UtilMath.rad(tz));
+      // gVel.rotateZ(UtilMath.rad(tz)+UtilMath.HALF_PI);
     }
     if(settings.useAccelerometer&&cam2d.active()) {
       //---

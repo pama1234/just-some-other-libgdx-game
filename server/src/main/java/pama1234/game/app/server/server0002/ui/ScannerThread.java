@@ -46,7 +46,7 @@ public class ScannerThread extends Thread{
         case "exit": {
           p.doUpdate=false;
           p.stop=true;
-          System.out.println("now exit.");
+          System.out.println("exit now.");
         }
           break;
         case "ip": {
