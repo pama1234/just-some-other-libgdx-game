@@ -16,6 +16,7 @@ import pama1234.gdx.game.state.state0001.game.item.Item.ItemSlot;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
 import pama1234.gdx.game.state.state0001.game.region.LoadAndSave;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
+import pama1234.gdx.game.state.state0001.game.world.WorldKryoUtil;
 import pama1234.gdx.util.element.CameraController2D;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.math.physics.MassPoint;
@@ -51,12 +52,12 @@ public class MainPlayer extends Player implements LoadAndSave{
   public void load() {
     MetaItem[] mitem=pw.metaItems.list.toArray(new MetaItem[pw.metaItems.list.size()]);
     if(dataLocation.exists()) try(Input input=new Input(new FileInputStream(dataLocation.file()))) {
-      MassPoint tp=World0001.kryo.readObject(input,MassPoint.class);
+      MassPoint tp=WorldKryoUtil.kryo.readObject(input,MassPoint.class);
       point.pos.set(tp.pos);
       point.vel.set(tp.vel);
       ctrl.limitBox.prePointUpdate();
       if(pw.pg.debug) System.out.println(point.pos);
-      inventory=World0001.kryo.readObject(input,Inventory.class);
+      inventory=WorldKryoUtil.kryo.readObject(input,Inventory.class);
       for(ItemSlot e:inventory.data) {
         Item ti=e.item;
         if(ti!=null) ti.type=mitem[ti.typeId];
@@ -71,8 +72,8 @@ public class MainPlayer extends Player implements LoadAndSave{
   public void save() {
     if(inventory!=null) try(Output output=new Output(new FileOutputStream(dataLocation.file()))) {
       if(pw.pg.debug) System.out.println(point.pos);
-      World0001.kryo.writeObject(output,point);
-      World0001.kryo.writeObject(output,inventory);
+      WorldKryoUtil.kryo.writeObject(output,point);
+      WorldKryoUtil.kryo.writeObject(output,inventory);
       output.close();
     }catch(FileNotFoundException|KryoException e) {
       e.printStackTrace();

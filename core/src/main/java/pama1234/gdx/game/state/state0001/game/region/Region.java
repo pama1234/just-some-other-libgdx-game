@@ -1,6 +1,6 @@
 package pama1234.gdx.game.state.state0001.game.region;
 
-import static pama1234.gdx.game.state.state0001.game.world.World0001.kryo;
+import static pama1234.gdx.game.state.state0001.game.world.WorldKryoUtil.kryo;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;

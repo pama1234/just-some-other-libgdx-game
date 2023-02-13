@@ -7,12 +7,9 @@ import java.util.Arrays;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.KryoException;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
-import com.esotericsoftware.kryo.serializers.FieldSerializer;
-import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer;
 import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
 import pama1234.gdx.game.app.Screen0011;
@@ -20,9 +17,6 @@ import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.state.state0001.game.entity.MultiGameEntityCenter;
-import pama1234.gdx.game.state.state0001.game.item.Inventory;
-import pama1234.gdx.game.state.state0001.game.item.Item;
-import pama1234.gdx.game.state.state0001.game.item.Item.ItemSlot;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
@@ -32,9 +26,6 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemC
 import pama1234.gdx.game.state.state0001.game.player.BlockPointer;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
 import pama1234.gdx.game.state.state0001.game.player.Player.PlayerCenter;
-import pama1234.gdx.game.state.state0001.game.region.Chunk;
-import pama1234.gdx.game.state.state0001.game.region.Chunk.BlockData;
-import pama1234.gdx.game.state.state0001.game.region.Region;
 import pama1234.gdx.game.state.state0001.game.region.RegionCenter;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.background.BackgroundCenter;
@@ -42,10 +33,6 @@ import pama1234.gdx.game.state.state0001.game.world.background.BackgroundList;
 import pama1234.gdx.game.state.state0001.game.world.background.Sky;
 import pama1234.gdx.game.state.state0001.game.world.background.TextureBackground;
 import pama1234.math.UtilMath;
-import pama1234.math.physics.MassPoint;
-import pama1234.math.physics.PathPoint;
-import pama1234.math.physics.PathVar;
-import pama1234.math.vec.Vec2f;
 
 public class World0001 extends WorldBase2D{
   public static class WorldData{
@@ -57,7 +44,7 @@ public class World0001 extends WorldBase2D{
     public int tick;
     public static WorldData load(FileHandle file) {
       if(file.exists()) try(Input input=new Input(new FileInputStream(file.file()))) {
-        WorldData out=kryo.readObject(input,WorldData.class);
+        WorldData out=WorldKryoUtil.kryo.readObject(input,WorldData.class);
         input.close();
         return out;
       }catch(FileNotFoundException|KryoException e) {
@@ -67,34 +54,12 @@ public class World0001 extends WorldBase2D{
     }
     public static void save(FileHandle file,WorldData in) {
       try(Output output=new Output(new FileOutputStream(file.file()))) {
-        kryo.writeObject(output,in);
+        WorldKryoUtil.kryo.writeObject(output,in);
         output.close();
       }catch(FileNotFoundException|KryoException e) {
         e.printStackTrace();
       }
     }
-  }
-  public static final Kryo kryo=new Kryo();
-  static {
-    kryo.setDefaultSerializer(TaggedFieldSerializer.class);
-    kryo.register(Region.class);
-    kryo.register(Chunk[][].class);
-    kryo.register(Chunk[].class);
-    kryo.register(Chunk.class);
-    kryo.register(BlockData[][].class);
-    kryo.register(BlockData[].class);
-    kryo.register(BlockData.class);
-    kryo.register(Block.class);
-    kryo.register(Inventory.class);
-    kryo.register(ItemSlot[].class);
-    kryo.register(ItemSlot.class);
-    kryo.register(Item.class);
-    kryo.register(MassPoint.class,new FieldSerializer<MassPoint>(kryo,MassPoint.class));
-    kryo.register(PathPoint.class,new FieldSerializer<PathPoint>(kryo,PathPoint.class));
-    kryo.register(PathVar.class,new FieldSerializer<PathVar>(kryo,PathVar.class));
-    kryo.register(int[].class);
-    kryo.register(WorldData.class);
-    kryo.register(Vec2f.class,new FieldSerializer<PathPoint>(kryo,Vec2f.class));
   }
   public FileHandle worldDataDir=Gdx.files.local("data/saved/test-world.bin");
   public WorldData data;
