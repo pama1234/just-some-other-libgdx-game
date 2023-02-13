@@ -102,8 +102,8 @@ public class UiGenerator{
         p.settings.mute=!p.settings.mute;
         if(p.settings.mute) self.updateText();
       },self->self.text=p.settings.mute?"静音：是":"静音：否",()->18,()->0,()->0),
-      ps.volumeSlider=new Slider<T>(p,true,()->true,self-> {
-        p.settings.volume=ps.volumeSlider.pos;
+      ps.sliders[0]=new Slider<T>(p,true,()->true,self-> {
+        p.settings.volume=ps.sliders[0].pos;
         self.updateText();
       },self-> {},self-> {},
         self->self.text="音量 "+String.format("%6.2f",p.settings.volume*100),()->18,()->0,()->20,1),
@@ -142,11 +142,27 @@ public class UiGenerator{
         p.state(State0001.Debug);
       },self->self.text="别按这个（Debug视图）",()->18,()->0,()->160),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
-        p.settings.useGyroscope=!p.settings.useGyroscope;
+        if(p.gyroscope) {
+          p.settings.useGyroscope=!p.settings.useGyroscope;
+          self.updateText();
+        }
       },self->self.text="使用陀螺仪："+(p.settings.useGyroscope?"是":"否"),()->18,()->0,()->180),
+      ps.sliders[1]=new Slider<T>(p,true,()->true,self-> {
+        p.settings.gyroscopeSensitivity=ps.sliders[1].pos;
+        self.updateText();
+      },self-> {},self-> {},
+        self->self.text="陀螺仪灵敏度 "+String.format("%5.2f",p.settings.gyroscopeSensitivity),()->18,()->0,()->200,1,-10,10),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
-        p.settings.useAccelerometer=!p.settings.useAccelerometer;
-      },self->self.text="使用加速计："+(p.settings.useAccelerometer?"是":"否"),()->18,()->0,()->200),
+        if(p.accelerometer) {
+          p.settings.useAccelerometer=!p.settings.useAccelerometer;
+          self.updateText();
+        }
+      },self->self.text="使用加速计："+(p.settings.useAccelerometer?"是":"否"),()->18,()->0,()->220),
+      ps.sliders[2]=new Slider<T>(p,true,()->true,self-> {
+        p.settings.accelerometerSensitivity=ps.sliders[2].pos;
+        self.updateText();
+      },self-> {},self-> {},
+        self->self.text="加速计灵敏度 "+String.format("%5.2f",p.settings.accelerometerSensitivity),()->18,()->0,()->240,1,-10,10),
     };
   }
   public static <T extends Screen0011> TextButton<?>[] genButtons_0008(T p) {

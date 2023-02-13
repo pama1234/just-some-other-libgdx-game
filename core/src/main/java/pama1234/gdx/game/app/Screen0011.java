@@ -43,6 +43,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     public ServerInfo serverInfo;
     public boolean zoomButton;
     public boolean useGyroscope,useAccelerometer;
+    public float gyroscopeSensitivity=1,accelerometerSensitivity=1;
     // public boolean useCompass;
   }
   public SettingsData settings;
@@ -136,7 +137,20 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     return out;
   }
   @Override
-  public void update() {}
+  public void update() {
+    if(settings.useGyroscope) {
+      cam.point.des.x-=Gdx.input.getGyroscopeX()*settings.gyroscopeSensitivity;
+      cam.point.des.y+=Gdx.input.getGyroscopeY()*settings.gyroscopeSensitivity;
+      // cam.point.des.z-=Gdx.input.getGyroscopeZ();
+    }
+    if(settings.useAccelerometer) {
+      cam.point.des.x-=Gdx.input.getAccelerometerX()*settings.accelerometerSensitivity;
+      cam.point.des.y+=Gdx.input.getAccelerometerY()*settings.accelerometerSensitivity;
+      // cam.point.des.z-=Gdx.input.getAccelerometerZ();
+      cam2d.scale.des+=Gdx.input.getAccelerometerZ()*settings.accelerometerSensitivity;
+      cam2d.testScale();
+    }
+  }
   @Override
   public void mousePressed(MouseInfo info) {}
   @Override

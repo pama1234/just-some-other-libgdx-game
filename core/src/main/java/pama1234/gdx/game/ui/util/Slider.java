@@ -8,11 +8,22 @@ import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 
 public class Slider<T extends UtilScreen>extends TextButtonCam<T>{
-  public float min,max=1;
+  public float min=0,max=1;
   public float pos;
-  public Slider(T p,boolean textOffset,GetBoolean active,ButtonEvent press,ButtonEvent clickStart,ButtonEvent clickEnd,ButtonEvent updateText,GetInt bu,GetFloat x,GetFloat y,float pos) {
+  public Slider(T p,boolean textOffset,GetBoolean active,
+    ButtonEvent press,ButtonEvent clickStart,ButtonEvent clickEnd,
+    ButtonEvent updateText,GetInt bu,GetFloat x,GetFloat y,
+    float pos) {
     super(p,textOffset,active,press,clickStart,clickEnd,updateText,bu,x,y);
     this.pos=pos;
+  }
+  public Slider(T p,boolean textOffset,GetBoolean active,
+    ButtonEvent press,ButtonEvent clickStart,ButtonEvent clickEnd,
+    ButtonEvent updateText,GetInt bu,GetFloat x,GetFloat y,
+    float pos,float min,float max) {
+    this(p,textOffset,active,press,clickStart,clickEnd,updateText,bu,x,y,pos);
+    this.min=min;
+    this.max=max;
   }
   @Override
   public void press() {
@@ -36,7 +47,7 @@ public class Slider<T extends UtilScreen>extends TextButtonCam<T>{
     p.rect(tx,ty,tw,th);
     // p.rect(tx+1,ty,tw2,th);
     p.fill(144,222,196,191);
-    p.rect(tx,ty,tw*pos,th);
+    p.rect(tx,ty,tw*(pos-min)/(max-min),th);
     p.text(text,tx+(textOffset?8:0),ty+(th-16)/2f-1);
     p.endBlend();
   }

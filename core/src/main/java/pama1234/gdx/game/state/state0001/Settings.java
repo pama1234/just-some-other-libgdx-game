@@ -16,14 +16,18 @@ import pama1234.util.net.ServerInfo;
 public class Settings extends StateEntity0001{
   public Button<?>[] buttons;
   public TextButtonCam<?>[] buttonsCam;
-  public Slider<?> volumeSlider;
+  // public Slider<?> volumeSlider;
+  public Slider<?>[] sliders;
   public TextField[] screenTextFields,camTextFields;
   public int tx,ty;
   public Settings(Screen0011 p) {
     super(p);
+    sliders=new Slider[3];
     buttons=UiGenerator.genButtons_0004(p);
     buttonsCam=UiGenerator.genButtons_0006(p,this);
-    volumeSlider.pos=p.settings.volume;
+    sliders[0].pos=p.settings.volume;
+    sliders[1].pos=p.settings.gyroscopeSensitivity;
+    sliders[2].pos=p.settings.gyroscopeSensitivity;
     screenTextFields=UiGenerator.genTextFields_0001(p);
     camTextFields=UiGenerator.genTextFields_0002(p);
   }
@@ -65,7 +69,7 @@ public class Settings extends StateEntity0001{
     }
     if(p.compass) {
       line();
-      text("陀螺仪 X: "+Gdx.input.getAzimuth());
+      text("指南针 X: "+Gdx.input.getAzimuth());
       text("指南针 Y: "+Gdx.input.getPitch());
       text("指南针 Z: "+Gdx.input.getRoll());
     }
