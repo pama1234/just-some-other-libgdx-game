@@ -50,7 +50,15 @@ public class ScannerThread extends Thread{
         }
           break;
         case "ip": {
-          System.out.println(p.serverInfo.toString());
+          if(data.length>2) {
+            switch(data[1]) {
+              case "set":
+                p.serverInfo.setFromString(data[2],12347);
+                break;
+              default:
+                break;
+            }
+          }else System.out.println(p.serverInfo.toString());
         }
           break;
         default:

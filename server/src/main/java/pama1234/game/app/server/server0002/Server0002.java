@@ -11,7 +11,6 @@ import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 import com.esotericsoftware.kryo.serializers.FieldSerializer;
 import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer;
-import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
 import pama1234.game.app.server.ServerCore;
 import pama1234.game.app.server.server0002.ui.ScannerThread;
@@ -19,7 +18,6 @@ import pama1234.util.net.ServerInfo;
 
 public class Server0002 extends ServerCore{
   public static class ServerSettings{
-    @Tag(0)
     public ServerInfo serverInfo;
   }
   public Kryo kryo;
@@ -42,7 +40,7 @@ public class Server0002 extends ServerCore{
   public void initKryo() {
     kryo=new Kryo();
     kryo.setDefaultSerializer(TaggedFieldSerializer.class);
-    kryo.register(ServerSettings.class);
+    kryo.register(ServerSettings.class,new FieldSerializer<ServerSettings>(kryo,ServerSettings.class));
     kryo.register(ServerInfo.class,new FieldSerializer<ServerInfo>(kryo,ServerInfo.class));
   }
   public void testSettings() {

@@ -32,16 +32,11 @@ public class ServerPlayerCenter3D extends ServerEntityCenter<ServerPlayer3D>{
     super.refresh();
     if(hashMap.size()!=list.size()) throw new RuntimeException("hashMap.size()!=list.size() "+hashMap.size()+" "+list.size());
   }
-  // public static class TokenData{
-  //   public String name;
-  //   public TokenData(String name) {
-  //     this.name=name;
-  //   }
-  // }
   public void remove(String name) {
-    ServerPlayer3D tp=hashMap.get(name);
+    Token key=new Token(name);
+    ServerPlayer3D tp=hashMap.get(key);
     if(tp!=null) {
-      hashMap.remove(name);
+      hashMap.remove(key);
       remove.add(tp);
     }else System.out.println("ClientPlayerCenter3D tp==null name="+name);
   }
