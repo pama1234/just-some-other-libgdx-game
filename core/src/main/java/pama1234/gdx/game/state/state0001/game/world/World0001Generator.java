@@ -11,6 +11,7 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlock
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaCreatureCenter0001;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemCenter0001;
 import pama1234.gdx.game.state.state0001.game.player.Player.PlayerType;
+import pama1234.gdx.game.state.state0001.game.region.block.WoodPlank;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Dirt;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Sapling;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Stone;
@@ -32,6 +33,7 @@ public class World0001Generator{
     metaBlocks.list.add(metaBlocks.workbench=new Workbench(metaBlocks,metaBlocks.id()));
     metaBlocks.list.add(metaBlocks.sapling=new Sapling(metaBlocks,metaBlocks.id()));
     metaBlocks.list.add(metaBlocks.torch=new Torch(metaBlocks,metaBlocks.id()));
+    metaBlocks.list.add(metaBlocks.woodPlank=new WoodPlank(metaBlocks,metaBlocks.id()));
     return metaBlocks;
   }
   public static MetaItemCenter0001 createItemC(World0001 pw) {
@@ -105,6 +107,11 @@ public class World0001Generator{
       in.blockType=pw.metaBlocks.torch;
       in.tiles=new TextureRegion[1];
       in.tiles[0]=ImageAsset.items[6][0];
+    }));
+    metaItems.list.add(metaItems.woodPlank=new MetaItem(metaItems,"wood-plank",metaItems.id(),in-> {
+      in.blockType=pw.metaBlocks.woodPlank;
+      in.tiles=new TextureRegion[1];
+      in.tiles[0]=ImageAsset.items[3][0];
     }));
     return metaItems;
   }

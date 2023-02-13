@@ -172,8 +172,9 @@ public class Workbench extends MetaBlock{
       new CraftRecipe(new CraftItem[] {new CraftItem(mi.branch),new CraftItem(mi.stone)},new CraftItem[] {new CraftItem(mi.stoneAxe)}),
       new CraftRecipe(new CraftItem[] {new CraftItem(mi.branch),new CraftItem(mi.stone)},new CraftItem[] {new CraftItem(mi.stoneSword)}),
       new CraftRecipe(new CraftItem[] {new CraftItem(mi.branch),new CraftItem(mi.stone)},new CraftItem[] {new CraftItem(mi.stoneChisel)}),
-      new CraftRecipe(new CraftItem[] {new CraftItem(mi.branch,4)},new CraftItem[] {new CraftItem(mi.log)}),
-      new CraftRecipe(new CraftItem[] {new CraftItem(mi.log)},new CraftItem[] {new CraftItem(mi.branch,4)}),
+      new CraftRecipe(new CraftItem[] {new CraftItem(mi.branch,8)},new CraftItem[] {new CraftItem(mi.log)}),
+      new CraftRecipe(new CraftItem[] {new CraftItem(mi.log)},new CraftItem[] {new CraftItem(mi.branch,8)}),
+      new CraftRecipe(new CraftItem[] {new CraftItem(mi.log)},new CraftItem[] {new CraftItem(mi.woodPlank,4)}),
       new CraftRecipe(new CraftItem[] {new CraftItem(mi.leaf)},new CraftItem[] {new CraftItem(mi.sapling,2)}),
       new CraftRecipe(new CraftItem[] {new CraftItem(mi.leaf),new CraftItem(mi.branch)},new CraftItem[] {new CraftItem(mi.torch,4)}),
     };
