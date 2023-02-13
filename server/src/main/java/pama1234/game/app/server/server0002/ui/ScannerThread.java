@@ -55,8 +55,6 @@ public class ScannerThread extends Thread{
               case "set":
                 p.serverInfo.setFromString(data[2],12347);
                 break;
-              default:
-                break;
             }
           }else System.out.println(p.serverInfo.toString());
         }

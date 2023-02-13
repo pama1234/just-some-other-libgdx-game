@@ -81,6 +81,9 @@ public class Block{
   public static boolean isNotFullBlock(Block in) {
     return in==null||in.type==null||in.type.empty||!in.type.fullBlock;//TODO
   }
+  public static boolean isFullBlockOrNull(Block in) {
+    return in==null||!(in.type==null||in.type.empty||!in.type.fullBlock);
+  }
   public static boolean isType(Block in,MetaBlock type) {
     return in!=null&&in.type==type;
   }

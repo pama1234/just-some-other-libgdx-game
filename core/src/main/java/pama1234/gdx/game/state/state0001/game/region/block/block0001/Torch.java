@@ -39,10 +39,10 @@ public class Torch extends MetaBlock{
   public void initTorchLambda() {
     updater=(in,x,y)-> {
       lightUpdater.update(in,x,y);
-      if(!Block.isNotFullBlock(pc.pw.getBlock(x,y+1))) in.intData[0]=0;
-      else if(!Block.isNotFullBlock(pc.pw.getBlock(x-1,y))) in.intData[0]=1;
-      else if(!Block.isNotFullBlock(pc.pw.getBlock(x+1,y))) in.intData[0]=2;
-      else if(!Block.isNotFullBlock(pc.pw.getBlock(x,y-1))) in.intData[0]=3;
+      if(Block.isFullBlockOrNull(pc.pw.getBlock(x,y+1))) in.intData[0]=0;
+      else if(Block.isFullBlockOrNull(pc.pw.getBlock(x-1,y))) in.intData[0]=1;
+      else if(Block.isFullBlockOrNull(pc.pw.getBlock(x+1,y))) in.intData[0]=2;
+      else if(Block.isFullBlockOrNull(pc.pw.getBlock(x,y-1))) in.intData[0]=3;
       else pc.pw.destroyBlock(in,x,y);
     };
     displayUpdater=(in,x,y)-> {
