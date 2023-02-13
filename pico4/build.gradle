@@ -160,25 +160,25 @@ task copyAndroidNatives() {
 				def zipTreeJar=zipTree(jar)
 				// println(zipTreeJar)
         copy {
-          from zipTreeJar+("/prefab/modules/openxr_loader/libs/android.armeabi-v7a")
+          from zipTreeJar.matching{include "/prefab/modules/openxr_loader/libs/android.armeabi-v7a"}
           into file("libs/armeabi-v7a")
           include "*.so"
 					duplicatesStrategy DuplicatesStrategy.INCLUDE
         }
         copy {
-          from zipTreeJar+("/prefab/modules/openxr_loader/libs/android.arm64-v8a")
+          from zipTreeJar.matching{include "/prefab/modules/openxr_loader/libs/android.arm64-v8a"}
           into file("libs/arm64-v8a")
           include "*.so"
 					duplicatesStrategy DuplicatesStrategy.INCLUDE
         }
         copy {
-          from zipTreeJar+("/prefab/modules/openxr_loader/libs/android.x86_64")
+          from zipTreeJar.matching{include "/prefab/modules/openxr_loader/libs/android.x86_64"}
           into file("libs/x86_64")
           include "*.so"
 					duplicatesStrategy DuplicatesStrategy.INCLUDE
         }
         copy {
-          from zipTreeJar+("/prefab/modules/openxr_loader/libs/android.x86")
+          from zipTreeJar.matching{include "/prefab/modules/openxr_loader/libs/android.x86"}
           into file("libs/x86")
           include "*.so"
 					duplicatesStrategy DuplicatesStrategy.INCLUDE
