@@ -32,7 +32,7 @@ public class Server0002 extends ServerCore{
     // settingsFile.getParentFile().mkdirs();
     mainDir.mkdirs();
     loadSettings();
-    testSettings();
+    postSettings();
     serverInfo=settings.serverInfo;
     scannerThread=new ScannerThread(this);
     scannerThread.start();
@@ -43,7 +43,7 @@ public class Server0002 extends ServerCore{
     kryo.register(ServerSettings.class,new FieldSerializer<ServerSettings>(kryo,ServerSettings.class));
     kryo.register(ServerInfo.class,new FieldSerializer<ServerInfo>(kryo,ServerInfo.class));
   }
-  public void testSettings() {
+  public void postSettings() {
     if(settings.serverInfo==null) settings.serverInfo=new ServerInfo("127.0.0.1",12347);
   }
   public void loadSettings() {

@@ -1,6 +1,6 @@
 package pama1234.gdx.game.util;
 
-import pama1234.gdx.game.util.function.GetFloat;
+import pama1234.util.function.GetFloat;
 
 public class RectF{
   public GetFloat x,y,w,h;

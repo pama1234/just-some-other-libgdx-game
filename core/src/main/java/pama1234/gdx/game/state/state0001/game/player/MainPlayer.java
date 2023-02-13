@@ -42,7 +42,6 @@ public class MainPlayer extends Player implements LoadAndSave{
   }
   @Override
   public void init() {
-    // System.out.println("MainPlayer.init()");
     if(inventory==null) {
       inventory=new Inventory(this,52,9);
       inventory.data[5].item=pw.metaItems.workbench.createItem(16);

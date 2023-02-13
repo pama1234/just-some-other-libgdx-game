@@ -17,7 +17,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
 import pama1234.gdx.game.util.RectF;
-import pama1234.gdx.game.util.function.GetFloat;
+import pama1234.util.function.GetFloat;
 
 public class TextArea extends TextField{
   IntArray linesBreak;

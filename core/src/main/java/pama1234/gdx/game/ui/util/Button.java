@@ -1,10 +1,10 @@
 package pama1234.gdx.game.ui.util;
 
-import pama1234.gdx.game.util.function.GetBoolean;
-import pama1234.gdx.game.util.function.GetFloat;
 import pama1234.gdx.util.app.UtilScreen;
 import pama1234.gdx.util.entity.Entity;
 import pama1234.gdx.util.info.TouchInfo;
+import pama1234.util.function.GetBoolean;
+import pama1234.util.function.GetFloat;
 
 public abstract class Button<T extends UtilScreen>extends Entity<T>{
   public String text;//TODO

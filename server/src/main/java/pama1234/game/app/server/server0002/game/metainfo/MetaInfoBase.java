@@ -1,4 +1,4 @@
-package pama1234.gdx.game.state.state0001.game.metainfo;
+package pama1234.game.app.server.server0002.game.metainfo;
 
 import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 

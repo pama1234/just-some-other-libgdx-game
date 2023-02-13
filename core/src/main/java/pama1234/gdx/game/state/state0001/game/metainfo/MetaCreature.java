@@ -2,6 +2,7 @@ package pama1234.gdx.game.state.state0001.game.metainfo;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
+import pama1234.game.app.server.server0002.game.metainfo.MetaInfoBase;
 import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaCreatureCenter0001;
 

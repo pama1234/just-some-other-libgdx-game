@@ -5,10 +5,10 @@ import static pama1234.math.Tools.inBox;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import pama1234.gdx.game.util.RectF;
-import pama1234.gdx.game.util.function.GetBoolean;
-import pama1234.gdx.game.util.function.GetFloat;
-import pama1234.gdx.game.util.function.GetInt;
 import pama1234.gdx.util.app.UtilScreen;
+import pama1234.util.function.GetBoolean;
+import pama1234.util.function.GetFloat;
+import pama1234.util.function.GetInt;
 
 public class TextureButton<T extends UtilScreen>extends Button<T>{
   public GetTextureRegion image;

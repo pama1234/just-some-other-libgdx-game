@@ -1,11 +1,11 @@
 package pama1234.gdx.game.ui.util;
 
 import pama1234.gdx.game.util.RectF;
-import pama1234.gdx.game.util.function.GetBoolean;
-import pama1234.gdx.game.util.function.GetFloat;
-import pama1234.gdx.game.util.function.GetInt;
 import pama1234.gdx.util.app.UtilScreen;
 import pama1234.math.Tools;
+import pama1234.util.function.GetBoolean;
+import pama1234.util.function.GetFloat;
+import pama1234.util.function.GetInt;
 
 public class TextButton<T extends UtilScreen>extends Button<T>{
   public boolean textOffset=true;//TODO

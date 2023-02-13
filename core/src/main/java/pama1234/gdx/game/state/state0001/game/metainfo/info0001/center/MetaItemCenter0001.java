@@ -1,8 +1,8 @@
 package pama1234.gdx.game.state.state0001.game.metainfo.info0001.center;
 
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaInfoUtil.MetaItemCenter;
+import pama1234.game.app.server.server0002.game.metainfo.IDGenerator;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
-import pama1234.gdx.game.state.state0001.game.world.IDGenerator;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 
 public class MetaItemCenter0001 extends MetaItemCenter{

@@ -1,4 +1,4 @@
-package pama1234.gdx.game.util.function;
+package pama1234.util.function;
 
 @FunctionalInterface
 public interface ExecuteF{

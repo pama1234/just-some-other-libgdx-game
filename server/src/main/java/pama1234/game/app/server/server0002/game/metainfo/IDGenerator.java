@@ -1,6 +1,6 @@
-package pama1234.gdx.game.state.state0001.game.world;
+package pama1234.game.app.server.server0002.game.metainfo;
 
-import pama1234.gdx.game.util.function.GetInt;
+import pama1234.util.function.GetInt;
 
 public class IDGenerator implements GetInt{
   public int count;
