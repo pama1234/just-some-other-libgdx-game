@@ -2,6 +2,8 @@ package pama1234.gdx.game.state.state0001;
 
 import static com.badlogic.gdx.Input.Keys.ESCAPE;
 
+import com.badlogic.gdx.Gdx;
+
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
 import pama1234.gdx.game.ui.generator.UiGenerator;
@@ -16,7 +18,7 @@ public class Settings extends StateEntity0001{
   public TextButtonCam<?>[] buttonsCam;
   public Slider<?> volumeSlider;
   public TextField[] screenTextFields,camTextFields;
-  public int tx=-128,ty;
+  public int tx,ty;
   public Settings(Screen0011 p) {
     super(p);
     buttons=UiGenerator.genButtons_0004(p);
@@ -49,13 +51,36 @@ public class Settings extends StateEntity0001{
   }
   @Override
   public void displayCam() {
+    tx=-128;
     ty=0;
     text(p.gyroscope?"陀螺仪：  可用":"陀螺仪：不可用");
     text(p.compass?"指南针：  可用":"指南针：不可用");
     text(p.accelerometer?"加速计：  可用":"加速计：不可用");
+    tx=-256;
+    if(p.gyroscope) {
+      line();
+      text("陀螺仪 X: "+Gdx.input.getGyroscopeX());
+      text("陀螺仪 Y: "+Gdx.input.getGyroscopeY());
+      text("陀螺仪 Z: "+Gdx.input.getGyroscopeZ());
+    }
+    if(p.compass) {
+      line();
+      text("陀螺仪 X: "+Gdx.input.getAzimuth());
+      text("指南针 Y: "+Gdx.input.getPitch());
+      text("指南针 Z: "+Gdx.input.getRoll());
+    }
+    if(p.accelerometer) {
+      line();
+      text("加速计 X: "+Gdx.input.getAccelerometerX());
+      text("加速计 Y: "+Gdx.input.getAccelerometerY());
+      text("加速计 Z: "+Gdx.input.getAccelerometerZ());
+    }
   }
   public void text(String in) {
     p.text(in,tx,ty);
+    line();
+  }
+  public void line() {
     ty+=18;
   }
   @Override
