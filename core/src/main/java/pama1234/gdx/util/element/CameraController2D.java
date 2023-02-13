@@ -155,4 +155,7 @@ public class CameraController2D extends CameraController{
     if(scale.des<minScale) scale.des=minScale;
     if(scale.des>maxScale) scale.des=maxScale;
   }
+  public boolean active() {
+    return activeDrag&&(activeScrollZoom||activeTouchZoom);
+  }
 }

@@ -163,6 +163,11 @@ public class UiGenerator{
         self.updateText();
       },self-> {},self-> {},
         self->self.text="加速计灵敏度 "+String.format("%5.2f",p.settings.accelerometerSensitivity),()->18,()->0,()->240,1,-10,10),
+      ps.sliders[3]=new Slider<T>(p,true,()->true,self-> {
+        p.settings.gConst=ps.sliders[3].pos;
+        self.updateText();
+      },self-> {},self-> {},
+        self->self.text="重力常数 "+String.format("%5.2f",p.settings.gConst),()->18,()->0,()->260,1,9.5f,10f),
     };
   }
   public static <T extends Screen0011> TextButton<?>[] genButtons_0008(T p) {

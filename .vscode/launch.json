@@ -15,6 +15,13 @@
     },
     {
       "type": "java",
+      "name": "Launch Vec3f",
+      "request": "launch",
+      "mainClass": "pama1234.math.vec.Vec3f",
+      "projectName": "just-some-other-libgdx-game-server"
+    },
+    {
+      "type": "java",
       "name": "Current File",
       "request": "launch",
       "mainClass": "${file}"

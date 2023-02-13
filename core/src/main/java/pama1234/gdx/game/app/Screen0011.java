@@ -27,6 +27,8 @@ import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.util.app.ScreenCore2D;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.math.Tools;
+import pama1234.math.UtilMath;
+import pama1234.math.vec.Vec3f;
 import pama1234.util.net.ServerInfo;
 
 public class Screen0011 extends ScreenCore2D implements StateChanger{
@@ -44,6 +46,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     public boolean zoomButton;
     public boolean useGyroscope,useAccelerometer;
     public float gyroscopeSensitivity=1,accelerometerSensitivity=1;
+    public float gConst=9.81f;
     // public boolean useCompass;
   }
   public SettingsData settings;
@@ -57,6 +60,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   public TextButton<?>[] buttons;
   //---
   public boolean gyroscope,accelerometer,compass;
+  public Vec3f gVel;
   @Override
   public void setup() {
     noStroke();
@@ -69,6 +73,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     gyroscope=Gdx.input.isPeripheralAvailable(Peripheral.Gyroscope);
     accelerometer=Gdx.input.isPeripheralAvailable(Peripheral.Accelerometer);
     compass=Gdx.input.isPeripheralAvailable(Peripheral.Compass);
+    gVel=new Vec3f();
     // firstRun=true;
     if(firstRun) {
       MusicAsset.load_init();
@@ -138,16 +143,26 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   }
   @Override
   public void update() {
-    if(settings.useGyroscope) {
+    if(settings.useGyroscope&&cam2d.activeDrag) {
       cam.point.des.x-=Gdx.input.getGyroscopeX()*settings.gyroscopeSensitivity;
       cam.point.des.y+=Gdx.input.getGyroscopeY()*settings.gyroscopeSensitivity;
       // cam.point.des.z-=Gdx.input.getGyroscopeZ();
     }
-    if(settings.useAccelerometer) {
-      cam.point.des.x-=Gdx.input.getAccelerometerX()*settings.accelerometerSensitivity;
-      cam.point.des.y+=Gdx.input.getAccelerometerY()*settings.accelerometerSensitivity;
+    if(compass) {
+      float tx=Gdx.input.getPitch(),
+        ty=Gdx.input.getRoll(),
+        tz=Gdx.input.getAzimuth();
+      gVel.set(0,0,settings.gConst);
+      gVel.rotateX(UtilMath.rad(tx));
+      gVel.rotateY(UtilMath.rad(ty));
+      gVel.rotateZ(UtilMath.rad(tz));
+    }
+    if(settings.useAccelerometer&&cam2d.active()) {
+      //---
+      cam.point.des.x-=Gdx.input.getAccelerometerX()*settings.accelerometerSensitivity-gVel.x;
+      cam.point.des.y+=Gdx.input.getAccelerometerY()*settings.accelerometerSensitivity-gVel.y;
       // cam.point.des.z-=Gdx.input.getAccelerometerZ();
-      cam2d.scale.des+=Gdx.input.getAccelerometerZ()*settings.accelerometerSensitivity;
+      cam2d.scale.des+=Gdx.input.getAccelerometerZ()*settings.accelerometerSensitivity-gVel.z;
       cam2d.testScale();
     }
   }

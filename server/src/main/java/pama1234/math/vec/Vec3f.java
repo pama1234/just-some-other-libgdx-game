@@ -83,28 +83,37 @@ public class Vec3f extends Vector3f implements ByteBufferData{
     else if(z>z2) z=z2;
   }
   public void rotate(float dir) {
+    // dir/=2;
     final float temp=x;
-    x=x*UtilMath.cos(dir)-y*UtilMath.sin(dir);
+    x=temp*UtilMath.cos(dir)-y*UtilMath.sin(dir);
     y=temp*UtilMath.sin(dir)+y*UtilMath.cos(dir);
   }
-  //TODO 3
-  @Deprecated
+  // public static void main(String[] args) {
+  //   Vec3f a=new Vec3f(1,2,3);
+  //   System.out.println(a);
+  //   a.rotateX(UtilMath.PI);
+  //   System.out.println(a);
+  //   a.rotateX(UtilMath.PI);
+  //   System.out.println(a);
+  //   a.rotateX(UtilMath.PI);
+  //   System.out.println(a);
+  //   a.rotateX(UtilMath.PI);
+  //   System.out.println(a);
+  // }
   public void rotateX(float dir) {
-    final float temp=x;
-    x=x*UtilMath.cos(dir)-y*UtilMath.sin(dir);
-    y=temp*UtilMath.sin(dir)+y*UtilMath.cos(dir);
+    // dir/=2;
+    final float temp=y;
+    y=temp*UtilMath.cos(dir)-z*UtilMath.sin(dir);
+    z=temp*UtilMath.sin(dir)+z*UtilMath.cos(dir);
   }
-  @Deprecated
   public void rotateY(float dir) {
+    // dir/=2;
     final float temp=x;
-    x=x*UtilMath.cos(dir)-y*UtilMath.sin(dir);
-    y=temp*UtilMath.sin(dir)+y*UtilMath.cos(dir);
+    x=temp*UtilMath.cos(dir)-z*UtilMath.sin(dir);
+    z=temp*UtilMath.sin(dir)+z*UtilMath.cos(dir);
   }
-  @Deprecated
   public void rotateZ(float dir) {
-    final float temp=x;
-    x=x*UtilMath.cos(dir)-y*UtilMath.sin(dir);
-    y=temp*UtilMath.sin(dir)+y*UtilMath.cos(dir);
+    rotate(dir);
   }
   public final float dot(float xIn,float yIn,float zIn) {
     return this.x*xIn+this.y*yIn+this.z*zIn;

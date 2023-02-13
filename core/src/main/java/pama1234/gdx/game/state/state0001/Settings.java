@@ -22,12 +22,13 @@ public class Settings extends StateEntity0001{
   public int tx,ty;
   public Settings(Screen0011 p) {
     super(p);
-    sliders=new Slider[3];
+    sliders=new Slider[4];
     buttons=UiGenerator.genButtons_0004(p);
     buttonsCam=UiGenerator.genButtons_0006(p,this);
     sliders[0].pos=p.settings.volume;
     sliders[1].pos=p.settings.gyroscopeSensitivity;
     sliders[2].pos=p.settings.gyroscopeSensitivity;
+    sliders[3].pos=p.settings.gConst;
     screenTextFields=UiGenerator.genTextFields_0001(p);
     camTextFields=UiGenerator.genTextFields_0002(p);
   }
@@ -69,9 +70,13 @@ public class Settings extends StateEntity0001{
     }
     if(p.compass) {
       line();
-      text("指南针 X: "+Gdx.input.getAzimuth());
-      text("指南针 Y: "+Gdx.input.getPitch());
-      text("指南针 Z: "+Gdx.input.getRoll());
+      text("指南针 X: "+Gdx.input.getPitch());
+      text("指南针 Y: "+Gdx.input.getRoll());
+      text("指南针 Z: "+Gdx.input.getAzimuth());
+      line();
+      text("重力   X: "+p.gVel.x);
+      text("重力   Y: "+p.gVel.y);
+      text("重力   Z: "+p.gVel.z);
     }
     if(p.accelerometer) {
       line();
