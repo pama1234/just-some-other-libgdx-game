@@ -302,12 +302,11 @@ public class PlayerController extends Entity<Screen0011>{
     if(Tools.inBox(x,y,e.x1,e.y1,e.w1,e.h1)) {
       switch(getTouchInfoButton(button)) {
         case Buttons.LEFT: {
-          // selectHotSlot(i);
-          player.inventory.switchHold(e,Inventory.moveOne);
+          player.inventory.switchHold(e,Inventory.moveAll);
         }
           break;
         case Buttons.RIGHT: {
-          player.inventory.switchHold(e,Inventory.moveAll);
+          player.inventory.switchHold(e,Inventory.moveOne);
         }
           break;
       }

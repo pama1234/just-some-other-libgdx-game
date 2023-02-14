@@ -13,7 +13,7 @@ import com.esotericsoftware.kryo.serializers.FieldSerializer;
 import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer;
 
 import pama1234.game.app.server.ServerCore;
-import pama1234.game.app.server.server0002.ui.ScannerThread;
+import pama1234.game.app.server.server0002.cmd.ScannerThread;
 import pama1234.util.net.ServerInfo;
 
 public class Server0002 extends ServerCore{

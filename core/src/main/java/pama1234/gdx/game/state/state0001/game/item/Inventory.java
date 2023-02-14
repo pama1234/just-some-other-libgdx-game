@@ -94,7 +94,7 @@ public class Inventory{
   public void selectSlotWithKeyEvent() {
     selectSlot=getSelectPos(hotSlotKeyData);
     testSelectSlot();
-    displayState(displayHotSlot);
+    if(displayState!=displayFullInventory) displayState(displayHotSlot);
   }
   public void displayStateChange() {
     if(displayState==displayFullInventory) safeDisplayState(displayHoldSlot);
@@ -115,8 +115,6 @@ public class Inventory{
   }
   public static int getSelectPos(boolean[] in) {
     int out=0;
-    // if(in[1]) return 0;
-    // for(int i=2;i<in.length;i++) if(in[i]) out+=1<<(i-2);
     for(int i=1;i<in.length;i++) if(in[i]) out+=1<<(i-1);
     return out;
   }
