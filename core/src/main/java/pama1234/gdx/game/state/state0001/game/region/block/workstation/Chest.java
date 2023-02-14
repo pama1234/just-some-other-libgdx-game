@@ -4,8 +4,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.entity.entity0001.DroppedItem;
+import pama1234.gdx.game.state.state0001.game.item.DisplaySlot;
 import pama1234.gdx.game.state.state0001.game.item.Inventory;
-import pama1234.gdx.game.state.state0001.game.item.Inventory.DisplaySlot;
 import pama1234.gdx.game.state.state0001.game.item.Item.ItemSlot;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;

@@ -9,12 +9,13 @@ import pama1234.gdx.game.state.state0001.game.entity.GamePointEntity;
 import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
 import pama1234.gdx.game.state.state0001.game.entity.entity0001.DroppedItem;
 import pama1234.gdx.game.state.state0001.game.entity.util.MovementLimitBox;
+import pama1234.gdx.game.state.state0001.game.item.DisplaySlot;
 import pama1234.gdx.game.state.state0001.game.item.Inventory;
-import pama1234.gdx.game.state.state0001.game.item.Inventory.DisplaySlot;
 import pama1234.gdx.game.state.state0001.game.item.Item;
 import pama1234.gdx.game.state.state0001.game.item.Item.ItemSlot;
 import pama1234.gdx.game.state.state0001.game.item.Item.ItemSlot.GetItemSlot;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
+import pama1234.gdx.game.state.state0001.game.player.ControlBindUtil.GetKeyPressedBoolean;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.region.block.Block.BlockUi;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
@@ -194,9 +195,13 @@ public class PlayerController extends Entity<Screen0011>{
     selectBlock.update(block,tx,ty);
   }
   public void updateKeyInfo() {
-    left=p.isKeyPressed(29)||p.isKeyPressed(21);
-    right=p.isKeyPressed(32)||p.isKeyPressed(22);
-    jump=p.isKeyPressed(62);
+    GetKeyPressedBoolean f=p::isKeyPressed;
+    left=ControlBindUtil.isKeyPressed(ControlBindUtil.moveLeft,f);
+    right=ControlBindUtil.isKeyPressed(ControlBindUtil.moveRight,f);
+    jump=ControlBindUtil.isKeyPressed(ControlBindUtil.jumpUp,f);
+    // boolean[] tba=player.inventory.hotSlotKeyData;
+    // int tl=UtilMath.min(tba.length,10);
+    // for(int i=0;i<tl;i++) tba[i]=ControlBindUtil.isKeyPressed(ControlBindUtil.hotSlotStart+i,f);
   }
   @Override
   public void touchStarted(TouchInfo info) {
@@ -315,11 +320,11 @@ public class PlayerController extends Entity<Screen0011>{
     if(Tools.inBox(x,y,e.x1,e.y1,e.w1,e.h1)) {
       switch(getTouchInfoButton(button)) {
         case Buttons.LEFT: {
-          selectHotSlot(i);
+          player.inventory.switchHold(e,Inventory.moveAll);
         }
           break;
         case Buttons.RIGHT: {
-          player.inventory.switchHold(e,Inventory.moveAll);
+          selectHotSlot(i);
         }
           break;
       }
@@ -361,7 +366,6 @@ public class PlayerController extends Entity<Screen0011>{
     return false;
   }
   public boolean testPosInButtons(float x,float y) {
-    // for(RectF e:cullRects) p.println(Tools.inBox(x,y,e.x(),e.y(),e.w(),e.h()),x,y,e.x(),e.y(),e.w(),e.h());
     for(RectF e:cullRects) if(Tools.inBox(x,y,e.x(),e.y(),e.w(),e.h())) return true;
     return false;
   }
@@ -370,11 +374,8 @@ public class PlayerController extends Entity<Screen0011>{
   }
   @Override
   public void mouseWheel(float x,float y) {
-    // if(selectBlock.task==BlockPointer.use) selectBlock.block.intData[0]+=(int)y;
-    // else {
     selectHotSlot(player.inventory.selectSlot+(int)y);
     player.inventory.testSelectSlot();
-    // }
   }
   public void selectHotSlot(int in) {
     player.inventory.select(in);
@@ -386,10 +387,25 @@ public class PlayerController extends Entity<Screen0011>{
     else if(keyCode==Keys.V) shift(!shift);
     else if(keyCode==Keys.EQUALS) camScale(0.5f);
     else if(keyCode==Keys.MINUS) camScale(-0.5f);
+    else if(testIsHotSlotKey(keyCode,true)) player.inventory.selectSlotWithKeyEvent();
   }
   @Override
   public void keyReleased(char key,int keyCode) {
     if(keyCode==Keys.SHIFT_LEFT||keyCode==Keys.SHIFT_RIGHT) shift(false);
+    else if(testIsHotSlotKey(keyCode,false)) player.inventory.selectSlotWithKeyEvent();
+  }
+  public boolean testIsHotSlotKey(int keyCode,boolean bIn) {
+    boolean[] tba=player.inventory.hotSlotKeyData;
+    int tl=UtilMath.min(tba.length,10);
+    boolean flag=false;
+    if(!bIn&&!tba[0]) return flag;
+    boolean t_tba_0=tba[0];
+    for(int i=0;i<tl;i++) if(ControlBindUtil.isKey(ControlBindUtil.hotSlotStart+i,keyCode)) {
+      tba[i]=bIn;
+      flag=true;
+    }
+    if(!t_tba_0&&tba[0]) for(int i=1;i<tba.length;i++) tba[i]=false;
+    return flag;
   }
   public void camScale(float in) {
     p.cam2d.scaleAdd(in);
