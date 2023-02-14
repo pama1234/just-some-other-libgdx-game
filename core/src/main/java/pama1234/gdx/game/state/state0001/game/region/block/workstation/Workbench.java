@@ -1,4 +1,4 @@
-package pama1234.gdx.game.state.state0001.game.region.block.block0001;
+package pama1234.gdx.game.state.state0001.game.region.block.workstation;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
@@ -32,7 +32,7 @@ public class Workbench extends MetaBlock{
     },(in,type)-> {//change from workbench
       World0001 world=pc.pw;
       int x=in.intData[4],y=in.intData[5];
-      boolean flag=world.isEmpty(world.getBlock(x,y-1));
+      boolean flag=Block.isEmpty(world.getBlock(x,y-1));
       float randomConst=0.8f;
       for(ItemSlot e:in.itemData) if(e.item!=null) DroppedItem.dropItem(world.p,x,y,world,flag,randomConst,e.item);
       in.intData=null;

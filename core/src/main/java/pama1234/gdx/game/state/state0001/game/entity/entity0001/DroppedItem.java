@@ -27,11 +27,8 @@ public class DroppedItem extends LivingEntity{
   }
   @Override
   public void update() {
-    // limitBox.update();
     limitBox.preCtrlUpdate();
     itemAttract();
-    // limitBox.updateLimitBox();
-    // limitBox.testInAir();
     if(limitBox.inAir) point.vel.y+=pw.settings.g;
     super.update();
   }

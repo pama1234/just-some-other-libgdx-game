@@ -205,10 +205,10 @@ tasks.whenTaskAdded { packageTask ->
 //	 }
 // }
 
-task cleanAndroidNatives() {
-	delete file('libs').listFiles()
-	println("cleanAndroidNatives")
-}
+// task cleanAndroidNatives() {
+// 	delete file('libs').listFiles()
+// 	println("cleanAndroidNatives")
+// }
 
 task run(type: Exec) {
 	def path

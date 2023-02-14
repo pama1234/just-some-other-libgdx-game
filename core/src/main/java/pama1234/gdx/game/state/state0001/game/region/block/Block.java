@@ -87,10 +87,16 @@ public class Block{
   public static boolean isType(Block in,MetaBlock type) {
     return in!=null&&in.type==type;
   }
-  public void doItemDrop(Screen0011 p,int x,int y) {
+  public void doItemDrop(Screen0011 p,int x,int y,boolean empty) {
     World0001 world=type.pc.pw;
-    boolean flag=world.isEmpty(world.getBlock(x,y-1));
+    boolean upEmpty=isNotFullBlock(world.getBlock(x,y-1));
+    if(!empty) {
+      if(upEmpty) y-=1;
+      else if(isNotFullBlock(world.getBlock(x,y+1))) y+=1;
+      else if(isNotFullBlock(world.getBlock(x-1,y))) x-=1;
+      else if(isNotFullBlock(world.getBlock(x+1,y))) x+=1;
+    }
     float randomConst=0.8f;
-    for(ItemDropAttr e:type.itemDrop) DroppedItem.dropItem(p,x,y,world,flag,randomConst,e.item.createItem(e.dropNumber(world)));
+    for(ItemDropAttr e:type.itemDrop) DroppedItem.dropItem(p,x,y,world,upEmpty,randomConst,e.item.createItem(e.dropNumber(world)));
   }
 }

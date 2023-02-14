@@ -19,7 +19,7 @@ import pama1234.gdx.game.state.state0001.game.region.block.block0001.Torch;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.TreeBranch;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.TreeLeaf;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.TreeLog;
-import pama1234.gdx.game.state.state0001.game.region.block.block0001.Workbench;
+import pama1234.gdx.game.state.state0001.game.region.block.workstation.Workbench;
 
 public class World0001Generator{
   public static MetaBlockCenter0001 createBlockC(World0001 in) {

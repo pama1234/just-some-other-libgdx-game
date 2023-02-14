@@ -112,9 +112,6 @@ public class World0001 extends WorldBase2D{
   public float random(float min,float max) {
     return p.random(min,max);
   }
-  public boolean isEmpty(Block in) {
-    return in==null||in.type.empty;
-  }
   @Override
   public void init() {
     super.init();
@@ -209,7 +206,7 @@ public class World0001 extends WorldBase2D{
   }
   public void placeBlock(Block block,MetaBlock in,int x,int y) {
     // updateRectLighting(x,y);
-    block.doItemDrop(p,x,y);
+    block.doItemDrop(p,x,y,in.empty);
     block.type(in);
   }
   public void setBlock(Block block,MetaBlock in,int x,int y) {
