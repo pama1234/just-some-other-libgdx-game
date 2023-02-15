@@ -10,7 +10,6 @@ import pama1234.math.UtilMath;
 
 public class ControllerDisplayUtil{
   public static void drawSelectEntity(Screen0011 p,LivingEntity entity) {
-    // LivingEntity entity=selectEntity.entity;
     float tl=UtilMath.mag(entity.type.w,entity.type.h)/2f+2;
     float tcx=entity.cx(),tcy=entity.cy();
     p.tint(255,127);
@@ -21,22 +20,9 @@ public class ControllerDisplayUtil{
     p.noTint();
   }
   public static void drawSelectBlock(Screen0011 p,ControllerBlockPointer selectBlock,float tw,float th) {
-    // int tw=player.pw.settings.blockWidth,
-    //   th=player.pw.settings.blockHeight;
     switch(selectBlock.task) {
       case BlockPointer.idle: {
         p.fill(0,127);
-        // float r=1;
-        // float tx1=selectBlock.x*tw-r;
-        // float ty1=selectBlock.y*th-r;
-        // float tx2=(selectBlock.x+1)*tw+r;
-        // float ty2=(selectBlock.y+1)*th+r;
-        // float tw1=tw+r*2;
-        // float th1=th+r*2;
-        // p.rect(tx1,ty1,1,th1);
-        // p.rect(tx1,ty1,tw1,1);
-        // p.rect(tx2-1,ty1,1,th1);
-        // p.rect(tx1,ty2-1,tw1,1);
         Game.boxStroke(p,1,selectBlock.x*tw,selectBlock.y*th,tw,th);
       }
         break;
@@ -68,28 +54,33 @@ public class ControllerDisplayUtil{
     }
     p.noTint();
   }
-  public static void drawSelectBlockTouchScreen(Screen0011 p,ControllerBlockPointer selectBlock,float tw,float th) {
-    // int tw=player.pw.settings.blockWidth,
-    //   th=player.pw.settings.blockHeight;
+  public static void boxTwoLine(Screen0011 p,float r,float tx1,float ty1,float tw1,float th1,boolean a) {
+    float tx2=tx1+tw1+r;
+    float ty2=ty1+th1+r;
+    tx1-=r;
+    ty1-=r;
+    tw1+=r*2;
+    th1+=r*2;
+    if(a) {
+      p.rect(tx1,ty1,tw1,r);
+      p.rect(tx1,ty2-r,tw1,r);
+    }else {
+      p.rect(tx1,ty1,r,th1);
+      p.rect(tx2-r,ty1,r,th1);
+    }
+  }
+  public static void drawSelectBlockTouchScreen(Screen0011 p,ControllerBlockPointer selectBlock,float tw,float th,float scale) {
+    p.fill(0,127);
+    float tr=4/scale;
+    float tf=tr;
+    float tf_2=2/scale;
+    boxTwoLine(p,tr,selectBlock.x*tw,(selectBlock.y-tf)*th,tw,(1+tf*2)*th,false);
+    boxTwoLine(p,tr,(selectBlock.x-tf)*tw,selectBlock.y*th,(1+tf*2)*tw,th,true);
     switch(selectBlock.task) {
-      case BlockPointer.idle: {
-        p.fill(0,127);
-        float r=1;
-        float tx1=selectBlock.x*tw-r;
-        float ty1=selectBlock.y*th-r;
-        float tx2=(selectBlock.x+1)*tw+r;
-        float ty2=(selectBlock.y+1)*th+r;
-        float tw1=tw+r*2;
-        float th1=th+r*2;
-        p.rect(tx1,ty1,1,th1);
-        p.rect(tx1,ty1,tw1,1);
-        p.rect(tx2-1,ty1,1,th1);
-        p.rect(tx1,ty2-1,tw1,1);
-      }
-        break;
       case BlockPointer.destroy: {
         p.tint(255,191);
-        p.image(ImageAsset.tiles[20][(int)UtilMath.map(selectBlock.progress,0,selectBlock.block.type.destroyTime,0,7)],selectBlock.x*tw,selectBlock.y*th);
+        p.image(ImageAsset.tiles[20][(int)UtilMath.map(selectBlock.progress,0,selectBlock.block.type.destroyTime,0,7)],
+          (selectBlock.x-tf_2)*tw,(selectBlock.y-tf_2)*th,(1+tf_2*2)*tw,(1+tf_2*2)*th);
       }
         break;
       case BlockPointer.build: {
@@ -99,7 +90,7 @@ public class ControllerDisplayUtil{
           p.image(
             ImageAsset.tiles[21][(int)UtilMath.map(selectBlock.progress,
               0,ti.type.blockType.buildTime+selectBlock.block.type.destroyTime,0,7)],
-            selectBlock.x*tw,selectBlock.y*th);
+            (selectBlock.x-tf_2)*tw,(selectBlock.y-tf_2)*th,(1+tf_2*2)*tw,(1+tf_2*2)*th);
         }
       }
         break;
@@ -107,7 +98,7 @@ public class ControllerDisplayUtil{
         p.tint(255,191);
         p.image(
           ImageAsset.tiles[7][8],
-          selectBlock.x*tw,selectBlock.y*th);
+          (selectBlock.x-tf_2)*tw,(selectBlock.y-tf_2)*th,(1+tf_2*2)*tw,(1+tf_2*2)*th);
       }
         break;
       default:

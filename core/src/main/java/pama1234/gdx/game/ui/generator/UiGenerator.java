@@ -147,17 +147,17 @@ public class UiGenerator{
           self.updateText();
         }
       },self->self.text="使用陀螺仪："+(p.settings.useGyroscope?"是":"否"),()->18,()->0,()->180),
-      ps.sliders[1]=new Slider<T>(p,true,()->true,self-> {
-        p.settings.gyroscopeSensitivity=ps.sliders[1].pos;
-        self.updateText();
-      },self-> {},self-> {},
-        self->self.text="陀螺仪灵敏度 "+String.format("%5.2f",p.settings.gyroscopeSensitivity),()->18,()->0,()->200,1,-10,10),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         if(p.accelerometer) {
           p.settings.useAccelerometer=!p.settings.useAccelerometer;
           self.updateText();
         }
-      },self->self.text="使用加速计："+(p.settings.useAccelerometer?"是":"否"),()->18,()->0,()->220),
+      },self->self.text="（bug很多，别点）使用加速计："+(p.settings.useAccelerometer?"是":"否"),()->18,()->0,()->200),
+      ps.sliders[1]=new Slider<T>(p,true,()->true,self-> {
+        p.settings.gyroscopeSensitivity=ps.sliders[1].pos;
+        self.updateText();
+      },self-> {},self-> {},
+        self->self.text="陀螺仪灵敏度 "+String.format("%5.2f",p.settings.gyroscopeSensitivity),()->18,()->0,()->220,1,-10,10),
       ps.sliders[2]=new Slider<T>(p,true,()->true,self-> {
         p.settings.accelerometerSensitivity=ps.sliders[2].pos;
         self.updateText();
@@ -168,6 +168,14 @@ public class UiGenerator{
         self.updateText();
       },self-> {},self-> {},
         self->self.text="重力常数 "+String.format("%5.2f",p.settings.gConst),()->18,()->0,()->260,1,9.5f,10f),
+      new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
+        p.settings.overridePlatform=!p.settings.overridePlatform;
+        self.updateText();
+      },self->self.text="使用覆盖平台类型："+(p.settings.overridePlatform?"是":"否")+"  重启后生效",()->18,()->0,()->280),
+      new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
+        p.settings.isAndroid=!p.settings.isAndroid;
+        self.updateText();
+      },self->self.text="覆盖平台类型："+(p.settings.isAndroid?"手机":"电脑"),()->18,()->0,()->300),
     };
   }
   public static <T extends Screen0011> TextButton<?>[] genButtons_0008(T p) {

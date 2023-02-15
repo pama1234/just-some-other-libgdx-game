@@ -9,6 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Input.Peripheral;
 import com.badlogic.gdx.files.FileHandle;
 import com.esotericsoftware.kryo.Kryo;
@@ -48,6 +49,8 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     public float gyroscopeSensitivity=1,accelerometerSensitivity=1;
     public float gConst=9.81f;
     // public boolean useCompass;
+    public boolean overridePlatform;
+    public boolean isAndroid;
   }
   public SettingsData settings;
   public FileHandle settingsFile=Gdx.files.local("data/settings.bin");
@@ -61,10 +64,13 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   //---
   public boolean gyroscope,accelerometer,compass;
   public Vec3f gVel;
+  public Screen0011() {
+    loadSettings();
+    if(settings.overridePlatform) isAndroid=settings.isAndroid;
+  }
   @Override
   public void setup() {
     noStroke();
-    loadSettings();
     buttons=UiGenerator.genButtons_0008(this);
     if(settings.zoomButton) for(TextButton<?> e:buttons) centerScreen.add.add(e);
     StateGenerator0001.loadState0001(this);
@@ -103,6 +109,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     settings=new SettingsData();
     // if(settings.serverInfo==null)
     settings.serverInfo=new ServerInfo("127.0.0.1",12347);
+    settings.isAndroid=Gdx.app.getType()==ApplicationType.Android;
   }
   public void saveSettings() {
     try(Output output=new Output(new FileOutputStream(settingsFile.file()))) {

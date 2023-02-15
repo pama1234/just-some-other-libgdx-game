@@ -74,7 +74,7 @@ public class PlayerController extends Entity<Screen0011>{
     if(selectBlock.active) {
       if(p.isAndroid) {
         WorldSettings ts=player.pw.settings;
-        ControllerDisplayUtil.drawSelectBlockTouchScreen(p,selectBlock,ts.blockWidth,ts.blockHeight);
+        ControllerDisplayUtil.drawSelectBlockTouchScreen(p,selectBlock,ts.blockWidth,ts.blockHeight,p.cam2d.scale.pos);
       }else {
         WorldSettings ts=player.pw.settings;
         ControllerDisplayUtil.drawSelectBlock(p,selectBlock,ts.blockWidth,ts.blockHeight);
