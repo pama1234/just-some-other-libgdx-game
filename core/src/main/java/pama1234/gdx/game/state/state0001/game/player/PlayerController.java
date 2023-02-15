@@ -157,6 +157,10 @@ public class PlayerController extends Entity<Screen0011>{
   public void touchStarted(TouchInfo info) {
     if(info.state!=0) return;
     if(testPosInButtons(info.ox,info.oy)) return;
+    if(player.p.touchCount>1) {
+      selectBlock.active=false;
+      return;
+    }
     //---
     int tx=player.xToBlockCord(info.x),
       ty=player.xToBlockCord(info.y);
