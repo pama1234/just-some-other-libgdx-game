@@ -8,13 +8,16 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import pama1234.gdx.launcher.MainApp;
 
 /** Launches the Android application. */
-public class AndroidLauncher extends AndroidApplication {
+public class AndroidLauncher extends AndroidApplication{
+	static {
+		// system.loadLibrary("openxr_loader");
+	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		AndroidApplicationConfiguration configuration = new AndroidApplicationConfiguration();
+		AndroidApplicationConfiguration configuration=new AndroidApplicationConfiguration();
 		// configuration.useGyroscope=true;
-		initialize(new MainApp(), configuration);
+		initialize(new MainApp(),configuration);
 		// initialize(new Game(), configuration);
 	}
 }

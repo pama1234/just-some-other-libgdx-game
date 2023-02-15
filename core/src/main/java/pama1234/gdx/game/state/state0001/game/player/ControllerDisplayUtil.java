@@ -71,11 +71,13 @@ public class ControllerDisplayUtil{
   }
   public static void drawSelectBlockTouchScreen(Screen0011 p,ControllerBlockPointer selectBlock,float tw,float th,float scale) {
     p.fill(0,127);
-    float tr=scale<1?2:2/scale;
-    float tf=2/scale;
-    float tf_2=1.75f/scale;
-    boxTwoLine(p,tr,selectBlock.x*tw,(selectBlock.y-tf)*th,tw,(1+tf*2)*th,false);
-    boxTwoLine(p,tr,(selectBlock.x-tf)*tw,selectBlock.y*th,(1+tf*2)*tw,th,true);
+    float tf_2=0.8f/scale;
+    if(selectBlock.task!=BlockPointer.use) {
+      float tr=scale<1?2:2/scale;
+      float tf=2/scale;
+      boxTwoLine(p,tr,selectBlock.x*tw,(selectBlock.y-tf)*th,tw,(1+tf*2)*th,false);
+      boxTwoLine(p,tr,(selectBlock.x-tf)*tw,selectBlock.y*th,(1+tf*2)*tw,th,true);
+    }
     switch(selectBlock.task) {
       case BlockPointer.destroy: {
         p.tint(255,191);
@@ -98,7 +100,8 @@ public class ControllerDisplayUtil{
         p.tint(255,191);
         p.image(
           ImageAsset.tiles[7][8],
-          (selectBlock.x-tf_2)*tw,(selectBlock.y-tf_2)*th,(1+tf_2*2)*tw,(1+tf_2*2)*th);
+          selectBlock.x*tw,selectBlock.y*th);
+        // (selectBlock.x-tf_2)*tw,(selectBlock.y-tf_2)*th,(1+tf_2*2)*tw,(1+tf_2*2)*th);
       }
         break;
       default:

@@ -149,9 +149,6 @@ public class PlayerController extends Entity<Screen0011>{
     left=ControlBindUtil.isKeyPressed(ControlBindUtil.moveLeft,f);
     right=ControlBindUtil.isKeyPressed(ControlBindUtil.moveRight,f);
     jump=ControlBindUtil.isKeyPressed(ControlBindUtil.jumpUp,f);
-    // boolean[] tba=player.inventory.hotSlotKeyData;
-    // int tl=UtilMath.min(tba.length,10);
-    // for(int i=0;i<tl;i++) tba[i]=ControlBindUtil.isKeyPressed(ControlBindUtil.hotSlotStart+i,f);
   }
   @Override
   public void touchStarted(TouchInfo info) {
@@ -195,6 +192,10 @@ public class PlayerController extends Entity<Screen0011>{
   @Override
   public void touchEnded(TouchInfo info) {
     if(p.isAndroid&&selectBlock.task!=BlockPointer.use) selectBlock.active=false;
+    if(player.p.touchCount==1&&selectBlock.task==BlockPointer.use) {
+      selectBlock.active=true;
+      return;
+    }
     selectBlock.testStopTask(info);
     testWorkStationUiTouchEnded(info);
   }
