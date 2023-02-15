@@ -7,6 +7,8 @@ import static pama1234.math.Tools.getMillisString;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Application.ApplicationType;
@@ -51,6 +53,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     // public boolean useCompass;
     public boolean overridePlatform;
     public boolean isAndroid;
+    public boolean multiplayer;
   }
   public SettingsData settings;
   public FileHandle settingsFile=Gdx.files.local("data/settings.bin");
@@ -64,6 +67,8 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   //---
   public boolean gyroscope,accelerometer,compass;
   public Vec3f gVel;
+  //---
+  public InetAddress localHost;
   public Screen0011() {
     loadSettings();
     if(settings.overridePlatform) isAndroid=settings.isAndroid;
@@ -80,6 +85,11 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     accelerometer=Gdx.input.isPeripheralAvailable(Peripheral.Accelerometer);
     compass=Gdx.input.isPeripheralAvailable(Peripheral.Compass);
     gVel=new Vec3f();
+    try {
+      localHost=InetAddress.getLocalHost();
+    }catch(UnknownHostException e) {
+      e.printStackTrace();
+    }
     // firstRun=true;
     if(firstRun) {
       MusicAsset.load_init();

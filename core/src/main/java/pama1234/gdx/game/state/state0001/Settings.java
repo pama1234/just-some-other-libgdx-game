@@ -84,6 +84,7 @@ public class Settings extends StateEntity0001{
       text("加速计 Y: "+Gdx.input.getAccelerometerY());
       text("加速计 Z: "+Gdx.input.getAccelerometerZ());
     }
+    if(p.settings.multiplayer) p.text("本设备的名称与内网IP地址："+p.localHost.toString(),0,-60);
   }
   public void text(String in) {
     p.text(in,tx,ty);

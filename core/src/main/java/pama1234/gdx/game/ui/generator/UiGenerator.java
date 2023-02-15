@@ -140,7 +140,7 @@ public class UiGenerator{
       },self->self.text="显示缩放按钮："+(p.settings.zoomButton?"是":"否"),()->18,()->0,()->140),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.state(State0001.Debug);
-      },self->self.text="别按这个（Debug视图）",()->18,()->0,()->160),
+      },self->self.text="调试视图（别按这个）",()->18,()->0,()->160),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         if(p.gyroscope) {
           p.settings.useGyroscope=!p.settings.useGyroscope;
@@ -152,7 +152,7 @@ public class UiGenerator{
           p.settings.useAccelerometer=!p.settings.useAccelerometer;
           self.updateText();
         }
-      },self->self.text="（bug很多，别点）使用加速计："+(p.settings.useAccelerometer?"是":"否"),()->18,()->0,()->200),
+      },self->self.text="使用加速计（未实现）："+(p.settings.useAccelerometer?"是":"否"),()->18,()->0,()->200),
       ps.sliders[1]=new Slider<T>(p,true,()->true,self-> {
         p.settings.gyroscopeSensitivity=ps.sliders[1].pos;
         self.updateText();
@@ -176,6 +176,9 @@ public class UiGenerator{
         p.settings.isAndroid=!p.settings.isAndroid;
         self.updateText();
       },self->self.text="覆盖平台类型："+(p.settings.isAndroid?"手机":"电脑"),()->18,()->0,()->300),
+      new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
+        p.settings.multiplayer=!p.settings.multiplayer;
+      },self->self.text="联机模式："+(p.settings.multiplayer?"是":"否"),()->18,()->0,()->-40),
     };
   }
   public static <T extends Screen0011> TextButton<?>[] genButtons_0008(T p) {
