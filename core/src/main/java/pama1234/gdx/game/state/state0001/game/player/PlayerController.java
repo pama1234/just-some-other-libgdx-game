@@ -4,7 +4,6 @@ import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.Input.Keys;
 
 import pama1234.gdx.game.app.Screen0011;
-import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.entity.GamePointEntity;
 import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
 import pama1234.gdx.game.state.state0001.game.entity.entity0001.DroppedItem;
@@ -19,6 +18,7 @@ import pama1234.gdx.game.state.state0001.game.player.ControlBindUtil.GetKeyPress
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.region.block.Block.BlockUi;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
+import pama1234.gdx.game.state.state0001.game.world.WorldSettings;
 import pama1234.gdx.game.ui.util.TextButtonCam;
 import pama1234.gdx.game.util.RectF;
 import pama1234.gdx.util.entity.Entity;
@@ -70,66 +70,16 @@ public class PlayerController extends Entity<Screen0011>{
   }
   @Override
   public void display() {
-    if(selectEntity.entity!=null) drawSelectEntity();
-    if(selectBlock.active) drawSelectBlock();
-  }
-  public void drawSelectEntity() {
-    LivingEntity entity=selectEntity.entity;
-    float tl=UtilMath.mag(entity.type.w,entity.type.h)/2f+2;
-    float tcx=entity.cx(),tcy=entity.cy();
-    p.tint(255,127);
-    p.image(ImageAsset.select,tcx-tl,tcy-tl,tl,tl);
-    p.image(ImageAsset.select,tcx+tl,tcy-tl,-tl,tl);
-    p.image(ImageAsset.select,tcx-tl,tcy+tl,tl,-tl);
-    p.image(ImageAsset.select,tcx+tl,tcy+tl,-tl,-tl);
-    p.noTint();
-  }
-  public void drawSelectBlock() {
-    int tw=player.pw.settings.blockWidth,
-      th=player.pw.settings.blockHeight;
-    switch(selectBlock.task) {
-      case BlockPointer.idle: {
-        p.fill(0,127);
-        float r=1;
-        float tx1=selectBlock.x*tw-r;
-        float ty1=selectBlock.y*th-r;
-        float tx2=(selectBlock.x+1)*tw+r;
-        float ty2=(selectBlock.y+1)*th+r;
-        float tw1=tw+r*2;
-        float th1=th+r*2;
-        p.rect(tx1,ty1,1,th1);
-        p.rect(tx1,ty1,tw1,1);
-        p.rect(tx2-1,ty1,1,th1);
-        p.rect(tx1,ty2-1,tw1,1);
+    if(selectEntity.entity!=null) ControllerDisplayUtil.drawSelectEntity(p,selectEntity.entity);
+    if(selectBlock.active) {
+      if(p.isAndroid) {
+        WorldSettings ts=player.pw.settings;
+        ControllerDisplayUtil.drawSelectBlockTouchScreen(p,selectBlock,ts.blockWidth,ts.blockHeight);
+      }else {
+        WorldSettings ts=player.pw.settings;
+        ControllerDisplayUtil.drawSelectBlock(p,selectBlock,ts.blockWidth,ts.blockHeight);
       }
-        break;
-      case BlockPointer.destroy: {
-        p.tint(255,191);
-        p.image(ImageAsset.tiles[20][(int)UtilMath.map(selectBlock.progress,0,selectBlock.block.type.destroyTime,0,7)],selectBlock.x*tw,selectBlock.y*th);
-      }
-        break;
-      case BlockPointer.build: {
-        Item ti=selectBlock.slot().item;
-        if(ti!=null&&ti.type.blockType!=null) {
-          p.tint(255,191);
-          p.image(
-            ImageAsset.tiles[21][(int)UtilMath.map(selectBlock.progress,
-              0,ti.type.blockType.buildTime+selectBlock.block.type.destroyTime,0,7)],
-            selectBlock.x*tw,selectBlock.y*th);
-        }
-      }
-        break;
-      case BlockPointer.use: {
-        p.tint(255,191);
-        p.image(
-          ImageAsset.tiles[7][8],
-          selectBlock.x*tw,selectBlock.y*th);
-      }
-        break;
-      default:
-        break;
     }
-    p.noTint();
   }
   public void preUpdate() {
     for(TouchInfo e:p.touches) if(e.active) touchUpdate(e);
