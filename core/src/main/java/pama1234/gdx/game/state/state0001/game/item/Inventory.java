@@ -101,15 +101,18 @@ public class Inventory{
     else safeDisplayState(displayFullInventory);
   }
   public void displayState(int in) {
+    if(in==displayHotSlot) {
+      if(displayState==displayFullInventory) return;
+      hotSlotDisplayCooling=120;
+    }
     if(displayState==in) return;
+    // if(displayState==displayHotSlot) hotSlotDisplayCooling=-1;
     safeDisplayState(in);
   }
   public void safeDisplayState(int in) {
     if(in==displayFullInventory) {
       r.des=rSize;
       r.pos=0;
-    }else if(in==displayHotSlot) {
-      hotSlotDisplayCooling=120;
     }
     displayState=in;
   }
@@ -119,10 +122,6 @@ public class Inventory{
     return out;
   }
   public void update() {
-    if(hotSlotDisplayCooling>0) {
-      hotSlotDisplayCooling-=1;
-      if(hotSlotDisplayCooling==0) displayState(noDisplay);
-    }
     switch(displayState) {
       case noDisplay: {}
         break;
@@ -131,6 +130,10 @@ public class Inventory{
       }
         break;
       case displayHotSlot: {
+        if(hotSlotDisplayCooling>0) {
+          hotSlotDisplayCooling-=1;
+          if(hotSlotDisplayCooling==0) displayState(noDisplay);
+        }
         updateHotSlot(pc.p);
       }
         break;

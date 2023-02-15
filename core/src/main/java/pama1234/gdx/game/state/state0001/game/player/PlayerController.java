@@ -375,6 +375,7 @@ public class PlayerController extends Entity<Screen0011>{
   public void mouseWheel(float x,float y) {
     selectHotSlot(player.inventory.selectSlot+(int)y);
     player.inventory.testSelectSlot();
+    player.inventory.displayState(Inventory.displayHotSlot);
   }
   public void selectHotSlot(int in) {
     player.inventory.select(in);
