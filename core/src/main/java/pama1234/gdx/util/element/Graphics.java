@@ -45,6 +45,7 @@ public class Graphics{
   public void end() {
     buffer.end();
     p.setCamera(tempCam);
+    tempCam=null;
   }
   //TODO
   @Deprecated

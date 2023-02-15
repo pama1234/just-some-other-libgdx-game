@@ -178,6 +178,7 @@ public class UiGenerator{
       },self->self.text="覆盖平台类型："+(p.settings.isAndroid?"手机":"电脑"),()->18,()->0,()->300),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.multiplayer=!p.settings.multiplayer;
+        if(p.settings.multiplayer) p.refreshLocalHost();
       },self->self.text="联机模式："+(p.settings.multiplayer?"是":"否"),()->18,()->0,()->-40),
     };
   }

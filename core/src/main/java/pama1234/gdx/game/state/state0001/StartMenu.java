@@ -8,18 +8,30 @@ import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
 import pama1234.gdx.game.ui.generator.UiGenerator;
 import pama1234.gdx.game.ui.util.Button;
+import pama1234.gdx.util.element.Graphics;
 
 public class StartMenu extends StateEntity0001{
+  public TextureRegion backgroundLightBlur;
   public Button<?>[] buttons;
   //---
   public float time;
   public StartMenu(Screen0011 p) {
     super(p);
     buttons=UiGenerator.genButtons_0003(p);
+    Graphics tg=new Graphics(p,512,512);
+    tg.beginDraw();
+    p.beginBlend();
+    for(int i=0;i<28;i++) {
+      p.fill(255,i*4);
+      p.circle(256,256,140-i/2f);
+    }
+    p.endBlend();
+    tg.endDraw();
+    backgroundLightBlur=new TextureRegion(tg.texture);
   }
   @Override
   public void from(State0001 in) {
-    p.backgroundColor(255);
+    p.backgroundColor(0);
     p.textColor(255);
     for(Button<?> e:buttons) p.centerScreen.add.add(e);
     if(!p.settings.mute) {
@@ -51,6 +63,10 @@ public class StartMenu extends StateEntity0001{
   public void displayCam() {
     if(p.settings.showEarth) {
       TextureRegion kf=GifAsset.bigEarth.getKeyFrame(time);
+      // p.tint(127);
+      // p.image(kf,-128-4,-128-4,kf.getRegionWidth()+8,kf.getRegionHeight()+8);//256 256
+      p.image(backgroundLightBlur,-256,-256);
+      // p.noTint();
       p.image(kf,-128,-128);
     }else {
       p.textColor(0);
@@ -64,15 +80,15 @@ public class StartMenu extends StateEntity0001{
   float tx,tw;
   @Override
   public void display() {
-    if(p.isAndroid) return;
-    p.beginBlend();
-    p.fill(60,136,136,127);
-    p.rect(tx,0,tw,p.height);
-    p.fill(120,200,196,127);
-    p.rect(tx,p.height/4f-p.bu/2f,tw,p.bu);
-    p.rect(tx,p.height/2f-p.bu/2f,tw,p.bu);
-    p.rect(tx,p.height/4f*3-p.bu/2f,tw,p.bu);
-    p.endBlend();
+    // if(p.isAndroid) return;
+    // p.beginBlend();
+    // p.fill(60,136,136,127);
+    // p.rect(tx,0,tw,p.height);
+    // p.fill(120,200,196,127);
+    // p.rect(tx,p.height/4f-p.bu/2f,tw,p.bu);
+    // p.rect(tx,p.height/2f-p.bu/2f,tw,p.bu);
+    // p.rect(tx,p.height/4f*3-p.bu/2f,tw,p.bu);
+    // p.endBlend();
   }
   @Override
   public void frameResized(int w,int h) {

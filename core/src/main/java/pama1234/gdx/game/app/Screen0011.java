@@ -10,8 +10,8 @@ import java.io.FileOutputStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Application.ApplicationType;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Peripheral;
 import com.badlogic.gdx.files.FileHandle;
 import com.esotericsoftware.kryo.Kryo;
@@ -85,11 +85,6 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     accelerometer=Gdx.input.isPeripheralAvailable(Peripheral.Accelerometer);
     compass=Gdx.input.isPeripheralAvailable(Peripheral.Compass);
     gVel=new Vec3f();
-    try {
-      localHost=InetAddress.getLocalHost();
-    }catch(UnknownHostException e) {
-      e.printStackTrace();
-    }
     // firstRun=true;
     if(firstRun) {
       MusicAsset.load_init();
@@ -100,6 +95,14 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   public void postSettings() {
     Game game=(Game)State0001.Game.entity;
     if(game.debug=settings.debugInfo) game.createDebugDisplay();
+    refreshLocalHost();
+  }
+  public void refreshLocalHost() {
+    try {
+      localHost=InetAddress.getLocalHost();
+    }catch(UnknownHostException e) {
+      e.printStackTrace();
+    }
   }
   public void loadSettings() {
     if(!settingsFile.exists()) {
