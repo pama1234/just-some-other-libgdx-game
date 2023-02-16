@@ -19,10 +19,12 @@ public class PlayerControllerCore extends Entity<Screen0011>{
   public float itemPickDist=18,itemPickMoveDist=72;
   public EntityPointer selectEntity;
   public BlockPointer coreSelectBlock;
-  public PlayerControllerCore(Screen0011 p,Player corePlayer) {
+  public PlayerControllerCore(Screen0011 p,Player corePlayer,boolean mainPlayer) {
     super(p);
     this.corePlayer=corePlayer;
     corePlayer.outerBox=limitBox=new MovementLimitBox(corePlayer);
+    selectEntity=new EntityPointer(corePlayer.pw,()->corePlayer.inventory.select().data);
+    if(!mainPlayer) coreSelectBlock=new BlockPointer(corePlayer.pw,()->corePlayer.inventory.select().data);
   }
   public void preUpdate() {
     limitBox.preCtrlUpdate();

@@ -21,6 +21,9 @@ public class Player extends TextureLivingEntity{
     super(p,pw,x,y,type);
     timeStep=1/2f;
   }
+  public void innerInit() {
+    ctrlCore=new PlayerControllerCore(p,this,false);
+  }
   @Override
   public void update() {
     ctrlCore.preUpdate();

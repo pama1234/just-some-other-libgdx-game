@@ -30,11 +30,10 @@ public class PlayerControllerFull extends PlayerControllerCore{
   public float camScale=2;
   public ControllerBlockPointer selectBlock;
   public PlayerControllerFull(Screen0011 p,MainPlayer player) {
-    super(p,player);
+    super(p,player,true);
     this.player=player;
     cullRects=ControlBindUtil.createRectF(p);
-    selectEntity=new EntityPointer(player.pw,()->player.inventory.select().data);
-    selectBlock=new ControllerBlockPointer(player.pw,()->player.inventory.select().data);
+    coreSelectBlock=selectBlock=new ControllerBlockPointer(player.pw,()->player.inventory.select().data);
   }
   @Override
   public void display() {

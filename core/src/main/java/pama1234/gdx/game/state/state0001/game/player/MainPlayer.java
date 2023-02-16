@@ -35,6 +35,7 @@ public class MainPlayer extends Player implements LoadAndSave{
     innerInit();
     this.dataLocation=dataLocation;
   }
+  @Override
   public void innerInit() {
     this.cam=p.cam2d;
     ctrlCore=ctrl=new PlayerControllerFull(p,this);
@@ -46,15 +47,6 @@ public class MainPlayer extends Player implements LoadAndSave{
       inventory.data[5].item=pw.metaItems.workbench.createItem(16);
     }
   }
-  // @Override
-  // public void update() {
-  //   ctrl.preUpdate();
-  //   super.update();
-  //   ctrl.postUpdate();
-  //   //---
-  //   inventory.update();
-  //   if(life.pos<=0) respawn();
-  // }
   @Override
   public void display() {
     super.display();
