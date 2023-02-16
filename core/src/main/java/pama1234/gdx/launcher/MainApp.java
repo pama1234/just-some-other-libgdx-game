@@ -28,7 +28,7 @@ import pama1234.gdx.util.app.UtilScreen;
 
 public class MainApp extends Game{
   public List<Class<? extends UtilScreen>> screenList;
-  public int screenType=18;
+  public int screenType=11;
   public MainApp() {
     screenList=Arrays.asList(null,
       Screen0001.class,//3D 粒子系统 单机

@@ -2,7 +2,7 @@ package pama1234.gdx.game.app.app0004;
 
 import static com.badlogic.gdx.math.MathUtils.log;
 import static com.badlogic.gdx.math.MathUtils.map;
-import static pama1234.gdx.game.ui.generator.InfoGenerator.info0001;
+import static pama1234.gdx.game.ui.generator.InfoUtil.info0001;
 import static pama1234.math.UtilMath.dist;
 import static pama1234.math.UtilMath.pow;
 

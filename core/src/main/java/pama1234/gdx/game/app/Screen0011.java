@@ -25,6 +25,8 @@ import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.state.state0001.State0001.StateChanger;
 import pama1234.gdx.game.state.state0001.StateGenerator0001;
+import pama1234.gdx.game.ui.generator.InfoUtil.InfoData;
+import pama1234.gdx.game.ui.generator.InfoUtil.InfoSource;
 import pama1234.gdx.game.ui.generator.UiGenerator;
 import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.util.app.ScreenCore2D;
@@ -39,6 +41,8 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   static {
     kryo.register(SettingsData.class,new FieldSerializer<SettingsData>(kryo,SettingsData.class));
     kryo.register(ServerInfo.class,new FieldSerializer<ServerInfo>(kryo,ServerInfo.class));
+    kryo.register(InfoSource.class,new FieldSerializer<InfoSource>(kryo,InfoSource.class));
+    kryo.register(InfoData.class,new FieldSerializer<InfoData>(kryo,InfoData.class));
   }
   public static class SettingsData{
     public boolean showEarth=true;

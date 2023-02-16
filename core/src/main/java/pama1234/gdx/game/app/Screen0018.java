@@ -10,9 +10,6 @@ import com.badlogic.gdx.net.HttpRequestBuilder;
 import pama1234.gdx.util.app.ScreenCore2D;
 
 public class Screen0018 extends ScreenCore2D{
-  public String start="空想世界文字内容开始";
-  public String end="空想世界文字内容结束";
-  public int pointer=0;
   @Override
   public void setup() {
     HttpRequestBuilder requestBuilder=new HttpRequestBuilder();
@@ -21,7 +18,7 @@ public class Screen0018 extends ScreenCore2D{
       @Override
       public void handleHttpResponse(HttpResponse httpResponse) {
         String s=httpResponse.getResultAsString();
-        getInfo(s,pointer);
+        test(s);
       }
       @Override
       public void failed(Throwable t) {}
@@ -29,19 +26,28 @@ public class Screen0018 extends ScreenCore2D{
       public void cancelled() {}
     });
   }
-  public void getInfo(String s,int pointer) {
+  public void test(String s) {
+    String a=getInfo(s,"空想世界文字内容开始","空想世界文字内容结束",0);
+    String versionString="空想世界文字版本号";
+    int tp=a.indexOf(versionString);
+    int tp_2=a.indexOf('\n',tp+versionString.length());
+    String substring=a.substring(tp+versionString.length(),tp_2).trim().replaceFirst("^0+(?!$)","");
+    int version=Integer.parseInt(substring);
+    System.out.println("版本号："+version);
+    System.out.println(a.substring(tp_2).trim());
+  }
+  public String getInfo(String s,String start,String end,int pointer) {
     int index=s.indexOf(start);
     while(index>=0) {
       int temp=index;
       int indexEnd=s.indexOf(end,index+1);
       index=s.indexOf(start,index+1);
       if(indexEnd<index||index==-1) {
-        if(pointer==0) {
-          System.out.println(s.substring(temp+start.length(),indexEnd));
-          break;
-        }else pointer--;
+        if(pointer==0) return s.substring(temp+start.length(),indexEnd);
+        else pointer--;
       }
     }
+    return null;
   }
   @Override
   public void update() {}
