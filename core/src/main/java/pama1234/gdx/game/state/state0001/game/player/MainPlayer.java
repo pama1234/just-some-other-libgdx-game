@@ -8,9 +8,9 @@ import com.badlogic.gdx.files.FileHandle;
 import com.esotericsoftware.kryo.KryoException;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
+import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
 import pama1234.gdx.game.app.Screen0011;
-import pama1234.gdx.game.state.state0001.game.KryoUtil;
 import pama1234.gdx.game.state.state0001.game.item.Inventory;
 import pama1234.gdx.game.state.state0001.game.item.Item;
 import pama1234.gdx.game.state.state0001.game.item.Item.ItemSlot;
@@ -27,6 +27,7 @@ public class MainPlayer extends Player implements LoadAndSave{
   //---
   public CameraController2D cam;
   public PlayerController ctrl;
+  @Tag(3)
   public Inventory inventory;
   @Deprecated
   public MainPlayer() {
@@ -58,8 +59,6 @@ public class MainPlayer extends Player implements LoadAndSave{
     MetaItem[] mitem=pw.metaItems.list.toArray(new MetaItem[pw.metaItems.list.size()]);
     if(dataLocation.exists()) try(Input input=new Input(new FileInputStream(dataLocation.file()))) {
       MassPoint tp=WorldKryoUtil.kryo.readObject(input,MassPoint.class);
-      // point.pos.set(tp.pos);
-      // point.vel.set(tp.vel);
       point.cloneFrom(tp);
       ctrl.limitBox.prePointUpdate();
       if(pw.pg.debug) System.out.println(point.pos);

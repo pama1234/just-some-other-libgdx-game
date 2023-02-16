@@ -191,13 +191,13 @@ public class PlayerController extends Entity<Screen0011>{
   }
   @Override
   public void touchEnded(TouchInfo info) {
+    testWorkStationUiTouchEnded(info);
     if(p.isAndroid&&selectBlock.task!=BlockPointer.use) selectBlock.active=false;
     if(player.p.touchCount==1&&selectBlock.task==BlockPointer.use) {
       selectBlock.active=true;
       return;
     }
     selectBlock.testStopTask(info);
-    testWorkStationUiTouchEnded(info);
   }
   public boolean updateAndTestSelectEntity(int tx,int ty,int button) {
     for(EntityCenter<Screen0011,? extends GamePointEntity<?>> l:player.pw.entities.list) {
