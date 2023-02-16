@@ -10,6 +10,7 @@ import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.app.Screen0012;
 import pama1234.gdx.game.app.Screen0016;
 import pama1234.gdx.game.app.Screen0017;
+import pama1234.gdx.game.app.Screen0018;
 import pama1234.gdx.game.app.app0001.Screen0002;
 import pama1234.gdx.game.app.app0001.Screen0007;
 import pama1234.gdx.game.app.app0002.Screen0004;
@@ -27,7 +28,7 @@ import pama1234.gdx.util.app.UtilScreen;
 
 public class MainApp extends Game{
   public List<Class<? extends UtilScreen>> screenList;
-  public int screenType=11;
+  public int screenType=18;
   public MainApp() {
     screenList=Arrays.asList(null,
       Screen0001.class,//3D 粒子系统 单机
@@ -46,7 +47,8 @@ public class MainApp extends Game{
       Screen0014.class,//测试 贴图渲染优化
       Screen0015.class,//测试 贴图渲染优化
       Screen0016.class,//测试 联机游戏 客户端
-      Screen0017.class//某个音游项目
+      Screen0017.class,//某个音游项目
+      Screen0018.class//某个音游项目
       );
   }
   @Override

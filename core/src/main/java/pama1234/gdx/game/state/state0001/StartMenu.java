@@ -8,26 +8,29 @@ import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
 import pama1234.gdx.game.ui.generator.UiGenerator;
 import pama1234.gdx.game.ui.util.Button;
-import pama1234.gdx.util.element.Graphics;
 
 public class StartMenu extends StateEntity0001{
-  public TextureRegion backgroundLightBlur;
+  // public TextureRegion background;
   public Button<?>[] buttons;
   //---
   public float time;
   public StartMenu(Screen0011 p) {
     super(p);
     buttons=UiGenerator.genButtons_0003(p);
-    Graphics tg=new Graphics(p,512,512);
-    tg.beginDraw();
-    p.beginBlend();
-    for(int i=0;i<28;i++) {
-      p.fill(255,i*4);
-      p.circle(256,256,140-i/2f);
-    }
-    p.endBlend();
-    tg.endDraw();
-    backgroundLightBlur=new TextureRegion(tg.texture);
+    // Graphics tg=new Graphics(p,512,512);
+    // tg.beginDraw();
+    // // p.beginBlend();
+    // p.fill(64,64,255);
+    // p.circle(256,256,240);
+    // p.fill(0);
+    // p.circle(256,256,160);
+    // // for(int i=0;i<28;i++) {
+    // //   p.fill(255,i*4);
+    // //   p.circle(256,256,140-i/2f);
+    // // }
+    // // p.endBlend();
+    // tg.endDraw();
+    // background=new TextureRegion(tg.texture);
   }
   @Override
   public void from(State0001 in) {
@@ -65,7 +68,7 @@ public class StartMenu extends StateEntity0001{
       TextureRegion kf=GifAsset.bigEarth.getKeyFrame(time);
       // p.tint(127);
       // p.image(kf,-128-4,-128-4,kf.getRegionWidth()+8,kf.getRegionHeight()+8);//256 256
-      p.image(backgroundLightBlur,-256,-256);
+      // p.image(background,-256,-256);
       // p.noTint();
       p.image(kf,-128,-128);
     }else {
