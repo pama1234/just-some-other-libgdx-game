@@ -20,7 +20,6 @@ public class GameMenu extends StateEntity0001{
   @Override
   public void from(State0001 in) {
     p.backgroundColor(0);
-    // p.textColor(255);
     for(Button<?> e:buttons) p.centerScreen.add.add(e);
     if(!p.settings.mute) {
       MusicAsset.moonlightSonata.setLooping(true);
@@ -53,13 +52,11 @@ public class GameMenu extends StateEntity0001{
       TextureRegion kf=GifAsset.bigEarth.getKeyFrame(time);
       p.image(kf,-128,-128);
     }else {
-      // p.textColor(0);
-      // p.textColor(255);
+      p.textColor(255,220);
       p.textScale(4);
       p.text("空想",-32,-80);
       p.text("世界",-32,0);
       p.textScale(1);
-      // p.textColor(255);
     }
   }
   float tx,tw;
@@ -74,16 +71,16 @@ public class GameMenu extends StateEntity0001{
     return new Button[] {
       new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.state(State0001.StartMenu);
-      },self->self.text="　　返回　　",p::getButtonUnitLength,()->p.width/4f*3-p.pu*2.5f,()->p.height/5f-p.bu/2f),
+      },self->self.text="　　返回　　",p::getButtonUnitLength,()->p.width/4f*3-p.pu*3.5f,()->p.height/5f-p.bu/2f),
       new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.state(State0001.Game);
-      },self->self.text="　单人游戏　",p::getButtonUnitLength,()->p.width/4f*3-p.pu*2.5f,()->p.height/5*2f-p.bu/2f),
+      },self->self.text="　单人游戏　",p::getButtonUnitLength,()->p.width/4f*3-p.pu*3.5f,()->p.height/5*2f-p.bu/2f),
       new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.state(State0001.StartMenu);
-      },self->self.text="开启联机房间",p::getButtonUnitLength,()->p.width/4f*3-p.pu*2.5f,()->p.height/5f*3-p.bu/2f),
+      },self->self.text="开启联机房间",p::getButtonUnitLength,()->p.width/4f*3-p.pu*3.5f,()->p.height/5f*3-p.bu/2f),
       new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.state(State0001.StartMenu);
-      },self->self.text="加入联机房间",p::getButtonUnitLength,()->p.width/4f*3-p.pu*2.5f,()->p.height/5f*4-p.bu/2f),
+      },self->self.text="加入联机房间",p::getButtonUnitLength,()->p.width/4f*3-p.pu*3.5f,()->p.height/5f*4-p.bu/2f),
     };
   }
 }

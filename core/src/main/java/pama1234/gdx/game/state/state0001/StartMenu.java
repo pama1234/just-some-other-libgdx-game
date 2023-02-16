@@ -10,32 +10,16 @@ import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.ui.util.TextButton;
 
 public class StartMenu extends StateEntity0001{
-  // public TextureRegion background;
   public Button<?>[] buttons;
   //---
   public float time;
   public StartMenu(Screen0011 p) {
     super(p);
     buttons=genButtons_0003(p);
-    // Graphics tg=new Graphics(p,512,512);
-    // tg.beginDraw();
-    // // p.beginBlend();
-    // p.fill(64,64,255);
-    // p.circle(256,256,240);
-    // p.fill(0);
-    // p.circle(256,256,160);
-    // // for(int i=0;i<28;i++) {
-    // //   p.fill(255,i*4);
-    // //   p.circle(256,256,140-i/2f);
-    // // }
-    // // p.endBlend();
-    // tg.endDraw();
-    // background=new TextureRegion(tg.texture);
   }
   @Override
   public void from(State0001 in) {
     p.backgroundColor(0);
-    // p.textColor(255);
     for(Button<?> e:buttons) p.centerScreen.add.add(e);
     if(!p.settings.mute) {
       MusicAsset.moonlightSonata.setLooping(true);
@@ -46,7 +30,6 @@ public class StartMenu extends StateEntity0001{
     p.cam2d.scale.pos=p.cam2d.scale.des=p.isAndroid&&!p.settings.showEarth?1:3;
     p.cam2d.point.des.set(96,0,0);
     p.cam2d.point.pos.set(p.cam2d.point.des);
-    // p.cam.noGrab();
     frameResized(p.width,p.height);
   }
   @Override
@@ -66,34 +49,18 @@ public class StartMenu extends StateEntity0001{
   public void displayCam() {
     if(p.settings.showEarth) {
       TextureRegion kf=GifAsset.bigEarth.getKeyFrame(time);
-      // p.tint(127);
-      // p.image(kf,-128-4,-128-4,kf.getRegionWidth()+8,kf.getRegionHeight()+8);//256 256
-      // p.image(background,-256,-256);
-      // p.noTint();
       p.image(kf,-128,-128);
     }else {
-      // p.textColor(0);
-      // p.textColor(255);
+      p.textColor(255,220);
       p.textScale(4);
       p.text("空想",-32,-80);
       p.text("世界",-32,0);
       p.textScale(1);
-      // p.textColor(255);
     }
   }
   float tx,tw;
   @Override
-  public void display() {
-    // if(p.isAndroid) return;
-    // p.beginBlend();
-    // p.fill(60,136,136,127);
-    // p.rect(tx,0,tw,p.height);
-    // p.fill(120,200,196,127);
-    // p.rect(tx,p.height/4f-p.bu/2f,tw,p.bu);
-    // p.rect(tx,p.height/2f-p.bu/2f,tw,p.bu);
-    // p.rect(tx,p.height/4f*3-p.bu/2f,tw,p.bu);
-    // p.endBlend();
-  }
+  public void display() {}
   @Override
   public void frameResized(int w,int h) {
     tx=w/8f*5;

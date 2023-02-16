@@ -61,30 +61,32 @@ public class Settings extends StateEntity0001{
     text(p.gyroscope?"陀螺仪：  可用":"陀螺仪：不可用");
     text(p.compass?"指南针：  可用":"指南针：不可用");
     text(p.accelerometer?"加速计：  可用":"加速计：不可用");
-    tx=-256;
-    if(p.gyroscope) {
-      line();
-      text("陀螺仪 X: "+Gdx.input.getGyroscopeX());
-      text("陀螺仪 Y: "+Gdx.input.getGyroscopeY());
-      text("陀螺仪 Z: "+Gdx.input.getGyroscopeZ());
+    if(p.localHost!=null) p.text("本设备的名称与内网IP地址："+p.localHost.toString(),0,-60);
+    if(p.settings.debugInfo) {
+      tx=-256;
+      if(p.gyroscope) {
+        line();
+        text("陀螺仪 X: "+Gdx.input.getGyroscopeX());
+        text("陀螺仪 Y: "+Gdx.input.getGyroscopeY());
+        text("陀螺仪 Z: "+Gdx.input.getGyroscopeZ());
+      }
+      if(p.compass) {
+        line();
+        text("指南针 X: "+Gdx.input.getPitch());
+        text("指南针 Y: "+Gdx.input.getRoll());
+        text("指南针 Z: "+Gdx.input.getAzimuth());
+        line();
+        text("重力   X: "+p.gVel.x);
+        text("重力   Y: "+p.gVel.y);
+        text("重力   Z: "+p.gVel.z);
+      }
+      if(p.accelerometer) {
+        line();
+        text("加速计 X: "+Gdx.input.getAccelerometerX());
+        text("加速计 Y: "+Gdx.input.getAccelerometerY());
+        text("加速计 Z: "+Gdx.input.getAccelerometerZ());
+      }
     }
-    if(p.compass) {
-      line();
-      text("指南针 X: "+Gdx.input.getPitch());
-      text("指南针 Y: "+Gdx.input.getRoll());
-      text("指南针 Z: "+Gdx.input.getAzimuth());
-      line();
-      text("重力   X: "+p.gVel.x);
-      text("重力   Y: "+p.gVel.y);
-      text("重力   Z: "+p.gVel.z);
-    }
-    if(p.accelerometer) {
-      line();
-      text("加速计 X: "+Gdx.input.getAccelerometerX());
-      text("加速计 Y: "+Gdx.input.getAccelerometerY());
-      text("加速计 Z: "+Gdx.input.getAccelerometerZ());
-    }
-    if(p.settings.multiplayer) p.text("本设备的名称与内网IP地址："+p.localHost.toString(),0,-60);
   }
   public void text(String in) {
     p.text(in,tx,ty);

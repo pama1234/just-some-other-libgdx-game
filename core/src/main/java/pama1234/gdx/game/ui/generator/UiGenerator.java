@@ -100,7 +100,7 @@ public class UiGenerator{
     return new TextButtonCam[] {
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.mute=!p.settings.mute;
-        if(p.settings.mute) self.updateText();
+        self.updateText();
       },self->self.text=p.settings.mute?"静音：是":"静音：否",()->18,()->0,()->0),
       ps.sliders[0]=new Slider<T>(p,true,()->true,self-> {
         p.settings.volume=ps.sliders[0].pos;
@@ -177,9 +177,9 @@ public class UiGenerator{
         self.updateText();
       },self->self.text="覆盖平台类型："+(p.settings.isAndroid?"手机":"电脑"),()->18,()->0,()->300),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
-        p.settings.multiplayer=!p.settings.multiplayer;
-        if(p.settings.multiplayer) p.refreshLocalHost();
-      },self->self.text="联机模式："+(p.settings.multiplayer?"是":"否"),()->18,()->0,()->-40),
+        p.refreshLocalHost();
+        // self.updateText();
+      },self->self.text="刷新本机网络地址",()->18,()->0,()->-40),
     };
   }
   public static <T extends Screen0011> TextButton<?>[] genButtons_0008(T p) {
