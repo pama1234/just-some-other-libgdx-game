@@ -1,5 +1,7 @@
 package pama1234.gdx.game.state.state0001;
 
+import static com.badlogic.gdx.Input.Keys.ESCAPE;
+
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import pama1234.gdx.game.app.Screen0011;
@@ -7,6 +9,7 @@ import pama1234.gdx.game.asset.GifAsset;
 import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
 import pama1234.gdx.game.ui.util.Button;
+import pama1234.gdx.game.ui.util.Button.ButtonEvent;
 import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.util.function.GetFloat;
 
@@ -68,19 +71,24 @@ public class GameMenu extends StateEntity0001{
     tx=w/8f*5;
     tw=w/4f;
   }
+  @Override
+  public void keyReleased(char key,int keyCode) {
+    if(keyCode==ESCAPE) p.state(State0001.StartMenu);
+  }
   public static <T extends Screen0011> Button<?>[] genButtons_0010(T p) {
     GetFloat getX=()->p.width/4f*3-p.pu*3.5f;
+    ButtonEvent nop=self-> {};
     return new Button[] {
-      new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {
+      new TextButton<T>(p,true,()->true,nop,nop,self-> {
         p.state(State0001.Game);
       },self->self.text="　单人游戏　",p::getButtonUnitLength,getX,()->p.height/5f-p.bu/2f),
-      new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {
+      new TextButton<T>(p,true,()->true,nop,nop,self-> {
         p.state(State0001.StartMenu);
       },self->self.text="开启联机房间",p::getButtonUnitLength,getX,()->p.height/5*2f-p.bu/2f),
-      new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {
+      new TextButton<T>(p,true,()->true,nop,nop,self-> {
         p.state(State0001.StartMenu);
       },self->self.text="加入联机房间",p::getButtonUnitLength,getX,()->p.height/5f*3-p.bu/2f),
-      new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {
+      new TextButton<T>(p,true,()->true,nop,nop,self-> {
         p.state(State0001.StartMenu);
       },self->self.text="　　返回　　",p::getButtonUnitLength,getX,()->p.height/5f*4-p.bu/2f),
     };
