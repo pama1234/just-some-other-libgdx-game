@@ -22,6 +22,14 @@ public class PlayerControllerCore extends Entity<Screen0011>{
   public PlayerControllerCore(Screen0011 p,Player corePlayer) {
     super(p);
     this.corePlayer=corePlayer;
+    corePlayer.outerBox=limitBox=new MovementLimitBox(corePlayer);
+  }
+  public void preUpdate() {
+    limitBox.preCtrlUpdate();
+    doWalkAndJump();
+  }
+  public void postUpdate() {
+    updatePickItem();
   }
   public void selectHotSlot(int in) {
     corePlayer.inventory.select(in);

@@ -14,12 +14,25 @@ import pama1234.gdx.util.wrapper.PointCenter;
 import pama1234.math.physics.MassPoint;
 
 public class Player extends TextureLivingEntity{
-  public PlayerControllerCore controllerCore;
+  public PlayerControllerCore ctrlCore;
   @Tag(3)
   public Inventory inventory;
   public Player(Screen0011 p,World0001 pw,float x,float y,PlayerType type) {
     super(p,pw,x,y,type);
     timeStep=1/2f;
+  }
+  @Override
+  public void update() {
+    ctrlCore.preUpdate();
+    super.update();
+    ctrlCore.postUpdate();
+    //---
+    inventory.update();
+    if(life.pos<=0) respawn();
+  }
+  public void respawn() {
+    point.pos.set(0,0);
+    life.des=type.maxLife;
   }
   public static class PlayerCenter extends PointCenter<Screen0011,MassPoint,Player>{
     public PlayerCenter(Screen0011 p,float u) {

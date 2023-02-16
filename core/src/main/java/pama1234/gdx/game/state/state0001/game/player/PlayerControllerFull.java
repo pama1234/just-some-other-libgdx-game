@@ -6,7 +6,6 @@ import com.badlogic.gdx.Input.Keys;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.entity.GamePointEntity;
 import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
-import pama1234.gdx.game.state.state0001.game.entity.util.MovementLimitBox;
 import pama1234.gdx.game.state.state0001.game.item.DisplaySlot;
 import pama1234.gdx.game.state.state0001.game.item.Inventory;
 import pama1234.gdx.game.state.state0001.game.item.Item;
@@ -34,10 +33,8 @@ public class PlayerControllerFull extends PlayerControllerCore{
     super(p,player);
     this.player=player;
     cullRects=ControlBindUtil.createRectF(p);
-    limitBox=new MovementLimitBox(player);
     selectEntity=new EntityPointer(player.pw,()->player.inventory.select().data);
     selectBlock=new ControllerBlockPointer(player.pw,()->player.inventory.select().data);
-    player.outerBox=limitBox;
   }
   @Override
   public void display() {
@@ -52,20 +49,22 @@ public class PlayerControllerFull extends PlayerControllerCore{
       }
     }
   }
+  @Override
   public void preUpdate() {
     for(TouchInfo e:p.touches) if(e.active) touchUpdate(e);
     updateCtrlInfo();
-    limitBox.preCtrlUpdate();
+    // limitBox.preCtrlUpdate();
+    super.preUpdate();
     if(pInAir!=limitBox.inAir) {
       pInAir=limitBox.inAir;
       displayStateChange();
     }
-    doWalkAndJump();
+    // doWalkAndJump();
     // limitBox.prePointUpdate();
   }
+  @Override
   public void postUpdate() {
-    // limitBox.postPointUpdate();
-    updatePickItem();
+    super.postUpdate();
     p.cam.point.des.set(player.cx(),player.cy());
     float ty=player.point.vel.y;
     if(player.displayState==1) {

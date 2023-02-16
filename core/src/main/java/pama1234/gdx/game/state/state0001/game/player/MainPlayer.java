@@ -27,13 +27,8 @@ public class MainPlayer extends Player implements LoadAndSave{
   public CameraController2D cam;
   public PlayerControllerFull ctrl;
   @Deprecated
-  public MainPlayer() {
+  public MainPlayer() {//kryo only
     super(null,null,0,0,null);
-  }
-  public MainPlayer(Screen0011 p,World0001 pw,float x,float y) {
-    super(p,pw,x,y,pw.metaEntitys.player);
-    innerInit();
-    // gameMode=GameMode.creative;
   }
   public MainPlayer(Screen0011 p,World0001 pw,float x,float y,FileHandle dataLocation) {
     super(p,pw,x,y,pw.metaEntitys.player);
@@ -42,7 +37,7 @@ public class MainPlayer extends Player implements LoadAndSave{
   }
   public void innerInit() {
     this.cam=p.cam2d;
-    ctrl=new PlayerControllerFull(p,this);
+    ctrlCore=ctrl=new PlayerControllerFull(p,this);
   }
   @Override
   public void init() {
@@ -50,6 +45,42 @@ public class MainPlayer extends Player implements LoadAndSave{
       inventory=new Inventory(this,52,9);
       inventory.data[5].item=pw.metaItems.workbench.createItem(16);
     }
+  }
+  // @Override
+  // public void update() {
+  //   ctrl.preUpdate();
+  //   super.update();
+  //   ctrl.postUpdate();
+  //   //---
+  //   inventory.update();
+  //   if(life.pos<=0) respawn();
+  // }
+  @Override
+  public void display() {
+    super.display();
+    ctrl.display();
+    inventory.display();
+    p.noTint();
+  }
+  @Override
+  public void keyPressed(char key,int keyCode) {
+    ctrl.keyPressed(key,keyCode);
+  }
+  @Override
+  public void keyReleased(char key,int keyCode) {
+    ctrl.keyReleased(key,keyCode);
+  }
+  @Override
+  public void mouseWheel(float x,float y) {
+    ctrl.mouseWheel(x,y);
+  }
+  @Override
+  public void touchStarted(TouchInfo info) {
+    ctrl.touchStarted(info);
+  }
+  @Override
+  public void touchEnded(TouchInfo info) {
+    ctrl.touchEnded(info);
   }
   @Override
   public void load() {
@@ -83,45 +114,5 @@ public class MainPlayer extends Player implements LoadAndSave{
     }catch(FileNotFoundException|KryoException e) {
       e.printStackTrace();
     }
-  }
-  @Override
-  public void update() {
-    ctrl.preUpdate();
-    super.update();
-    ctrl.postUpdate();
-    //---
-    inventory.update();
-    if(life.pos<=0) respawn();
-  }
-  public void respawn() {
-    point.pos.set(0,0);
-    life.des=type.maxLife;
-  }
-  @Override
-  public void display() {
-    super.display();
-    ctrl.display();
-    inventory.display();
-    p.noTint();
-  }
-  @Override
-  public void keyPressed(char key,int keyCode) {
-    ctrl.keyPressed(key,keyCode);
-  }
-  @Override
-  public void keyReleased(char key,int keyCode) {
-    ctrl.keyReleased(key,keyCode);
-  }
-  @Override
-  public void mouseWheel(float x,float y) {
-    ctrl.mouseWheel(x,y);
-  }
-  @Override
-  public void touchStarted(TouchInfo info) {
-    ctrl.touchStarted(info);
-  }
-  @Override
-  public void touchEnded(TouchInfo info) {
-    ctrl.touchEnded(info);
   }
 }
