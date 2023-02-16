@@ -21,7 +21,6 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
   @Tag(0)
   public Chunk[][] data;
   public boolean keep;//用于测试是否需要加载卸载
-  @Deprecated
   public Region() {//只能用于kryo
     super(null);
   }

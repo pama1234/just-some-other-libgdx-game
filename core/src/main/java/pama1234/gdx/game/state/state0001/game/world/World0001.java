@@ -1,21 +1,16 @@
 package pama1234.gdx.game.state.state0001.game.world;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.util.Arrays;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.esotericsoftware.kryo.KryoException;
-import com.esotericsoftware.kryo.io.Input;
-import com.esotericsoftware.kryo.io.Output;
 import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.State0001;
+import pama1234.gdx.game.state.state0001.game.KryoUtil;
 import pama1234.gdx.game.state.state0001.game.entity.MultiGameEntityCenter;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
@@ -43,22 +38,12 @@ public class World0001 extends WorldBase2D{
     @Tag(2)
     public int tick;
     public static WorldData load(FileHandle file) {
-      if(file.exists()) try(Input input=new Input(new FileInputStream(file.file()))) {
-        WorldData out=WorldKryoUtil.kryo.readObject(input,WorldData.class);
-        input.close();
-        return out;
-      }catch(FileNotFoundException|KryoException e) {
-        e.printStackTrace();
-      }
+      WorldData out=KryoUtil.load(WorldKryoUtil.kryo,file,WorldData.class);
+      if(out!=null) return out;
       return new WorldData();
     }
     public static void save(FileHandle file,WorldData in) {
-      try(Output output=new Output(new FileOutputStream(file.file()))) {
-        WorldKryoUtil.kryo.writeObject(output,in);
-        output.close();
-      }catch(FileNotFoundException|KryoException e) {
-        e.printStackTrace();
-      }
+      KryoUtil.save(WorldKryoUtil.kryo,file,in);
     }
   }
   public FileHandle worldDataDir=Gdx.files.local("data/saved/test-world.bin");

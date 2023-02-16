@@ -1,7 +1,5 @@
 package pama1234.gdx.game.state.state0001.game.world;
 
-import org.objenesis.instantiator.ObjectInstantiator;
-
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryo.Registration;
 import com.esotericsoftware.kryo.serializers.FieldSerializer;
@@ -26,7 +24,6 @@ public class WorldKryoUtil{
   static {
     kryo.setDefaultSerializer(TaggedFieldSerializer.class);
     Registration registration=kryo.register(Region.class);
-    // ObjectInstantiator<?> oi=registration.getInstantiator();
     registration.setInstantiator(()->regionInstance==null?new Region():regionInstance);
     kryo.register(Chunk[][].class);
     kryo.register(Chunk[].class);
@@ -45,7 +42,5 @@ public class WorldKryoUtil{
     kryo.register(int[].class);
     kryo.register(WorldData.class);
     kryo.register(Vec2f.class,new FieldSerializer<PathPoint>(kryo,Vec2f.class));
-    // System.out.println(kryo.getInstantiatorStrategy());
-    // DefaultInstantiatorStrategy e;
   }
 }
