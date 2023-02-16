@@ -108,6 +108,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   public void loadSettings() {
     settings=KryoUtil.load(kryo,settingsFile,SettingsData.class);
     if(settings==null) initSettings();
+    if(settings.serverInfo==null) settings.serverInfo=new ServerInfo("127.0.0.1",12347);
   }
   public void initSettings() {
     settings=new SettingsData();

@@ -2,29 +2,39 @@ package pama1234.gdx.game.state.state0001;
 
 import static com.badlogic.gdx.Input.Keys.ESCAPE;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.utils.FocusListener;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.GifAsset;
 import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
+import pama1234.gdx.game.ui.CodeTextFieldStyle;
 import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.ui.util.Button.ButtonEvent;
+import pama1234.gdx.game.ui.util.NormalOnscreenKeyboard;
 import pama1234.gdx.game.ui.util.TextButton;
+import pama1234.gdx.game.ui.util.TextField;
+import pama1234.gdx.game.util.RectF;
 import pama1234.util.function.GetFloat;
 
 public class GameMenu extends StateEntity0001{
   public Button<?>[] buttons;
+  public TextField[] screenTextFields;
   //---
   public float time;
   public GameMenu(Screen0011 p) {
     super(p);
     buttons=genButtons_0010(p);
+    screenTextFields=genTextFields_0001(p);
   }
   @Override
   public void from(State0001 in) {
     p.backgroundColor(0);
     for(Button<?> e:buttons) p.centerScreen.add.add(e);
+    for(TextField e:screenTextFields) p.screenStage.addActor(e);
     if(!p.settings.mute) {
       MusicAsset.moonlightSonata.setLooping(true);
       MusicAsset.moonlightSonata.setVolume(p.settings.volume);
@@ -41,6 +51,7 @@ public class GameMenu extends StateEntity0001{
   public void to(State0001 in) {
     MusicAsset.moonlightSonata.pause();
     for(Button<?> e:buttons) p.centerScreen.remove.add(e);
+    for(TextField e:screenTextFields) e.remove();
     p.cam2d.active(true);
     p.cam2d.scale.pos=p.cam2d.scale.des=1;
     p.cam2d.point.des.set(0,0,0);
@@ -74,6 +85,33 @@ public class GameMenu extends StateEntity0001{
   @Override
   public void keyReleased(char key,int keyCode) {
     if(keyCode==ESCAPE) p.state(State0001.StartMenu);
+  }
+  public static void testHideKeyboard(boolean focused) {
+    if(!focused) Gdx.input.setOnscreenKeyboardVisible(false);
+  }
+  public static TextField[] genTextFields_0001(Screen0011 p) {
+    GetFloat getX=()->p.u*1,
+      getW=()->p.width/2f-p.u*1,
+      getH=()->p.u+p.pus*2;
+    RectF rectF_1=new RectF(getX,()->p.height-p.u*2,getW,getH);
+    TextField[] out=new TextField[] {new TextField("",new CodeTextFieldStyle(p),
+      rectF_1,()->p.pus)};
+    out[0].setMessageText("服务器地址");
+    if(p.isAndroid) {
+      RectF rectF_2=new RectF(getX,()->p.u*2,getW,getH);
+      out[0].addListener(new FocusListener() {
+        public void keyboardFocusChanged(FocusEvent event,Actor actor,boolean focused) {
+          out[0].rectF=focused?rectF_2:rectF_1;
+          testHideKeyboard(focused);
+        }
+      });
+    }else out[0].addListener(new FocusListener() {
+      public void keyboardFocusChanged(FocusEvent event,Actor actor,boolean focused) {
+        testHideKeyboard(focused);
+      }
+    });
+    for(TextField e:out) e.setOnscreenKeyboard(new NormalOnscreenKeyboard());
+    return out;
   }
   public static <T extends Screen0011> Button<?>[] genButtons_0010(T p) {
     GetFloat getX=()->p.width/4f*3-p.pu*3.5f;
