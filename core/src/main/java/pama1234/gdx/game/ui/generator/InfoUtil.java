@@ -4,44 +4,62 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net.HttpMethods;
 import com.badlogic.gdx.Net.HttpResponse;
 import com.badlogic.gdx.Net.HttpResponseListener;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.net.HttpRequestBuilder;
+
+import pama1234.gdx.game.app.Screen0011;
+import pama1234.gdx.game.state.state0001.game.KryoUtil;
 
 public class InfoUtil{
   public static final String[] errorText=new String[] {"未获取线上信息"};
+  public static FileHandle dataLocation=Gdx.files.local("/data/cache/net/info");
+  public static FileHandle infoDataLocation=Gdx.files.local("/data/cache/net/info/data.bin");
+  public static FileHandle infoSourceLocation=Gdx.files.local("/data/cache/net/info/source.bin");
   public static InfoData info;
   public static InfoSource[] sources;
   public static void clearCache() {
     info.clear();
   }
-  public static void loadCache() {}
-  public static void saveCache() {}
-  public static void loadOnline() {
+  public static void loadCache() {
+    sources=KryoUtil.load(Screen0011.kryo,infoSourceLocation,InfoSource[].class);
+    info=KryoUtil.load(Screen0011.kryo,infoDataLocation,InfoData.class);
     if(sources==null) sources=new InfoSource[] {
       new InfoSource("https://zhuanlan.zhihu.com/p/606753465",
-        "空想世界文字内容开始","空想世界文字内容结束",0)
+        "空想世界文字内容开始","空想世界文字内容结束","空想世界文字版本号",0)
     };
     if(info==null) info=new InfoData();
+  }
+  public static void saveCache() {
+    dataLocation.mkdirs();
+    KryoUtil.save(Screen0011.kryo,infoSourceLocation,sources);
+    KryoUtil.save(Screen0011.kryo,infoDataLocation,info);
+  }
+  public static void loadOnline() {
     HttpRequestBuilder requestBuilder=new HttpRequestBuilder();
-    InfoResponseListener response=new InfoResponseListener();
-    for(InfoSource e:sources) Gdx.net.sendHttpRequest(
-      requestBuilder.newRequest().method(HttpMethods.GET).url(e.url).build(),response);
+    for(InfoSource e:sources) {
+      Gdx.net.sendHttpRequest(
+        requestBuilder.newRequest().method(HttpMethods.GET).url(e.url).build(),new InfoResponseListener(e));
+    }
   }
   public static class InfoResponseListener implements HttpResponseListener{
+    public InfoSource source;
+    public InfoResponseListener(InfoSource source) {
+      this.source=source;
+    }
     @Override
     public void handleHttpResponse(HttpResponse httpResponse) {
-      updateInfo(httpResponse.getResultAsString(),info);
+      updateInfo(source,httpResponse.getResultAsString(),info);
     }
     @Override
     public void failed(Throwable t) {}
     @Override
     public void cancelled() {}
   }
-  public static void updateInfo(String s,InfoData in) {
-    String a=getInfo(s,"空想世界文字内容开始","空想世界文字内容结束",0);
-    String versionString="空想世界文字版本号";
-    int tp=a.indexOf(versionString);
-    int tp_2=a.indexOf('\n',tp+versionString.length());
-    String substring=a.substring(tp+versionString.length(),tp_2).trim().replaceFirst("^0+(?!$)","");
+  public static void updateInfo(InfoSource source,String s,InfoData in) {
+    String a=getInfo(s,source.start,source.end,source.pointer);
+    int tp=a.indexOf(source.versionDeclare);
+    int tp_2=a.indexOf('\n',tp+source.versionDeclare.length());
+    String substring=a.substring(tp+source.versionDeclare.length(),tp_2).trim().replaceFirst("^0+(?!$)","");
     String info=a.substring(tp_2).trim();
     int version=Integer.parseInt(substring);
     // System.out.println("版本号："+version);
@@ -92,14 +110,15 @@ public class InfoUtil{
     };
   public static class InfoSource{
     public String url;
-    public String start,end;
+    public String start,end,versionDeclare;
     public int pointer;
     @Deprecated
     public InfoSource() {}//kryo
-    public InfoSource(String url,String start,String end,int pointer) {
+    public InfoSource(String url,String start,String end,String versionDeclare,int pointer) {
       this.url=url;
       this.start=start;
       this.end=end;
+      this.versionDeclare=versionDeclare;
       this.pointer=pointer;
     }
   }

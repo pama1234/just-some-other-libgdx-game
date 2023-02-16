@@ -4,9 +4,6 @@ import static pama1234.math.Tools.getFloatString;
 import static pama1234.math.Tools.getMemory;
 import static pama1234.math.Tools.getMillisString;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 
@@ -15,16 +12,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Peripheral;
 import com.badlogic.gdx.files.FileHandle;
 import com.esotericsoftware.kryo.Kryo;
-import com.esotericsoftware.kryo.KryoException;
-import com.esotericsoftware.kryo.io.Input;
-import com.esotericsoftware.kryo.io.Output;
-import com.esotericsoftware.kryo.serializers.FieldSerializer;
 
 import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.state.state0001.State0001.StateChanger;
 import pama1234.gdx.game.state.state0001.StateGenerator0001;
+import pama1234.gdx.game.state.state0001.game.KryoUtil;
 import pama1234.gdx.game.ui.generator.InfoUtil.InfoData;
 import pama1234.gdx.game.ui.generator.InfoUtil.InfoSource;
 import pama1234.gdx.game.ui.generator.UiGenerator;
@@ -39,10 +33,13 @@ import pama1234.util.net.ServerInfo;
 public class Screen0011 extends ScreenCore2D implements StateChanger{
   public static final Kryo kryo=new Kryo();
   static {
-    kryo.register(SettingsData.class,new FieldSerializer<SettingsData>(kryo,SettingsData.class));
-    kryo.register(ServerInfo.class,new FieldSerializer<ServerInfo>(kryo,ServerInfo.class));
-    kryo.register(InfoSource.class,new FieldSerializer<InfoSource>(kryo,InfoSource.class));
-    kryo.register(InfoData.class,new FieldSerializer<InfoData>(kryo,InfoData.class));
+    // kryo.setDefaultSerializer(TaggedFieldSerializer.class);
+    kryo.register(SettingsData.class);
+    kryo.register(ServerInfo.class);
+    kryo.register(InfoSource.class);
+    kryo.register(InfoSource[].class);
+    kryo.register(InfoData.class);
+    kryo.register(String[].class);
   }
   public static class SettingsData{
     public boolean showEarth=true;
@@ -109,32 +106,16 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     }
   }
   public void loadSettings() {
-    if(!settingsFile.exists()) {
-      initSettings();
-      return;
-    }
-    try(Input input=new Input(new FileInputStream(settingsFile.file()))) {
-      SettingsData out=kryo.readObject(input,SettingsData.class);
-      input.close();
-      settings=out;
-    }catch(FileNotFoundException|KryoException e) {
-      e.printStackTrace();
-    }
+    settings=KryoUtil.load(kryo,settingsFile,SettingsData.class);
     if(settings==null) initSettings();
   }
   public void initSettings() {
     settings=new SettingsData();
-    // if(settings.serverInfo==null)
     settings.serverInfo=new ServerInfo("127.0.0.1",12347);
     settings.isAndroid=Gdx.app.getType()==ApplicationType.Android;
   }
   public void saveSettings() {
-    try(Output output=new Output(new FileOutputStream(settingsFile.file()))) {
-      kryo.writeObject(output,settings);
-      output.close();
-    }catch(FileNotFoundException|KryoException e) {
-      e.printStackTrace();
-    }
+    KryoUtil.save(kryo,settingsFile,settings);
   }
   @Override
   public State0001 state(State0001 in) {

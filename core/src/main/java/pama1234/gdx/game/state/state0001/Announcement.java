@@ -14,6 +14,7 @@ public class Announcement extends StateEntity0001{
   public Announcement(Screen0011 p) {
     super(p);
     buttons=UiGenerator.genButtons_0004(p);
+    InfoUtil.loadCache();
     InfoUtil.loadOnline();
   }
   @Override
@@ -34,10 +35,19 @@ public class Announcement extends StateEntity0001{
   }
   @Override
   public void displayCam() {
+    p.text("公告版本："+info.version,0,-18*2);
     for(int i=0;i<info.data.length;i++) p.text(info.data[i],0,18*i);
   }
   @Override
   public void keyReleased(char key,int keyCode) {
     if(keyCode==ESCAPE) p.state(State0001.StartMenu);
+  }
+  @Override
+  public void dispose() {
+    InfoUtil.saveCache();
+  }
+  @Override
+  public void pause() {
+    if(p.isAndroid) InfoUtil.saveCache();
   }
 }
