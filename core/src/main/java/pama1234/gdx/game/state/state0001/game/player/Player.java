@@ -12,6 +12,7 @@ import pama1234.gdx.util.wrapper.PointCenter;
 import pama1234.math.physics.MassPoint;
 
 public class Player extends TextureLivingEntity{
+  public PlayerControllerCore controllerCore;
   public Player(Screen0011 p,World0001 pw,float x,float y,PlayerType type) {
     super(p,pw,x,y,type);
     timeStep=1/2f;

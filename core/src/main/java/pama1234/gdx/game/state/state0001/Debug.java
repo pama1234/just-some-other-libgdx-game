@@ -7,7 +7,7 @@ import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
 import pama1234.gdx.game.state.state0001.game.GameDisplayUtil;
 import pama1234.gdx.game.state.state0001.game.item.Inventory;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
-import pama1234.gdx.game.state.state0001.game.player.PlayerController;
+import pama1234.gdx.game.state.state0001.game.player.PlayerControllerFull;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.gdx.game.ui.generator.UiGenerator;
 import pama1234.gdx.game.ui.util.Button;
@@ -18,7 +18,7 @@ public class Debug extends StateEntity0001{
   //---
   public World0001 world;
   public MainPlayer player;
-  public PlayerController controller;
+  public PlayerControllerFull controller;
   public boolean firstInit;
   public Debug(Screen0011 p) {
     super(p);

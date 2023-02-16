@@ -20,28 +20,19 @@ import pama1234.gdx.game.state.state0001.game.region.block.Block.BlockUi;
 import pama1234.gdx.game.state.state0001.game.world.WorldSettings;
 import pama1234.gdx.game.ui.util.TextButtonCam;
 import pama1234.gdx.game.util.RectF;
-import pama1234.gdx.util.entity.Entity;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.gdx.util.wrapper.EntityCenter;
 import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 
-public class PlayerController extends Entity<Screen0011>{
+public class PlayerControllerFull extends PlayerControllerCore{
   public MainPlayer player;
   public boolean walking;
-  public boolean left,right,jump,shift;
-  public int walkCool,jumpCool;
-  public float speed=1f,shiftSpeedMult=2f;
-  public float slowDownSpeed=1/4f;
-  public float jumpForceMult=1.5f,jumpHeight=0;
-  public MovementLimitBox limitBox;
-  public RectF[] cullRects;
-  public EntityPointer selectEntity;
-  public ControllerBlockPointer selectBlock;
-  public float camScale=2;
-  public float itemPickDist=18,itemPickMoveDist=72;
   public boolean pInAir;
-  public PlayerController(Screen0011 p,MainPlayer player) {
+  public RectF[] cullRects;
+  public float camScale=2;
+  public ControllerBlockPointer selectBlock;
+  public PlayerControllerFull(Screen0011 p,MainPlayer player) {
     super(p);
     this.player=player;
     cullRects=ControlBindUtil.createRectF(p);
@@ -66,7 +57,6 @@ public class PlayerController extends Entity<Screen0011>{
   public void preUpdate() {
     for(TouchInfo e:p.touches) if(e.active) touchUpdate(e);
     updateCtrlInfo();
-    // pInAir=limitBox.inAir;
     limitBox.preCtrlUpdate();
     if(pInAir!=limitBox.inAir) {
       pInAir=limitBox.inAir;

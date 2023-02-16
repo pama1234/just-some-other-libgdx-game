@@ -17,6 +17,9 @@ import pama1234.gdx.game.util.RectF;
 import pama1234.gdx.util.listener.EntityListener;
 
 public class Game extends StateEntity0001{
+  public enum NetMode{
+    singlePlayer,integratedServer,client;
+  }
   public Button<?>[] menuButtons;
   public TextButton<?>[] ctrlButtons;
   public float time;
@@ -27,6 +30,7 @@ public class Game extends StateEntity0001{
   public boolean androidRightMouseButton;
   public EntityListener displayCamTop;
   public boolean firstInit=true;//TODO
+  public NetMode netMode=NetMode.singlePlayer;
   public Game(Screen0011 p) {
     super(p);
     menuButtons=UiGenerator.genButtons_0005(p);

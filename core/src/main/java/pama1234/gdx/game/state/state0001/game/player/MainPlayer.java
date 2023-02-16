@@ -26,7 +26,7 @@ public class MainPlayer extends Player implements LoadAndSave{
   public FileHandle dataLocation;
   //---
   public CameraController2D cam;
-  public PlayerController ctrl;
+  public PlayerControllerFull ctrl;
   @Tag(3)
   public Inventory inventory;
   @Deprecated
@@ -45,7 +45,7 @@ public class MainPlayer extends Player implements LoadAndSave{
   }
   public void innerInit() {
     this.cam=p.cam2d;
-    ctrl=new PlayerController(p,this);
+    ctrl=new PlayerControllerFull(p,this);
   }
   @Override
   public void init() {
