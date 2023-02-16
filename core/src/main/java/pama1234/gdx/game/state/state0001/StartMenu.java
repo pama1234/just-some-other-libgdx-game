@@ -8,6 +8,7 @@ import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
 import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.ui.util.TextButton;
+import pama1234.util.function.GetFloat;
 
 public class StartMenu extends StateEntity0001{
   public Button<?>[] buttons;
@@ -67,16 +68,17 @@ public class StartMenu extends StateEntity0001{
     tw=w/4f;
   }
   public static <T extends Screen0011> Button<?>[] genButtons_0003(T p) {
+    GetFloat getX=()->p.width/4f*3-p.pu*2.5f;
     return new Button[] {
       new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.state(State0001.GameMenu);
-      },self->self.text="开始游戏",p::getButtonUnitLength,()->p.width/4f*3-p.pu*2.5f,()->p.height/4f-p.bu/2f),
+      },self->self.text="开始游戏",p::getButtonUnitLength,getX,()->p.height/4f-p.bu/2f),
       new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.state(State0001.Announcement);
-      },self->self.text="　公告　",p::getButtonUnitLength,()->p.width/4f*3-p.pu*2.5f,()->p.height/2f-p.bu/2f),
+      },self->self.text="　公告　",p::getButtonUnitLength,getX,()->p.height/2f-p.bu/2f),
       new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.state(State0001.Settings);
-      },self->self.text="　设置　",p::getButtonUnitLength,()->p.width/4f*3-p.pu*2.5f,()->p.height/4f*3-p.bu/2f),
+      },self->self.text="　设置　",p::getButtonUnitLength,getX,()->p.height/4f*3-p.bu/2f),
     };
   }
 }

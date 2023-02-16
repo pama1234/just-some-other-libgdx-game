@@ -5,7 +5,7 @@ import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.GameDisplayUtil;
 import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
 import pama1234.gdx.game.state.state0001.game.item.Item;
-import pama1234.gdx.game.state.state0001.game.player.PlayerController.ControllerBlockPointer;
+import pama1234.gdx.game.state.state0001.game.player.ControllerUtil.ControllerBlockPointer;
 import pama1234.math.UtilMath;
 
 public class ControllerDisplayUtil{

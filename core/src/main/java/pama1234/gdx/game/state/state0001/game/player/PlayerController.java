@@ -12,12 +12,11 @@ import pama1234.gdx.game.state.state0001.game.item.DisplaySlot;
 import pama1234.gdx.game.state.state0001.game.item.Inventory;
 import pama1234.gdx.game.state.state0001.game.item.Item;
 import pama1234.gdx.game.state.state0001.game.item.Item.ItemSlot;
-import pama1234.gdx.game.state.state0001.game.item.Item.ItemSlot.GetItemSlot;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.player.ControlBindUtil.GetKeyPressedBoolean;
+import pama1234.gdx.game.state.state0001.game.player.ControllerUtil.ControllerBlockPointer;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.region.block.Block.BlockUi;
-import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.gdx.game.state.state0001.game.world.WorldSettings;
 import pama1234.gdx.game.ui.util.TextButtonCam;
 import pama1234.gdx.game.util.RectF;
@@ -403,23 +402,5 @@ public class PlayerController extends Entity<Screen0011>{
         e.point.vel.set((player.x()-e.x())*p.random(0.1f,0.2f),(player.y()-e.y())*p.random(0.1f,0.2f));
       }
     }
-  }
-  public static class ControllerBlockPointer extends BlockPointer{
-    public TouchInfo info;
-    // public float moveX,moveY;
-    public ControllerBlockPointer(World0001 in,GetItemSlot slot) {
-      super(in,slot);
-    }
-    public void info(TouchInfo in) {
-      info=in;
-    }
-    public void testStopTask(TouchInfo in) {
-      if(info==in) stopTask();
-    }
-    // @Override
-    // public void taskComplete() {
-    //   super.taskComplete();
-    //   if(info!=null) info.x+=pw.blockWidth();
-    // }
   }
 }
