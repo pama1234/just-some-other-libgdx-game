@@ -66,7 +66,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   //---
   public TextButton<?>[] buttons;
   //---
-  public boolean gyroscope,accelerometer,compass;
+  public boolean gyroscopeAvailable,accelerometerAvailable,compassAvailable;
   public Vec3f gVel;
   //---
   public InetAddress localHost;
@@ -82,9 +82,9 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     StateGenerator0001.loadState0001(this);
     postSettings();
     firstRun=!Gdx.files.local("data/firstRun.txt").exists();
-    gyroscope=Gdx.input.isPeripheralAvailable(Peripheral.Gyroscope);
-    accelerometer=Gdx.input.isPeripheralAvailable(Peripheral.Accelerometer);
-    compass=Gdx.input.isPeripheralAvailable(Peripheral.Compass);
+    gyroscopeAvailable=Gdx.input.isPeripheralAvailable(Peripheral.Gyroscope);
+    accelerometerAvailable=Gdx.input.isPeripheralAvailable(Peripheral.Accelerometer);
+    compassAvailable=Gdx.input.isPeripheralAvailable(Peripheral.Compass);
     gVel=new Vec3f();
     // firstRun=true;
     if(firstRun) {
@@ -153,7 +153,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
       cam.point.des.y+=Gdx.input.getGyroscopeY()*settings.gyroscopeSensitivity;
       // cam.point.des.z-=Gdx.input.getGyroscopeZ();
     }
-    if(compass) {
+    if(compassAvailable) {
       float tx=Gdx.input.getPitch(),
         ty=Gdx.input.getRoll(),
         tz=Gdx.input.getAzimuth();

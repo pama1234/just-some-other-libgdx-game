@@ -1,26 +1,17 @@
 package pama1234.gdx.game.ui.generator;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.g2d.Animation;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.app.app0002.Screen0006;
-import pama1234.gdx.game.asset.GifAsset;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.Game;
-import pama1234.gdx.game.state.state0001.Settings;
 import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
-import pama1234.gdx.game.ui.CodeTextFieldStyle;
 import pama1234.gdx.game.ui.util.Button;
-import pama1234.gdx.game.ui.util.NormalOnscreenKeyboard;
-import pama1234.gdx.game.ui.util.Slider;
 import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.game.ui.util.TextButtonCam;
-import pama1234.gdx.game.ui.util.TextField;
 import pama1234.gdx.game.ui.util.TextureButton;
-import pama1234.gdx.game.util.RectF;
 import pama1234.gdx.util.app.ScreenCore3D;
 
 public class UiGenerator{
@@ -40,23 +31,6 @@ public class UiGenerator{
         if(in.intData[0]>=in.type.intData[0]) in.intData[0]-=in.type.intData[0];
       },self->self.text="+",()->18,()->in.intData[2]+71,()->in.intData[3]),
     };
-  }
-  public static TextField[] genTextFields_0002(Screen0011 p) {
-    TextField[] out=new TextField[] {new TextField("联机写好后，这里输入IP地址哦",new CodeTextFieldStyle(p),
-      new RectF(()->0,()->-20,()->256,()->18),
-      ()->1)};
-    out[0].setMessageText("联机网络地址");
-    for(TextField e:out) e.setOnscreenKeyboard(new NormalOnscreenKeyboard());
-    return out;
-    // return new TextField[0];
-  }
-  public static TextField[] genTextFields_0001(Screen0011 p) {
-    // TextField[] out=new TextField[] {new TextField("测试文本输入框",new CodeTextFieldStyle(p),
-    //   new RectF(()->p.u*5,()->p.u,()->p.width-p.u*6,()->p.u+p.pus*2),
-    //   ()->p.pus)};
-    // for(TextField e:out) e.setOnscreenKeyboard(new NormalOnscreenKeyboard());
-    // return out;
-    return new TextField[0];
   }
   public static <T extends Screen0011> TextButton<?>[] genButtons_0007(T p,Game pg) {
     return new TextButton[] {
