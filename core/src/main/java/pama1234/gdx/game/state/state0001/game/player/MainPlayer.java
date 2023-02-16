@@ -8,7 +8,6 @@ import com.badlogic.gdx.files.FileHandle;
 import com.esotericsoftware.kryo.KryoException;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
-import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.item.Inventory;
@@ -27,8 +26,6 @@ public class MainPlayer extends Player implements LoadAndSave{
   //---
   public CameraController2D cam;
   public PlayerControllerFull ctrl;
-  @Tag(3)
-  public Inventory inventory;
   @Deprecated
   public MainPlayer() {
     super(null,null,0,0,null);

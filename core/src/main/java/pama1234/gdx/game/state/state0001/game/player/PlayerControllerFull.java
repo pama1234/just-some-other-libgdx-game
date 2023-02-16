@@ -6,7 +6,6 @@ import com.badlogic.gdx.Input.Keys;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.entity.GamePointEntity;
 import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
-import pama1234.gdx.game.state.state0001.game.entity.entity0001.DroppedItem;
 import pama1234.gdx.game.state.state0001.game.entity.util.MovementLimitBox;
 import pama1234.gdx.game.state.state0001.game.item.DisplaySlot;
 import pama1234.gdx.game.state.state0001.game.item.Inventory;
@@ -27,13 +26,12 @@ import pama1234.math.UtilMath;
 
 public class PlayerControllerFull extends PlayerControllerCore{
   public MainPlayer player;
-  public boolean walking;
   public boolean pInAir;
   public RectF[] cullRects;
   public float camScale=2;
   public ControllerBlockPointer selectBlock;
   public PlayerControllerFull(Screen0011 p,MainPlayer player) {
-    super(p);
+    super(p,player);
     this.player=player;
     cullRects=ControlBindUtil.createRectF(p);
     limitBox=new MovementLimitBox(player);
@@ -60,7 +58,7 @@ public class PlayerControllerFull extends PlayerControllerCore{
     limitBox.preCtrlUpdate();
     if(pInAir!=limitBox.inAir) {
       pInAir=limitBox.inAir;
-      moveEvent();
+      displayStateChange();
     }
     doWalkAndJump();
     // limitBox.prePointUpdate();
@@ -83,12 +81,12 @@ public class PlayerControllerFull extends PlayerControllerCore{
     boolean tb=left!=right;
     if(walking!=tb) {
       walking=tb;
-      moveEvent();
+      displayStateChange();
     }
     if(!player.pw.p.isAndroid) updateMouseInfo();
     selectEntity.updateTask();//TODO
   }
-  public void moveEvent() {
+  public void displayStateChange() {
     float speedMult=shift?shiftSpeedMult:1;
     if(limitBox.inAir) {
       player.timeStep=-1;
@@ -297,17 +295,11 @@ public class PlayerControllerFull extends PlayerControllerCore{
     for(RectF e:cullRects) if(Tools.inBox(x,y,e.x(),e.y(),e.w(),e.h())) return true;
     return false;
   }
-  public boolean inPlayerOuterBox(int tx,int ty) {
-    return Tools.inBoxInclude(tx,ty,limitBox.x1,limitBox.y1,limitBox.w,limitBox.h);
-  }
   @Override
   public void mouseWheel(float x,float y) {
     selectHotSlot(player.inventory.selectSlot+(int)y);
     player.inventory.testSelectSlot();
     player.inventory.displayState(Inventory.displayHotSlot);
-  }
-  public void selectHotSlot(int in) {
-    player.inventory.select(in);
   }
   @Override
   public void keyPressed(char key,int keyCode) {
@@ -339,58 +331,5 @@ public class PlayerControllerFull extends PlayerControllerCore{
   public void camScale(float in) {
     p.cam2d.scaleAdd(in);
     camScale=p.cam2d.scale.des;
-  }
-  public void shift(boolean in) {
-    shift=in;
-    float speedMult=shift?shiftSpeedMult:1;
-    if(walking) player.timeStep=(1/8f)/speedMult;
-    else player.timeStep=(1/2f)/speedMult;
-  }
-  public void doWalkAndJump() {
-    if(walkCool>0) {
-      walkCool--;
-      walkSlowDown();
-    }else if(walking) {
-      float speedMult=shift?shiftSpeedMult:1;
-      if(left) {
-        player.point.vel.x-=speed*speedMult;
-        player.flipX=true;
-      }else {
-        player.point.vel.x+=speed*speedMult;
-        player.flipX=false;
-      }
-    }else walkSlowDown();
-    // limitBox.testInAir();
-    if(limitBox.inAir) {
-      if(jump&&jumpHeight<-player.pw.settings.jumpForce*jumpForceMult) {
-        player.point.vel.y-=player.pw.settings.g*2;
-        jumpHeight+=player.pw.settings.g*2;
-      }else player.point.vel.y+=player.pw.settings.g;
-    }else {
-      if(player.point.pos.y!=limitBox.floor) {
-        player.point.vel.y=0;
-        player.point.pos.y=limitBox.floor;
-      }
-      if(jumpCool>0) jumpCool--;
-      else if(jump) {
-        player.point.vel.y=player.pw.settings.jumpForce*jumpForceMult*.5f;
-        jumpCool=2;
-        jumpHeight=-player.point.vel.y;
-      }
-    }
-  }
-  public void walkSlowDown() {
-    player.point.vel.x*=slowDownSpeed;
-  }
-  public void updatePickItem() {
-    for(DroppedItem e:player.pw.entities.items.list) {
-      float td=UtilMath.dist(player.x(),player.y(),e.x(),e.y());
-      if(td<itemPickDist) {
-        player.inventory.accept(e.data);
-        player.pw.entities.items.remove.add(e);
-      }else if(td<itemPickMoveDist) {
-        e.point.vel.set((player.x()-e.x())*p.random(0.1f,0.2f),(player.y()-e.y())*p.random(0.1f,0.2f));
-      }
-    }
   }
 }
