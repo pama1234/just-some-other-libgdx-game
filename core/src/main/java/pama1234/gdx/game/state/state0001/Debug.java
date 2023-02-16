@@ -4,6 +4,7 @@ import com.badlogic.gdx.Input.Keys;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
+import pama1234.gdx.game.state.state0001.game.GameDisplayUtil;
 import pama1234.gdx.game.state.state0001.game.item.Inventory;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
 import pama1234.gdx.game.state.state0001.game.player.PlayerController;
@@ -72,7 +73,7 @@ public class Debug extends StateEntity0001{
   @Override
   public void displayCam() {
     p.beginBlend();
-    Game.drawLimitBox(p,world.settings.blockWidth,world.settings.blockHeight,controller.limitBox);
+    GameDisplayUtil.drawLimitBox(p,world.settings.blockWidth,world.settings.blockHeight,controller.limitBox);
     float tx,ty;
     p.doStroke();
     p.stroke(255,127);

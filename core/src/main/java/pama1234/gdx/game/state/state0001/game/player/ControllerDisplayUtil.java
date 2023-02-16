@@ -2,7 +2,7 @@ package pama1234.gdx.game.state.state0001.game.player;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
-import pama1234.gdx.game.state.state0001.Game;
+import pama1234.gdx.game.state.state0001.game.GameDisplayUtil;
 import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
 import pama1234.gdx.game.state.state0001.game.item.Item;
 import pama1234.gdx.game.state.state0001.game.player.PlayerController.ControllerBlockPointer;
@@ -23,7 +23,7 @@ public class ControllerDisplayUtil{
     switch(selectBlock.task) {
       case BlockPointer.idle: {
         p.fill(0,127);
-        Game.boxStroke(p,1,selectBlock.x*tw,selectBlock.y*th,tw,th);
+        GameDisplayUtil.boxStroke(p,1,selectBlock.x*tw,selectBlock.y*th,tw,th);
       }
         break;
       case BlockPointer.destroy: {
