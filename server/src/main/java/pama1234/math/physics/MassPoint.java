@@ -83,6 +83,12 @@ public class MassPoint extends Point implements ByteBufferData{
     }
     pos.add(x1,y1);
   }
+  public void cloneFrom(MassPoint in) {
+    pos.set(in.pos);
+    vel.set(in.vel);
+    f=in.f;
+    step=in.step;
+  }
   @Override
   public void fromData(ByteBuffer in,int offset,int size) {
     f=in.getFloat(offset);

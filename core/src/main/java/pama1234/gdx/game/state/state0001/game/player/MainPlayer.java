@@ -10,6 +10,7 @@ import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 
 import pama1234.gdx.game.app.Screen0011;
+import pama1234.gdx.game.state.state0001.game.KryoUtil;
 import pama1234.gdx.game.state.state0001.game.item.Inventory;
 import pama1234.gdx.game.state.state0001.game.item.Item;
 import pama1234.gdx.game.state.state0001.game.item.Item.ItemSlot;
@@ -27,6 +28,10 @@ public class MainPlayer extends Player implements LoadAndSave{
   public CameraController2D cam;
   public PlayerController ctrl;
   public Inventory inventory;
+  @Deprecated
+  public MainPlayer() {
+    super(null,null,0,0,null);
+  }
   public MainPlayer(Screen0011 p,World0001 pw,float x,float y) {
     super(p,pw,x,y,pw.metaEntitys.player);
     innerInit();
@@ -53,8 +58,9 @@ public class MainPlayer extends Player implements LoadAndSave{
     MetaItem[] mitem=pw.metaItems.list.toArray(new MetaItem[pw.metaItems.list.size()]);
     if(dataLocation.exists()) try(Input input=new Input(new FileInputStream(dataLocation.file()))) {
       MassPoint tp=WorldKryoUtil.kryo.readObject(input,MassPoint.class);
-      point.pos.set(tp.pos);
-      point.vel.set(tp.vel);
+      // point.pos.set(tp.pos);
+      // point.vel.set(tp.vel);
+      point.cloneFrom(tp);
       ctrl.limitBox.prePointUpdate();
       if(pw.pg.debug) System.out.println(point.pos);
       inventory=WorldKryoUtil.kryo.readObject(input,Inventory.class);
@@ -67,6 +73,9 @@ public class MainPlayer extends Player implements LoadAndSave{
     }catch(FileNotFoundException|KryoException e) {
       e.printStackTrace();
     }
+    // WorldKryoUtil.playerInstance=this;
+    // KryoUtil.load(WorldKryoUtil.kryo,dataLocation,MainPlayer.class);
+    // WorldKryoUtil.playerInstance=null;
   }
   @Override
   public void save() {
