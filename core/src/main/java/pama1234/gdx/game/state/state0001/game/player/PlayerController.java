@@ -53,7 +53,7 @@ public class PlayerController extends Entity<Screen0011>{
         new RectF(()->p.width-p.bu*2.5f-p.pus,()->p.height-p.bu*2.5f-p.pus,()->p.bu+p.pus*2,()->p.bu+p.pus),
         //---
         new RectF(()->p.width-p.bu*3.5f-p.pus,()->p.bu*0.5f-p.pus,()->p.bu*2.75f+p.pus*4,()->p.bu+p.pus),
-        new RectF(()->p.bu*0.5f-p.pus,()->p.bu*1.5f,()->p.bu+p.pus*2,()->p.bu*2+p.pus),
+        // new RectF(()->p.bu*0.5f-p.pus,()->p.bu*1.5f,()->p.bu+p.pus*2,()->p.bu*2+p.pus),
         //---
         exitButton(),
       };
@@ -309,7 +309,9 @@ public class PlayerController extends Entity<Screen0011>{
     return p.isAndroid?(player.pw.pg.androidRightMouseButton?Buttons.RIGHT:Buttons.LEFT):in;
   }
   public boolean testPosInInventorySlot(float x,float y) {
-    if(player.inventory.displayState==Inventory.displayFullInventory) for(DisplaySlot[] i:player.inventory.displaySlots) for(DisplaySlot e:i) if(Tools.inBox(x,y,e.x1,e.y1,e.w1,e.h1)) return true;
+    if(player.inventory.displayState==Inventory.displayFullInventory) {
+      for(DisplaySlot[] i:player.inventory.displaySlots) for(DisplaySlot e:i) if(Tools.inBox(x,y,e.x1,e.y1,e.w1,e.h1)) return true;
+    }
     return false;
   }
   public boolean testPosInOtherEntity(int x,int y) {

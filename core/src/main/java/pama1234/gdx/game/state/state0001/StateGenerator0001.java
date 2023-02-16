@@ -11,6 +11,7 @@ public class StateGenerator0001{
     put(State0001.FirstRun,new FirstRun(in));
     put(State0001.Loading,new Loading(in));
     put(State0001.StartMenu,new StartMenu(in));
+    put(State0001.GameMenu,new GameMenu(in));
     put(State0001.Game,new Game(in));
     put(State0001.Settings,new Settings(in));
     put(State0001.Announcement,new Announcement(in));

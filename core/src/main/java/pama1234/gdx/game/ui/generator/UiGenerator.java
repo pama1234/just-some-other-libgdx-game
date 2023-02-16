@@ -208,19 +208,6 @@ public class UiGenerator{
       },self->self.text="返回",p::getButtonUnitLength,()->p.bu*0.5f,()->p.bu*0.5f),
     };
   }
-  public static <T extends Screen0011> Button<?>[] genButtons_0003(T p) {
-    return new Button[] {
-      new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {
-        p.state(State0001.Game);
-      },self->self.text="开始游戏",p::getButtonUnitLength,()->p.width/4f*3-p.pu*2.5f,()->p.height/4f-p.bu/2f),
-      new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {
-        p.state(State0001.Announcement);
-      },self->self.text="　公告　",p::getButtonUnitLength,()->p.width/4f*3-p.pu*2.5f,()->p.height/2f-p.bu/2f),
-      new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {
-        p.state(State0001.Settings);
-      },self->self.text="　设置　",p::getButtonUnitLength,()->p.width/4f*3-p.pu*2.5f,()->p.height/4f*3-p.bu/2f),
-    };
-  }
   public static <T extends Screen0006> Button<?>[] genButtons_0002(T p) {
     return new Button[] {
       new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {

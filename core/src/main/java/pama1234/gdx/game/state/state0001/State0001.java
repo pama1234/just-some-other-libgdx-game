@@ -10,11 +10,12 @@ public enum State0001 implements EntityListener{
   FirstRun,
   Loading,
   StartMenu,
+  GameMenu,
   Game,
   Settings,
   Announcement,
   Exception,
-  Debug;
+  Debug,;
   public StateEntityListener0001 entity;
   public EntityListener displayCam;
   //---------------------------------------------------------------

@@ -9,28 +9,13 @@ import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
 import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.ui.util.TextButton;
 
-public class StartMenu extends StateEntity0001{
-  // public TextureRegion background;
+public class GameMenu extends StateEntity0001{
   public Button<?>[] buttons;
   //---
   public float time;
-  public StartMenu(Screen0011 p) {
+  public GameMenu(Screen0011 p) {
     super(p);
-    buttons=genButtons_0003(p);
-    // Graphics tg=new Graphics(p,512,512);
-    // tg.beginDraw();
-    // // p.beginBlend();
-    // p.fill(64,64,255);
-    // p.circle(256,256,240);
-    // p.fill(0);
-    // p.circle(256,256,160);
-    // // for(int i=0;i<28;i++) {
-    // //   p.fill(255,i*4);
-    // //   p.circle(256,256,140-i/2f);
-    // // }
-    // // p.endBlend();
-    // tg.endDraw();
-    // background=new TextureRegion(tg.texture);
+    buttons=genButtons_0010(p);
   }
   @Override
   public void from(State0001 in) {
@@ -66,10 +51,6 @@ public class StartMenu extends StateEntity0001{
   public void displayCam() {
     if(p.settings.showEarth) {
       TextureRegion kf=GifAsset.bigEarth.getKeyFrame(time);
-      // p.tint(127);
-      // p.image(kf,-128-4,-128-4,kf.getRegionWidth()+8,kf.getRegionHeight()+8);//256 256
-      // p.image(background,-256,-256);
-      // p.noTint();
       p.image(kf,-128,-128);
     }else {
       // p.textColor(0);
@@ -83,33 +64,26 @@ public class StartMenu extends StateEntity0001{
   }
   float tx,tw;
   @Override
-  public void display() {
-    // if(p.isAndroid) return;
-    // p.beginBlend();
-    // p.fill(60,136,136,127);
-    // p.rect(tx,0,tw,p.height);
-    // p.fill(120,200,196,127);
-    // p.rect(tx,p.height/4f-p.bu/2f,tw,p.bu);
-    // p.rect(tx,p.height/2f-p.bu/2f,tw,p.bu);
-    // p.rect(tx,p.height/4f*3-p.bu/2f,tw,p.bu);
-    // p.endBlend();
-  }
+  public void display() {}
   @Override
   public void frameResized(int w,int h) {
     tx=w/8f*5;
     tw=w/4f;
   }
-  public static <T extends Screen0011> Button<?>[] genButtons_0003(T p) {
+  public static <T extends Screen0011> Button<?>[] genButtons_0010(T p) {
     return new Button[] {
       new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {
-        p.state(State0001.GameMenu);
-      },self->self.text="开始游戏",p::getButtonUnitLength,()->p.width/4f*3-p.pu*2.5f,()->p.height/4f-p.bu/2f),
+        p.state(State0001.StartMenu);
+      },self->self.text="　　返回　　",p::getButtonUnitLength,()->p.width/4f*3-p.pu*2.5f,()->p.height/5f-p.bu/2f),
       new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {
-        p.state(State0001.Announcement);
-      },self->self.text="　公告　",p::getButtonUnitLength,()->p.width/4f*3-p.pu*2.5f,()->p.height/2f-p.bu/2f),
+        p.state(State0001.Game);
+      },self->self.text="　单人游戏　",p::getButtonUnitLength,()->p.width/4f*3-p.pu*2.5f,()->p.height/5*2f-p.bu/2f),
       new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {
-        p.state(State0001.Settings);
-      },self->self.text="　设置　",p::getButtonUnitLength,()->p.width/4f*3-p.pu*2.5f,()->p.height/4f*3-p.bu/2f),
+        p.state(State0001.StartMenu);
+      },self->self.text="开启联机房间",p::getButtonUnitLength,()->p.width/4f*3-p.pu*2.5f,()->p.height/5f*3-p.bu/2f),
+      new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {
+        p.state(State0001.StartMenu);
+      },self->self.text="加入联机房间",p::getButtonUnitLength,()->p.width/4f*3-p.pu*2.5f,()->p.height/5f*4-p.bu/2f),
     };
   }
 }
