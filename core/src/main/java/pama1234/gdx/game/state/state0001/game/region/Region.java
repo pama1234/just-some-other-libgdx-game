@@ -2,20 +2,15 @@ package pama1234.gdx.game.state.state0001.game.region;
 
 import static pama1234.gdx.game.state.state0001.game.world.WorldKryoUtil.kryo;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-
 import com.badlogic.gdx.files.FileHandle;
-import com.esotericsoftware.kryo.KryoException;
-import com.esotericsoftware.kryo.io.Input;
-import com.esotericsoftware.kryo.io.Output;
 import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
 import pama1234.gdx.game.app.Screen0011;
+import pama1234.gdx.game.state.state0001.game.KryoUtil;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.region.Chunk.BlockData;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
+import pama1234.gdx.game.state.state0001.game.world.WorldKryoUtil;
 import pama1234.gdx.util.entity.Entity;
 
 public class Region extends Entity<Screen0011> implements LoadAndSave{
@@ -43,13 +38,9 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
   @Override
   public void load() {//TODO
     if(p.settings.debugInfo) System.out.println("inner load region "+x+" "+y);
-    try(Input input=new Input(new FileInputStream(dataLocation.file()))) {
-      Region out=kryo.readObject(input,Region.class);
-      input.close();
-      data=out.data;
-    }catch(FileNotFoundException|KryoException e) {
-      e.printStackTrace();
-    }
+    WorldKryoUtil.regionInstance=this;
+    KryoUtil.load(kryo,dataLocation,Region.class);
+    WorldKryoUtil.regionInstance=null;
   }
   @Override
   public void save() {//TODO
@@ -65,12 +56,7 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
       if(tb_2) data[i][j]=null;
       else tb_1=true;
     }
-    if(tb_1) try(Output output=new Output(new FileOutputStream(dataLocation.file()))) {
-      kryo.writeObject(output,this);
-      output.close();
-    }catch(FileNotFoundException|KryoException e) {
-      e.printStackTrace();
-    }
+    if(tb_1) KryoUtil.save(kryo,dataLocation,this);
   }
   @Override
   public void update() {
