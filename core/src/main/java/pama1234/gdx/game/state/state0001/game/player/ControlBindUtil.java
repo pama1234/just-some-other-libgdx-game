@@ -2,6 +2,9 @@ package pama1234.gdx.game.state.state0001.game.player;
 
 import com.badlogic.gdx.Input.Keys;
 
+import pama1234.gdx.game.app.Screen0011;
+import pama1234.gdx.game.util.RectF;
+
 public class ControlBindUtil{
   public static final int moveLeft=0,moveRight=1,moveUp=2,moveDown=3,jumpUp=4,jumpDown=5;
   public static final int hotSlotStart=6;
@@ -38,5 +41,23 @@ public class ControlBindUtil{
   @FunctionalInterface
   public interface GetKeyPressedBoolean{
     public boolean get(int keyCode);
+  }
+  //------------------------------------------------------------------------------------------------------------------
+  public static RectF[] createRectF(Screen0011 p) {
+    if(p.isAndroid) return new RectF[] {
+      new RectF(()->p.bu*1.5f-p.pus,()->p.height-p.bu*1.5f-p.pus,()->p.bu*2.75f+p.pus*4,()->p.bu+p.pus),
+      // new RectF(()->p.width-p.bu*4f,()->p.height-p.bu*2.5f-p.pus,()->p.pu*3.75f+p.pus,()->p.bu*2+p.pus),
+      new RectF(()->p.width-p.bu*4f-p.pus,()->p.height-p.bu*1.5f-p.pus,()->p.bu*2.5f+p.pus*2,()->p.bu+p.pus),
+      new RectF(()->p.width-p.bu*2.5f-p.pus,()->p.height-p.bu*2.5f-p.pus,()->p.bu+p.pus*2,()->p.bu+p.pus),
+      //---
+      new RectF(()->p.width-p.bu*3.5f-p.pus,()->p.bu*0.5f-p.pus,()->p.bu*2.75f+p.pus*4,()->p.bu+p.pus),
+      // new RectF(()->p.bu*0.5f-p.pus,()->p.bu*1.5f,()->p.bu+p.pus*2,()->p.bu*2+p.pus),
+      //---
+      exitButton(p),
+    };
+    return new RectF[] {exitButton(p)};
+  }
+  public static RectF exitButton(Screen0011 p) {
+    return new RectF(()->p.bu*0.2f-p.pus,()->p.bu*0.2f-p.pus,()->p.bu+p.pus*2,()->p.bu+p.pus*2);
   }
 }

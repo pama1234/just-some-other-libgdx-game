@@ -45,28 +45,11 @@ public class PlayerController extends Entity<Screen0011>{
   public PlayerController(Screen0011 p,MainPlayer player) {
     super(p);
     this.player=player;
-    if(p.isAndroid) {
-      cullRects=new RectF[] {
-        new RectF(()->p.bu*1.5f-p.pus,()->p.height-p.bu*1.5f-p.pus,()->p.bu*2.75f+p.pus*4,()->p.bu+p.pus),
-        // new RectF(()->p.width-p.bu*4f,()->p.height-p.bu*2.5f-p.pus,()->p.pu*3.75f+p.pus,()->p.bu*2+p.pus),
-        new RectF(()->p.width-p.bu*4f-p.pus,()->p.height-p.bu*1.5f-p.pus,()->p.bu*2.5f+p.pus*2,()->p.bu+p.pus),
-        new RectF(()->p.width-p.bu*2.5f-p.pus,()->p.height-p.bu*2.5f-p.pus,()->p.bu+p.pus*2,()->p.bu+p.pus),
-        //---
-        new RectF(()->p.width-p.bu*3.5f-p.pus,()->p.bu*0.5f-p.pus,()->p.bu*2.75f+p.pus*4,()->p.bu+p.pus),
-        // new RectF(()->p.bu*0.5f-p.pus,()->p.bu*1.5f,()->p.bu+p.pus*2,()->p.bu*2+p.pus),
-        //---
-        exitButton(),
-      };
-    }else cullRects=new RectF[] {
-      exitButton(),
-    };
+    cullRects=ControlBindUtil.createRectF(p);
     limitBox=new MovementLimitBox(player);
     selectEntity=new EntityPointer(player.pw,()->player.inventory.select().data);
     selectBlock=new ControllerBlockPointer(player.pw,()->player.inventory.select().data);
     player.outerBox=limitBox;
-  }
-  public RectF exitButton() {
-    return new RectF(()->p.bu*0.2f-p.pus,()->p.bu*0.2f-p.pus,()->p.bu+p.pus*2,()->p.bu+p.pus*2);
   }
   @Override
   public void display() {
