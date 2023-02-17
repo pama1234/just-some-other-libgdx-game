@@ -32,54 +32,32 @@ import pama1234.gdx.util.FileUtil;
 import pama1234.gdx.util.app.ScreenCore3D;
 import pama1234.gdx.util.element.Graphics;
 import pama1234.math.Tools;
-import pama1234.util.net.ServerInfo;
+import pama1234.util.net.NetAddressInfo;
 
 /**
  * 3D 粒子系统 联机 客户端
  */
 public class Screen0003 extends ScreenCore3D{
-  // public ServerInfo dataServerInfo;
-  //---
-  // public ServerSocket serverSocket;
-  // public Center<SocketData> socketCenter;
-  //---
   public SocketData clientSocket;
-  // public volatile CellData[] cellData;
   public Client0001Core clientCore;
   //---
   public ClientRead clientRead;
   public ClientWrite clientWrite;
-  // public Thread acceptT,serverReadT,clientReadT,serverWriteT,clientWriteT;
   //---
-  // public CellGroup3D group;
   @Deprecated
   public ClientPlayerCenter3D playerCenter;//TODO
   public ControllerClientPlayer3D yourself;
-  // public ServerPlayer3D yourself;
   public ArrayList<ArrayList<GraphicsData>> graphicsList;
   public ArrayList<DecalData> decals;
-  // boolean doUpdate=true;//TODO
   public boolean doUpdate;
-  // public Thread updateCell;
   public Vector3 posCache=new Vector3();
-  // public float viewDist=1024;//TODO
-  // static final float logn=32,logViewDist=log(viewDist,logn/4);
   public static final int layerSize=3;
   public static final int gsize=8;
-  // public float multDist=1;
   public boolean displayHint;
-  // public boolean displayHint=true;
   public Decal infoD;
   public Decal logo;
-  // final int tu=16;
-  // public Button[] buttons;
-  // public int bu;
-  // public boolean fullSettings;
-  // public boolean configInfo;
   public boolean tempTest;//TODO
   public ConfigInfo configInfo;
-  // Graphics buttonsG;
-  // Texture buttonsT;
   public int tempCellSize=128;
   public int tempColorSize=12;
   public int tempSize=tempCellSize*tempColorSize;
@@ -108,21 +86,11 @@ public class Screen0003 extends ScreenCore3D{
     cam.point.set(0,0,-320);
     backgroundColor(0);
     textColor(255);
-    // CellGroupGenerator3D gen=new CellGroupGenerator3D(0,0);
-    // // group=gen.randomGenerate();
-    // group=gen.GenerateFromMiniCore();
-    // serverTypeData=new int[gen.arraySizeOut];
-    // cellData=new CellData[gen.arraySizeOut];
     clientCore=new Client0001Core(tempSize,"pama"+String.format("%04d",(int)(random(0,10000))));
-    // cellData=new CellData[tempSize];
-    // for(int i=0;i<cellData.length;i++) cellData[i]=new CellData();
     playerCenter=new ClientPlayerCenter3D(this);
-    // yourself=new ControllerClientPlayer3D(this,"pama1234",cam.point);
     yourself=new ControllerClientPlayer3D(this,clientCore.yourself);
-    // yourself=new ServerPlayer3D("pama1234",0,0,0);
     //---
-    dataServerInfo=new ServerInfo("192.168.2.105",12347);
-    // stateServerInfo=new ServerInfo("192.168.2.105",12346);
+    dataServerInfo=new NetAddressInfo("192.168.2.105",12347);
     //---
     SocketHints tsh=new SocketHints();
     tsh.connectTimeout=10000;
@@ -132,9 +100,6 @@ public class Screen0003 extends ScreenCore3D{
     tsh.performancePrefLatency=2;
     tsh.performancePrefBandwidth=1;
     //---
-    //---
-    // sleep(10000);   
-    // clientStateSocket=new SocketData("pama1234",Gdx.net.newClientSocket(Protocol.TCP,stateServerInfo.addr,stateServerInfo.port,tsh));
     clientSocket=new SocketData(new Token(yourself.data.name()),new SocketWrapperGDX(Gdx.net.newClientSocket(Protocol.TCP,dataServerInfo.addr,dataServerInfo.port,tsh)));
     new Thread() {
       public void run() {
@@ -229,18 +194,12 @@ public class Screen0003 extends ScreenCore3D{
     int out=(int)map(dist,0,cam3d.viewDist(),layerSize,0);
     if(out>=layerSize) out=layerSize-1;
     return out;
-    // return (int)constrain(map(log(dist,logn),-logViewDist,logViewDist,layerSize,0),0,layerSize-1);
   }
-  // public void updateViewDist() {
-  //   cam3d.camera.far=viewDist;
-  // }
   public boolean isVisible(Camera cam,Decal in,float r) {
     return cam.frustum.sphereInFrustum(in.getPosition(),r);
   }
   @Override
   public void displayWithCam() {
-    // Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
-    // Gdx.gl20.glDepthMask(false);
     // synchronized(cellData) {
     for(int i=0;i<clientCore.cellData.length;i++) {
       float tx=clientCore.cellData[i].x*multDist;
@@ -271,9 +230,7 @@ public class Screen0003 extends ScreenCore3D{
   @Override
   public void display() {}
   @Override
-  public void frameResized() {
-    // super.frameResized();
-  }
+  public void frameResized() {}
   @Override
   public void keyPressed(char key,int keyCode) {
     if(key=='Z') doUpdate=!doUpdate;

@@ -1,11 +1,11 @@
 package pama1234.util.net;
 
-public class ServerInfo{
+public class NetAddressInfo{
   public String addr;
   public int port;
   @Deprecated
-  public ServerInfo() {}//kryo only
-  public ServerInfo(String ip,int port) {
+  public NetAddressInfo() {}//kryo only
+  public NetAddressInfo(String ip,int port) {
     this.addr=ip;
     this.port=port;
   }

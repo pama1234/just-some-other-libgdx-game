@@ -3,11 +3,18 @@ package pama1234.gdx.game.state.state0001;
 import static com.badlogic.gdx.Input.Keys.ESCAPE;
 import static pama1234.gdx.game.state.state0001.game.GameDisplayUtil.debugText;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Net.Protocol;
+import com.badlogic.gdx.net.SocketHints;
+
 import pama1234.gdx.game.app.Screen0011;
+import pama1234.gdx.game.net.SocketWrapperGDX;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
 import pama1234.gdx.game.state.state0001.game.GameDisplayUtil;
-import pama1234.gdx.game.state.state0001.game.net.ServerCore;
+import pama1234.gdx.game.state.state0001.game.net.ClientCore;
 import pama1234.gdx.game.state.state0001.game.net.NetState.NetMode;
+import pama1234.gdx.game.state.state0001.game.net.ServerCore;
+import pama1234.gdx.game.state.state0001.game.net.SocketData;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
 import pama1234.gdx.game.state.state0001.game.world.World;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
@@ -17,6 +24,7 @@ import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.game.util.RectF;
 import pama1234.gdx.util.listener.EntityListener;
+import pama1234.util.net.NetAddressInfo;
 
 public class Game extends StateEntity0001{
   public Button<?>[] menuButtons;
@@ -31,7 +39,9 @@ public class Game extends StateEntity0001{
   public boolean firstInit=true;//TODO
   public NetMode netMode=NetMode.singlePlayer;
   //---
+  public NetAddressInfo addrInfo;
   public ServerCore server;
+  public ClientCore client;
   public Game(Screen0011 p) {
     super(p);
     menuButtons=UiGenerator.genButtons_0005(p);
@@ -65,6 +75,19 @@ public class Game extends StateEntity0001{
     worldCenter.resume();
     if(debugGraphics) p.centerCam.add.add(displayCamTop);
     p.centerCam.add.add(worldCenter);
+    if(netMode==NetMode.client) {
+      SocketHints tsh=new SocketHints();
+      tsh.connectTimeout=10000;
+      tsh.socketTimeout=5000;
+      tsh.keepAlive=true;
+      tsh.performancePrefConnectionTime=0;
+      tsh.performancePrefLatency=2;
+      tsh.performancePrefBandwidth=1;
+      SocketData clientSocket=new SocketData(new SocketWrapperGDX(Gdx.net.newClientSocket(Protocol.TCP,addrInfo.addr,addrInfo.port,tsh)));
+      client=new ClientCore(this,world(),clientSocket);
+      client.start();
+    }else if(netMode==NetMode.integratedServer) {
+    }
   }
   @Override
   public void to(State0001 in) {

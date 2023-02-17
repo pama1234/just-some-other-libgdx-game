@@ -15,7 +15,7 @@ import pama1234.game.app.server.server0001.game.particle.CellGroup3D;
 import pama1234.game.app.server.server0001.game.particle.CellGroupGenerator3D;
 import pama1234.gdx.game.net.SocketWrapperGDX;
 import pama1234.gdx.util.app.UtilScreen3D;
-import pama1234.util.net.ServerInfo;
+import pama1234.util.net.NetAddressInfo;
 import pama1234.util.wrapper.Center;
 
 /**
@@ -24,7 +24,7 @@ import pama1234.util.wrapper.Center;
 @Deprecated
 public class Screen0007 extends UtilScreen3D{
   // public ServerInfo dataServerInfo,stateServerInfo;
-  public ServerInfo dataServerInfo;
+  public NetAddressInfo dataServerInfo;
   //---
   public ServerSocket serverSocket;
   public Center<SocketData> socketCenter;
@@ -40,7 +40,7 @@ public class Screen0007 extends UtilScreen3D{
   public ServerPlayerCenter3D playerCenter;
   @Override
   public void setup() {
-    dataServerInfo=new ServerInfo("192.168.2.105",12347);
+    dataServerInfo=new NetAddressInfo("192.168.2.105",12347);
     // stateServerInfo=new ServerInfo("192.168.2.105",12346);
     // serverInfo=new ServerInfo("127.0.0.1",12347);
     //---

@@ -10,4 +10,5 @@ public class ServerCore{
   // public Center<ServerWrite> serverWritePool;
   public ServerData serverData;
   public Thread acceptSocket;
+  
 }

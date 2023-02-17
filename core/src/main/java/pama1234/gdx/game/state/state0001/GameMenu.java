@@ -23,11 +23,11 @@ import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.game.ui.util.TextField;
 import pama1234.gdx.game.util.RectF;
 import pama1234.util.function.GetFloat;
-import pama1234.util.net.ServerInfo;
+import pama1234.util.net.NetAddressInfo;
 
 public class GameMenu extends StateEntity0001{
   public static class GameSettingsData{
-    public ServerInfo serverInfo;
+    public NetAddressInfo addrInfo;
     public String playerName;
   }
   public Button<?>[] buttons;
@@ -55,11 +55,11 @@ public class GameMenu extends StateEntity0001{
   public void loadSettings() {
     settings=KryoUtil.load(kryo,settingsFile,GameSettingsData.class);
     if(settings==null) initSettings();
-    if(settings.serverInfo==null) settings.serverInfo=new ServerInfo("127.0.0.1",12347);
+    if(settings.addrInfo==null) settings.addrInfo=new NetAddressInfo("127.0.0.1",12347);
   }
   public void initSettings() {
     settings=new GameSettingsData();
-    settings.serverInfo=new ServerInfo("127.0.0.1",12347);
+    settings.addrInfo=new NetAddressInfo("127.0.0.1",12347);
   }
   public void saveSettings() {
     KryoUtil.save(kryo,settingsFile,settings);
@@ -67,7 +67,7 @@ public class GameMenu extends StateEntity0001{
   @Override
   public void from(State0001 in) {
     game=(Game)State0001.Game.entity;
-    screenTextFields[0].setText(settings.serverInfo.toString());
+    screenTextFields[0].setText(settings.addrInfo.toString());
     screenTextFields[1].setText(settings.playerName);
     p.backgroundColor(0);
     for(Button<?> e:buttons) p.centerScreen.add.add(e);
@@ -93,7 +93,8 @@ public class GameMenu extends StateEntity0001{
     p.cam2d.scale.pos=p.cam2d.scale.des=1;
     p.cam2d.point.des.set(0,0,0);
     p.cam2d.point.pos.set(p.cam2d.point.des);
-    settings.serverInfo.setFromString(screenTextFields[0].getText(),12347);
+    settings.addrInfo.setFromString(screenTextFields[0].getText(),12347);
+    game.addrInfo=settings.addrInfo;
     game.world().yourself.name=settings.playerName=screenTextFields[1].getText();
   }
   @Override

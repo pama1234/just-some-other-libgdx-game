@@ -7,7 +7,7 @@ import pama1234.game.app.server.server0001.game.net.io.ServerWrite;
 import pama1234.game.app.server.server0001.game.particle.CellGroup3D;
 import pama1234.game.app.server.server0001.game.particle.CellGroupGenerator3D;
 import pama1234.util.UtilServer;
-import pama1234.util.net.ServerInfo;
+import pama1234.util.net.NetAddressInfo;
 import pama1234.util.net.ServerSocketData;
 import pama1234.util.net.SocketWrapper;
 import pama1234.util.wrapper.Center;
@@ -19,7 +19,7 @@ public class Server0001 extends UtilServer{//particle server 3d
   //---
   public ServerPlayerCenter3D playerCenter;
   //---
-  public ServerInfo serverInfo;
+  public NetAddressInfo serverInfo;
   public ServerSocketData serverSocket;
   public Center<SocketData> socketCenter;
   public Center<ServerRead> serverReadPool;
@@ -52,7 +52,7 @@ public class Server0001 extends UtilServer{//particle server 3d
     //---
     playerCenter=new ServerPlayerCenter3D();
     //---
-    serverInfo=new ServerInfo("192.168.2.105",12347);
+    serverInfo=new NetAddressInfo("192.168.2.105",12347);
     serverSocket=new ServerSocketData(serverInfo);
     socketCenter=new Center<>();
     serverReadPool=new Center<>();

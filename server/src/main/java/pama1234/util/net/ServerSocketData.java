@@ -8,10 +8,10 @@ import java.net.UnknownHostException;
 
 public class ServerSocketData{
   public ServerSocket server;
-  public ServerSocketData(ServerInfo info) {
+  public ServerSocketData(NetAddressInfo info) {
     init(info);
   }
-  public void init(ServerInfo info) {
+  public void init(NetAddressInfo info) {
     try {
       initWithException(info);
     }catch(UnknownHostException e) {
@@ -20,7 +20,7 @@ public class ServerSocketData{
       e.printStackTrace();
     }
   }
-  public void initWithException(ServerInfo info) throws IOException,UnknownHostException {
+  public void initWithException(NetAddressInfo info) throws IOException,UnknownHostException {
     server=new ServerSocket(info.port,50,InetAddress.getByName(info.addr));//TODO
   }
   public Socket accept() {

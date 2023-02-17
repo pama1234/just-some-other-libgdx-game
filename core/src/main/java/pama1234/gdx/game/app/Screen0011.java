@@ -29,14 +29,14 @@ import pama1234.gdx.util.info.MouseInfo;
 import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 import pama1234.math.vec.Vec3f;
-import pama1234.util.net.ServerInfo;
+import pama1234.util.net.NetAddressInfo;
 
 public class Screen0011 extends ScreenCore2D implements StateChanger{
   public static final Kryo kryo=new Kryo();
   static {
     // kryo.setDefaultSerializer(TaggedFieldSerializer.class);
     kryo.register(SettingsData.class);
-    kryo.register(ServerInfo.class);
+    kryo.register(NetAddressInfo.class);
     kryo.register(InfoSource.class);
     kryo.register(InfoSource[].class);
     kryo.register(InfoData.class);

@@ -14,11 +14,11 @@ import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer;
 
 import pama1234.game.app.server.ServerCore;
 import pama1234.game.app.server.server0002.cmd.ScannerThread;
-import pama1234.util.net.ServerInfo;
+import pama1234.util.net.NetAddressInfo;
 
 public class Server0002 extends ServerCore{
   public static class ServerSettings{
-    public ServerInfo serverInfo;
+    public NetAddressInfo serverInfo;
   }
   public Kryo kryo;
   public File mainDir=new File(System.getProperty("user.dir")+"/data/server/server0002");
@@ -41,10 +41,10 @@ public class Server0002 extends ServerCore{
     kryo=new Kryo();
     kryo.setDefaultSerializer(TaggedFieldSerializer.class);
     kryo.register(ServerSettings.class,new FieldSerializer<ServerSettings>(kryo,ServerSettings.class));
-    kryo.register(ServerInfo.class,new FieldSerializer<ServerInfo>(kryo,ServerInfo.class));
+    kryo.register(NetAddressInfo.class,new FieldSerializer<NetAddressInfo>(kryo,NetAddressInfo.class));
   }
   public void postSettings() {
-    if(settings.serverInfo==null) settings.serverInfo=new ServerInfo("127.0.0.1",12347);
+    if(settings.serverInfo==null) settings.serverInfo=new NetAddressInfo("127.0.0.1",12347);
   }
   public void loadSettings() {
     if(!settingsFile.exists()) {

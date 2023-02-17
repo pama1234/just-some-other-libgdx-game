@@ -10,10 +10,10 @@ import pama1234.gdx.game.ui.generator.UiGenerator0003;
 import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.util.listener.EntityListener;
-import pama1234.util.net.ServerInfo;
+import pama1234.util.net.NetAddressInfo;
 
 public class Game extends StateEntity0003{
-  public ServerInfo dataServerInfo;
+  public NetAddressInfo dataServerInfo;
   public SocketData clientSocket;
   //---
   public Button<?>[] menuButtons;

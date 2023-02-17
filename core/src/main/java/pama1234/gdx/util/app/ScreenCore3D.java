@@ -8,10 +8,10 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.listener.EntityListener;
-import pama1234.util.net.ServerInfo;
+import pama1234.util.net.NetAddressInfo;
 
 public abstract class ScreenCore3D extends UtilScreen3D{
-  public ServerInfo dataServerInfo;
+  public NetAddressInfo dataServerInfo;
   //---
   public Stage stage;
   public Viewport viewport;
