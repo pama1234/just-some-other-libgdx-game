@@ -19,7 +19,7 @@ public class ClientCore{
   public ClientCore(Game pg,World0001 pw,SocketData clientSocket) {
     this.pg=pg;
     this.pw=pw;
-    clientData=new ClientData(32,"pama"+String.format("%04d",(int)(pw.random(0,10000))));
+    clientData=new ClientData(pg,pw);
   }
   public void start() {
     connectThread=new Thread() {

@@ -6,7 +6,6 @@ import static pama1234.gdx.game.state.state0001.game.net.NetUtil.readNBytes;
 import static pama1234.gdx.game.state.state0001.game.net.NetUtil.writeClientHeader;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import pama1234.data.ByteUtil;
 import pama1234.gdx.game.state.state0001.game.net.NetState.ClientState;
@@ -28,15 +27,6 @@ public class ClientExecute{
     },
       (p,s,inData,stateInt,readSize)-> {
         s.clientState=ClientState.ClientDataTransfer;
-        if(readSize!=p.cellData.length) throw new RuntimeException("state DataTransfer readSize!=p.cellData.length "+readSize+" "+p.cellData.length+" "+Arrays.toString(readNBytes(s,inData,0,inData.length)));//TODO
-        for(int i=0;i<readSize;i++) {
-          readNBytes(s,inData,0,4*5);
-          p.cellData[i].id=ByteUtil.byteToInt(inData,0);
-          p.cellData[i].type=ByteUtil.byteToInt(inData,4);
-          p.cellData[i].x=ByteUtil.byteToFloat(inData,8);
-          p.cellData[i].y=ByteUtil.byteToFloat(inData,12);
-          p.cellData[i].z=ByteUtil.byteToFloat(inData,16);
-        }
       },null,null,null,
       (p,s,inData,stateInt,readSize)-> {
         byte[] nameBytes=new byte[readSize];
@@ -55,9 +45,9 @@ public class ClientExecute{
       p.sleep(1000);
     },(p,s,outData)-> {
       writeClientHeader(s,outData,12);
-      ByteUtil.floatToByte(p.yourself.x(),outData,0);
-      ByteUtil.floatToByte(p.yourself.y(),outData,4);
-      ByteUtil.floatToByte(p.yourself.z(),outData,8);
+      ByteUtil.floatToByte(0,outData,0);
+      ByteUtil.floatToByte(0,outData,4);
+      ByteUtil.floatToByte(0,outData,8);
       s.o.write(outData,0,12);
       s.o.flush();
       p.sleep(40);

@@ -63,7 +63,7 @@ public class ServerIO{
     public void run() {
       byte[] data=new byte[20];
       while(!s.stop) {
-        synchronized(p.group) {
+        synchronized(p.lock) {
           try {
             doF(s,data);
           }catch(SocketException e1) {

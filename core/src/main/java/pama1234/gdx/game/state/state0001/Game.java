@@ -87,6 +87,8 @@ public class Game extends StateEntity0001{
       client=new ClientCore(this,world(),clientSocket);
       client.start();
     }else if(netMode==NetMode.integratedServer) {
+      server=new ServerCore(this,tw);
+      server.start();
     }
   }
   @Override
