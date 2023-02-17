@@ -13,15 +13,18 @@ import java.net.SocketException;
 import pama1234.data.ByteUtil;
 import pama1234.game.app.server.server0001.game.ServerPlayer3D;
 import pama1234.game.app.server.server0001.game.net.SocketData.Token;
-import pama1234.game.app.server.server0001.game.net.data.Server0001Core;
 import pama1234.gdx.game.state.state0001.game.net.NetState0002.ClientState;
 import pama1234.gdx.game.state.state0001.game.net.NetState0002.ServerState;
 
 public class ServerCore{
+  @FunctionalInterface
+  public interface ServerExecuteF{
+    public void execute(SocketData s,ServerData p);
+  }
   public static class ServerRead extends Thread{
-    public Server0001Core p;
+    public ServerData p;
     public SocketData s;
-    public ServerRead(Server0001Core p,SocketData dataSocket) {
+    public ServerRead(ServerData p,SocketData dataSocket) {
       super("ServerRead "+dataSocket.s.getRemoteAddress());
       this.p=p;
       this.s=dataSocket;
@@ -32,8 +35,9 @@ public class ServerCore{
       while(!s.stop) {
         synchronized(p.socketCenter.list) {
           try {
+            int stateInt=ByteUtil.byteToInt(readNBytes(s,data,0,4),0);
             doF(s,data,
-              s.clientState=ClientState.intToState(ByteUtil.byteToInt(readNBytes(s,data,0,4),0)),
+              s.clientState=ClientState.intToState(stateInt),stateInt,
               ByteUtil.byteToInt(readNBytes(s,data,0,4),0));
           }catch(SocketException e1) {
             catchException(e1,s);
@@ -44,17 +48,11 @@ public class ServerCore{
       }
       // p.serverReadPool.remove.add(this);
     }
-    public void doF(SocketData e,byte[] inData,ClientState state,int readSize) throws IOException {
+    public void doF(SocketData e,byte[] inData,ClientState state,int stateInt,int readSize) throws IOException {
       if(debug) System.out.println("ServerRead state="+state+" readSize="+readSize);
       switch(state) {
         case ClientAuthentication: {
-          byte[] nameBytes=new byte[readSize];
-          readNBytes(e,nameBytes,0,readSize);
-          e.token.name=new String(nameBytes);
-          e.serverState=ServerDataTransfer;
-          p.playerCenter.add.add(new ServerPlayer3D(e.name(),0,0,0));//TODO ?
-          p.playerCenter.refresh();
-          System.out.println("Auth "+e.name());
+          clientAuth(e,readSize);
         }
           break;
         case ClientDataTransfer: {
@@ -90,14 +88,23 @@ public class ServerCore{
           throw new RuntimeException("state err="+state);
       }
     }
+    public void clientAuth(SocketData e,int readSize) throws IOException {
+      byte[] nameBytes=new byte[readSize];
+      readNBytes(e,nameBytes,0,readSize);
+      e.token.name=new String(nameBytes);
+      e.serverState=ServerDataTransfer;
+      p.playerCenter.add.add(new ServerPlayer3D(e.name(),0,0,0));//TODO ?
+      p.playerCenter.refresh();
+      System.out.println("Auth "+e.name());
+    }
     public void dispose() {
       s.stop=true;
     }
   }
   public static class ServerWrite extends Thread{
-    public Server0001Core p;
+    public ServerData p;
     public SocketData s;
-    public ServerWrite(Server0001Core p,SocketData dataSocket) {
+    public ServerWrite(ServerData p,SocketData dataSocket) {
       super("ServerWrite "+dataSocket.s.getRemoteAddress());
       this.p=p;
       this.s=dataSocket;

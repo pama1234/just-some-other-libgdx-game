@@ -12,15 +12,14 @@ import java.net.SocketException;
 import java.util.Arrays;
 
 import pama1234.data.ByteUtil;
-import pama1234.game.app.server.server0001.game.net.data.Client0001Core;
 import pama1234.gdx.game.state.state0001.game.net.NetState0002.ClientState;
 import pama1234.gdx.game.state.state0001.game.net.NetState0002.ServerState;
 
 public class ClientCore{
   public static class ClientRead extends Thread{
-    public Client0001Core p;
+    public ClientData p;
     public SocketData s;
-    public ClientRead(Client0001Core p,SocketData dataSocket) {
+    public ClientRead(ClientData p,SocketData dataSocket) {
       super("ClientRead "+dataSocket.s.getRemoteAddress());
       this.p=p;
       this.s=dataSocket;
@@ -89,9 +88,9 @@ public class ClientCore{
     }
   }
   public static class ClientWrite extends Thread{
-    public Client0001Core p;
+    public ClientData p;
     public SocketData s;
-    public ClientWrite(Client0001Core p,SocketData dataSocket) {
+    public ClientWrite(ClientData p,SocketData dataSocket) {
       super("ClientWrite "+dataSocket.s.getRemoteAddress());
       this.p=p;
       this.s=dataSocket;
