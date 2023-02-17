@@ -15,6 +15,7 @@ import com.esotericsoftware.kryo.Kryo;
 
 import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.state.state0001.Game;
+import pama1234.gdx.game.state.state0001.GameMenu.GameSettingsData;
 import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.state.state0001.State0001.StateChanger;
 import pama1234.gdx.game.state.state0001.StateGenerator0001;
@@ -40,13 +41,13 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     kryo.register(InfoSource[].class);
     kryo.register(InfoData.class);
     kryo.register(String[].class);
+    kryo.register(GameSettingsData.class);
   }
   public static class SettingsData{
     public boolean showEarth=true;
     public boolean debugInfo;
     public boolean mute;
     public float volume=1;
-    public ServerInfo serverInfo;
     public boolean zoomButton;
     public boolean useGyroscope,useAccelerometer;
     public float gyroscopeSensitivity=1,accelerometerSensitivity=1;
@@ -108,11 +109,11 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   public void loadSettings() {
     settings=KryoUtil.load(kryo,settingsFile,SettingsData.class);
     if(settings==null) initSettings();
-    if(settings.serverInfo==null) settings.serverInfo=new ServerInfo("127.0.0.1",12347);
+    // if(settings.serverInfo==null) settings.serverInfo=new ServerInfo("127.0.0.1",12347);
   }
   public void initSettings() {
     settings=new SettingsData();
-    settings.serverInfo=new ServerInfo("127.0.0.1",12347);
+    // settings.serverInfo=new ServerInfo("127.0.0.1",12347);
     settings.isAndroid=Gdx.app.getType()==ApplicationType.Android;
   }
   public void saveSettings() {

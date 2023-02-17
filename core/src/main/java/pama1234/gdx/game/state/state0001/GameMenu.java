@@ -1,8 +1,10 @@
 package pama1234.gdx.game.state.state0001;
 
 import static com.badlogic.gdx.Input.Keys.ESCAPE;
+import static pama1234.gdx.game.app.Screen0011.kryo;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.FocusListener;
@@ -12,6 +14,7 @@ import pama1234.gdx.game.asset.GifAsset;
 import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.state.state0001.Game.NetMode;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
+import pama1234.gdx.game.state.state0001.game.KryoUtil;
 import pama1234.gdx.game.ui.CodeTextFieldStyle;
 import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.ui.util.Button.ButtonEvent;
@@ -20,24 +23,52 @@ import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.game.ui.util.TextField;
 import pama1234.gdx.game.util.RectF;
 import pama1234.util.function.GetFloat;
+import pama1234.util.net.ServerInfo;
 
 public class GameMenu extends StateEntity0001{
+  public static class GameSettingsData{
+    public ServerInfo serverInfo;
+    public String playerName;
+  }
   public Button<?>[] buttons;
   public TextField[] screenTextFields;
   //---
   public float time;
   //---
+  public GameSettingsData settings;
+  public FileHandle settingsFile=Gdx.files.local("data/gameSettings.bin");
   public Game game;
   public GameMenu(Screen0011 p) {
     super(p);
     buttons=genButtons_0010(p);
     screenTextFields=genTextFields_0001(p);
+    loadSettings();
+  }
+  @Override
+  public void pause() {
+    if(p.isAndroid) saveSettings();
+  }
+  @Override
+  public void dispose() {
+    saveSettings();
+  }
+  public void loadSettings() {
+    settings=KryoUtil.load(kryo,settingsFile,GameSettingsData.class);
+    if(settings==null) initSettings();
+    if(settings.serverInfo==null) settings.serverInfo=new ServerInfo("127.0.0.1",12347);
+  }
+  public void initSettings() {
+    settings=new GameSettingsData();
+    settings.serverInfo=new ServerInfo("127.0.0.1",12347);
+  }
+  public void saveSettings() {
+    KryoUtil.save(kryo,settingsFile,settings);
   }
   @Override
   public void from(State0001 in) {
     game=(Game)State0001.Game.entity;
-    screenTextFields[0].setText(p.settings.serverInfo.toString());
-    screenTextFields[1].setText(game.world().yourself.name);
+    screenTextFields[0].setText(settings.serverInfo.toString());
+    screenTextFields[1].setText(settings.playerName);
     p.backgroundColor(0);
     for(Button<?> e:buttons) p.centerScreen.add.add(e);
     for(TextField e:screenTextFields) p.screenStage.addActor(e);
@@ -62,8 +93,8 @@ public class GameMenu extends StateEntity0001{
     p.cam2d.scale.pos=p.cam2d.scale.des=1;
     p.cam2d.point.des.set(0,0,0);
     p.cam2d.point.pos.set(p.cam2d.point.des);
-    p.settings.serverInfo.setFromString(screenTextFields[0].getText(),12347);
-    game.world().yourself.name=screenTextFields[1].getText();
+    settings.serverInfo.setFromString(screenTextFields[0].getText(),12347);
+    game.world().yourself.name=settings.playerName=screenTextFields[1].getText();
   }
   @Override
   public void update() {

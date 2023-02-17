@@ -89,7 +89,7 @@ public class MainPlayer extends Player implements LoadAndSave{
       }
       inventory.pc=this;
       inventory.innerInit();
-      name=WorldKryoUtil.kryo.readObject(input,String.class);
+      // name=WorldKryoUtil.kryo.readObject(input,String.class);
     }catch(FileNotFoundException|KryoException e) {
       e.printStackTrace();
     }
@@ -103,7 +103,7 @@ public class MainPlayer extends Player implements LoadAndSave{
       if(pw.pg.debug) System.out.println(point.pos);
       WorldKryoUtil.kryo.writeObject(output,point);
       WorldKryoUtil.kryo.writeObject(output,inventory);
-      WorldKryoUtil.kryo.writeObject(output,name);
+      // WorldKryoUtil.kryo.writeObject(output,name);
       output.close();
     }catch(FileNotFoundException|KryoException e) {
       e.printStackTrace();

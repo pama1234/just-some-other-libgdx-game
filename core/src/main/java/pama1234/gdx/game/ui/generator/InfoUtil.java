@@ -1,5 +1,7 @@
 package pama1234.gdx.game.ui.generator;
 
+import static pama1234.gdx.game.app.Screen0011.kryo;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net.HttpMethods;
 import com.badlogic.gdx.Net.HttpResponse;
@@ -7,7 +9,6 @@ import com.badlogic.gdx.Net.HttpResponseListener;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.net.HttpRequestBuilder;
 
-import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.KryoUtil;
 
 public class InfoUtil{
@@ -39,8 +40,8 @@ public class InfoUtil{
     info.clear();
   }
   public static void loadCache() {
-    sources=KryoUtil.load(Screen0011.kryo,infoSourceLocation,InfoSource[].class);
-    info=KryoUtil.load(Screen0011.kryo,infoDataLocation,InfoData.class);
+    sources=KryoUtil.load(kryo,infoSourceLocation,InfoSource[].class);
+    info=KryoUtil.load(kryo,infoDataLocation,InfoData.class);
     if(sources==null) sources=new InfoSource[] {
       new InfoSource("https://zhuanlan.zhihu.com/p/606753465",
         "空想世界文字内容开始","空想世界文字内容结束","空想世界文字版本号",0)
@@ -49,8 +50,8 @@ public class InfoUtil{
   }
   public static void saveCache() {
     dataLocation.mkdirs();
-    KryoUtil.save(Screen0011.kryo,infoSourceLocation,sources);
-    KryoUtil.save(Screen0011.kryo,infoDataLocation,info);
+    KryoUtil.save(kryo,infoSourceLocation,sources);
+    KryoUtil.save(kryo,infoDataLocation,info);
   }
   public static void loadOnline() {
     HttpRequestBuilder requestBuilder=new HttpRequestBuilder();
