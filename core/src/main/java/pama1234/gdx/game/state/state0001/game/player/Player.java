@@ -5,6 +5,7 @@ import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
+import pama1234.gdx.game.state.state0001.Game.NetMode;
 import pama1234.gdx.game.state.state0001.game.entity.TextureLivingEntity;
 import pama1234.gdx.game.state.state0001.game.item.Inventory;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
@@ -15,10 +16,13 @@ import pama1234.math.physics.MassPoint;
 
 public class Player extends TextureLivingEntity{
   public PlayerControllerCore ctrlCore;
+  public String name;
+  public float nameWidth;
   @Tag(3)
   public Inventory inventory;
   public Player(Screen0011 p,World0001 pw,float x,float y,PlayerType type) {
     super(p,pw,x,y,type);
+    name("unnamed");
     timeStep=1/2f;
   }
   public void innerInit() {
@@ -33,9 +37,22 @@ public class Player extends TextureLivingEntity{
     inventory.update();
     if(life.pos<=0) respawn();
   }
+  @Override
+  public void display() {
+    super.display();
+    if(pw.netMode()!=NetMode.singlePlayer) {
+      p.textScale(1/2f);
+      p.text(name,cx()-nameWidth/2f,y1()-10);
+      p.textScale(1);
+    }
+  }
   public void respawn() {
     point.pos.set(0,0);
     life.des=type.maxLife;
+  }
+  public void name(String in) {
+    name=in;
+    nameWidth=p.textWidth(in)/2f;
   }
   public static class PlayerCenter extends PointCenter<Screen0011,MassPoint,Player>{
     public PlayerCenter(Screen0011 p,float u) {

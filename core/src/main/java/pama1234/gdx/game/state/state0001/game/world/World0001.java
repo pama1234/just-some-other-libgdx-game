@@ -10,6 +10,7 @@ import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.State0001;
+import pama1234.gdx.game.state.state0001.Game.NetMode;
 import pama1234.gdx.game.state.state0001.game.KryoUtil;
 import pama1234.gdx.game.state.state0001.game.entity.MultiGameEntityCenter;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
@@ -231,5 +232,8 @@ public class World0001 extends WorldBase2D{
   }
   public float skyLight() {
     return sky.skyHsb[2];
+  }
+  public NetMode netMode() {
+    return pg.netMode;
   }
 }
