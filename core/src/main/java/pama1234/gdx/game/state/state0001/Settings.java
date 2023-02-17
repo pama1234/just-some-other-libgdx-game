@@ -35,7 +35,7 @@ public class Settings extends StateEntity0001{
   }
   @Override
   public void from(State0001 in) {
-    camTextFields[0].setText(p.settings.serverInfo.toString());
+    // camTextFields[0].setText(p.settings.serverInfo.toString());
     p.backgroundColor(0);
     p.cam2d.minScale=p.isAndroid?0.5f:1f;
     p.cam2d.testScale();
@@ -50,7 +50,7 @@ public class Settings extends StateEntity0001{
     for(TextField e:camTextFields) e.remove();
     p.cam2d.minScale=1;
     p.cam2d.testScale();
-    p.settings.serverInfo.setFromString(camTextFields[0].getText(),12347);
+    // p.settings.serverInfo.setFromString(camTextFields[0].getText(),12347);
   }
   @Override
   public void displayCam() {
