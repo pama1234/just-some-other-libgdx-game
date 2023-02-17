@@ -4,14 +4,12 @@ import java.util.Arrays;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.state.state0001.Game.NetMode;
-import pama1234.gdx.game.state.state0001.game.KryoUtil;
 import pama1234.gdx.game.state.state0001.game.entity.MultiGameEntityCenter;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
@@ -31,22 +29,6 @@ import pama1234.gdx.game.state.state0001.game.world.background.TextureBackground
 import pama1234.math.UtilMath;
 
 public class World0001 extends WorldBase2D{
-  public static class WorldData{
-    @Tag(0)
-    public String dir;
-    @Tag(1)
-    public int time=12000;
-    @Tag(2)
-    public int tick;
-    public static WorldData load(FileHandle file) {
-      WorldData out=KryoUtil.load(WorldKryoUtil.kryo,file,WorldData.class);
-      if(out!=null) return out;
-      return new WorldData();
-    }
-    public static void save(FileHandle file,WorldData in) {
-      KryoUtil.save(WorldKryoUtil.kryo,file,in);
-    }
-  }
   public FileHandle worldDataDir=Gdx.files.local("data/saved/test-world.bin");
   public WorldData data;
   //---
@@ -60,7 +42,6 @@ public class World0001 extends WorldBase2D{
   //---
   public MainPlayer yourself;
   public WorldSettings settings=new WorldSettings();
-  // public int time=72000;
   public float timeF;
   public Sky sky;
   public World0001(Screen0011 p,Game pg) {
@@ -164,7 +145,6 @@ public class World0001 extends WorldBase2D{
     data.time+=1;
     timeF+=p.frameRate;
     sky.updateColor();
-    // System.out.println(yourself.point.pos);
   }
   @Override
   public void dispose() {

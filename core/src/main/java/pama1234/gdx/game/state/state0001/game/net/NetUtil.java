@@ -7,8 +7,8 @@ import pama1234.gdx.game.state.state0001.game.net.NetState0002.ClientState;
 import pama1234.gdx.game.state.state0001.game.net.NetState0002.ServerState;
 
 public class NetUtil{
-  // public static final boolean debug=true;
-  public static final boolean debug=false;
+  // public static boolean debug=true;
+  public static boolean debug=false;
   public static String protocolVersion="0.1";
   public static byte[] readNBytes(SocketData e,byte[] out,int offset,int size) throws IOException {
     int ti=0;

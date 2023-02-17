@@ -13,7 +13,6 @@ import pama1234.gdx.game.state.state0001.game.region.Chunk;
 import pama1234.gdx.game.state.state0001.game.region.Chunk.BlockData;
 import pama1234.gdx.game.state.state0001.game.region.Region;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
-import pama1234.gdx.game.state.state0001.game.world.World0001.WorldData;
 import pama1234.math.physics.MassPoint;
 import pama1234.math.physics.PathPoint;
 import pama1234.math.physics.PathVar;
