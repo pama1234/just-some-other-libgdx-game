@@ -19,7 +19,7 @@ public class ServerCore{
   public ServerData serverData;
   public Thread acceptSocket;
   public ServerCore(Game pg,World0001 pw) {
-    serverSocket=new ServerSocketData(pg.addrInfo);
+    serverSocket=new ServerSocketData(pg.selfAddr);
     socketCenter=new Center<>();
     serverReadPool=new Center<>();
     serverWritePool=new Center<>();

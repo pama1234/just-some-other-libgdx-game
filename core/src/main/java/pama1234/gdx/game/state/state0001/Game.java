@@ -39,7 +39,8 @@ public class Game extends StateEntity0001{
   public boolean firstInit=true;//TODO
   public NetMode netMode=NetMode.singlePlayer;
   //---
-  public NetAddressInfo addrInfo;
+  public NetAddressInfo serverAddr;
+  public NetAddressInfo selfAddr;
   public ServerCore server;
   public ClientCore client;
   public Game(Screen0011 p) {
@@ -50,6 +51,7 @@ public class Game extends StateEntity0001{
     worldCenter.list.add(world_0001=new World0001(p,this));
     worldCenter.pointer=0;
     if(debug) createDebugDisplay();
+    selfAddr=new NetAddressInfo("127.0.0.1",12347);
   }
   public World0001 world() {
     return world_0001;
@@ -83,7 +85,7 @@ public class Game extends StateEntity0001{
       tsh.performancePrefConnectionTime=0;
       tsh.performancePrefLatency=2;
       tsh.performancePrefBandwidth=1;
-      SocketData socketData=new SocketData(new SocketWrapperGDX(Gdx.net.newClientSocket(Protocol.TCP,addrInfo.addr,addrInfo.port,tsh)));
+      SocketData socketData=new SocketData(new SocketWrapperGDX(Gdx.net.newClientSocket(Protocol.TCP,serverAddr.addr,serverAddr.port,tsh)));
       client=new ClientCore(this,world(),socketData);
       client.start();
     }else if(netMode==NetMode.integratedServer) {

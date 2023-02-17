@@ -27,7 +27,8 @@ import pama1234.util.net.NetAddressInfo;
 
 public class GameMenu extends StateEntity0001{
   public static class GameSettingsData{
-    public NetAddressInfo addrInfo;
+    public NetAddressInfo serverAddr;
+    public NetAddressInfo selfAddr;
     public String playerName;
   }
   public Button<?>[] buttons;
@@ -55,11 +56,13 @@ public class GameMenu extends StateEntity0001{
   public void loadSettings() {
     settings=KryoUtil.load(kryo,settingsFile,GameSettingsData.class);
     if(settings==null) initSettings();
-    if(settings.addrInfo==null) settings.addrInfo=new NetAddressInfo("127.0.0.1",12347);
+    // if(settings.serverAddr==null) settings.serverAddr=new NetAddressInfo("127.0.0.1",12347);
+    // if(settings.selfAddr==null) settings.selfAddr=new NetAddressInfo("127.0.0.1",12347);
   }
   public void initSettings() {
     settings=new GameSettingsData();
-    settings.addrInfo=new NetAddressInfo("127.0.0.1",12347);
+    settings.serverAddr=new NetAddressInfo("127.0.0.1",12347);
+    settings.selfAddr=new NetAddressInfo("127.0.0.1",12347);
   }
   public void saveSettings() {
     KryoUtil.save(kryo,settingsFile,settings);
@@ -67,8 +70,9 @@ public class GameMenu extends StateEntity0001{
   @Override
   public void from(State0001 in) {
     game=(Game)State0001.Game.entity;
-    screenTextFields[0].setText(settings.addrInfo.toString());
-    screenTextFields[1].setText(settings.playerName);
+    screenTextFields[0].setText(settings.serverAddr.toString());
+    screenTextFields[1].setText(settings.selfAddr.toString());
+    screenTextFields[2].setText(settings.playerName);
     p.backgroundColor(0);
     for(Button<?> e:buttons) p.centerScreen.add.add(e);
     for(TextField e:screenTextFields) p.screenStage.addActor(e);
@@ -93,9 +97,10 @@ public class GameMenu extends StateEntity0001{
     p.cam2d.scale.pos=p.cam2d.scale.des=1;
     p.cam2d.point.des.set(0,0,0);
     p.cam2d.point.pos.set(p.cam2d.point.des);
-    settings.addrInfo.setFromString(screenTextFields[0].getText(),12347);
-    game.addrInfo=settings.addrInfo;
-    game.world().yourself.name=settings.playerName=screenTextFields[1].getText();
+    settings.serverAddr.setFromString(screenTextFields[0].getText(),12347);
+    settings.selfAddr.setFromString(screenTextFields[1].getText(),12347);
+    game.serverAddr=settings.serverAddr;
+    game.world().yourself.name=settings.playerName=screenTextFields[2].getText();
   }
   @Override
   public void update() {
@@ -138,9 +143,12 @@ public class GameMenu extends StateEntity0001{
         new RectF(getX,()->p.height-p.u*2,getW,getH),()->p.pus/2f),
       new TextField("",new CodeTextFieldStyle(p),
         new RectF(getX,()->p.height-p.u*3,getW,getH),()->p.pus/2f),
+      new TextField("",new CodeTextFieldStyle(p),
+        new RectF(getX,()->p.height-p.u*4,getW,getH),()->p.pus/2f),
     };
     out[0].setMessageText("服务器地址");
-    out[1].setMessageText("用户名");
+    out[1].setMessageText("设备地址");
+    out[2].setMessageText("用户名");
     if(p.isAndroid) {
       RectF rectF_2=new RectF(getX,()->p.u*2,getW,getH);
       for(TextField e:out) e.addListener(new FocusListener() {
