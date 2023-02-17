@@ -55,7 +55,6 @@ public class World0001 extends WorldBase2D{
     list[0]=background=new BackgroundCenter(p,this);
     list[1]=regions=new RegionCenter(p,this);
     list[2]=entities=new MultiGameEntityCenter(p,this);
-    // entities.list.add(entities.players=new PlayerCenter(p));
     yourself=new MainPlayer(p,this,0,0,Gdx.files.local(data.dir+"/main-player.bin"));
     createBackground();
     sky=new Sky(this);
@@ -124,7 +123,7 @@ public class World0001 extends WorldBase2D{
   @Override
   public void pause() {
     super.pause();
-    if(p.isAndroid) pauseSave();
+    if(p.isAndroid&&pg.netMode!=NetMode.client) pauseSave();
   }
   public void pauseSave() {
     regions.innerSave();
@@ -145,14 +144,17 @@ public class World0001 extends WorldBase2D{
     data.time+=1;
     timeF+=p.frameRate;
     sky.updateColor();
+    // if(entities.players.list.size()>0) System.out.println(entities.players.list.size());
   }
   @Override
   public void dispose() {
     super.dispose();
-    regions.save();
-    regions.dispose();
-    yourself.save();
-    WorldData.save(worldDataDir,data);
+    if(pg.netMode!=NetMode.client) {
+      regions.save();
+      regions.dispose();
+      yourself.save();
+      WorldData.save(worldDataDir,data);
+    }
     // yourself.dispose();
   }
   public void destroyBlock(MainPlayer player,Block block,int x,int y) {

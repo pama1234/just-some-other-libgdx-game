@@ -36,6 +36,13 @@ public class Player extends TextureLivingEntity{
     if(life.pos<=0) respawn();
   }
   @Override
+  public void init() {
+    if(inventory==null) {
+      inventory=new Inventory(this,52,9);
+      inventory.data[5].item=pw.metaItems.workbench.createItem(16);
+    }
+  }
+  @Override
   public void display() {
     super.display();
     if(pw.netMode()!=NetMode.singlePlayer) {

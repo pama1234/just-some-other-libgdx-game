@@ -41,13 +41,6 @@ public class MainPlayer extends Player implements LoadAndSave{
     ctrlCore=ctrl=new PlayerControllerFull(p,this);
   }
   @Override
-  public void init() {
-    if(inventory==null) {
-      inventory=new Inventory(this,52,9);
-      inventory.data[5].item=pw.metaItems.workbench.createItem(16);
-    }
-  }
-  @Override
   public void display() {
     super.display();
     ctrl.display();

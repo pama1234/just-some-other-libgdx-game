@@ -45,8 +45,7 @@ public class ServerCore{
     },"AcceptSocket");
   }
   public ClientLink createLink(SocketData socketData) {
-    Player player=new Player(game.p,world,0,0,world.metaEntitys.player);
-    return new ClientLink(socketData,player);
+    return new ClientLink(socketData);
   }
   public void start() {
     acceptThread.start();
@@ -67,6 +66,7 @@ public class ServerCore{
     }
     @Override
     public void run() {
+      connect();
       try {
         while(!p.stop) execute();
       }catch(RuntimeException e) {
@@ -76,6 +76,9 @@ public class ServerCore{
       disconnect();
     }
     public void connect() {
+      link.player=new Player(p.game.p,p.world,0,0,p.world.metaEntitys.player);
+      link.player.init();
+      link.player.innerInit();
       p.world.entities.players.add.add(link.player);
     }
     public void execute() {
@@ -96,9 +99,8 @@ public class ServerCore{
     public SocketData socketData;
     //---
     public Player player;
-    public ClientLink(SocketData socketData,Player player) {
+    public ClientLink(SocketData socketData) {
       this.socketData=socketData;
-      this.player=player;
     }
   }
 }
