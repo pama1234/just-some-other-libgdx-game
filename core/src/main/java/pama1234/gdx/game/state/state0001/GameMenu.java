@@ -26,6 +26,8 @@ public class GameMenu extends StateEntity0001{
   public TextField[] screenTextFields;
   //---
   public float time;
+  //---
+  public Game game;
   public GameMenu(Screen0011 p) {
     super(p);
     buttons=genButtons_0010(p);
@@ -33,7 +35,9 @@ public class GameMenu extends StateEntity0001{
   }
   @Override
   public void from(State0001 in) {
+    game=(Game)State0001.Game.entity;
     screenTextFields[0].setText(p.settings.serverInfo.toString());
+    screenTextFields[1].setText(game.world().yourself.name);
     p.backgroundColor(0);
     for(Button<?> e:buttons) p.centerScreen.add.add(e);
     for(TextField e:screenTextFields) p.screenStage.addActor(e);
@@ -59,6 +63,7 @@ public class GameMenu extends StateEntity0001{
     p.cam2d.point.des.set(0,0,0);
     p.cam2d.point.pos.set(p.cam2d.point.des);
     p.settings.serverInfo.setFromString(screenTextFields[0].getText(),12347);
+    game.world().yourself.name=screenTextFields[1].getText();
   }
   @Override
   public void update() {
@@ -96,15 +101,23 @@ public class GameMenu extends StateEntity0001{
     GetFloat getX=()->p.u,
       getW=()->p.width/2f-p.u,
       getH=()->p.u/2f+p.pus;
-    RectF rectF_1=new RectF(getX,()->p.height-p.u*2,getW,getH);
-    TextField[] out=new TextField[] {new TextField("",new CodeTextFieldStyle(p),
-      rectF_1,()->p.pus/2f)};
+    TextField[] out=new TextField[] {
+      new TextField("",new CodeTextFieldStyle(p),
+        new RectF(getX,()->p.height-p.u*2,getW,getH),()->p.pus/2f),
+      new TextField("",new CodeTextFieldStyle(p),
+        new RectF(getX,()->p.height-p.u*3,getW,getH),()->p.pus/2f),
+    };
     out[0].setMessageText("服务器地址");
+    out[1].setMessageText("用户名");
     if(p.isAndroid) {
       RectF rectF_2=new RectF(getX,()->p.u*2,getW,getH);
-      out[0].addListener(new FocusListener() {
+      for(TextField e:out) e.addListener(new FocusListener() {
+        public RectF original;
+        {
+          original=e.rectF;
+        }
         public void keyboardFocusChanged(FocusEvent event,Actor actor,boolean focused) {
-          out[0].rectF=focused?rectF_2:rectF_1;
+          e.rectF=focused?rectF_2:original;
           testHideKeyboard(focused);
         }
       });
