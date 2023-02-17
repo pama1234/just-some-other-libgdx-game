@@ -1,10 +1,10 @@
-package pama1234.game.app.server.server0002.net;
+package pama1234.gdx.game.state.state0001.game.net;
 
 import java.io.IOException;
 
 import pama1234.data.ByteUtil;
-import pama1234.game.app.server.server0002.net.NetState0002.ClientState;
-import pama1234.game.app.server.server0002.net.NetState0002.ServerState;
+import pama1234.gdx.game.state.state0001.game.net.NetState0002.ClientState;
+import pama1234.gdx.game.state.state0001.game.net.NetState0002.ServerState;
 
 public class NetUtil{
   // public static final boolean debug=true;

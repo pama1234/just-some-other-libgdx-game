@@ -1,6 +1,6 @@
-package pama1234.game.app.server.server0002.net;
+package pama1234.gdx.game.state.state0001.game.net;
 
-public class State0002{
+public class NetState0002{
   public static enum ClientState{
     ClientProcessing,
     ClientFinishedProcessing,

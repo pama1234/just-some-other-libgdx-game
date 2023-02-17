@@ -48,8 +48,8 @@ public class MainApp extends Game{
       Screen0015.class,//测试 贴图渲染优化
       Screen0016.class,//测试 联机游戏 客户端
       Screen0017.class,//某个音游项目
-      Screen0018.class//某个音游项目
-      );
+      Screen0018.class//网络爬虫之类的
+    );
   }
   @Override
   public void create() {

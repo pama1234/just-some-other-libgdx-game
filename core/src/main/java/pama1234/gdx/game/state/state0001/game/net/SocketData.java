@@ -1,12 +1,12 @@
-package pama1234.game.app.server.server0002.net;
+package pama1234.gdx.game.state.state0001.game.net;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import pama1234.game.app.server.server0002.net.NetState0002.ClientState;
-import pama1234.game.app.server.server0002.net.NetState0002.SceneState;
-import pama1234.game.app.server.server0002.net.NetState0002.ServerState;
+import pama1234.gdx.game.state.state0001.game.net.NetState0002.ClientState;
+import pama1234.gdx.game.state.state0001.game.net.NetState0002.SceneState;
+import pama1234.gdx.game.state.state0001.game.net.NetState0002.ServerState;
 import pama1234.util.net.SocketInterface;
 
 public class SocketData{

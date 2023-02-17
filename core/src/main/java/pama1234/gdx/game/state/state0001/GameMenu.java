@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.FocusListener;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.GifAsset;
 import pama1234.gdx.game.asset.MusicAsset;
+import pama1234.gdx.game.state.state0001.Game.NetMode;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
 import pama1234.gdx.game.ui.CodeTextFieldStyle;
 import pama1234.gdx.game.ui.util.Button;
@@ -120,13 +121,16 @@ public class GameMenu extends StateEntity0001{
     ButtonEvent nop=self-> {};
     return new Button[] {
       new TextButton<T>(p,true,()->true,nop,nop,self-> {
+        ((Game)State0001.Game.entity).netMode=NetMode.singlePlayer;
         p.state(State0001.Game);
       },self->self.text="　单人游戏　",p::getButtonUnitLength,getX,()->p.height/5f-p.bu/2f),
       new TextButton<T>(p,true,()->true,nop,nop,self-> {
-        p.state(State0001.StartMenu);
+        ((Game)State0001.Game.entity).netMode=NetMode.integratedServer;
+        p.state(State0001.Game);
       },self->self.text="开启联机房间",p::getButtonUnitLength,getX,()->p.height/5*2f-p.bu/2f),
       new TextButton<T>(p,true,()->true,nop,nop,self-> {
-        p.state(State0001.StartMenu);
+        ((Game)State0001.Game.entity).netMode=NetMode.client;
+        p.state(State0001.Game);
       },self->self.text="加入联机房间",p::getButtonUnitLength,getX,()->p.height/5f*3-p.bu/2f),
       new TextButton<T>(p,true,()->true,nop,nop,self-> {
         p.state(State0001.StartMenu);

@@ -1,11 +1,11 @@
-package pama1234.game.app.server.server0002.net;
+package pama1234.gdx.game.state.state0001.game.net;
 
-import static pama1234.game.app.server.server0002.net.NetUtil.catchException;
-import static pama1234.game.app.server.server0002.net.NetUtil.debug;
-import static pama1234.game.app.server.server0002.net.NetUtil.protocolVersion;
-import static pama1234.game.app.server.server0002.net.NetUtil.readNBytes;
-import static pama1234.game.app.server.server0002.net.NetUtil.writeServerHeader;
-import static pama1234.game.app.server.server0002.net.NetState0002.ServerState.ServerDataTransfer;
+import static pama1234.gdx.game.state.state0001.game.net.NetState0002.ServerState.ServerDataTransfer;
+import static pama1234.gdx.game.state.state0001.game.net.NetUtil.catchException;
+import static pama1234.gdx.game.state.state0001.game.net.NetUtil.debug;
+import static pama1234.gdx.game.state.state0001.game.net.NetUtil.protocolVersion;
+import static pama1234.gdx.game.state.state0001.game.net.NetUtil.readNBytes;
+import static pama1234.gdx.game.state.state0001.game.net.NetUtil.writeServerHeader;
 
 import java.io.IOException;
 import java.net.SocketException;
@@ -14,8 +14,8 @@ import pama1234.data.ByteUtil;
 import pama1234.game.app.server.server0001.game.ServerPlayer3D;
 import pama1234.game.app.server.server0001.game.net.SocketData.Token;
 import pama1234.game.app.server.server0001.game.net.data.Server0001Core;
-import pama1234.game.app.server.server0002.net.NetState0002.ClientState;
-import pama1234.game.app.server.server0002.net.NetState0002.ServerState;
+import pama1234.gdx.game.state.state0001.game.net.NetState0002.ClientState;
+import pama1234.gdx.game.state.state0001.game.net.NetState0002.ServerState;
 
 public class ServerCore{
   public static class ServerRead extends Thread{
