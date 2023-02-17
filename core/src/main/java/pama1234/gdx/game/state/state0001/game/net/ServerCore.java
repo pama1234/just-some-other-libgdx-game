@@ -1,6 +1,5 @@
 package pama1234.gdx.game.state.state0001.game.net;
 
-import static pama1234.gdx.game.state.state0001.game.net.NetState0002.ServerState.ServerDataTransfer;
 import static pama1234.gdx.game.state.state0001.game.net.NetUtil.catchException;
 import static pama1234.gdx.game.state.state0001.game.net.NetUtil.debug;
 import static pama1234.gdx.game.state.state0001.game.net.NetUtil.protocolVersion;
@@ -11,23 +10,19 @@ import java.io.IOException;
 import java.net.SocketException;
 
 import pama1234.data.ByteUtil;
-import pama1234.game.app.server.server0001.game.ServerPlayer3D;
-import pama1234.game.app.server.server0001.game.net.SocketData.Token;
 import pama1234.gdx.game.state.state0001.game.net.NetState0002.ClientState;
-import pama1234.gdx.game.state.state0001.game.net.NetState0002.ServerState;
+import pama1234.gdx.game.state.state0001.game.net.ServerExecute.ServerReadF;
 
 public class ServerCore{
-  @FunctionalInterface
-  public interface ServerExecuteF{
-    public void execute(SocketData s,ServerData p);
-  }
   public static class ServerRead extends Thread{
+    public ServerReadF[] fArray;
     public ServerData p;
     public SocketData s;
-    public ServerRead(ServerData p,SocketData dataSocket) {
+    public ServerRead(ServerData pIn,SocketData dataSocket) {
       super("ServerRead "+dataSocket.s.getRemoteAddress());
-      this.p=p;
+      this.p=pIn;
       this.s=dataSocket;
+      fArray=ServerExecute.generateReadF();
     }
     @Override
     public void run() {
@@ -37,7 +32,7 @@ public class ServerCore{
           try {
             int stateInt=ByteUtil.byteToInt(readNBytes(s,data,0,4),0);
             doF(s,data,
-              s.clientState=ClientState.intToState(stateInt),stateInt,
+              null,stateInt,
               ByteUtil.byteToInt(readNBytes(s,data,0,4),0));
           }catch(SocketException e1) {
             catchException(e1,s);
@@ -48,54 +43,9 @@ public class ServerCore{
       }
       // p.serverReadPool.remove.add(this);
     }
-    public void doF(SocketData e,byte[] inData,ClientState state,int stateInt,int readSize) throws IOException {
+    public void doF(SocketData s,byte[] inData,ClientState state,int stateInt,int readSize) throws IOException {
       if(debug) System.out.println("ServerRead state="+state+" readSize="+readSize);
-      switch(state) {
-        case ClientAuthentication: {
-          clientAuth(e,readSize);
-        }
-          break;
-        case ClientDataTransfer: {
-          readNBytes(e,inData,0,4*3);
-          ServerPlayer3D tp=p.playerCenter.hashMap.get(new Token(e.name()));
-          if(tp==null) {
-            e.clientState=ClientState.ClientAuthentication;
-            return;
-          }
-          tp.point.des.set(
-            ByteUtil.byteToFloat(inData,0),
-            ByteUtil.byteToFloat(inData,4),
-            ByteUtil.byteToFloat(inData,8));
-        }
-          break;
-        case ClientException: {}
-          break;
-        case ClientFinishedProcessing: {}
-          break;
-        case ClientProcessing: {}
-          break;
-        case ClientProtocolVersion: {
-          byte[] nameBytes=new byte[readSize];
-          readNBytes(s,nameBytes,0,readSize);
-          String version=new String(nameBytes);
-          if(!version.equals(protocolVersion)) throw new RuntimeException("!version.equals(protocolVersion)"+version+" "+protocolVersion);
-          s.serverState=ServerState.ServerAuthentication;
-        }
-          break;
-        case ClientSendStringMessage: {}
-          break;
-        default:
-          throw new RuntimeException("state err="+state);
-      }
-    }
-    public void clientAuth(SocketData e,int readSize) throws IOException {
-      byte[] nameBytes=new byte[readSize];
-      readNBytes(e,nameBytes,0,readSize);
-      e.token.name=new String(nameBytes);
-      e.serverState=ServerDataTransfer;
-      p.playerCenter.add.add(new ServerPlayer3D(e.name(),0,0,0));//TODO ?
-      p.playerCenter.refresh();
-      System.out.println("Auth "+e.name());
+      fArray[stateInt].execute(p,s,inData,readSize);
     }
     public void dispose() {
       s.stop=true;
