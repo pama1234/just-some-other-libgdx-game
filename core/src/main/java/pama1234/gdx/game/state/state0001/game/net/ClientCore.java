@@ -1,7 +1,12 @@
 package pama1234.gdx.game.state.state0001.game.net;
 
+import com.esotericsoftware.kryo.io.Input;
+
 import pama1234.gdx.game.state.state0001.Game;
+import pama1234.gdx.game.state.state0001.game.KryoNetUtil;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
+import pama1234.gdx.game.state.state0001.game.world.WorldKryoUtil;
+import pama1234.math.physics.MassPoint;
 import pama1234.util.net.SocketData;
 
 public class ClientCore{
@@ -34,8 +39,24 @@ public class ClientCore{
   }
   public static class ClientRead extends Thread{
     public ClientCore p;
+    public Input input;
     public ClientRead(ClientCore p) {
       this.p=p;
+      input=new Input(p.socketData.i);
+    }
+    @Override
+    public void run() {
+      try {
+        while(!p.stop) execute();
+      }catch(RuntimeException e) {
+        e.printStackTrace();
+        p.stop=true;
+      }
+    }
+    public void execute() {
+      MassPoint in=KryoNetUtil.read(WorldKryoUtil.kryo,input,MassPoint.class);
+      if(in!=null) p.world.yourself.point.cloneFrom(in);
+      else p.stop=true;
     }
   }
   public static class ClientWrite extends Thread{
