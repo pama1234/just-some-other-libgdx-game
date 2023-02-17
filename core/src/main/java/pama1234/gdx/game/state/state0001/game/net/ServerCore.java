@@ -26,9 +26,7 @@ public class ServerCore{
     serverData=new ServerData(socketCenter,serverReadPool,serverWritePool,pg,pw);
     acceptSocket=new Thread(()-> {
       while(!pg.p.stop) {
-        // synchronized(centerSocket.add) {
         SocketData socketData=new SocketData(new SocketWrapper(serverSocket.accept()));
-        // System.out.println(socketData.s.getRemoteAddress());
         socketCenter.add.add(socketData);
         //---
         ServerWrite serverWrite=new ServerWrite(serverData,socketData);
@@ -38,7 +36,6 @@ public class ServerCore{
         ServerRead serverRead=new ServerRead(serverData,socketData);
         serverRead.start();
         serverReadPool.add.add(serverRead);
-        // }
       }
     },"AcceptSocket");
   }

@@ -17,6 +17,7 @@ public class ClientIO{
     public ClientReadF[] fArray;
     public ClientData p;
     public SocketData s;
+    public byte[] data=new byte[128];
     public ClientRead(ClientData p,SocketData dataSocket) {
       super("ClientRead "+dataSocket.s.getRemoteAddress());
       this.p=p;
@@ -25,7 +26,6 @@ public class ClientIO{
     }
     @Override
     public void run() {
-      byte[] data=new byte[128];
       while(!s.stop) {
         try {
           int stateInt=ByteUtil.byteToInt(readNBytes(s,data,0,4),0);
@@ -52,6 +52,7 @@ public class ClientIO{
     public ClientWriteF[] fArray;
     public ClientData p;
     public SocketData s;
+    public byte[] data=new byte[128];
     public ClientWrite(ClientData p,SocketData dataSocket) {
       super("ClientWrite "+dataSocket.s.getRemoteAddress());
       this.p=p;
@@ -60,7 +61,6 @@ public class ClientIO{
     }
     @Override
     public void run() {
-      byte[] data=new byte[128];
       while(!s.stop) {
         try {
           doF(data);

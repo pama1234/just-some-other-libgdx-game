@@ -17,6 +17,7 @@ public class ServerIO{
     public ServerReadF[] fArray;
     public ServerData p;
     public SocketData s;
+    public byte[] data=new byte[128];
     public ServerRead(ServerData pIn,SocketData dataSocket) {
       super("ServerRead "+dataSocket.s.getRemoteAddress());
       this.p=pIn;
@@ -25,7 +26,6 @@ public class ServerIO{
     }
     @Override
     public void run() {
-      byte[] data=new byte[128];
       while(!s.stop) {
         synchronized(p.socketCenter.list) {
           try {
@@ -39,7 +39,7 @@ public class ServerIO{
           }
         }
       }
-      // p.serverReadPool.remove.add(this);
+      p.serverReadPool.remove.add(this);
     }
     public void doF(SocketData s,byte[] inData,int stateInt,int readSize) throws IOException {
       if(debug) System.out.println("ServerRead state="+stateInt+" readSize="+readSize);
@@ -54,6 +54,7 @@ public class ServerIO{
     public ServerWriteF[] fArray;
     public ServerData p;
     public SocketData s;
+    public byte[] data=new byte[20];
     public ServerWrite(ServerData p,SocketData dataSocket) {
       super("ServerWrite "+dataSocket.s.getRemoteAddress());
       this.p=p;
@@ -61,7 +62,6 @@ public class ServerIO{
     }
     @Override
     public void run() {
-      byte[] data=new byte[20];
       while(!s.stop) {
         synchronized(p.lock) {
           try {
@@ -73,7 +73,7 @@ public class ServerIO{
           }
         }
       }
-      // p.serverWritePool.remove.add(this);
+      p.serverWritePool.remove.add(this);
     }
     public void doF(SocketData s,byte[] outData) throws IOException {
       if(debug) System.out.println("ServerWrite state="+s.serverState);

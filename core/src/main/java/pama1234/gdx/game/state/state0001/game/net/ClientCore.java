@@ -20,8 +20,6 @@ public class ClientCore{
     this.pg=pg;
     this.pw=pw;
     clientData=new ClientData(pg,pw);
-  }
-  public void start() {
     connectThread=new Thread() {
       public void run() {
         while(!clientSocket.s.isConnected()) {
@@ -36,6 +34,8 @@ public class ClientCore{
         (clientWrite=new ClientWrite(clientData,clientSocket)).start();
       }
     };
+  }
+  public void start() {
     connectThread.start();
   }
 }
