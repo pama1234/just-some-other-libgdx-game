@@ -8,6 +8,7 @@ import pama1234.util.net.SocketWrapper;
 import pama1234.util.wrapper.Center;
 
 public class ServerCore{
+  public boolean stop;
   public Game game;
   public World0001 world;
   //---
@@ -16,7 +17,6 @@ public class ServerCore{
   public Center<ServerRead> serverReadPool;
   public Center<ServerWrite> serverWritePool;
   public Thread acceptThread;
-  public boolean stop;
   public ServerCore(Game game,World0001 world,ServerSocketData serverSocketData) {
     this.game=game;
     this.world=world;
@@ -39,6 +39,9 @@ public class ServerCore{
   }
   public void start() {
     acceptThread.start();
+  }
+  public void stop() {
+    stop=true;
   }
   public static class ServerWrite extends Thread{
     ServerCore p;

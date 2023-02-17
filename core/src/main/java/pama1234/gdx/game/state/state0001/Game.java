@@ -96,13 +96,29 @@ public class Game extends StateEntity0001{
   }
   @Override
   public void to(State0001 in) {
+    World0001 tw=world();
     // p.cam2d.activeDrag=true;
     for(Button<?> e:menuButtons) p.centerScreen.remove.add(e);
     if(ctrlButtons!=null) for(Button<?> e:ctrlButtons) p.centerScreen.remove.add(e);
     p.centerCam.remove.add(worldCenter);
     worldCenter.pause();
-    world().to(in);//TODO
+    tw.to(in);//TODO
     if(debugGraphics) p.centerCam.remove.add(displayCamTop);
+    if(netMode==NetMode.client) {
+      SocketHints socketHints=new SocketHints();
+      socketHints.connectTimeout=10000;
+      socketHints.socketTimeout=5000;
+      socketHints.keepAlive=true;
+      socketHints.performancePrefConnectionTime=0;
+      socketHints.performancePrefLatency=2;
+      socketHints.performancePrefBandwidth=1;
+      SocketData socketData=new SocketData(new SocketWrapperGDX(Gdx.net.newClientSocket(Protocol.TCP,serverAddr.addr,serverAddr.port,socketHints)));
+      client=new ClientCore(this,world(),socketData);
+      client.stop();
+    }else if(netMode==NetMode.integratedServer) {
+      server=new ServerCore(this,tw,new ServerSocketData(selfAddr));
+      server.stop();
+    }
   }
   @Override
   public void displayCam() {

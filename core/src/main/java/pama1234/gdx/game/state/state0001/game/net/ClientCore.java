@@ -5,6 +5,7 @@ import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.util.net.SocketData;
 
 public class ClientCore{
+  public boolean stop;
   public Game game;
   public World0001 world;
   //---
@@ -17,13 +18,19 @@ public class ClientCore{
     this.world=world;
     this.socketData=socketData;
     connectThread=new Thread(()-> {
-      while(!socketData.s.isConnected()) game.p.sleep(200);
-      //TODO
+      while(!(stop||socketData.s.isConnected())) game.p.sleep(200);
+      if(stop) return;
       (clientRead=new ClientRead(this)).start();
       (clientWrite=new ClientWrite(this)).start();
     },"ConnectThread");
   }
-  public void start() {}
+  public void start() {
+    connectThread.start();
+  }
+  public void stop() {
+    stop=true;
+    connectThread.interrupt();
+  }
   public static class ClientRead extends Thread{
     public ClientCore p;
     public ClientRead(ClientCore p) {
