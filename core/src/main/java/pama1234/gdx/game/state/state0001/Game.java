@@ -93,7 +93,7 @@ public class Game extends StateEntity0001{
       }catch(RuntimeException e) {
         e.printStackTrace();
         netMode=NetMode.error;
-        p.state(State0001.GameMenu);
+        p.state(State0001.StartMenu);
       }
     }else if(netMode==NetMode.integratedServer) {
       server=new ServerCore(this,tw,new ServerSocketData(selfAddr));
