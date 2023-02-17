@@ -32,6 +32,7 @@ public class GameMenu extends StateEntity0001{
   }
   @Override
   public void from(State0001 in) {
+    screenTextFields[0].setText(p.settings.serverInfo.toString());
     p.backgroundColor(0);
     for(Button<?> e:buttons) p.centerScreen.add.add(e);
     for(TextField e:screenTextFields) p.screenStage.addActor(e);
@@ -56,6 +57,7 @@ public class GameMenu extends StateEntity0001{
     p.cam2d.scale.pos=p.cam2d.scale.des=1;
     p.cam2d.point.des.set(0,0,0);
     p.cam2d.point.pos.set(p.cam2d.point.des);
+    p.settings.serverInfo.setFromString(screenTextFields[0].getText(),12347);
   }
   @Override
   public void update() {
@@ -90,12 +92,12 @@ public class GameMenu extends StateEntity0001{
     if(!focused) Gdx.input.setOnscreenKeyboardVisible(false);
   }
   public static TextField[] genTextFields_0001(Screen0011 p) {
-    GetFloat getX=()->p.u*1,
-      getW=()->p.width/2f-p.u*1,
-      getH=()->p.u+p.pus*2;
+    GetFloat getX=()->p.u,
+      getW=()->p.width/2f-p.u,
+      getH=()->p.u/2f+p.pus;
     RectF rectF_1=new RectF(getX,()->p.height-p.u*2,getW,getH);
     TextField[] out=new TextField[] {new TextField("",new CodeTextFieldStyle(p),
-      rectF_1,()->p.pus)};
+      rectF_1,()->p.pus/2f)};
     out[0].setMessageText("服务器地址");
     if(p.isAndroid) {
       RectF rectF_2=new RectF(getX,()->p.u*2,getW,getH);

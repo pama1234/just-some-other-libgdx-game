@@ -59,7 +59,7 @@ public class Settings extends StateEntity0001{
     text(p.gyroscopeAvailable?"陀螺仪：  可用":"陀螺仪：不可用");
     text(p.compassAvailable?"指南针：  可用":"指南针：不可用");
     text(p.accelerometerAvailable?"加速计：  可用":"加速计：不可用");
-    if(p.localHost!=null) p.text("本设备的名称与内网IP地址："+p.localHost.toString(),0,-60);
+    if(p.localHost!=null) p.text("本设备的名称与内网IP地址："+p.localHost.toString(),0,-40);
     if(p.settings.debugInfo) debugText();
   }
   public void text(String in) {
