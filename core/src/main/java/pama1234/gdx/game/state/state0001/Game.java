@@ -86,9 +86,15 @@ public class Game extends StateEntity0001{
       socketHints.performancePrefConnectionTime=0;
       socketHints.performancePrefLatency=2;
       socketHints.performancePrefBandwidth=1;
-      SocketData socketData=new SocketData(new SocketWrapperGDX(Gdx.net.newClientSocket(Protocol.TCP,serverAddr.addr,serverAddr.port,socketHints)));
-      client=new ClientCore(this,world(),socketData);
-      client.start();
+      try {
+        SocketData socketData=new SocketData(new SocketWrapperGDX(Gdx.net.newClientSocket(Protocol.TCP,serverAddr.addr,serverAddr.port,socketHints)));
+        client=new ClientCore(this,world(),socketData);
+        client.start();
+      }catch(RuntimeException e) {
+        e.printStackTrace();
+        netMode=NetMode.error;
+        p.state(State0001.GameMenu);
+      }
     }else if(netMode==NetMode.integratedServer) {
       server=new ServerCore(this,tw,new ServerSocketData(selfAddr));
       server.start();
@@ -105,18 +111,8 @@ public class Game extends StateEntity0001{
     tw.to(in);//TODO
     if(debugGraphics) p.centerCam.remove.add(displayCamTop);
     if(netMode==NetMode.client) {
-      SocketHints socketHints=new SocketHints();
-      socketHints.connectTimeout=10000;
-      socketHints.socketTimeout=5000;
-      socketHints.keepAlive=true;
-      socketHints.performancePrefConnectionTime=0;
-      socketHints.performancePrefLatency=2;
-      socketHints.performancePrefBandwidth=1;
-      SocketData socketData=new SocketData(new SocketWrapperGDX(Gdx.net.newClientSocket(Protocol.TCP,serverAddr.addr,serverAddr.port,socketHints)));
-      client=new ClientCore(this,world(),socketData);
       client.stop();
     }else if(netMode==NetMode.integratedServer) {
-      server=new ServerCore(this,tw,new ServerSocketData(selfAddr));
       server.stop();
     }
   }

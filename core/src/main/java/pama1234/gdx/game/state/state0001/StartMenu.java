@@ -60,14 +60,10 @@ public class StartMenu extends StateEntity0001{
       p.textScale(1);
     }
   }
-  float tx,tw;
   @Override
   public void display() {}
   @Override
-  public void frameResized(int w,int h) {
-    tx=w/8f*5;
-    tw=w/4f;
-  }
+  public void frameResized(int w,int h) {}
   public static <T extends Screen0011> Button<?>[] genButtons_0003(T p) {
     GetFloat getX=()->p.width/4f*3-p.pu*2.5f;
     ButtonEvent nop=self-> {};

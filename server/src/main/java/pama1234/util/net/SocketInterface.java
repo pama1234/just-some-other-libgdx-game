@@ -9,5 +9,5 @@ public interface SocketInterface{
   public OutputStream getOutputStream();
   public String getRemoteAddress();
   //--- Disposable
-	public void dispose ();
+  public void dispose();
 }

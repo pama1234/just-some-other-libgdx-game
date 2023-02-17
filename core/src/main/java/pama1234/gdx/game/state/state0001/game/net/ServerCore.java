@@ -33,7 +33,6 @@ public class ServerCore{
         ServerRead serverRead=new ServerRead(this);
         serverRead.start();
         serverReadPool.add.add(serverRead);
-        // }
       }
     },"AcceptSocket");
   }
@@ -42,6 +41,8 @@ public class ServerCore{
   }
   public void stop() {
     stop=true;
+    serverSocketData.close();
+    acceptThread.interrupt();
   }
   public static class ServerWrite extends Thread{
     ServerCore p;

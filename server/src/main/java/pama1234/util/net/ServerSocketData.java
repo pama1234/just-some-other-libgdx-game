@@ -31,4 +31,11 @@ public class ServerSocketData{
       throw new RuntimeException(e);
     }
   }
+  public void close() {
+    try {
+      server.close();
+    }catch(IOException e) {
+      e.printStackTrace();
+    }
+  }
 }

@@ -29,6 +29,7 @@ public class ClientCore{
   }
   public void stop() {
     stop=true;
+    socketData.dispose();
     connectThread.interrupt();
   }
   public static class ClientRead extends Thread{

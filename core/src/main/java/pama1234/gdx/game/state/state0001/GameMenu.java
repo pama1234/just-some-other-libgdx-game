@@ -119,14 +119,10 @@ public class GameMenu extends StateEntity0001{
       p.textScale(1);
     }
   }
-  float tx,tw;
   @Override
   public void display() {}
   @Override
-  public void frameResized(int w,int h) {
-    tx=w/8f*5;
-    tw=w/4f;
-  }
+  public void frameResized(int w,int h) {}
   @Override
   public void keyReleased(char key,int keyCode) {
     if(keyCode==ESCAPE) p.state(State0001.StartMenu);
