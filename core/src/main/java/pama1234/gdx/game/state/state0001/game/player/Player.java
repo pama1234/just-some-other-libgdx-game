@@ -11,8 +11,6 @@ import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaCreatureCenter0001;
 import pama1234.gdx.game.state.state0001.game.net.NetMode;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
-import pama1234.gdx.util.wrapper.PointCenter;
-import pama1234.math.physics.MassPoint;
 
 public class Player extends TextureLivingEntity{
   public PlayerControllerCore ctrlCore;
@@ -53,14 +51,6 @@ public class Player extends TextureLivingEntity{
   public void name(String in) {
     name=in;
     nameWidth=p.textWidth(in)/2f;
-  }
-  public static class PlayerCenter extends PointCenter<Screen0011,MassPoint,Player>{
-    public PlayerCenter(Screen0011 p,float u) {
-      super(p,u);
-    }
-    public PlayerCenter(Screen0011 p) {
-      super(p);
-    }
   }
   public static class PlayerType extends MetaCreature<Player>{
     {

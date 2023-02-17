@@ -6,7 +6,6 @@ import pama1234.gdx.game.state.state0001.game.entity.entity0001.MobEntity;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature.SpawnData;
 import pama1234.gdx.game.state.state0001.game.player.Player;
-import pama1234.gdx.game.state.state0001.game.player.Player.PlayerCenter;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.gdx.util.app.UtilScreen;
@@ -27,11 +26,23 @@ public class MultiGameEntityCenter extends MultiEntityCenter<Screen0011,EntityCe
     list.add(pointEntities=new GamePointEntityCenter(p,this));
     list.add(mobEntities=new MobEntityCenter(p,this));
     list.add(items=new DroppedItemCenter(p,this));
+    list.add(players=new PlayerCenter(p,this));
   }
   @Override
   public void display() {
     super.display();
     p.noTint();
+  }
+  public static class PlayerCenter extends GameEntityCenter<Screen0011,Player>{
+    public PlayerCenter(Screen0011 p,MultiGameEntityCenter pc,Player in) {
+      super(p,pc,in);
+    }
+    public PlayerCenter(Screen0011 p,MultiGameEntityCenter pc,Player[] in) {
+      super(p,pc,in);
+    }
+    public PlayerCenter(Screen0011 p,MultiGameEntityCenter pc) {
+      super(p,pc);
+    }
   }
   public static class GamePointEntityCenter extends GameEntityCenter<Screen0011,GamePointEntity<?>>{
     public GamePointEntityCenter(Screen0011 p,MultiGameEntityCenter pc,GamePointEntity<?> in) {

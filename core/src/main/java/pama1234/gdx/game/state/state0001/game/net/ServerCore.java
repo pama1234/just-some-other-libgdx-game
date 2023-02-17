@@ -73,9 +73,16 @@ public class ServerCore{
         e.printStackTrace();
         p.stop=true;
       }
+      disconnect();
+    }
+    public void connect() {
+      p.world.entities.players.add.add(link.player);
     }
     public void execute() {
       KryoNetUtil.write(WorldKryoUtil.kryo,output,link.player.point);
+    }
+    public void disconnect() {
+      p.world.entities.players.remove.add(link.player);
     }
   }
   public static class ServerRead extends Thread{
