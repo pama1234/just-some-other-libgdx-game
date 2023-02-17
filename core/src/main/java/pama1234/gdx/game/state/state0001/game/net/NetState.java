@@ -1,6 +1,9 @@
 package pama1234.gdx.game.state.state0001.game.net;
 
-public class NetState0002{
+public class NetState{
+  public enum NetMode{
+    singlePlayer,integratedServer,client;
+  }
   public static enum ClientState{
     ClientProcessing,
     ClientFinishedProcessing,

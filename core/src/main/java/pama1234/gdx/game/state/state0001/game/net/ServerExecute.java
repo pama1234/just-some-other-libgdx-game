@@ -1,6 +1,6 @@
 package pama1234.gdx.game.state.state0001.game.net;
 
-import static pama1234.gdx.game.state.state0001.game.net.NetState0002.ServerState.ServerDataTransfer;
+import static pama1234.gdx.game.state.state0001.game.net.NetState.ServerState.ServerDataTransfer;
 import static pama1234.gdx.game.state.state0001.game.net.NetUtil.protocolVersion;
 import static pama1234.gdx.game.state.state0001.game.net.NetUtil.readNBytes;
 import static pama1234.gdx.game.state.state0001.game.net.NetUtil.writeServerHeader;
@@ -9,8 +9,8 @@ import java.io.IOException;
 
 import pama1234.data.ByteUtil;
 import pama1234.game.app.server.server0001.game.ServerPlayer3D;
-import pama1234.gdx.game.state.state0001.game.net.NetState0002.ClientState;
-import pama1234.gdx.game.state.state0001.game.net.NetState0002.ServerState;
+import pama1234.gdx.game.state.state0001.game.net.NetState.ClientState;
+import pama1234.gdx.game.state.state0001.game.net.NetState.ServerState;
 import pama1234.gdx.game.state.state0001.game.net.SocketData.Token;
 
 public class ServerExecute{

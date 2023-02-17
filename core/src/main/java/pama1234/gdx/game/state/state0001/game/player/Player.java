@@ -5,11 +5,11 @@ import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
-import pama1234.gdx.game.state.state0001.Game.NetMode;
 import pama1234.gdx.game.state.state0001.game.entity.TextureLivingEntity;
 import pama1234.gdx.game.state.state0001.game.item.Inventory;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaCreatureCenter0001;
+import pama1234.gdx.game.state.state0001.game.net.NetState.NetMode;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.gdx.util.wrapper.PointCenter;
 import pama1234.math.physics.MassPoint;

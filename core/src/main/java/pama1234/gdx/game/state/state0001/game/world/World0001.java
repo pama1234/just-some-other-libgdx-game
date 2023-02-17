@@ -9,7 +9,6 @@ import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.State0001;
-import pama1234.gdx.game.state.state0001.Game.NetMode;
 import pama1234.gdx.game.state.state0001.game.entity.MultiGameEntityCenter;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
@@ -17,6 +16,7 @@ import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaCreatureCenter0001;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemCenter0001;
+import pama1234.gdx.game.state.state0001.game.net.NetState.NetMode;
 import pama1234.gdx.game.state.state0001.game.player.BlockPointer;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
 import pama1234.gdx.game.state.state0001.game.player.Player.PlayerCenter;
@@ -44,6 +44,7 @@ public class World0001 extends WorldBase2D{
   public WorldSettings settings=new WorldSettings();
   public float timeF;
   public Sky sky;
+  //---
   public World0001(Screen0011 p,Game pg) {
     super(p,pg,3);
     data=WorldData.load(worldDataDir);

@@ -6,6 +6,8 @@ import static pama1234.gdx.game.state.state0001.game.GameDisplayUtil.debugText;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
 import pama1234.gdx.game.state.state0001.game.GameDisplayUtil;
+import pama1234.gdx.game.state.state0001.game.net.ServerCore;
+import pama1234.gdx.game.state.state0001.game.net.NetState.NetMode;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
 import pama1234.gdx.game.state.state0001.game.world.World;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
@@ -17,9 +19,6 @@ import pama1234.gdx.game.util.RectF;
 import pama1234.gdx.util.listener.EntityListener;
 
 public class Game extends StateEntity0001{
-  public enum NetMode{
-    singlePlayer,integratedServer,client;
-  }
   public Button<?>[] menuButtons;
   public TextButton<?>[] ctrlButtons;
   public float time;
@@ -31,6 +30,8 @@ public class Game extends StateEntity0001{
   public EntityListener displayCamTop;
   public boolean firstInit=true;//TODO
   public NetMode netMode=NetMode.singlePlayer;
+  //---
+  public ServerCore server;
   public Game(Screen0011 p) {
     super(p);
     menuButtons=UiGenerator.genButtons_0005(p);

@@ -1,6 +1,6 @@
 package pama1234.gdx.game.state.state0001.game.net;
 
-import static pama1234.gdx.game.state.state0001.game.net.NetState0002.ClientState.ClientAuthentication;
+import static pama1234.gdx.game.state.state0001.game.net.NetState.ClientState.ClientAuthentication;
 import static pama1234.gdx.game.state.state0001.game.net.NetUtil.protocolVersion;
 import static pama1234.gdx.game.state.state0001.game.net.NetUtil.readNBytes;
 import static pama1234.gdx.game.state.state0001.game.net.NetUtil.writeClientHeader;
@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import pama1234.data.ByteUtil;
-import pama1234.gdx.game.state.state0001.game.net.NetState0002.ClientState;
+import pama1234.gdx.game.state.state0001.game.net.NetState.ClientState;
 
 public class ClientExecute{
   @FunctionalInterface

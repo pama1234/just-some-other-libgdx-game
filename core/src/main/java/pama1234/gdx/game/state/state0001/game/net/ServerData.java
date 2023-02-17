@@ -2,8 +2,8 @@ package pama1234.gdx.game.state.state0001.game.net;
 
 import pama1234.game.app.server.server0001.game.ServerPlayerCenter3D;
 import pama1234.game.app.server.server0001.game.particle.CellGroup3D;
-import pama1234.gdx.game.state.state0001.game.net.ServerCore.ServerRead;
-import pama1234.gdx.game.state.state0001.game.net.ServerCore.ServerWrite;
+import pama1234.gdx.game.state.state0001.game.net.ServerIO.ServerRead;
+import pama1234.gdx.game.state.state0001.game.net.ServerIO.ServerWrite;
 import pama1234.util.wrapper.Center;
 
 public class ServerData{
