@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.net.SocketException;
 
 import pama1234.data.ByteUtil;
-import pama1234.gdx.game.state.state0001.game.net.NetState.ServerState;
 import pama1234.gdx.game.state.state0001.game.net.ServerExecute.ServerReadF;
+import pama1234.gdx.game.state.state0001.game.net.ServerExecute.ServerState;
 import pama1234.gdx.game.state.state0001.game.net.ServerExecute.ServerWriteF;
 
 public class ServerIO{

@@ -4,9 +4,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import pama1234.gdx.game.state.state0001.game.net.NetState.ClientState;
+import pama1234.gdx.game.state.state0001.game.net.ClientExecute.ClientState;
 import pama1234.gdx.game.state.state0001.game.net.NetState.SceneState;
-import pama1234.gdx.game.state.state0001.game.net.NetState.ServerState;
+import pama1234.gdx.game.state.state0001.game.net.ServerExecute.ServerState;
 import pama1234.util.net.SocketInterface;
 
 public class SocketData{

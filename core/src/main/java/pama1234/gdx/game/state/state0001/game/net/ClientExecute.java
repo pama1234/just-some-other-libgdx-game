@@ -1,6 +1,5 @@
 package pama1234.gdx.game.state.state0001.game.net;
 
-import static pama1234.gdx.game.state.state0001.game.net.NetState.ClientState.ClientAuthentication;
 import static pama1234.gdx.game.state.state0001.game.net.NetUtil.protocolVersion;
 import static pama1234.gdx.game.state.state0001.game.net.NetUtil.readNBytes;
 import static pama1234.gdx.game.state.state0001.game.net.NetUtil.writeClientHeader;
@@ -8,7 +7,6 @@ import static pama1234.gdx.game.state.state0001.game.net.NetUtil.writeClientHead
 import java.io.IOException;
 
 import pama1234.data.ByteUtil;
-import pama1234.gdx.game.state.state0001.game.net.NetState.ClientState;
 
 public class ClientExecute{
   @FunctionalInterface
@@ -23,7 +21,7 @@ public class ClientExecute{
     return new ClientReadF[] {(p,s,inData,stateInt,readSize)-> {
       if(readSize!=4) throw new RuntimeException("state ServerAuthentication readSize!=4 "+readSize);//TODO
       readNBytes(s,inData,0,readSize);
-      s.clientState=ClientAuthentication;
+      s.clientState=ClientState.ClientAuthentication;
     },
       (p,s,inData,stateInt,readSize)-> {
         s.clientState=ClientState.ClientDataTransfer;
@@ -58,5 +56,25 @@ public class ClientExecute{
       s.o.flush();
       p.sleep(1000);
     }};
+  }
+  public static enum ClientState{
+    ClientProcessing,
+    ClientFinishedProcessing,
+    ClientProtocolVersion,
+    ClientAuthentication,
+    ClientDataTransfer,
+    ClientException,
+    ClientSendStringMessage,;
+    public static ClientState[] netStateArray=ClientState.values();
+    public static int stateToInt(ClientState in) {
+      return in.ordinal();
+    }
+    public static ClientState intToState(int in) {
+      if(in<0||in>netStateArray.length) {
+        System.out.println("ClientState intToState in="+in);
+        return ClientState.ClientException;
+      }
+      return netStateArray[in];
+    }
   }
 }

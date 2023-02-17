@@ -3,8 +3,8 @@ package pama1234.gdx.game.state.state0001.game.net;
 import java.io.IOException;
 
 import pama1234.data.ByteUtil;
-import pama1234.gdx.game.state.state0001.game.net.NetState.ClientState;
-import pama1234.gdx.game.state.state0001.game.net.NetState.ServerState;
+import pama1234.gdx.game.state.state0001.game.net.ClientExecute.ClientState;
+import pama1234.gdx.game.state.state0001.game.net.ServerExecute.ServerState;
 
 public class NetUtil{
   // public static boolean debug=true;

@@ -9,8 +9,8 @@ import java.net.SocketException;
 
 import pama1234.data.ByteUtil;
 import pama1234.gdx.game.state.state0001.game.net.ClientExecute.ClientReadF;
+import pama1234.gdx.game.state.state0001.game.net.ClientExecute.ClientState;
 import pama1234.gdx.game.state.state0001.game.net.ClientExecute.ClientWriteF;
-import pama1234.gdx.game.state.state0001.game.net.NetState.ClientState;
 
 public class ClientIO{
   public static class ClientRead extends Thread{

@@ -6,8 +6,6 @@ import static pama1234.gdx.game.state.state0001.game.net.NetUtil.writeServerHead
 
 import java.io.IOException;
 
-import pama1234.gdx.game.state.state0001.game.net.NetState.ServerState;
-
 public class ServerExecute{
   @FunctionalInterface
   public interface ServerReadF{
@@ -37,5 +35,26 @@ public class ServerExecute{
       s.o.flush();
       p.sleep(1000);
     }};
+  }
+  public static enum ServerState{
+    ServerProcessing,
+    ServerFinishedProcessing,
+    ServerProtocolVersion,
+    ServerAuthentication,
+    ServerDataTransfer,
+    ServerException,
+    ServerSendStringMessage,
+    ServerSendSceneChange,;
+    public static ServerState[] netStateArray=ServerState.values();
+    public static int stateToInt(ServerState in) {
+      return in.ordinal();
+    }
+    public static ServerState intToState(int in) {
+      if(in<0||in>netStateArray.length) {
+        System.out.println("ServerState intToState in="+in);
+        return ServerState.ServerException;
+      }
+      return netStateArray[in];
+    }
   }
 }

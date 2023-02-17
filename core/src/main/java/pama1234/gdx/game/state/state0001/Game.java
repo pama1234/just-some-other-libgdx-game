@@ -83,8 +83,8 @@ public class Game extends StateEntity0001{
       tsh.performancePrefConnectionTime=0;
       tsh.performancePrefLatency=2;
       tsh.performancePrefBandwidth=1;
-      SocketData clientSocket=new SocketData(new SocketWrapperGDX(Gdx.net.newClientSocket(Protocol.TCP,addrInfo.addr,addrInfo.port,tsh)));
-      client=new ClientCore(this,world(),clientSocket);
+      SocketData socketData=new SocketData(new SocketWrapperGDX(Gdx.net.newClientSocket(Protocol.TCP,addrInfo.addr,addrInfo.port,tsh)));
+      client=new ClientCore(this,world(),socketData);
       client.start();
     }else if(netMode==NetMode.integratedServer) {
       server=new ServerCore(this,tw);
