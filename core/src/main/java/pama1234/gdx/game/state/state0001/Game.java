@@ -7,14 +7,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net.Protocol;
 import com.badlogic.gdx.net.SocketHints;
 
+import pama1234.game.app.server.server0002.net.ClientCore;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.net.SocketWrapperGDX;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
 import pama1234.gdx.game.state.state0001.game.GameDisplayUtil;
-import pama1234.gdx.game.state.state0001.game.net.ClientCore;
-import pama1234.gdx.game.state.state0001.game.net.NetState.NetMode;
-import pama1234.gdx.game.state.state0001.game.net.ServerCore;
-import pama1234.gdx.game.state.state0001.game.net.SocketData;
+import pama1234.gdx.game.state.state0001.game.net.NetMode;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
 import pama1234.gdx.game.state.state0001.game.world.World;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
