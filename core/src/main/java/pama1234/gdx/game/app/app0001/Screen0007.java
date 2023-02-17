@@ -7,7 +7,7 @@ import com.badlogic.gdx.net.ServerSocketHints;
 import com.badlogic.gdx.net.SocketHints;
 
 import pama1234.game.app.server.server0001.game.ServerPlayerCenter3D;
-import pama1234.game.app.server.server0001.game.net.SocketData;
+import pama1234.game.app.server.server0001.game.net.SocketData0001;
 import pama1234.game.app.server.server0001.game.net.data.Server0001Core;
 import pama1234.game.app.server.server0001.game.net.io.ServerRead;
 import pama1234.game.app.server.server0001.game.net.io.ServerWrite;
@@ -27,7 +27,7 @@ public class Screen0007 extends UtilScreen3D{
   public NetAddressInfo dataServerInfo;
   //---
   public ServerSocket serverSocket;
-  public Center<SocketData> socketCenter;
+  public Center<SocketData0001> socketCenter;
   public Thread acceptSocket;
   public Center<ServerRead> serverReadPool;
   public Center<ServerWrite> serverWritePool;
@@ -72,7 +72,7 @@ public class Screen0007 extends UtilScreen3D{
     acceptSocket=new Thread(()-> {
       while(!stop) {
         // synchronized(centerSocket.add) {
-        SocketData socketData=new SocketData(new SocketWrapperGDX(serverSocket.accept(tsh)));
+        SocketData0001 socketData=new SocketData0001(new SocketWrapperGDX(serverSocket.accept(tsh)));
         // System.out.println(socketData.s.getRemoteAddress());
         socketCenter.add.add(socketData);
         //---
@@ -108,7 +108,7 @@ public class Screen0007 extends UtilScreen3D{
     serverReadPool.refresh();
     serverWritePool.refresh();
     //---
-    for(SocketData i:socketCenter.list) {
+    for(SocketData0001 i:socketCenter.list) {
       if(i.stop) {
         socketCenter.remove.add(i);
         playerCenter.remove(i.name());
@@ -131,7 +131,7 @@ public class Screen0007 extends UtilScreen3D{
     if((!updateCell.isInterrupted())||(updateCell.isAlive())) updateCell.stop();
     serverSocket.dispose();
     socketCenter.refresh();
-    for(SocketData i:socketCenter.list) i.dispose();
+    for(SocketData0001 i:socketCenter.list) i.dispose();
     for(ServerRead i:serverReadPool.list) i.dispose();
     for(ServerWrite i:serverWritePool.list) i.dispose();
   }

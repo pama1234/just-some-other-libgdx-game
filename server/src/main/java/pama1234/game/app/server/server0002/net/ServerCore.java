@@ -12,7 +12,7 @@ import java.net.SocketException;
 
 import pama1234.data.ByteUtil;
 import pama1234.game.app.server.server0001.game.ServerPlayer3D;
-import pama1234.game.app.server.server0001.game.net.SocketData.Token;
+import pama1234.game.app.server.server0001.game.net.SocketData0001.Token;
 import pama1234.game.app.server.server0001.game.net.data.Server0001Core;
 import pama1234.game.app.server.server0002.net.NetState0002.ClientState;
 import pama1234.game.app.server.server0002.net.NetState0002.ServerState;

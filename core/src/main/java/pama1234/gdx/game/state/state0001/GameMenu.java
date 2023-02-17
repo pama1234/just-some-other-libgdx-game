@@ -14,7 +14,7 @@ import pama1234.gdx.game.asset.GifAsset;
 import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
 import pama1234.gdx.game.state.state0001.game.KryoUtil;
-import pama1234.gdx.game.state.state0001.game.net.NetState.NetMode;
+import pama1234.gdx.game.state.state0001.game.net.NetMode;
 import pama1234.gdx.game.ui.CodeTextFieldStyle;
 import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.ui.util.Button.ButtonEvent;

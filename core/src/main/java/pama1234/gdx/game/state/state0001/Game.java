@@ -7,12 +7,13 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net.Protocol;
 import com.badlogic.gdx.net.SocketHints;
 
-import pama1234.game.app.server.server0002.net.ClientCore;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.net.SocketWrapperGDX;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
 import pama1234.gdx.game.state.state0001.game.GameDisplayUtil;
+import pama1234.gdx.game.state.state0001.game.net.ClientCore;
 import pama1234.gdx.game.state.state0001.game.net.NetMode;
+import pama1234.gdx.game.state.state0001.game.net.ServerCore;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
 import pama1234.gdx.game.state.state0001.game.world.World;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
@@ -23,6 +24,7 @@ import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.game.util.RectF;
 import pama1234.gdx.util.listener.EntityListener;
 import pama1234.util.net.NetAddressInfo;
+import pama1234.util.net.SocketData;
 
 public class Game extends StateEntity0001{
   public Button<?>[] menuButtons;

@@ -16,7 +16,7 @@ import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaCreatureCenter0001;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemCenter0001;
-import pama1234.gdx.game.state.state0001.game.net.NetState.NetMode;
+import pama1234.gdx.game.state.state0001.game.net.NetMode;
 import pama1234.gdx.game.state.state0001.game.player.BlockPointer;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
 import pama1234.gdx.game.state.state0001.game.player.Player.PlayerCenter;

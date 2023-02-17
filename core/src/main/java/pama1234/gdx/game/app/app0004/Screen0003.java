@@ -16,8 +16,8 @@ import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.net.SocketHints;
 
-import pama1234.game.app.server.server0001.game.net.SocketData;
-import pama1234.game.app.server.server0001.game.net.SocketData.Token;
+import pama1234.game.app.server.server0001.game.net.SocketData0001;
+import pama1234.game.app.server.server0001.game.net.SocketData0001.Token;
 import pama1234.game.app.server.server0001.game.net.data.Client0001Core;
 import pama1234.game.app.server.server0001.game.net.io.ClientRead;
 import pama1234.game.app.server.server0001.game.net.io.ClientWrite;
@@ -38,7 +38,7 @@ import pama1234.util.net.NetAddressInfo;
  * 3D 粒子系统 联机 客户端
  */
 public class Screen0003 extends ScreenCore3D{
-  public SocketData clientSocket;
+  public SocketData0001 clientSocket;
   public Client0001Core clientCore;
   //---
   public ClientRead clientRead;
@@ -100,7 +100,7 @@ public class Screen0003 extends ScreenCore3D{
     tsh.performancePrefLatency=2;
     tsh.performancePrefBandwidth=1;
     //---
-    clientSocket=new SocketData(new Token(yourself.data.name()),new SocketWrapperGDX(Gdx.net.newClientSocket(Protocol.TCP,dataServerInfo.addr,dataServerInfo.port,tsh)));
+    clientSocket=new SocketData0001(new Token(yourself.data.name()),new SocketWrapperGDX(Gdx.net.newClientSocket(Protocol.TCP,dataServerInfo.addr,dataServerInfo.port,tsh)));
     new Thread() {
       public void run() {
         while(!clientSocket.s.isConnected()) {

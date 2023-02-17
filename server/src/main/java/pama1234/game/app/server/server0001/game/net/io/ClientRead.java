@@ -11,15 +11,15 @@ import java.net.SocketException;
 import java.util.Arrays;
 
 import pama1234.data.ByteUtil;
-import pama1234.game.app.server.server0001.game.net.SocketData;
+import pama1234.game.app.server.server0001.game.net.SocketData0001;
 import pama1234.game.app.server.server0001.game.net.data.Client0001Core;
 import pama1234.game.app.server.server0001.game.net.state.ClientState;
 import pama1234.game.app.server.server0001.game.net.state.ServerState;
 
 public class ClientRead extends Thread{
   public Client0001Core p;
-  public SocketData s;
-  public ClientRead(Client0001Core p,SocketData dataSocket) {
+  public SocketData0001 s;
+  public ClientRead(Client0001Core p,SocketData0001 dataSocket) {
     super("ClientRead "+dataSocket.s.getRemoteAddress());
     this.p=p;
     this.s=dataSocket;

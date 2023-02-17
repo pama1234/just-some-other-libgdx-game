@@ -11,16 +11,16 @@ import java.net.SocketException;
 
 import pama1234.data.ByteUtil;
 import pama1234.game.app.server.server0001.game.ServerPlayer3D;
-import pama1234.game.app.server.server0001.game.net.SocketData;
-import pama1234.game.app.server.server0001.game.net.SocketData.Token;
+import pama1234.game.app.server.server0001.game.net.SocketData0001;
+import pama1234.game.app.server.server0001.game.net.SocketData0001.Token;
 import pama1234.game.app.server.server0001.game.net.data.Server0001Core;
 import pama1234.game.app.server.server0001.game.net.state.ClientState;
 import pama1234.game.app.server.server0001.game.net.state.ServerState;
 
 public class ServerRead extends Thread{
   public Server0001Core p;
-  public SocketData s;
-  public ServerRead(Server0001Core p,SocketData dataSocket) {
+  public SocketData0001 s;
+  public ServerRead(Server0001Core p,SocketData0001 dataSocket) {
     super("ServerRead "+dataSocket.s.getRemoteAddress());
     this.p=p;
     this.s=dataSocket;
@@ -43,7 +43,7 @@ public class ServerRead extends Thread{
     }
     p.serverReadPool.remove.add(this);
   }
-  public void doF(SocketData e,byte[] inData,ClientState state,int readSize) throws IOException {
+  public void doF(SocketData0001 e,byte[] inData,ClientState state,int readSize) throws IOException {
     if(debug) System.out.println("ServerRead state="+state+" readSize="+readSize);
     switch(state) {
       case ClientAuthentication: {

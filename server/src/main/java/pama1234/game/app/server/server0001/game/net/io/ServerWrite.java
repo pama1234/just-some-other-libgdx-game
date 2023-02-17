@@ -9,13 +9,13 @@ import java.io.IOException;
 import java.net.SocketException;
 
 import pama1234.data.ByteUtil;
-import pama1234.game.app.server.server0001.game.net.SocketData;
+import pama1234.game.app.server.server0001.game.net.SocketData0001;
 import pama1234.game.app.server.server0001.game.net.data.Server0001Core;
 
 public class ServerWrite extends Thread{
   public Server0001Core p;
-  public SocketData s;
-  public ServerWrite(Server0001Core p,SocketData dataSocket) {
+  public SocketData0001 s;
+  public ServerWrite(Server0001Core p,SocketData0001 dataSocket) {
     super("ServerWrite "+dataSocket.s.getRemoteAddress());
     this.p=p;
     this.s=dataSocket;
@@ -36,7 +36,7 @@ public class ServerWrite extends Thread{
     }
     p.serverWritePool.remove.add(this);
   }
-  public void doF(SocketData e,byte[] outData) throws IOException {
+  public void doF(SocketData0001 e,byte[] outData) throws IOException {
     if(debug) System.out.println("ServerWrite state="+e.serverState);
     // if(e.state==1)
     switch(e.serverState) {

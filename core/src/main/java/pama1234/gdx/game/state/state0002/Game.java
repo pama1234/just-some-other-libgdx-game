@@ -2,7 +2,7 @@ package pama1234.gdx.game.state.state0002;
 
 import static com.badlogic.gdx.Input.Keys.ESCAPE;
 
-import pama1234.game.app.server.server0001.game.net.SocketData;
+import pama1234.game.app.server.server0001.game.net.SocketData0001;
 import pama1234.gdx.game.app.Screen0012;
 import pama1234.gdx.game.state.state0002.StateGenerator0002.StateEntity0002;
 import pama1234.gdx.game.state.state0002.game.World;
@@ -14,7 +14,7 @@ import pama1234.util.net.NetAddressInfo;
 
 public class Game extends StateEntity0002{
   public NetAddressInfo dataServerInfo;
-  public SocketData clientSocket;
+  public SocketData0001 clientSocket;
   //---
   public Button<?>[] menuButtons;
   public TextButton<?>[] ctrlButtons;

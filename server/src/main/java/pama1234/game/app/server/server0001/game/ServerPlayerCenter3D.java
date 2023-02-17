@@ -2,7 +2,7 @@ package pama1234.game.app.server.server0001.game;
 
 import java.util.HashMap;
 
-import pama1234.game.app.server.server0001.game.net.SocketData.Token;
+import pama1234.game.app.server.server0001.game.net.SocketData0001.Token;
 import pama1234.util.wrapper.ServerEntityCenter;
 
 public class ServerPlayerCenter3D extends ServerEntityCenter<ServerPlayer3D>{

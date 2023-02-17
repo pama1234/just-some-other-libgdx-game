@@ -1,6 +1,6 @@
 package pama1234.game.app.server.server0001.game;
 
-import pama1234.game.app.server.server0001.game.net.SocketData;
+import pama1234.game.app.server.server0001.game.net.SocketData0001;
 import pama1234.game.app.server.server0001.game.net.data.Server0001Core;
 import pama1234.game.app.server.server0001.game.net.io.ServerRead;
 import pama1234.game.app.server.server0001.game.net.io.ServerWrite;
@@ -21,7 +21,7 @@ public class Server0001 extends UtilServer{//particle server 3d
   //---
   public NetAddressInfo serverInfo;
   public ServerSocketData serverSocket;
-  public Center<SocketData> socketCenter;
+  public Center<SocketData0001> socketCenter;
   public Center<ServerRead> serverReadPool;
   public Center<ServerWrite> serverWritePool;
   public Thread acceptSocket;
@@ -61,7 +61,7 @@ public class Server0001 extends UtilServer{//particle server 3d
     acceptSocket=new Thread(()-> {
       while(!stop) {
         // synchronized(centerSocket.add) {
-        SocketData socketData=new SocketData(new SocketWrapper(serverSocket.accept()));
+        SocketData0001 socketData=new SocketData0001(new SocketWrapper(serverSocket.accept()));
         // System.out.println(socketData.s.getRemoteAddress());
         socketCenter.add.add(socketData);
         //---
