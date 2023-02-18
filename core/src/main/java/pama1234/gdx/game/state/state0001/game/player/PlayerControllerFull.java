@@ -54,6 +54,7 @@ public class PlayerControllerFull extends PlayerControllerCore{
     updateCtrlInfo();
     // limitBox.preCtrlUpdate();
     super.preUpdate();
+    if(walkingStateChange) displayStateChange();
     if(pInAir!=limitBox.inAir) {
       pInAir=limitBox.inAir;
       displayStateChange();
@@ -76,11 +77,6 @@ public class PlayerControllerFull extends PlayerControllerCore{
   }
   public void updateCtrlInfo() {
     updateKeyInfo();
-    boolean tb=left!=right;
-    if(walking!=tb) {
-      walking=tb;
-      displayStateChange();
-    }
     if(!player.pw.p.isAndroid) updateMouseInfo();
     selectEntity.updateTask();//TODO
   }

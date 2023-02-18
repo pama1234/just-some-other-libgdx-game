@@ -13,7 +13,7 @@ public class PlayerControllerCore extends Entity<Screen0011>{
   public float speed=1f,shiftSpeedMult=2f;
   public float slowDownSpeed=1/4f;
   public float jumpForceMult=1.5f,jumpHeight=0;
-  public boolean walking;
+  public boolean walking,walkingStateChange;
   public boolean left,right,jump,shift;
   public int walkCool,jumpCool;
   public float itemPickDist=18,itemPickMoveDist=72;
@@ -26,7 +26,16 @@ public class PlayerControllerCore extends Entity<Screen0011>{
     selectEntity=new EntityPointer(corePlayer.pw,()->corePlayer.inventory.select().data);
     if(!mainPlayer) coreSelectBlock=new BlockPointer(corePlayer.pw,()->corePlayer.inventory.select().data);
   }
+  public boolean testWalking() {
+    boolean tb=left!=right;
+    if(walking!=tb) {
+      walking=tb;
+      return true;
+    }
+    return false;
+  }
   public void preUpdate() {
+    walkingStateChange=testWalking();
     limitBox.preCtrlUpdate();
     doWalkAndJump();
   }

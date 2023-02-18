@@ -5,10 +5,9 @@ import com.esotericsoftware.kryo.io.Output;
 
 import pama1234.game.app.server.server0002.net.SocketData;
 import pama1234.gdx.game.state.state0001.Game;
-import pama1234.gdx.game.state.state0001.game.KryoNetUtil;
 import pama1234.gdx.game.state.state0001.game.player.Player;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
-import pama1234.gdx.game.state.state0001.game.world.WorldKryoUtil;
+import pama1234.math.physics.MassPoint;
 import pama1234.util.net.ServerSocketData;
 import pama1234.util.net.SocketWrapper;
 import pama1234.util.wrapper.Center;
@@ -36,6 +35,7 @@ public class ServerCore{
         socketCenter.add.add(socketData);
         //---
         ClientLink link=createLink(socketData);
+        link.init();
         ServerWrite serverWrite=new ServerWrite(link,this);
         serverWrite.start();
         serverWritePool.add.add(serverWrite);
@@ -47,7 +47,7 @@ public class ServerCore{
     },"AcceptSocket");
   }
   public ClientLink createLink(SocketData socketData) {
-    return new ClientLink(socketData);
+    return new ClientLink(this,socketData);
   }
   public void start() {
     acceptThread.start();
@@ -75,16 +75,21 @@ public class ServerCore{
         e.printStackTrace();
         p.stop=true;
       }
+      link.socketData.dispose();
+      p.serverWritePool.remove.add(this);
       disconnect();
     }
     public void connect() {
-      link.player=new Player(p.game.p,p.world,0,0,p.world.metaEntitys.player);
-      link.player.init();
-      link.player.innerInit();
+      // link.player=new Player(p.game.p,p.world,0,0,p.world.metaEntitys.player);
+      // link.player.init();
+      // link.player.innerInit();
       p.world.entities.players.add.add(link.player);
     }
     public void execute() {
-      KryoNetUtil.write(WorldKryoUtil.kryo,output,link.player.point);
+      // KryoNetUtil.write(WorldKryoUtil.kryo,output,link.player.point);
+      MassPoint point=link.player.point;
+      output.writeFloat(point.pos.x);
+      output.writeFloat(point.pos.y);
     }
     public void disconnect() {
       p.world.entities.players.remove.add(link.player);
@@ -101,25 +106,38 @@ public class ServerCore{
     }
     @Override
     public void run() {
+      connect();
       try {
         while(!p.stop) execute();
       }catch(RuntimeException e) {
         e.printStackTrace();
         p.stop=true;
       }
+      link.socketData.dispose();
+      p.serverReadPool.remove.add(this);
+      disconnect();
     }
+    public void connect() {}
     public void execute() {
       link.player.ctrlCore.left=input.readBoolean();
       link.player.ctrlCore.right=input.readBoolean();
       link.player.ctrlCore.jump=input.readBoolean();
     }
+    public void disconnect() {}
   }
   public static class ClientLink{
     public SocketData socketData;
+    public ServerCore p;
     //---
     public Player player;
-    public ClientLink(SocketData socketData) {
+    public ClientLink(ServerCore p,SocketData socketData) {
+      this.p=p;
       this.socketData=socketData;
+    }
+    public void init() {
+      player=new Player(p.game.p,p.world,0,0,p.world.metaEntitys.player);
+      player.init();
+      player.innerInit();
     }
   }
 }
