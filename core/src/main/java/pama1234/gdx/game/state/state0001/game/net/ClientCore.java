@@ -1,6 +1,7 @@
 package pama1234.gdx.game.state.state0001.game.net;
 
 import com.esotericsoftware.kryo.io.Input;
+import com.esotericsoftware.kryo.io.Output;
 
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.game.KryoNetUtil;
@@ -61,8 +62,24 @@ public class ClientCore{
   }
   public static class ClientWrite extends Thread{
     public ClientCore p;
+    public Output output;
     public ClientWrite(ClientCore p) {
       this.p=p;
+      output=new Output(p.socketData.o);
+    }
+    @Override
+    public void run() {
+      try {
+        while(!p.stop) execute();
+      }catch(RuntimeException e) {
+        e.printStackTrace();
+        p.stop=true;
+      }
+    }
+    public void execute() {
+      output.writeBoolean(p.world.yourself.ctrl.left);
+      output.writeBoolean(p.world.yourself.ctrl.right);
+      output.writeBoolean(p.world.yourself.ctrl.jump);
     }
   }
 }

@@ -1,5 +1,6 @@
 package pama1234.gdx.game.state.state0001.game.net;
 
+import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 
 import pama1234.game.app.server.server0002.net.SocketData;
@@ -34,11 +35,12 @@ public class ServerCore{
         SocketData socketData=new SocketData(new SocketWrapper(serverSocketData.accept()));
         socketCenter.add.add(socketData);
         //---
-        ServerWrite serverWrite=new ServerWrite(createLink(socketData),this);
+        ClientLink link=createLink(socketData);
+        ServerWrite serverWrite=new ServerWrite(link,this);
         serverWrite.start();
         serverWritePool.add.add(serverWrite);
         //---
-        ServerRead serverRead=new ServerRead(socketData,this);
+        ServerRead serverRead=new ServerRead(link,this);
         serverRead.start();
         serverReadPool.add.add(serverRead);
       }
@@ -89,10 +91,27 @@ public class ServerCore{
     }
   }
   public static class ServerRead extends Thread{
-    SocketData socketData;
+    public ClientLink link;
     ServerCore p;
-    public ServerRead(SocketData socketData,ServerCore p) {
+    public Input input;
+    public ServerRead(ClientLink link,ServerCore p) {
+      this.link=link;
       this.p=p;
+      input=new Input(link.socketData.i);
+    }
+    @Override
+    public void run() {
+      try {
+        while(!p.stop) execute();
+      }catch(RuntimeException e) {
+        e.printStackTrace();
+        p.stop=true;
+      }
+    }
+    public void execute() {
+      link.player.ctrlCore.left=input.readBoolean();
+      link.player.ctrlCore.right=input.readBoolean();
+      link.player.ctrlCore.jump=input.readBoolean();
     }
   }
   public static class ClientLink{
