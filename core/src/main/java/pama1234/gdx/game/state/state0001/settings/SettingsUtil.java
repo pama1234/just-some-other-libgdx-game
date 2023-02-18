@@ -1,10 +1,8 @@
 package pama1234.gdx.game.state.state0001.settings;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.g2d.Animation;
-
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.GifAsset;
+import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.Settings;
 import pama1234.gdx.game.state.state0001.State0001;
@@ -56,7 +54,8 @@ public class SettingsUtil{
       },self->self.text="清理内存垃圾",()->18,()->0,()->100),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.showEarth=!p.settings.showEarth;
-        if(p.settings.showEarth&&GifAsset.bigEarth==null) GifAsset.loadWithAtlas();
+        if(p.settings.showEarth&&ImageAsset.bigEarth==null) ImageAsset.loadEarth();
+        // if(p.settings.showEarth&&GifAsset.bigEarth==null) GifAsset.loadWithAtlas();
         self.updateText();
       },self->self.text="开始界面显示地球："+(p.settings.showEarth?"是":"否"),()->18,()->0,()->120),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {

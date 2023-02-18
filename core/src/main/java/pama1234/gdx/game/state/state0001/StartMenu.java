@@ -3,7 +3,7 @@ package pama1234.gdx.game.state.state0001;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import pama1234.gdx.game.app.Screen0011;
-import pama1234.gdx.game.asset.GifAsset;
+import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
 import pama1234.gdx.game.ui.util.Button;
@@ -50,7 +50,8 @@ public class StartMenu extends StateEntity0001{
   @Override
   public void displayCam() {
     if(p.settings.showEarth) {
-      TextureRegion kf=GifAsset.bigEarth.getKeyFrame(time);
+      TextureRegion kf=ImageAsset.bigEarth.getKeyFrame(time);
+      // TextureRegion kf=GifAsset.bigEarth.getKeyFrame(time);
       p.image(kf,-128,-128);
     }else {
       p.textColor(255,220);
