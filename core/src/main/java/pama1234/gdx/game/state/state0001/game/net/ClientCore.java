@@ -1,5 +1,8 @@
 package pama1234.gdx.game.state.state0001.game.net;
 
+import java.io.IOException;
+
+import com.esotericsoftware.kryo.KryoException;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 
@@ -53,13 +56,14 @@ public class ClientCore{
       }
     }
     public void execute() {
-      // MassPoint in=KryoNetUtil.read(WorldKryoUtil.kryo,input,MassPoint.class);
+      try {
+        if(input.available()>8) input.skip(8);
+      }catch(KryoException|IOException e) {
+        e.printStackTrace();
+      }
       float x=input.readFloat(),y=input.readFloat();
-      // if(in!=null) 
-      // p.world.yourself.point.cloneFrom(in);
-      // else p.stop=true;
       Point point=p.world.yourself.point;
-      if(point.pos.dist(x,y)>18) point.pos.set(x,y);
+      if(point.pos.dist(x,y)>36) point.pos.set(x,y);
     }
   }
   public static class ClientWrite extends Thread{

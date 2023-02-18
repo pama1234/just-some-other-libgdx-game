@@ -1,5 +1,8 @@
 package pama1234.gdx.game.state.state0001.game.net;
 
+import java.io.IOException;
+
+import com.esotericsoftware.kryo.KryoException;
 import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 
@@ -80,13 +83,9 @@ public class ServerCore{
       disconnect();
     }
     public void connect() {
-      // link.player=new Player(p.game.p,p.world,0,0,p.world.metaEntitys.player);
-      // link.player.init();
-      // link.player.innerInit();
       p.world.entities.players.add.add(link.player);
     }
     public void execute() {
-      // KryoNetUtil.write(WorldKryoUtil.kryo,output,link.player.point);
       MassPoint point=link.player.point;
       output.writeFloat(point.pos.x);
       output.writeFloat(point.pos.y);
@@ -119,6 +118,11 @@ public class ServerCore{
     }
     public void connect() {}
     public void execute() {
+      try {
+        if(input.available()>3) input.skip(3);
+      }catch(KryoException|IOException e) {
+        e.printStackTrace();
+      }
       link.player.ctrlCore.left=input.readBoolean();
       link.player.ctrlCore.right=input.readBoolean();
       link.player.ctrlCore.jump=input.readBoolean();
