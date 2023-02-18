@@ -24,6 +24,7 @@ public class SettingsUtil{
     return new TextButtonCam[] {
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.initSettings();
+        p.saveSettings();
         for(TextButtonCam<?> e:ps.buttonsCam) e.updateText();
         self.updateText();
       },self->self.text="重置设置",()->18,()->-100,()->-20),
