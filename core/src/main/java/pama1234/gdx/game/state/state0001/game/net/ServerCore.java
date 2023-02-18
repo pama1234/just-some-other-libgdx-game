@@ -64,6 +64,7 @@ public class ServerCore{
     public ClientLink link;
     public ServerCore p;
     public Output output;
+    public int sleep=-1;
     public ServerWrite(ClientLink link,ServerCore p) {
       this.link=link;
       this.p=p;
@@ -73,8 +74,11 @@ public class ServerCore{
     public void run() {
       connect();
       try {
-        while(!p.stop) execute();
-      }catch(RuntimeException e) {
+        while(!p.stop) {
+          execute();
+          if(sleep>=0) sleep(sleep);
+        }
+      }catch(RuntimeException|InterruptedException e) {
         e.printStackTrace();
         p.stop=true;
       }
@@ -118,16 +122,21 @@ public class ServerCore{
     }
     public void connect() {}
     public void execute() {
-      try {
-        if(input.available()>3) input.skip(3);
-      }catch(KryoException|IOException e) {
-        e.printStackTrace();
-      }
+      skip(3);
       link.player.ctrlCore.left=input.readBoolean();
       link.player.ctrlCore.right=input.readBoolean();
       link.player.ctrlCore.jump=input.readBoolean();
     }
     public void disconnect() {}
+    public void skip(int in) {
+      try {
+        int available=input.available();
+        if(available>in) input.skip((available/in)*in);
+      }catch(KryoException|IOException e) {
+        e.printStackTrace();
+        p.stop=true;
+      }
+    }
   }
   public static class ClientLink{
     public SocketData socketData;

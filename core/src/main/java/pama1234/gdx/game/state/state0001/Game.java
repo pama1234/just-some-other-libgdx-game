@@ -80,7 +80,7 @@ public class Game extends StateEntity0001{
     p.centerCam.add.add(worldCenter);
     if(netMode==NetMode.client) {
       SocketHints socketHints=new SocketHints();
-      socketHints.connectTimeout=10000;
+      socketHints.connectTimeout=5000;
       socketHints.socketTimeout=5000;
       socketHints.keepAlive=true;
       socketHints.performancePrefConnectionTime=0;
