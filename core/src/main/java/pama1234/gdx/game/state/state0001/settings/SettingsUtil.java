@@ -56,7 +56,7 @@ public class SettingsUtil{
       },self->self.text="清理内存垃圾",()->18,()->0,()->100),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.showEarth=!p.settings.showEarth;
-        if(p.settings.showEarth&&GifAsset.bigEarth==null) GifAsset.bigEarth=GifAsset.load(Animation.PlayMode.LOOP,Gdx.files.internal("image/bigEarth.gif").read());
+        if(p.settings.showEarth&&GifAsset.bigEarth==null) GifAsset.loadWithAtlas();
         self.updateText();
       },self->self.text="开始界面显示地球："+(p.settings.showEarth?"是":"否"),()->18,()->0,()->120),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
