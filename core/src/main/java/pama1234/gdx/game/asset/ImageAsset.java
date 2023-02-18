@@ -1,11 +1,11 @@
 package pama1234.gdx.game.asset;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
-import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import pama1234.gdx.util.FileUtil;
@@ -36,7 +36,7 @@ public class ImageAsset{
     manager.load("image/characters.png",Texture.class);
     manager.load("image/sky.png",Texture.class);
     manager.load("image/select.png",Texture.class);
-    manager.load("image/bigEarth.atlas",TextureAtlas.class);
+    manager.load("image/earth02.png",Texture.class);
   }
   public static void put_0001(AssetManager manager) {
     Pixmap tp=new Pixmap(1,1,Format.Alpha);
@@ -54,23 +54,24 @@ public class ImageAsset{
     creature=loadFromTexture_0001(manager.get("image/characters.png"),24,24,2,2);
     sky=loadFromTexture(manager.get("image/sky.png"));
     select=loadFromTexture(manager.get("image/select.png"));
-    TextureAtlas ta=manager.get("image/bigEarth.atlas",TextureAtlas.class);
-    TextureRegion[] tr=new TextureRegion[270];
-    for(int i=1;i<=270;i++) {
-      TextureAtlas.AtlasRegion r=ta.findRegion(String.valueOf(i));
-      r.flip(false,true);
-      tr[i-1]=r;
-    }
-    bigEarth=new Animation<TextureRegion>(.04f,tr);
-    bigEarth.setPlayMode(Animation.PlayMode.LOOP);
+    Texture ta=manager.get("image/earth02.png",Texture.class);
+    loadEarth(ta);
   }
   public static void loadEarth() {
-    TextureAtlas ta=new TextureAtlas("assets/image/bigEarth.atlas");
-    TextureRegion[] tr=new TextureRegion[270];
-    for(int i=1;i<=270;i++) {
-      TextureAtlas.AtlasRegion r=ta.findRegion(String.valueOf(i));
-      r.flip(false,true);
-      tr[i-1]=r;
+    loadEarth(new Texture(Gdx.files.local("assets/image/earth02.png")));
+  }
+  public static void loadEarth(Texture ta) {
+    TextureRegion[] tr=new TextureRegion[256];
+    int gapX=2,
+      gapY=2;
+    int x=gapX,
+      y=gapY;
+    int w=256,
+      h=256;
+    for(int i=0;i<tr.length;i++) {
+      int tx=i%16;
+      int ty=i/16;
+      tr[i]=new TextureRegion(ta,x+tx*(w+gapX),y+ty*(h+gapY),w,h);
     }
     bigEarth=new Animation<TextureRegion>(.04f,tr);
     bigEarth.setPlayMode(Animation.PlayMode.LOOP);
