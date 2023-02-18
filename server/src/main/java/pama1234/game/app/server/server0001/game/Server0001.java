@@ -1,5 +1,7 @@
 package pama1234.game.app.server.server0001.game;
 
+import java.io.IOException;
+
 import pama1234.game.app.server.server0001.game.net.SocketData0001;
 import pama1234.game.app.server.server0001.game.net.data.Server0001Core;
 import pama1234.game.app.server.server0001.game.net.io.ServerRead;
@@ -61,18 +63,24 @@ public class Server0001 extends UtilServer{//particle server 3d
     acceptSocket=new Thread(()-> {
       while(!stop) {
         // synchronized(centerSocket.add) {
-        SocketData0001 socketData=new SocketData0001(new SocketWrapper(serverSocket.accept()));
-        // System.out.println(socketData.s.getRemoteAddress());
-        socketCenter.add.add(socketData);
-        //---
-        ServerWrite serverWrite=new ServerWrite(serverCore,socketData);
-        serverWrite.start();
-        serverWritePool.add.add(serverWrite);
-        //---
-        ServerRead serverRead=new ServerRead(serverCore,socketData);
-        serverRead.start();
-        serverReadPool.add.add(serverRead);
-        // }
+        SocketData0001 socketData;
+        try {
+          socketData=new SocketData0001(new SocketWrapper(serverSocket.accept()));
+          // System.out.println(socketData.s.getRemoteAddress());
+          socketCenter.add.add(socketData);
+          //---
+          ServerWrite serverWrite=new ServerWrite(serverCore,socketData);
+          serverWrite.start();
+          serverWritePool.add.add(serverWrite);
+          //---
+          ServerRead serverRead=new ServerRead(serverCore,socketData);
+          serverRead.start();
+          serverReadPool.add.add(serverRead);
+          // }
+        }catch(IOException e) {
+          stop=true;
+          e.printStackTrace();
+        }
       }
     },"AcceptSocket");
     acceptSocket.start();

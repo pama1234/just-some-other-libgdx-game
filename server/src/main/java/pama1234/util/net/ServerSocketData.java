@@ -23,13 +23,8 @@ public class ServerSocketData{
   public void initWithException(NetAddressInfo info) throws IOException,UnknownHostException {
     server=new ServerSocket(info.port,50,InetAddress.getByName(info.addr));//TODO
   }
-  public Socket accept() {
-    try {
-      return server.accept();
-    }catch(IOException e) {
-      e.printStackTrace();
-      throw new RuntimeException(e);
-    }
+  public Socket accept() throws IOException {
+    return server.accept();
   }
   public void close() {
     try {

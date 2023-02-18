@@ -34,18 +34,24 @@ public class ServerCore{
     serverWritePool=new Center<>();
     acceptThread=new Thread(()-> {
       while(!stop) {
-        SocketData socketData=new SocketData(new SocketWrapper(serverSocketData.accept()));
-        socketCenter.add.add(socketData);
-        //---
-        ClientLink link=createLink(socketData);
-        link.init();
-        ServerWrite serverWrite=new ServerWrite(link,this);
-        serverWrite.start();
-        serverWritePool.add.add(serverWrite);
-        //---
-        ServerRead serverRead=new ServerRead(link,this);
-        serverRead.start();
-        serverReadPool.add.add(serverRead);
+        SocketData socketData;
+        try {
+          socketData=new SocketData(new SocketWrapper(serverSocketData.accept()));
+          socketCenter.add.add(socketData);
+          //---
+          ClientLink link=createLink(socketData);
+          link.init();
+          ServerWrite serverWrite=new ServerWrite(link,this);
+          serverWrite.start();
+          serverWritePool.add.add(serverWrite);
+          //---
+          ServerRead serverRead=new ServerRead(link,this);
+          serverRead.start();
+          serverReadPool.add.add(serverRead);
+        }catch(IOException e) {
+          e.printStackTrace();
+          stop=true;
+        }
       }
     },"AcceptSocket");
   }

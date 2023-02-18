@@ -158,7 +158,7 @@ public class GameMenu extends StateEntity0001{
           testHideKeyboard(focused);
         }
       });
-    }else out[0].addListener(new FocusListener() {
+    }else for(TextField e:out) e.addListener(new FocusListener() {
       public void keyboardFocusChanged(FocusEvent event,Actor actor,boolean focused) {
         testHideKeyboard(focused);
       }
