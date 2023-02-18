@@ -23,6 +23,11 @@ public class SettingsUtil{
   public static <T extends Screen0011> TextButtonCam<?>[] genButtons_0006(T p,Settings ps) {
     return new TextButtonCam[] {
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
+        p.initSettings();
+        for(TextButtonCam<?> e:ps.buttonsCam) e.updateText();
+        self.updateText();
+      },self->self.text="重置设置",()->18,()->-100,()->-20),
+      new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.mute=!p.settings.mute;
         self.updateText();
       },self->self.text=p.settings.mute?"静音：是":"静音：否",()->18,()->0,()->0),
