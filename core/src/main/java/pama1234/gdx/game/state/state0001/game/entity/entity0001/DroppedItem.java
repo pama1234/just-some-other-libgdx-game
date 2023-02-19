@@ -24,6 +24,7 @@ public class DroppedItem extends LivingEntity{
     this.data=data;
     pc=data.type.pc.pw.entities.items;
     outerBox=limitBox=new MovementLimitBox(this);
+    limitBox.usePlatform=true;
   }
   @Override
   public void update() {

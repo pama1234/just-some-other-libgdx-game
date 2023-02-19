@@ -41,8 +41,8 @@ public class WoodPlatform extends MetaBlock{
     displayUpdater=(in,x,y)-> {
       World0001 world=in.type.pc.pw;
       int typeCache=0;
-      if(isPlatform(world.getBlock(x+1,y))) typeCache+=1;
-      if(isPlatform(world.getBlock(x-1,y))) typeCache+=2;
+      if(isPlatformOrPlank(pc.woodPlank,world.getBlock(x+1,y))) typeCache+=1;
+      if(isPlatformOrPlank(pc.woodPlank,world.getBlock(x-1,y))) typeCache+=2;
       // if(typeCache==3) typeCache=2;
       // else if(typeCache==2) typeCache=3;
       in.displayType[0]=typeCache;
@@ -51,7 +51,10 @@ public class WoodPlatform extends MetaBlock{
       // in.light.update();
     };
   }
-  public boolean isPlatform(Block in) {
-    return in!=null&&in.type==this;
+  public boolean isPlatformOrPlank(WoodPlank type,Block in) {
+    return in!=null&&(in.type==this||in.type==type);
+  }
+  public static boolean isWoodPlatform(WoodPlatform type,Block block) {
+    return block!=null&&block.type==type;
   }
 }

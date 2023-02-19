@@ -5,10 +5,11 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
+import pama1234.gdx.game.state.state0001.game.world.World0001;
 
 public class WoodPlank extends MetaBlock{
   public WoodPlank(MetaBlockCenter0001 pc,int id) {
-    super(pc,"wood-plank",id,20,2,(in,type)-> {//change to dirt
+    super(pc,"wood-plank",id,22,3,(in,type)-> {//change to dirt
       // in.lighting=16;
       in.light.set(16);
     },(in,type)-> {//change from dirt
@@ -17,7 +18,7 @@ public class WoodPlank extends MetaBlock{
     destroyTime=30;
     buildTime=15;
     fullBlockType=FullBlockType.plankType;
-    initFullBlockLambda();
+    initLambda();
   }
   @Override
   public void initItemDrop() {
@@ -47,12 +48,36 @@ public class WoodPlank extends MetaBlock{
     tiles[6]=tsrc[tx+1][ty+3];
     tiles[2]=tsrc[tx+2][ty+3];
     tiles[10]=tsrc[tx+3][ty+3];
-    //----------------------------------------------------- TODO
+    //-----------------------------------------------------
     tx=4;
     ty=10;
     tiles[16]=tsrc[tx][ty];
     tiles[17]=tsrc[tx+1][ty];
     tiles[18]=tsrc[tx][ty+1];
     tiles[19]=tsrc[tx+1][ty+1];
+    //-----------------------------------------------------
+    tx=4;
+    ty=12;
+    tiles[20]=tsrc[tx][ty];
+    tiles[21]=tsrc[tx+1][ty];
+  }
+  public void initLambda() {
+    // updater=lightUpdater;
+    displayUpdater=(in,x,y)-> {
+      fullBlockDisplayUpdater.update(in,x,y);
+      World0001 world=in.type.pc.pw;
+      int typeCache=0;
+      if(WoodPlatform.isWoodPlatform(pc.woodPlatform,world.getBlock(x-1,y))) typeCache+=2;// left
+      if(WoodPlatform.isWoodPlatform(pc.woodPlatform,world.getBlock(x+1,y))) typeCache+=1;// right
+      in.displayType[2]=typeCache;
+    };
+    displayer=(r,p,in,x,y)-> {
+      fullBlockDisplayer.display(r,p,in,x,y);
+      int ti=in.displayType[2];
+      if(ti!=0) {
+        if((ti&1)!=0) r.tile(in.type.tiles[20],x,y);
+        if((ti&2)!=0) r.tile(in.type.tiles[21],x,y);
+      }
+    };
   }
 }
