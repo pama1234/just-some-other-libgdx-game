@@ -16,7 +16,7 @@ public class WoodPlank extends MetaBlock{
     blockType=woodType;
     destroyTime=30;
     buildTime=15;
-    fullBlockType=2;
+    fullBlockType=FullBlockType.plankType;
     initFullBlockLambda();
   }
   @Override

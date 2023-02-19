@@ -18,7 +18,7 @@ public class WoodPlatform extends MetaBlock{
     blockType=woodType;
     destroyTime=10;
     buildTime=5;
-    fullBlockType=3;
+    fullBlockType=FullBlockType.platformType;
     initLambda();
   }
   @Override
@@ -32,8 +32,8 @@ public class WoodPlatform extends MetaBlock{
     //-----------------------------------------------------
     tiles[0]=tsrc[tx][ty];
     tiles[1]=tsrc[tx+1][ty];
-    tiles[2]=tsrc[tx+2][ty];
-    tiles[3]=tsrc[tx+3][ty];
+    tiles[3]=tsrc[tx+2][ty];
+    tiles[2]=tsrc[tx+3][ty];
   }
   public void initLambda() {
     // updater=lightUpdater;
@@ -42,8 +42,8 @@ public class WoodPlatform extends MetaBlock{
       int typeCache=0;
       if(isPlatform(world.getBlock(x+1,y))) typeCache+=1;
       if(isPlatform(world.getBlock(x-1,y))) typeCache+=2;
-      if(typeCache==3) typeCache=2;
-      else if(typeCache==2) typeCache=3;
+      // if(typeCache==3) typeCache=2;
+      // else if(typeCache==2) typeCache=3;
       in.displayType[0]=typeCache;
       //---
       defaultDisplayUpdater.update(in,x,y);
