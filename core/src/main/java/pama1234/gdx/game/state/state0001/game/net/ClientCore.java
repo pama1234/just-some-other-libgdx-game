@@ -7,6 +7,7 @@ import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.io.Output;
 
 import pama1234.gdx.game.state.state0001.Game;
+import pama1234.gdx.game.state.state0001.game.player.PlayerControllerCore;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.math.physics.Point;
 import pama1234.util.net.SocketData;
@@ -76,6 +77,7 @@ public class ClientCore{
     public ClientCore p;
     public Output output;
     public int sleep=-1;
+    public boolean left,right,jump;
     public ClientWrite(ClientCore p) {
       this.p=p;
       output=new Output(p.socketData.o);
@@ -93,9 +95,27 @@ public class ClientCore{
       }
     }
     public void execute() {
-      output.writeBoolean(p.world.yourself.ctrl.left);
-      output.writeBoolean(p.world.yourself.ctrl.right);
-      output.writeBoolean(p.world.yourself.ctrl.jump);
+      boolean flag=false;
+      PlayerControllerCore ctrl=p.world.yourself.ctrl;
+      if(left!=ctrl.left) {
+        left=ctrl.left;
+        flag=true;
+      }
+      if(right!=ctrl.right) {
+        right=ctrl.right;
+        flag=true;
+      }
+      if(jump!=ctrl.jump) {
+        jump=ctrl.jump;
+        flag=true;
+      }
+      if(flag) putPlayerCtrl();
+    }
+    public void putPlayerCtrl() {
+      PlayerControllerCore ctrl=p.world.yourself.ctrl;
+      output.writeBoolean(ctrl.left);
+      output.writeBoolean(ctrl.right);
+      output.writeBoolean(ctrl.jump);
       output.flush();
     }
   }

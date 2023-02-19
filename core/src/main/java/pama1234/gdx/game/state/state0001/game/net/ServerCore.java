@@ -9,6 +9,7 @@ import com.esotericsoftware.kryo.io.Output;
 import pama1234.game.app.server.server0002.net.SocketData;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.game.player.Player;
+import pama1234.gdx.game.state.state0001.game.player.PlayerControllerCore;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.math.physics.MassPoint;
 import pama1234.util.net.ServerSocketData;
@@ -130,9 +131,13 @@ public class ServerCore{
     public void connect() {}
     public void execute() {
       skip(3);
-      link.player.ctrlCore.left=input.readBoolean();
-      link.player.ctrlCore.right=input.readBoolean();
-      link.player.ctrlCore.jump=input.readBoolean();
+      PlayerControllerCore ctrlCore=link.player.ctrlCore;
+      ctrlCore.left=input.readBoolean();
+      ctrlCore.right=input.readBoolean();
+      ctrlCore.jump=input.readBoolean();
+      // if(input.readBoolean()) ctrlCore.left=!ctrlCore.left;
+      // if(input.readBoolean()) ctrlCore.right=!ctrlCore.right;
+      // if(input.readBoolean()) ctrlCore.jump=!ctrlCore.jump;
     }
     public void disconnect() {}
     public void skip(int in) {

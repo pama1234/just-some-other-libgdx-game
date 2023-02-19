@@ -57,7 +57,7 @@ public class Player extends TextureLivingEntity{
   }
   public void name(String in) {
     name=in;
-    nameWidth=p.textWidth(in)/2f;
+    nameWidth=p.textWidthCam(in)/2f;
   }
   public static class PlayerType extends MetaCreature<Player>{
     {
