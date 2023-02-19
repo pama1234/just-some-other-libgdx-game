@@ -14,7 +14,7 @@ public class PlayerControllerCore extends Entity<Screen0011>{
   public float slowDownSpeed=1/4f;
   public float jumpForceMult=1.5f,jumpHeight=0;
   public boolean walking,walkingStateChange;
-  public boolean left,right,jump,shift;
+  public boolean left,right,jump,shift,jumpDown;
   public int walkCool,jumpCool;
   public float itemPickDist=18,itemPickMoveDist=72;
   public EntityPointer selectEntity;
@@ -23,6 +23,7 @@ public class PlayerControllerCore extends Entity<Screen0011>{
     super(p);
     this.corePlayer=corePlayer;
     corePlayer.outerBox=limitBox=new MovementLimitBox(corePlayer);
+    limitBox.usePlatform=true;
     selectEntity=new EntityPointer(corePlayer.pw,()->corePlayer.inventory.select().data);
     if(!mainPlayer) coreSelectBlock=new BlockPointer(corePlayer.pw,()->corePlayer.inventory.select().data);
   }
@@ -80,6 +81,7 @@ public class PlayerControllerCore extends Entity<Screen0011>{
       }
     }else walkSlowDown();
     // limitBox.testInAir();
+    limitBox.usePlatform=!jumpDown;
     if(limitBox.inAir) {
       if(jump&&jumpHeight<-corePlayer.pw.settings.jumpForce*jumpForceMult) {
         corePlayer.point.vel.y-=corePlayer.pw.settings.g*2;
@@ -91,10 +93,12 @@ public class PlayerControllerCore extends Entity<Screen0011>{
         corePlayer.point.pos.y=limitBox.floor;
       }
       if(jumpCool>0) jumpCool--;
-      else if(jump) {
-        corePlayer.point.vel.y=corePlayer.pw.settings.jumpForce*jumpForceMult*.5f;
-        jumpCool=2;
-        jumpHeight=-corePlayer.point.vel.y;
+      else {
+        if(jump) {
+          corePlayer.point.vel.y=corePlayer.pw.settings.jumpForce*jumpForceMult*.5f;
+          jumpCool=2;
+          jumpHeight=-corePlayer.point.vel.y;
+        }
       }
     }
   }

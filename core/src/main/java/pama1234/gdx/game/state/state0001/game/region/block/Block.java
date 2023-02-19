@@ -7,6 +7,7 @@ import pama1234.gdx.game.state.state0001.game.entity.entity0001.DroppedItem;
 import pama1234.gdx.game.state.state0001.game.item.DisplaySlot;
 import pama1234.gdx.game.state.state0001.game.item.Item.ItemSlot;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
+import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock.FullBlockType;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock.ItemDropAttr;
 import pama1234.gdx.game.state.state0001.game.region.PathVarLighting;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
@@ -80,6 +81,9 @@ public class Block{
   }
   public static boolean isNotFullBlock(Block in) {
     return in==null||in.type==null||in.type.empty||!in.type.fullBlock;//TODO
+  }
+  public static boolean isNotFullBlockFloor(Block in) {
+    return in==null||in.type==null||((in.type.empty||!in.type.fullBlock)&&in.type.fullBlockType!=FullBlockType.platformType);//TODO
   }
   public static boolean isFullBlockOrNull(Block in) {
     return in==null||!(in.type==null||in.type.empty||!in.type.fullBlock);

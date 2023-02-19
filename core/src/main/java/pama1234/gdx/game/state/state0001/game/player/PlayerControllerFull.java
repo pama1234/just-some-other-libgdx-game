@@ -113,6 +113,7 @@ public class PlayerControllerFull extends PlayerControllerCore{
     left=ControlBindUtil.isKeyPressed(ControlBindUtil.moveLeft,f);
     right=ControlBindUtil.isKeyPressed(ControlBindUtil.moveRight,f);
     jump=ControlBindUtil.isKeyPressed(ControlBindUtil.jumpUp,f);
+    jumpDown=ControlBindUtil.isKeyPressed(ControlBindUtil.jumpDown,f);
   }
   @Override
   public void touchStarted(TouchInfo info) {

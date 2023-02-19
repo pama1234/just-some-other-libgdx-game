@@ -18,6 +18,7 @@ public class WoodPlatform extends MetaBlock{
     blockType=woodType;
     destroyTime=10;
     buildTime=5;
+    fullBlock=false;
     fullBlockType=FullBlockType.platformType;
     initLambda();
   }

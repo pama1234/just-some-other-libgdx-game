@@ -16,7 +16,7 @@ public class ControlBindUtil{
     {Keys.W,Keys.UP},
     {Keys.S,Keys.DOWN},
     {Keys.SPACE},
-    {Keys.SHIFT_LEFT,Keys.SHIFT_RIGHT},
+    {Keys.SHIFT_LEFT,Keys.SHIFT_RIGHT,Keys.S,Keys.DOWN},
     {Keys.NUM_1},
     {Keys.NUM_2},
     {Keys.NUM_3},

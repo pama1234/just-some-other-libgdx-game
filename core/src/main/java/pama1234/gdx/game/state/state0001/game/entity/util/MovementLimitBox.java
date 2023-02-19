@@ -6,6 +6,7 @@ import pama1234.gdx.game.util.RectF;
 
 public class MovementLimitBox extends OuterBox{
   public boolean inAir;
+  public boolean usePlatform;
   public float ceiling,floor,leftWall,rightWall;
   public RectF rectConst;
   public MovementLimitBox(LivingEntity p) {
@@ -39,7 +40,7 @@ public class MovementLimitBox extends OuterBox{
     if(testCeiling(0,w)) doCeiling(bh,y1);
     else clearCeiling(bh);
     //---
-    if(testFloor(0,w)) doFloor(bh,y2);
+    if(usePlatform?testFloorPlatform(0,w):testFloor(0,w)) doFloor(bh,y2);
     else clearFloor(bh);
     //---
     if(testLeft(0,h)) doLeft(bw,x1);
@@ -128,6 +129,10 @@ public class MovementLimitBox extends OuterBox{
   }
   public boolean testFloor(int a,int b) {
     for(int i=a;i<=b;i++) if(!Block.isNotFullBlock(p.getBlock(x1+i,y2+1))) return true;
+    return false;
+  }
+  public boolean testFloorPlatform(int a,int b) {
+    for(int i=a;i<=b;i++) if(!Block.isNotFullBlockFloor(p.getBlock(x1+i,y2+1))) return true;
     return false;
   }
   public boolean testCeiling(int a,int b) {

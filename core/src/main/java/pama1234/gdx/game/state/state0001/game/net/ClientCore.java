@@ -107,6 +107,7 @@ public class ClientCore{
       if(a||b||c) {
         // System.out.println("ClientCore.ClientWrite.execute()");
         putPlayerCtrl(a,b,c);
+        output.flush();
         left=ctrl.left;
         right=ctrl.right;
         jump=ctrl.jump;
@@ -118,7 +119,6 @@ public class ClientCore{
       output.writeBoolean(a);
       output.writeBoolean(b);
       output.writeBoolean(c);
-      output.flush();
     }
   }
 }
