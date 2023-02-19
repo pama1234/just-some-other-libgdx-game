@@ -76,8 +76,8 @@ public class ClientCore{
   public static class ClientWrite extends Thread{
     public ClientCore p;
     public Output output;
-    public int sleep=-1;
-    // public boolean left,right,jump;
+    public int sleep=0;
+    public boolean left,right,jump;
     public ClientWrite(ClientCore p) {
       this.p=p;
       output=new Output(p.socketData.o);
@@ -85,6 +85,7 @@ public class ClientCore{
     @Override
     public void run() {
       try {
+        connect();
         while(!p.stop) {
           execute();
           if(sleep>=0) sleep(sleep);
@@ -92,31 +93,31 @@ public class ClientCore{
       }catch(RuntimeException|InterruptedException e) {
         e.printStackTrace();
         p.stop=true;
+      }finally {
+        disconnect();
       }
     }
+    public void connect() {}
     public void execute() {
-      // boolean flag=false;
-      // PlayerControllerCore ctrl=p.world.yourself.ctrl;
-      // if(left!=ctrl.left) {
-      //   left=ctrl.left;
-      //   flag=true;
-      // }
-      // if(right!=ctrl.right) {
-      //   right=ctrl.right;
-      //   flag=true;
-      // }
-      // if(jump!=ctrl.jump) {
-      //   jump=ctrl.jump;
-      //   flag=true;
-      // }
-      // if(flag) 
-      putPlayerCtrl();
-    }
-    public void putPlayerCtrl() {
       PlayerControllerCore ctrl=p.world.yourself.ctrl;
-      output.writeBoolean(ctrl.left);
-      output.writeBoolean(ctrl.right);
-      output.writeBoolean(ctrl.jump);
+      boolean a=left!=ctrl.left;
+      boolean b=right!=ctrl.right;
+      boolean c=jump!=ctrl.jump;
+      // System.out.println(a+" "+b+" "+c);
+      if(a||b||c) {
+        // System.out.println("ClientCore.ClientWrite.execute()");
+        putPlayerCtrl(a,b,c);
+        left=ctrl.left;
+        right=ctrl.right;
+        jump=ctrl.jump;
+      }
+    }
+    public void disconnect() {}
+    public void putPlayerCtrl(boolean a,boolean b,boolean c) {
+      // PlayerControllerCore ctrl=p.world.yourself.ctrl;
+      output.writeBoolean(a);
+      output.writeBoolean(b);
+      output.writeBoolean(c);
       output.flush();
     }
   }

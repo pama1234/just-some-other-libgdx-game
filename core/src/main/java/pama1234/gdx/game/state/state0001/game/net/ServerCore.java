@@ -88,10 +88,11 @@ public class ServerCore{
       }catch(RuntimeException|InterruptedException e) {
         e.printStackTrace();
         p.stop=true;
+      }finally {
+        link.socketData.dispose();
+        p.serverWritePool.remove.add(this);
+        disconnect();
       }
-      link.socketData.dispose();
-      p.serverWritePool.remove.add(this);
-      disconnect();
     }
     public void connect() {
       p.world.entities.players.add.add(link.player);
@@ -118,27 +119,28 @@ public class ServerCore{
     }
     @Override
     public void run() {
-      connect();
       try {
+        connect();
         while(!p.stop) execute();
       }catch(RuntimeException e) {
         e.printStackTrace();
         p.stop=true;
+      }finally {
+        link.socketData.dispose();
+        p.serverReadPool.remove.add(this);
+        disconnect();
       }
-      link.socketData.dispose();
-      p.serverReadPool.remove.add(this);
-      disconnect();
     }
     public void connect() {}
     public void execute() {
-      skip(3);
+      // skip(3);
       PlayerControllerCore ctrlCore=link.player.ctrlCore;
-      ctrlCore.left=input.readBoolean();
-      ctrlCore.right=input.readBoolean();
-      ctrlCore.jump=input.readBoolean();
-      // if(input.readBoolean()) ctrlCore.left=!ctrlCore.left;
-      // if(input.readBoolean()) ctrlCore.right=!ctrlCore.right;
-      // if(input.readBoolean()) ctrlCore.jump=!ctrlCore.jump;
+      // ctrlCore.left=input.readBoolean();
+      // ctrlCore.right=input.readBoolean();
+      // ctrlCore.jump=input.readBoolean();
+      if(input.readBoolean()) ctrlCore.left=!ctrlCore.left;
+      if(input.readBoolean()) ctrlCore.right=!ctrlCore.right;
+      if(input.readBoolean()) ctrlCore.jump=!ctrlCore.jump;
     }
     public void disconnect() {}
     public void skip(int in) {
