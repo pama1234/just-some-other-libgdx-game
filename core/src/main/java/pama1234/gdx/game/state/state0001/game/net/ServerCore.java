@@ -95,6 +95,7 @@ public class ServerCore{
     }
     public void connect() {
       p.world.entities.players.add.add(link.player);
+      sleep=50;
     }
     public void execute() {
       MassPoint point=link.player.point;

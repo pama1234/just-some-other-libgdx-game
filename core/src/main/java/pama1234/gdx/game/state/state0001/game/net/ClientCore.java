@@ -60,8 +60,8 @@ public class ClientCore{
       skip(8);
       float x=input.readFloat(),y=input.readFloat();
       Point point=p.world.yourself.point;
-      // if(point.pos.dist(x,y)>36) point.pos.set(x,y);
-      point.pos.set(x,y);
+      if(point.pos.dist(x,y)>36) point.pos.set(x,y);
+      // point.pos.set(x,y);
     }
     public void skip(int in) {
       try {
@@ -77,7 +77,7 @@ public class ClientCore{
     public ClientCore p;
     public Output output;
     public int sleep=-1;
-    public boolean left,right,jump;
+    // public boolean left,right,jump;
     public ClientWrite(ClientCore p) {
       this.p=p;
       output=new Output(p.socketData.o);
@@ -95,21 +95,22 @@ public class ClientCore{
       }
     }
     public void execute() {
-      boolean flag=false;
-      PlayerControllerCore ctrl=p.world.yourself.ctrl;
-      if(left!=ctrl.left) {
-        left=ctrl.left;
-        flag=true;
-      }
-      if(right!=ctrl.right) {
-        right=ctrl.right;
-        flag=true;
-      }
-      if(jump!=ctrl.jump) {
-        jump=ctrl.jump;
-        flag=true;
-      }
-      if(flag) putPlayerCtrl();
+      // boolean flag=false;
+      // PlayerControllerCore ctrl=p.world.yourself.ctrl;
+      // if(left!=ctrl.left) {
+      //   left=ctrl.left;
+      //   flag=true;
+      // }
+      // if(right!=ctrl.right) {
+      //   right=ctrl.right;
+      //   flag=true;
+      // }
+      // if(jump!=ctrl.jump) {
+      //   jump=ctrl.jump;
+      //   flag=true;
+      // }
+      // if(flag) 
+      putPlayerCtrl();
     }
     public void putPlayerCtrl() {
       PlayerControllerCore ctrl=p.world.yourself.ctrl;
