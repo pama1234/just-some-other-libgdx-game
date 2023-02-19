@@ -11,7 +11,6 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlock
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaCreatureCenter0001;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemCenter0001;
 import pama1234.gdx.game.state.state0001.game.player.Player.PlayerType;
-import pama1234.gdx.game.state.state0001.game.region.block.WoodPlank;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Dirt;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Sapling;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Stone;
@@ -19,6 +18,8 @@ import pama1234.gdx.game.state.state0001.game.region.block.block0001.Torch;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.TreeBranch;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.TreeLeaf;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.TreeLog;
+import pama1234.gdx.game.state.state0001.game.region.block.block0001.WoodPlank;
+import pama1234.gdx.game.state.state0001.game.region.block.block0001.WoodPlatform;
 import pama1234.gdx.game.state.state0001.game.region.block.workstation.Workbench;
 
 public class World0001Generator{
@@ -34,6 +35,7 @@ public class World0001Generator{
     metaBlocks.list.add(metaBlocks.sapling=new Sapling(metaBlocks,metaBlocks.id()));
     metaBlocks.list.add(metaBlocks.torch=new Torch(metaBlocks,metaBlocks.id()));
     metaBlocks.list.add(metaBlocks.woodPlank=new WoodPlank(metaBlocks,metaBlocks.id()));
+    metaBlocks.list.add(metaBlocks.woodPlatform=new WoodPlatform(metaBlocks,metaBlocks.id()));
     return metaBlocks;
   }
   public static MetaItemCenter0001 createItemC(World0001 pw) {
@@ -112,6 +114,11 @@ public class World0001Generator{
       in.blockType=pw.metaBlocks.woodPlank;
       in.tiles=new TextureRegion[1];
       in.tiles[0]=ImageAsset.items[3][0];
+    }));
+    metaItems.list.add(metaItems.woodPlatform=new MetaItem(metaItems,"wood-platform",metaItems.id(),in-> {
+      in.blockType=pw.metaBlocks.woodPlatform;
+      in.tiles=new TextureRegion[1];
+      in.tiles[0]=ImageAsset.items[3][2];
     }));
     return metaItems;
   }
