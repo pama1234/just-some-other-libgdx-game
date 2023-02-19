@@ -99,6 +99,7 @@ public class ServerCore{
       MassPoint point=link.player.point;
       output.writeFloat(point.pos.x);
       output.writeFloat(point.pos.y);
+      output.flush();
     }
     public void disconnect() {
       p.world.entities.players.remove.add(link.player);

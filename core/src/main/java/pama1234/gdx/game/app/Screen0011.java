@@ -11,6 +11,7 @@ import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Peripheral;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.profiling.GLProfiler;
 import com.esotericsoftware.kryo.Kryo;
 
 import pama1234.gdx.game.asset.MusicAsset;
@@ -62,6 +63,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   public State0001 state;
   public boolean firstRun;
   //---
+  public GLProfiler profiler;
   public long renderTime,updateTime;
   public float debugTextX,debugTextY,debugTextH,debugTextCountY;
   //---
@@ -74,6 +76,8 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   public Screen0011() {
     loadSettings();
     if(settings.overridePlatform) isAndroid=settings.isAndroid;
+    profiler=new GLProfiler(Gdx.graphics);
+    profiler.enable();
   }
   @Override
   public void setup() {
@@ -214,8 +218,10 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
       debugText("Render   ="+getMillisString(renderTime)+"ms");
       debugText("Update   ="+getMillisString(updateTime)+"ms");
       debugText("CamScale ="+getFloatString(cam2d.scale.pos));
+      debugText("DrawCalls="+getMillisString(profiler.getDrawCalls(),5));
       textScale(pus);
     }
+    profiler.reset();
     if(cam.grabCursor) {
       withCam();
       drawCursor();

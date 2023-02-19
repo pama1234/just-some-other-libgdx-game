@@ -96,6 +96,7 @@ public class ClientCore{
       output.writeBoolean(p.world.yourself.ctrl.left);
       output.writeBoolean(p.world.yourself.ctrl.right);
       output.writeBoolean(p.world.yourself.ctrl.jump);
+      output.flush();
     }
   }
 }
