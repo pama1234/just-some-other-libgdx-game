@@ -39,6 +39,7 @@ public class SettingsUtil{
         self->self.text="音量 "+String.format("%6.2f",p.settings.volume*100),()->18,()->0,()->20,1),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.debugInfo=!p.settings.debugInfo;
+        p.debugInfoChange(p.settings.debugInfo);
         Game game=(Game)State0001.Game.entity;
         if(game.debug=p.settings.debugInfo) game.createDebugDisplay();
         self.updateText();

@@ -76,8 +76,15 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   public Screen0011() {
     loadSettings();
     if(settings.overridePlatform) isAndroid=settings.isAndroid;
-    profiler=new GLProfiler(Gdx.graphics);
-    profiler.enable();
+    // profiler=new GLProfiler(Gdx.graphics);
+  }
+  public void debugInfoChange(boolean in) {
+    if(in) {
+      if(profiler==null) profiler=new GLProfiler(Gdx.graphics);
+      profiler.enable();
+    }else {
+      if(profiler!=null) profiler.disable();
+    }
   }
   @Override
   public void setup() {
@@ -102,6 +109,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     Game game=(Game)State0001.Game.entity;
     if(game.debug=settings.debugInfo) game.createDebugDisplay();
     refreshLocalHost();
+    debugInfoChange(settings.debugInfo);
   }
   public void refreshLocalHost() {
     try {
@@ -220,8 +228,8 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
       debugText("CamScale ="+getFloatString(cam2d.scale.pos));
       debugText("DrawCalls="+getMillisString(profiler.getDrawCalls(),5));
       textScale(pus);
+      profiler.reset();
     }
-    profiler.reset();
     if(cam.grabCursor) {
       withCam();
       drawCursor();
