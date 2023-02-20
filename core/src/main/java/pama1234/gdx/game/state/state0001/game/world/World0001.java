@@ -86,10 +86,12 @@ public class World0001 extends WorldBase2D{
     for(MetaItem e:metaItems.list) e.init();
     for(MetaCreature<?> e:metaEntitys.list) e.init();
     for(int i=0;i<background.background0001.list.size();i++) background.background0001.list.get(i).setTexture(ImageAsset.backgroundList[4-i]);
+    // if(pg.netMode!=NetMode.client) {
     Gdx.files.local(dir()+"regions/").mkdirs();//TODO
     regions.load();
     yourself.load();
     yourself.init();
+    // }
   }
   @Override
   public void from(State0001 in) {
@@ -114,7 +116,7 @@ public class World0001 extends WorldBase2D{
   }
   @Override
   public void resume() {
-    if(p.isAndroid) {
+    if(p.isAndroid&&pg.netMode!=NetMode.client) {
       regions.load();
       yourself.load();
     }
@@ -176,27 +178,32 @@ public class World0001 extends WorldBase2D{
     if(block.xOff!=0||block.yOff!=0) placeBlock(
       block.origin==null?getBlock(x-block.xOff,y-block.yOff):block.origin,metaBlocks.air,x-block.xOff,y-block.yOff);
     block.doItemDrop(p,x,y,in.empty);
-    removeOffBlock(x,y,block.type);
-    putOffBlock(block,in,x,y);
+    removeIfOffBlock(block,block.type,x,y);
+    putIfOffBlock(block,in,x,y);
     block.type(in);
   }
-  public void removeOffBlock(int x,int y,MetaBlock type) {
+  public void removeIfOffBlock(Block block,MetaBlock type,int x,int y) {
     if(type!=null&&(type.width>1||type.height>1)) {
       for(int i=0;i<type.width;i++) for(int j=0;j<type.height;j++) {
         int tx=x+i,
           ty=y+j;
         Block blockOff=getBlock(tx,ty);
+        // if(block.xOff!=0||block.yOff!=0) removeIfOffBlock(blockOff,blockOff.type,tx-block.xOff,ty-block.yOff);
         blockOff.type(metaBlocks.air);
         blockOff.clearOrigin();
       }
     }
   }
-  public void putOffBlock(Block block,MetaBlock type,int x,int y) {
+  public void putIfOffBlock(Block block,MetaBlock type,int x,int y) {
     if(type!=null&&(type.width>1||type.height>1)) {
       for(int i=0;i<type.width;i++) for(int j=0;j<type.height;j++) {
         int tx=x+i,
           ty=y+j;
         Block blockOff=getBlock(tx,ty);
+        // if(block.xOff!=0||block.yOff!=0) removeIfOffBlock(
+        //   blockOff.origin==null?getBlock(x-blockOff.xOff,y-blockOff.yOff):blockOff.origin,
+        //   blockOff.type,tx-block.xOff,ty-block.yOff);
+        // else 
         blockOff.doItemDrop(p,tx,ty,type.empty);
         blockOff.type(type);
         blockOff.origin(block,i,j);

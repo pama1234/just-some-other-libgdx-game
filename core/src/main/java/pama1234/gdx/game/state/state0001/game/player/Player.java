@@ -16,7 +16,7 @@ public class Player extends TextureLivingEntity{
   public PlayerControllerCore ctrlCore;
   public String name;
   public float nameWidth;
-  @Tag(3)
+  @Tag(4)
   public Inventory inventory;
   public Player(Screen0011 p,World0001 pw,float x,float y,PlayerType type) {
     super(p,pw,x,y,type);

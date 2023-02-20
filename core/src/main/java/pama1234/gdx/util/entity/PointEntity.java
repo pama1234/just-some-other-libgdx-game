@@ -1,9 +1,12 @@
 package pama1234.gdx.util.entity;
 
+import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
+
 import pama1234.gdx.util.app.UtilScreen;
 import pama1234.math.physics.Point;
 
 public abstract class PointEntity<T extends UtilScreen,P extends Point>extends Entity<T>{
+  @Tag(0)
   public final P point;
   public PointEntity(T p,P in) {
     super(p);

@@ -7,6 +7,7 @@ import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.KryoUtil;
+import pama1234.gdx.game.state.state0001.game.entity.GamePointEntity;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.region.Chunk.BlockData;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
@@ -20,6 +21,7 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
   public int x,y;
   @Tag(0)
   public Chunk[][] data;
+  public GamePointEntity<?>[] entities;
   public boolean keep;//用于测试是否需要加载卸载
   public Region() {//只能用于kryo
     super(null);

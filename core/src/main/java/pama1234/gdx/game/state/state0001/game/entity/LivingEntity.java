@@ -18,12 +18,12 @@ public class LivingEntity extends GamePointEntity<MassPoint>{
   //---
   public OuterBox outerBox;
   //---
-  @Tag(0)
+  @Tag(1)
   public GameMode gameMode=GameMode.survival;
   public MetaCreature<?> type;
-  @Tag(1)
-  public int typeId;
   @Tag(2)
+  public int typeId;
+  @Tag(3)
   public PathVar life;
   public PathVarLighting light;
   public LivingEntity(Screen0011 p,World0001 pw,MassPoint in,MetaCreature<?> type) {
