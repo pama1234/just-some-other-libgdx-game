@@ -173,47 +173,41 @@ public class World0001 extends WorldBase2D{
     placeBlock(block,in,x,y);
   }
   public void placeBlock(Block block,MetaBlock in,int x,int y) {
-    // updateRectLighting(x,y);
     if(block.xOff!=0||block.yOff!=0) placeBlock(
       block.origin==null?getBlock(x-block.xOff,y-block.yOff):block.origin,metaBlocks.air,x-block.xOff,y-block.yOff);
     block.doItemDrop(p,x,y,in.empty);
-    // if(random(1)>0) throw new RuntimeException("1234");
-    // System.out.println(block.type+" "+block.type.width+" "+block.type.height);
-    MetaBlock type=block.type;
+    removeOffBlock(x,y,block.type);
+    putOffBlock(block,in,x,y);
+    block.type(in);
+  }
+  public void removeOffBlock(int x,int y,MetaBlock type) {
     if(type!=null&&(type.width>1||type.height>1)) {
       for(int i=0;i<type.width;i++) for(int j=0;j<type.height;j++) {
-        // System.out.println(i+" "+j);
         int tx=x+i,
           ty=y+j;
         Block blockOff=getBlock(tx,ty);
-        // destroyBlock(blockOff,x+i,y+j);
-        // System.out.println(blockOff.type.itemDrop);
-        // blockOff.doItemDrop(p,tx,ty,in.empty);
         blockOff.type(metaBlocks.air);
         blockOff.clearOrigin();
       }
     }
-    if(in!=null&&(in.width>1||in.height>1)) {
-      for(int i=0;i<in.width;i++) for(int j=0;j<in.height;j++) {
+  }
+  public void putOffBlock(Block block,MetaBlock type,int x,int y) {
+    if(type!=null&&(type.width>1||type.height>1)) {
+      for(int i=0;i<type.width;i++) for(int j=0;j<type.height;j++) {
         int tx=x+i,
           ty=y+j;
         Block blockOff=getBlock(tx,ty);
-        blockOff.doItemDrop(p,tx,ty,in.empty);
-        blockOff.type(in);
+        blockOff.doItemDrop(p,tx,ty,type.empty);
+        blockOff.type(type);
         blockOff.origin(block,i,j);
       }
     }
-    block.type(in);
   }
   public void setBlock(Block block,MetaBlock in,int x,int y) {
     block.type(in);
-    // block.type.updateDisplay(block,x,y);
-    // updateRectLighting(x,y);
   }
   public void setBlock(MetaBlock in,int x,int y) {
     setBlock(getBlock(x,y),in,x,y);
-    // if(block!=null) block.type(in);
-    // else System.err.println("World0001.setBlock() "+x+" "+y+" block==null");
   }
   @Deprecated
   public void updateRectLighting(int x,int y) {
