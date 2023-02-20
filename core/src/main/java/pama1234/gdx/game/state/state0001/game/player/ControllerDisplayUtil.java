@@ -5,6 +5,7 @@ import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.GameDisplayUtil;
 import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
 import pama1234.gdx.game.state.state0001.game.item.Item;
+import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.player.ControllerUtil.ControllerBlockPointer;
 import pama1234.math.UtilMath;
 
@@ -20,17 +21,21 @@ public class ControllerDisplayUtil{
     p.noTint();
   }
   public static void drawSelectBlock(Screen0011 p,ControllerBlockPointer selectBlock,float tw,float th) {
+    MetaBlock type=selectBlock.block==null?null:selectBlock.block.type;
     switch(selectBlock.task) {
       case BlockPointer.idle: {
         p.beginBlend();
         p.fill(127,127);
-        GameDisplayUtil.boxStroke(p,1,selectBlock.x*tw,selectBlock.y*th,tw,th);
+        if(type!=null) GameDisplayUtil.boxStroke(p,1,
+          (selectBlock.x-selectBlock.block.xOff)*tw,
+          (selectBlock.y-selectBlock.block.yOff)*th,tw*type.width,th*type.height);
+        else GameDisplayUtil.boxStroke(p,1,selectBlock.x*tw,selectBlock.y*th,tw,th);
         p.endBlend();
       }
         break;
       case BlockPointer.destroy: {
         p.tint(255,191);
-        p.image(ImageAsset.tiles[20][(int)UtilMath.map(selectBlock.progress,0,selectBlock.block.type.destroyTime,0,7)],selectBlock.x*tw,selectBlock.y*th);
+        p.image(ImageAsset.tiles[20][(int)UtilMath.map(selectBlock.progress,0,type.destroyTime,0,7)],selectBlock.x*tw,selectBlock.y*th);
       }
         break;
       case BlockPointer.build: {
@@ -39,7 +44,7 @@ public class ControllerDisplayUtil{
           p.tint(255,191);
           p.image(
             ImageAsset.tiles[21][(int)UtilMath.map(selectBlock.progress,
-              0,ti.type.blockType.buildTime+selectBlock.block.type.destroyTime,0,7)],
+              0,ti.type.blockType.buildTime+type.destroyTime,0,7)],
             selectBlock.x*tw,selectBlock.y*th);
         }
       }
@@ -72,21 +77,29 @@ public class ControllerDisplayUtil{
     }
   }
   public static void drawSelectBlockTouchScreen(Screen0011 p,ControllerBlockPointer selectBlock,float tw,float th,float scale) {
+    MetaBlock type=selectBlock.block==null?null:selectBlock.block.type;
     if(selectBlock.task!=BlockPointer.use) {
       float tr=scale<1?2:2/scale;
       float tf=2/scale;
       p.beginBlend();
-      p.fill(127,191);
-      boxTwoLine(p,tr,selectBlock.x*tw,(selectBlock.y-tf)*th,tw,(1+tf*2)*th,false);
-      p.fill(127,191);
-      boxTwoLine(p,tr,(selectBlock.x-tf)*tw,selectBlock.y*th,(1+tf*2)*tw,th,true);
+      if(type!=null) {
+        p.fill(127,191);
+        boxTwoLine(p,tr,(selectBlock.x-selectBlock.block.xOff)*tw,(selectBlock.y-selectBlock.block.yOff-tf)*th,tw*type.width,(tf*2+type.height)*th,false);
+        p.fill(127,191);
+        boxTwoLine(p,tr,(selectBlock.x-selectBlock.block.xOff-tf)*tw,(selectBlock.y-selectBlock.block.yOff)*th,(tf*2+type.width)*tw,th*type.height,true);
+      }else {
+        p.fill(127,191);
+        boxTwoLine(p,tr,selectBlock.x*tw,(selectBlock.y-tf)*th,tw,(1+tf*2)*th,false);
+        p.fill(127,191);
+        boxTwoLine(p,tr,(selectBlock.x-tf)*tw,selectBlock.y*th,(1+tf*2)*tw,th,true);
+      }
       p.endBlend();
     }
     float tf_2=0.8f/scale;
     switch(selectBlock.task) {
       case BlockPointer.destroy: {
         p.tint(255,191);
-        p.image(ImageAsset.tiles[20][(int)UtilMath.map(selectBlock.progress,0,selectBlock.block.type.destroyTime,0,7)],
+        p.image(ImageAsset.tiles[20][(int)UtilMath.map(selectBlock.progress,0,type.destroyTime,0,7)],
           (selectBlock.x-tf_2)*tw,(selectBlock.y-tf_2)*th,(1+tf_2*2)*tw,(1+tf_2*2)*th);
       }
         break;
@@ -96,7 +109,7 @@ public class ControllerDisplayUtil{
           p.tint(255,191);
           p.image(
             ImageAsset.tiles[21][(int)UtilMath.map(selectBlock.progress,
-              0,ti.type.blockType.buildTime+selectBlock.block.type.destroyTime,0,7)],
+              0,ti.type.blockType.buildTime+type.destroyTime,0,7)],
             (selectBlock.x-tf_2)*tw,(selectBlock.y-tf_2)*th,(1+tf_2*2)*tw,(1+tf_2*2)*th);
         }
       }
