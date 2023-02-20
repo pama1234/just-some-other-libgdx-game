@@ -6,7 +6,6 @@ import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
-import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.math.UtilMath;
 
 public class Sapling extends MetaBlock{
@@ -39,19 +38,19 @@ public class Sapling extends MetaBlock{
     if(in.intData==null) in.intData=new int[1];
   }
   public void initSaplingLambda() {
-    updater=(in,x,y)-> {
-      lightUpdater.update(in,x,y);
+    updater=(world,in,x,y)-> {
+      lightUpdater.update(world,in,x,y);
       if(in.intData[0]<200) {
         in.intData[0]+=1;
         if(in.intData[0]==1) {
-          World0001 world=pc.pw;
+          // World0001 world=pc.pw;
           Block tb=world.getBlock(x,y+1);
           if(tb!=null&&tb.type!=pc.dirt) world.destroyBlock(in,x,y);
         }
       }else {
         // if(pc.pw.data.tick%2==0) return;
         in.intData[0]=0;
-        World0001 world=pc.pw;
+        // World0001 world=pc.pw;
         int th=4+UtilMath.floor(world.random(12));
         int ty=y-th;
         int n=1+UtilMath.floor(world.random(2));

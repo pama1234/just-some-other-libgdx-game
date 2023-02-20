@@ -5,7 +5,6 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
-import pama1234.gdx.game.state.state0001.game.world.World0001;
 
 public class WoodPlank extends MetaBlock{
   public WoodPlank(MetaBlockCenter0001 pc,int id) {
@@ -63,9 +62,9 @@ public class WoodPlank extends MetaBlock{
   }
   public void initLambda() {
     // updater=lightUpdater;
-    displayUpdater=(in,x,y)-> {
-      fullBlockDisplayUpdater.update(in,x,y);
-      World0001 world=in.type.pc.pw;
+    displayUpdater=(world,in,x,y)-> {
+      fullBlockDisplayUpdater.update(world,in,x,y);
+      // World0001 world=in.type.pc.pw;
       int typeCache=0;
       if(WoodPlatform.isWoodPlatform(pc.woodPlatform,world.getBlock(x-1,y))) typeCache+=2;// left
       if(WoodPlatform.isWoodPlatform(pc.woodPlatform,world.getBlock(x+1,y))) typeCache+=1;// right

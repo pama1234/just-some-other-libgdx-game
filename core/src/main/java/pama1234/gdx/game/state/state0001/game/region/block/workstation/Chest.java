@@ -37,8 +37,8 @@ public class Chest extends MetaBlock{
     initLambda();
   }
   public void initLambda() {
-    updater=(in,x,y)-> {
-      lightUpdater.update(in,x,y);
+    updater=(world,in,x,y)-> {
+      lightUpdater.update(world,in,x,y);
       int tw=pc.pw.settings.blockWidth,
         th=pc.pw.settings.blockHeight;
       // int tx=(in.ui.displaySlot.length-1)/2*tw;

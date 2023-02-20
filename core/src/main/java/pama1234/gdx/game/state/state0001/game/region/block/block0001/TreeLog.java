@@ -6,7 +6,6 @@ import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
-import pama1234.gdx.game.state.state0001.game.world.World0001;
 
 public class TreeLog extends MetaBlock{
   public TreeLog(MetaBlockCenter0001 pc,int id) {
@@ -38,14 +37,14 @@ public class TreeLog extends MetaBlock{
     tiles[4]=tsrc[18][6];
   }
   public void initTreeLogLambda() {
-    updater=(in,x,y)-> {
-      lightUpdater.update(in,x,y);
-      World0001 world=pc.pw;
+    updater=(world,in,x,y)-> {
+      lightUpdater.update(world,in,x,y);
+      // World0001 world=pc.pw;
       Block tb=world.getBlock(x,y+1);
       if(tb!=null&&tb.type!=pc.log&&tb.type!=pc.dirt) world.destroyBlock(in,x,y);
     };
-    displayUpdater=(in,x,y)-> {
-      World0001 world=pc.pw;
+    displayUpdater=(world,in,x,y)-> {
+      // World0001 world=pc.pw;
       int typeCache=0;
       if(isTreeLog(world.getBlock(x,y+1),this)) {// down
         if(isTreeLeaf(world.getBlock(x,y-2),pc.leaf)&&// up 2

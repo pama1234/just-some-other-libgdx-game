@@ -6,7 +6,6 @@ import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
-import pama1234.gdx.game.state.state0001.game.world.World0001;
 
 public class TreeLeaf extends MetaBlock{
   public int maxLogCount=7;
@@ -88,10 +87,10 @@ public class TreeLeaf extends MetaBlock{
     }
   }
   public void initTreeLeafLambda() {
-    updater=(in,x,y)-> {
-      lightUpdater.update(in,x,y);
+    updater=(world,in,x,y)-> {
+      lightUpdater.update(world,in,x,y);
       int[] array=in.intData;
-      World0001 world=pc.pw;
+      // World0001 world=pc.pw;
       if(array[2]<1) {
         if(array[2]%2==0) {
           array[1]=0;
@@ -119,8 +118,8 @@ public class TreeLeaf extends MetaBlock{
         }
       }
     };
-    displayUpdater=(in,x,y)-> {
-      World0001 world=in.type.pc.pw;
+    displayUpdater=(world,in,x,y)-> {
+      // World0001 world=in.type.pc.pw;
       int typeCache=0;
       if(!TreeLog.isTreeLeaf(world.getBlock(x,y-1),this)) typeCache+=1;// up
       if(!TreeLog.isTreeLeaf(world.getBlock(x,y+1),this)) typeCache+=2;// down

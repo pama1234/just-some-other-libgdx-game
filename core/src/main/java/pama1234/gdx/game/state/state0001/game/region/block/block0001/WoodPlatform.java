@@ -6,7 +6,6 @@ import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
-import pama1234.gdx.game.state.state0001.game.world.World0001;
 
 public class WoodPlatform extends MetaBlock{
   public WoodPlatform(MetaBlockCenter0001 pc,int id) {
@@ -38,8 +37,8 @@ public class WoodPlatform extends MetaBlock{
   }
   public void initLambda() {
     // updater=lightUpdater;
-    displayUpdater=(in,x,y)-> {
-      World0001 world=in.type.pc.pw;
+    displayUpdater=(world,in,x,y)-> {
+      // World0001 world=in.type.pc.pw;
       int typeCache=0;
       if(isPlatformOrPlank(pc.woodPlank,world.getBlock(x+1,y))) typeCache+=1;
       if(isPlatformOrPlank(pc.woodPlank,world.getBlock(x-1,y))) typeCache+=2;
@@ -47,7 +46,7 @@ public class WoodPlatform extends MetaBlock{
       // else if(typeCache==2) typeCache=3;
       in.displayType[0]=typeCache;
       //---
-      defaultDisplayUpdater.update(in,x,y);
+      defaultDisplayUpdater.update(world,in,x,y);
       // in.light.update();
     };
   }

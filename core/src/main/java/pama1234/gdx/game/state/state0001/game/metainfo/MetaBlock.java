@@ -74,11 +74,11 @@ public class MetaBlock extends MetaInfoBase{
   }
   @Override
   public void init() {}
-  public void update(Block in,int x,int y) {
-    if(updater!=null) updater.update(in,x,y);
+  public void update(World0001 world,Block in,int x,int y) {
+    if(updater!=null) updater.update(world,in,x,y);
   }
-  public void updateDisplay(Block in,int x,int y) {
-    displayUpdater.update(in,x,y);
+  public void updateDisplay(World0001 world,Block in,int x,int y) {
+    displayUpdater.update(world,in,x,y);
   }
   public void display(TilemapRenderer r,Screen0011 p,Block in,int x,int y) {
     // p.image(tiles[in.displayType],x,y,pc.pw.blockWidth+0.01f,pc.pw.blockHeight+0.01f);
@@ -121,7 +121,7 @@ public class MetaBlock extends MetaInfoBase{
   }
   @FunctionalInterface
   public interface BlockUpdater{
-    void update(Block in,int x,int y);
+    void update(World0001 world,Block in,int x,int y);
   }
   @FunctionalInterface
   public interface BlockDisplayer{
@@ -139,11 +139,11 @@ public class MetaBlock extends MetaInfoBase{
     public void begin();
     public void end();
   }
-  public static final BlockUpdater doNothing=(in,x,y)-> {},lightUpdater=(in,x,y)-> {
+  public static final BlockUpdater doNothing=(w,in,x,y)-> {},lightUpdater=(w,in,x,y)-> {
     in.light.update();
   };
-  public static final BlockUpdater fullBlockDisplayUpdater=(in,x,y)-> {
-    World0001 world=in.type.pc.pw;
+  public static final BlockUpdater fullBlockDisplayUpdater=(world,in,x,y)-> {
+    // World0001 world=world;
     int typeCache=0;
     if(isNotFullBlockOrNotSameType(in,world.getBlock(x,y-1))) typeCache+=1;// up
     if(isNotFullBlockOrNotSameType(in,world.getBlock(x,y+1))) typeCache+=2;// down
@@ -169,7 +169,7 @@ public class MetaBlock extends MetaInfoBase{
     //---
     if(in.updateLighting) lightingUpdate(in,x,y,world);
     // in.light.update();
-  },defaultDisplayUpdater=(in,x,y)-> {
+  },defaultDisplayUpdater=(world,in,x,y)-> {
     if(in.updateLighting) lightingUpdate(in,x,y,in.type.pc.pw);
     // in.light.update();
   };

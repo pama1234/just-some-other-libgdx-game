@@ -6,7 +6,6 @@ import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
-import pama1234.gdx.game.state.state0001.game.world.World0001;
 
 public class TreeBranch extends MetaBlock{
   public TreeBranch(MetaBlockCenter0001 pc,int id) {
@@ -36,8 +35,8 @@ public class TreeBranch extends MetaBlock{
   }
   public void initTreeBranchLambda() {
     // updater=lightUpdater;
-    displayUpdater=(in,x,y)-> {
-      World0001 world=in.type.pc.pw;
+    displayUpdater=(world,in,x,y)-> {
+      // World0001 world=in.type.pc.pw;
       int typeCache=0;
       if(TreeLog.isTreeLeaf(world.getBlock(x,y-1),pc.leaf)) typeCache+=1;// up
       boolean flag_1=isBranchExtend(world.getBlock(x-1,y),this,pc.log);// left

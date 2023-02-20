@@ -25,6 +25,9 @@ public class Chunk{
   public static class BlockData{
     @Tag(0)
     public Block block;
+    // public Block[] blockArray;
+    // public Block blockEnd;
+    public int xOff,yOff;
     // public int biome;
     @Deprecated
     public BlockData() {}//只能用于kryo

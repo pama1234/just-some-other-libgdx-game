@@ -75,7 +75,7 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
         if(blockType==null) continue;
         int tx_3=tx_2+n,
           ty_3=ty_2+m;
-        blockType.update(block,tx_3,ty_3);
+        blockType.update(pr.pw,block,tx_3,ty_3);
       }
     }
   }
@@ -102,7 +102,7 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
           tyi=(ry+j)*pr.chunkHeight+m;
         int tx=txi*pr.pw.settings.blockWidth,
           ty=tyi*pr.pw.settings.blockHeight;
-        blockType.updateDisplay(block,txi,tyi);
+        blockType.updateDisplay(pr.pw,block,txi,tyi);
         if(!blockType.display) continue;
         if(!p.cam2d.boxIntersect(tx,ty,pr.pw.settings.blockWidth,pr.pw.settings.blockHeight)) continue;
         blockType.display(pr.tilemapRenderer,p,block,tx,ty);
@@ -127,7 +127,7 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
         if(blockType==null) continue;
         int tx=tx_2+n,
           ty=ty_2+m;
-        blockType.updateDisplay(block,tx,ty);
+        blockType.updateDisplay(pr.pw,block,tx,ty);
       }
       // p.sleep(sleep);
       try {

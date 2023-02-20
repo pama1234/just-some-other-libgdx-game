@@ -37,16 +37,16 @@ public class Torch extends MetaBlock{
     tiles[3]=tsrc[8][9];
   }
   public void initTorchLambda() {
-    updater=(in,x,y)-> {
-      lightUpdater.update(in,x,y);
+    updater=(world,in,x,y)-> {
+      lightUpdater.update(world,in,x,y);
       if(Block.isFullBlockOrNull(pc.pw.getBlock(x,y+1))) in.intData[0]=0;
       else if(Block.isFullBlockOrNull(pc.pw.getBlock(x-1,y))) in.intData[0]=1;
       else if(Block.isFullBlockOrNull(pc.pw.getBlock(x+1,y))) in.intData[0]=2;
       else if(Block.isFullBlockOrNull(pc.pw.getBlock(x,y-1))) in.intData[0]=3;
       else pc.pw.destroyBlock(in,x,y);
     };
-    displayUpdater=(in,x,y)-> {
-      defaultDisplayUpdater.update(in,x,y);
+    displayUpdater=(world,in,x,y)-> {
+      defaultDisplayUpdater.update(world,in,x,y);
       in.displayType[0]=in.intData[0];
     };
   }
