@@ -78,26 +78,13 @@ public class ControllerDisplayUtil{
   }
   public static void drawSelectBlockTouchScreen(Screen0011 p,ControllerBlockPointer selectBlock,float tw,float th,float scale) {
     MetaBlock type=selectBlock.block==null?null:selectBlock.block.type;
-    if(selectBlock.task!=BlockPointer.use) {
-      float tr=scale<1?2:2/scale;
-      float tf=2/scale;
-      p.beginBlend();
-      if(type!=null) {
-        p.fill(127,191);
-        boxTwoLine(p,tr,(selectBlock.x-selectBlock.block.xOff)*tw,(selectBlock.y-selectBlock.block.yOff-tf)*th,tw*type.width,(tf*2+type.height)*th,false);
-        p.fill(127,191);
-        boxTwoLine(p,tr,(selectBlock.x-selectBlock.block.xOff-tf)*tw,(selectBlock.y-selectBlock.block.yOff)*th,(tf*2+type.width)*tw,th*type.height,true);
-      }else {
-        p.fill(127,191);
-        boxTwoLine(p,tr,selectBlock.x*tw,(selectBlock.y-tf)*th,tw,(1+tf*2)*th,false);
-        p.fill(127,191);
-        boxTwoLine(p,tr,(selectBlock.x-tf)*tw,selectBlock.y*th,(1+tf*2)*tw,th,true);
-      }
-      p.endBlend();
-    }
+    float tr=scale<1?2:2/scale;
+    float tf=2/scale;
+    // if(selectBlock.task!=BlockPointer.use) drawBlockLine(p,selectBlock,tw,th,type,tr,tf);
     float tf_2=0.8f/scale;
     switch(selectBlock.task) {
       case BlockPointer.destroy: {
+        drawBlockLine(p,selectBlock,tw,th,type,tr,tf);
         p.tint(255,191);
         p.image(ImageAsset.tiles[20][(int)UtilMath.map(selectBlock.progress,0,type.destroyTime,0,7)],
           (selectBlock.x-tf_2)*tw,(selectBlock.y-tf_2)*th,(1+tf_2*2)*tw,(1+tf_2*2)*th);
@@ -106,6 +93,7 @@ public class ControllerDisplayUtil{
       case BlockPointer.build: {
         Item ti=selectBlock.slot().item;
         if(ti!=null&&ti.type.blockType!=null) {
+          drawBlockLine(p,selectBlock,tw,th,ti.type.blockType,tr,tf);
           p.tint(255,191);
           p.image(
             ImageAsset.tiles[21][(int)UtilMath.map(selectBlock.progress,
@@ -126,5 +114,22 @@ public class ControllerDisplayUtil{
         break;
     }
     p.noTint();
+  }
+  public static void drawBlockLine(Screen0011 p,ControllerBlockPointer selectBlock,float tw,float th,MetaBlock type,float tr,float tf) {
+    p.beginBlend();
+    if(type!=null) {
+      p.fill(127,191);
+      int xOff=selectBlock.block.xOff;
+      int yOff=selectBlock.block.yOff;
+      boxTwoLine(p,tr,(selectBlock.x-xOff)*tw,(selectBlock.y-yOff-tf)*th,tw*type.width,(tf*2+type.height)*th,false);
+      p.fill(127,191);
+      boxTwoLine(p,tr,(selectBlock.x-xOff-tf)*tw,(selectBlock.y-yOff)*th,(tf*2+type.width)*tw,th*type.height,true);
+    }else {
+      p.fill(127,191);
+      boxTwoLine(p,tr,selectBlock.x*tw,(selectBlock.y-tf)*th,tw,(1+tf*2)*th,false);
+      p.fill(127,191);
+      boxTwoLine(p,tr,(selectBlock.x-tf)*tw,selectBlock.y*th,(1+tf*2)*tw,th,true);
+    }
+    p.endBlend();
   }
 }

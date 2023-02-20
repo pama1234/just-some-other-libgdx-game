@@ -183,16 +183,22 @@ public class World0001 extends WorldBase2D{
     if(type!=null&&(type.width>1||type.height>1)) {
       for(int i=0;i<type.width;i++) for(int j=0;j<type.height;j++) {
         // System.out.println(i+" "+j);
-        Block blockOff=getBlock(x+i,y+j);
+        int tx=x+i,
+          ty=y+j;
+        Block blockOff=getBlock(tx,ty);
         // destroyBlock(blockOff,x+i,y+j);
-        // blockOff.doItemDrop(p,x,y,metaBlocks.air.empty);
+        // System.out.println(blockOff.type.itemDrop);
+        // blockOff.doItemDrop(p,tx,ty,in.empty);
         blockOff.type(metaBlocks.air);
         blockOff.clearOrigin();
       }
     }
     if(in!=null&&(in.width>1||in.height>1)) {
       for(int i=0;i<in.width;i++) for(int j=0;j<in.height;j++) {
-        Block blockOff=getBlock(x+i,y+j);
+        int tx=x+i,
+          ty=y+j;
+        Block blockOff=getBlock(tx,ty);
+        blockOff.doItemDrop(p,tx,ty,in.empty);
         blockOff.type(in);
         blockOff.origin(block,i,j);
       }

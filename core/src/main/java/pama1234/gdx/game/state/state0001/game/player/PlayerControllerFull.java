@@ -227,6 +227,7 @@ public class PlayerControllerFull extends PlayerControllerCore{
   public void testWorkStationUiTouchEnded(TouchInfo info) {
     if(selectBlock.task==BlockPointer.use) {
       BlockUi ui=selectBlock.block.ui;
+      // if(ui==null) return;
       TextButtonCam<?>[] camButton=ui.camButton;
       for(TextButtonCam<?> e:camButton) if(info==e.touch) e.clickEnd();
     }
