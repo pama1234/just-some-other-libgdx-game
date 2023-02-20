@@ -102,11 +102,17 @@ public class PlayerControllerFull extends PlayerControllerCore{
     int tx=player.xToBlockCordInt(p.mouse.x),
       ty=player.xToBlockCordInt(p.mouse.y);
     if(inPlayerOuterBox(tx,ty)) return;
-    if(selectBlock.isInRange(tx,ty)) {
-      selectBlock.active=true;
-      Block block=player.getBlock(tx,ty);
-      selectBlock.update(block,tx,ty);
+    float tr=selectBlock.dist(tx,ty);
+    float maxDist=selectBlock.maxDist;
+    if(tr>maxDist) {
+      float tx_2=(tx-selectBlock.ox)*maxDist/tr;
+      float ty_2=(ty-selectBlock.oy)*maxDist/tr;
+      tx=UtilMath.round(selectBlock.ox+tx_2);
+      ty=UtilMath.round(selectBlock.oy+ty_2);
     }
+    selectBlock.active=true;
+    Block block=player.getBlock(tx,ty);
+    selectBlock.update(block,tx,ty);
   }
   public void updateKeyInfo() {
     GetKeyPressedBoolean f=p::isKeyPressed;
@@ -133,13 +139,19 @@ public class PlayerControllerFull extends PlayerControllerCore{
       return;
     }
     if(updateAndTestSelectEntity(tx,ty,info.button)) return;
-    if(selectBlock.isInRange(tx,ty)) {
-      Block block=player.getBlock(tx,ty);
-      selectBlock.active=true;
-      selectBlock.update(block,tx,ty);
-      selectBlock.info(info);
-      selectBlock.startTaskButtonInfo(getTouchInfoButton(info.button));
+    float tr=selectBlock.dist(tx,ty);
+    float maxDist=selectBlock.maxDist;
+    if(tr>maxDist) {
+      float tx_2=(tx-selectBlock.ox)*maxDist/tr;
+      float ty_2=(ty-selectBlock.oy)*maxDist/tr;
+      tx=UtilMath.round(selectBlock.ox+tx_2);
+      ty=UtilMath.round(selectBlock.oy+ty_2);
     }
+    Block block=player.getBlock(tx,ty);
+    selectBlock.active=true;
+    selectBlock.update(block,tx,ty);
+    selectBlock.info(info);
+    selectBlock.startTaskButtonInfo(getTouchInfoButton(info.button));
   }
   public void touchUpdate(TouchInfo info) {
     if(!player.pw.p.isAndroid) return;
@@ -150,13 +162,19 @@ public class PlayerControllerFull extends PlayerControllerCore{
     int tx=player.xToBlockCordInt(info.x),
       ty=player.xToBlockCordInt(info.y);
     if(inPlayerOuterBox(tx,ty)) return;
-    if(selectBlock.isInRange(tx,ty)) {
-      Block block=player.getBlock(tx,ty);
-      selectBlock.update(block,tx,ty);
-      if(player.gameMode!=GameMode.creative) return;
-      if(testPosInOtherEntity(tx,ty)) return;
-      creativeModeUpdateSelectBlock(info,tx,ty,block);
+    float tr=selectBlock.dist(tx,ty);
+    float maxDist=selectBlock.maxDist;
+    if(tr>maxDist) {
+      float tx_2=(tx-selectBlock.ox)*maxDist/tr;
+      float ty_2=(ty-selectBlock.oy)*maxDist/tr;
+      tx=UtilMath.floor(selectBlock.ox+tx_2);
+      ty=UtilMath.floor(selectBlock.oy+ty_2);
     }
+    Block block=player.getBlock(tx,ty);
+    selectBlock.update(block,tx,ty);
+    if(player.gameMode!=GameMode.creative) return;
+    if(testPosInOtherEntity(tx,ty)) return;
+    creativeModeUpdateSelectBlock(info,tx,ty,block);
   }
   @Override
   public void touchEnded(TouchInfo info) {

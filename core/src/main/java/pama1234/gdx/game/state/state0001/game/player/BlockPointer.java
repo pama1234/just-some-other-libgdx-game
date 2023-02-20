@@ -30,7 +30,10 @@ public class BlockPointer{
     this.slot=slot;
   }
   public boolean isInRange(int xIn,int yIn) {
-    return UtilMath.dist(ox,oy,xIn+0.5f,yIn+0.5f)<maxDist;
+    return dist(xIn,yIn)<maxDist;
+  }
+  public float dist(int xIn,int yIn) {
+    return UtilMath.dist(ox,oy,xIn+0.5f,yIn+0.5f);
   }
   public void origin(float xIn,float yIn) {
     ox=xIn;

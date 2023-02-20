@@ -22,8 +22,10 @@ public class ControllerDisplayUtil{
   public static void drawSelectBlock(Screen0011 p,ControllerBlockPointer selectBlock,float tw,float th) {
     switch(selectBlock.task) {
       case BlockPointer.idle: {
-        p.fill(0,127);
+        p.beginBlend();
+        p.fill(127,127);
         GameDisplayUtil.boxStroke(p,1,selectBlock.x*tw,selectBlock.y*th,tw,th);
+        p.endBlend();
       }
         break;
       case BlockPointer.destroy: {
@@ -70,14 +72,17 @@ public class ControllerDisplayUtil{
     }
   }
   public static void drawSelectBlockTouchScreen(Screen0011 p,ControllerBlockPointer selectBlock,float tw,float th,float scale) {
-    p.fill(0,127);
-    float tf_2=0.8f/scale;
     if(selectBlock.task!=BlockPointer.use) {
       float tr=scale<1?2:2/scale;
       float tf=2/scale;
+      p.beginBlend();
+      p.fill(127,191);
       boxTwoLine(p,tr,selectBlock.x*tw,(selectBlock.y-tf)*th,tw,(1+tf*2)*th,false);
+      p.fill(127,191);
       boxTwoLine(p,tr,(selectBlock.x-tf)*tw,selectBlock.y*th,(1+tf*2)*tw,th,true);
+      p.endBlend();
     }
+    float tf_2=0.8f/scale;
     switch(selectBlock.task) {
       case BlockPointer.destroy: {
         p.tint(255,191);
