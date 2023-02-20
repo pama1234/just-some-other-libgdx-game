@@ -101,13 +101,19 @@ public class LivingEntity extends GamePointEntity<MassPoint>{
     return pw.regions.getBlock(xIn,yIn);
   }
   public Block getBlock(float xIn,float yIn) {
-    return pw.regions.getBlock(xToBlockCord(xIn),yToBlockCord(yIn));
+    return pw.regions.getBlock(xToBlockCordInt(xIn),yToBlockCordInt(yIn));
   }
   public int blockX() {
-    return xToBlockCord(x());
+    return xToBlockCordInt(x());
   }
   public int blockY() {
-    return yToBlockCord(y());
+    return yToBlockCordInt(y());
+  }
+  public float xBlockFloat() {
+    return xToBlockCordFloat(x());
+  }
+  public float yBlockFloat() {
+    return yToBlockCordFloat(y());
   }
   public float x1() {
     return x()+type.dx;
@@ -122,24 +128,32 @@ public class LivingEntity extends GamePointEntity<MassPoint>{
     return y()+type.dy+type.h-0.01f;//TODO
   }
   public int blockX1() {
-    return xToBlockCord(x1());
+    return xToBlockCordInt(x1());
   }
   public int blockY1() {
-    return yToBlockCord(y1());
+    return yToBlockCordInt(y1());
   }
   public int blockX2() {
-    return xToBlockCord(x2());
+    return xToBlockCordInt(x2());
   }
   public int blockY2() {
-    return yToBlockCord(y2());
+    return yToBlockCordInt(y2());
   }
-  public int xToBlockCord(float in) {
+  public int xToBlockCordInt(float in) {
     // return UtilMath.floor(in/pw.blockWidth);
-    return pw.xToBlockCord(in);
+    return pw.xToBlockCordInt(in);
   }
-  public int yToBlockCord(float in) {
+  public int yToBlockCordInt(float in) {
     // return UtilMath.floor(in/pw.blockHeight);
-    return pw.yToBlockCord(in);
+    return pw.yToBlockCordInt(in);
+  }
+  public float xToBlockCordFloat(float in) {
+    // return UtilMath.floor(in/pw.blockWidth);
+    return pw.xToBlockCordFloat(in);
+  }
+  public float yToBlockCordFloat(float in) {
+    // return UtilMath.floor(in/pw.blockHeight);
+    return pw.yToBlockCordFloat(in);
   }
   public boolean inOuterBox(int tx,int ty) {
     return Tools.inBoxInclude(tx,ty,outerBox.x1,outerBox.y1,outerBox.w,outerBox.h);

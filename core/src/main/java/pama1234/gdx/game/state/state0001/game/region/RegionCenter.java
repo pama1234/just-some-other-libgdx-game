@@ -182,10 +182,10 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   public void fourPointDisplay() {
     // p.imageBatch.begin();
     tilemapRenderer.batch.begin();
-    int x1=pw.xToBlockCord(p.cam2d.x1()),
-      y1=pw.xToBlockCord(p.cam2d.y1()),
-      x2=pw.xToBlockCord(p.cam2d.x2()),
-      y2=pw.xToBlockCord(p.cam2d.y2());
+    int x1=pw.xToBlockCordInt(p.cam2d.x1()),
+      y1=pw.xToBlockCordInt(p.cam2d.y1()),
+      x2=pw.xToBlockCordInt(p.cam2d.x2()),
+      y2=pw.xToBlockCordInt(p.cam2d.y2());
     for(int i=x1;i<=x2;i++) {
       for(int j=y1;j<=y2;j++) {
         int tx=i*pw.settings.blockWidth,
@@ -254,10 +254,10 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
         fourPointUpdateDisplay();
       }
       public void fourPointUpdateDisplay() {
-        int x1=pw.xToBlockCord(p.cam2d.x1()),
-          y1=pw.xToBlockCord(p.cam2d.y1()),
-          x2=pw.xToBlockCord(p.cam2d.x2()),
-          y2=pw.xToBlockCord(p.cam2d.y2());
+        int x1=pw.xToBlockCordInt(p.cam2d.x1()),
+          y1=pw.xToBlockCordInt(p.cam2d.y1()),
+          x2=pw.xToBlockCordInt(p.cam2d.x2()),
+          y2=pw.xToBlockCordInt(p.cam2d.y2());
         for(int i=x1;i<=x2;i++) {
           for(int j=y1;j<=y2;j++) {
             // int tx=i*pw.blockWidth,

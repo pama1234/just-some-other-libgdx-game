@@ -20,7 +20,6 @@ public class TreeLeaf extends MetaBlock{
     setLightIntensity(2);
     fullBlockType=FullBlockType.leafType;
     // fullBlock=false;
-    // initFullBlockLambda();
     initTreeLeafLambda();
     intData=new int[1];
   }
@@ -140,18 +139,13 @@ public class TreeLeaf extends MetaBlock{
       // in.light.update();
     };
     displayer=(r,p,in,x,y)-> {
-      // World0001 world=in.type.pc.pw;
       r.tint(
         getLighting(in.light.r()),
         getLighting(in.light.g()),
         getLighting(in.light.b()));
       int tp_0=in.displayType[0];
-      // if(tp_0!=0)
-      // int tw=world.settings.blockWidth,
-      //   th=world.settings.blockHeight;
       r.tile(in.type.tiles[tp_0],x,y);
       int tp_1=in.displayType[1];
-      // if(tp_1!=0) {
       TextureRegion tr;
       if((tp_0&2)+(tp_0&8)==0) {// down and right is leaf
         if((tp_1&4)!=0) tr=in.type.tiles[16];// down right is not leaf
@@ -173,7 +167,6 @@ public class TreeLeaf extends MetaBlock{
         else tr=in.type.tiles[23];
         r.tile(tr,x,y);
       }
-      // }
       int tp_2=in.displayType[2];
       if(tp_2!=0) r.tile(in.type.tiles[24],x,y);
       if(!pc.pw.pg.debugGraphics||in.intData==null) return;

@@ -52,15 +52,12 @@ public class PlayerControllerFull extends PlayerControllerCore{
   public void preUpdate() {
     for(TouchInfo e:p.touches) if(e.active) touchUpdate(e);
     updateCtrlInfo();
-    // limitBox.preCtrlUpdate();
     super.preUpdate();
     if(walkingStateChange) displayStateChange();
     if(pInAir!=limitBox.inAir) {
       pInAir=limitBox.inAir;
       displayStateChange();
     }
-    // doWalkAndJump();
-    // limitBox.prePointUpdate();
   }
   @Override
   public void postUpdate() {
@@ -74,6 +71,7 @@ public class PlayerControllerFull extends PlayerControllerCore{
       else if(ty<8) player.frameTime=1;
       else player.frameTime=2;
     }
+    selectBlock.origin(player.xToBlockCordFloat(player.cx()),player.yToBlockCordFloat(player.cy()));
   }
   public void updateCtrlInfo() {
     updateKeyInfo();
@@ -101,12 +99,14 @@ public class PlayerControllerFull extends PlayerControllerCore{
     selectBlock.active=false;
     if(testPosInButtons(p.mouse.ox,p.mouse.oy)) return;
     if(testPosInInventorySlot(p.mouse.x,p.mouse.y)) return;
-    int tx=player.xToBlockCord(p.mouse.x),
-      ty=player.xToBlockCord(p.mouse.y);
+    int tx=player.xToBlockCordInt(p.mouse.x),
+      ty=player.xToBlockCordInt(p.mouse.y);
     if(inPlayerOuterBox(tx,ty)) return;
-    selectBlock.active=true;
-    Block block=player.getBlock(tx,ty);
-    selectBlock.update(block,tx,ty);
+    if(selectBlock.isInRange(tx,ty)) {
+      selectBlock.active=true;
+      Block block=player.getBlock(tx,ty);
+      selectBlock.update(block,tx,ty);
+    }
   }
   public void updateKeyInfo() {
     GetKeyPressedBoolean f=p::isKeyPressed;
@@ -124,8 +124,8 @@ public class PlayerControllerFull extends PlayerControllerCore{
       return;
     }
     //---
-    int tx=player.xToBlockCord(info.x),
-      ty=player.xToBlockCord(info.y);
+    int tx=player.xToBlockCordInt(info.x),
+      ty=player.xToBlockCordInt(info.y);
     if(updateAndTestInventorySlot(info.x,info.y,info.button)) return;
     if(updateAndTestWorkStationUi(info)) return;
     if(p.isAndroid&&inPlayerOuterBox(tx,ty)) {
@@ -133,11 +133,13 @@ public class PlayerControllerFull extends PlayerControllerCore{
       return;
     }
     if(updateAndTestSelectEntity(tx,ty,info.button)) return;
-    Block block=player.getBlock(tx,ty);
-    selectBlock.active=true;
-    selectBlock.update(block,tx,ty);
-    selectBlock.info(info);
-    selectBlock.startTaskButtonInfo(getTouchInfoButton(info.button));
+    if(selectBlock.isInRange(tx,ty)) {
+      Block block=player.getBlock(tx,ty);
+      selectBlock.active=true;
+      selectBlock.update(block,tx,ty);
+      selectBlock.info(info);
+      selectBlock.startTaskButtonInfo(getTouchInfoButton(info.button));
+    }
   }
   public void touchUpdate(TouchInfo info) {
     if(!player.pw.p.isAndroid) return;
@@ -145,14 +147,16 @@ public class PlayerControllerFull extends PlayerControllerCore{
     if(testPosInButtons(info.ox,info.oy)) return;
     if(testPosInInventorySlot(info.x,info.y)) return;
     //---
-    int tx=player.xToBlockCord(info.x),
-      ty=player.xToBlockCord(info.y);
+    int tx=player.xToBlockCordInt(info.x),
+      ty=player.xToBlockCordInt(info.y);
     if(inPlayerOuterBox(tx,ty)) return;
-    Block block=player.getBlock(tx,ty);
-    selectBlock.update(block,tx,ty);
-    if(player.gameMode!=GameMode.creative) return;
-    if(testPosInOtherEntity(tx,ty)) return;
-    creativeModeUpdateSelectBlock(info,tx,ty,block);
+    if(selectBlock.isInRange(tx,ty)) {
+      Block block=player.getBlock(tx,ty);
+      selectBlock.update(block,tx,ty);
+      if(player.gameMode!=GameMode.creative) return;
+      if(testPosInOtherEntity(tx,ty)) return;
+      creativeModeUpdateSelectBlock(info,tx,ty,block);
+    }
   }
   @Override
   public void touchEnded(TouchInfo info) {

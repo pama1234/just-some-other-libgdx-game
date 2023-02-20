@@ -9,12 +9,15 @@ import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
+import pama1234.math.UtilMath;
 
 public class BlockPointer{
   public static final int idle=0,build=1,destroy=2,use=3;
   public World0001 pw;
   public GetItemSlot slot;
   public Block block;
+  public float ox,oy;
+  public float maxDist=6;
   public int x,y;
   public boolean active;
   public int task;
@@ -25,6 +28,13 @@ public class BlockPointer{
   public BlockPointer(World0001 in,GetItemSlot slot) {
     pw=in;
     this.slot=slot;
+  }
+  public boolean isInRange(int xIn,int yIn) {
+    return UtilMath.dist(ox,oy,xIn+0.5f,yIn+0.5f)<maxDist;
+  }
+  public void origin(float xIn,float yIn) {
+    ox=xIn;
+    oy=yIn;
   }
   public void pos(int xIn,int yIn) {
     x=xIn;

@@ -200,17 +200,23 @@ public class World0001 extends WorldBase2D{
   public int blockHeight() {
     return settings.blockHeight;
   }
-  public int xToBlockCord(float in) {
+  public int xToBlockCordInt(float in) {
     return UtilMath.floor(in/settings.blockWidth);
   }
-  public int yToBlockCord(float in) {
+  public int yToBlockCordInt(float in) {
     return UtilMath.floor(in/settings.blockHeight);
+  }
+  public float xToBlockCordFloat(float in) {
+    return in/settings.blockWidth;
+  }
+  public float yToBlockCordFloat(float in) {
+    return in/settings.blockHeight;
   }
   public Block getBlock(int x,int y) {
     return regions.getBlock(x,y);
   }
   public Block getBlock(float x,float y) {
-    return regions.getBlock(xToBlockCord(x),yToBlockCord(y));
+    return regions.getBlock(xToBlockCordInt(x),yToBlockCordInt(y));
   }
   public float skyLight() {
     return sky.skyHsb[2];

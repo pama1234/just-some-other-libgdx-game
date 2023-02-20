@@ -47,10 +47,10 @@ public class BackgroundCloud extends Background{
     World0001 world=pc.pc.pw;
     int tw=world.blockWidth(),
       th=world.blockHeight();
-    x1=world.xToBlockCord(cam.x1())*tw;
-    x2=world.xToBlockCord(cam.x2())*tw;
-    y1=world.xToBlockCord(cam.y1())*th;
-    y2=world.xToBlockCord(cam.y2())*th;
+    x1=world.xToBlockCordInt(cam.x1())*tw;
+    x2=world.xToBlockCordInt(cam.x2())*tw;
+    y1=world.xToBlockCordInt(cam.y1())*th;
+    y2=world.xToBlockCordInt(cam.y2())*th;
     w=x2-x1;
     h=y2-y1;
     pixelRegion.setRegion(0,0,w,h);
