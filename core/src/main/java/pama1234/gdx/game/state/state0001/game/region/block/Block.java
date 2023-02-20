@@ -34,9 +34,6 @@ public class Block{
   public boolean changed;
   @Tag(1)
   public boolean updateLighting=true;
-  public int[] displayType;
-  public PathVarLighting light;
-  public int referenceCount;//TODO
   @Tag(2)
   public int[] intData;
   @Tag(3)
@@ -44,7 +41,15 @@ public class Block{
   // @Tag(4)
   // public Block nextBlock;
   // public DisplaySlot[] displaySlot;
+  public int[] displayType;
+  public PathVarLighting light;
+  public int referenceCount;//TODO
   public BlockUi ui;
+  @Tag(4)
+  public int xOff;
+  @Tag(5)
+  public int yOff;
+  public Block origin;
   @Deprecated
   public Block() {}//只能用于kryo
   public Block(MetaBlock type) {
@@ -102,5 +107,15 @@ public class Block{
     }
     float randomConst=0.8f;
     for(ItemDropAttr e:type.itemDrop) DroppedItem.dropItem(p,x,y,world,upEmpty,randomConst,e.item.createItem(e.dropNumber(world)));
+  }
+  public void clearOrigin() {
+    origin=null;
+    xOff=0;
+    yOff=0;
+  }
+  public void origin(Block in,int xIn,int yIn) {
+    origin=in;
+    xOff=xIn;
+    yOff=yIn;
   }
 }

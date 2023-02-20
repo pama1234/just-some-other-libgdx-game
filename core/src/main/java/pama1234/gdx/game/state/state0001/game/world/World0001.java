@@ -174,7 +174,29 @@ public class World0001 extends WorldBase2D{
   }
   public void placeBlock(Block block,MetaBlock in,int x,int y) {
     // updateRectLighting(x,y);
+    if(block.xOff!=0||block.yOff!=0) placeBlock(
+      block.origin==null?getBlock(x-block.xOff,y-block.yOff):block.origin,metaBlocks.air,x-block.xOff,y-block.yOff);
     block.doItemDrop(p,x,y,in.empty);
+    // if(random(1)>0) throw new RuntimeException("1234");
+    // System.out.println(block.type+" "+block.type.width+" "+block.type.height);
+    MetaBlock type=block.type;
+    if(type!=null&&(type.width>1||type.height>1)) {
+      for(int i=0;i<type.width;i++) for(int j=0;j<type.height;j++) {
+        // System.out.println(i+" "+j);
+        Block blockOff=getBlock(x+i,y+j);
+        // destroyBlock(blockOff,x+i,y+j);
+        // blockOff.doItemDrop(p,x,y,metaBlocks.air.empty);
+        blockOff.type(metaBlocks.air);
+        blockOff.clearOrigin();
+      }
+    }
+    if(in!=null&&(in.width>1||in.height>1)) {
+      for(int i=0;i<in.width;i++) for(int j=0;j<in.height;j++) {
+        Block blockOff=getBlock(x+i,y+j);
+        blockOff.type(in);
+        blockOff.origin(block,i,j);
+      }
+    }
     block.type(in);
   }
   public void setBlock(Block block,MetaBlock in,int x,int y) {

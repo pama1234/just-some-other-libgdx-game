@@ -76,7 +76,7 @@ public class Workbench extends MetaBlock{
       // p.text(Integer.toString(in.intData[0]),x,y-tw*2);
       int ti=in.intData[0];
       String ts=Integer.toString(ti);
-      p.text(ts+")",x-tw*(3-ts.length()),y-th*2);
+      p.text(ts+")",x-tw*(1.5f+ts.length()/2f),y-th*2);
       if(!Tools.inRangeInclude(ti,0,recipeList.length-1)) return;
       p.text("<-",x,y-th*2);
       CraftRecipe recipe=recipeList[ti];
@@ -178,6 +178,7 @@ public class Workbench extends MetaBlock{
       new CraftRecipe(new CraftItem[] {new CraftItem(mi.leaf)},new CraftItem[] {new CraftItem(mi.sapling,2)}),
       new CraftRecipe(new CraftItem[] {new CraftItem(mi.leaf),new CraftItem(mi.branch)},new CraftItem[] {new CraftItem(mi.torch,4)}),
       new CraftRecipe(new CraftItem[] {new CraftItem(mi.log)},new CraftItem[] {new CraftItem(mi.woodPlatform,4)}),
+      new CraftRecipe(new CraftItem[] {new CraftItem(mi.stone,8)},new CraftItem[] {new CraftItem(mi.furnace)}),
     };
     intData=new int[] {recipeList.length};
   }

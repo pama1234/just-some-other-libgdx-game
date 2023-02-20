@@ -105,7 +105,7 @@ public class BlockPointer{
         break;
       case destroy: {
         if(progress>=block.type.destroyTime) {
-          pw.destroyBlock(this,block,x,y);
+          if(!block.type.empty) pw.destroyBlock(this,block,x,y);
           taskComplete();
         }
       }
