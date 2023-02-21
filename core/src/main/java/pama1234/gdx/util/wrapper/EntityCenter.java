@@ -8,7 +8,11 @@ import pama1234.gdx.util.entity.Entity;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.gdx.util.listener.EntityListener;
-
+/**
+ * 一种用于存储实体的链表型容器,相比{@link ArrayEntityCenter 数组型实体容器}，这个实体容器的实现在需要频繁增加和删除实体，并且不需要访问其特定位置的内容时，是更合适的
+ * 
+ * @see ArrayEntityCenter
+ */
 public class EntityCenter<T extends UtilScreen,E extends EntityListener>extends Entity<T>{
   public final LinkedList<E> list=new LinkedList<E>(),
     add=new LinkedList<E>(),

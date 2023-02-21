@@ -13,6 +13,11 @@ import pama1234.gdx.util.info.TouchInfo;
 import pama1234.math.Tools;
 import pama1234.math.physics.PathVar;
 
+/**
+ * 用于将“鼠标键盘信息”转换为“相机视角变化”的适用于2D的工具
+ * 
+ * @see UtilScreen2D
+ */
 public class CameraController2D extends CameraController{
   // public OrthographicCamera ocam;
   // public PathPoint point;

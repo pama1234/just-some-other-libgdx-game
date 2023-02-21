@@ -9,7 +9,7 @@ import pama1234.gdx.util.info.TouchInfo;
 import pama1234.gdx.util.listener.EntityListener;
 
 /**
- * 一种用于存储实体的数组类容器,相比{@link EntityCenter 链表类实体容器}，这个实体容器的实现在很多情况下更合适
+ * 一种用于存储实体的数组型容器,相比{@link EntityCenter 链表型实体容器}，这个实体容器的实现在很多情况下更合适
  * 
  * @see EntityCenter
  */
