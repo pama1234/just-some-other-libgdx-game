@@ -4,6 +4,12 @@ import java.nio.ByteBuffer;
 
 import pama1234.data.nio.ByteBufferData;
 
+/**
+ * 基于vecmath的矢量数据类，只包含两个整数
+ * 
+ * @see {@link javax.vecmath.Tuple2i#x x成员变量的位置}
+ * @see {@link javax.vecmath.Tuple2i#y y成员变量的位置}
+ */
 public class Vec2i implements ByteBufferData{
   public int x;
   public int y;
@@ -105,6 +111,14 @@ public class Vec2i implements ByteBufferData{
   public String toString() {
     return "["+x+","+y+"]";
   }
+  /**
+   * 一段意义不明的业务逻辑
+   * 
+   * @param min
+   * @param max
+   * @param t
+   */
+  @Deprecated
   public final void clamp(int min,int max,Vec2i t) {
     if(t.x>max) x=max;
     else if(t.x<min) x=min;

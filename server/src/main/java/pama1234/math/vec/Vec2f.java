@@ -65,7 +65,7 @@ public class Vec2f extends Vector2f implements ByteBufferData{
     return flag;
   }
   /**
-   * 将向量中的x和y移动到一个矩形的方位内，保留其剩余位置信息，类似于“%”取余
+   * 将向量中的x和y移动到一个矩形的方框内，保留其剩余位置信息，类似于“%”取余
    * 
    * @param x1 左上角的x
    * @param y1 左上角的y
@@ -82,7 +82,7 @@ public class Vec2f extends Vector2f implements ByteBufferData{
     y=Tools.moveInRange(y,y1,y2);
   }
   /**
-   * 将向量中的x和y移动到一个矩形的方位内，不保留其剩余位置信息
+   * 将向量中的x和y移动到一个矩形的方框内，不保留其剩余位置信息
    * 
    * @param x1 左上角的x
    * @param y1 左上角的y
