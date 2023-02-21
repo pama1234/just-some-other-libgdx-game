@@ -25,7 +25,6 @@ import pama1234.math.UtilMath;
 
 public class PlayerControllerFull extends PlayerControllerCore{
   public MainPlayer player;
-  public boolean pInAir;
   public RectF[] cullRects;
   public float camScale=2;
   public ControllerBlockPointer selectBlock;
@@ -53,11 +52,6 @@ public class PlayerControllerFull extends PlayerControllerCore{
     for(TouchInfo e:p.touches) if(e.active) touchUpdate(e);
     updateCtrlInfo();
     super.preUpdate();
-    if(walkingStateChange) displayStateChange();
-    if(pInAir!=limitBox.inAir) {
-      pInAir=limitBox.inAir;
-      displayStateChange();
-    }
   }
   @Override
   public void postUpdate() {
@@ -77,23 +71,6 @@ public class PlayerControllerFull extends PlayerControllerCore{
     updateKeyInfo();
     if(!player.pw.p.isAndroid) updateMouseInfo();
     selectEntity.updateTask();//TODO
-  }
-  public void displayStateChange() {
-    float speedMult=shift?shiftSpeedMult:1;
-    if(limitBox.inAir) {
-      player.timeStep=-1;
-      player.frameTime=0;
-      player.displayState=2;
-    }else if(walking) {
-      player.timeStep=-1;
-      player.frameTime=0;
-      player.displayState=1;
-    }else {
-      player.timeStep=(1/2f)/speedMult;
-      player.frameTime=0;
-      player.displayState=0;
-    }
-    player.testFrameTime();
   }
   public void updateMouseInfo() {
     selectBlock.active=false;

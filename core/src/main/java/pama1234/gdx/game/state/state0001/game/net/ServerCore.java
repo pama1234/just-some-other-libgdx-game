@@ -141,6 +141,7 @@ public class ServerCore{
       if(input.readBoolean()) ctrlCore.left=!ctrlCore.left;
       if(input.readBoolean()) ctrlCore.right=!ctrlCore.right;
       if(input.readBoolean()) ctrlCore.jump=!ctrlCore.jump;
+      if(input.readBoolean()) ctrlCore.jumpDown=!ctrlCore.jumpDown;
     }
     public void disconnect() {}
     public void skip(int in) {

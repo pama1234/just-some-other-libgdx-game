@@ -14,6 +14,7 @@ public class PlayerControllerCore extends Entity<Screen0011>{
   public float slowDownSpeed=1/4f;
   public float jumpForceMult=1.5f,jumpHeight=0;
   public boolean walking,walkingStateChange;
+  public boolean pInAir;
   public boolean left,right,jump,shift,jumpDown;
   public int walkCool,jumpCool;
   public float itemPickDist=18,itemPickMoveDist=72;
@@ -39,6 +40,28 @@ public class PlayerControllerCore extends Entity<Screen0011>{
     walkingStateChange=testWalking();
     limitBox.preCtrlUpdate();
     doWalkAndJump();
+    if(walkingStateChange) displayStateChange();
+    if(pInAir!=limitBox.inAir) {
+      pInAir=limitBox.inAir;
+      displayStateChange();
+    }
+  }
+  public void displayStateChange() {
+    float speedMult=shift?shiftSpeedMult:1;
+    if(limitBox.inAir) {
+      corePlayer.timeStep=-1;
+      corePlayer.frameTime=0;
+      corePlayer.displayState=2;
+    }else if(walking) {
+      corePlayer.timeStep=-1;
+      corePlayer.frameTime=0;
+      corePlayer.displayState=1;
+    }else {
+      corePlayer.timeStep=(1/2f)/speedMult;
+      corePlayer.frameTime=0;
+      corePlayer.displayState=0;
+    }
+    corePlayer.testFrameTime();
   }
   public void postUpdate() {
     updatePickItem();

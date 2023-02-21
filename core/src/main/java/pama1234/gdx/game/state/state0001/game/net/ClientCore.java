@@ -76,8 +76,8 @@ public class ClientCore{
   public static class ClientWrite extends Thread{
     public ClientCore p;
     public Output output;
-    public int sleep=0;
-    public boolean left,right,jump;
+    public int sleep=-1;
+    public boolean left,right,jump,jumpDown;
     public ClientWrite(ClientCore p) {
       this.p=p;
       output=new Output(p.socketData.o);
@@ -97,28 +97,29 @@ public class ClientCore{
         disconnect();
       }
     }
-    public void connect() {}
+    public void connect() {
+      sleep=0;
+    }
     public void execute() {
       PlayerControllerCore ctrl=p.world.yourself.ctrl;
       boolean a=left!=ctrl.left;
       boolean b=right!=ctrl.right;
       boolean c=jump!=ctrl.jump;
-      // System.out.println(a+" "+b+" "+c);
+      boolean d=jumpDown!=ctrl.jumpDown;
       if(a||b||c) {
-        // System.out.println("ClientCore.ClientWrite.execute()");
-        putPlayerCtrl(a,b,c);
+        putPlayerCtrl(a,b,c,d);
         output.flush();
         left=ctrl.left;
         right=ctrl.right;
-        jump=ctrl.jump;
+        jumpDown=ctrl.jumpDown;
       }
     }
     public void disconnect() {}
-    public void putPlayerCtrl(boolean a,boolean b,boolean c) {
-      // PlayerControllerCore ctrl=p.world.yourself.ctrl;
+    public void putPlayerCtrl(boolean a,boolean b,boolean c,boolean d) {
       output.writeBoolean(a);
       output.writeBoolean(b);
       output.writeBoolean(c);
+      output.writeBoolean(d);
     }
   }
 }
