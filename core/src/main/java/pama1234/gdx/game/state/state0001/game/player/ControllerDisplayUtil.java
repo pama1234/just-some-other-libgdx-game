@@ -24,16 +24,11 @@ public class ControllerDisplayUtil{
     MetaBlock type=selectBlock.block==null?null:selectBlock.block.type;
     switch(selectBlock.task) {
       case BlockPointer.idle: {
-        p.beginBlend();
-        p.fill(127,127);
-        if(type!=null) GameDisplayUtil.boxStroke(p,1,
-          (selectBlock.x-selectBlock.block.xOff)*tw,
-          (selectBlock.y-selectBlock.block.yOff)*th,tw*type.width,th*type.height);
-        else GameDisplayUtil.boxStroke(p,1,selectBlock.x*tw,selectBlock.y*th,tw,th);
-        p.endBlend();
+        drawBoxStroke(p,selectBlock,tw,th,type);
       }
         break;
       case BlockPointer.destroy: {
+        drawBoxStroke(p,selectBlock,tw,th,type);
         p.tint(255,191);
         p.image(ImageAsset.tiles[20][(int)UtilMath.map(selectBlock.progress,0,type.destroyTime,0,7)],selectBlock.x*tw,selectBlock.y*th);
       }
@@ -41,6 +36,7 @@ public class ControllerDisplayUtil{
       case BlockPointer.build: {
         Item ti=selectBlock.slot().item;
         if(ti!=null&&ti.type.blockType!=null) {
+          drawBoxStroke(p,selectBlock,tw,th,ti.type.blockType);
           p.tint(255,191);
           p.image(
             ImageAsset.tiles[21][(int)UtilMath.map(selectBlock.progress,
@@ -60,6 +56,15 @@ public class ControllerDisplayUtil{
         break;
     }
     p.noTint();
+  }
+  public static void drawBoxStroke(Screen0011 p,ControllerBlockPointer selectBlock,float tw,float th,MetaBlock type) {
+    p.beginBlend();
+    p.fill(127,127);
+    if(type!=null) GameDisplayUtil.boxStroke(p,1,
+      (selectBlock.x-selectBlock.block.xOff)*tw,
+      (selectBlock.y-selectBlock.block.yOff)*th,tw*type.width,th*type.height);
+    else GameDisplayUtil.boxStroke(p,1,selectBlock.x*tw,selectBlock.y*th,tw,th);
+    p.endBlend();
   }
   public static void boxTwoLine(Screen0011 p,float r,float tx1,float ty1,float tw1,float th1,boolean a) {
     float tx2=tx1+tw1+r;

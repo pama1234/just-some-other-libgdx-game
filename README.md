@@ -8,9 +8,10 @@
 
 配置环境：
 
-1. 下载并安装`jdk-17`，配置javahome和path环境变量，推荐此版本 <https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-22.1.0>
-2. 下载并安装`gradle-8`，配置gradle和gradle-javahome环境变量 <https://gradle.org/releases>
-3. 下载并安装`Android studio Canary build`，配置AndroidSDK环境变量（也就是内测版，在页面的右侧，总之哪个新就安装哪个好啦） <https://developer.android.com/studio/preview>
+0. 确保自己使用的电脑可以直接访问需要访问的以下网站，推荐[此方案](https://github.com/getlantern/lantern)
+1. 下载并安装`jdk-17`，配置javahome和path环境变量，推荐[此版本(graalvm-22.1.0)](https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-22.1.0)
+2. 下载并安装`gradle-8`，配置gradle和gradle-javahome环境变量，[链接](https://gradle.org/releases)
+3. 下载并安装`Android studio Canary build`，配置AndroidSDK环境变量（也就是内测版，在页面的右侧，总之哪个新就安装哪个好啦）[链接](https://developer.android.com/studio/preview)
 
 使用的库：libgdx，kryo，vecmath
 
