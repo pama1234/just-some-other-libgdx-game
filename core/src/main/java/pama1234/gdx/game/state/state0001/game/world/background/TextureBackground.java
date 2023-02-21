@@ -9,7 +9,8 @@ import pama1234.math.Tools;
 public class TextureBackground extends Background{
   public float width,height;
   public float x,y,dx,dy;
-  public byte[] side[]= {{-1,-1},{0,-1},{1,-1},
+  public byte[] side[]= {
+    {-1,-1},{0,-1},{1,-1},
     {-1,0},{1,0},
     {-1,1},{0,1},{1,1}};
   public TextureBackground(Screen0011 p,BackgroundList pc,MainPlayer player) {
@@ -50,7 +51,9 @@ public class TextureBackground extends Background{
     y+=(cam.y()-dy)*proportion;
     dx=cam.x();
     dy=cam.y();
-    x=Tools.moveInRange(x,cam.x1(),cam.x2(),width);
-    y=Tools.moveInRange(y,cam.y1(),cam.y2(),height);
+    if(p.width>0&&p.height>0) {
+      x=Tools.moveInRange(x,cam.x1(),cam.x2(),width);
+      y=Tools.moveInRange(y,cam.y1(),cam.y2(),height);
+    }
   }
 }

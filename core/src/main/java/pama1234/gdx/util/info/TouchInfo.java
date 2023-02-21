@@ -6,7 +6,15 @@ import pama1234.gdx.util.app.UtilScreenCore;
 
 public class TouchInfo{
   public UtilScreenCore p;
+  /**
+   * 表示此触碰信息是否参与按钮等信息，不由{@link UtilScreenCore}进行赋值
+   */
   public boolean active;
+  /**
+   * （未实现）用于记录鼠标开始时的当前帧数
+   * 
+   * @see pama1234.gdx.util.app.UtilScreenCore#frameCount
+   */
   public int startTime;
   public int pointer,button;
   public float sx,sy;
@@ -42,13 +50,6 @@ public class TouchInfo{
     pointer=p;
     button=b;
   }
-  // public void put(int xIn,int yIn,int p,int b) {
-  //   Vector3 tv=this.p.unproject(ox=xIn,oy=yIn);
-  //   sx=x=tv.x;
-  //   sy=y=tv.y;
-  //   pointer=p;
-  //   button=b;
-  // }
   public void end() {
     active=false;
   }
