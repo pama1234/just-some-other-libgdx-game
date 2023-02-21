@@ -5,8 +5,18 @@ import java.nio.ByteBuffer;
 import pama1234.data.nio.ByteBufferData;
 import pama1234.math.vec.Vec2f;
 
+/**
+ * 众所周知，带有“位置和速度”，每“刷新一次”就“移动一定距离”然后“因为摩擦力而减速”，是一种很合理的效果
+ * 点的力学实现
+ * 
+ * @see Point 位置信息
+ * @see PathPoint 缓动效果的实现
+ */
 public class MassPoint extends Point implements ByteBufferData{
   public static final int buffer_size=Vec2f.buffer_size*2+FLOAT_SIZE;
+  /**
+   * 存储速度的信息的二维矢量
+   */
   public Vec2f vel;
   {
     f=0.8f;

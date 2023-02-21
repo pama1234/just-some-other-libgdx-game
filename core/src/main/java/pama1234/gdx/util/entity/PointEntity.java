@@ -7,7 +7,7 @@ import pama1234.math.physics.Point;
 
 /**
  * 
- * @see pama1234.math.physics.Point 位置信息 
+ * @see pama1234.math.physics.Point Point 位置信息
  * @see pama1234.math.physics.MassPoint MassPoint 力学效果的实现
  * @see pama1234.math.physics.PathPoint PathPoint 缓动效果的实现
  */
@@ -56,6 +56,8 @@ public abstract class PointEntity<T extends UtilScreen,P extends Point>extends E
   //  abstract public void update2();
   /**
    * 此特性未在空想世界中使用
+   * 
+   * @see pama1234.gdx.util.wrapper.PointCenter
    */
   @Deprecated
   public String getName() {

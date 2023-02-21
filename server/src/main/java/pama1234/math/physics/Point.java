@@ -2,6 +2,11 @@ package pama1234.math.physics;
 
 import pama1234.math.vec.Vec2f;
 
+/**
+ * 
+ * @see MassPoint 力学效果的实现
+ * @see PathPoint 缓动效果的实现
+ */
 public abstract class Point{
   public Vec2f pos;
   public float f,step=1;

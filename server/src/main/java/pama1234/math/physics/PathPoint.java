@@ -4,7 +4,9 @@ import java.nio.ByteBuffer;
 
 import pama1234.data.nio.ByteBufferData;
 import pama1234.math.vec.Vec2f;
-
+/**
+ * 
+ */
 public class PathPoint extends Point implements ByteBufferData{
   public Vec2f des;
   {

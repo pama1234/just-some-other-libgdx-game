@@ -8,7 +8,9 @@ import pama1234.gdx.util.app.UtilScreen;
 import pama1234.gdx.util.entity.PointEntity;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.math.physics.Point;
-
+/**
+ * 一种用于存储带位置实体的链表型容器
+ */
 public class PointCenter<T extends UtilScreen,P extends Point,E extends PointEntity<T,P>>extends EntityCenter<T,E>{
   public float minDist,minDisplayDist;
   public E select;
