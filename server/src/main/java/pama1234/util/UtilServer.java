@@ -1,6 +1,5 @@
 package pama1234.util;
 
-
 import java.util.Random;
 
 import pama1234.math.Tools;

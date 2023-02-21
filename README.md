@@ -10,7 +10,7 @@
 
 1. 下载并安装`jdk-17`，配置javahome和path环境变量，推荐此版本 <https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-22.1.0>
 2. 下载并安装`gradle-8`，配置gradle和gradle-javahome环境变量 <https://gradle.org/releases>
-3. 安装`Android studio Canary build`，配置AndroidSDK环境变量（也就是内测版，在页面的右侧，总之哪个新就安装哪个好啦） <https://developer.android.com/studio/preview>
+3. 下载并安装`Android studio Canary build`，配置AndroidSDK环境变量（也就是内测版，在页面的右侧，总之哪个新就安装哪个好啦） <https://developer.android.com/studio/preview>
 
 使用的库：libgdx，kryo，vecmath
 
@@ -34,7 +34,7 @@ Configure environment:
 
 1. Download and install `jdk-17` and configure javahome and path environment variables. This version is recommended→ <https://github.com/graalvm/graalvm-ce-builds/releases/tag/vm-22.1.0>
 2. Download and install `gradle-8`, configure gradle and gradle-javahome environment variables <https://gradle.org/releases>
-3. Install `Android studio Canary build` and configure the Android SDK environment variables (The preview version, or whatever that is on the right side of the page, whatever is new should be installed) <https://developer.android.com/studio/preview>
+3. Download and install `Android studio Canary build` and configure the Android SDK environment variables (The preview version, or whatever that is on the right side of the page, whatever is new should be installed) <https://developer.android.com/studio/preview>
 
 Libraries used: libgdx, kryo, vecmath, aparapi
 

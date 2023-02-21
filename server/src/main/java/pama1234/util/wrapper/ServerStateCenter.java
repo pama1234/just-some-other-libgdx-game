@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import pama1234.util.entity.ServerEntity;
 import pama1234.util.listener.ServerEntityListener;
 
-public class ServerStateCenter<T extends ServerEntityListener> extends ServerEntity{
+public class ServerStateCenter<T extends ServerEntityListener>extends ServerEntity{
   public final ArrayList<T> list=new ArrayList<T>();
   public int pointer;
   public ServerStateCenter() {}

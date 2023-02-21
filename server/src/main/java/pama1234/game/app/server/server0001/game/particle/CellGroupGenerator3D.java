@@ -7,7 +7,7 @@ import pama1234.math.hash.Random2f;
 public class CellGroupGenerator3D{
   public Random2f rng;
   public float seed;
-  public  float count;
+  public float count;
   //---
   public int celltypeOut,amountOut,arraySizeOut;//TODO
   public CellGroupGenerator3D(float seed1,float seed2) {

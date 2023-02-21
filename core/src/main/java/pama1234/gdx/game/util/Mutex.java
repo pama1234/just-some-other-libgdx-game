@@ -6,8 +6,8 @@ public class Mutex{
   public final AtomicBoolean lock;
   public final Object mutex;
   public Mutex(boolean lock) {
-      this.lock = new AtomicBoolean(lock);
-      this.mutex = new Object();
+    this.lock=new AtomicBoolean(lock);
+    this.mutex=new Object();
   }
   public void step() {
     if(lock.get()) synchronized(mutex) {

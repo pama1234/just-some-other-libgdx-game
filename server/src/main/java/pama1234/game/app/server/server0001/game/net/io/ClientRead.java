@@ -71,8 +71,7 @@ public class ClientRead extends Thread{
         byte[] nameBytes=new byte[readSize];
         readNBytes(s,nameBytes,0,readSize);
         String version=new String(nameBytes);
-        if(!version.equals(protocolVersion)) 
-        throw new RuntimeException("!version.equals(protocolVersion)"+version+" "+protocolVersion);
+        if(!version.equals(protocolVersion)) throw new RuntimeException("!version.equals(protocolVersion)"+version+" "+protocolVersion);
         s.clientState=ClientState.ClientAuthentication;
       }
         break;

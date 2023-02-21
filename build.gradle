@@ -11,6 +11,7 @@ buildscript {
 	}
 	dependencies {
 		classpath "com.android.tools.build:gradle:$androidPluginVersion"
+		classpath "com.diffplug.spotless:spotless-plugin-gradle:$spotlessPluginVersion"
 
 		// This follows advice from https://blog.gradle.org/log4j-vulnerability
 		constraints {
@@ -47,6 +48,22 @@ configure(subprojects - project(':android') - project(':pico4')) {
 				}
 				because("CVE-2021-44228, CVE-2021-45046, CVE-2021-45105: Log4j vulnerable to remote code execution and other critical security vulnerabilities")
 			}
+		}
+	}
+	
+	apply plugin: "com.diffplug.spotless"
+
+	spotless {
+		lineEndings 'UNIX'
+
+		java {
+			target '**/*.java'
+			removeUnusedImports()
+			eclipse().configFile new File(rootProject.projectDir.absolutePath, 'doc/eclipse.formatter.xml')
+		}
+		groovyGradle {
+			target '*.gradle'
+			greclipse().configFile new File(rootProject.projectDir.absolutePath, 'doc/eclipse.formatter.xml')
 		}
 	}
 

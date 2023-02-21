@@ -11,12 +11,12 @@ public interface InputListener{
   public void mouseDragged();
   public void mouseWheel(float x,float y);
   /**
-   * @param key normally "a" and "A" will be treat as 'A'
+   * @param key     normally "a" and "A" will be treat as 'A'
    * @param keyCode see com.badlogic.gdx.Input.Keys for keyCodes
    */
   public void keyPressed(char key,int keyCode);
   /**
-   * @param key normally "a" and "A" will be treat as 'A'
+   * @param key     normally "a" and "A" will be treat as 'A'
    * @param keyCode see com.badlogic.gdx.Input.Keys for keyCodes
    */
   public void keyReleased(char key,int keyCode);

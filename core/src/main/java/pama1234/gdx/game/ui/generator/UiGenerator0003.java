@@ -13,8 +13,7 @@ import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.game.ui.util.TextButtonCam;
 import pama1234.gdx.game.ui.util.TextureButton;
 
-public class UiGenerator0003 {
-  
+public class UiGenerator0003{
   public static <T extends Screen0016> TextButton<?>[] genButtons_0007(T p,Game pg) {
     return new TextButton[] {
       new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {

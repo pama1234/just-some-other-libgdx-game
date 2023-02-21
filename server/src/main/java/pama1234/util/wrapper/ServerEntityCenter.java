@@ -6,7 +6,7 @@ import java.util.LinkedList;
 import pama1234.util.entity.ServerEntity;
 import pama1234.util.listener.ServerEntityListener;
 
-public class ServerEntityCenter<T extends ServerEntityListener> extends ServerEntity{
+public class ServerEntityCenter<T extends ServerEntityListener>extends ServerEntity{
   public final LinkedList<T> list=new LinkedList<T>(),
     add=new LinkedList<T>(),
     remove=new LinkedList<T>();
