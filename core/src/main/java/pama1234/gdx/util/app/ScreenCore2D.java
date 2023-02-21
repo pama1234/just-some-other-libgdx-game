@@ -9,6 +9,9 @@ import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.listener.EntityListener;
 
+/**
+ * 包含一些未被加入至{@link UtilScreen2D}的功能
+ */
 public abstract class ScreenCore2D extends UtilScreen2D{
   // public ServerInfo dataServerInfo;
   //---

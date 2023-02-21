@@ -33,6 +33,9 @@ import pama1234.util.listener.LifecycleListener;
 import pama1234.util.listener.ServerEntityListener;
 import pama1234.util.wrapper.ServerEntityCenter;
 
+/**
+ * @see UtilScreen
+ */
 public abstract class UtilScreenCore implements Screen,InputListener,LifecycleListener{
   public final float fontGridSize=4;
   public boolean flip=true;

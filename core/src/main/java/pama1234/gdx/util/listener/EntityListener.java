@@ -47,21 +47,57 @@ public interface EntityListener extends ServerEntityListener,InputListener{
   default void resume() {}
   /**
    * 在电脑端的窗口发生移动时被调用，安卓端不会被调用
+   * 
+   * @param x 横向值，相对于屏幕的左上角
+   * @param y 纵向值，相对于屏幕的左上角
    */
   default void frameMoved(int x,int y) {}
   /**
    * 在电脑端的窗口发生移动时会被调用，安卓端大概不会被调用
    */
   default void frameResized(int w,int h) {}
+  /**
+   * 按键按下时会被调用一次
+   */
   default void keyPressed(char key,int keyCode) {}
+  /**
+   * 按键松开时会被调用一次
+   */
   default void keyReleased(char key,int keyCode) {}
+  /**
+   * 在一个字符被输入时会被调用一次（比如中文输入法向程序输入了一个中文，那么这个会被调用）
+   */
   default void keyTyped(char key) {}
+  /**
+   * 鼠标在按下状态时移动的话会被调用
+   */
   default void mouseDragged() {}
+  /**
+   * 鼠标在移动时每帧会被调用
+   */
   default void mouseMoved() {}
+  /**
+   * 鼠标在按下任意键时会被调用一次
+   */
   default void mousePressed(MouseInfo info) {}
+  /**
+   * 鼠标在松开任意键时会被调用一次
+   */
   default void mouseReleased(MouseInfo info) {}
+  /**
+   * 鼠标滚轮滚动时会被调用
+   */
   default void mouseWheel(float x,float y) {}
+  /**
+   * 安卓版，触摸屏有手指松开时会被调用一次
+   */
   default void touchEnded(TouchInfo info) {}
+  /**
+   * 安卓版，触摸屏上的每帧对应每个手指会被调用
+   */
   default void touchMoved(TouchInfo info) {}
+  /**
+   * 安卓版，触摸屏上手指按下时会被调用一次
+   */
   default void touchStarted(TouchInfo info) {}
 }

@@ -16,6 +16,9 @@ import pama1234.gdx.util.input.UtilInputProcesser;
 import pama1234.gdx.util.wrapper.EntityCenter;
 import pama1234.util.wrapper.ServerEntityCenter;
 
+/**
+ * @see ScreenCore2D
+ */
 public abstract class UtilScreen2D extends UtilScreen{
   public CameraController2D cam2d;//TODO do we need this?
   @Override

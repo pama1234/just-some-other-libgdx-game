@@ -17,7 +17,10 @@ import dev.lyze.gdxtinyvg.TinyVG;
 import pama1234.gdx.util.info.TouchInfo;
 
 /**
- * UtilScreenCore -> UtilScreen 此中间类主要放渲染相关的东东
+ * 此中间类主要放渲染相关的东东
+ * 
+ * @see UtilScreen2D
+ * @see UtilScreen3D
  */
 public abstract class UtilScreen extends UtilScreenCore{
   public SpriteBatch createSpriteBatch() {
