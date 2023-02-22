@@ -36,29 +36,37 @@ public class RegionWrapper{
   public void removeIfOffBlock(Block block,int x,int y) {
     MetaBlock type=block.type;
     if(type!=null&&(type.width>1||type.height>1)) {
-      for(int i=0;i<type.width;i++) for(int j=0;j<type.height;j++) {
-        int tx=x+i,
-          ty=y+j;
-        Block blockOff=pw.getBlock(tx,ty);
-        // if(block.xOff!=0||block.yOff!=0) removeIfOffBlock(blockOff,tx-block.xOff,ty-block.yOff);
-        // else if(block.type.width>1||block.type.height>1) removeIfOffBlock(blockOff,tx,ty);
-        blockOff.type(pw.metaBlocks.air);
-        blockOff.clearOrigin();
-      }
+      // testAndRemoveOffBlock(x,y,type);
+      allOffBlockToAir(x,y,type);
     }
   }
-  public void putIfOffBlock(Block block,MetaBlock type,int x,int y) {
-    if(type!=null&&(type.width>1||type.height>1)) {
-      for(int i=0;i<type.width;i++) for(int j=0;j<type.height;j++) {
+  public void testAndRemoveOffBlock(int x,int y,MetaBlock type) {
+    for(int i=0;i<type.width;i++) for(int j=0;j<type.height;j++) {
+      int tx=x+i,
+        ty=y+j;
+      Block blockOff=pw.getBlock(tx,ty);
+      if(blockOff.xOff!=0||blockOff.yOff!=0) removeIfOffBlock(blockOff,tx-blockOff.xOff,ty-blockOff.yOff);
+      else if(blockOff.type.width>1||blockOff.type.height>1) removeIfOffBlock(blockOff,tx,ty);
+    }
+  }
+  public void allOffBlockToAir(int x,int y,MetaBlock type) {
+    for(int i=0;i<type.width;i++) for(int j=0;j<type.height;j++) {
+      int tx=x+i,
+        ty=y+j;
+      Block blockOff=pw.getBlock(tx,ty);
+      blockOff.type(pw.metaBlocks.air);
+      blockOff.clearOrigin();
+    }
+  }
+  public void putIfOffBlock(Block block,MetaBlock in,int x,int y) {
+    if(in!=null&&(in.width>1||in.height>1)) {
+      for(int i=0;i<in.width;i++) for(int j=0;j<in.height;j++) {
         int tx=x+i,
           ty=y+j;
         Block blockOff=pw.getBlock(tx,ty);
-        // if(block.xOff!=0||block.yOff!=0) removeIfOffBlock(
-        //   blockOff.origin==null?getBlock(x-blockOff.xOff,y-blockOff.yOff):blockOff.origin,
-        //   blockOff.type,tx-block.xOff,ty-block.yOff);
-        // else 
-        blockOff.doItemDrop(pw.p,tx,ty,type.empty);
-        blockOff.type(type);
+        testAndRemoveOffBlock(tx,ty,blockOff.type);
+        blockOff.doItemDrop(pw.p,tx,ty,in.empty);
+        blockOff.type(in);
         blockOff.origin(block,i,j);
       }
     }
