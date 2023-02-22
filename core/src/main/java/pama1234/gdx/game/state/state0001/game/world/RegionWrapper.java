@@ -28,15 +28,15 @@ public class RegionWrapper{
   public void placeBlock(Block block,MetaBlock in,int x,int y) {
     if(block.xOff!=0||block.yOff!=0) destroyBlock(
       block.origin==null?pw.getBlock(x-block.xOff,y-block.yOff):block.origin,x-block.xOff,y-block.yOff);
+    if(block.type.width==1&&block.type.height==1) block.doItemDrop(pw.p,x,y,in.empty);
     removeAreaIfOff(block,x,y,in);
     putIfOffBlock(block,x,y,in);
     block.type(in);
   }
   public void removeAreaIfOff(Block block,int x,int y,MetaBlock in) {
-    block.doItemDrop(pw.p,x,y,in.empty);
     MetaBlock type=block.type;
     if(type!=null&&(type.width>1||type.height>1)) {
-      // testAndRemoveOffBlock(x,y,type);
+      block.doItemDrop(pw.p,x,y,in.empty);
       allOffAreaToAir(x,y,type);
     }
   }
