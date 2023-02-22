@@ -41,7 +41,7 @@ public class TreeLog extends MetaBlock{
       lightUpdater.update(world,in,x,y);
       // World0001 world=pc.pw;
       Block tb=world.getBlock(x,y+1);
-      if(tb!=null&&tb.type!=pc.log&&tb.type!=pc.dirt) world.destroyBlock(in,x,y);
+      if(tb!=null&&tb.type!=pc.log&&tb.type!=pc.dirt) world.r.destroyBlock(in,x,y);
     };
     displayUpdater=(world,in,x,y)-> {
       // World0001 world=pc.pw;

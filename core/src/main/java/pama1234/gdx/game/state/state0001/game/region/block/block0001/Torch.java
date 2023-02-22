@@ -43,7 +43,7 @@ public class Torch extends MetaBlock{
       else if(Block.isFullBlockOrNull(pc.pw.getBlock(x-1,y))) in.intData[0]=1;
       else if(Block.isFullBlockOrNull(pc.pw.getBlock(x+1,y))) in.intData[0]=2;
       else if(Block.isFullBlockOrNull(pc.pw.getBlock(x,y-1))) in.intData[0]=3;
-      else pc.pw.destroyBlock(in,x,y);
+      else pc.pw.r.destroyBlock(in,x,y);
     };
     displayUpdater=(world,in,x,y)-> {
       defaultDisplayUpdater.update(world,in,x,y);

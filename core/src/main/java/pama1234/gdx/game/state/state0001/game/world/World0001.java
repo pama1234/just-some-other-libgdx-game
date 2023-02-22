@@ -17,7 +17,6 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlock
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaCreatureCenter0001;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemCenter0001;
 import pama1234.gdx.game.state.state0001.game.net.NetMode;
-import pama1234.gdx.game.state.state0001.game.player.BlockPointer;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
 import pama1234.gdx.game.state.state0001.game.region.RegionCenter;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
@@ -44,6 +43,7 @@ public class World0001 extends WorldBase2D{
   public float timeF;
   public Sky sky;
   //---
+  public RegionWrapper r;
   public World0001(Screen0011 p,Game pg) {
     super(p,pg,3);
     data=WorldData.load(worldDataDir);
@@ -55,6 +55,7 @@ public class World0001 extends WorldBase2D{
     list[0]=background=new BackgroundCenter(p,this);
     list[1]=regions=new RegionCenter(p,this);
     list[2]=entities=new MultiGameEntityCenter(p,this);
+    r=new RegionWrapper(this);
     yourself=new MainPlayer(p,this,0,0,Gdx.files.local(data.dir+"/main-player.bin"));
     createBackground();
     sky=new Sky(this);
@@ -158,63 +159,6 @@ public class World0001 extends WorldBase2D{
       WorldData.save(worldDataDir,data);
     }
     // yourself.dispose();
-  }
-  public void destroyBlock(MainPlayer player,Block block,int x,int y) {
-    placeBlock(player,block,metaBlocks.air,x,y);
-  }
-  public void destroyBlock(BlockPointer bp,Block block,int x,int y) {
-    placeBlock(bp,block,metaBlocks.air,x,y);
-  }
-  public void destroyBlock(Block block,int x,int y) {
-    placeBlock(block,metaBlocks.air,x,y);
-  }
-  public void placeBlock(MainPlayer player,Block block,MetaBlock in,int x,int y) {
-    placeBlock(block,in,x,y);
-  }
-  public void placeBlock(BlockPointer bp,Block block,MetaBlock in,int x,int y) {
-    placeBlock(block,in,x,y);
-  }
-  public void placeBlock(Block block,MetaBlock in,int x,int y) {
-    if(block.xOff!=0||block.yOff!=0) placeBlock(
-      block.origin==null?getBlock(x-block.xOff,y-block.yOff):block.origin,metaBlocks.air,x-block.xOff,y-block.yOff);
-    block.doItemDrop(p,x,y,in.empty);
-    removeIfOffBlock(block,block.type,x,y);
-    putIfOffBlock(block,in,x,y);
-    block.type(in);
-  }
-  public void removeIfOffBlock(Block block,MetaBlock type,int x,int y) {
-    if(type!=null&&(type.width>1||type.height>1)) {
-      for(int i=0;i<type.width;i++) for(int j=0;j<type.height;j++) {
-        int tx=x+i,
-          ty=y+j;
-        Block blockOff=getBlock(tx,ty);
-        // if(block.xOff!=0||block.yOff!=0) removeIfOffBlock(blockOff,blockOff.type,tx-block.xOff,ty-block.yOff);
-        blockOff.type(metaBlocks.air);
-        blockOff.clearOrigin();
-      }
-    }
-  }
-  public void putIfOffBlock(Block block,MetaBlock type,int x,int y) {
-    if(type!=null&&(type.width>1||type.height>1)) {
-      for(int i=0;i<type.width;i++) for(int j=0;j<type.height;j++) {
-        int tx=x+i,
-          ty=y+j;
-        Block blockOff=getBlock(tx,ty);
-        // if(block.xOff!=0||block.yOff!=0) removeIfOffBlock(
-        //   blockOff.origin==null?getBlock(x-blockOff.xOff,y-blockOff.yOff):blockOff.origin,
-        //   blockOff.type,tx-block.xOff,ty-block.yOff);
-        // else 
-        blockOff.doItemDrop(p,tx,ty,type.empty);
-        blockOff.type(type);
-        blockOff.origin(block,i,j);
-      }
-    }
-  }
-  public void setBlock(Block block,MetaBlock in,int x,int y) {
-    block.type(in);
-  }
-  public void setBlock(MetaBlock in,int x,int y) {
-    setBlock(getBlock(x,y),in,x,y);
   }
   @Deprecated
   public void updateRectLighting(int x,int y) {

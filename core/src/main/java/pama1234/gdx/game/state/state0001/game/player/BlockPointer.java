@@ -96,7 +96,7 @@ public class BlockPointer{
         MetaBlock tbt=ts.item.type.blockType;
         if(tbt==null||block==null||block.type==tbt) taskComplete();
         else if(progress>=tbt.buildTime+block.type.destroyTime) {
-          pw.placeBlock(this,block,tbt,x,y);
+          pw.r.placeBlock(this,block,tbt,x,y);
           ts.item.count-=1;
           if(ts.item.count==0) ts.item=null;
           taskComplete();
@@ -105,7 +105,7 @@ public class BlockPointer{
         break;
       case destroy: {
         if(progress>=block.type.destroyTime) {
-          if(!block.type.empty) pw.destroyBlock(this,block,x,y);
+          if(!block.type.empty) pw.r.destroyBlock(this,block,x,y);
           taskComplete();
         }
       }

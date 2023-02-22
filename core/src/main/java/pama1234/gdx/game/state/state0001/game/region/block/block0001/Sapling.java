@@ -45,7 +45,7 @@ public class Sapling extends MetaBlock{
         if(in.intData[0]==1) {
           // World0001 world=pc.pw;
           Block tb=world.getBlock(x,y+1);
-          if(tb!=null&&tb.type!=pc.dirt) world.destroyBlock(in,x,y);
+          if(tb!=null&&tb.type!=pc.dirt) world.r.destroyBlock(in,x,y);
         }
       }else {
         // if(pc.pw.data.tick%2==0) return;
@@ -63,8 +63,8 @@ public class Sapling extends MetaBlock{
           Block block=world.getBlock(x+i,ty+j);
           if(block==null||block.type!=pc.air) return;
         }
-        for(int i=0;i<th;i++) world.setBlock(pc.log,x,y-i);
-        for(int i=-n;i<=n;i++) for(int j=-m;j<=m;j++) world.setBlock(pc.leaf,x+i,ty+j);
+        for(int i=0;i<th;i++) world.r.setBlock(pc.log,x,y-i);
+        for(int i=-n;i<=n;i++) for(int j=-m;j<=m;j++) world.r.setBlock(pc.leaf,x+i,ty+j);
       }
     };
   }

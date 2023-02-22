@@ -113,7 +113,7 @@ public class TreeLeaf extends MetaBlock{
         Block tb=world.getBlock(x,y+1);
         if(tb!=null) {
           if(tb.type==pc.log) array[0]=array[1]=maxLogCount;
-          else if(array[0]<=0) world.destroyBlock(in,x,y);
+          else if(array[0]<=0) world.r.destroyBlock(in,x,y);
         }
       }
     };

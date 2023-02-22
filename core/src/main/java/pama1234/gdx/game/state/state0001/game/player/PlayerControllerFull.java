@@ -254,7 +254,7 @@ public class PlayerControllerFull extends PlayerControllerCore{
   public void creativeModeUpdateSelectBlock(TouchInfo info,int tx,int ty,Block block) {
     if(block!=null) switch(getTouchInfoButton(info.button)) {
       case Buttons.LEFT: {
-        if(block.type!=player.pw.metaBlocks.air) player.pw.destroyBlock(player,block,tx,ty);
+        if(block.type!=player.pw.metaBlocks.air) player.pw.r.destroyBlock(player,block,tx,ty);
       }
         break;
       case Buttons.RIGHT: {
@@ -263,7 +263,7 @@ public class PlayerControllerFull extends PlayerControllerCore{
         if(ti!=null) {
           MetaBlock tb=ti.type.blockType;
           if(tb!=null&&block.type!=tb) {
-            player.pw.placeBlock(player,block,tb,tx,ty);
+            player.pw.r.placeBlock(player,block,tb,tx,ty);
           }
         }
       }
