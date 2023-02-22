@@ -28,28 +28,28 @@ public class RegionWrapper{
   public void placeBlock(Block block,MetaBlock in,int x,int y) {
     if(block.xOff!=0||block.yOff!=0) destroyBlock(
       block.origin==null?pw.getBlock(x-block.xOff,y-block.yOff):block.origin,x-block.xOff,y-block.yOff);
-    block.doItemDrop(pw.p,x,y,in.empty);
-    removeIfOffBlock(block,x,y);
-    putIfOffBlock(block,in,x,y);
+    removeAreaIfOff(block,x,y,in);
+    putIfOffBlock(block,x,y,in);
     block.type(in);
   }
-  public void removeIfOffBlock(Block block,int x,int y) {
+  public void removeAreaIfOff(Block block,int x,int y,MetaBlock in) {
+    block.doItemDrop(pw.p,x,y,in.empty);
     MetaBlock type=block.type;
     if(type!=null&&(type.width>1||type.height>1)) {
       // testAndRemoveOffBlock(x,y,type);
-      allOffBlockToAir(x,y,type);
+      allOffAreaToAir(x,y,type);
     }
   }
-  public void testAndRemoveOffBlock(int x,int y,MetaBlock type) {
+  public void testAndRemoveOffBlock(MetaBlock type,int x,int y,MetaBlock in) {
     for(int i=0;i<type.width;i++) for(int j=0;j<type.height;j++) {
       int tx=x+i,
         ty=y+j;
       Block blockOff=pw.getBlock(tx,ty);
-      if(blockOff.xOff!=0||blockOff.yOff!=0) removeIfOffBlock(blockOff,tx-blockOff.xOff,ty-blockOff.yOff);
-      else if(blockOff.type.width>1||blockOff.type.height>1) removeIfOffBlock(blockOff,tx,ty);
+      if(blockOff.xOff!=0||blockOff.yOff!=0) removeAreaIfOff(blockOff,tx-blockOff.xOff,ty-blockOff.yOff,in);
+      else if(blockOff.type.width>1||blockOff.type.height>1) removeAreaIfOff(blockOff,tx,ty,in);
     }
   }
-  public void allOffBlockToAir(int x,int y,MetaBlock type) {
+  public void allOffAreaToAir(int x,int y,MetaBlock type) {
     for(int i=0;i<type.width;i++) for(int j=0;j<type.height;j++) {
       int tx=x+i,
         ty=y+j;
@@ -58,13 +58,13 @@ public class RegionWrapper{
       blockOff.clearOrigin();
     }
   }
-  public void putIfOffBlock(Block block,MetaBlock in,int x,int y) {
+  public void putIfOffBlock(Block block,int x,int y,MetaBlock in) {
     if(in!=null&&(in.width>1||in.height>1)) {
       for(int i=0;i<in.width;i++) for(int j=0;j<in.height;j++) {
         int tx=x+i,
           ty=y+j;
         Block blockOff=pw.getBlock(tx,ty);
-        testAndRemoveOffBlock(tx,ty,blockOff.type);
+        testAndRemoveOffBlock(blockOff.type,tx,ty,in);
         blockOff.doItemDrop(pw.p,tx,ty,in.empty);
         blockOff.type(in);
         blockOff.origin(block,i,j);
