@@ -5,8 +5,7 @@ import com.badlogic.gdx.math.Vector3;
 import pama1234.gdx.util.app.UtilScreenCore;
 import pama1234.math.Tools;
 
-public class MouseInfo{
-  public UtilScreenCore p;
+public class MouseInfo extends ScreenCamInfo{
   /**
    * 表示鼠标按键是否被按下
    */
@@ -27,19 +26,6 @@ public class MouseInfo{
    * @see com.badlogic.gdx.Input.Buttons
    */
   public int button=-1;
-  /**
-   * sx是start-x的简写，含义是鼠标被按下时所处的位置
-   * </p>
-   */
-  public float sx,sy;
-  /**
-   * px是previous-x的简写，表示上一帧时鼠标的位置 x和y是当前这一帧的鼠标位置
-   */
-  public float px,py,x,y;
-  /**
-   * dx是distance-x的简写，表示这一帧和上一帧的鼠标位置的数值差，可为负数
-   */
-  public float dx,dy;
   /**
    * ox是未经过相机视角变化的当前鼠标位置
    * 

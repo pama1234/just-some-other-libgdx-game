@@ -4,8 +4,7 @@ import com.badlogic.gdx.math.Vector3;
 
 import pama1234.gdx.util.app.UtilScreenCore;
 
-public class TouchInfo{
-  public UtilScreenCore p;
+public class TouchInfo extends ScreenCamInfo{
   /**
    * 表示此触碰信息是否参与按钮等信息，不由{@link UtilScreenCore}进行赋值
    */
@@ -17,9 +16,9 @@ public class TouchInfo{
    */
   public int startTime;
   public int pointer,button;
-  public float sx,sy;
-  public float dx,dy;
-  public float px,py,x,y;
+  // public float sx,sy;
+  // public float dx,dy;
+  // public float px,py,x,y;
   public int ox,oy,osx,osy;
   //---------------------------
   public int state;
