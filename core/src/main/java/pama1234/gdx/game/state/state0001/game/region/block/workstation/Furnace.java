@@ -20,7 +20,7 @@ public class Furnace extends MetaBlock{
     workStation=true;
     fullBlock=false;
     destroyTime=120;
-    buildTime=10;
+    buildTime=60;
     width=2;
     height=2;
     initLambda();
@@ -48,9 +48,11 @@ public class Furnace extends MetaBlock{
     itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pw.metaItems.furnace,1)};
   }
   public void initLambda() {
-    displayer=(r,p,in,x,y)-> {
+    displayUpdater=(world,in,x,y)-> {
       in.displayType[0]=in.xOff*in.type.width+in.yOff;
-      defaultBlockDisplayer.display(r,p,in,x,y);
     };
+    // displayer=(r,p,in,x,y)-> {
+    //   defaultBlockDisplayer.display(r,p,in,x,y);
+    // };
   }
 }

@@ -26,20 +26,22 @@ public class RegionWrapper{
     placeBlock(block,in,x,y);
   }
   public void placeBlock(Block block,MetaBlock in,int x,int y) {
-    if(block.xOff!=0||block.yOff!=0) placeBlock(
-      block.origin==null?pw.getBlock(x-block.xOff,y-block.yOff):block.origin,pw.metaBlocks.air,x-block.xOff,y-block.yOff);
+    if(block.xOff!=0||block.yOff!=0) destroyBlock(
+      block.origin==null?pw.getBlock(x-block.xOff,y-block.yOff):block.origin,x-block.xOff,y-block.yOff);
     block.doItemDrop(pw.p,x,y,in.empty);
-    removeIfOffBlock(block,block.type,x,y);
+    removeIfOffBlock(block,x,y);
     putIfOffBlock(block,in,x,y);
     block.type(in);
   }
-  public void removeIfOffBlock(Block block,MetaBlock type,int x,int y) {
+  public void removeIfOffBlock(Block block,int x,int y) {
+    MetaBlock type=block.type;
     if(type!=null&&(type.width>1||type.height>1)) {
       for(int i=0;i<type.width;i++) for(int j=0;j<type.height;j++) {
         int tx=x+i,
           ty=y+j;
         Block blockOff=pw.getBlock(tx,ty);
-        // if(block.xOff!=0||block.yOff!=0) removeIfOffBlock(blockOff,blockOff.type,tx-block.xOff,ty-block.yOff);
+        // if(block.xOff!=0||block.yOff!=0) removeIfOffBlock(blockOff,tx-block.xOff,ty-block.yOff);
+        // else if(block.type.width>1||block.type.height>1) removeIfOffBlock(blockOff,tx,ty);
         blockOff.type(pw.metaBlocks.air);
         blockOff.clearOrigin();
       }
