@@ -34,7 +34,7 @@ public class Game extends StateEntity0001{
   //---
   public World0001 world_0001;
   public WorldCenter<Screen0011,Game,World<Screen0011,Game>> worldCenter;
-  public boolean debug,debugGraphics;
+  // public boolean debug,debugGraphics;
   public boolean androidRightMouseButton;
   public EntityListener displayCamTop;
   public boolean firstInit=true;//TODO
@@ -51,7 +51,7 @@ public class Game extends StateEntity0001{
     worldCenter=new WorldCenter<Screen0011,Game,World<Screen0011,Game>>(p);
     worldCenter.list.add(world_0001=new World0001(p,this));
     worldCenter.pointer=0;
-    if(debug) createDebugDisplay();
+    if(p.settings.debugInfo) createDebugDisplay();
     selfAddr=new NetAddressInfo("127.0.0.1",12347);
   }
   public World0001 world() {
@@ -76,7 +76,7 @@ public class Game extends StateEntity0001{
     }
     tw.from(in);//TODO
     worldCenter.resume();
-    if(debugGraphics) p.centerCam.add.add(displayCamTop);
+    if(p.settings.debugGraphics) p.centerCam.add.add(displayCamTop);
     p.centerCam.add.add(worldCenter);
     if(netMode==NetMode.client) {
       SocketHints socketHints=new SocketHints();
@@ -109,7 +109,7 @@ public class Game extends StateEntity0001{
     p.centerCam.remove.add(worldCenter);
     worldCenter.pause();
     tw.to(in);//TODO
-    if(debugGraphics) p.centerCam.remove.add(displayCamTop);
+    if(p.settings.debugGraphics) p.centerCam.remove.add(displayCamTop);
     if(netMode==NetMode.client) {
       client.stop();
     }else if(netMode==NetMode.integratedServer) {
@@ -122,14 +122,14 @@ public class Game extends StateEntity0001{
   }
   @Override
   public void display() {
-    if(debugGraphics) {
+    if(p.settings.debugGraphics) {
       p.beginBlend();
       p.fill(94,203,234,127);
       RectF[] cullRects=world().yourself.ctrl.cullRects;
       for(RectF e:cullRects) p.rect(e.x(),e.y(),e.w(),e.h());
       p.endBlend();
     }
-    if(debug) debugText(p,this);
+    if(p.settings.debugInfo) debugText(p,this);
   }
   @Override
   public void update() {

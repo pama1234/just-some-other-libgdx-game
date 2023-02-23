@@ -41,15 +41,15 @@ public class SettingsUtil{
         p.settings.debugInfo=!p.settings.debugInfo;
         p.debugInfoChange(p.settings.debugInfo);
         Game game=(Game)State0001.Game.entity;
-        if(game.debug=p.settings.debugInfo) game.createDebugDisplay();
+        if(p.settings.debugInfo) game.createDebugDisplay();
         self.updateText();
       },self->self.text=p.settings.debugInfo?"显示文本调试信息：是":"显示文本调试信息：否",()->18,()->0,()->40),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
+        p.settings.debugGraphics=!p.settings.debugGraphics;
         Game game=(Game)State0001.Game.entity;
-        game.debugGraphics=!game.debugGraphics;
-        if(game.debugGraphics) game.createDebugDisplay();
+        if(p.settings.debugGraphics) game.createDebugDisplay();
         self.updateText();
-      },self->self.text=((Game)State0001.Game.entity).debugGraphics?"显示图形调试信息：是":"显示图形调试信息：否",()->18,()->0,()->60),
+      },self->self.text=p.settings.debugGraphics?"显示图形调试信息：是":"显示图形调试信息：否",()->18,()->0,()->60),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         ((Game)State0001.Game.entity).world().pauseSave();
         p.state(State0001.Loading);

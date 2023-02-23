@@ -82,8 +82,8 @@ public class PlayerControllerFull extends PlayerControllerCore{
     float tr=selectBlock.dist(tx,ty);
     float maxDist=selectBlock.maxDist;
     if(tr>maxDist) {
-      float tx_2=(tx-selectBlock.ox)*maxDist/tr;
-      float ty_2=(ty-selectBlock.oy)*maxDist/tr;
+      float tx_2=(tx-selectBlock.ox-0.5f)*(maxDist-0.5f)/tr;
+      float ty_2=(ty-selectBlock.oy-0.5f)*(maxDist-0.5f)/tr;
       tx=UtilMath.round(selectBlock.ox+tx_2);
       ty=UtilMath.round(selectBlock.oy+ty_2);
     }
@@ -119,8 +119,8 @@ public class PlayerControllerFull extends PlayerControllerCore{
     float tr=selectBlock.dist(tx,ty);
     float maxDist=selectBlock.maxDist;
     if(tr>maxDist) {
-      float tx_2=(tx-selectBlock.ox)*maxDist/tr;
-      float ty_2=(ty-selectBlock.oy)*maxDist/tr;
+      float tx_2=(tx-selectBlock.ox-0.5f)*(maxDist-0.5f)/tr;
+      float ty_2=(ty-selectBlock.oy-0.5f)*(maxDist-0.5f)/tr;
       tx=UtilMath.round(selectBlock.ox+tx_2);
       ty=UtilMath.round(selectBlock.oy+ty_2);
     }
@@ -142,10 +142,10 @@ public class PlayerControllerFull extends PlayerControllerCore{
     float tr=selectBlock.dist(tx,ty);
     float maxDist=selectBlock.maxDist;
     if(tr>maxDist) {
-      float tx_2=(tx-selectBlock.ox)*maxDist/tr;
-      float ty_2=(ty-selectBlock.oy)*maxDist/tr;
-      tx=UtilMath.floor(selectBlock.ox+tx_2);
-      ty=UtilMath.floor(selectBlock.oy+ty_2);
+      float tx_2=(tx-selectBlock.ox-0.5f)*(maxDist-0.5f)/tr;
+      float ty_2=(ty-selectBlock.oy-0.5f)*(maxDist-0.5f)/tr;
+      tx=UtilMath.round(selectBlock.ox+tx_2);
+      ty=UtilMath.round(selectBlock.oy+ty_2);
     }
     Block block=player.getBlock(tx,ty);
     selectBlock.update(block,tx,ty);

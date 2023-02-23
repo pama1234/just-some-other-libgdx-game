@@ -46,7 +46,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   }
   public static class SettingsData{
     public boolean showEarth=true;
-    public boolean debugInfo;
+    public boolean debugInfo,debugGraphics;
     public boolean mute;
     public float volume=1;
     public boolean zoomButton;
@@ -107,7 +107,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   }
   public void postSettings() {
     Game game=(Game)State0001.Game.entity;
-    if(game.debug=settings.debugInfo) game.createDebugDisplay();
+    if(settings.debugInfo) game.createDebugDisplay();
     refreshLocalHost();
     debugInfoChange(settings.debugInfo);
   }

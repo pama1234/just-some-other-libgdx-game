@@ -74,7 +74,7 @@ public class MainPlayer extends Player implements LoadAndSave{
       MassPoint tp=WorldKryoUtil.kryo.readObject(input,MassPoint.class);
       point.cloneFrom(tp);
       ctrl.limitBox.prePointUpdate();
-      if(pw.pg.debug) System.out.println(point.pos);
+      if(p.settings.debugInfo) System.out.println(point.pos);
       inventory=WorldKryoUtil.kryo.readObject(input,Inventory.class);
       for(ItemSlot e:inventory.data) {
         Item ti=e.item;
@@ -93,7 +93,7 @@ public class MainPlayer extends Player implements LoadAndSave{
   @Override
   public void save() {
     if(inventory!=null) try(Output output=new Output(new FileOutputStream(dataLocation.file()))) {
-      if(pw.pg.debug) System.out.println(point.pos);
+      if(p.settings.debugInfo) System.out.println(point.pos);
       WorldKryoUtil.kryo.writeObject(output,point);
       WorldKryoUtil.kryo.writeObject(output,inventory);
       // WorldKryoUtil.kryo.writeObject(output,name);
