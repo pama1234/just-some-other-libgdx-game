@@ -64,10 +64,10 @@ public class Screen0005 extends ScreenCore3D{
   }
   @Override
   public void update() {
-    tilesData.beginDraw();
+    tilesData.beginShape();
     fill(frameCount%256);
     rect(8,8,8,8);
-    tilesData.endDraw();
+    tilesData.endShape();
     shaderUpdate();
   }
   @Override
@@ -78,10 +78,10 @@ public class Screen0005 extends ScreenCore3D{
   public void frameResized() {
     gbackground.dispose();
     gbackground=new Graphics(this,width,height);
-    gbackground.beginDraw();
+    gbackground.beginShape();
     // image(tiles,0,0);
     background(255,0,0);
-    gbackground.endDraw();
+    gbackground.endShape();
     // imageBatch.begin();
     // imageBatch.setShader(shader);
     idata[1]=width;

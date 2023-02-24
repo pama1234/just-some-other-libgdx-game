@@ -126,12 +126,12 @@ public class Screen0003 extends ScreenCore3D{
     for(int i=0;i<ts;i++) {
       int tgsize=tgsizeF(0);
       Graphics tg=new Graphics(this,tgsize*2,tgsize*2);
-      tg.beginDraw();
+      tg.beginShape();
       fillHex(colors[i]&0x40ffffff);
       circle(tgsize,tgsize,tgsize);
       fillHex(colors[i]);
       circle(tgsize,tgsize,tgsize/2);
-      tg.endDraw();
+      tg.endShape();
       TextureRegion tr=new TextureRegion(tg.texture);
       graphicsList.get(0).add(0*ts+i,new GraphicsData(tg,tr));
       for(int j=0;j<tsize;j++) {
@@ -146,21 +146,21 @@ public class Screen0003 extends ScreenCore3D{
       for(int i=0;i<ts;i++) {
         int tgsize=tgsizeF(k);
         Graphics tg=new Graphics(this,tgsize*2,tgsize*2);
-        tg.beginDraw();
+        tg.beginShape();
         fillHex(colors[i]&0x40ffffff);
         circle(tgsize,tgsize,tgsize);
         fillHex(colors[i]);
         circle(tgsize,tgsize,tgsize/2);
-        tg.endDraw();
+        tg.endShape();
         TextureRegion tr=new TextureRegion(tg.texture);
         graphicsList.get(k).add(i,new GraphicsData(tg,tr));
       }
     }
     //TODO
     Graphics tg=new Graphics(this,360,16*info0001.length);
-    tg.beginDraw();
+    tg.beginShape();
     for(int i=0;i<info0001.length;i++) text(info0001[i],0,16*i);
-    tg.endDraw();
+    tg.endShape();
     TextureRegion tr=new TextureRegion(tg.texture);
     infoD=Decal.newDecal(tr,true);
     logo=Decal.newDecal(256,256,new TextureRegion(FileUtil.loadTexture("logo/logo-ingame.png")),true);

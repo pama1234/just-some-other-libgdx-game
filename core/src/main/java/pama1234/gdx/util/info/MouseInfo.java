@@ -26,12 +26,6 @@ public class MouseInfo extends ScreenCamInfo{
    * @see com.badlogic.gdx.Input.Buttons
    */
   public int button=-1;
-  /**
-   * ox是未经过相机视角变化的当前鼠标位置
-   * 
-   * @see pama1234.gdx.util.app.UtilScreen2D#unproject(float,float)
-   */
-  public int ox,oy;
   public MouseInfo(UtilScreenCore p) {
     this.p=p;
   }
@@ -53,6 +47,8 @@ public class MouseInfo extends ScreenCamInfo{
   public void flip() {
     sx=x;
     sy=y;
+    osx=ox;
+    osy=oy;
   }
   public boolean inbox(float a,float b,float w,float h) {
     return Tools.inBox(x,y,a,b,w,h);

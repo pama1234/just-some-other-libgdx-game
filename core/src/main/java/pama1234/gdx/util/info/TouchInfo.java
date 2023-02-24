@@ -16,10 +16,6 @@ public class TouchInfo extends ScreenCamInfo{
    */
   public int startTime;
   public int pointer,button;
-  // public float sx,sy;
-  // public float dx,dy;
-  // public float px,py,x,y;
-  public int ox,oy,osx,osy;
   //---------------------------
   public int state;
   public TouchInfo(UtilScreenCore p) {

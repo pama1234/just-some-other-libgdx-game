@@ -3,6 +3,9 @@ package pama1234.gdx.util.info;
 import pama1234.gdx.util.app.UtilScreenCore;
 
 public class ScreenCamInfo{
+  /**
+   * 父实例 {@link pama1234.gdx.util.app.UtilScreenCore UtilScreenCore}
+   */
   public UtilScreenCore p;
   /**
    * sx是start-x的简写，含义是鼠标被按下或手指触碰时所处的位置
@@ -14,7 +17,18 @@ public class ScreenCamInfo{
    */
   public float dx,dy;
   /**
-   * px是previous-x的简写，表示上一帧时鼠标的位置 x和y是当前这一帧的鼠标位置
+   * px是previous-x的简写，表示上一帧时鼠标的位置
    */
-  public float px,py,x,y;
+  public float px,py;
+  /**
+   * x和y是当前这一帧的鼠标位置
+   */
+  public float x,y;
+  /**
+   * ox是未经过相机视角变化的当前鼠标位置
+   * 
+   * @see pama1234.gdx.util.app.UtilScreen2D#unproject(float,float)
+   */
+  public int ox,oy;
+  public int osx,osy;
 }

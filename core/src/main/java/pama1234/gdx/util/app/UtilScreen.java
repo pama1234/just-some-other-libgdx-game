@@ -23,7 +23,7 @@ import pama1234.gdx.util.info.TouchInfo;
  * @see UtilScreen3D
  */
 public abstract class UtilScreen extends UtilScreenCore{
-  public SpriteBatch createSpriteBatch() {
+  public static SpriteBatch createSpriteBatch() {
     return new SpriteBatch(1000,createDefaultShader());
   }
   public static ShaderProgram createDefaultShader() {
@@ -79,7 +79,7 @@ public abstract class UtilScreen extends UtilScreenCore{
     update();
   }
   public void doDraw() {
-    beginDraw();
+    beginShape();
     if(background) background(backgroundColor);
     withCam();
     serverCenter.display();
@@ -89,7 +89,7 @@ public abstract class UtilScreen extends UtilScreenCore{
     centerScreen.display();
     display();
     inputProcessor.display();
-    endDraw();
+    endShape();
   }
   public abstract void displayWithCam();
   public void image(Texture in,float x,float y) {

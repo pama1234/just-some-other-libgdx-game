@@ -74,14 +74,14 @@ public class Screen0015 extends ScreenCore3D{
     shaderUpdate();
   }
   public void updateTilesData() {
-    tilesData.beginDraw();
+    tilesData.beginShape();
     // background(frameCount%256,frameCount%256,0);
     background((int)((float)mouse.ox/width*256),(int)((float)mouse.oy/height*256),0);
     // fill((int)((float)mouse.ox/width*256),(int)((float)mouse.oy/height*256),0);
     // rect(8,8,16,16);
     // fill(0,1,0);
     // rect(8,8,16,16);
-    tilesData.endDraw();
+    tilesData.endShape();
     // pixmap.drawPixel(0,0,tileToColor(mouse.ox,mouse.oy));
   }
   public int tileToColor(int x,int y) {

@@ -34,6 +34,8 @@ import pama1234.util.listener.ServerEntityListener;
 import pama1234.util.wrapper.ServerEntityCenter;
 
 /**
+ * UtilScreen太大了，因此抽离了一部分内容到此类，抽离的规则未确定
+ * 
  * @see UtilScreen
  */
 public abstract class UtilScreenCore implements Screen,InputListener,LifecycleListener{
@@ -52,7 +54,7 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
   public boolean keyPressed;
   /** normally "a" and "A" will be treat as 'A' */
   public char key;
-  /** see com.badlogic.gdx.Input.Keys for keyCodes */
+  /** see {@link com.badlogic.gdx.Input.Keys gdx.Input.Keys} for keyCodes */
   public int keyCode;
   public boolean shift,ctrl,alt;
   public IntArray keyPressedArray;
@@ -111,11 +113,11 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
       Gdx.files.internal("unifont/15/unifont-15.fnt"),
     },true);
   }
-  public void beginDraw() {
+  public void beginShape() {
     rFill.begin(ShapeType.Filled);
     rStroke.begin(ShapeType.Line);
   }
-  public void endDraw() {
+  public void endShape() {
     rFill.end();
     rStroke.end();
   }

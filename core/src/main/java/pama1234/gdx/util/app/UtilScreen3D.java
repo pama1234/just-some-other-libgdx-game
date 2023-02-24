@@ -75,13 +75,13 @@ public abstract class UtilScreen3D extends UtilScreen{
     flushDecal();
   }
   public void flushDecal() {
-    endDraw();
+    endShape();
     // Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
     // Gdx.gl20.glDepthMask(false);
     // Gdx.gl.glEnable(GL20.GL_BLEND);
     // Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA,GL20.GL_ONE_MINUS_SRC_ALPHA);
     decalBatch.flush();
-    beginDraw();
+    beginShape();
   }
   public void model(ModelInstance in) {
     modelBatch.begin(usedCamera);
@@ -93,13 +93,13 @@ public abstract class UtilScreen3D extends UtilScreen{
     flushModel();
   }
   public void flushModel() {
-    endDraw();
+    endShape();
     // Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
     // Gdx.gl20.glDepthMask(false);
     // Gdx.gl.glEnable(GL20.GL_BLEND);
     // Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA,GL20.GL_ONE_MINUS_SRC_ALPHA);
     modelBatch.flush();
-    beginDraw();
+    beginShape();
   }
   @Override
   public void dispose() {

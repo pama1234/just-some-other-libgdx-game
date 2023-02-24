@@ -29,12 +29,12 @@ public class Graphics{
   public float height() {
     return texture.getHeight();
   }
-  public void beginDraw() {
+  public void beginShape() {
     begin();
-    p.beginDraw();
+    p.beginShape();
   }
-  public void endDraw() {
-    p.endDraw();
+  public void endShape() {
+    p.endShape();
     end();
   }
   public void begin() {

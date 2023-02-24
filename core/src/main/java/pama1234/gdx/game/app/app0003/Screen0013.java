@@ -20,9 +20,9 @@ public class Screen0013 extends ScreenCore3D{
   }
   public void initDecal() {
     Graphics tg=new Graphics(this,64,64);
-    tg.beginDraw();
+    tg.beginShape();
     background(255);
-    tg.endDraw();
+    tg.endShape();
     TextureRegion tr=new TextureRegion(tg.texture);
     decal=Decal.newDecal(tr,true);
     decal.setPosition(textWidth(text)/4f,18,4);
