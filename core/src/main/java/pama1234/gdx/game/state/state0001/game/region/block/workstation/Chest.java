@@ -39,14 +39,6 @@ public class Chest extends MetaBlock{
   public void initLambda() {
     updater=(world,in,x,y)-> {
       lightUpdater.update(world,in,x,y);
-      // int tw=world.settings.blockWidth,
-      //   th=world.settings.blockHeight;
-      // int tx=(in.ui.displaySlot.length-1)/2*tw;
-      // in.intData[2]=(x-tx)*tw;
-      // in.intData[4]=x;
-      // in.intData[5]=y;
-      // in.intData[2]=(x-2)*tw;
-      // in.intData[3]=(y-3)*th;
     };
     displayUpdater=(world,in,x,y)-> {
       defaultDisplayUpdater.update(world,in,x,y);
@@ -54,17 +46,10 @@ public class Chest extends MetaBlock{
         th=world.settings.blockHeight;
       int length=in.ui.displaySlot.length;
       float tx=(sloatDisplayWidth-1)/2,
-        ty=length/sloatDisplayWidth+1;
-      for(int i=0;i<length;i++) {//TODO waste efficiency
-        in.ui.displaySlot[i].update((x+i%sloatDisplayWidth-tx)*tw,(y-ty+i/sloatDisplayWidth)*th);
-      }
-      // float tw=world.settings.blockWidth,
-      //   th=world.settings.blockHeight;
-      // int length=in.ui.displaySlot.length;
-      // float tx=(length-1)/2*tw;
-      // for(int i=0;i<length;i++) {//TODO waste efficiency
-      //   in.ui.displaySlot[i].update((x+i)*tw-tx,(y-1)*th);
-      // }
+        ty=length/sloatDisplayWidth;
+      for(int i=0;i<length;i++) in.ui.displaySlot[i].update(
+        (x+i%sloatDisplayWidth-tx)*tw,
+        (y-ty+i/sloatDisplayWidth)*th);//TODO waste efficiency
     };
     displayer=(r,p,in,x,y)-> {
       defaultBlockDisplayer.display(r,p,in,x,y);

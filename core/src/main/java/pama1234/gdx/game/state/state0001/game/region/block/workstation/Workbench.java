@@ -66,20 +66,14 @@ public class Workbench extends MetaBlock{
       float tw=world.settings.blockWidth,
         th=world.settings.blockHeight;
       int length=in.ui.displaySlot.length;
-      float tx=(length-1)/2*tw;
-      for(int i=0;i<length;i++) {//TODO waste efficiency
-        in.ui.displaySlot[i].update((x+i)*tw-tx,(y-1)*th);
-      }
+      float tx=(length-1)/2;
+      for(int i=0;i<length;i++) in.ui.displaySlot[i].update(
+        (x+i-tx)*tw,(y-1)*th);//TODO waste efficiency
     };
     displayer=(r,p,in,x,y)-> {
       defaultBlockDisplayer.display(r,p,in,x,y);
       float tw=pc.pw.settings.blockWidth,
         th=pc.pw.settings.blockHeight;
-      // float tx=(in.ui.displaySlot.length-1)/2*tw;
-      // for(int i=0;i<in.ui.displaySlot.length;i++) {//TODO waste efficiency
-      //   DisplaySlot slot=in.ui.displaySlot[i];
-      //   slot.update(x-tx+i*tw,y-th);
-      // }
       p.textScale(0.5f);
       for(DisplaySlot e:in.ui.displaySlot) Inventory.displaySlot(p,e);
       p.textScale(1);
