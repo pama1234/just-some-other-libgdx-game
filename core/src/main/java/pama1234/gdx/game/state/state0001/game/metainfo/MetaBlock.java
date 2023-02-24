@@ -11,7 +11,7 @@ import pama1234.math.UtilMath;
 
 public class MetaBlock extends MetaInfoBase{
   public static class FullBlockType{
-    public static final int stoneType=0,leafType=1,plankType=2,platformType=3;//fullBlockType
+    public static final int stoneType=0,leafType=1,plankType=2,platformType=3;//,oreType=4;
   }
   public static final int noType=0,everyType=1,dirtType=2,stoneType=3,woodType=4;//blockType
   public MetaBlockCenter0001 pc;
@@ -143,7 +143,6 @@ public class MetaBlock extends MetaInfoBase{
     in.light.update();
   };
   public static final BlockUpdater fullBlockDisplayUpdater=(world,in,x,y)-> {
-    // World0001 world=world;
     int typeCache=0;
     if(isNotFullBlockOrNotSameType(in,world.getBlock(x,y-1))) typeCache+=1;// up
     if(isNotFullBlockOrNotSameType(in,world.getBlock(x,y+1))) typeCache+=2;// down
@@ -155,23 +154,11 @@ public class MetaBlock extends MetaInfoBase{
     if(isNotFullBlockOrNotSameType(in,world.getBlock(x-1,y+1))) typeCache+=2;
     if(isNotFullBlockOrNotSameType(in,world.getBlock(x+1,y+1))) typeCache+=4;
     if(isNotFullBlockOrNotSameType(in,world.getBlock(x+1,y-1))) typeCache+=8;
-    // if(Block.isNotFullBlock(world.getBlock(x,y-1))) typeCache+=1;// up
-    // if(Block.isNotFullBlock(world.getBlock(x,y+1))) typeCache+=2;// down
-    // if(Block.isNotFullBlock(world.getBlock(x-1,y))) typeCache+=4;// left
-    // if(Block.isNotFullBlock(world.getBlock(x+1,y))) typeCache+=8;// right
-    // in.displayType[0]=typeCache;
-    // typeCache=0;
-    // if(Block.isNotFullBlock(world.getBlock(x-1,y-1))) typeCache+=1;
-    // if(Block.isNotFullBlock(world.getBlock(x-1,y+1))) typeCache+=2;
-    // if(Block.isNotFullBlock(world.getBlock(x+1,y+1))) typeCache+=4;
-    // if(Block.isNotFullBlock(world.getBlock(x+1,y-1))) typeCache+=8;
     in.displayType[1]=typeCache;
     //---
     if(in.updateLighting) lightingUpdate(in,x,y,world);
-    // in.light.update();
   },defaultDisplayUpdater=(world,in,x,y)-> {
     if(in.updateLighting) lightingUpdate(in,x,y,in.type.pc.pw);
-    // in.light.update();
   };
   public static boolean isNotFullBlockOrNotSameType(Block b,Block a) {
     return Block.isNotFullBlock(a)||(a.type.fullBlockType!=b.type.fullBlockType);

@@ -5,6 +5,7 @@ import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaInfoUtil.MetaBlockCenter;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Dirt;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Door;
+import pama1234.gdx.game.state.state0001.game.region.block.block0001.LightOre;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Sapling;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Stone;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Torch;
@@ -35,6 +36,7 @@ public class MetaBlockCenter0001 extends MetaBlockCenter{
   public Furnace furnace;
   public Door door;
   public Chest chest;
+  public LightOre lightOre;
   public MetaBlockCenter0001(World0001 pw) {
     this.pw=pw;
     idg=new IDGenerator();
