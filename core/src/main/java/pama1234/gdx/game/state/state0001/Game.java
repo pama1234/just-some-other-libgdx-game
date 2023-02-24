@@ -51,7 +51,7 @@ public class Game extends StateEntity0001{
     worldCenter=new WorldCenter<Screen0011,Game,World<Screen0011,Game>>(p);
     worldCenter.list.add(world_0001=new World0001(p,this));
     worldCenter.pointer=0;
-    if(p.settings.debugInfo) createDebugDisplay();
+    if(p.settings.debugGraphics) createDebugDisplay();
     selfAddr=new NetAddressInfo("127.0.0.1",12347);
   }
   public World0001 world() {

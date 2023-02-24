@@ -41,7 +41,7 @@ public class SettingsUtil{
         p.settings.debugInfo=!p.settings.debugInfo;
         p.debugInfoChange(p.settings.debugInfo);
         Game game=(Game)State0001.Game.entity;
-        if(p.settings.debugInfo) game.createDebugDisplay();
+        // if(p.settings.debugInfo) game.createDebugDisplay();
         self.updateText();
       },self->self.text=p.settings.debugInfo?"显示文本调试信息：是":"显示文本调试信息：否",()->18,()->0,()->40),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
