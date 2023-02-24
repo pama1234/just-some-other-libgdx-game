@@ -1,51 +1,46 @@
-package pama1234.gdx.game.state.state0001.game.region.block.workstation;
+package pama1234.gdx.game.state.state0001.game.region.block.block0001;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import pama1234.gdx.game.asset.ImageAsset;
-import pama1234.gdx.game.state.state0001.game.item.DisplaySlot;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
-import pama1234.gdx.game.state.state0001.game.region.block.Block.BlockUi;
-import pama1234.gdx.game.ui.util.TextButtonCam;
 
-public class Furnace extends MetaBlock{
-  public Furnace(MetaBlockCenter0001 pc,int id) {
-    super(pc,"furnace",id,4,1,(in,type)-> {//change to me
+public class Door extends MetaBlock{
+  public Door(MetaBlockCenter0001 pc,int id) {
+    super(pc,"door",id,6,1,(in,type)-> {//change to me
       in.light.set(16);
     },(in,type)-> {//change from me
     });
-    blockType=stoneType;
-    workStation=true;
+    blockType=woodType;
     fullBlock=false;
     destroyTime=120;
     buildTime=60;
     width=2;
-    height=2;
+    height=3;
     initLambda();
   }
   @Override
   public void init() {
     TextureRegion[][] tsrc=ImageAsset.tiles;
+    int tx=7,ty=10;
     //-----------------------------------------------------
-    tiles[0]=tsrc[9][8];
-    tiles[1]=tsrc[10][8];
-    tiles[2]=tsrc[9][9];
-    tiles[3]=tsrc[10][9];
+    tiles[0]=tsrc[tx][ty];
+    tiles[1]=tsrc[tx+1][ty];
+    tiles[2]=tsrc[tx][ty+1];
+    tiles[3]=tsrc[tx+1][ty+1];
+    tiles[4]=tsrc[tx][ty+2];
+    tiles[5]=tsrc[tx+1][ty+2];
+    //-----------------------------------------------------
   }
   @Override
   public void initBlock(Block in) {
-    in.ui=new BlockUi();
-    in.ui.displaySlot=new DisplaySlot[0];
-    // for(int i=0;i<in.ui.displaySlot.length;i++) in.ui.displaySlot[i]=new DisplaySlot(in.itemData[i]);
-    in.ui.camButton=new TextButtonCam[0];
-    // in.ui.camButton=UiGenerator.genButtons_0009(pc.pw.p,in);
     in.changed=true;
   }
   @Override
   public void initItemDrop() {
-    itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pw.metaItems.furnace,1)};
+    itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pw.metaItems.door,1)};
   }
   public void initLambda() {
     displayUpdater=(world,in,x,y)-> {
