@@ -30,8 +30,8 @@ public class Furnace extends MetaBlock{
     TextureRegion[][] tsrc=ImageAsset.tiles;
     //-----------------------------------------------------
     tiles[0]=tsrc[9][8];
-    tiles[1]=tsrc[9][9];
-    tiles[2]=tsrc[10][8];
+    tiles[1]=tsrc[10][8];
+    tiles[2]=tsrc[9][9];
     tiles[3]=tsrc[10][9];
   }
   @Override
@@ -49,7 +49,7 @@ public class Furnace extends MetaBlock{
   }
   public void initLambda() {
     displayUpdater=(world,in,x,y)-> {
-      in.displayType[0]=in.xOff*in.type.width+in.yOff;
+      in.displayType[0]=in.xOff+in.yOff*in.type.width;
     };
     // displayer=(r,p,in,x,y)-> {
     //   defaultBlockDisplayer.display(r,p,in,x,y);

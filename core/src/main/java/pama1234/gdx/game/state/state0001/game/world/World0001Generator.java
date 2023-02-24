@@ -12,6 +12,7 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaCreat
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemCenter0001;
 import pama1234.gdx.game.state.state0001.game.player.Player.PlayerType;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Dirt;
+import pama1234.gdx.game.state.state0001.game.region.block.block0001.Door;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Sapling;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Stone;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Torch;
@@ -38,6 +39,7 @@ public class World0001Generator{
     metaBlocks.list.add(metaBlocks.woodPlank=new WoodPlank(metaBlocks,metaBlocks.id()));
     metaBlocks.list.add(metaBlocks.woodPlatform=new WoodPlatform(metaBlocks,metaBlocks.id()));
     metaBlocks.list.add(metaBlocks.furnace=new Furnace(metaBlocks,metaBlocks.id()));
+    metaBlocks.list.add(metaBlocks.door=new Door(metaBlocks,metaBlocks.id()));
     return metaBlocks;
   }
   public static MetaItemCenter0001 createItemC(World0001 pw) {
@@ -121,6 +123,11 @@ public class World0001Generator{
       in.blockType=pw.metaBlocks.furnace;
       in.tiles=new TextureRegion[1];
       in.tiles[0]=ImageAsset.items[6][1];
+    }));
+    metaItems.list.add(metaItems.door=new MetaItem(metaItems,"door",metaItems.id(),in-> {
+      in.blockType=pw.metaBlocks.door;
+      in.tiles=new TextureRegion[1];
+      in.tiles[0]=ImageAsset.items[3][7];
     }));
     return metaItems;
   }
