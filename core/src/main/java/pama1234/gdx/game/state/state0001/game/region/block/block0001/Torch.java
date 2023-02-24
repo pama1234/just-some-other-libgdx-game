@@ -9,9 +9,9 @@ import pama1234.gdx.game.state.state0001.game.region.block.Block;
 
 public class Torch extends MetaBlock{
   public Torch(MetaBlockCenter0001 pc,int id) {
-    super(pc,"torch",id,4,1,(in,type)-> {//change to log
+    super(pc,"torch",id,4,1,(in,type)-> {//change to me
       in.light.set(16);
-    },(in,type)-> {//change from log
+    },(in,type)-> {//change from me
     });
     destroyTime=15;
     buildTime=8;

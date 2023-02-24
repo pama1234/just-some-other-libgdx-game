@@ -61,15 +61,25 @@ public class Workbench extends MetaBlock{
       checkRecipe(in,recipeList[in.intData[0]],in.intData[1]);
       for(CraftRecipe e:recipeList) checkRecipe(in,e,in.intData[1]);
     };
+    displayUpdater=(world,in,x,y)-> {
+      defaultDisplayUpdater.update(world,in,x,y);
+      float tw=world.settings.blockWidth,
+        th=world.settings.blockHeight;
+      int length=in.ui.displaySlot.length;
+      float tx=(length-1)/2*tw;
+      for(int i=0;i<length;i++) {//TODO waste efficiency
+        in.ui.displaySlot[i].update((x+i)*tw-tx,(y-1)*th);
+      }
+    };
     displayer=(r,p,in,x,y)-> {
       defaultBlockDisplayer.display(r,p,in,x,y);
       float tw=pc.pw.settings.blockWidth,
         th=pc.pw.settings.blockHeight;
-      float tx=(in.ui.displaySlot.length-1)/2*tw;
-      for(int i=0;i<in.ui.displaySlot.length;i++) {//TODO waste efficiency
-        DisplaySlot slot=in.ui.displaySlot[i];
-        slot.update(x-tx+i*tw,y-th);
-      }
+      // float tx=(in.ui.displaySlot.length-1)/2*tw;
+      // for(int i=0;i<in.ui.displaySlot.length;i++) {//TODO waste efficiency
+      //   DisplaySlot slot=in.ui.displaySlot[i];
+      //   slot.update(x-tx+i*tw,y-th);
+      // }
       p.textScale(0.5f);
       for(DisplaySlot e:in.ui.displaySlot) Inventory.displaySlot(p,e);
       p.textScale(1);
@@ -180,6 +190,7 @@ public class Workbench extends MetaBlock{
       new CraftRecipe(new CraftItem[] {new CraftItem(mi.log)},new CraftItem[] {new CraftItem(mi.woodPlatform,4)}),
       new CraftRecipe(new CraftItem[] {new CraftItem(mi.stone,8)},new CraftItem[] {new CraftItem(mi.furnace)}),
       new CraftRecipe(new CraftItem[] {new CraftItem(mi.woodPlank,8)},new CraftItem[] {new CraftItem(mi.door)}),
+      new CraftRecipe(new CraftItem[] {new CraftItem(mi.woodPlank,8)},new CraftItem[] {new CraftItem(mi.chest)}),
     };
     intData=new int[] {recipeList.length};
   }

@@ -12,14 +12,14 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlock
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.region.block.Block.BlockUi;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
-import pama1234.gdx.game.ui.generator.UiGenerator;
+import pama1234.gdx.game.ui.util.TextButtonCam;
 
 public class Chest extends MetaBlock{
-  public int outputSlotSize=2,sloatSize=5;
+  public int sloatSize=9,sloatDisplayWidth=3;
   public Chest(MetaBlockCenter0001 pc,int id) {
-    super(pc,"chest",id,1,0,(in,type)-> {//change to workbench
+    super(pc,"chest",id,1,0,(in,type)-> {//change to me
       in.light.set(16);
-    },(in,type)-> {//change from workbench
+    },(in,type)-> {//change from me
       World0001 world=pc.pw;
       int x=in.intData[4],y=in.intData[5];
       boolean flag=Block.isEmpty(world.getBlock(x,y-1));
@@ -39,31 +39,38 @@ public class Chest extends MetaBlock{
   public void initLambda() {
     updater=(world,in,x,y)-> {
       lightUpdater.update(world,in,x,y);
-      int tw=pc.pw.settings.blockWidth,
-        th=pc.pw.settings.blockHeight;
+      // int tw=world.settings.blockWidth,
+      //   th=world.settings.blockHeight;
       // int tx=(in.ui.displaySlot.length-1)/2*tw;
       // in.intData[2]=(x-tx)*tw;
-      in.intData[4]=x;
-      in.intData[5]=y;
-      in.intData[2]=(x-2)*tw;
-      in.intData[3]=(y-3)*th;
+      // in.intData[4]=x;
+      // in.intData[5]=y;
+      // in.intData[2]=(x-2)*tw;
+      // in.intData[3]=(y-3)*th;
+    };
+    displayUpdater=(world,in,x,y)-> {
+      defaultDisplayUpdater.update(world,in,x,y);
+      float tw=world.settings.blockWidth,
+        th=world.settings.blockHeight;
+      int length=in.ui.displaySlot.length;
+      float tx=(sloatDisplayWidth-1)/2,
+        ty=length/sloatDisplayWidth+1;
+      for(int i=0;i<length;i++) {//TODO waste efficiency
+        in.ui.displaySlot[i].update((x+i%sloatDisplayWidth-tx)*tw,(y-ty+i/sloatDisplayWidth)*th);
+      }
+      // float tw=world.settings.blockWidth,
+      //   th=world.settings.blockHeight;
+      // int length=in.ui.displaySlot.length;
+      // float tx=(length-1)/2*tw;
+      // for(int i=0;i<length;i++) {//TODO waste efficiency
+      //   in.ui.displaySlot[i].update((x+i)*tw-tx,(y-1)*th);
+      // }
     };
     displayer=(r,p,in,x,y)-> {
       defaultBlockDisplayer.display(r,p,in,x,y);
-      float tw=pc.pw.settings.blockWidth,
-        th=pc.pw.settings.blockHeight;
-      float tx=(in.ui.displaySlot.length-1)/2*tw;
-      for(int i=0;i<in.ui.displaySlot.length;i++) {//TODO waste efficiency
-        DisplaySlot slot=in.ui.displaySlot[i];
-        slot.update(x-tx+i*tw,y-th);
-      }
       p.textScale(0.5f);
       for(DisplaySlot e:in.ui.displaySlot) Inventory.displaySlot(p,e);
       p.textScale(1);
-      // p.text(Integer.toString(in.intData[0]),x,y-tw*2);
-      int ti=in.intData[0];
-      String ts=Integer.toString(ti);
-      p.text(ts+")",x-tw*(3-ts.length()),y-th*2);
     };
   }
   @Override
@@ -77,17 +84,18 @@ public class Chest extends MetaBlock{
     in.ui=new BlockUi();
     in.ui.displaySlot=new DisplaySlot[in.itemData.length];
     for(int i=0;i<in.ui.displaySlot.length;i++) in.ui.displaySlot[i]=new DisplaySlot(in.itemData[i]);
-    in.ui.camButton=UiGenerator.genButtons_0009(pc.pw.p,in);
+    // in.ui.camButton=UiGenerator.genButtons_0009(pc.pw.p,in);
+    in.ui.camButton=new TextButtonCam[0];
     in.changed=true;
   }
   @Override
   public void initItemDrop() {
-    itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pw.metaItems.workbench,1)};
+    itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pw.metaItems.chest,1)};
   }
   @Override
   public void init() {
     TextureRegion[][] tsrc=ImageAsset.tiles;
     //-----------------------------------------------------
-    tiles[0]=tsrc[6][8];
+    tiles[0]=tsrc[6][1];
   }
 }

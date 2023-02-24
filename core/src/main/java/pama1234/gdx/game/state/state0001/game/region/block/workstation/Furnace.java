@@ -12,9 +12,9 @@ import pama1234.gdx.game.ui.util.TextButtonCam;
 
 public class Furnace extends MetaBlock{
   public Furnace(MetaBlockCenter0001 pc,int id) {
-    super(pc,"furnace",id,4,1,(in,type)-> {//change to log
+    super(pc,"furnace",id,4,1,(in,type)-> {//change to me
       in.light.set(16);
-    },(in,type)-> {//change from log
+    },(in,type)-> {//change from me
     });
     blockType=stoneType;
     workStation=true;
@@ -49,10 +49,8 @@ public class Furnace extends MetaBlock{
   }
   public void initLambda() {
     displayUpdater=(world,in,x,y)-> {
+      defaultDisplayUpdater.update(world,in,x,y);
       in.displayType[0]=in.xOff+in.yOff*in.type.width;
     };
-    // displayer=(r,p,in,x,y)-> {
-    //   defaultBlockDisplayer.display(r,p,in,x,y);
-    // };
   }
 }

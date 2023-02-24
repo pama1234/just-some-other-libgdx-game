@@ -9,9 +9,9 @@ import pama1234.gdx.game.state.state0001.game.region.block.Block;
 
 public class Door extends MetaBlock{
   public Door(MetaBlockCenter0001 pc,int id) {
-    super(pc,"door",id,6,1,(in,type)-> {//change to log
+    super(pc,"door",id,6,1,(in,type)-> {//change to me
       in.light.set(16);
-    },(in,type)-> {//change from log
+    },(in,type)-> {//change from me
     });
     blockType=woodType;
     fullBlock=false;
@@ -44,6 +44,7 @@ public class Door extends MetaBlock{
   }
   public void initLambda() {
     displayUpdater=(world,in,x,y)-> {
+      defaultDisplayUpdater.update(world,in,x,y);
       in.displayType[0]=in.xOff+in.yOff*in.type.width;
     };
   }

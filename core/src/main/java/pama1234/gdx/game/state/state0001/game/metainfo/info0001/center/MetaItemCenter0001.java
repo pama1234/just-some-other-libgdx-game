@@ -12,7 +12,7 @@ public class MetaItemCenter0001 extends MetaItemCenter{
   public MetaItem dirt,stone,
     log,branch,leaf,workbench,
     stonePickaxe,stoneAxe,stoneChisel,stoneSword,
-    sapling,torch,woodPlank,woodPlatform,furnace,door;
+    sapling,torch,woodPlank,woodPlatform,furnace,door,chest;
   public MetaItemCenter0001(World0001 pw) {
     this.pw=pw;
     idg=new IDGenerator();
