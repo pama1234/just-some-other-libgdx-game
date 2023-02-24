@@ -72,9 +72,17 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
   public ServerEntityCenter<ServerEntityListener> serverCenter;
   public UtilInputProcesser inputProcessor;
   public Random rng=new Random();
+  /**
+   * 不好形容
+   */
   public float u;
-  /** text unit length */
+  /**
+   * 文本的大小
+   */
   public float pu;
+  /**
+   * 文本的放大倍数，为了清晰显示因此只能是整数
+   */
   public int pus;
   public boolean stop;
   //---

@@ -21,7 +21,29 @@
 
 代码格式化请使用`doc\eclipse.formatter.xml`，如果不愿意使用此格式化方案，那么请勿提交四格缩进的代码，其他随意
 
-命名规则：tx是temp-x的缩写，一般用于局部变量中,其他还有ty，tw，th，这些分别表示位置x，位置y，体积w，体积z，之类的
+局部变量的命名规则：
+
+|类型|总维度数|维度数|英文字符|
+|---|---|---|---|
+|位置|3|1|x|
+|位置|3|2|y|
+|位置|3|3|z|
+|体积|3|1|w|
+|体积|3|2|h|
+|体积|3|3|l|
+|整数|?|1|i|
+|浮点数|?|1|f|
+|布尔值|?|1|b|
+|父实例|?|1|p|
+
+简写示例:
+
+|类型|示例|
+|---|---|
+|位置|tx, tx1, tx_1, tx2, tx_2|
+|父实例|p, pc, pw, pg|
+
+（tx是temp-x的缩写）
 
 待办事项请看doc文件的todo.txt,若完成了某一项，请将其剪切粘贴到solved.txt，编译安卓项目请用自己的签名文件, 可以使用中英文或其他语言作为待办项，但不能修改已有待办项的语言类型
 
@@ -45,7 +67,29 @@ Code help doc: `doc\codeHelp.txt`
 
 Please use `doc\eclipse.formatter.xml` for code format. If you do not want to use this format scheme, please do not submit four-space indented code
 
-Naming rules: tx is the abbreviation of temp-x, which is generally used in local variables. Other variables include ty, tw, and th, which represent position x, position y, volume w, and volume z respectively, and so on.
+Naming rules of local variables:
+
+|Type|Total dimensions|Dimensions|English characters|
+|---|---|---|---|
+|Position|3|1|x|
+|Position|3|2|y|
+|Position|3|3|z|
+|Volume|3|1|w|
+|Volume|3|2|h|
+|Volume|3|3|l|
+|Integer|?|1|i|
+|Float|?|1|f|
+|Boolean|?|1|b|
+|Parent|?|1|p|
+
+example:
+
+|Type|Example|
+|---|---|
+|Position|tx, tx1, tx_1, tx2, tx_2|
+|Parent|p, pc, pw, pg|
+
+(tx is short for temp-x)
 
 For to-do items, please view `/doc/todo.txt` file, when you finished a to-do item ,please move it to `/doc/solved.txt`. You can write to-do items freely with different languages , but you cannot change the language of existing to-do items.
 
