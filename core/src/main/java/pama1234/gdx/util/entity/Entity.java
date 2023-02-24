@@ -4,7 +4,7 @@ import pama1234.gdx.util.app.UtilScreen;
 import pama1234.gdx.util.listener.EntityListener;
 
 /**
- * {@link EntityListener}实体接口对于{@link UtilScreen}的实现
+ * {@link EntityListener}实体接口对于{@link UtilScreen}作为父实例类（这词我瞎编的）的实现
  * 
  * @see PointEntity
  */

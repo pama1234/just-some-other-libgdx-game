@@ -40,8 +40,6 @@ public class SettingsUtil{
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.debugInfo=!p.settings.debugInfo;
         p.debugInfoChange(p.settings.debugInfo);
-        Game game=(Game)State0001.Game.entity;
-        // if(p.settings.debugInfo) game.createDebugDisplay();
         self.updateText();
       },self->self.text=p.settings.debugInfo?"显示文本调试信息：是":"显示文本调试信息：否",()->18,()->0,()->40),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
@@ -61,7 +59,6 @@ public class SettingsUtil{
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.showEarth=!p.settings.showEarth;
         if(p.settings.showEarth&&ImageAsset.bigEarth==null) ImageAsset.loadEarth();
-        // if(p.settings.showEarth&&GifAsset.bigEarth==null) GifAsset.loadWithAtlas();
         self.updateText();
       },self->self.text="开始界面显示地球："+(p.settings.showEarth?"是":"否"),()->18,()->0,()->120),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
@@ -101,7 +98,7 @@ public class SettingsUtil{
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.overridePlatform=!p.settings.overridePlatform;
         self.updateText();
-      },self->self.text="使用覆盖平台类型："+(p.settings.overridePlatform?"是":"否")+"  重启后生效",()->18,()->0,()->280),
+      },self->self.text="使用覆盖平台类型："+(p.settings.overridePlatform?"是":"否"),()->18,()->0,()->280),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.isAndroid=!p.settings.isAndroid;
         self.updateText();
