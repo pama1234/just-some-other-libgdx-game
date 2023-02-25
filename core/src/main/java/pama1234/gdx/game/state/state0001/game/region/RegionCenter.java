@@ -304,7 +304,6 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
         return blockData.block;
       }
     }
-    System.out.println("@LTB   ===== return null");
     return null;
   }
   public abstract class LoopThread extends Thread{
