@@ -40,9 +40,11 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   public float regionLoadDist=360;
   public int regionLoadDistInt=1;
   public float chunkRemoveDist=360,regionRemoveDist=512;
+  public float chunkUpdateDisplayDist=60;
   public RegionPool pool;
   public LoopThread[] loops;
   public LoopThread updateLoop,updateDisplayLoop;
+  public LoopThread priorityUpdateDisplayLoop;
   // public LoopThread fullMapUpdateDisplayLoop;
   public TilemapRenderer0001 tilemapRenderer;
   public Region cachedRegion;
@@ -55,10 +57,11 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     data=new RegionData("firstRegion",0);
     this.dataLocation=metadata;
     pool=new RegionPool(p,this,0);//TODO
-    loops=new LoopThread[2];
+    loops=new LoopThread[3];
     updateLoop=loops[0]=createUpdateLoop();
     // fullMapUpdateDisplayLoop=loops[1]=createFullMapUpdateDisplayLoop();
     updateDisplayLoop=loops[1]=createUpdateDisplayLoop();
+    priorityUpdateDisplayLoop=loops[2]=createPriorityUpdateDisplayLoop();
     // startAllLoop();
     tilemapRenderer=new TilemapRenderer0001(pw,new SpriteBatch(1000,new ShaderProgram(
       Gdx.files.internal("shader/main0002/tilemap.vert").readString(),
@@ -98,7 +101,6 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
       e.sleepSize=0;
       e.interrupt();
     }
-    // fullMapUpdateDisplayLoop.interrupt();//TODO
   }
   @Override
   public void refresh() {
@@ -251,8 +253,8 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
       }
     };
   }
-  public LoopThread createFullMapUpdateDisplayLoop() {//刷新全世界的方块显示
-    return new LoopThread("RegionsFullMapUpdateDisplayLoop",60000) {
+  public LoopThread createPriorityUpdateDisplayLoop() {//根据优先级和阈值刷新全世界的方块显示
+    return new LoopThread("RegionsFullMapUpdateDisplayLoop",10000) {
       @Override
       public void doUpdate() {
         // for(Region e:list) e.updateDisplay();
@@ -260,8 +262,8 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
         Stream<Region> stream=list.stream().parallel();
         stream.forEach(r-> {
           // if(p.stop) return;//TODO
-          r.updateDisplay(40);
-        });//主动降速
+          r.updateDisplay();
+        });
       }
     };
   }

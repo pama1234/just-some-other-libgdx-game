@@ -102,7 +102,8 @@ public class World0001 extends WorldBase2D{
     else p.cam2d.active(false);
     p.cam2d.scale.pos=yourself.ctrl.camScale;
     p.cam2d.scale.des=yourself.ctrl.camScale;
-    p.cam2d.minScale=p.isAndroid?0.25f:0.5f;
+    p.cam2d.minScale=0.25f;
+    // p.cam2d.minScale=p.isAndroid?0.25f:0.5f;
     p.cam2d.testScale();
     p.cam.point.pos.set(yourself.cx(),yourself.cy());
     p.cam.point.des.set(p.cam.point.pos);
@@ -120,8 +121,8 @@ public class World0001 extends WorldBase2D{
   @Override
   public void resume() {
     if(p.isAndroid&&pg.netMode!=NetMode.client) {
-      regions.load();
       yourself.load();
+      regions.load();
     }
     super.resume();
   }
@@ -131,9 +132,9 @@ public class World0001 extends WorldBase2D{
     if(p.isAndroid&&pg.netMode!=NetMode.client) pauseSave();
   }
   public void pauseSave() {
+    WorldData.save(worldDataDir,data);
     regions.innerSave();
     yourself.save();
-    WorldData.save(worldDataDir,data);
   }
   public void innerPause() {
     if(p.isAndroid) p.cam2d.activeDrag=true;
@@ -155,10 +156,11 @@ public class World0001 extends WorldBase2D{
   public void dispose() {
     super.dispose();
     if(pg.netMode!=NetMode.client) {
+      // regions.shutdownAllLoop();
+      WorldData.save(worldDataDir,data);
+      yourself.save();
       regions.save();
       regions.dispose();
-      yourself.save();
-      WorldData.save(worldDataDir,data);
     }
     // yourself.dispose();
   }
