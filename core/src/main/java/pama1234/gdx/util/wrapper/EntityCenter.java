@@ -31,7 +31,7 @@ public class EntityCenter<T extends UtilScreen,E extends EntityListener>extends 
     this(p);
     for(E i:in) list.add(i);
   }
-  public void refresh() {
+  public synchronized void refresh() {
     list.addAll(add);
     add.clear();
     list.removeAll(remove);
