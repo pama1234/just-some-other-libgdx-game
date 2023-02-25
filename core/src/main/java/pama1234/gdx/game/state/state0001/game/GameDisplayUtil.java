@@ -29,7 +29,7 @@ public class GameDisplayUtil{
     debugText(p,"---- asynchronous ----");//以下是那三个刷新线程的调试信息，格式如下之类的：“执行所消耗的时间ms 和上一次执行相距的时间差ms”
     debugText(p,"Regions         Update "+timeString(tw.regions.updateLoop));
     debugText(p,"Regions Display Update "+timeString(tw.regions.updateDisplayLoop));
-    debugText(p,"FullMap Display Update "+secondTimeString(tw.regions.fullMapUpdateDisplayLoop));
+    // debugText(p,"FullMap Display Update "+secondTimeString(tw.regions.fullMapUpdateDisplayLoop));
     p.textScale(p.pus);
   }
   public static String secondTimeString(LoopThread loop) {

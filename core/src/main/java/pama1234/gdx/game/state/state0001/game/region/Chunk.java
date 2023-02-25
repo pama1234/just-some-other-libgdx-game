@@ -14,6 +14,7 @@ public class Chunk{
   public int biome;
   public LinkedList<LivingEntity> entityList;//TODO
   public boolean update=true;
+  public float priority;
   @Deprecated
   public Chunk() {}//只能用于kryo
   public Chunk(Region p) {

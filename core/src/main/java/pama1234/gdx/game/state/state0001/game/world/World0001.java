@@ -92,6 +92,8 @@ public class World0001 extends WorldBase2D{
     yourself.load();
     yourself.init();
     regions.load();
+    regions.refresh();
+    regions.startAllLoop();
     // }
   }
   @Override

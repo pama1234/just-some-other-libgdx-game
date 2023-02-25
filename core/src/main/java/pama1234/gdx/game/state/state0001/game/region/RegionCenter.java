@@ -42,7 +42,8 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   public float chunkRemoveDist=360,regionRemoveDist=512;
   public RegionPool pool;
   public LoopThread[] loops;
-  public LoopThread updateLoop,fullMapUpdateDisplayLoop,updateDisplayLoop;
+  public LoopThread updateLoop,updateDisplayLoop;
+  // public LoopThread fullMapUpdateDisplayLoop;
   public TilemapRenderer0001 tilemapRenderer;
   public Region cachedRegion;
   public RegionCenter(Screen0011 p,World0001 pw) {
@@ -54,13 +55,11 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     data=new RegionData("firstRegion",0);
     this.dataLocation=metadata;
     pool=new RegionPool(p,this,0);//TODO
-    loops=new LoopThread[3];
+    loops=new LoopThread[2];
     updateLoop=loops[0]=createUpdateLoop();
-    updateLoop.start();
-    fullMapUpdateDisplayLoop=loops[1]=createFullMapUpdateDisplayLoop();
-    fullMapUpdateDisplayLoop.start();
-    updateDisplayLoop=loops[2]=createUpdateDisplayLoop();
-    updateDisplayLoop.start();
+    // fullMapUpdateDisplayLoop=loops[1]=createFullMapUpdateDisplayLoop();
+    updateDisplayLoop=loops[1]=createUpdateDisplayLoop();
+    // startAllLoop();
     tilemapRenderer=new TilemapRenderer0001(pw,new SpriteBatch(1000,new ShaderProgram(
       Gdx.files.internal("shader/main0002/tilemap.vert").readString(),
       Gdx.files.internal("shader/main0002/tilemap.frag").readString())));
@@ -112,7 +111,10 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   public void removeRegionAndTestChunkUpdate() {
     for(Region e:list) {
       e.keep=false;
-      for(int i=0;i<e.data.length;i++) for(int j=0;j<e.data[i].length;j++) e.data[i][j].update=false;
+      for(int i=0;i<e.data.length;i++) for(int j=0;j<e.data[i].length;j++) {
+        e.data[i][j].priority=0;
+        e.data[i][j].update=false;
+      }
     }
     for(Player player:pw.entities.players.list) testChunkUpdateWithPlayer(player);
     testChunkUpdateWithPlayer(pw.yourself);//TODO
@@ -137,7 +139,9 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
           Chunk chunk=e.data[i][j];
           float tx_2=((e.x*regionWidth+(i+0.5f))*chunkWidth),
             ty_2=((e.y*regionHeight+(j+0.5f))*chunkHeight);
-          boolean tb_2=UtilMath.dist(tx_2,ty_2,tcx,tcy)<chunkRemoveDist;
+          float dist=UtilMath.dist(tx_2,ty_2,tcx,tcy);
+          if(chunk.priority<dist) chunk.priority=dist;
+          boolean tb_2=dist<chunkRemoveDist;
           if(tb_2) chunk.update=true;
         }
       }
@@ -218,6 +222,12 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
         blockType.updateDisplay(pw,block,i,j);
       }
     }
+  }
+  public void startAllLoop() {
+    for(LoopThread e:loops) e.start();
+  }
+  public void interruptAllLoop() {
+    for(LoopThread e:loops) e.interrupt();
   }
   public void unlockAllLoop() {
     for(LoopThread e:loops) e.lock.unlock();
