@@ -163,6 +163,9 @@ public class MetaBlock extends MetaInfoBase{
   public static boolean isNotFullBlockOrNotSameType(Block b,Block a) {
     return Block.isNotFullBlock(a)||(a.type.fullBlockType!=b.type.fullBlockType);
   }
+  public static boolean isNotFullBlockOrNotSameType(Block a,int fullBlockType) {
+    return Block.isNotFullBlock(a)||(a.type.fullBlockType!=fullBlockType);
+  }
   public static void lightingUpdate(Block in,int x,int y,World0001 world) {
     float cr=0;
     int lDist=world.settings.lightDist;

@@ -8,7 +8,7 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlock
 
 public class LightOre extends MetaBlock{
   public LightOre(MetaBlockCenter0001 pc,int id) {
-    super(pc,"light-ore",id,20,2,(in,type)-> {//change to me
+    super(pc,"light-ore",id,20,4,(in,type)-> {//change to me
       // in.lighting=16;
       in.light.set(16);
     },(in,type)-> {//change from me
@@ -62,17 +62,30 @@ public class LightOre extends MetaBlock{
   public void initLambda() {
     displayUpdater=(world,in,x,y)-> {
       int typeCache=0;
+      if(isNotFullBlockOrNotSameType(world.getBlock(x,y-1),FullBlockType.stoneType)) typeCache+=1;// up
+      if(isNotFullBlockOrNotSameType(world.getBlock(x,y+1),FullBlockType.stoneType)) typeCache+=2;// down
+      if(isNotFullBlockOrNotSameType(world.getBlock(x-1,y),FullBlockType.stoneType)) typeCache+=4;// left
+      if(isNotFullBlockOrNotSameType(world.getBlock(x+1,y),FullBlockType.stoneType)) typeCache+=8;// right
+      in.displayType[0]=typeCache;
+      typeCache=0;
+      if(isNotFullBlockOrNotSameType(world.getBlock(x-1,y-1),FullBlockType.stoneType)) typeCache+=1;
+      if(isNotFullBlockOrNotSameType(world.getBlock(x-1,y+1),FullBlockType.stoneType)) typeCache+=2;
+      if(isNotFullBlockOrNotSameType(world.getBlock(x+1,y+1),FullBlockType.stoneType)) typeCache+=4;
+      if(isNotFullBlockOrNotSameType(world.getBlock(x+1,y-1),FullBlockType.stoneType)) typeCache+=8;
+      in.displayType[1]=typeCache;
+      //---
+      typeCache=0;
       if(isNotFullBlockOrNotSameType(in,world.getBlock(x,y-1))) typeCache+=1;// up
       if(isNotFullBlockOrNotSameType(in,world.getBlock(x,y+1))) typeCache+=2;// down
       if(isNotFullBlockOrNotSameType(in,world.getBlock(x-1,y))) typeCache+=4;// left
       if(isNotFullBlockOrNotSameType(in,world.getBlock(x+1,y))) typeCache+=8;// right
-      in.displayType[0]=typeCache;
+      in.displayType[2]=typeCache;
       typeCache=0;
       if(isNotFullBlockOrNotSameType(in,world.getBlock(x-1,y-1))) typeCache+=1;
       if(isNotFullBlockOrNotSameType(in,world.getBlock(x-1,y+1))) typeCache+=2;
       if(isNotFullBlockOrNotSameType(in,world.getBlock(x+1,y+1))) typeCache+=4;
       if(isNotFullBlockOrNotSameType(in,world.getBlock(x+1,y-1))) typeCache+=8;
-      in.displayType[1]=typeCache;
+      in.displayType[3]=typeCache;
       //---
       if(in.updateLighting) lightingUpdate(in,x,y,world);
     };
@@ -83,13 +96,23 @@ public class LightOre extends MetaBlock{
         getLighting(in.light.g()),
         getLighting(in.light.b()));
       int tp_0=in.displayType[0];
-      r.tile(in.type.tiles[tp_0],x,y);
+      r.tile(pc.stone.tiles[tp_0],x,y);
       int tp_1=in.displayType[1];
       if(tp_1!=0) {
-        if((tp_0&2)+(tp_0&8)==0&&(tp_1&4)!=0) r.tile(in.type.tiles[16],x,y);
-        if((tp_0&2)+(tp_0&4)==0&&(tp_1&2)!=0) r.tile(in.type.tiles[17],x,y);
-        if((tp_0&1)+(tp_0&8)==0&&(tp_1&8)!=0) r.tile(in.type.tiles[18],x,y);
-        if((tp_0&1)+(tp_0&4)==0&&(tp_1&1)!=0) r.tile(in.type.tiles[19],x,y);
+        if((tp_0&2)+(tp_0&8)==0&&(tp_1&4)!=0) r.tile(pc.stone.tiles[16],x,y);
+        if((tp_0&2)+(tp_0&4)==0&&(tp_1&2)!=0) r.tile(pc.stone.tiles[17],x,y);
+        if((tp_0&1)+(tp_0&8)==0&&(tp_1&8)!=0) r.tile(pc.stone.tiles[18],x,y);
+        if((tp_0&1)+(tp_0&4)==0&&(tp_1&1)!=0) r.tile(pc.stone.tiles[19],x,y);
+      }
+      //---
+      int tp_2=in.displayType[0];
+      r.tile(in.type.tiles[tp_2],x,y);
+      int tp_3=in.displayType[1];
+      if(tp_3!=0) {
+        if((tp_2&2)+(tp_2&8)==0&&(tp_3&4)!=0) r.tile(in.type.tiles[16],x,y);
+        if((tp_2&2)+(tp_2&4)==0&&(tp_3&2)!=0) r.tile(in.type.tiles[17],x,y);
+        if((tp_2&1)+(tp_2&8)==0&&(tp_3&8)!=0) r.tile(in.type.tiles[18],x,y);
+        if((tp_2&1)+(tp_2&4)==0&&(tp_3&1)!=0) r.tile(in.type.tiles[19],x,y);
       }
     };
     ;
