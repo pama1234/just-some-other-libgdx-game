@@ -121,6 +121,7 @@ public class World0001 extends WorldBase2D{
   @Override
   public void resume() {
     if(p.isAndroid&&pg.netMode!=NetMode.client) {
+      // p.sleep(1000);//TODO nop
       yourself.load();
       regions.load();
     }
@@ -132,6 +133,7 @@ public class World0001 extends WorldBase2D{
     if(p.isAndroid&&pg.netMode!=NetMode.client) pauseSave();
   }
   public void pauseSave() {
+    p.sleep(1000);//TODO nop
     WorldData.save(worldDataDir,data);
     regions.innerSave();
     yourself.save();

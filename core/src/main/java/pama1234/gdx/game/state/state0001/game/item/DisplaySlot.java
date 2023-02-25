@@ -6,9 +6,6 @@ import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
 import pama1234.gdx.game.state.state0001.game.item.Item.ItemSlot;
 import pama1234.math.UtilMath;
 
-// public void displayHotSlot() {}
-// public void displayInventoryCircle() {}
-// ------------------------------------------------------------------------------------
 public class DisplaySlot{
   public ItemSlot data;
   public float cx,cy,x1,y1,x2,y2,w1,h1,w2,h2;
