@@ -89,9 +89,9 @@ public class World0001 extends WorldBase2D{
     for(int i=0;i<background.background0001.list.size();i++) background.background0001.list.get(i).setTexture(ImageAsset.backgroundList[4-i]);
     // if(pg.netMode!=NetMode.client) {
     Gdx.files.local(dir()+"regions/").mkdirs();//TODO
-    regions.load();
     yourself.load();
     yourself.init();
+    regions.load();
     // }
   }
   @Override

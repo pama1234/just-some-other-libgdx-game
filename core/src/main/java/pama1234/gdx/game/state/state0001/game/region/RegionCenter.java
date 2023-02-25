@@ -191,7 +191,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
         int tx=i*pw.settings.blockWidth,
           ty=j*pw.settings.blockHeight;
         Block block=getBlock(i,j);
-        if(block==null) continue;//TODO
+        // if(block==null) continue;
         MetaBlock blockType=block.type;
         if(blockType==null) continue;
         // blockType.updateDisplay(block,i,j);
@@ -203,6 +203,21 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     tilemapRenderer.batch.setColor(1,1,1,1);
     // p.imageBatch.end();
     // p.noTint();
+  }
+  public void fourPointUpdateDisplay() {
+    int x1=pw.xToBlockCordInt(p.cam2d.x1()),
+      y1=pw.xToBlockCordInt(p.cam2d.y1()),
+      x2=pw.xToBlockCordInt(p.cam2d.x2()),
+      y2=pw.xToBlockCordInt(p.cam2d.y2());
+    for(int i=x1;i<=x2;i++) {
+      for(int j=y1;j<=y2;j++) {
+        Block block=getBlock(i,j);
+        // if(block==null) continue;
+        MetaBlock blockType=block.type;
+        if(blockType==null) continue;
+        blockType.updateDisplay(pw,block,i,j);
+      }
+    }
   }
   public void unlockAllLoop() {
     for(LoopThread e:loops) e.lock.unlock();
@@ -252,23 +267,6 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
         // stream.forEach(r->r.updateDisplay());
         // fourPointDisplay();
         fourPointUpdateDisplay();
-      }
-      public void fourPointUpdateDisplay() {
-        int x1=pw.xToBlockCordInt(p.cam2d.x1()),
-          y1=pw.xToBlockCordInt(p.cam2d.y1()),
-          x2=pw.xToBlockCordInt(p.cam2d.x2()),
-          y2=pw.xToBlockCordInt(p.cam2d.y2());
-        for(int i=x1;i<=x2;i++) {
-          for(int j=y1;j<=y2;j++) {
-            // int tx=i*pw.blockWidth,
-            //   ty=j*pw.blockHeight;
-            Block block=getBlock(i,j);
-            if(block==null) continue;//TODO
-            MetaBlock blockType=block.type;
-            if(blockType==null) continue;
-            blockType.updateDisplay(pw,block,i,j);
-          }
-        }
       }
     };
   }

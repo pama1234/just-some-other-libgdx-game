@@ -71,7 +71,7 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
         ty_2=(ty_1+j)*pr.chunkHeight;
       for(int n=0;n<blockData.length;n++) for(int m=0;m<blockData[n].length;m++) {
         BlockData tbd=blockData[n][m];
-        if(tbd==null) continue;//TODO 性能
+        // if(tbd==null) continue;
         Block block=tbd.block;
         MetaBlock blockType=block.type;
         if(blockType==null) continue;
@@ -123,7 +123,7 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
         ty_2=(ty_1+j)*pr.chunkHeight;
       for(int n=0;n<blockData.length;n++) for(int m=0;m<blockData[n].length;m++) {
         BlockData tbd=blockData[n][m];
-        if(tbd==null) continue;//TODO 性能
+        // if(tbd==null) continue;
         Block block=tbd.block;
         MetaBlock blockType=block.type;
         if(blockType==null) continue;
