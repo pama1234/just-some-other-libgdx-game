@@ -3,6 +3,7 @@ package pama1234.gdx.util.listener;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.util.listener.ServerEntityListener;
+
 /**
  * 一个实体，指的是可监听各类事件（键盘鼠标，绘制刷新）的对象
  */

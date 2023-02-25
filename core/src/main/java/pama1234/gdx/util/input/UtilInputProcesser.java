@@ -9,6 +9,7 @@ import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.util.listener.EssentialListener;
 import pama1234.util.wrapper.Center;
+
 /**
  * 用于将libgdx的鼠标键盘事件转换为processing式的鼠标键盘事件
  */

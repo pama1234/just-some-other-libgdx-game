@@ -170,7 +170,7 @@ public class TreeLeaf extends MetaBlock{
       int tp_2=in.displayType[2];
       if(tp_2!=0) r.tile(in.type.tiles[24],x,y);
       if(!pc.pw.p.settings.debugGraphics||in.intData==null) return;
-      r.end(); 
+      r.end();
       p.textScale(0.5f);
       p.text(Integer.toString(in.intData[0]),x,y);
       p.text(Integer.toString(in.intData[1]),x,y+9);

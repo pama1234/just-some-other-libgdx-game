@@ -105,8 +105,10 @@ public class Vec2f extends Vector2f implements ByteBufferData{
     y=temp*UtilMath.sin(dir)+y*UtilMath.cos(dir);
   }
   /**
-   * 输出示例：</p>
-   * "<0.0,0.0>"</p>
+   * 输出示例：
+   * </p>
+   * "<0.0,0.0>"
+   * </p>
    * "<-1.2,3.1>"
    */
   @Override

@@ -15,16 +15,17 @@ public class TextButton<T extends UtilScreen>extends Button<T>{
   public ButtonEvent updateText;
   /**
    * 
-   * @param p 父实例
-   * @param textOffset 文字是否进行<code>p.pu/2</code>的偏移 {@link pama1234.gdx.util.app.UtilScreenCore#pu UtilScreenCore.pu}
-   * @param active 是否启用此按钮，不启用时不进行显示
-   * @param press 按钮按下时每帧的方法
+   * @param p          父实例
+   * @param textOffset 文字是否进行<code>p.pu/2</code>的偏移 {@link pama1234.gdx.util.app.UtilScreenCore#pu
+   *                   UtilScreenCore.pu}
+   * @param active     是否启用此按钮，不启用时不进行显示
+   * @param press      按钮按下时每帧的方法
    * @param clickStart 按钮按下事件的方法
-   * @param clickEnd 按钮松开事件的方法
+   * @param clickEnd   按钮松开事件的方法
    * @param updateText 文字更新的方法
-   * @param bu 无意义的按钮height，未修正
-   * @param x 获取位置的方法
-   * @param y 获取位置的方法
+   * @param bu         无意义的按钮height，未修正
+   * @param x          获取位置的方法
+   * @param y          获取位置的方法
    */
   public TextButton(T p,boolean textOffset,GetBoolean active,
     ButtonEvent press,ButtonEvent clickStart,ButtonEvent clickEnd,ButtonEvent updateText,
