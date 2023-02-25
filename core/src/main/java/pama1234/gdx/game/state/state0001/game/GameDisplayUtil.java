@@ -26,6 +26,7 @@ public class GameDisplayUtil{
     initDebugText(p);
     debugText(p,"Lighting  block="+(tb!=null?tb.light.toString():"null")+" player="+tw.yourself.light.toString());
     debugText(p,"Player    pos="+getFloatString(tw.yourself.point.pos.x,8)+" "+getFloatString(tw.yourself.point.pos.y,8)+" vel="+getFloatString(tw.yourself.point.vel.x,5)+" "+getFloatString(tw.yourself.point.vel.y,5));
+    debugText(p,"Null Block Reference "+getMillisString(tw.metaBlocks.nullBlock.count,6));
     debugText(p,"---- asynchronous ----");//以下是那三个刷新线程的调试信息，格式如下之类的：“执行所消耗的时间ms 和上一次执行相距的时间差ms”
     debugText(p,"Regions          Update "+timeString(tw.regions.updateLoop));
     debugText(p,"Regions  Display Update "+timeString(tw.regions.updateDisplayLoop));

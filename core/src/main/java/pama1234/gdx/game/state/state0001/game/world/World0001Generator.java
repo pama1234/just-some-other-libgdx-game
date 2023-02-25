@@ -14,6 +14,7 @@ import pama1234.gdx.game.state.state0001.game.player.Player.PlayerType;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Dirt;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Door;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.LightOre;
+import pama1234.gdx.game.state.state0001.game.region.block.block0001.NullBlock;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Sapling;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Stone;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Torch;
@@ -44,6 +45,7 @@ public class World0001Generator{
     metaBlocks.list.add(metaBlocks.door=new Door(metaBlocks,metaBlocks.id()));
     metaBlocks.list.add(metaBlocks.chest=new Chest(metaBlocks,metaBlocks.id()));
     metaBlocks.list.add(metaBlocks.lightOre=new LightOre(metaBlocks,metaBlocks.id()));
+    metaBlocks.list.add(metaBlocks.nullBlock=new NullBlock(metaBlocks,metaBlocks.id()));
     return metaBlocks;
   }
   public static MetaItemCenter0001 createItemC(World0001 pw) {

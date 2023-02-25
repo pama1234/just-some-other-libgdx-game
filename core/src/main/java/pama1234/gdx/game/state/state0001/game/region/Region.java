@@ -72,7 +72,8 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
       for(int n=0;n<blockData.length;n++) for(int m=0;m<blockData[n].length;m++) {
         BlockData tbd=blockData[n][m];
         // if(tbd==null) continue;
-        Block block=tbd.block;
+        Block block=tbd==null?pr.nullBlock:tbd.block;
+        // Block block=tbd.block;
         MetaBlock blockType=block.type;
         if(blockType==null) continue;
         int tx_3=tx_2+n,
@@ -124,7 +125,8 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
       for(int n=0;n<blockData.length;n++) for(int m=0;m<blockData[n].length;m++) {
         BlockData tbd=blockData[n][m];
         // if(tbd==null) continue;
-        Block block=tbd.block;
+        Block block=tbd==null?pr.nullBlock:tbd.block;
+        // Block block=tbd.block;
         MetaBlock blockType=block.type;
         if(blockType==null) continue;
         int tx=tx_2+n,

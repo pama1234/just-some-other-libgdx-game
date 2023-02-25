@@ -49,6 +49,8 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   // public LoopThread fullMapUpdateDisplayLoop;
   public TilemapRenderer0001 tilemapRenderer;
   public Region cachedRegion;
+  //---
+  public Block nullBlock;
   public RegionCenter(Screen0011 p,World0001 pw) {
     this(p,pw,Gdx.files.local(pw.dir()+"regions.bin"));
   }
@@ -67,6 +69,8 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     tilemapRenderer=new TilemapRenderer0001(pw,new SpriteBatch(1000,new ShaderProgram(
       Gdx.files.internal("shader/main0002/tilemap.vert").readString(),
       Gdx.files.internal("shader/main0002/tilemap.frag").readString())));
+    //---
+    nullBlock=new Block(pw.metaBlocks.nullBlock);
   }
   @Override
   public void resume() {
@@ -295,9 +299,9 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     if(cachedRegion!=null) synchronized(cachedRegion) {
       if(cachedRegion.x==tx&&cachedRegion.y==ty) {
         Chunk chunk=cachedRegion.data[prx][pry];
-        if(chunk==null) return null;
+        // if(chunk==null) return nullBlock;
         BlockData blockData=chunk.data[px][py];
-        if(blockData==null) return null;
+        if(blockData==null) return nullBlock;
         return blockData.block;
       }
     }
@@ -305,13 +309,13 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
       for(Region r:list) if(r.x==tx&&r.y==ty) {
         cachedRegion=r;
         Chunk chunk=r.data[prx][pry];
-        if(chunk==null) return null;
+        // if(chunk==null) return nullBlock;
         BlockData blockData=chunk.data[px][py];
-        if(blockData==null) return null;
+        if(blockData==null) return nullBlock;
         return blockData.block;
       }
     }
-    return null;
+    return nullBlock;
   }
   public abstract class LoopThread extends Thread{
     public Mutex lock;
