@@ -45,6 +45,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   public LoopThread[] loops;
   public LoopThread updateLoop,updateDisplayLoop;
   public LoopThread priorityUpdateDisplayLoop;
+  public boolean stop;
   // public LoopThread fullMapUpdateDisplayLoop;
   public TilemapRenderer0001 tilemapRenderer;
   public Region cachedRegion;
@@ -73,7 +74,8 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   }
   @Override
   public void pause() {
-    if(!p.stop) lockAllLoop();
+    // if(!p.stop) 
+    lockAllLoop();
   }
   @Override
   public void load() {
@@ -86,12 +88,14 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     innerSave();
   }
   public void innerSave() {
+    pool.saveAndClear();
     synchronized(list) {//TODO
       for(Region e:list) e.save();
       list.clear();
     }
   }
   public void dispose() {
+    stop=true;
     shutdownAllLoop();
     pool.dispose();
   }
@@ -182,6 +186,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   }
   @Override
   public void display() {
+    if(stop) return;
     // super.display();
     fourPointDisplay();
   }
@@ -326,7 +331,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
       long beforeM=System.currentTimeMillis();
       while(!p.stop) {
         lock.step();
-        if(p.stop) return;//TODO
+        if(stop||p.stop) return;//TODO
         long tl=System.currentTimeMillis();
         stepMillis=tl-beforeM;
         beforeM=tl;

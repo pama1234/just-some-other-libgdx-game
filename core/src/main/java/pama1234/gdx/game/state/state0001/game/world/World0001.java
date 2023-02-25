@@ -159,6 +159,7 @@ public class World0001 extends WorldBase2D{
       // regions.shutdownAllLoop();
       WorldData.save(worldDataDir,data);
       yourself.save();
+      regions.stop=true;
       regions.save();
       regions.dispose();
     }
