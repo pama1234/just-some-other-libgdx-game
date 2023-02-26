@@ -80,19 +80,19 @@ public class World0001Generator{
       in.tiles=new TextureRegion[1];
       in.tiles[0]=ImageAsset.items[2][0];
     }));
-    metaItems.list.add(metaItems.stonePickaxe=new MetaItem(metaItems,"pickaxe",metaItems.id(),in-> {
+    metaItems.list.add(metaItems.stonePickaxe=new MetaItem(metaItems,"stone-pickaxe",metaItems.id(),in-> {
       in.toolType=MetaItem.pickaxe;
       in.speed=2;
       in.tiles=new TextureRegion[1];
       in.tiles[0]=ImageAsset.items[2][1];
     }));
-    metaItems.list.add(metaItems.stoneAxe=new MetaItem(metaItems,"axe",metaItems.id(),in-> {
+    metaItems.list.add(metaItems.stoneAxe=new MetaItem(metaItems,"stone-axe",metaItems.id(),in-> {
       in.toolType=MetaItem.axe;
       in.speed=2;
       in.tiles=new TextureRegion[1];
       in.tiles[0]=ImageAsset.items[2][2];
     }));
-    metaItems.list.add(metaItems.stoneChisel=new MetaItem(metaItems,"chisel",metaItems.id(),in-> {
+    metaItems.list.add(metaItems.stoneChisel=new MetaItem(metaItems,"stone-chisel",metaItems.id(),in-> {
       in.toolType=MetaItem.chisel;
       in.speed=2;
       in.tiles=new TextureRegion[1];
@@ -149,6 +149,31 @@ public class World0001Generator{
       // in.blockType=pw.metaBlocks.chest;
       in.tiles=new TextureRegion[1];
       in.tiles[0]=ImageAsset.items[7][1];
+    }));
+    metaItems.list.add(metaItems.lightPickaxe=new MetaItem(metaItems,"light-pickaxe",metaItems.id(),in-> {
+      in.toolType=MetaItem.pickaxe;
+      in.speed=4;
+      in.tiles=new TextureRegion[1];
+      in.tiles[0]=ImageAsset.items[7][2];
+    }));
+    metaItems.list.add(metaItems.lightAxe=new MetaItem(metaItems,"light-axe",metaItems.id(),in-> {
+      in.toolType=MetaItem.axe;
+      in.speed=4;
+      in.tiles=new TextureRegion[1];
+      in.tiles[0]=ImageAsset.items[7][3];
+    }));
+    metaItems.list.add(metaItems.lightChisel=new MetaItem(metaItems,"light-chisel",metaItems.id(),in-> {
+      in.toolType=MetaItem.chisel;
+      in.speed=4;
+      in.tiles=new TextureRegion[1];
+      in.tiles[0]=ImageAsset.items[7][4];
+    }));
+    metaItems.list.add(metaItems.lightSword=new MetaItem(metaItems,"light-sword",metaItems.id(),in-> {
+      in.weaponType=MetaItem.hack;
+      in.speed=4;
+      in.damage=0.08f;
+      in.tiles=new TextureRegion[1];
+      in.tiles[0]=ImageAsset.items[7][5];
     }));
     return metaItems;
   }

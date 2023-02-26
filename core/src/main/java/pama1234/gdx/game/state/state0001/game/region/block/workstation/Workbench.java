@@ -185,6 +185,10 @@ public class Workbench extends MetaBlock{
       new CraftRecipe(new CraftItem[] {new CraftItem(mi.stone,8)},new CraftItem[] {new CraftItem(mi.furnace)}),
       new CraftRecipe(new CraftItem[] {new CraftItem(mi.woodPlank,8)},new CraftItem[] {new CraftItem(mi.door)}),
       new CraftRecipe(new CraftItem[] {new CraftItem(mi.woodPlank,8)},new CraftItem[] {new CraftItem(mi.chest)}),
+      new CraftRecipe(new CraftItem[] {new CraftItem(mi.branch),new CraftItem(mi.lightIngot,4)},new CraftItem[] {new CraftItem(mi.lightPickaxe)}),
+      new CraftRecipe(new CraftItem[] {new CraftItem(mi.branch),new CraftItem(mi.lightIngot,4)},new CraftItem[] {new CraftItem(mi.lightAxe)}),
+      new CraftRecipe(new CraftItem[] {new CraftItem(mi.branch),new CraftItem(mi.lightIngot,4)},new CraftItem[] {new CraftItem(mi.lightSword)}),
+      new CraftRecipe(new CraftItem[] {new CraftItem(mi.branch),new CraftItem(mi.lightIngot,4)},new CraftItem[] {new CraftItem(mi.lightChisel)}),
     };
     intData=new int[] {recipeList.length};
   }

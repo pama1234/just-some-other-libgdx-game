@@ -99,8 +99,8 @@ public class Furnace extends MetaBlock{
       in.intData[2]=(x-2)*tw;
       in.intData[3]=(y-3)*th;
       if(in.intData[1]==Workbench.stopMod) return;
-      // Workbench.checkRecipe(in,recipeList[in.intData[0]],in.intData[1]);
-      // for(CraftRecipe e:recipeList) Workbench.checkRecipe(in,e,in.intData[1]);
+      Workbench.checkRecipe(in.itemData,recipeList[in.intData[0]],outputSlotSize,in.intData[1]);
+      for(CraftRecipe e:recipeList) Workbench.checkRecipe(in.itemData,e,outputSlotSize,in.intData[1]);
     };
     displayUpdater=(world,in,x,y)-> {
       defaultDisplayUpdater.update(world,in,x,y);
