@@ -118,4 +118,7 @@ public class Block{
     xOff=xIn;
     yOff=yIn;
   }
+  public boolean offBlock() {
+    return xOff!=0||yOff!=0;
+  }
 }

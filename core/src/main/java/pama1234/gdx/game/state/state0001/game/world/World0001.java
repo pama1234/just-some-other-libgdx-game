@@ -93,7 +93,7 @@ public class World0001 extends WorldBase2D{
     yourself.load();
     yourself.init();
     regions.load();
-    regions.refresh();
+    // regions.refresh();
     regions.startAllLoop();
     // }
   }
@@ -103,8 +103,8 @@ public class World0001 extends WorldBase2D{
     else p.cam2d.active(false);
     p.cam2d.scale.pos=yourself.ctrl.camScale;
     p.cam2d.scale.des=yourself.ctrl.camScale;
-    p.cam2d.minScale=0.25f;
-    // p.cam2d.minScale=p.isAndroid?0.25f:0.5f;
+    // p.cam2d.minScale=0.25f;
+    p.cam2d.minScale=p.isAndroid?0.25f:0.5f;
     p.cam2d.testScale();
     p.cam.point.pos.set(yourself.cx(),yourself.cy());
     p.cam.point.des.set(p.cam.point.pos);

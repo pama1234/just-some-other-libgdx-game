@@ -66,8 +66,8 @@ public class RegionWrapper{
         Block blockOff=pw.getBlock(tx,ty);
         testAndRemoveOffBlock(blockOff.type,tx,ty,in);
         blockOff.doItemDrop(pw.p,tx,ty,in.empty);
-        blockOff.type(in);
         blockOff.origin(block,i,j);
+        blockOff.type(in);
       }
     }
   }

@@ -145,6 +145,11 @@ public class World0001Generator{
       in.tiles=new TextureRegion[1];
       in.tiles[0]=ImageAsset.items[7][0];
     }));
+    metaItems.list.add(metaItems.lightIngot=new MetaItem(metaItems,"light-ingot",metaItems.id(),in-> {
+      // in.blockType=pw.metaBlocks.chest;
+      in.tiles=new TextureRegion[1];
+      in.tiles[0]=ImageAsset.items[7][1];
+    }));
     return metaItems;
   }
   public static MetaCreatureCenter0001 createCreatureC(World0001 in) {
