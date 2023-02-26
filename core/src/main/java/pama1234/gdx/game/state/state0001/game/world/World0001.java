@@ -140,7 +140,6 @@ public class World0001 extends WorldBase2D{
       flag=true;
       for(LoopThread e:regions.loops) if(!e.finished) flag=false;
     }
-    // p.sleep(1000);//TODO nop
     WorldData.save(worldDataDir,data);
     regions.innerSave();
     yourself.save();

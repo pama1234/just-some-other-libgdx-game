@@ -84,6 +84,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   @Override
   public void load() {
     testAddChunk();
+    super.refresh();
   }
   @Override
   public void save() {
@@ -114,9 +115,9 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   public void refresh() {
     removeRegionAndTestChunkUpdate();
     testAddChunk();
-    synchronized(list) {//TODO
-      super.refresh();
-    }
+    // synchronized(list) {
+    super.refresh();
+    // }
   }
   public void removeRegionAndTestChunkUpdate() {
     for(Region e:list) {
