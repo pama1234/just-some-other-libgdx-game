@@ -10,10 +10,12 @@ import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.asset.TvgAsset;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
 import pama1234.math.Tools;
+import pama1234.gdx.game.ui.util.ProgressBar;
 
 public class Loading extends StateEntity0001{
   public int frame;
   public AssetManager manager;
+  public ProgressBar progress;
   public Loading(Screen0011 p) {
     super(p);
     manager=new AssetManager();
@@ -22,6 +24,7 @@ public class Loading extends StateEntity0001{
   @Override
   public void from(State0001 in) {
     manager.clear();//如果先前有残留的资源，先清除
+    p.centerScreen.add.add(progress=new ProgressBar<Screen0011>(p,manager));
     ((Game)State0001.Game.entity).firstInit=true;
     p.backgroundColor(0);
     p.textColor(255);
@@ -38,6 +41,7 @@ public class Loading extends StateEntity0001{
   @Override
   public void to(State0001 in) {
     frame=0;
+    p.centerScreen.remove.add(progress);
   }
   @Override
   public void display() {
