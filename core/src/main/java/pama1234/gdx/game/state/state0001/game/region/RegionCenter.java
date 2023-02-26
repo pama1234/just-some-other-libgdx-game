@@ -321,6 +321,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     public Mutex lock;
     public long sleepSize=50;//set to negative for no sleep
     public long millis,stepMillis;
+    public boolean finished;
     public LoopThread(String name) {
       super(name);
       lock=new Mutex(true);
@@ -339,7 +340,9 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
         long tl=System.currentTimeMillis();
         stepMillis=tl-beforeM;
         beforeM=tl;
+        finished=false;
         doUpdate();
+        finished=true;
         millis=System.currentTimeMillis()-beforeM;
         doSleep();
       }

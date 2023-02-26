@@ -19,6 +19,7 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemC
 import pama1234.gdx.game.state.state0001.game.net.NetMode;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
 import pama1234.gdx.game.state.state0001.game.region.RegionCenter;
+import pama1234.gdx.game.state.state0001.game.region.RegionCenter.LoopThread;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.background.BackgroundCenter;
 import pama1234.gdx.game.state.state0001.game.world.background.BackgroundList;
@@ -133,6 +134,12 @@ public class World0001 extends WorldBase2D{
     if(p.isAndroid&&pg.netMode!=NetMode.client) pauseSave();
   }
   public void pauseSave() {
+    boolean flag=false;
+    while(!flag) {
+      p.sleep(20);
+      flag=true;
+      for(LoopThread e:regions.loops) if(!e.finished) flag=false;
+    }
     // p.sleep(1000);//TODO nop
     WorldData.save(worldDataDir,data);
     regions.innerSave();
