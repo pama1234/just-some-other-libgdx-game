@@ -15,6 +15,7 @@ public class NullBlock extends MetaBlock{
     },(in,type)-> {//change from stone
     });
     blockType=stoneType;
+    fullBlock=false;
     destroyTime=Integer.MAX_VALUE;
     buildTime=Integer.MAX_VALUE;
     initLambda();

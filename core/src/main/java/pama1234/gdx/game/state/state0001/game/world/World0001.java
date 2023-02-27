@@ -167,6 +167,7 @@ public class World0001 extends WorldBase2D{
     data.time+=1;
     timeF+=p.frameRate;
     sky.updateColor();
+    // System.out.println(yourself.point.pos);
     // if(entities.players.list.size()>0) System.out.println(entities.players.list.size());
   }
   @Override

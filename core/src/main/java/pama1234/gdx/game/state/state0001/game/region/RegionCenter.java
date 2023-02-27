@@ -306,7 +306,11 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     if(tr==null) synchronized(add) {//TODO
       for(Region r:add) if(r.x==tx&&r.y==ty) tr=r;
     }
-    if(tr==null) add.add(tr=new Region(p,this,tx,ty,null));
+    if(tr==null) {
+      add.add(tr=new Region(p,this,tx,ty,null));
+      Chunk[][] data=tr.data;
+      if(data==null) data=tr.data=new Chunk[regionWidth][regionHeight];
+    }
     if(tr.data[prx][pry]==null) tr.data[prx][pry]=chunk;
   }
   public Region getRegions(int tx,int ty) {

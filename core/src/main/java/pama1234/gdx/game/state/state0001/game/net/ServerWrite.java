@@ -91,11 +91,14 @@ public class ServerWrite extends Thread{
     }
   }
   public void writeChunks() {
+    output.writeInt(chunks.list.size());
     for(NetChunkData e:chunks.list) {
       output.writeInt(e.x);
       output.writeInt(e.y);
       KryoNetUtil.write(WorldKryoUtil.kryo,output,e.chunk);
     }
+    chunks.list.clear();
+    state=ServerToClient.playerPos;
   }
   public void writeNeedAuth() {
     output.writeString("pseudo-server-info");
