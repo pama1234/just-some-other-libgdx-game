@@ -61,8 +61,10 @@ public class Player extends TextureLivingEntity{
   }
   public static class PlayerType extends MetaCreature<Player>{
     {
-      w=36;
-      h=54;
+      w=33;
+      h=52;
+      // w=36;
+      // h=54;
       dx=-w/2f;
       dy=-h;
     }

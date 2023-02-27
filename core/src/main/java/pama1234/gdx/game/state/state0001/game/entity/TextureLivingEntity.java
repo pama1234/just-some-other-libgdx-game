@@ -41,6 +41,6 @@ public class TextureLivingEntity extends LivingEntity{
       MetaBlock.getLighting(light.b()));
     TextureRegion tr=type.tiles[displayState][frameTime];
     if(flipX!=tr.isFlipX()) tr.flip(true,false);
-    p.image(tr,x()+type.dx,y()+type.dy);
+    p.image(tr,x1(),y1());
   }
 }

@@ -78,7 +78,6 @@ public class Furnace extends MetaBlock{
     in.ui=new BlockUi();
     in.ui.displaySlot=new DisplaySlot[in.itemData.length];
     for(int i=0;i<in.ui.displaySlot.length;i++) in.ui.displaySlot[i]=new DisplaySlot(in.itemData[i]);
-    // in.ui.camButton=new TextButtonCam[0];
     in.ui.camButton=UiGenerator.genButtons_0009(pc.pw.p,in);
     in.changed=true;
   }
@@ -92,8 +91,6 @@ public class Furnace extends MetaBlock{
       if(in.offBlock()) return;
       int tw=pc.pw.settings.blockWidth,
         th=pc.pw.settings.blockHeight;
-      // int tx=(in.ui.displaySlot.length-1)/2*tw;
-      // in.intData[2]=(x-tx)*tw;
       in.intData[4]=x;
       in.intData[5]=y;
       in.intData[2]=(x-2)*tw;
@@ -124,13 +121,14 @@ public class Furnace extends MetaBlock{
       // p.text(Integer.toString(in.intData[0]),x,y-tw*2);
       int ti=in.intData[0];
       String ts=Integer.toString(ti);
-      p.text(ts+")",x-tw*(1.5f+ts.length()/2f),y-th*2);
+      int tx=1;
+      p.text(ts+")",x-tw*(tx+ts.length()/2f),y-th*2);
       if(!Tools.inRangeInclude(ti,0,recipeList.length-1)) return;
-      p.text("<-",x,y-th*2);
+      p.text("<-",x-tw*(tx-1.5f),y-th*2);
       CraftRecipe recipe=recipeList[ti];
       p.tint(255,160);
       p.textColor(255,160);
-      float i=-2;
+      float i=tx-2.5f;
       for(CraftItem e:recipe.output) Workbench.drawItemWithCount(p,x+(i+=1)*tw,y-th*2,e.type,e.count);
       i+=1;
       for(CraftItem e:recipe.input) Workbench.drawItemWithCount(p,x+(i+=1)*tw,y-th*2,e.type,e.count);

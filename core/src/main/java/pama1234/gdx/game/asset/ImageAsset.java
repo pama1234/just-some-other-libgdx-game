@@ -48,9 +48,7 @@ public class ImageAsset{
     for(int i=0;i<5;i++) backgroundList[i]=loadFromTexture(manager.get("image/background/"+(i+1)+".png",Texture.class));
     tiles=loadFromTexture_0001(manager.get("image/tiles.png"),18,18,2,2);
     items=loadFromTexture_0001(manager.get("image/items.png"),18,18,2,2);
-    player=loadFromTexture_0001(manager.get("image/player04.png"),36,54,0,0);
-    // System.out.println(player[0].length);
-    // player=loadFromTexture_0001(manager.get("image/player.png"),20,24,4,0);
+    player=loadFromTexture_0001(manager.get("image/player04.png"),2,2,33,52,3,2);
     creature=loadFromTexture_0001(manager.get("image/characters.png"),24,24,2,2);
     sky=loadFromTexture(manager.get("image/sky.png"));
     select=loadFromTexture(manager.get("image/select.png"));
@@ -87,6 +85,12 @@ public class ImageAsset{
     int tw=w+w2,th=h+h2;
     TextureRegion[][] out=new TextureRegion[UtilMath.round(in.getWidth()/(float)tw)][UtilMath.round(in.getHeight()/(float)th)];
     for(int i=0;i<out.length;i++) for(int j=0;j<out[i].length;j++) out[i][j]=FileUtil.toTextureRegion(in,i*tw,j*th,w,h);
+    return out;
+  }
+  public static TextureRegion[][] loadFromTexture_0001(Texture in,int x,int y,int w,int h,int w2,int h2) {
+    int tw=w+w2,th=h+h2;
+    TextureRegion[][] out=new TextureRegion[UtilMath.round(in.getWidth()/(float)tw)][UtilMath.round(in.getHeight()/(float)th)];
+    for(int i=0;i<out.length;i++) for(int j=0;j<out[i].length;j++) out[i][j]=FileUtil.toTextureRegion(in,x+i*tw,y+j*th,w,h);
     return out;
   }
 }
