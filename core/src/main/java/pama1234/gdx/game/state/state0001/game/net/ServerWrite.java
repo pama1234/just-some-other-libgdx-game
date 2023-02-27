@@ -52,6 +52,7 @@ public class ServerWrite extends Thread{
   public void execute() {
     updateChunks();
     //---
+    if(chunks.add.size()>0||chunks.remove.size()>0) state=ServerToClient.chunkData;
     output.writeByte(state);
     executeFs[state].execute();
     // writePlayerPos();
@@ -63,36 +64,56 @@ public class ServerWrite extends Thread{
     output.writeFloat(point.pos.y);
   }
   public void updateChunks() {
-    chunks.list.clear();
+    // chunks.list.clear();
     float tcx=link.player.cx()/p.world.settings.blockWidth,
       tcy=link.player.cy()/p.world.settings.blockHeight;
     RegionCenter pr=p.world.regions;
     for(Region e:p.world.regions.list) {
-      for(int i=0;i<e.data.length;i++) {
-        for(int j=0;j<e.data[i].length;j++) {
-          Chunk chunk=e.data[i][j];
-          float tx_2=((e.x*pr.regionWidth+(i+0.5f))*pr.chunkWidth),
-            ty_2=((e.y*pr.regionHeight+(j+0.5f))*pr.chunkHeight);
-          float dist=UtilMath.dist(tx_2,ty_2,tcx,tcy);
-          if(dist<p.world.regions.netTransferDist) {
-            chunks.list.add(
-              new NetChunkData(
-                e.x*pr.regionWidth+i,
-                e.y*pr.regionHeight+j,
-                chunk));
+      for(int i=0;i<e.data.length;i++) for(int j=0;j<e.data[i].length;j++) {
+        Chunk chunk=e.data[i][j];
+        float tx_2=((e.x*pr.regionWidth+(i+0.5f))*pr.chunkWidth),
+          ty_2=((e.y*pr.regionHeight+(j+0.5f))*pr.chunkHeight);
+        float dist=UtilMath.dist(tx_2,ty_2,tcx,tcy);
+        if(dist<p.world.regions.netTransferDist) {
+          boolean flag=true;
+          int tx=e.x*pr.regionWidth+i,
+            ty=e.y*pr.regionHeight+j;
+          for(NetChunkData n:chunks.list) {
+            if(n.is(tx,ty)) {
+              flag=false;
+              break;
+            }
           }
+          if(flag) {
+            for(NetChunkData n:chunks.add) {
+              if(n.is(tx,ty)) {
+                flag=false;
+                break;
+              }
+            }
+          }
+          if(flag) chunks.add.add(
+            new NetChunkData(tx,ty,chunk));
         }
       }
     }
+    for(NetChunkData n:chunks.list) if(UtilMath.dist(n.x,n.y,tcx,tcy)>p.world.regions.netRemoveDist&&
+      !chunks.remove.contains(n)) chunks.remove.add(n);
   }
   public void writeChunks() {
-    output.writeInt(chunks.list.size());
-    for(NetChunkData e:chunks.list) {
+    output.writeInt(chunks.remove.size());
+    for(NetChunkData e:chunks.remove) {
+      output.writeInt(e.x);
+      output.writeInt(e.y);
+    }
+    output.writeInt(chunks.add.size());
+    for(NetChunkData e:chunks.add) {
       output.writeInt(e.x);
       output.writeInt(e.y);
       KryoNetUtil.write(WorldKryoUtil.kryo,output,e.chunk);
     }
-    chunks.list.clear();
+    // chunks.list.clear();
+    chunks.refresh();
     state=ServerToClient.playerPos;
   }
   public void writeNeedAuth() {
@@ -110,6 +131,9 @@ public class ServerWrite extends Thread{
       this.x=x;
       this.y=y;
       this.chunk=chunk;
+    }
+    public boolean is(int xIn,int yIn) {
+      return x==xIn&&y==yIn;
     }
   }
 }

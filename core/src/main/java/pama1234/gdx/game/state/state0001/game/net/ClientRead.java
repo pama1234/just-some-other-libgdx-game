@@ -53,6 +53,12 @@ public class ClientRead extends Thread{
     while(count>0) {
       count--;
       int cx=input.readInt(),cy=input.readInt();
+      p.world.regions.removeChunk(cx,cy);
+    }
+    count=input.readInt();
+    while(count>0) {
+      count--;
+      int cx=input.readInt(),cy=input.readInt();
       // System.out.println(count+" "+cx+" "+cy);
       Chunk chunk=KryoNetUtil.read(WorldKryoUtil.kryo,input,Chunk.class);
       BlockData[][] blockData=chunk.data;

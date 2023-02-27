@@ -43,6 +43,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   public float chunkRemoveDist=360,regionRemoveDist=512;
   public float chunkUpdateDisplayDist=60;
   public float netTransferDist=120;
+  public float netRemoveDist=240;
   public RegionPool pool;
   public LoopThread[] loops;
   public LoopThread updateLoop,updateDisplayLoop;
@@ -335,6 +336,12 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     }
     // if(tr.data[prx][pry]==null) 
     tr.data[prx][pry]=chunk;
+  }
+  public void removeChunk(int cx,int cy) {
+    int tx=UtilMath.floor((float)cx/regionWidth),ty=UtilMath.floor((float)cy/regionHeight);
+    int prx=Tools.moveInRange(cx,0,regionWidth),pry=Tools.moveInRange(cy,0,regionHeight);
+    Region tr=getRegions(tx,ty);
+    if(tr!=null) tr.data[prx][pry]=null;
   }
   public Region getRegions(int tx,int ty) {
     if(cachedRegion!=null) synchronized(cachedRegion) {
