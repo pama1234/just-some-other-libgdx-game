@@ -82,8 +82,8 @@ public class ServerWrite extends Thread{
           if(dist<120) {
             chunks.list.add(
               new NetChunkData(
-                (e.x*pr.regionWidth+i)*pr.chunkWidth,
-                (e.y*pr.regionHeight+j)*pr.chunkHeight,
+                e.x*pr.regionWidth+i,
+                e.y*pr.regionHeight+j,
                 chunk));
           }
         }

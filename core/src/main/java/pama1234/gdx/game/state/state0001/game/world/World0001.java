@@ -95,9 +95,8 @@ public class World0001 extends WorldBase2D{
       Gdx.files.local(dir()+"regions/").mkdirs();//TODO
       yourself.load();
       regions.load();
-      // regions.refresh();
       regions.startAllLoop();
-    }
+    }else regions.updateDisplayLoop.start();
     yourself.init();
   }
   @Override
@@ -167,6 +166,7 @@ public class World0001 extends WorldBase2D{
     data.time+=1;
     timeF+=p.frameRate;
     sky.updateColor();
+    // System.out.println(regions.list.size());
     // System.out.println(yourself.point.pos);
     // if(entities.players.list.size()>0) System.out.println(entities.players.list.size());
   }

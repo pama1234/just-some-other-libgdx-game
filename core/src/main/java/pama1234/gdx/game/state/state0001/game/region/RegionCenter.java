@@ -52,6 +52,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   public Region cachedRegion;
   //---
   public Block nullBlock;
+  public Chunk fakeChunk;
   public GetBoolean stopLoop=()->p.stop||stop;
   public RegionCenter(Screen0011 p,World0001 pw) {
     this(p,pw,Gdx.files.local(pw.dir()+"regions.bin"));
@@ -74,6 +75,13 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
       Gdx.files.internal("shader/main0002/tilemap.frag").readString())));
     //---
     nullBlock=new Block(pw.metaBlocks.nullBlock);
+    fakeChunk=new Chunk(null);
+    fakeChunk.data=new BlockData[chunkWidth][chunkHeight];
+    BlockData[][] blockData=fakeChunk.data;
+    BlockData fakeBlockData=new BlockData(nullBlock);
+    for(int i=0;i<blockData.length;i++) for(int j=0;j<blockData[i].length;j++) {
+      blockData[i][j]=fakeBlockData;
+    }
   }
   @Override
   public void resume() {
@@ -105,7 +113,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   public void dispose() {
     stop=true;
     shutdownAllLoop();
-    pool.saveAndClear();
+    // pool.saveAndClear();
   }
   public void shutdownAllLoop() {
     unlockAllLoop();
@@ -120,9 +128,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
       removeRegionAndTestChunkUpdate();
       testAddChunk();
     }
-    // synchronized(list) {
     super.refresh();
-    // }
   }
   public void removeRegionAndTestChunkUpdate() {
     for(Region e:list) {
@@ -296,6 +302,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     Region tr=getRegions(tx,ty);
     if(tr==null) return nullBlock;
     Chunk chunk=tr.data[prx][pry];
+    // if(chunk==null) chunk=fakeChunk;
     BlockData blockData=chunk.data[px][py];
     return blockData.block;
   }
@@ -304,14 +311,23 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     int prx=Tools.moveInRange(cx,0,regionWidth),pry=Tools.moveInRange(cy,0,regionHeight);
     Region tr=getRegions(tx,ty);
     if(tr==null) synchronized(add) {//TODO
-      for(Region r:add) if(r.x==tx&&r.y==ty) tr=r;
+      for(Region r:add) if(r.x==tx&&r.y==ty) {
+        tr=r;
+        break;
+      }
+      if(tr==null) {
+        add.add(tr=new Region(p,this,tx,ty,null));
+        Chunk[][] data=tr.data;
+        if(data==null) {
+          data=tr.data=new Chunk[regionWidth][regionHeight];
+          for(int i=0;i<data.length;i++) for(int j=0;j<data[i].length;j++) {
+            data[i][j]=fakeChunk;
+          }
+        }
+      }
     }
-    if(tr==null) {
-      add.add(tr=new Region(p,this,tx,ty,null));
-      Chunk[][] data=tr.data;
-      if(data==null) data=tr.data=new Chunk[regionWidth][regionHeight];
-    }
-    if(tr.data[prx][pry]==null) tr.data[prx][pry]=chunk;
+    // if(tr.data[prx][pry]==null) 
+    tr.data[prx][pry]=chunk;
   }
   public Region getRegions(int tx,int ty) {
     if(cachedRegion!=null) synchronized(cachedRegion) {

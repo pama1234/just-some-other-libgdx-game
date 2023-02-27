@@ -38,7 +38,7 @@ public class ClientRead extends Thread{
   }
   public void execute() {
     executeFs[input.readByteUnsigned()].execute();
-    // readPlayerPos();
+    // System.out.println(p.world.regions.add.size()+" "+p.world.regions.list.size());
   }
   public void readPlayerPos() {
     skip(8);
@@ -47,7 +47,6 @@ public class ClientRead extends Thread{
     // System.out.println(p.world.yourself==p.game.world_0001.yourself);
     if(point.pos.dist(x,y)>36) point.pos.set(x,y);
     // System.out.println(point.pos);
-    // System.out.println(p.world.regions.list.size());
   }
   public void readChunkData() {
     MetaBlock[] mblock=p.world.metaBlocks.list.toArray(new MetaBlock[p.world.metaBlocks.list.size()]);
@@ -72,7 +71,9 @@ public class ClientRead extends Thread{
         }
       }
       p.world.regions.addChunk(cx,cy,chunk);
+      // System.out.println(p.world.regions.add.size());
     }
+    p.world.regions.refresh();
   }
   public void readAuthInfo() {
     String serverInfo=input.readString();
