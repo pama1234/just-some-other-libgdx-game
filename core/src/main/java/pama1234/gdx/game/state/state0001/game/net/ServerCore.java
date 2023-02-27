@@ -2,16 +2,10 @@ package pama1234.gdx.game.state.state0001.game.net;
 
 import java.io.IOException;
 
-import com.esotericsoftware.kryo.KryoException;
-import com.esotericsoftware.kryo.io.Input;
-import com.esotericsoftware.kryo.io.Output;
-
 import pama1234.game.app.server.server0002.net.SocketData;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.game.player.Player;
-import pama1234.gdx.game.state.state0001.game.player.PlayerControllerCore;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
-import pama1234.math.physics.MassPoint;
 import pama1234.util.net.ServerSocketData;
 import pama1234.util.net.SocketWrapper;
 import pama1234.util.wrapper.Center;
@@ -66,93 +60,6 @@ public class ServerCore{
     stop=true;
     serverSocketData.close();
     acceptThread.interrupt();
-  }
-  public static class ServerWrite extends Thread{
-    public ClientLink link;
-    public ServerCore p;
-    public Output output;
-    public int sleep=-1;
-    public ServerWrite(ClientLink link,ServerCore p) {
-      this.link=link;
-      this.p=p;
-      output=new Output(link.socketData.o);
-    }
-    @Override
-    public void run() {
-      connect();
-      try {
-        while(!p.stop) {
-          execute();
-          if(sleep>=0) sleep(sleep);
-        }
-      }catch(RuntimeException|InterruptedException e) {
-        e.printStackTrace();
-        p.stop=true;
-      }finally {
-        link.socketData.dispose();
-        p.serverWritePool.remove.add(this);
-        disconnect();
-      }
-    }
-    public void connect() {
-      p.world.entities.players.add.add(link.player);
-      sleep=50;
-    }
-    public void execute() {
-      MassPoint point=link.player.point;
-      output.writeFloat(point.pos.x);
-      output.writeFloat(point.pos.y);
-      output.flush();
-    }
-    public void disconnect() {
-      p.world.entities.players.remove.add(link.player);
-    }
-  }
-  public static class ServerRead extends Thread{
-    public ClientLink link;
-    ServerCore p;
-    public Input input;
-    public ServerRead(ClientLink link,ServerCore p) {
-      this.link=link;
-      this.p=p;
-      input=new Input(link.socketData.i);
-    }
-    @Override
-    public void run() {
-      try {
-        connect();
-        while(!p.stop) execute();
-      }catch(RuntimeException e) {
-        e.printStackTrace();
-        p.stop=true;
-      }finally {
-        link.socketData.dispose();
-        p.serverReadPool.remove.add(this);
-        disconnect();
-      }
-    }
-    public void connect() {}
-    public void execute() {
-      // skip(3);
-      PlayerControllerCore ctrlCore=link.player.ctrlCore;
-      // ctrlCore.left=input.readBoolean();
-      // ctrlCore.right=input.readBoolean();
-      // ctrlCore.jump=input.readBoolean();
-      if(input.readBoolean()) ctrlCore.left=!ctrlCore.left;
-      if(input.readBoolean()) ctrlCore.right=!ctrlCore.right;
-      if(input.readBoolean()) ctrlCore.jump=!ctrlCore.jump;
-      if(input.readBoolean()) ctrlCore.jumpDown=!ctrlCore.jumpDown;
-    }
-    public void disconnect() {}
-    public void skip(int in) {
-      try {
-        int available=input.available();
-        if(available>in) input.skip((available/in)*in);
-      }catch(KryoException|IOException e) {
-        e.printStackTrace();
-        p.stop=true;
-      }
-    }
   }
   public static class ClientLink{
     public SocketData socketData;
