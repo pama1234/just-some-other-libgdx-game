@@ -5,6 +5,7 @@ import java.io.IOException;
 import com.esotericsoftware.kryo.KryoException;
 import com.esotericsoftware.kryo.io.Input;
 
+import pama1234.gdx.game.state.state0001.game.net.NetState.ServerToClient;
 import pama1234.gdx.game.state.state0001.game.net.ServerCore.ClientLink;
 import pama1234.gdx.game.state.state0001.game.player.PlayerControllerCore;
 import pama1234.util.function.ExecuteF;
@@ -18,7 +19,7 @@ public class ServerRead extends Thread{
     this.link=link;
     this.p=p;
     input=new Input(link.socketData.i);
-    executeFs=new ExecuteF[] {this::readPlayerCtrl};
+    executeFs=new ExecuteF[] {this::readPlayerCtrl,this::readPlayerAuth};
   }
   @Override
   public void run() {
@@ -37,7 +38,7 @@ public class ServerRead extends Thread{
   public void connect() {}
   public void execute() {
     // skip(3);
-    executeFs[input.readByte()].execute();
+    executeFs[input.readByteUnsigned()].execute();
     // readPlayerCtrl();
   }
   public void readPlayerCtrl() {
@@ -47,7 +48,14 @@ public class ServerRead extends Thread{
     if(input.readBoolean()) ctrlCore.jump=!ctrlCore.jump;
     if(input.readBoolean()) ctrlCore.jumpDown=!ctrlCore.jumpDown;
   }
-  public void disconnect() {}
+  public void readPlayerAuth() {
+    link.player.name=input.readString();
+    p.world.entities.players.add.add(link.player);
+    link.serverWrite.state=ServerToClient.playerPos;
+  }
+  public void disconnect() {
+    p.world.entities.players.remove.add(link.player);
+  }
   public void skip(int in) {
     try {
       int available=input.available();

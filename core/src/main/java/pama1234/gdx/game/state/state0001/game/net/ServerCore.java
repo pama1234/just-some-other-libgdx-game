@@ -36,11 +36,11 @@ public class ServerCore{
           //---
           ClientLink link=createLink(socketData);
           link.init();
-          ServerWrite serverWrite=new ServerWrite(link,this);
+          ServerWrite serverWrite=link.serverWrite=new ServerWrite(link,this);
           serverWrite.start();
           serverWritePool.add.add(serverWrite);
           //---
-          ServerRead serverRead=new ServerRead(link,this);
+          ServerRead serverRead=link.serverRead=new ServerRead(link,this);
           serverRead.start();
           serverReadPool.add.add(serverRead);
         }catch(IOException e) {
@@ -63,6 +63,8 @@ public class ServerCore{
   }
   public static class ClientLink{
     public SocketData socketData;
+    public ServerRead serverRead;
+    public ServerWrite serverWrite;
     public ServerCore p;
     //---
     public Player player;
