@@ -51,7 +51,8 @@ public class ServerRead extends Thread{
   public void readPlayerAuth() {
     link.player.name=input.readString();
     p.world.entities.players.add.add(link.player);
-    link.serverWrite.state=ServerToClient.chunkData;
+    link.serverWrite.state=ServerToClient.worldData;
+    // link.serverWrite.state=ServerToClient.chunkData;
     // link.serverWrite.state=ServerToClient.playerPos;
   }
   public void disconnect() {

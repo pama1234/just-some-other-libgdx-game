@@ -26,7 +26,7 @@ public class ServerWrite extends Thread{
     this.link=link;
     this.p=p;
     output=new Output(link.socketData.o);
-    executeFs=new ExecuteF[] {this::writePlayerPos,this::writeChunks,this::writeNeedAuth};
+    executeFs=new ExecuteF[] {this::writePlayerPos,this::writeChunks,this::writeNeedAuth,this::writeWorldData};
     chunks=new Center<>();
   }
   @Override
@@ -102,6 +102,10 @@ public class ServerWrite extends Thread{
   }
   public void writeNeedAuth() {
     output.writeString("pseudo-server-info");
+  }
+  public void writeWorldData() {
+    KryoNetUtil.write(WorldKryoUtil.kryo,output,p.world.data);
+    state=ServerToClient.chunkData;
   }
   public void disconnect() {}
   public static class NetChunkData{

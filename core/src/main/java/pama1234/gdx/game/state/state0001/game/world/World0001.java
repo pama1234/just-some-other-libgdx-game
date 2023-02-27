@@ -49,7 +49,8 @@ public class World0001 extends WorldBase2D{
   public Mutex saving;
   public World0001(Screen0011 p,Game pg) {
     super(p,pg,3);
-    data=WorldData.load(worldDataDir);
+    if(netMode()!=NetMode.client) data=WorldData.load(worldDataDir);
+    else data=new WorldData();
     if(data.dir==null) data.dir="data/saved/test-world/";
     metaBlocks=World0001Generator.createBlockC(this);
     metaItems=World0001Generator.createItemC(this);
@@ -96,7 +97,10 @@ public class World0001 extends WorldBase2D{
       yourself.load();
       regions.load();
       regions.startAllLoop();
-    }else regions.updateDisplayLoop.start();
+    }else {
+      regions.updateDisplayLoop.start();
+      regions.updateLoop.start();
+    }
     yourself.init();
   }
   @Override

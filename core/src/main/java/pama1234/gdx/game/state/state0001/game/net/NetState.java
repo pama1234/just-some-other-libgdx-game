@@ -11,6 +11,7 @@ public class NetState{
     public static final int playerPos=0;
     public static final int chunkData=1;
     public static final int needAuth=2;
+    public static final int worldData=3;
     public static final int entityData=3;
   }
 }

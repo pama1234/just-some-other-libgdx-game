@@ -14,6 +14,7 @@ import pama1234.gdx.game.state.state0001.game.net.NetState.ClientToServer;
 import pama1234.gdx.game.state.state0001.game.region.Chunk;
 import pama1234.gdx.game.state.state0001.game.region.Chunk.BlockData;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
+import pama1234.gdx.game.state.state0001.game.world.WorldData;
 import pama1234.gdx.game.state.state0001.game.world.WorldKryoUtil;
 import pama1234.math.physics.Point;
 import pama1234.util.function.ExecuteF;
@@ -25,7 +26,7 @@ public class ClientRead extends Thread{
   public ClientRead(ClientCore p) {
     this.p=p;
     input=new Input(p.socketData.i);
-    executeFs=new ExecuteF[] {this::readPlayerPos,this::readChunkData,this::readAuthInfo};
+    executeFs=new ExecuteF[] {this::readPlayerPos,this::readChunkData,this::readAuthInfo,this::readWorldData};
   }
   @Override
   public void run() {
@@ -80,6 +81,9 @@ public class ClientRead extends Thread{
     if(serverInfo.equals("pseudo-server-info")) {
       p.clientWrite.state=ClientToServer.playerAuth;
     }else System.out.println("ClientRead.readAuthInfo()");
+  }
+  public void readWorldData() {
+    p.world.data=KryoNetUtil.read(WorldKryoUtil.kryo,input,WorldData.class);
   }
   public void skip(int in) {
     try {

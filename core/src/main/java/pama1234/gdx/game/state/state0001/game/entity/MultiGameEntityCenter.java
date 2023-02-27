@@ -5,6 +5,7 @@ import pama1234.gdx.game.state.state0001.game.entity.entity0001.DroppedItem.Drop
 import pama1234.gdx.game.state.state0001.game.entity.entity0001.MobEntity;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature.SpawnData;
+import pama1234.gdx.game.state.state0001.game.net.NetMode;
 import pama1234.gdx.game.state.state0001.game.player.Player;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
@@ -71,8 +72,10 @@ public class MultiGameEntityCenter extends MultiEntityCenter<Screen0011,EntityCe
         e.dispose();
         remove.add(e);
       }
-      for(Player player:pc.players.list) testCreatureSpawnWithPlayer(player);
-      testCreatureSpawnWithPlayer(pc.pw.yourself);//TODO
+      if(pc.pw.netMode()!=NetMode.client) {
+        for(Player player:pc.players.list) testCreatureSpawnWithPlayer(player);
+        testCreatureSpawnWithPlayer(pc.pw.yourself);//TODO
+      }
       super.refresh();
     }
     public void testCreatureSpawnWithPlayer(Player player) {

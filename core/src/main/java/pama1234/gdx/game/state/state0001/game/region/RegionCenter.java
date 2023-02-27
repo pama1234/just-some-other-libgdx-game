@@ -200,6 +200,10 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     // super.update();
     tilemapRenderer.updateInfo();
   }
+  public void netClientUpdate() {
+    // refresh();
+    for(Region e:list) e.netClientUpdate();
+  }
   @Override
   public void display() {
     if(stop) return;
@@ -265,7 +269,8 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
       // stream.forEach(r->r.update());
       // Iterator<Region> it=list.iterator();
       // while(it.hasNext()) it.next().update();
-      RegionCenter.super.update();
+      if(pw.netMode()!=NetMode.client) RegionCenter.super.update();
+      else netClientUpdate();
       pw.data.tick+=1;
       // refresh();
       // for(Region e:list) e.update();
