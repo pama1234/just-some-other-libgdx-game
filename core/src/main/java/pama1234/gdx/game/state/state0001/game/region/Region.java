@@ -89,6 +89,7 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
       ty_1=y*pr.regionHeight;
     for(int i=0;i<data.length;i++) for(int j=0;j<data[i].length;j++) {
       Chunk chunk=data[i][j];
+      if(chunk==null) continue;
       if(!chunk.update) continue;//TODO
       BlockData[][] blockData=chunk.data;
       int tx_2=(tx_1+i)*pr.chunkWidth,
@@ -97,8 +98,6 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
         BlockData tbd=blockData[n][m];
         // Block block=tbd==null?pr.nullBlock:tbd.block;
         Block block=tbd.block;
-        // MetaBlock blockType=block.type;
-        // if(blockType==null) continue;
         int tx_3=tx_2+n,
           ty_3=ty_2+m;
         MetaBlock.lightUpdater.update(pr.pw,block,tx_3,ty_3);

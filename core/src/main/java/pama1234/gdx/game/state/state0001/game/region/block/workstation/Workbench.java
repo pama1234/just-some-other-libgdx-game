@@ -151,6 +151,8 @@ public class Workbench extends MetaBlock{
   public void initBlock(Block in) {
     if(in.intData==null) in.intData=new int[6];
     else if(in.intData.length<6) in.intData=new int[6];
+    // in.intData[0]=0;
+    // else if(in.intData[0]>=recipeList.length) in.intData[0]=recipeList.length-1;
     if(in.itemData==null) {
       in.itemData=new ItemSlot[sloatSize];
       for(int i=0;i<in.itemData.length;i++) in.itemData[i]=new ItemSlot();
@@ -190,6 +192,8 @@ public class Workbench extends MetaBlock{
       new CraftRecipe(new CraftItem[] {new CraftItem(mi.branch),new CraftItem(mi.lightIngot,4)},new CraftItem[] {new CraftItem(mi.lightAxe)}),
       new CraftRecipe(new CraftItem[] {new CraftItem(mi.branch),new CraftItem(mi.lightIngot,4)},new CraftItem[] {new CraftItem(mi.lightSword)}),
       new CraftRecipe(new CraftItem[] {new CraftItem(mi.branch),new CraftItem(mi.lightIngot,4)},new CraftItem[] {new CraftItem(mi.lightChisel)}),
+      new CraftRecipe(new CraftItem[] {new CraftItem(mi.stoneChisel)},new CraftItem[] {new CraftItem(mi.stoneChisel),new CraftItem(mi.colorBlock,64)}),
+      new CraftRecipe(new CraftItem[] {new CraftItem(mi.lightChisel)},new CraftItem[] {new CraftItem(mi.lightChisel),new CraftItem(mi.lightBlock,64)}),
     };
     intData=new int[] {recipeList.length};
   }

@@ -23,6 +23,8 @@ import pama1234.gdx.game.state.state0001.game.region.block.block0001.TreeLeaf;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.TreeLog;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.WoodPlank;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.WoodPlatform;
+import pama1234.gdx.game.state.state0001.game.region.block.block0002.ColorBlock;
+import pama1234.gdx.game.state.state0001.game.region.block.block0002.LightBlock;
 import pama1234.gdx.game.state.state0001.game.region.block.workstation.Chest;
 import pama1234.gdx.game.state.state0001.game.region.block.workstation.Furnace;
 import pama1234.gdx.game.state.state0001.game.region.block.workstation.Workbench;
@@ -46,6 +48,8 @@ public class World0001Generator{
     metaBlocks.list.add(metaBlocks.chest=new Chest(metaBlocks,metaBlocks.id()));
     metaBlocks.list.add(metaBlocks.lightOre=new LightOre(metaBlocks,metaBlocks.id()));
     metaBlocks.list.add(metaBlocks.nullBlock=new NullBlock(metaBlocks,metaBlocks.id()));
+    metaBlocks.list.add(metaBlocks.colorBlock=new ColorBlock(metaBlocks,metaBlocks.id()));
+    metaBlocks.list.add(metaBlocks.lightBlock=new LightBlock(metaBlocks,metaBlocks.id()));
     return metaBlocks;
   }
   public static MetaItemCenter0001 createItemC(World0001 pw) {
@@ -174,6 +178,16 @@ public class World0001Generator{
       in.damage=0.08f;
       in.tiles=new TextureRegion[1];
       in.tiles[0]=ImageAsset.items[7][5];
+    }));
+    metaItems.list.add(metaItems.colorBlock=new MetaItem(metaItems,"color-block",metaItems.id(),in-> {
+      in.blockType=pw.metaBlocks.colorBlock;
+      in.tiles=new TextureRegion[1];
+      in.tiles[0]=ImageAsset.items[8][0];
+    }));
+    metaItems.list.add(metaItems.lightBlock=new MetaItem(metaItems,"light-block",metaItems.id(),in-> {
+      in.blockType=pw.metaBlocks.lightBlock;
+      in.tiles=new TextureRegion[1];
+      in.tiles[0]=ImageAsset.items[8][1];
     }));
     return metaItems;
   }
