@@ -18,8 +18,8 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaCreat
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemCenter0001;
 import pama1234.gdx.game.state.state0001.game.net.NetMode;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
+import pama1234.gdx.game.state.state0001.game.region.LoopThread;
 import pama1234.gdx.game.state.state0001.game.region.RegionCenter;
-import pama1234.gdx.game.state.state0001.game.region.RegionCenter.LoopThread;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.background.BackgroundCenter;
 import pama1234.gdx.game.state.state0001.game.world.background.BackgroundList;

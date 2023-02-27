@@ -11,7 +11,7 @@ import pama1234.gdx.game.state.state0001.game.entity.entity0001.Fly;
 import pama1234.gdx.game.state.state0001.game.entity.entity0001.MobEntity;
 import pama1234.gdx.game.state.state0001.game.entity.util.MovementLimitBox;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
-import pama1234.gdx.game.state.state0001.game.region.RegionCenter.LoopThread;
+import pama1234.gdx.game.state.state0001.game.region.LoopThread;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.gdx.util.listener.EntityListener;

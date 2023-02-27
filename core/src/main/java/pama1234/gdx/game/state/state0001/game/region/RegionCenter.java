@@ -16,7 +16,6 @@ import pama1234.gdx.game.state.state0001.game.player.Player;
 import pama1234.gdx.game.state.state0001.game.region.Chunk.BlockData;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
-import pama1234.gdx.game.util.Mutex;
 import pama1234.gdx.util.wrapper.EntityCenter;
 import pama1234.math.Tools;
 import pama1234.math.UtilMath;
@@ -294,83 +293,29 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     int tx=UtilMath.floor((float)cx/regionWidth),ty=UtilMath.floor((float)cy/regionHeight);
     int prx=Tools.moveInRange(cx,0,regionWidth),pry=Tools.moveInRange(cy,0,regionHeight);
     int px=Tools.moveInRange(x,0,chunkWidth),py=Tools.moveInRange(y,0,chunkHeight);
+    Region tr=getRegions(tx,ty);
+    if(tr==null) return nullBlock;
+    Chunk chunk=tr.data[prx][pry];
+    BlockData blockData=chunk.data[px][py];
+    return blockData.block;
+  }
+  public void addChunk(int cx,int cy,Chunk chunk) {
+    int tx=UtilMath.floor((float)cx/regionWidth),ty=UtilMath.floor((float)cy/regionHeight);
+    int prx=Tools.moveInRange(cx,0,regionWidth),pry=Tools.moveInRange(cy,0,regionHeight);
+    Region tr=getRegions(tx,ty);
+    if(tr==null) synchronized(add) {//TODO
+      for(Region r:add) if(r.x==tx&&r.y==ty) tr=r;
+    }
+    if(tr==null) add.add(tr=new Region(p,this,tx,ty,null));
+    if(tr.data[prx][pry]==null) tr.data[prx][pry]=chunk;
+  }
+  public Region getRegions(int tx,int ty) {
     if(cachedRegion!=null) synchronized(cachedRegion) {
-      if(cachedRegion.x==tx&&cachedRegion.y==ty) {
-        Chunk chunk=cachedRegion.data[prx][pry];
-        // if(chunk==null) return nullBlock;
-        BlockData blockData=chunk.data[px][py];
-        if(blockData==null) return nullBlock;
-        return blockData.block;
-      }
+      if(cachedRegion.x==tx&&cachedRegion.y==ty) return cachedRegion;
     }
     synchronized(list) {//TODO
-      for(Region r:list) if(r.x==tx&&r.y==ty) {
-        cachedRegion=r;
-        Chunk chunk=r.data[prx][pry];
-        // if(chunk==null) return nullBlock;
-        BlockData blockData=chunk.data[px][py];
-        if(blockData==null) return nullBlock;
-        return blockData.block;
-      }
+      for(Region r:list) if(r.x==tx&&r.y==ty) return cachedRegion=r;
     }
-    return nullBlock;
-  }
-  public class LoopThread extends Thread{
-    public static final ExecuteLoopThread doNothing=(self)-> {};
-    public Mutex lock;
-    public long sleepSize=50;//set to negative for no sleep
-    public long millis,stepMillis;
-    public boolean finished;
-    public ExecuteLoopThread doUpdate=doNothing;
-    public ExecuteLoopThread doFinished=doNothing;
-    public GetBoolean stop;
-    // public GetBoolean stop=()->p.stop||RegionCenter.this.stop;
-    public LoopThread(String name) {
-      super(name);
-      lock=new Mutex(true);
-      setPriority(MIN_PRIORITY);//TODO
-    }
-    public LoopThread(String name,ExecuteLoopThread doUpdate) {
-      this(name);
-      this.doUpdate=doUpdate;
-    }
-    public LoopThread(String name,long sleepSize,ExecuteLoopThread doUpdate) {
-      this(name);
-      this.sleepSize=sleepSize;
-      this.doUpdate=doUpdate;
-    }
-    public LoopThread(String name,long sleepSize,ExecuteLoopThread doUpdate,ExecuteLoopThread doFinished) {
-      this(name);
-      this.sleepSize=sleepSize;
-      this.doUpdate=doUpdate;
-      this.doFinished=doFinished;
-    }
-    @Override
-    public void run() {
-      long beforeM=System.currentTimeMillis();
-      while(!stop.get()) {
-        lock.step();
-        if(stop.get()) return;//TODO
-        long tl=System.currentTimeMillis();
-        stepMillis=tl-beforeM;
-        beforeM=tl;
-        finished=false;
-        doUpdate.execute(this);
-        // doUpdate();
-        finished=true;
-        doFinished.execute(this);
-        millis=System.currentTimeMillis()-beforeM;
-        doSleep();
-      }
-    }
-    public void doSleep() {
-      if(millis<sleepSize) try {
-        sleep(sleepSize-millis);
-      }catch(InterruptedException e) {}
-    }
-    @FunctionalInterface
-    public interface ExecuteLoopThread{
-      public void execute(LoopThread self);
-    }
+    return null;
   }
 }

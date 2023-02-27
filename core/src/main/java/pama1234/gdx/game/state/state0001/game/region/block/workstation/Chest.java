@@ -30,6 +30,7 @@ public class Chest extends MetaBlock{
       in.ui=null;
       // in.ui.displaySlot=null;
     });
+    blockType=woodType;
     workStation=true;
     fullBlock=false;
     destroyTime=120;

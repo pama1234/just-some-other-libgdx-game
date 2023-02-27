@@ -49,7 +49,7 @@ public class Block{
   public int xOff;
   @Tag(5)
   public int yOff;
-  @Tag(6) 
+  @Tag(6)
   public boolean fullBlock;
   public Block origin;
   @Deprecated
