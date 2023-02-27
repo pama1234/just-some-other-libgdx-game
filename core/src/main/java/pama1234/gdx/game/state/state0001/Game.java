@@ -3,9 +3,12 @@ package pama1234.gdx.game.state.state0001;
 import static com.badlogic.gdx.Input.Keys.ESCAPE;
 import static pama1234.gdx.game.state.state0001.game.GameDisplayUtil.debugText;
 
+import java.net.ConnectException;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net.Protocol;
 import com.badlogic.gdx.net.SocketHints;
+import com.badlogic.gdx.utils.GdxRuntimeException;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.net.SocketWrapperGDX;
@@ -90,6 +93,11 @@ public class Game extends StateEntity0001{
         SocketData socketData=new SocketData(new SocketWrapperGDX(Gdx.net.newClientSocket(Protocol.TCP,serverAddr.addr,serverAddr.port,socketHints)));
         client=new ClientCore(this,world(),socketData);
         client.start();
+      }catch(GdxRuntimeException e) {
+        Throwable cause=e.getCause();
+        if(cause instanceof ConnectException ce) if(p.settings.debugInfo) System.out.println(ce);
+        netMode=NetMode.error;
+        p.state(State0001.StartMenu);
       }catch(RuntimeException e) {
         e.printStackTrace();
         netMode=NetMode.error;

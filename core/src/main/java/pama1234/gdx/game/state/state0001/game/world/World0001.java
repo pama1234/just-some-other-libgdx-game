@@ -177,15 +177,27 @@ public class World0001 extends WorldBase2D{
   @Override
   public void dispose() {
     super.dispose();
-    if(pg.netMode!=NetMode.client) {
-      // regions.shutdownAllLoop();
-      WorldData.save(worldDataDir,data);
-      yourself.save();
-      regions.stop=true;
-      regions.save();
-      regions.dispose();
-    }
+    // regions.shutdownAllLoop();
+    // if(pg.netMode!=NetMode.client)
+    // for(LoopThread e:regions.loops) e.doFinished=(self)-> {
+    //   // System.out.println("World0001.dispose()");
+    //   boolean flag=true;
+    //   for(LoopThread i:regions.loops) if(!i.finished) flag=false;
+    //   if(flag) disposeSave();
+    // };
+    // saving.step();
+    if(pg.netMode!=NetMode.client) disposeSave();
     // yourself.dispose();
+  }
+  public void disposeSave() {
+    // saving.lock();
+    if(p.settings.debugInfo) System.out.println("World0001.disposeSave()");
+    WorldData.save(worldDataDir,data);
+    yourself.save();
+    regions.stop=true;
+    regions.save();
+    regions.dispose();
+    // saving.unlock();
   }
   @Deprecated
   public void updateRectLighting(int x,int y) {

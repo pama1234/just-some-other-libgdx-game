@@ -2,6 +2,9 @@ package pama1234.gdx.game.state.state0001;
 
 import static com.badlogic.gdx.Input.Keys.ESCAPE;
 
+import java.io.OutputStream;
+import java.io.PrintStream;
+
 import com.badlogic.gdx.Gdx;
 
 import pama1234.gdx.game.app.Screen0011;
@@ -19,6 +22,11 @@ public class Settings extends StateEntity0001{
   public Slider<?>[] sliders;
   public TextField[] camTextFields;
   public int tx,ty;
+  public boolean logUpdate;
+  public String logText;
+  public StringBuffer logBuffer;
+  public PrintStream stdout=System.out;
+  public PrintStream logOut;
   public Settings(Screen0011 p) {
     super(p);
     sliders=new Slider[4];
@@ -26,6 +34,25 @@ public class Settings extends StateEntity0001{
     buttonsCam=SettingsUtil.genButtons_0006(p,this);
     initSliders();
     camTextFields=SettingsUtil.genTextFields_0002(p);
+    logOut=new PrintStream(new OutputStream() {
+      // public int count;
+      // public char a;
+      @Override
+      public void write(int b) {
+        // System.err.println(b+" "+count);
+        // a|=b<<count*8;
+        // count+=1;
+        // if(count<1) return;
+        // count=0;
+        char a=(char)b;
+        stdout.append(a);
+        logBuffer.append(a);
+        // a=0;
+        logUpdate=true;
+        // logText=logBuffer.toString();
+      }
+    });
+    checkNeedLog();
   }
   public void initSliders() {
     sliders[0].pos=p.settings.volume;
@@ -43,6 +70,18 @@ public class Settings extends StateEntity0001{
     for(Button<?> e:buttonsCam) p.centerCam.add.add(e);
     for(TextField e:camTextFields) p.camStage.addActor(e);
   }
+  public void checkNeedLog() {
+    if(p.settings.showLog) {
+      System.setOut(logOut);
+      if(logBuffer==null) logBuffer=new StringBuffer();
+    }else {
+      System.setOut(stdout);
+      logText=null;
+      // if(logBuffer!=null)
+      logBuffer.setLength(0);
+    }
+    // System.out.println("Settings.checkNeedLog()");
+  }
   @Override
   public void to(State0001 in) {
     for(Button<?> e:buttons) p.centerScreen.remove.add(e);
@@ -51,6 +90,13 @@ public class Settings extends StateEntity0001{
     p.cam2d.minScale=1;
     p.cam2d.testScale();
     // p.settings.serverInfo.setFromString(camTextFields[0].getText(),12347);
+  }
+  @Override
+  public void update() {
+    if(logUpdate) {
+      logUpdate=false;
+      logText=logBuffer.toString();
+    }
   }
   @Override
   public void displayCam() {
@@ -62,6 +108,19 @@ public class Settings extends StateEntity0001{
     p.text("重启后生效",192,280);
     if(p.localHost!=null) p.text("本设备的名称与内网IP地址："+p.localHost.toString(),0,-40);
     if(p.settings.debugInfo) debugText();
+    if(p.settings.showLog) {
+      tx=-512;
+      drawLogText();
+      // p.text(logText,tx,ty);
+      line();
+    }
+  }
+  public void drawLogText() {
+    p.fontBatch.begin();
+    p.font.setColor(1,1,1,1);
+    p.font.draw(p.fontBatch,logText==null?"null":logText,tx,ty);
+    // p.font.text(logText==null?"null":logText,tx,ty);
+    p.fontBatch.end();
   }
   public void text(String in) {
     p.text(in,tx,ty);

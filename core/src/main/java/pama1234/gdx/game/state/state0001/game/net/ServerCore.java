@@ -1,6 +1,7 @@
 package pama1234.gdx.game.state.state0001.game.net;
 
 import java.io.IOException;
+import java.net.SocketException;
 
 import pama1234.game.app.server.server0002.net.SocketData;
 import pama1234.gdx.game.state.state0001.Game;
@@ -43,6 +44,9 @@ public class ServerCore{
           ServerRead serverRead=link.serverRead=new ServerRead(link,this);
           serverRead.start();
           serverReadPool.add.add(serverRead);
+        }catch(SocketException e) {
+          if(game.p.settings.debugInfo) System.out.println(e);
+          stop=true;
         }catch(IOException e) {
           e.printStackTrace();
           stop=true;

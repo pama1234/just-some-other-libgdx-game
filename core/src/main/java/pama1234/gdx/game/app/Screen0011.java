@@ -57,6 +57,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     public boolean overridePlatform;
     public boolean isAndroid;
     // public boolean multiplayer;
+    public boolean showLog;
   }
   public SettingsData settings;
   public FileHandle settingsFile=Gdx.files.local("data/settings.bin");

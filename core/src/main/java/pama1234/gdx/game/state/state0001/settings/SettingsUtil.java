@@ -110,6 +110,12 @@ public class SettingsUtil{
         p.refreshLocalHost();
         // self.updateText();
       },self->self.text="刷新本机网络地址",()->18,()->0,()->-20),
+      new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
+        p.settings.showLog=!p.settings.showLog;
+        self.updateText();
+        // if(p.settings.showLog&&ps.logBuffer==null) ps.logBuffer=new StringBuffer();
+        ps.checkNeedLog();
+      },self->self.text="显示日志信息："+(p.settings.showLog?"是":"否"),()->18,()->0,()->320),
     };
   }
 }

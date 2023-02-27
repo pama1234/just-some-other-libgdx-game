@@ -5,13 +5,10 @@ import static pama1234.gdx.game.app.Screen0011.kryo;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.FocusListener;
 
 import pama1234.gdx.game.app.Screen0011;
-import pama1234.gdx.game.asset.ImageAsset;
-import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
 import pama1234.gdx.game.state.state0001.game.KryoUtil;
 import pama1234.gdx.game.state.state0001.game.net.NetMode;
@@ -76,11 +73,11 @@ public class GameMenu extends StateEntity0001{
     p.backgroundColor(0);
     for(Button<?> e:buttons) p.centerScreen.add.add(e);
     for(TextField e:screenTextFields) p.screenStage.addActor(e);
-    if(!p.settings.mute) {
-      MusicAsset.moonlightSonata.setLooping(true);
-      MusicAsset.moonlightSonata.setVolume(p.settings.volume);
-      MusicAsset.moonlightSonata.play();
-    }
+    // if(!p.settings.mute) {
+    //   MusicAsset.moonlightSonata.setLooping(true);
+    //   MusicAsset.moonlightSonata.setVolume(p.settings.volume);
+    //   MusicAsset.moonlightSonata.play();
+    // }
     p.cam2d.active(false);
     p.cam2d.scale.pos=p.cam2d.scale.des=p.isAndroid&&!p.settings.showEarth?1:3;
     p.cam2d.point.des.set(96,0,0);
@@ -90,7 +87,7 @@ public class GameMenu extends StateEntity0001{
   }
   @Override
   public void to(State0001 in) {
-    MusicAsset.moonlightSonata.pause();
+    // MusicAsset.moonlightSonata.pause();
     for(Button<?> e:buttons) p.centerScreen.remove.add(e);
     for(TextField e:screenTextFields) e.remove();
     p.cam2d.active(true);
@@ -108,17 +105,17 @@ public class GameMenu extends StateEntity0001{
   }
   @Override
   public void displayCam() {
-    if(p.settings.showEarth) {
-      TextureRegion kf=ImageAsset.bigEarth.getKeyFrame(time);
-      // TextureRegion kf=GifAsset.bigEarth.getKeyFrame(time);
-      p.image(kf,-128,-128);
-    }else {
-      p.textColor(255,220);
-      p.textScale(4);
-      p.text("空想",-32,-80);
-      p.text("世界",-32,0);
-      p.textScale(1);
-    }
+    // if(p.settings.showEarth) {
+    //   TextureRegion kf=ImageAsset.bigEarth.getKeyFrame(time);
+    //   // TextureRegion kf=GifAsset.bigEarth.getKeyFrame(time);
+    //   p.image(kf,-128,-128);
+    // }else {
+    //   p.textColor(255,220);
+    //   p.textScale(4);
+    //   p.text("空想",-32,-80);
+    //   p.text("世界",-32,0);
+    //   p.textScale(1);
+    // }
   }
   @Override
   public void display() {}
