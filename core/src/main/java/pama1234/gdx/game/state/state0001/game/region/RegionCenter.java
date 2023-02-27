@@ -11,6 +11,7 @@ import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
+import pama1234.gdx.game.state.state0001.game.net.NetMode;
 import pama1234.gdx.game.state.state0001.game.player.Player;
 import pama1234.gdx.game.state.state0001.game.region.Chunk.BlockData;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
@@ -19,6 +20,7 @@ import pama1234.gdx.game.util.Mutex;
 import pama1234.gdx.util.wrapper.EntityCenter;
 import pama1234.math.Tools;
 import pama1234.math.UtilMath;
+import pama1234.util.function.GetBoolean;
 
 public class RegionCenter extends EntityCenter<Screen0011,Region> implements LoadAndSave{
   public static class RegionData{
@@ -51,6 +53,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   public Region cachedRegion;
   //---
   public Block nullBlock;
+  public GetBoolean stopLoop=()->p.stop||stop;
   public RegionCenter(Screen0011 p,World0001 pw) {
     this(p,pw,Gdx.files.local(pw.dir()+"regions.bin"));
   }
@@ -65,6 +68,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     // fullMapUpdateDisplayLoop=loops[1]=createFullMapUpdateDisplayLoop();
     updateDisplayLoop=loops[1]=createUpdateDisplayLoop();
     priorityUpdateDisplayLoop=loops[2]=createPriorityUpdateDisplayLoop();
+    for(LoopThread e:loops) e.stop=stopLoop;
     // startAllLoop();
     tilemapRenderer=new TilemapRenderer0001(pw,new SpriteBatch(1000,new ShaderProgram(
       Gdx.files.internal("shader/main0002/tilemap.vert").readString(),
@@ -102,7 +106,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   public void dispose() {
     stop=true;
     shutdownAllLoop();
-    pool.dispose();
+    pool.saveAndClear();
   }
   public void shutdownAllLoop() {
     unlockAllLoop();
@@ -113,8 +117,10 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   }
   @Override
   public void refresh() {
-    removeRegionAndTestChunkUpdate();
-    testAddChunk();
+    if(pw.netMode()!=NetMode.client) {
+      removeRegionAndTestChunkUpdate();
+      testAddChunk();
+    }
     // synchronized(list) {
     super.refresh();
     // }
@@ -317,6 +323,8 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     public boolean finished;
     public ExecuteLoopThread doUpdate=doNothing;
     public ExecuteLoopThread doFinished=doNothing;
+    public GetBoolean stop;
+    // public GetBoolean stop=()->p.stop||RegionCenter.this.stop;
     public LoopThread(String name) {
       super(name);
       lock=new Mutex(true);
@@ -340,9 +348,9 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     @Override
     public void run() {
       long beforeM=System.currentTimeMillis();
-      while(!p.stop) {
+      while(!stop.get()) {
         lock.step();
-        if(stop||p.stop) return;//TODO
+        if(stop.get()) return;//TODO
         long tl=System.currentTimeMillis();
         stepMillis=tl-beforeM;
         beforeM=tl;
@@ -355,15 +363,10 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
         doSleep();
       }
     }
-    // public abstract void doUpdate();
     public void doSleep() {
       if(millis<sleepSize) try {
         sleep(sleepSize-millis);
-      }catch(InterruptedException e) {
-        // e.printStackTrace();
-        // System.out.println(e);
-        // System.out.println(p.stop);
-      }
+      }catch(InterruptedException e) {}
     }
     @FunctionalInterface
     public interface ExecuteLoopThread{

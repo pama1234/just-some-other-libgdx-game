@@ -91,14 +91,14 @@ public class World0001 extends WorldBase2D{
     for(MetaItem e:metaItems.list) e.init();
     for(MetaCreature<?> e:metaEntitys.list) e.init();
     for(int i=0;i<background.background0001.list.size();i++) background.background0001.list.get(i).setTexture(ImageAsset.backgroundList[4-i]);
-    // if(pg.netMode!=NetMode.client) {
-    Gdx.files.local(dir()+"regions/").mkdirs();//TODO
-    yourself.load();
+    if(netMode()!=NetMode.client) {
+      Gdx.files.local(dir()+"regions/").mkdirs();//TODO
+      yourself.load();
+      regions.load();
+      // regions.refresh();
+      regions.startAllLoop();
+    }
     yourself.init();
-    regions.load();
-    // regions.refresh();
-    regions.startAllLoop();
-    // }
   }
   @Override
   public void from(State0001 in) {
@@ -131,10 +131,8 @@ public class World0001 extends WorldBase2D{
     for(LoopThread e:regions.loops) e.doFinished=LoopThread.doNothing;
     if(p.settings.debugInfo) System.out.println("World0001.resumeLoad()");
     saving.step();
-    // p.sleep(1000);//TODO nop
     yourself.load();
     regions.load();
-    // saving.lock();
   }
   @Override
   public void pause() {
@@ -146,23 +144,14 @@ public class World0001 extends WorldBase2D{
         if(flag) pauseSave();
       };
     }
-    // pauseSave();
   }
   public void pauseSave() {
-    // saving=true;
     saving.lock();
     if(p.settings.debugInfo) System.out.println("World0001.pauseSave()");
-    // boolean flag=false;
-    // while(!flag) {
-    //   p.sleep(20);
-    //   flag=true;
-    //   for(LoopThread e:regions.loops) if(!e.finished) flag=false;
-    // }
     WorldData.save(worldDataDir,data);
     regions.innerSave();
     yourself.save();
     saving.unlock();
-    // saving=false;
   }
   public void innerPause() {
     if(p.isAndroid) p.cam2d.activeDrag=true;
