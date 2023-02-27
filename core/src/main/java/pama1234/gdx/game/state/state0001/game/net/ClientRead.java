@@ -39,15 +39,12 @@ public class ClientRead extends Thread{
   }
   public void execute() {
     executeFs[input.readByteUnsigned()].execute();
-    // System.out.println(p.world.regions.add.size()+" "+p.world.regions.list.size());
   }
   public void readPlayerPos() {
     skip(8);
     float x=input.readFloat(),y=input.readFloat();
     Point point=p.world.yourself.point;
-    // System.out.println(p.world.yourself==p.game.world_0001.yourself);
     if(point.pos.dist(x,y)>36) point.pos.set(x,y);
-    // System.out.println(point.pos);
   }
   public void readChunkData() {
     MetaBlock[] mblock=p.world.metaBlocks.list.toArray(new MetaBlock[p.world.metaBlocks.list.size()]);
@@ -72,7 +69,6 @@ public class ClientRead extends Thread{
         }
       }
       p.world.regions.addChunk(cx,cy,chunk);
-      // System.out.println(p.world.regions.add.size());
     }
     p.world.regions.refresh();
   }

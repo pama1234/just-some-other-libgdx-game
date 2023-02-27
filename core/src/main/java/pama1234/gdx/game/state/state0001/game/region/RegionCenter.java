@@ -42,6 +42,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   public int regionLoadDistInt=1;
   public float chunkRemoveDist=360,regionRemoveDist=512;
   public float chunkUpdateDisplayDist=60;
+  public float netTransferDist=120;
   public RegionPool pool;
   public LoopThread[] loops;
   public LoopThread updateLoop,updateDisplayLoop;
@@ -309,6 +310,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     Chunk chunk=tr.data[prx][pry];
     // if(chunk==null) chunk=fakeChunk;
     BlockData blockData=chunk.data[px][py];
+    if(blockData==null) return nullBlock;
     return blockData.block;
   }
   public void addChunk(int cx,int cy,Chunk chunk) {

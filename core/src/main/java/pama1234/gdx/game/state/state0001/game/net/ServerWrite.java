@@ -68,18 +68,13 @@ public class ServerWrite extends Thread{
       tcy=link.player.cy()/p.world.settings.blockHeight;
     RegionCenter pr=p.world.regions;
     for(Region e:p.world.regions.list) {
-      // float tx_1=(((e.x+0.5f)*pr.regionWidth)*pr.chunkWidth),
-      //   ty_1=(((e.y+0.5f)*pr.regionHeight)*pr.chunkHeight);
       for(int i=0;i<e.data.length;i++) {
         for(int j=0;j<e.data[i].length;j++) {
           Chunk chunk=e.data[i][j];
-          // if(!chunk.update) continue;
-          // BlockData[][] blockData=chunk.data;
           float tx_2=((e.x*pr.regionWidth+(i+0.5f))*pr.chunkWidth),
             ty_2=((e.y*pr.regionHeight+(j+0.5f))*pr.chunkHeight);
-          // if(chunk)
           float dist=UtilMath.dist(tx_2,ty_2,tcx,tcy);
-          if(dist<120) {
+          if(dist<p.world.regions.netTransferDist) {
             chunks.list.add(
               new NetChunkData(
                 e.x*pr.regionWidth+i,
