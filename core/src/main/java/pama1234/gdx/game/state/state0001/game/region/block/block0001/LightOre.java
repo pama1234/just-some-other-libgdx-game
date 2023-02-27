@@ -102,7 +102,7 @@ public class LightOre extends MetaBlock{
       //---
       if(in.updateLighting) lightingUpdate(in,x,y,world);
     };
-    displayer=(r,p,in,x,y)-> {
+    displayer=(r,p,world,in,x,y)-> {
       // if(in.light.isDark())
       r.tint(
         getLighting(in.light.r()),

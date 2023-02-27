@@ -11,6 +11,7 @@ import pama1234.gdx.game.state.state0001.game.entity.GamePointEntity;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.region.Chunk.BlockData;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
+import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.gdx.game.state.state0001.game.world.WorldKryoUtil;
 import pama1234.gdx.util.entity.Entity;
 
@@ -87,8 +88,9 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
     forLoopDisplay();
   }
   public void forLoopDisplay() {
-    int tcw=pr.chunkWidth*pr.pw.settings.blockWidth,
-      tch=pr.chunkHeight*pr.pw.settings.blockHeight;
+    World0001 world=pr.pw;
+    int tcw=pr.chunkWidth*world.settings.blockWidth,
+      tch=pr.chunkHeight*world.settings.blockHeight;
     int rx=x*pr.regionWidth,
       ry=y*pr.regionHeight;
     if(!p.cam2d.boxIntersect(rx*tcw,ry*tch,tcw*pr.regionWidth,tch*pr.regionHeight)) return;
@@ -103,12 +105,12 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
         MetaBlock blockType=block.type;
         int txi=(rx+i)*pr.chunkWidth+n,
           tyi=(ry+j)*pr.chunkHeight+m;
-        int tx=txi*pr.pw.settings.blockWidth,
-          ty=tyi*pr.pw.settings.blockHeight;
-        blockType.updateDisplay(pr.pw,block,txi,tyi);
+        int tx=txi*world.settings.blockWidth,
+          ty=tyi*world.settings.blockHeight;
+        blockType.updateDisplay(world,block,txi,tyi);
         if(!blockType.display) continue;
-        if(!p.cam2d.boxIntersect(tx,ty,pr.pw.settings.blockWidth,pr.pw.settings.blockHeight)) continue;
-        blockType.display(pr.tilemapRenderer,p,block,tx,ty);
+        if(!p.cam2d.boxIntersect(tx,ty,world.settings.blockWidth,world.settings.blockHeight)) continue;
+        blockType.display(pr.tilemapRenderer,p,world,block,tx,ty);
       }
     }
     p.noTint();

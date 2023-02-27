@@ -70,8 +70,8 @@ public class Workbench extends MetaBlock{
       for(int i=0;i<length;i++) in.ui.displaySlot[i].update(
         (x+i-tx)*tw,(y-1)*th);//TODO waste efficiency
     };
-    displayer=(r,p,in,x,y)-> {
-      defaultBlockDisplayer.display(r,p,in,x,y);
+    displayer=(r,p,world,in,x,y)-> {
+      defaultBlockDisplayer.display(r,p,world,in,x,y);
       float tw=pc.pw.settings.blockWidth,
         th=pc.pw.settings.blockHeight;
       p.textScale(0.5f);

@@ -70,8 +70,8 @@ public class WoodPlank extends MetaBlock{
       if(WoodPlatform.isWoodPlatform(pc.woodPlatform,world.getBlock(x+1,y))) typeCache+=1;// right
       in.displayType[2]=typeCache;
     };
-    displayer=(r,p,in,x,y)-> {
-      fullBlockDisplayer.display(r,p,in,x,y);
+    displayer=(r,p,world,in,x,y)-> {
+      fullBlockDisplayer.display(r,p,world,in,x,y);
       int ti=in.displayType[2];
       if(ti!=0) {
         if((ti&1)!=0) r.tile(in.type.tiles[20],x,y);

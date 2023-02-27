@@ -21,6 +21,7 @@ public class MetaBlock extends MetaInfoBase{
   public float hardness=1,lightIntensity;
   public int blockType;
   public boolean fullBlock=true;
+  public boolean overrideFullBlock;
   public int fullBlockType;
   public boolean workStation;
   public int width=1,height=1;
@@ -80,9 +81,9 @@ public class MetaBlock extends MetaInfoBase{
   public void updateDisplay(World0001 world,Block in,int x,int y) {
     displayUpdater.update(world,in,x,y);
   }
-  public void display(TilemapRenderer r,Screen0011 p,Block in,int x,int y) {
+  public void display(TilemapRenderer r,Screen0011 p,World0001 world,Block in,int x,int y) {
     // p.image(tiles[in.displayType],x,y,pc.pw.blockWidth+0.01f,pc.pw.blockHeight+0.01f);
-    displayer.display(r,p,in,x,y);
+    displayer.display(r,p,world,in,x,y);
   }
   public int getDisplayType() {//TODO
     return defaultDisplayType;
@@ -125,7 +126,7 @@ public class MetaBlock extends MetaInfoBase{
   }
   @FunctionalInterface
   public interface BlockDisplayer{
-    void display(TilemapRenderer r,Screen0011 p,Block in,int x,int y);
+    void display(TilemapRenderer r,Screen0011 p,World0001 world,Block in,int x,int y);
   }
   @FunctionalInterface
   public interface BlockChanger{
@@ -182,14 +183,14 @@ public class MetaBlock extends MetaInfoBase{
   public static int worldLighting(float in,float count) {
     return UtilMath.constrain(UtilMath.floor(UtilMath.map(count*2,0,in,0,16)),0,16);
   }
-  public static final BlockDisplayer defaultBlockDisplayer=(r,p,in,x,y)-> {
+  public static final BlockDisplayer defaultBlockDisplayer=(r,p,world,in,x,y)-> {
     r.tint(
       getLighting(in.light.r()),
       getLighting(in.light.g()),
       getLighting(in.light.b()));
     if(in.displayType==null) r.tile(in.type.tiles[0],x,y);
     else r.tile(in.type.tiles[in.displayType[0]],x,y);
-  },fullBlockDisplayer=(r,p,in,x,y)-> {
+  },fullBlockDisplayer=(r,p,world,in,x,y)-> {
     // if(in.light.isDark())
     r.tint(
       getLighting(in.light.r()),

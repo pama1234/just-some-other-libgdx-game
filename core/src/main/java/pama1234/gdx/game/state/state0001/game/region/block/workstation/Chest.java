@@ -51,8 +51,8 @@ public class Chest extends MetaBlock{
         (x+i%sloatDisplayWidth-tx)*tw,
         (y-ty+i/sloatDisplayWidth)*th);//TODO waste efficiency
     };
-    displayer=(r,p,in,x,y)-> {
-      defaultBlockDisplayer.display(r,p,in,x,y);
+    displayer=(r,p,world,in,x,y)-> {
+      defaultBlockDisplayer.display(r,p,world,in,x,y);
       p.textScale(0.5f);
       for(DisplaySlot e:in.ui.displaySlot) Inventory.displaySlot(p,e);
       p.textScale(1);

@@ -19,6 +19,7 @@ public class Door extends MetaBlock{
     buildTime=60;
     width=2;
     height=3;
+    overrideFullBlock=true;
     initLambda();
   }
   @Override
@@ -36,6 +37,7 @@ public class Door extends MetaBlock{
   }
   @Override
   public void initBlock(Block in) {
+    if(in.intData==null||in.intData.length<1) in.intData=new int[1];
     in.changed=true;
   }
   @Override

@@ -138,7 +138,7 @@ public class TreeLeaf extends MetaBlock{
       if(in.updateLighting) lightingUpdate(in,x,y,world);
       // in.light.update();
     };
-    displayer=(r,p,in,x,y)-> {
+    displayer=(r,p,world,in,x,y)-> {
       r.tint(
         getLighting(in.light.r()),
         getLighting(in.light.g()),
