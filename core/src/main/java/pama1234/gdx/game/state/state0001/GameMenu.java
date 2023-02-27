@@ -53,8 +53,6 @@ public class GameMenu extends StateEntity0001{
   public void loadSettings() {
     settings=KryoUtil.load(kryo,settingsFile,GameSettingsData.class);
     if(settings==null) initSettings();
-    // if(settings.serverAddr==null) settings.serverAddr=new NetAddressInfo("127.0.0.1",12347);
-    // if(settings.selfAddr==null) settings.selfAddr=new NetAddressInfo("127.0.0.1",12347);
   }
   public void initSettings() {
     settings=new GameSettingsData();
@@ -73,21 +71,14 @@ public class GameMenu extends StateEntity0001{
     p.backgroundColor(0);
     for(Button<?> e:buttons) p.centerScreen.add.add(e);
     for(TextField e:screenTextFields) p.screenStage.addActor(e);
-    // if(!p.settings.mute) {
-    //   MusicAsset.moonlightSonata.setLooping(true);
-    //   MusicAsset.moonlightSonata.setVolume(p.settings.volume);
-    //   MusicAsset.moonlightSonata.play();
-    // }
     p.cam2d.active(false);
     p.cam2d.scale.pos=p.cam2d.scale.des=p.isAndroid&&!p.settings.showEarth?1:3;
     p.cam2d.point.des.set(96,0,0);
     p.cam2d.point.pos.set(p.cam2d.point.des);
-    // p.cam.noGrab();
     frameResized(p.width,p.height);
   }
   @Override
   public void to(State0001 in) {
-    // MusicAsset.moonlightSonata.pause();
     for(Button<?> e:buttons) p.centerScreen.remove.add(e);
     for(TextField e:screenTextFields) e.remove();
     p.cam2d.active(true);
@@ -104,19 +95,7 @@ public class GameMenu extends StateEntity0001{
     time+=p.frameRate/4;
   }
   @Override
-  public void displayCam() {
-    // if(p.settings.showEarth) {
-    //   TextureRegion kf=ImageAsset.bigEarth.getKeyFrame(time);
-    //   // TextureRegion kf=GifAsset.bigEarth.getKeyFrame(time);
-    //   p.image(kf,-128,-128);
-    // }else {
-    //   p.textColor(255,220);
-    //   p.textScale(4);
-    //   p.text("空想",-32,-80);
-    //   p.text("世界",-32,0);
-    //   p.textScale(1);
-    // }
-  }
+  public void displayCam() {}
   @Override
   public void display() {}
   @Override

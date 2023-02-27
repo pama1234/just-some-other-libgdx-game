@@ -35,21 +35,12 @@ public class Settings extends StateEntity0001{
     initSliders();
     camTextFields=SettingsUtil.genTextFields_0002(p);
     logOut=new PrintStream(new OutputStream() {
-      // public int count;
-      // public char a;
       @Override
       public void write(int b) {
-        // System.err.println(b+" "+count);
-        // a|=b<<count*8;
-        // count+=1;
-        // if(count<1) return;
-        // count=0;
         char a=(char)b;
         stdout.append(a);
         logBuffer.append(a);
-        // a=0;
         logUpdate=true;
-        // logText=logBuffer.toString();
       }
     });
     checkNeedLog();
@@ -62,7 +53,6 @@ public class Settings extends StateEntity0001{
   }
   @Override
   public void from(State0001 in) {
-    // camTextFields[0].setText(p.settings.serverInfo.toString());
     p.backgroundColor(0);
     p.cam2d.minScale=p.isAndroid?0.5f:1f;
     p.cam2d.testScale();
@@ -77,10 +67,8 @@ public class Settings extends StateEntity0001{
     }else {
       System.setOut(stdout);
       logText=null;
-      // if(logBuffer!=null)
       logBuffer.setLength(0);
     }
-    // System.out.println("Settings.checkNeedLog()");
   }
   @Override
   public void to(State0001 in) {
@@ -89,7 +77,6 @@ public class Settings extends StateEntity0001{
     for(TextField e:camTextFields) e.remove();
     p.cam2d.minScale=1;
     p.cam2d.testScale();
-    // p.settings.serverInfo.setFromString(camTextFields[0].getText(),12347);
   }
   @Override
   public void update() {
@@ -111,7 +98,6 @@ public class Settings extends StateEntity0001{
     if(p.settings.showLog) {
       tx=-512;
       drawLogText();
-      // p.text(logText,tx,ty);
       line();
     }
   }
@@ -119,7 +105,6 @@ public class Settings extends StateEntity0001{
     p.fontBatch.begin();
     p.font.setColor(1,1,1,1);
     p.font.draw(p.fontBatch,logText==null?"null":logText,tx,ty);
-    // p.font.text(logText==null?"null":logText,tx,ty);
     p.fontBatch.end();
   }
   public void text(String in) {

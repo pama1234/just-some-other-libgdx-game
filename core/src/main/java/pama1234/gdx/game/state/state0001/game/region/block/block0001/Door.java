@@ -9,7 +9,7 @@ import pama1234.gdx.game.state.state0001.game.region.block.Block;
 
 public class Door extends MetaBlock{
   public Door(MetaBlockCenter0001 pc,int id) {
-    super(pc,"door",id,6,1,(in,type)-> {//change to me
+    super(pc,"door",id,18,1,(in,type)-> {//change to me
       in.light.set(16);
     },(in,type)-> {//change from me
     });
@@ -34,10 +34,19 @@ public class Door extends MetaBlock{
     tiles[4]=tsrc[tx][ty+2];
     tiles[5]=tsrc[tx+1][ty+2];
     //-----------------------------------------------------
+    tiles[6]=tsrc[tx-1][ty];
+    tiles[7]=tsrc[tx-1][ty+1];
+    tiles[8]=tsrc[tx+1][ty+2];
+    //-----------------------------------------------------
+    for(int i=0;i<9;i++) {
+      tiles[9+i]=new TextureRegion(tiles[i]);
+      tiles[9+i].flip(true,false);
+    }
   }
   @Override
   public void initBlock(Block in) {
-    if(in.intData==null||in.intData.length<1) in.intData=new int[1];
+    if(in.intData==null||in.intData.length<2) in.intData=new int[2];
+    // in.intData[0]=1;
     in.changed=true;
   }
   @Override
@@ -47,7 +56,8 @@ public class Door extends MetaBlock{
   public void initLambda() {
     displayUpdater=(world,in,x,y)-> {
       defaultDisplayUpdater.update(world,in,x,y);
-      in.displayType[0]=in.xOff+in.yOff*in.type.width;
+      if(in.intData[0]==0) in.displayType[0]=in.xOff+in.yOff*in.type.width;
+      else in.displayType[0]=9+(1-in.xOff)+in.yOff*in.type.width;
     };
   }
 }

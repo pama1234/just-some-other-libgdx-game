@@ -64,7 +64,6 @@ public class WoodPlank extends MetaBlock{
     // updater=lightUpdater;
     displayUpdater=(world,in,x,y)-> {
       fullBlockDisplayUpdater.update(world,in,x,y);
-      // World0001 world=in.type.pc.pw;
       int typeCache=0;
       if(WoodPlatform.isWoodPlatform(pc.woodPlatform,world.getBlock(x-1,y))) typeCache+=2;// left
       if(WoodPlatform.isWoodPlatform(pc.woodPlatform,world.getBlock(x+1,y))) typeCache+=1;// right

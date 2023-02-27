@@ -170,34 +170,19 @@ public class World0001 extends WorldBase2D{
     data.time+=1;
     timeF+=p.frameRate;
     sky.updateColor();
-    // System.out.println(regions.list.size());
-    // System.out.println(yourself.point.pos);
-    // if(entities.players.list.size()>0) System.out.println(entities.players.list.size());
   }
   @Override
   public void dispose() {
     super.dispose();
-    // regions.shutdownAllLoop();
-    // if(pg.netMode!=NetMode.client)
-    // for(LoopThread e:regions.loops) e.doFinished=(self)-> {
-    //   // System.out.println("World0001.dispose()");
-    //   boolean flag=true;
-    //   for(LoopThread i:regions.loops) if(!i.finished) flag=false;
-    //   if(flag) disposeSave();
-    // };
-    // saving.step();
     if(pg.netMode!=NetMode.client) disposeSave();
-    // yourself.dispose();
   }
   public void disposeSave() {
-    // saving.lock();
     if(p.settings.debugInfo) System.out.println("World0001.disposeSave()");
     WorldData.save(worldDataDir,data);
     yourself.save();
     regions.stop=true;
     regions.save();
     regions.dispose();
-    // saving.unlock();
   }
   @Deprecated
   public void updateRectLighting(int x,int y) {
