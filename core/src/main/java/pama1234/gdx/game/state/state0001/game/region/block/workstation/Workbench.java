@@ -49,8 +49,8 @@ public class Workbench extends MetaBlock{
   public void initLambda() {
     updater=(world,in,x,y)-> {
       lightUpdater.update(world,in,x,y);
-      int tw=pc.pw.settings.blockWidth,
-        th=pc.pw.settings.blockHeight;
+      int tw=world.settings.blockWidth,
+        th=world.settings.blockHeight;
       // int tx=(in.ui.displaySlot.length-1)/2*tw;
       // in.intData[2]=(x-tx)*tw;
       in.intData[4]=x;
@@ -72,8 +72,8 @@ public class Workbench extends MetaBlock{
     };
     displayer=(r,p,world,in,x,y)-> {
       defaultBlockDisplayer.display(r,p,world,in,x,y);
-      float tw=pc.pw.settings.blockWidth,
-        th=pc.pw.settings.blockHeight;
+      float tw=world.settings.blockWidth,
+        th=world.settings.blockHeight;
       p.textScale(0.5f);
       for(DisplaySlot e:in.ui.displaySlot) Inventory.displaySlot(p,e);
       p.textScale(1);

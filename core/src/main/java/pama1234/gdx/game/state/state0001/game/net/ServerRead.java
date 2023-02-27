@@ -7,15 +7,18 @@ import com.esotericsoftware.kryo.io.Input;
 
 import pama1234.gdx.game.state.state0001.game.net.ServerCore.ClientLink;
 import pama1234.gdx.game.state.state0001.game.player.PlayerControllerCore;
+import pama1234.util.function.ExecuteF;
 
 public class ServerRead extends Thread{
   public ClientLink link;
   ServerCore p;
   public Input input;
+  public ExecuteF[] executeFs;
   public ServerRead(ClientLink link,ServerCore p) {
     this.link=link;
     this.p=p;
     input=new Input(link.socketData.i);
+    executeFs=new ExecuteF[] {this::readPlayerCtrl};
   }
   @Override
   public void run() {
@@ -34,7 +37,8 @@ public class ServerRead extends Thread{
   public void connect() {}
   public void execute() {
     // skip(3);
-    readPlayerCtrl();
+    executeFs[input.readByte()].execute();
+    // readPlayerCtrl();
   }
   public void readPlayerCtrl() {
     PlayerControllerCore ctrlCore=link.player.ctrlCore;

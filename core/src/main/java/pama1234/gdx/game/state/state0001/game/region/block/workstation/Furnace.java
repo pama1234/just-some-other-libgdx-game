@@ -113,8 +113,8 @@ public class Furnace extends MetaBlock{
     displayer=(r,p,world,in,x,y)-> {
       defaultBlockDisplayer.display(r,p,world,in,x,y);
       if(in.offBlock()) return;
-      float tw=pc.pw.settings.blockWidth,
-        th=pc.pw.settings.blockHeight;
+      float tw=world.settings.blockWidth,
+        th=world.settings.blockHeight;
       p.textScale(0.5f);
       for(DisplaySlot e:in.ui.displaySlot) Inventory.displaySlot(p,e);
       p.textScale(1);

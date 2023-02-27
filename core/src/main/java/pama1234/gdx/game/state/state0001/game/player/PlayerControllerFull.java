@@ -57,15 +57,6 @@ public class PlayerControllerFull extends PlayerControllerCore{
   public void postUpdate() {
     super.postUpdate();
     p.cam.point.des.set(player.cx(),player.cy());
-    float ty=player.point.vel.y;
-    if(player.displayState==1) {
-      player.timeStep=1/UtilMath.abs(player.point.vel.x);
-    }else if(player.displayState==2) {
-      if(ty<0) player.frameTime=0;
-      else if(ty<8) player.frameTime=1;
-      else player.frameTime=2;
-    }
-    selectBlock.origin(player.xToBlockCordFloat(player.cx()),player.yToBlockCordFloat(player.cy()));
   }
   public void updateCtrlInfo() {
     updateKeyInfo();

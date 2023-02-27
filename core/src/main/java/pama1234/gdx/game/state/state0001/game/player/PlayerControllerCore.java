@@ -65,6 +65,15 @@ public class PlayerControllerCore extends Entity<Screen0011>{
   }
   public void postUpdate() {
     updatePickItem();
+    float ty=corePlayer.point.vel.y;
+    if(corePlayer.displayState==1) {
+      corePlayer.timeStep=1/UtilMath.abs(corePlayer.point.vel.x);
+    }else if(corePlayer.displayState==2) {
+      if(ty<0) corePlayer.frameTime=0;
+      else if(ty<8) corePlayer.frameTime=1;
+      else corePlayer.frameTime=2;
+    }
+    coreSelectBlock.origin(corePlayer.xToBlockCordFloat(corePlayer.cx()),corePlayer.yToBlockCordFloat(corePlayer.cy()));
   }
   public void selectHotSlot(int in) {
     corePlayer.inventory.select(in);

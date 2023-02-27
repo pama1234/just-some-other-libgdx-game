@@ -24,11 +24,14 @@ public class ClientRead extends Thread{
     }
   }
   public void execute() {
+    readPlayerPos();
+    // point.pos.set(x,y);
+  }
+  public void readPlayerPos() {
     skip(8);
     float x=input.readFloat(),y=input.readFloat();
     Point point=p.world.yourself.point;
     if(point.pos.dist(x,y)>36) point.pos.set(x,y);
-    // point.pos.set(x,y);
   }
   public void skip(int in) {
     try {
