@@ -8,18 +8,18 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.assets.AssetManager;
 
 public class ProgressBar<T extends UtilScreen>extends Entity<T>{
-  public Color progressColor=Color.WHITE;
-  public float progressHeight=100;
-  AssetManager manager;
+  public Color color=Color.WHITE;
+  public float barHeight=1;
+  public AssetManager manager;
   public ProgressBar(T p,AssetManager manager) {
     super(p);
     this.manager=manager;
   }
   @Override
   public void display() {
-    p.fill(progressColor);
+    p.fill(color);
     p.beginBlend();
-    p.rect(0,p.height-progressHeight,p.width*manager.getProgress(),progressHeight);
+    p.rect(0,p.height-barHeight*p.u,p.width*manager.getProgress(),barHeight*p.u);
     p.endBlend();
   }
   @Override

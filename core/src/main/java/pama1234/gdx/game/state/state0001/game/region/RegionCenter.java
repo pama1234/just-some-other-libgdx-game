@@ -247,50 +247,41 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   public void lockAllLoop() {
     for(LoopThread e:loops) e.lock.lock();
   }
-  public LoopThread createUpdateLoop() {
-    return new LoopThread("RegionsUpdateLoop") {//刷新全世界的方块数据
-      @Override
-      public void doUpdate() {
-        // refresh();
-        // Stream<Region> stream=list.stream().parallel();
-        // stream.forEach(r->r.update());
-        // Iterator<Region> it=list.iterator();
-        // while(it.hasNext()) it.next().update();
-        RegionCenter.super.update();
-        pw.data.tick+=1;
-        // refresh();
-        // for(Region e:list) e.update();
-      }
-    };
+  public LoopThread createUpdateLoop() {//刷新全世界的方块数据
+    return new LoopThread("RegionsUpdateLoop",(self)-> {
+      // refresh();
+      // Stream<Region> stream=list.stream().parallel();
+      // stream.forEach(r->r.update());
+      // Iterator<Region> it=list.iterator();
+      // while(it.hasNext()) it.next().update();
+      RegionCenter.super.update();
+      pw.data.tick+=1;
+      // refresh();
+      // for(Region e:list) e.update();
+    });
   }
   public LoopThread createPriorityUpdateDisplayLoop() {//根据优先级和阈值刷新全世界的方块显示
-    return new LoopThread("RegionsFullMapUpdateDisplayLoop",10000) {
-      @Override
-      public void doUpdate() {
-        // for(Region e:list) e.updateDisplay();
-        // refresh();
-        Stream<Region> stream=list.stream().parallel();
-        stream.forEach(r-> {
-          // if(p.stop) return;//TODO
-          r.updateDisplay();
-        });
-      }
-    };
+    return new LoopThread("RegionsFullMapUpdateDisplayLoop",10000,(self)-> {
+      // for(Region e:list) e.updateDisplay();
+      // refresh();
+      Stream<Region> stream=list.stream().parallel();
+      stream.forEach(r-> {
+        // if(p.stop) return;//TODO
+        r.updateDisplay();
+      });
+    });
   }
   public LoopThread createUpdateDisplayLoop() {//刷新视角内的方块显示
-    return new LoopThread("RegionsUpdateDisplayLoop",50) {
-      @Override
-      public void doUpdate() {
-        if(p.cam2d.scale.pos<1.0f) sleepSize=300;
-        else sleepSize=50;
-        // for(Region e:list) e.updateDisplay();
-        // refresh();
-        // Stream<Region> stream=list.stream().parallel();
-        // stream.forEach(r->r.updateDisplay());
-        // fourPointDisplay();
-        fourPointUpdateDisplay();
-      }
-    };
+    return new LoopThread("RegionsUpdateDisplayLoop",50,(self)-> {
+      if(p.cam2d.scale.pos<1.0f) self.sleepSize=300;
+      else self.sleepSize=50;
+      // for(Region e:list) e.updateDisplay();
+      // refresh();
+      // Stream<Region> stream=list.stream().parallel();
+      // stream.forEach(r->r.updateDisplay());
+      // fourPointDisplay();
+      fourPointUpdateDisplay();
+    });
   }
   public Block getBlock(int x,int y) {
     int cx=UtilMath.floor((float)x/chunkWidth),cy=UtilMath.floor((float)y/chunkHeight);
@@ -318,19 +309,33 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     }
     return nullBlock;
   }
-  public abstract class LoopThread extends Thread{
+  public class LoopThread extends Thread{
+    public static final ExecuteLoopThread doNothing=(self)-> {};
     public Mutex lock;
     public long sleepSize=50;//set to negative for no sleep
     public long millis,stepMillis;
     public boolean finished;
+    public ExecuteLoopThread doUpdate=doNothing;
+    public ExecuteLoopThread doFinished=doNothing;
     public LoopThread(String name) {
       super(name);
       lock=new Mutex(true);
       setPriority(MIN_PRIORITY);//TODO
     }
-    public LoopThread(String name,long sleepSize) {
+    public LoopThread(String name,ExecuteLoopThread doUpdate) {
+      this(name);
+      this.doUpdate=doUpdate;
+    }
+    public LoopThread(String name,long sleepSize,ExecuteLoopThread doUpdate) {
       this(name);
       this.sleepSize=sleepSize;
+      this.doUpdate=doUpdate;
+    }
+    public LoopThread(String name,long sleepSize,ExecuteLoopThread doUpdate,ExecuteLoopThread doFinished) {
+      this(name);
+      this.sleepSize=sleepSize;
+      this.doUpdate=doUpdate;
+      this.doFinished=doFinished;
     }
     @Override
     public void run() {
@@ -342,13 +347,15 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
         stepMillis=tl-beforeM;
         beforeM=tl;
         finished=false;
-        doUpdate();
+        doUpdate.execute(this);
+        // doUpdate();
         finished=true;
+        doFinished.execute(this);
         millis=System.currentTimeMillis()-beforeM;
         doSleep();
       }
     }
-    public abstract void doUpdate();
+    // public abstract void doUpdate();
     public void doSleep() {
       if(millis<sleepSize) try {
         sleep(sleepSize-millis);
@@ -357,6 +364,10 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
         // System.out.println(e);
         // System.out.println(p.stop);
       }
+    }
+    @FunctionalInterface
+    public interface ExecuteLoopThread{
+      public void execute(LoopThread self);
     }
   }
 }

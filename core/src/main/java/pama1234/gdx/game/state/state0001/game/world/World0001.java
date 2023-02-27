@@ -25,6 +25,7 @@ import pama1234.gdx.game.state.state0001.game.world.background.BackgroundCenter;
 import pama1234.gdx.game.state.state0001.game.world.background.BackgroundList;
 import pama1234.gdx.game.state.state0001.game.world.background.Sky;
 import pama1234.gdx.game.state.state0001.game.world.background.TextureBackground;
+import pama1234.gdx.game.util.Mutex;
 import pama1234.math.UtilMath;
 
 public class World0001 extends WorldBase2D{
@@ -45,6 +46,7 @@ public class World0001 extends WorldBase2D{
   public Sky sky;
   //---
   public RegionWrapper r;
+  public Mutex saving;
   public World0001(Screen0011 p,Game pg) {
     super(p,pg,3);
     data=WorldData.load(worldDataDir);
@@ -60,6 +62,7 @@ public class World0001 extends WorldBase2D{
     yourself=new MainPlayer(p,this,0,0,Gdx.files.local(data.dir+"/main-player.bin"));
     createBackground();
     sky=new Sky(this);
+    saving=new Mutex(false);
   }
   public String dir() {
     return data.dir;
@@ -121,28 +124,45 @@ public class World0001 extends WorldBase2D{
   }
   @Override
   public void resume() {
-    if(p.isAndroid&&pg.netMode!=NetMode.client) {
-      // p.sleep(1000);//TODO nop
-      yourself.load();
-      regions.load();
-    }
+    if(p.isAndroid&&pg.netMode!=NetMode.client) resumeLoad();
     super.resume();
+  }
+  public void resumeLoad() {
+    for(LoopThread e:regions.loops) e.doFinished=LoopThread.doNothing;
+    if(p.settings.debugInfo) System.out.println("World0001.resumeLoad()");
+    saving.step();
+    // p.sleep(1000);//TODO nop
+    yourself.load();
+    regions.load();
+    // saving.lock();
   }
   @Override
   public void pause() {
     super.pause();
-    if(p.isAndroid&&pg.netMode!=NetMode.client) pauseSave();
+    if(p.isAndroid&&pg.netMode!=NetMode.client) {
+      for(LoopThread e:regions.loops) e.doFinished=(self)-> {
+        boolean flag=true;
+        for(LoopThread i:regions.loops) if(!i.finished) flag=false;
+        if(flag) pauseSave();
+      };
+    }
+    // pauseSave();
   }
   public void pauseSave() {
-    boolean flag=false;
-    while(!flag) {
-      p.sleep(20);
-      flag=true;
-      for(LoopThread e:regions.loops) if(!e.finished) flag=false;
-    }
+    // saving=true;
+    saving.lock();
+    if(p.settings.debugInfo) System.out.println("World0001.pauseSave()");
+    // boolean flag=false;
+    // while(!flag) {
+    //   p.sleep(20);
+    //   flag=true;
+    //   for(LoopThread e:regions.loops) if(!e.finished) flag=false;
+    // }
     WorldData.save(worldDataDir,data);
     regions.innerSave();
     yourself.save();
+    saving.unlock();
+    // saving=false;
   }
   public void innerPause() {
     if(p.isAndroid) p.cam2d.activeDrag=true;

@@ -9,13 +9,13 @@ import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.asset.TvgAsset;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
-import pama1234.math.Tools;
 import pama1234.gdx.game.ui.util.ProgressBar;
+import pama1234.math.Tools;
 
 public class Loading extends StateEntity0001{
   public int frame;
   public AssetManager manager;
-  public ProgressBar progress;
+  public ProgressBar<Screen0011> progress;
   public Loading(Screen0011 p) {
     super(p);
     manager=new AssetManager();
