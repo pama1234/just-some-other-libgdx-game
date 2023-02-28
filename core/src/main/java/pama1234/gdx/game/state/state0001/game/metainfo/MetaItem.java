@@ -3,8 +3,10 @@ package pama1234.gdx.game.state.state0001.game.metainfo;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import pama1234.game.app.server.server0002.game.metainfo.MetaInfoBase;
+import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
 import pama1234.gdx.game.state.state0001.game.item.Item;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemCenter0001;
+import pama1234.gdx.game.state.state0001.game.world.World0001;
 
 public class MetaItem extends MetaInfoBase{
   public static final int notTool=0,allTool=1,shovel=2,pickaxe=3,axe=4,chisel=5;//工具类型
@@ -21,6 +23,7 @@ public class MetaItem extends MetaInfoBase{
   public int displayTypeSize;
   public int defaultDisplayType;
   public InitFunction initer;
+  public UseEvent useEvent;
   public MetaItem(MetaItemCenter0001 pc,String name,int id,InitFunction initer) {
     super(name,id);
     this.pc=pc;
@@ -46,5 +49,9 @@ public class MetaItem extends MetaInfoBase{
   @FunctionalInterface
   public interface InitFunction{
     public void init(MetaItem in);
+  }
+  @FunctionalInterface
+  public interface UseEvent{
+    public void use(World0001 world,Item in,LivingEntity user);
   }
 }

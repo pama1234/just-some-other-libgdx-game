@@ -12,6 +12,8 @@ public class Item{
   public int[] displayType;
   @Tag(1)
   public int count=1;
+  @Tag(2)
+  public int[] intData;
   @Deprecated
   public Item() {}//kryo
   public Item(MetaItem type) {

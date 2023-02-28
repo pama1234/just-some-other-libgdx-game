@@ -21,7 +21,7 @@ public class MetaBlock extends MetaInfoBase{
   public float hardness=1,lightIntensity;
   public int blockType;
   public boolean fullBlock=true;
-  public boolean overrideFullBlock;
+  // public boolean overrideFullBlock;
   public int fullBlockType;
   public boolean workStation;
   public int width=1,height=1;

@@ -20,7 +20,7 @@ public class Door extends MetaBlock{
     buildTime=60;
     width=2;
     height=3;
-    overrideFullBlock=true;
+    // overrideFullBlock=true;
     initLambda();
     //---
     doorState=opened;
