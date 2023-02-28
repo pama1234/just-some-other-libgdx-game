@@ -51,7 +51,6 @@ public class StartMenu extends StateEntity0001{
   public void displayCam() {
     if(p.settings.showEarth) {
       TextureRegion kf=ImageAsset.bigEarth.getKeyFrame(time);
-      // TextureRegion kf=GifAsset.bigEarth.getKeyFrame(time);
       p.image(kf,-128,-128);
     }else {
       p.textColor(255,220);

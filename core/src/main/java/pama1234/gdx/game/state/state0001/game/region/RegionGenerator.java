@@ -28,12 +28,12 @@ public class RegionGenerator{
   public Region get(int x,int y) {
     Region region=new Region(p,pr,x,y,Gdx.files.local(pr.pw.dir()+"regions/"+x+"."+y+".bin"));
     if(region.dataLocation.exists()) region.load();
-    get(region);
+    generateIfNull(region);
     return region;
   }
-  public void get(Region region) {
+  public void generateIfNull(Region region) {
     World0001 world=pr.pw;
-    MetaBlock[] mblock=world.metaBlocks.list.toArray(new MetaBlock[world.metaBlocks.list.size()]);
+    MetaBlock[] mblock=world.metaBlocks.generateArray();
     MetaItem[] mitem=world.metaItems.list.toArray(new MetaItem[world.metaItems.list.size()]);
     Chunk[][] data=region.data;
     if(data==null) data=region.data=new Chunk[pr.regionWidth][pr.regionHeight];

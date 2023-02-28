@@ -67,7 +67,7 @@ public class Settings extends StateEntity0001{
     }else {
       System.setOut(stdout);
       logText=null;
-      logBuffer.setLength(0);
+      if(logBuffer!=null) logBuffer.setLength(0);
     }
   }
   @Override
