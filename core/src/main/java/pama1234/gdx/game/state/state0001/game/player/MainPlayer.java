@@ -69,7 +69,7 @@ public class MainPlayer extends Player implements LoadAndSave{
   }
   @Override
   public void load() {
-    MetaItem[] mitem=pw.metaItems.list.toArray(new MetaItem[pw.metaItems.list.size()]);
+    MetaItem[] mitem=pw.metaItems.array();
     if(dataLocation.exists()) try(Input input=new Input(new FileInputStream(dataLocation.file()))) {
       MassPoint tp=WorldKryoUtil.kryo.readObject(input,MassPoint.class);
       point.cloneFrom(tp);

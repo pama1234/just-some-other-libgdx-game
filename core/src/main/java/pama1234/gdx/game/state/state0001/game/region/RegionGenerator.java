@@ -33,8 +33,8 @@ public class RegionGenerator{
   }
   public void generateIfNull(Region region) {
     World0001 world=pr.pw;
-    MetaBlock[] mblock=world.metaBlocks.generateArray();
-    MetaItem[] mitem=world.metaItems.list.toArray(new MetaItem[world.metaItems.list.size()]);
+    MetaBlock[] mblock=world.metaBlocks.array();
+    MetaItem[] mitem=world.metaItems.array();
     Chunk[][] data=region.data;
     if(data==null) data=region.data=new Chunk[pr.regionWidth][pr.regionHeight];
     for(int i=0;i<data.length;i++) for(int j=0;j<data[i].length;j++) {
