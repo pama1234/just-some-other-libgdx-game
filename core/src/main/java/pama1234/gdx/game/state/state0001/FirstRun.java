@@ -37,11 +37,7 @@ public class FirstRun extends StateEntity0001{
   }
   @Override
   public void displayCam() {
-    // if(time>6) {
     if(time>1) {
-      // p.tvgDrawer.getBatch().begin();
-      // TvgAsset.logo0005.draw(p.tvgDrawer);
-      // p.tvgDrawer.getBatch().end();
       p.tvg(TvgAsset.logo0005);
       if(time>18) {
         String text="嵌套宇宙研发组织";
@@ -53,7 +49,6 @@ public class FirstRun extends StateEntity0001{
         }
       }
     }
-    // p.text("time "+time,0,0);
   }
   @Override
   public void display() {

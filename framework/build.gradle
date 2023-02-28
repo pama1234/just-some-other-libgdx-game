@@ -1,0 +1,11 @@
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+eclipse.project.name = appName + '-framework'
+
+dependencies {
+  api "com.badlogicgames.gdx:gdx:$gdxVersion"
+
+  api project(':server-framework')
+
+  api "com.github.lyze237:gdx-TinyVG:$gdxTinyVGVersion"
+  api "space.earlygrey:shapedrawer:$gdxShapeDrawerVersion"
+}

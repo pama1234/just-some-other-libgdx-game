@@ -1,1 +1,1 @@
-include 'headless', 'android', 'lwjgl3', 'core', 'server', 'pico4', 'taptap'
+include 'headless', 'android', 'lwjgl3', 'core', 'server', 'pico4', 'taptap','framework','server-framework'

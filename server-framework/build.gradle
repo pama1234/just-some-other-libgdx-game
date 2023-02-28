@@ -2,7 +2,7 @@ apply plugin: 'application'
 
 sourceCompatibility = 17
 mainClassName = 'pama1234.gdx.game.app.server.ServerLauncher'
-eclipse.project.name = appName + '-server'
+eclipse.project.name = appName + '-server-framework'
 
 dependencies {
   api 'javax.vecmath:vecmath:1.5.2'
@@ -12,7 +12,7 @@ dependencies {
   // api 'info.picocli:picocli:4.7.0'
 
   // api "com.badlogicgames.gdx:gdx:$gdxVersion"
-  api project(':server-framework')
+  // api project(':server')
 }
 
 jar {
