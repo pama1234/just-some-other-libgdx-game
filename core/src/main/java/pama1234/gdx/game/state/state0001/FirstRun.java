@@ -4,6 +4,7 @@ import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.asset.TvgAsset;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
+import pama1234.gdx.launcher.MainApp;
 import pama1234.math.Tools;
 
 public class FirstRun extends StateEntity0001{
@@ -17,6 +18,7 @@ public class FirstRun extends StateEntity0001{
   }
   @Override
   public void from(State0001 in) {
+    if(MainApp.type==MainApp.taptap) p.state(State0001.Loading);
     MusicAsset.alsoSprachZarathustra.setOnCompletionListener(music->p.state(State0001.Loading));
     MusicAsset.alsoSprachZarathustra.play();
     p.backgroundColor(0);

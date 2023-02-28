@@ -3,6 +3,7 @@
 gradle-app.setting
 /build/
 /android/build/
+/taptap/build/
 /pico4/build/
 /core/build/
 /lwjgl2/build/
@@ -39,11 +40,19 @@ com_crashlytics_export_strings.xml
 /pico4/gen/
 /pico4/out/
 
+## Taptap:
+/taptap/libs/armeabi-v7a/
+/taptap/libs/arm64-v8a/
+/taptap/libs/x86/
+/taptap/libs/x86_64/
+/taptap/gen/
+/taptap/out/
 
 *.jks
 *.p12
 */signing.properties
 /android/release
+/taptap/release
 /pico4/release
 
 ## Robovm:
@@ -79,6 +88,7 @@ www-test/
 .project
 .metadata/
 /android/bin/
+/taptap/bin/
 /pico4/bin/
 /core/bin/
 /lwjgl2/bin/
@@ -103,6 +113,7 @@ www-test/
 
 /nbproject/private/
 /android/nbproject/private/
+/taptap/nbproject/private/
 /pcio4/nbproject/private/
 /core/nbproject/private/
 /lwjgl2/nbproject/private/
@@ -116,6 +127,7 @@ www-test/
 
 /nbbuild/
 /android/nbbuild/
+/taptap/nbbuild/
 /pico4/nbbuild/
 /core/nbbuild/
 /lwjgl2/nbbuild/
@@ -129,6 +141,7 @@ www-test/
 
 /dist/
 /android/dist/
+/taptap/dist/
 /pico4/dist/
 /core/dist/
 /lwjgl2/dist/
@@ -142,6 +155,7 @@ www-test/
 
 /nbdist/
 /android/nbdist/
+/taptap/nbdist/
 /pico4/nbdist/
 /core/nbdist/
 /lwjgl2/nbdist/
