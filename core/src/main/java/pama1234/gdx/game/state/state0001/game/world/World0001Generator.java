@@ -44,12 +44,13 @@ public class World0001Generator{
     metaBlocks.list.add(metaBlocks.woodPlank=new WoodPlank(metaBlocks,metaBlocks.id()));
     metaBlocks.list.add(metaBlocks.woodPlatform=new WoodPlatform(metaBlocks,metaBlocks.id()));
     metaBlocks.list.add(metaBlocks.furnace=new Furnace(metaBlocks,metaBlocks.id()));
-    metaBlocks.list.add(metaBlocks.door=new Door(metaBlocks,metaBlocks.id()));
+    metaBlocks.list.add(metaBlocks.doorClosed=new Door(metaBlocks,metaBlocks.id(),true));
     metaBlocks.list.add(metaBlocks.chest=new Chest(metaBlocks,metaBlocks.id()));
     metaBlocks.list.add(metaBlocks.lightOre=new LightOre(metaBlocks,metaBlocks.id()));
     metaBlocks.list.add(metaBlocks.nullBlock=new NullBlock(metaBlocks,metaBlocks.id()));
     metaBlocks.list.add(metaBlocks.colorBlock=new ColorBlock(metaBlocks,metaBlocks.id()));
     metaBlocks.list.add(metaBlocks.lightBlock=new LightBlock(metaBlocks,metaBlocks.id()));
+    metaBlocks.list.add(metaBlocks.doorClosed=new Door(metaBlocks,metaBlocks.id(),true));
     return metaBlocks;
   }
   public static MetaItemCenter0001 createItemC(World0001 pw) {
@@ -135,7 +136,7 @@ public class World0001Generator{
       in.tiles[0]=ImageAsset.items[6][1];
     }));
     metaItems.list.add(metaItems.door=new MetaItem(metaItems,"door",metaItems.id(),in-> {
-      in.blockType=pw.metaBlocks.door;
+      in.blockType=pw.metaBlocks.doorClosed;
       in.tiles=new TextureRegion[1];
       in.tiles[0]=ImageAsset.items[3][7];
     }));

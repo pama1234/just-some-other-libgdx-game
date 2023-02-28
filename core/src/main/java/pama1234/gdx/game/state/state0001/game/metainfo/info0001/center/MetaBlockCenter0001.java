@@ -1,6 +1,5 @@
 package pama1234.gdx.game.state.state0001.game.metainfo.info0001.center;
 
-import pama1234.game.app.server.server0002.game.metainfo.IDGenerator;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaInfoUtil.MetaBlockCenter;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.Dirt;
@@ -24,7 +23,6 @@ import pama1234.gdx.game.state.state0001.game.world.World0001;
 
 public class MetaBlockCenter0001 extends MetaBlockCenter{
   public World0001 pw;
-  public IDGenerator idg;
   public MetaBlock air;
   public Dirt dirt;
   public Stone stone;
@@ -37,7 +35,7 @@ public class MetaBlockCenter0001 extends MetaBlockCenter{
   public WoodPlank woodPlank;
   public WoodPlatform woodPlatform;
   public Furnace furnace;
-  public Door door;
+  public Door doorClosed;
   public Chest chest;
   public LightOre lightOre;
   public NullBlock nullBlock;
@@ -45,9 +43,5 @@ public class MetaBlockCenter0001 extends MetaBlockCenter{
   public LightBlock lightBlock;
   public MetaBlockCenter0001(World0001 pw) {
     this.pw=pw;
-    idg=new IDGenerator();
-  }
-  public int id() {
-    return idg.get();
   }
 }

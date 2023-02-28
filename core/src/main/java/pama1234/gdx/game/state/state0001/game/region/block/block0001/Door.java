@@ -8,8 +8,9 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlock
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 
 public class Door extends MetaBlock{
-  public Door(MetaBlockCenter0001 pc,int id) {
-    super(pc,"door",id,18,1,(in,type)-> {//change to me
+  public boolean doorState;
+  public Door(MetaBlockCenter0001 pc,int id,boolean opened) {
+    super(pc,"door",id,opened?12:6,1,(in,type)-> {//change to me
       in.light.set(16);
     },(in,type)-> {//change from me
     });
@@ -21,26 +22,29 @@ public class Door extends MetaBlock{
     height=3;
     overrideFullBlock=true;
     initLambda();
+    //---
+    doorState=opened;
   }
   @Override
   public void init() {
     TextureRegion[][] tsrc=ImageAsset.tiles;
     int tx=7,ty=10;
-    //-----------------------------------------------------
-    tiles[0]=tsrc[tx][ty];
-    tiles[1]=tsrc[tx+1][ty];
-    tiles[2]=tsrc[tx][ty+1];
-    tiles[3]=tsrc[tx+1][ty+1];
-    tiles[4]=tsrc[tx][ty+2];
-    tiles[5]=tsrc[tx+1][ty+2];
-    //-----------------------------------------------------
-    tiles[6]=tsrc[tx-1][ty];
-    tiles[7]=tsrc[tx-1][ty+1];
-    tiles[8]=tsrc[tx+1][ty+2];
-    //-----------------------------------------------------
-    for(int i=0;i<9;i++) {
-      tiles[9+i]=new TextureRegion(tiles[i]);
-      tiles[9+i].flip(true,false);
+    int size=tiles.length/2;
+    if(doorState) {
+      tiles[0]=tsrc[tx][ty];
+      tiles[1]=tsrc[tx+1][ty];
+      tiles[2]=tsrc[tx][ty+1];
+      tiles[3]=tsrc[tx+1][ty+1];
+      tiles[4]=tsrc[tx][ty+2];
+      tiles[5]=tsrc[tx+1][ty+2];
+    }else {
+      tiles[6]=tsrc[tx-1][ty];
+      tiles[7]=tsrc[tx-1][ty+1];
+      tiles[8]=tsrc[tx+1][ty+2];
+    }
+    for(int i=0;i<size;i++) {
+      tiles[size+i]=new TextureRegion(tiles[i]);
+      tiles[size+i].flip(true,false);
     }
   }
   @Override
@@ -57,7 +61,7 @@ public class Door extends MetaBlock{
     displayUpdater=(world,in,x,y)-> {
       defaultDisplayUpdater.update(world,in,x,y);
       if(in.intData[0]==0) in.displayType[0]=in.xOff+in.yOff*in.type.width;
-      else in.displayType[0]=9+(1-in.xOff)+in.yOff*in.type.width;
+      else in.displayType[0]=tiles.length/2+(doorState?1:0-in.xOff)+in.yOff*in.type.width;
     };
   }
 }
