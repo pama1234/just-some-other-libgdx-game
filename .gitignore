@@ -6,6 +6,8 @@ gradle-app.setting
 /taptap/build/
 /pico4/build/
 /core/build/
+/framework/build/
+/server-framework/build/
 /lwjgl2/build/
 /lwjgl3/build/
 /html/build/
@@ -91,6 +93,8 @@ www-test/
 /taptap/bin/
 /pico4/bin/
 /core/bin/
+/framework/bin/
+/server-framework/bin/
 /lwjgl2/bin/
 /lwjgl3/bin/
 /html/bin/
@@ -116,6 +120,8 @@ www-test/
 /taptap/nbproject/private/
 /pcio4/nbproject/private/
 /core/nbproject/private/
+/framework/nbproject/private/
+/server-framework/nbproject/private/
 /lwjgl2/nbproject/private/
 /lwjgl3/nbproject/private/
 /html/nbproject/private/
@@ -130,6 +136,8 @@ www-test/
 /taptap/nbbuild/
 /pico4/nbbuild/
 /core/nbbuild/
+/framework/nbbuild/
+/server-framework/nbbuild/
 /lwjgl2/nbbuild/
 /lwjgl3/nbbuild/
 /html/nbbuild/
@@ -144,6 +152,8 @@ www-test/
 /taptap/dist/
 /pico4/dist/
 /core/dist/
+/framework/dist/
+/server-framework/dist/
 /lwjgl2/dist/
 /lwjgl3/dist/
 /html/dist/
@@ -158,6 +168,8 @@ www-test/
 /taptap/nbdist/
 /pico4/nbdist/
 /core/nbdist/
+/framework/nbdist/
+/server-framework/nbdist/
 /lwjgl2/nbdist/
 /lwjgl3/nbdist/
 /html/nbdist/
