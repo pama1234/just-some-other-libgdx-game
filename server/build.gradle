@@ -6,12 +6,9 @@ eclipse.project.name = appName + '-server'
 
 dependencies {
   api 'javax.vecmath:vecmath:1.5.2'
-  // api 'io.netty:netty-all:4.1.79.Final'
   api 'com.esotericsoftware:kryo:5.4.0'
   api 'com.aparapi:aparapi:3.0.0'
-  // api 'info.picocli:picocli:4.7.0'
 
-  // api "com.badlogicgames.gdx:gdx:$gdxVersion"
   api project(':server-framework')
 }
 

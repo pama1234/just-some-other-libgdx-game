@@ -2,10 +2,9 @@
 eclipse.project.name = appName + '-core'
 
 dependencies {
-  // api "com.badlogicgames.ashley:ashley:$ashleyVersion"
-  // api "com.badlogicgames.gdx:gdx-bullet:$gdxVersion"
   api "com.badlogicgames.gdx:gdx:$gdxVersion"
 
+  api project(':framework')
   api project(':server')
 
   api "com.github.lyze237:gdx-TinyVG:$gdxTinyVGVersion"
