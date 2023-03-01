@@ -8,6 +8,7 @@ import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer;
 import pama1234.gdx.game.state.state0001.game.item.Inventory;
 import pama1234.gdx.game.state.state0001.game.item.Item;
 import pama1234.gdx.game.state.state0001.game.item.Item.ItemSlot;
+import pama1234.gdx.game.state.state0001.game.player.GameMode;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
 import pama1234.gdx.game.state.state0001.game.region.Chunk;
 import pama1234.gdx.game.state.state0001.game.region.Chunk.BlockData;
@@ -45,5 +46,6 @@ public class WorldKryoUtil{
     kryo.register(Vec2f.class,new FieldSerializer<PathPoint>(kryo,Vec2f.class));
     registration=kryo.register(MainPlayer.class);
     registration.setInstantiator(()->playerInstance==null?new MainPlayer():playerInstance);
+    kryo.register(GameMode.class);
   }
 }

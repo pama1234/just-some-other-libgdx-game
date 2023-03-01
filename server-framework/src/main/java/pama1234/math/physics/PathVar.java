@@ -10,6 +10,8 @@ public class PathVar implements ByteBufferData{
   {
     f=0.2f;
   }
+  @Deprecated
+  public PathVar() {}//kryo only
   public PathVar(float in) {
     pos=des=in;
   }

@@ -48,7 +48,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
       public StringBuffer builder=new StringBuffer();
       @Override
       public void write(int b) throws IOException {
-        stderr.write(b);
+        // stderr.write(b);
         char a=(char)b;
         if(a=='\n') {
           logger.error(builder.toString());
