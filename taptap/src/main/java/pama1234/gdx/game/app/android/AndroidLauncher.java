@@ -1,6 +1,8 @@
 package pama1234.gdx.game.app.android;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.widget.TextView;
 
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
