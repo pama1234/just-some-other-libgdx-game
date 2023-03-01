@@ -308,7 +308,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     Region tr=getRegions(tx,ty);
     if(tr==null) return nullBlock;
     Chunk chunk=tr.data[prx][pry];
-    // if(chunk==null) chunk=fakeChunk;
+    if(chunk==null) chunk=fakeChunk;//TODO
     BlockData blockData=chunk.data[px][py];
     if(blockData==null) return nullBlock;
     return blockData.block;

@@ -31,6 +31,7 @@ import pama1234.gdx.game.ui.generator.InfoUtil.InfoData;
 import pama1234.gdx.game.ui.generator.InfoUtil.InfoSource;
 import pama1234.gdx.game.ui.generator.UiGenerator;
 import pama1234.gdx.game.ui.util.TextButton;
+import pama1234.gdx.launcher.MainApp;
 import pama1234.gdx.util.app.ScreenCore2D;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.math.Tools;
@@ -114,6 +115,9 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     if(settings.overridePlatform) isAndroid=settings.isAndroid;
     // profiler=new GLProfiler(Gdx.graphics);
   }
+  public void debugInfoChange() {
+    debugInfoChange(settings.debugInfo||settings.showLog);
+  }
   public void debugInfoChange(boolean in) {
     if(in) {
       if(profiler==null) profiler=new GLProfiler(Gdx.graphics);
@@ -130,10 +134,12 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     StateGenerator0001.loadState0001(this);
     postSettings();
     firstRun=!Gdx.files.local("data/firstRun.txt").exists();
-    gyroscopeAvailable=Gdx.input.isPeripheralAvailable(Peripheral.Gyroscope);
-    accelerometerAvailable=Gdx.input.isPeripheralAvailable(Peripheral.Accelerometer);
-    compassAvailable=Gdx.input.isPeripheralAvailable(Peripheral.Compass);
-    gVel=new Vec3f();
+    if(MainApp.type!=MainApp.taptap) {
+      gyroscopeAvailable=Gdx.input.isPeripheralAvailable(Peripheral.Gyroscope);
+      accelerometerAvailable=Gdx.input.isPeripheralAvailable(Peripheral.Accelerometer);
+      compassAvailable=Gdx.input.isPeripheralAvailable(Peripheral.Compass);
+      gVel=new Vec3f();
+    }
     // firstRun=true;
     if(firstRun) {
       MusicAsset.load_init();

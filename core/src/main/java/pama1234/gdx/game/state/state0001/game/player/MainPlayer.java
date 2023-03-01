@@ -66,13 +66,16 @@ public class MainPlayer extends Player implements LoadAndSave{
     WorldKryoUtil.playerInstance=null;
     ctrl.limitBox.prePointUpdate();
     if(p.settings.printLog) System.out.println("MainPlayer.load() "+point.pos);
-    MetaItem[] mitem=pw.metaItems.array();
-    for(ItemSlot e:inventory.data) {
-      Item ti=e.item;
-      if(ti!=null) ti.type=mitem[ti.typeId];
+    if(inventory==null) createInventory();
+    else {
+      MetaItem[] mitem=pw.metaItems.array();
+      for(ItemSlot e:inventory.data) {
+        Item ti=e.item;
+        if(ti!=null) ti.type=mitem[ti.typeId];
+      }
+      inventory.pc=this;
+      inventory.innerInit();
     }
-    inventory.pc=this;
-    inventory.innerInit();
   }
   @Override
   public void save() {

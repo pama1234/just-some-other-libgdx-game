@@ -15,6 +15,7 @@ import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.ui.util.Slider;
 import pama1234.gdx.game.ui.util.TextButtonCam;
 import pama1234.gdx.game.ui.util.TextField;
+import pama1234.gdx.launcher.MainApp;
 
 public class Settings extends StateEntity0001{
   public Button<?>[] buttons;
@@ -123,6 +124,7 @@ public class Settings extends StateEntity0001{
   }
   public void debugText() {
     tx=-256;
+    text("发行版本："+MainApp.typeName[MainApp.type]);
     if(p.gyroscopeAvailable) {
       line();
       text("陀螺仪 X: "+Gdx.input.getGyroscopeX());

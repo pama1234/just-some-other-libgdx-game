@@ -27,6 +27,7 @@ import pama1234.gdx.game.app.app0004.Screen0003;
 import pama1234.gdx.util.app.UtilScreen;
 
 public class MainApp extends Game{
+  public static final String[] typeName=new String[] {"安卓通用版","Taptap版","Pico4-VR版"};
   public static final int defaultType=0,taptap=1,pico=2;
   public static int type;
   public List<Class<? extends UtilScreen>> screenList;
