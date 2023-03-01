@@ -73,7 +73,7 @@ android {
 		}
 	}
 
-} 
+}
 
 def Properties props = new Properties()
     def propFile = file('./signing.properties')

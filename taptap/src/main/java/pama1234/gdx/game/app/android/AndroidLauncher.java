@@ -13,12 +13,7 @@ public class AndroidLauncher extends AndroidApplication{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		AndroidApplicationConfiguration config=new AndroidApplicationConfiguration();
-		config.useGyroscope=true;
-		config.useAccelerometer=true;
-		config.useCompass=true;
-		// configuration.useGyroscope=true;
 		MainApp.type=MainApp.taptap;
 		initialize(new MainApp(),config);
-		// initialize(new Game(), configuration);
 	}
 }
