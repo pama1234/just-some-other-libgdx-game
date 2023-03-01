@@ -5,9 +5,9 @@ mainClassName = 'pama1234.gdx.game.app.server.ServerLauncher'
 eclipse.project.name = appName + '-server'
 
 dependencies {
-  api 'javax.vecmath:vecmath:1.5.2'
-  api 'com.esotericsoftware:kryo:5.4.0'
-  api 'com.aparapi:aparapi:3.0.0'
+  // api 'javax.vecmath:vecmath:1.5.2'
+  // api 'com.esotericsoftware:kryo:5.4.0'
+  // api 'com.aparapi:aparapi:3.0.0'
 
   api project(':server-framework')
 }

@@ -132,7 +132,7 @@ public class World0001 extends WorldBase2D{
   }
   public void resumeLoad() {
     for(LoopThread e:regions.loops) e.doFinished=LoopThread.doNothing;
-    if(p.settings.debugInfo) System.out.println("World0001.resumeLoad()");
+    if(p.settings.printLog) System.out.println("World0001.resumeLoad()");
     saving.step();
     yourself.load();
     regions.load();
@@ -150,7 +150,7 @@ public class World0001 extends WorldBase2D{
   }
   public void pauseSave() {
     saving.lock();
-    if(p.settings.debugInfo) System.out.println("World0001.pauseSave()");
+    if(p.settings.printLog) System.out.println("World0001.pauseSave()");
     WorldData.save(worldDataDir,data);
     regions.innerSave();
     yourself.save();
@@ -177,7 +177,7 @@ public class World0001 extends WorldBase2D{
     if(pg.netMode!=NetMode.client) disposeSave();
   }
   public void disposeSave() {
-    if(p.settings.debugInfo) System.out.println("World0001.disposeSave()");
+    if(p.settings.printLog) System.out.println("World0001.disposeSave()");
     WorldData.save(worldDataDir,data);
     yourself.save();
     regions.stop=true;

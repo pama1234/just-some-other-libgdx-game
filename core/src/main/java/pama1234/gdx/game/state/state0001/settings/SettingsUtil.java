@@ -39,7 +39,7 @@ public class SettingsUtil{
         self->self.text="音量 "+String.format("%6.2f",p.settings.volume*100),()->18,()->0,()->20,1),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.debugInfo=!p.settings.debugInfo;
-        p.debugInfoChange(p.settings.debugInfo);
+        // p.debugInfoChange(p.settings.debugInfo);
         self.updateText();
       },self->self.text=p.settings.debugInfo?"显示文本调试信息：是":"显示文本调试信息：否",()->18,()->0,()->40),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
@@ -116,6 +116,11 @@ public class SettingsUtil{
         // if(p.settings.showLog&&ps.logBuffer==null) ps.logBuffer=new StringBuffer();
         ps.checkNeedLog();
       },self->self.text="显示日志信息："+(p.settings.showLog?"是":"否"),()->18,()->0,()->320),
+      new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
+        p.settings.printLog=!p.settings.printLog;
+        p.debugInfoChange(p.settings.printLog);
+        self.updateText();
+      },self->self.text=p.settings.printLog?"打印日志信息：是":"打印日志信息：否",()->18,()->0,()->340),
     };
   }
 }

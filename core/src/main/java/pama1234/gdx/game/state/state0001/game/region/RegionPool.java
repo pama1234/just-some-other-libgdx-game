@@ -14,7 +14,7 @@ public class RegionPool{
     data=new LinkedList<>();
   }
   public Region get(int x,int y) {
-    if(gen.p.settings.debugInfo) System.out.println("get region "+x+" "+y+" "+data.size());
+    if(gen.p.settings.printLog) System.out.println("get region "+x+" "+y+" "+data.size());
     Region e;
     Iterator<Region> i=data.iterator();
     while(i.hasNext()) {
@@ -27,7 +27,7 @@ public class RegionPool{
     return gen.get(x,y);
   }
   public void put(Region in) {
-    if(gen.p.settings.debugInfo) System.out.println("put region "+in.x+" "+in.y+" "+data.size());
+    if(gen.p.settings.printLog) System.out.println("put region "+in.x+" "+in.y+" "+data.size());
     data.addLast(in);
     if(data.size()>maxSize) data.removeFirst().save();
   }

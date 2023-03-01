@@ -45,7 +45,7 @@ public class ServerCore{
           serverRead.start();
           serverReadPool.add.add(serverRead);
         }catch(SocketException e) {
-          if(game.p.settings.debugInfo) System.out.println(e);
+          if(game.p.settings.printLog) System.out.println(e);
           stop=true;
         }catch(IOException e) {
           e.printStackTrace();

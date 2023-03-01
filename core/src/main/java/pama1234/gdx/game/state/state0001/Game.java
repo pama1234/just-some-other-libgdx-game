@@ -95,7 +95,7 @@ public class Game extends StateEntity0001{
         client.start();
       }catch(GdxRuntimeException e) {
         Throwable cause=e.getCause();
-        if(cause instanceof ConnectException ce) if(p.settings.debugInfo) System.out.println(ce);
+        if(cause instanceof ConnectException ce) if(p.settings.printLog) System.out.println(ce);
         netMode=NetMode.error;
         p.state(State0001.StartMenu);
       }catch(RuntimeException e) {

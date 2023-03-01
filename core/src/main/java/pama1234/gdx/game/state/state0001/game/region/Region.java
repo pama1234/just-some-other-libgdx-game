@@ -40,14 +40,14 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
   }
   @Override
   public void load() {//TODO
-    if(p.settings.debugInfo) System.out.println("inner load region "+x+" "+y);
+    if(p.settings.printLog) System.out.println("inner load region "+x+" "+y);
     WorldKryoUtil.regionInstance=this;
     KryoUtil.load(kryo,dataLocation,Region.class);
     WorldKryoUtil.regionInstance=null;
   }
   @Override
   public void save() {//TODO
-    if(p.settings.debugInfo) System.out.println("inner save region "+x+" "+y);
+    if(p.settings.printLog) System.out.println("inner save region "+x+" "+y);
     boolean tb_1=removeUnchanged();
     if(tb_1) KryoUtil.save(kryo,dataLocation,this);
   }
