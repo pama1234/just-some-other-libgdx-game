@@ -9,7 +9,6 @@ import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.math.UtilMath;
 
 public class Fly extends MobEntity{
-  public MovementLimitBox limitBox;
   public Fly(Screen0011 p,World0001 pw,float x,float y) {
     super(p,pw,x,y,pw.metaEntitys.fly);
     outerBox=limitBox=new MovementLimitBox(this);

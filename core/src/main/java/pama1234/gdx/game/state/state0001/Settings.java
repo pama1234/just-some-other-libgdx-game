@@ -25,6 +25,7 @@ public class Settings extends StateEntity0001{
   public boolean logUpdate;
   public String logText;
   public StringBuffer logBuffer;
+  public int logMaxLength=1024;
   public PrintStream stdout=System.out;
   public PrintStream logOut;
   public Settings(Screen0011 p) {
@@ -82,6 +83,8 @@ public class Settings extends StateEntity0001{
   public void update() {
     if(logUpdate) {
       logUpdate=false;
+      int length=logBuffer.length();
+      if(length>logMaxLength) logBuffer.delete(0,length-logMaxLength);
       logText=logBuffer.toString();
     }
   }

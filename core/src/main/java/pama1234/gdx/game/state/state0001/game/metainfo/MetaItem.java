@@ -40,6 +40,9 @@ public class MetaItem extends MetaInfoBase{
   public void init() {
     if(initer!=null) initer.init(this);
   }
+  public void use(World0001 world,Item in,LivingEntity user) {
+    useEvent.use(world,in,user);
+  }
   public int getDisplayType() {
     return defaultDisplayType;
   }

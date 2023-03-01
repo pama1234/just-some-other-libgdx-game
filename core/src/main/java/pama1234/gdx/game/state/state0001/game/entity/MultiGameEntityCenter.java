@@ -82,7 +82,7 @@ public class MultiGameEntityCenter extends MultiEntityCenter<Screen0011,EntityCe
       World0001 world=pc.pw;
       for(MetaCreature<?> e:world.metaEntitys.list) {
         if(e.spawnDatas==null) continue;
-        if(e.count>=e.naturalMaxCount) continue;
+        if(e.count>=e.naturalMaxCount*(1+pc.players.list.size())) continue;
         float rdeg=world.random(UtilMath.PI2);
         float rdist=world.random(36,world.regions.regionLoadDist/2f);
         float tx=player.cx()+UtilMath.sin(rdeg)*rdist*world.settings.blockWidth,
@@ -116,10 +116,6 @@ public class MultiGameEntityCenter extends MultiEntityCenter<Screen0011,EntityCe
     public GameEntityCenter(T p,MultiGameEntityCenter pc) {
       super(p);
       this.pc=pc;
-    }
-    @Override
-    public void refresh() {//TODO
-      super.refresh();
     }
   }
 }
