@@ -31,7 +31,7 @@ public class PlayerControllerFull extends PlayerControllerCore{
     super(p,player,true);
     this.player=player;
     cullRects=ControlBindUtil.createRectF(p);
-    coreSelectBlock=selectBlock=new ControllerBlockPointer(player.pw,()->player.inventory.select().data);
+    coreSelectBlock=selectBlock=new ControllerBlockPointer(player.pw,()->player.inventory.selectSlot().data);
   }
   @Override
   public void display() {
@@ -279,7 +279,7 @@ public class PlayerControllerFull extends PlayerControllerCore{
       }
         break;
       case Buttons.RIGHT: {
-        ItemSlot td=player.inventory.select().data;
+        ItemSlot td=player.inventory.selectSlot().data;
         Item ti=td.item;
         if(ti!=null) {
           MetaBlock tb=ti.type.blockType;

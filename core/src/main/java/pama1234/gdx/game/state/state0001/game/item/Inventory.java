@@ -12,7 +12,9 @@ import pama1234.math.UtilMath;
 import pama1234.math.physics.PathVar;
 
 public class Inventory{
-  public static final int noDisplay=0,displayHoldSlot=1,displayFullInventory=2,displayHotSlot=3;
+  @Deprecated
+  public static final int noDisplay=0;
+  public static final int displayHoldSlot=1,displayFullInventory=2,displayHotSlot=3;
   public static final int moveAll=0,moveOne=1;
   public static int timeF=7200;
   public LivingEntity pc;
@@ -24,7 +26,6 @@ public class Inventory{
   public DisplaySlot[][] displaySlots;
   public DisplaySlot[] hotSlots,backpackSlots;
   public DisplaySlot holdSlot;
-  // public DisplaySlot[] workStationSlots;
   public float rSize;
   public PathVar r;
   @Tag(2)
@@ -82,10 +83,10 @@ public class Inventory{
         break;
     }
   }
-  public DisplaySlot select() {
+  public DisplaySlot selectSlot() {
     return hotSlots[selectSlot];
   }
-  public void select(int in) {
+  public void selectSlot(int in) {
     selectSlot=in;
   }
   public void testSelectSlot() {
@@ -106,7 +107,6 @@ public class Inventory{
       hotSlotDisplayCooling=120;
     }
     if(displayState==in) return;
-    // if(displayState==displayHotSlot) hotSlotDisplayCooling=-1;
     safeDisplayState(in);
   }
   public void safeDisplayState(int in) {
@@ -126,13 +126,14 @@ public class Inventory{
       case noDisplay: {}
         break;
       case displayHoldSlot: {
-        holdSlot.centerUpdate(pc,0,12);
+        holdSlot.centerUpdate(pc,0,-12);
+        selectSlot().centerUpdate(pc,0,12);
       }
         break;
       case displayHotSlot: {
         if(hotSlotDisplayCooling>0) {
           hotSlotDisplayCooling-=1;
-          if(hotSlotDisplayCooling==0) displayState(noDisplay);
+          if(hotSlotDisplayCooling==0) displayState(displayHoldSlot);
         }
         updateHotSlot(pc.p);
       }
@@ -144,7 +145,6 @@ public class Inventory{
     }
   }
   public void updateFullInventory() {
-    // if(displayState!=displayFullInventory) return;
     r.update();
     Screen0011 p=pc.p;
     updateHotSlot(p);
@@ -162,7 +162,6 @@ public class Inventory{
         r.pos*2);
     }
     holdSlot.centerUpdate(pc,0,12);
-    // for(DisplaySlot e:backpackSlots) e.centerUpdate(pc,0,0);
   }
   public void updateHotSlot(Screen0011 p) {
     for(int i=0;i<hotSlots.length;i++) hotSlots[i].circleUpdate(pc,
@@ -177,6 +176,7 @@ public class Inventory{
         break;
       case displayHoldSlot: {
         displaySlotItem(pc.p,holdSlot);
+        displaySlotItem(pc.p,selectSlot());
       }
         break;
       case displayHotSlot: {
@@ -194,7 +194,6 @@ public class Inventory{
         break;
     }
     p.textScale(1);
-    // if(displayState==displayFullInventory) displayHotSlotCircle();
   }
   public void displayBackpackSlot() {
     Screen0011 p=pc.p;
@@ -217,7 +216,6 @@ public class Inventory{
   public void displaySlotWhenNotNull(Screen0011 p,DisplaySlot ths) {
     Item ti=ths.data.item;
     if(ti!=null) {
-      // drawSlotBackground(p,ths.x1,ths.y1);
       drawSlotBackground(p,ths);
       drawSlotItem(p,ths,ti);
     }
@@ -246,10 +244,9 @@ public class Inventory{
     p.text(Integer.toString(ti.count),x,y);
   }
   public void drawSelectRect(Screen0011 p) {
-    p.tint(255,191);
-    DisplaySlot ths=selectSlot>=hotSlots.length?backpackSlots[selectSlot-hotSlots.length]:hotSlots[selectSlot];
+    DisplaySlot ths=selectSlot>=hotSlots.length?backpackSlots[selectSlot-hotSlots.length]:selectSlot();
     TextureRegion tr=ImageAsset.items[0][1];
-    // p.tint(255,127);
+    p.tint(255,191);
     p.image(tr,ths.x1,ths.y1);
   }
   public void accept(Item in) {

@@ -85,7 +85,6 @@ public class ControllerDisplayUtil{
     MetaBlock type=selectBlock.block==null?null:selectBlock.block.type;
     float tr=scale<1?2:2/scale;
     float tf=2/scale;
-    // if(selectBlock.task!=BlockPointer.use) drawBlockLine(p,selectBlock,tw,th,type,tr,tf);
     float tf_2=0.8f/scale;
     switch(selectBlock.task) {
       case BlockPointer.destroy: {
@@ -112,7 +111,6 @@ public class ControllerDisplayUtil{
         p.image(
           ImageAsset.tiles[7][8],
           selectBlock.x*tw,selectBlock.y*th);
-        // (selectBlock.x-tf_2)*tw,(selectBlock.y-tf_2)*th,(1+tf_2*2)*tw,(1+tf_2*2)*th);
       }
         break;
       default:

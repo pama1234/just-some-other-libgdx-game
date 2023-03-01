@@ -25,8 +25,8 @@ public class PlayerControllerCore extends Entity<Screen0011>{
     this.corePlayer=corePlayer;
     corePlayer.outerBox=limitBox=new MovementLimitBox(corePlayer);
     limitBox.usePlatform=true;
-    selectEntity=new EntityPointer(corePlayer.pw,()->corePlayer.inventory.select().data);
-    if(!mainPlayer) coreSelectBlock=new BlockPointer(corePlayer.pw,()->corePlayer.inventory.select().data);
+    selectEntity=new EntityPointer(corePlayer.pw,()->corePlayer.inventory.selectSlot().data);
+    if(!mainPlayer) coreSelectBlock=new BlockPointer(corePlayer.pw,()->corePlayer.inventory.selectSlot().data);
   }
   public boolean testWalking() {
     boolean tb=left!=right;
@@ -76,7 +76,7 @@ public class PlayerControllerCore extends Entity<Screen0011>{
     coreSelectBlock.origin(corePlayer.xToBlockCordFloat(corePlayer.cx()),corePlayer.yToBlockCordFloat(corePlayer.cy()));
   }
   public void selectHotSlot(int in) {
-    corePlayer.inventory.select(in);
+    corePlayer.inventory.selectSlot(in);
   }
   public boolean inPlayerOuterBox(int tx,int ty) {
     return Tools.inBoxInclude(tx,ty,limitBox.x1,limitBox.y1,limitBox.w,limitBox.h);
