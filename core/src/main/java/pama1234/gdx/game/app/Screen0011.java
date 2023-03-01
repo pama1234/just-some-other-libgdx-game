@@ -4,8 +4,14 @@ import static pama1234.math.Tools.getFloatString;
 import static pama1234.math.Tools.getMemory;
 import static pama1234.math.Tools.getMillisString;
 
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
@@ -33,8 +39,36 @@ import pama1234.math.vec.Vec3f;
 import pama1234.util.net.NetAddressInfo;
 
 public class Screen0011 extends ScreenCore2D implements StateChanger{
+  public static final PrintStream stderr=System.err;
+  public static final PrintStream stdout=System.out;
+  public static final Logger logger=LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
   public static final Kryo kryo=new Kryo();
   static {
+    System.setErr(new PrintStream(new OutputStream() {
+      public StringBuffer builder=new StringBuffer();
+      @Override
+      public void write(int b) throws IOException {
+        stdout.write(b);
+        char a=(char)b;
+        if(a=='\n') {
+          logger.error(builder.toString());
+          builder.setLength(0);
+        }else builder.append(a);
+      }
+    }));
+    System.setOut(new PrintStream(new OutputStream() {
+      public StringBuffer builder=new StringBuffer();
+      @Override
+      public void write(int b) throws IOException {
+        stdout.write(b);
+        char a=(char)b;
+        if(a=='\n') {
+          logger.info(builder.toString());
+          builder.setLength(0);
+        }else builder.append(a);
+      }
+    }));
+    //---
     // kryo.setDefaultSerializer(TaggedFieldSerializer.class);
     kryo.register(SettingsData.class);
     kryo.register(NetAddressInfo.class);
