@@ -16,6 +16,7 @@ import pama1234.gdx.game.state.state0001.game.region.block.block0001.WoodPlank;
 import pama1234.gdx.game.state.state0001.game.region.block.block0001.WoodPlatform;
 import pama1234.gdx.game.state.state0001.game.region.block.block0002.ColorBlock;
 import pama1234.gdx.game.state.state0001.game.region.block.block0002.LightBlock;
+import pama1234.gdx.game.state.state0001.game.region.block.block0002.WorldRoot;
 import pama1234.gdx.game.state.state0001.game.region.block.workstation.Chest;
 import pama1234.gdx.game.state.state0001.game.region.block.workstation.Furnace;
 import pama1234.gdx.game.state.state0001.game.region.block.workstation.Workbench;
@@ -39,8 +40,10 @@ public class MetaBlockCenter0001 extends MetaBlockCenter{
   public Chest chest;
   public LightOre lightOre;
   public NullBlock nullBlock;
+  //---
   public ColorBlock colorBlock;
   public LightBlock lightBlock;
+  public WorldRoot worldRoot;
   public MetaBlockCenter0001(World0001 pw) {
     this.pw=pw;
   }

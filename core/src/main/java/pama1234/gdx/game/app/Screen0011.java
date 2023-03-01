@@ -113,7 +113,6 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   public Screen0011() {
     loadSettings();
     if(settings.overridePlatform) isAndroid=settings.isAndroid;
-    // profiler=new GLProfiler(Gdx.graphics);
   }
   public void debugInfoChange() {
     debugInfoChange(settings.debugInfo||settings.showLog);

@@ -12,7 +12,7 @@ public class MetaItemCenter0001 extends MetaItemCenter{
     stonePickaxe,stoneAxe,stoneChisel,stoneSword,
     sapling,torch,woodPlank,woodPlatform,furnace,door,chest,
     lightOre,lightIngot,lightPickaxe,lightAxe,lightChisel,lightSword;
-  public MetaItem colorBlock,lightBlock;
+  public MetaItem colorBlock,lightBlock,worldRoot;
   public MetaItemCenter0001(World0001 pw) {
     this.pw=pw;
   }

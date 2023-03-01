@@ -98,6 +98,7 @@ public class Settings extends StateEntity0001{
     text(p.accelerometerAvailable?"加速计：  可用":"加速计：不可用");
     p.text("重启后生效",192,280);
     if(p.localHost!=null) p.text("本设备的名称与内网IP地址："+p.localHost.toString(),0,-40);
+    p.text("发行版本："+MainApp.typeName[MainApp.type],0,-60);
     if(p.settings.debugInfo) debugText();
     if(p.settings.showLog) {
       tx=-512;
@@ -124,7 +125,6 @@ public class Settings extends StateEntity0001{
   }
   public void debugText() {
     tx=-256;
-    text("发行版本："+MainApp.typeName[MainApp.type]);
     if(p.gyroscopeAvailable) {
       line();
       text("陀螺仪 X: "+Gdx.input.getGyroscopeX());

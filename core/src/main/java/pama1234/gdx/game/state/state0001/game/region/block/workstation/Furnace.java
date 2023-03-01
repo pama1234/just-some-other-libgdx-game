@@ -89,8 +89,8 @@ public class Furnace extends MetaBlock{
     updater=(world,in,x,y)-> {
       lightUpdater.update(world,in,x,y);
       if(in.offBlock()) return;
-      int tw=pc.pw.settings.blockWidth,
-        th=pc.pw.settings.blockHeight;
+      int tw=world.settings.blockWidth,
+        th=world.settings.blockHeight;
       in.intData[4]=x;
       in.intData[5]=y;
       in.intData[2]=(x-2)*tw;

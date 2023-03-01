@@ -131,6 +131,7 @@ public class MetaBlock extends MetaInfoBase{
   @FunctionalInterface
   public interface BlockChanger{
     void change(Block block,MetaBlock type);
+    // void change(Block block,MetaBlock type,int x,int y);
   }
   public interface TilemapRenderer{
     public void tint(float x,float y,float z);

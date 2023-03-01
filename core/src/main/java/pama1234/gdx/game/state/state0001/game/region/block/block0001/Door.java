@@ -38,9 +38,9 @@ public class Door extends MetaBlock{
       tiles[4]=tsrc[tx][ty+2];
       tiles[5]=tsrc[tx+1][ty+2];
     }else {
-      tiles[6]=tsrc[tx-1][ty];
-      tiles[7]=tsrc[tx-1][ty+1];
-      tiles[8]=tsrc[tx+1][ty+2];
+      tiles[0]=tsrc[tx-1][ty];
+      tiles[1]=tsrc[tx-1][ty+1];
+      tiles[2]=tsrc[tx+1][ty+2];
     }
     for(int i=0;i<size;i++) {
       tiles[size+i]=new TextureRegion(tiles[i]);
