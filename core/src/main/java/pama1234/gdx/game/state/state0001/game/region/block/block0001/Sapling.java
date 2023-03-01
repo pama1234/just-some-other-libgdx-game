@@ -10,10 +10,10 @@ import pama1234.math.UtilMath;
 
 public class Sapling extends MetaBlock{
   public Sapling(MetaBlockCenter0001 pc,int id) {
-    super(pc,"sapling",id,1,0,(in,type)-> {//change to me
+    super(pc,"sapling",id,1,0,(in,type,x,y)-> {//change to me
       // in.light.set(16);
       in.intData=new int[1];
-    },(in,type)-> {//change from me
+    },(in,type,x,y)-> {//change from me
       in.intData=null;
     });
     blockType=woodType;

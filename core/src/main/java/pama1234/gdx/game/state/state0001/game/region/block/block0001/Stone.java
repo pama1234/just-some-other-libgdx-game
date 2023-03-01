@@ -8,10 +8,10 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlock
 
 public class Stone extends MetaBlock{
   public Stone(MetaBlockCenter0001 pc,int id) {
-    super(pc,"stone",id,20,2,(in,type)-> {//change to stone
+    super(pc,"stone",id,20,2,(in,type,x,y)-> {//change to stone
       // in.lighting=16;
       in.light.set(16);
-    },(in,type)-> {//change from stone
+    },(in,type,x,y)-> {//change from stone
     });
     blockType=stoneType;
     destroyTime=60;

@@ -9,10 +9,10 @@ import pama1234.gdx.game.state.state0001.game.region.block.Block;
 
 public class LightBlock extends MetaBlock{
   public LightBlock(MetaBlockCenter0001 pc,int id) {
-    super(pc,"light-block",id,20,2,(in,type)-> {//change to me
+    super(pc,"light-block",id,20,2,(in,type,x,y)-> {//change to me
       // in.lighting=16;
       in.light.set(16);
-    },(in,type)-> {//change from me
+    },(in,type,x,y)-> {//change from me
       in.intData=null;
     });
     blockType=stoneType;

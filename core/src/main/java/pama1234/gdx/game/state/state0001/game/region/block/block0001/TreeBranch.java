@@ -9,9 +9,9 @@ import pama1234.gdx.game.state.state0001.game.region.block.Block;
 
 public class TreeBranch extends MetaBlock{
   public TreeBranch(MetaBlockCenter0001 pc,int id) {
-    super(pc,"tree-branch",id,6,1,(in,type)-> {//change to branch
+    super(pc,"tree-branch",id,6,1,(in,type,x,y)-> {//change to branch
       in.light.set(16);
-    },(in,type)-> {//change from branch
+    },(in,type,x,y)-> {//change from branch
     });
     destroyTime=10;
     buildTime=5;

@@ -17,11 +17,13 @@ import pama1234.gdx.game.ui.util.TextButtonCam;
 public class Chest extends MetaBlock{
   public int sloatSize=9,sloatDisplayWidth=3;
   public Chest(MetaBlockCenter0001 pc,int id) {
-    super(pc,"chest",id,1,0,(in,type)-> {//change to me
+    super(pc,"chest",id,1,0,(in,type,x,y)-> {//change to me
       in.light.set(16);
-    },(in,type)-> {//change from me
+      in.intData[4]=x;
+      in.intData[5]=y;
+    },(in,type,x,y)-> {//change from me
       World0001 world=pc.pw;
-      int x=in.intData[4],y=in.intData[5];
+      // int x=in.intData[4],y=in.intData[5];
       boolean flag=Block.isEmpty(world.getBlock(x,y-1));
       float randomConst=0.8f;
       for(ItemSlot e:in.itemData) if(e.item!=null) DroppedItem.dropItem(world.p,x,y,world,flag,randomConst,e.item);

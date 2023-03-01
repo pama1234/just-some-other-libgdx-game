@@ -89,12 +89,12 @@ public class MetaBlock extends MetaInfoBase{
     return defaultDisplayType;
   }
   public void initBlock(Block in) {}
-  public void from(Block block,MetaBlock type) {
-    if(from!=null) from.change(block,type);
+  public void from(Block block,MetaBlock type,int x,int y) {
+    if(from!=null) from.change(block,type,x,y);
   }
-  public void to(Block block,MetaBlock in) {
+  public void to(Block block,MetaBlock in,int x,int y) {
     // block.intData=null;
-    if(to!=null) to.change(block,in);
+    if(to!=null) to.change(block,in,x,y);
   }
   public void initFullBlockLambda() {
     // updater=lightUpdater;
@@ -130,8 +130,7 @@ public class MetaBlock extends MetaInfoBase{
   }
   @FunctionalInterface
   public interface BlockChanger{
-    void change(Block block,MetaBlock type);
-    // void change(Block block,MetaBlock type,int x,int y);
+    void change(Block block,MetaBlock type,int x,int y);
   }
   public interface TilemapRenderer{
     public void tint(float x,float y,float z);

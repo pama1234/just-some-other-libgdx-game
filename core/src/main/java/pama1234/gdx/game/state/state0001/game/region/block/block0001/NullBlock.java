@@ -9,10 +9,10 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlock
 public class NullBlock extends MetaBlock{
   public int count;
   public NullBlock(MetaBlockCenter0001 pc,int id) {
-    super(pc,"null-block",id,20,1,(in,type)-> {//change to stone
+    super(pc,"null-block",id,20,1,(in,type,x,y)-> {//change to stone
       // in.lighting=16;
       in.light.set(16);
-    },(in,type)-> {//change from stone
+    },(in,type,x,y)-> {//change from stone
     });
     blockType=stoneType;
     // fullBlock=false;

@@ -13,9 +13,9 @@ import pama1234.gdx.game.ui.util.TextButtonCam;
 
 public class WorldRoot extends MetaBlock{
   public WorldRoot(MetaBlockCenter0001 pc,int id) {
-    super(pc,"world-root",id,1,1,(in,type)-> {//change to me
+    super(pc,"world-root",id,1,1,(in,type,x,y)-> {//change to me
       in.light.set(16);
-    },(in,type)-> {//change from me
+    },(in,type,x,y)-> {//change from me
       in.intData=null;
       in.ui=null;
     });

@@ -31,7 +31,7 @@ public class RegionWrapper{
     if(block.type.width==1&&block.type.height==1) block.doItemDrop(pw.p,x,y,in.empty);
     removeAreaIfOff(block,x,y,in);
     putIfOffBlock(block,x,y,in);
-    block.type(in);
+    block.type(in,x,y);
   }
   public void removeAreaIfOff(Block block,int x,int y,MetaBlock in) {
     MetaBlock type=block.type;
@@ -54,7 +54,7 @@ public class RegionWrapper{
       int tx=x+i,
         ty=y+j;
       Block blockOff=pw.getBlock(tx,ty);
-      blockOff.type(pw.metaBlocks.air);
+      blockOff.type(pw.metaBlocks.air,x,y);
       blockOff.clearOrigin();
     }
   }
@@ -67,12 +67,12 @@ public class RegionWrapper{
         testAndRemoveOffBlock(blockOff.type,tx,ty,in);
         blockOff.doItemDrop(pw.p,tx,ty,in.empty);
         blockOff.origin(block,i,j);
-        blockOff.type(in);
+        blockOff.type(in,x,y);
       }
     }
   }
   public void setBlock(Block block,MetaBlock in,int x,int y) {
-    block.type(in);
+    block.type(in,x,y);
   }
   public void setBlock(MetaBlock in,int x,int y) {
     setBlock(pw.getBlock(x,y),in,x,y);

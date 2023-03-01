@@ -27,11 +27,13 @@ public class Workbench extends MetaBlock{
   public int outputSlotSize=2,sloatSize=5;
   public CraftRecipe[] recipeList;
   public Workbench(MetaBlockCenter0001 pc,int id) {
-    super(pc,"workbench",id,1,0,(in,type)-> {//change to workbench
+    super(pc,"workbench",id,1,0,(in,type,x,y)-> {//change to workbench
       in.light.set(16);
-    },(in,type)-> {//change from workbench
+      in.intData[4]=x;
+      in.intData[5]=y;
+    },(in,type,x,y)-> {//change from workbench
       World0001 world=pc.pw;
-      int x=in.intData[4],y=in.intData[5];
+      // int x=in.intData[4],y=in.intData[5];
       boolean flag=Block.isEmpty(world.getBlock(x,y-1));
       float randomConst=0.8f;
       for(ItemSlot e:in.itemData) if(e.item!=null) DroppedItem.dropItem(world.p,x,y,world,flag,randomConst,e.item);
@@ -54,8 +56,8 @@ public class Workbench extends MetaBlock{
         th=world.settings.blockHeight;
       // int tx=(in.ui.displaySlot.length-1)/2*tw;
       // in.intData[2]=(x-tx)*tw;
-      in.intData[4]=x;
-      in.intData[5]=y;
+      // in.intData[4]=x;
+      // in.intData[5]=y;
       in.intData[2]=(x-2)*tw;
       in.intData[3]=(y-3)*th;
       if(in.intData[1]==stopMod) return;

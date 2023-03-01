@@ -10,9 +10,9 @@ import pama1234.gdx.game.state.state0001.game.region.block.Block;
 public class Door extends MetaBlock{
   public boolean doorState;
   public Door(MetaBlockCenter0001 pc,int id,boolean opened) {
-    super(pc,"door",id,opened?12:6,1,(in,type)-> {//change to me
+    super(pc,"door",id,opened?12:6,1,(in,type,x,y)-> {//change to me
       in.light.set(16);
-    },(in,type)-> {//change from me
+    },(in,type,x,y)-> {//change from me
     });
     blockType=woodType;
     fullBlock=false;

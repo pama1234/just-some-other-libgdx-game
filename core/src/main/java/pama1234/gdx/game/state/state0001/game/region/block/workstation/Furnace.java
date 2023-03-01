@@ -25,11 +25,14 @@ public class Furnace extends MetaBlock{
   public int outputSlotSize=1,sloatSize=2;
   public MeltRecipe[] recipeList;
   public Furnace(MetaBlockCenter0001 pc,int id) {
-    super(pc,"furnace",id,4,1,(in,type)-> {//change to me
+    super(pc,"furnace",id,4,1,(in,type,x,y)-> {//change to me
       in.light.set(16);
-    },(in,type)-> {//change from me 
+      if(in.offBlock()) return;
+      in.intData[4]=x;
+      in.intData[5]=y;
+    },(in,type,x,y)-> {//change from me 
       World0001 world=pc.pw;
-      int x=in.intData[4],y=in.intData[5];
+      // int x=in.intData[4],y=in.intData[5];
       boolean flag=Block.isEmpty(world.getBlock(x,y-1));
       float randomConst=0.8f;
       for(ItemSlot e:in.itemData) if(e.item!=null) DroppedItem.dropItem(world.p,x,y,world,flag,randomConst,e.item);
@@ -91,8 +94,8 @@ public class Furnace extends MetaBlock{
       if(in.offBlock()) return;
       int tw=world.settings.blockWidth,
         th=world.settings.blockHeight;
-      in.intData[4]=x;
-      in.intData[5]=y;
+      // in.intData[4]=x;
+      // in.intData[5]=y;
       in.intData[2]=(x-2)*tw;
       in.intData[3]=(y-3)*th;
       if(in.intData[1]==Workbench.stopMod) return;

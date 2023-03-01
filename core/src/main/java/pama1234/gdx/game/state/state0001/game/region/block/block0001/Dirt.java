@@ -8,10 +8,10 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlock
 
 public class Dirt extends MetaBlock{
   public Dirt(MetaBlockCenter0001 pc,int id) {
-    super(pc,"dirt",id,20,2,(in,type)-> {//change to dirt
+    super(pc,"dirt",id,20,2,(in,type,x,y)-> {//change to dirt
       // in.lighting=16;
       in.light.set(16);
-    },(in,type)-> {//change from dirt
+    },(in,type,x,y)-> {//change from dirt
     });
     blockType=dirtType;
     destroyTime=30;

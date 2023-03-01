@@ -73,15 +73,15 @@ public class Block{
     }else displayType=null;
     type.initBlock(this);
   }
-  public void type(MetaBlock in) {
+  public void type(MetaBlock in,int x,int y) {
     MetaBlock t=type;
     if(in==t) return;
     changed=true;
     // updateLighting=true;
     innerSetType(in);
-    t.to(this,in);
+    t.to(this,in,x,y);
     init(in);
-    in.from(this,t);
+    in.from(this,t,x,y);
   }
   public static boolean isEmpty(Block in) {
     return in==null||in.type==null||in.type.empty;//TODO
