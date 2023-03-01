@@ -1,7 +1,6 @@
 package pama1234.gdx.game.state.state0001.game.player;
 
 import com.badlogic.gdx.Input.Buttons;
-import com.badlogic.gdx.Input.Keys;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.entity.GamePointEntity;
@@ -88,6 +87,37 @@ public class PlayerControllerFull extends PlayerControllerCore{
     right=ControlBindUtil.isKeyPressed(ControlBindUtil.moveRight,f);
     jump=ControlBindUtil.isKeyPressed(ControlBindUtil.jumpUp,f);
     jumpDown=ControlBindUtil.isKeyPressed(ControlBindUtil.jumpDown,f);
+  }
+  @Override
+  public void keyPressed(char key,int keyCode) {
+    if(ControlBindUtil.isKey(ControlBindUtil.shift,keyCode)) shift(true);
+    else if(ControlBindUtil.isKey(ControlBindUtil.openInventory,keyCode)) player.inventory.displayStateChange();
+    // else if(keyCode==Keys.V) shift(!shift);
+    else if(ControlBindUtil.isKey(ControlBindUtil.camZoomIn,keyCode)) camScale(0.5f);
+    else if(ControlBindUtil.isKey(ControlBindUtil.camZoomOut,keyCode)) camScale(-0.5f);
+    else if(testIsHotSlotKey(keyCode,true)) player.inventory.selectSlotWithKeyEvent();
+  }
+  @Override
+  public void keyReleased(char key,int keyCode) {
+    if(ControlBindUtil.isKey(ControlBindUtil.shift,keyCode)) shift(false);
+    else if(testIsHotSlotKey(keyCode,false)) player.inventory.selectSlotWithKeyEvent();
+  }
+  public boolean testIsHotSlotKey(int keyCode,boolean bIn) {
+    boolean[] tba=player.inventory.hotSlotKeyData;
+    int tl=UtilMath.min(tba.length,10);
+    boolean flag=false;
+    if(!bIn&&!tba[0]) return flag;
+    boolean t_tba_0=tba[0];
+    for(int i=0;i<tl;i++) if(ControlBindUtil.isKey(ControlBindUtil.hotSlotStart+i,keyCode)) {
+      tba[i]=bIn;
+      flag=true;
+    }
+    if(!t_tba_0&&tba[0]) for(int i=1;i<tba.length;i++) tba[i]=false;
+    return flag;
+  }
+  public void camScale(float in) {
+    p.cam2d.scaleAdd(in);
+    camScale=p.cam2d.scale.des;
   }
   @Override
   public void touchStarted(TouchInfo info) {
@@ -286,36 +316,5 @@ public class PlayerControllerFull extends PlayerControllerCore{
     selectHotSlot(player.inventory.selectSlot+(int)y);
     player.inventory.testSelectSlot();
     player.inventory.displayState(Inventory.displayHotSlot);
-  }
-  @Override
-  public void keyPressed(char key,int keyCode) {
-    if(keyCode==Keys.SHIFT_LEFT||keyCode==Keys.SHIFT_RIGHT) shift(true);
-    else if(keyCode==Keys.E) player.inventory.displayStateChange();
-    else if(keyCode==Keys.V) shift(!shift);
-    else if(keyCode==Keys.EQUALS) camScale(0.5f);
-    else if(keyCode==Keys.MINUS) camScale(-0.5f);
-    else if(testIsHotSlotKey(keyCode,true)) player.inventory.selectSlotWithKeyEvent();
-  }
-  @Override
-  public void keyReleased(char key,int keyCode) {
-    if(keyCode==Keys.SHIFT_LEFT||keyCode==Keys.SHIFT_RIGHT) shift(false);
-    else if(testIsHotSlotKey(keyCode,false)) player.inventory.selectSlotWithKeyEvent();
-  }
-  public boolean testIsHotSlotKey(int keyCode,boolean bIn) {
-    boolean[] tba=player.inventory.hotSlotKeyData;
-    int tl=UtilMath.min(tba.length,10);
-    boolean flag=false;
-    if(!bIn&&!tba[0]) return flag;
-    boolean t_tba_0=tba[0];
-    for(int i=0;i<tl;i++) if(ControlBindUtil.isKey(ControlBindUtil.hotSlotStart+i,keyCode)) {
-      tba[i]=bIn;
-      flag=true;
-    }
-    if(!t_tba_0&&tba[0]) for(int i=1;i<tba.length;i++) tba[i]=false;
-    return flag;
-  }
-  public void camScale(float in) {
-    p.cam2d.scaleAdd(in);
-    camScale=p.cam2d.scale.des;
   }
 }

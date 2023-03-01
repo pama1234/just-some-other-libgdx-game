@@ -1,6 +1,7 @@
 package pama1234.gdx.game.state.state0001.game.entity;
 
 import pama1234.gdx.game.app.Screen0011;
+import pama1234.gdx.game.state.state0001.game.entity.entity0001.DamageArea;
 import pama1234.gdx.game.state.state0001.game.entity.entity0001.DroppedItem.DroppedItemCenter;
 import pama1234.gdx.game.state.state0001.game.entity.entity0001.MobEntity;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
@@ -21,6 +22,7 @@ public class MultiGameEntityCenter extends MultiEntityCenter<Screen0011,EntityCe
   public MobEntityCenter mobEntities;
   public DroppedItemCenter items;
   public PlayerCenter players;
+  public DamageAreaCenter damageAreas;
   public MultiGameEntityCenter(Screen0011 p,World0001 pw) {
     super(p);
     this.pw=pw;
@@ -101,6 +103,17 @@ public class MultiGameEntityCenter extends MultiEntityCenter<Screen0011,EntityCe
           }
         }
       }
+    }
+  }
+  public static class DamageAreaCenter extends GameEntityCenter<Screen0011,DamageArea<?>>{
+    public DamageAreaCenter(Screen0011 p,MultiGameEntityCenter pc,DamageArea<?> in) {
+      super(p,pc,in);
+    }
+    public DamageAreaCenter(Screen0011 p,MultiGameEntityCenter pc,DamageArea<?>[] in) {
+      super(p,pc,in);
+    }
+    public DamageAreaCenter(Screen0011 p,MultiGameEntityCenter pc) {
+      super(p,pc);
     }
   }
   public static abstract class GameEntityCenter<T extends UtilScreen,E extends EntityListener>extends EntityCenter<T,E>{

@@ -77,6 +77,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     kryo.register(InfoData.class);
     kryo.register(String[].class);
     kryo.register(GameSettingsData.class);
+    kryo.register(int[][].class);
   }
   public static class SettingsData{
     public boolean showEarth=true;

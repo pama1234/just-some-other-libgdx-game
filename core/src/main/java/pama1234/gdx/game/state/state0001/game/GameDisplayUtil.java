@@ -7,7 +7,6 @@ import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
 import pama1234.gdx.game.state.state0001.game.entity.entity0001.DroppedItem;
-import pama1234.gdx.game.state.state0001.game.entity.entity0001.Fly;
 import pama1234.gdx.game.state.state0001.game.entity.entity0001.MobEntity;
 import pama1234.gdx.game.state.state0001.game.entity.util.MovementLimitBox;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
@@ -100,10 +99,8 @@ public class GameDisplayUtil{
           bh=tw.settings.blockHeight;
         MainPlayer tp=tw.yourself;
         drawLimitBox(p,bw,bh,tp.ctrl.limitBox);
-        // for(EntityCenter<Screen0011,? extends GamePointEntity<?>> i:tw.entities.list) for(GamePointEntity<?> e:i.list) drawLimitBox(tw,e,e.limitBox);
-        // for(MobEntity e:tw.entities.mobEntities.list) drawLimitBox(tw,e,e.limitBox);
         for(DroppedItem e:tw.entities.items.list) drawLimitBox(p,bw,bh,e.limitBox);
-        for(MobEntity e:tw.entities.mobEntities.list) if(e instanceof Fly a) drawLimitBox(p,bw,bh,a.limitBox);
+        for(MobEntity e:tw.entities.mobEntities.list) drawLimitBox(p,bw,bh,e.limitBox);
         p.endBlend();
       }
     };
