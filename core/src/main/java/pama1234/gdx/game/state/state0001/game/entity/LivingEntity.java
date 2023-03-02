@@ -33,6 +33,7 @@ public class LivingEntity extends GamePointEntity<MassPoint>{
   public LivingEntity(Screen0011 p,World0001 pw,MassPoint in,MetaCreature<?> type) {
     super(p,pw,in);
     this.type=type;
+    this.typeId=type.id;
     point.step=0.25f;
     outerBox=new OuterBox(this);
     life=new PathVar(type.maxLife);

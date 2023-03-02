@@ -5,6 +5,7 @@ import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.entity.util.MovementLimitBox;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaCreatureCenter0001;
+import pama1234.gdx.game.state.state0001.game.player.Player;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.math.UtilMath;
 
@@ -30,7 +31,16 @@ public class Fly extends MobEntity{
     super.update();
     if((point.vel.x>0)!=flipX) flipX=!flipX;
   }
-  public void findTarget() {}
+  public void findTarget() {
+    if(!checkTarget(pw.yourself)) for(Player e:pw.entities.players.list) if(checkTarget(e)) break;
+  }
+  public boolean checkTarget(Player in) {//TODO
+    if(UtilMath.dist(in.cx(),in.cy(),cx(),cy())<type.intData[0]) {
+      target=in;
+      return true;
+    }
+    return false;
+  }
   public void playerAttract() {
     float minVel=1.2f,maxVel=0.8f;
     float vx=(target.x()-x()),
@@ -52,6 +62,8 @@ public class Fly extends MobEntity{
       naturalMaxCount=4;
       moveSpeed=4;
       spawnDatas=new SpawnData[] {new SpawnData(pc.pw.metaBlocks.air,0.01f)};
+      //---
+      intData=new int[] {36*18};
     }
     @Override
     public void init() {
