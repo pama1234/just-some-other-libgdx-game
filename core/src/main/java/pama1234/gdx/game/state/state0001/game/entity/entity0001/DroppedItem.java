@@ -2,6 +2,8 @@ package pama1234.gdx.game.state.state0001.game.entity.entity0001;
 
 import java.util.Iterator;
 
+import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
+
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
 import pama1234.gdx.game.state.state0001.game.entity.center.MultiGameEntityCenter0001;
@@ -18,10 +20,24 @@ import pama1234.math.physics.MassPoint;
 public class DroppedItem extends LivingEntity{
   public DroppedItemCenter pc;
   public MovementLimitBox limitBox;
+  @Tag(4)
   public Item data;
   //---
-  public int count;
+  public int timeCount;
   public LivingEntity owner;
+  @Deprecated
+  public DroppedItem() {//kryo only
+    super(null,null,null,null);
+  }
+  @Override
+  public void deserializationInit(Screen0011 p,World0001 pw,MetaCreature<?> type) {
+    super.deserializationInit(p,pw,type);
+    //---
+    data.type=pw.metaItems.array()[data.typeId];
+    //---
+    outerBox=limitBox=new MovementLimitBox(this);
+    limitBox.usePlatform=true;
+  }
   public DroppedItem(Screen0011 p,World0001 pw,float x,float y,float xVel,float yVel,DroppedItemType type,Item data) {
     super(p,pw,new MassPoint(x,y,xVel,yVel),type);
     this.data=data;
@@ -37,8 +53,8 @@ public class DroppedItem extends LivingEntity{
     super.update();
     //---
     if(owner!=null) {
-      if(count==0) owner=null;
-      else count--;
+      if(timeCount==0) owner=null;
+      else timeCount--;
     }
   }
   public void itemAttract() {
@@ -65,7 +81,7 @@ public class DroppedItem extends LivingEntity{
   }
   public void owner(LivingEntity e) {
     owner=e;
-    count=60;
+    timeCount=60;
   }
   public static void dropItem_2(Screen0011 p,LivingEntity pe,float x,float y,World0001 world,float randomConst,Item e) {
     DroppedItem out=new DroppedItem(p,world,

@@ -28,10 +28,18 @@ public class LivingEntity extends GamePointEntity<MassPoint>{
   public PathVarLighting light;
   public LivingEntity(Screen0011 p,World0001 pw,MassPoint in,MetaCreature<?> type) {
     super(p,pw,in);
+    this.type=type;
     point.step=0.25f;
     outerBox=new OuterBox(this);
-    this.type=type;
     life=new PathVar(type.maxLife);
+    light=new PathVarLighting();
+  }
+  public void deserializationInit(Screen0011 p,World0001 pw,MetaCreature<?> type) {
+    this.p=p;
+    this.pw=pw;
+    this.type=type;
+    //---
+    outerBox=new OuterBox(this);
     light=new PathVarLighting();
   }
   @Override

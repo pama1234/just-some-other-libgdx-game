@@ -3,10 +3,13 @@ package pama1234.gdx.game.state.state0001.game.region;
 import com.badlogic.gdx.Gdx;
 
 import pama1234.gdx.game.app.Screen0011;
+import pama1234.gdx.game.state.state0001.game.entity.GamePointEntity;
+import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
 import pama1234.gdx.game.state.state0001.game.entity.center.MultiGameEntityCenter;
 import pama1234.gdx.game.state.state0001.game.item.Item;
 import pama1234.gdx.game.state.state0001.game.item.Item.ItemSlot;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
+import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
 import pama1234.gdx.game.state.state0001.game.region.Chunk.BlockData;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
@@ -75,8 +78,15 @@ public class RegionGenerator{
         }
       }
     }
-    pe.acceptAll(region.entities);
-    region.entities=null;
+    if(region.entities!=null) {
+      System.out.println(region.x+" "+region.y+" entities="+region.entities.length);
+      for(GamePointEntity<?> e:region.entities) System.out.println(e.getClass()+" "+e.point.pos);
+      //---
+      MetaCreature<?>[] mcreature=world.metaEntitys.array();
+      for(GamePointEntity<?> e:region.entities) if(e instanceof LivingEntity a) a.deserializationInit(p,world,mcreature[a.typeId]);
+      pe.acceptAll(region.entities);
+      region.entities=null;
+    }
   }
   public int x(int x1,int x2,int x3) {
     return (x1*pr.data.regionWidth+x2)*pr.data.chunkWidth+x3;

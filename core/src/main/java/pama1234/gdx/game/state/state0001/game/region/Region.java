@@ -22,7 +22,9 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
   public int x,y;
   @Tag(0)
   public Chunk[][] data;
+  // @Tag(1)
   public GamePointEntity<?>[] entities;
+  // public LivingEntity[] entities;
   public boolean keep;//用于测试是否需要加载卸载
   @Deprecated
   public Region() {//只能用于kryo
@@ -50,9 +52,12 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
     if(p.settings.printLog) System.out.println("inner save region "+x+" "+y);
     boolean needSaveChunk=removeUnchanged();
     if(!needSaveChunk) data=null;
-    // float w=pr.data.chunkWidth*pr.data.regionWidth*pr.pw.settings.blockWidth;
-    // float h=pr.data.chunkHeight*pr.data.regionHeight*pr.pw.settings.blockHeight;
-    // entities=pr.pw.entities.getAllInRect(x*w,y*h,w,h,true);
+    float w=pr.data.chunkWidth*pr.data.regionWidth*pr.pw.settings.blockWidth;
+    float h=pr.data.chunkHeight*pr.data.regionHeight*pr.pw.settings.blockHeight;
+    // System.out.println(w+" "+h);
+    entities=pr.pw.entities.getAllInRect(x*w,y*h,w,h,true);
+    System.out.println(x+" "+y+" entities="+entities.length);
+    for(GamePointEntity<?> e:entities) System.out.println(e.getClass()+" "+e.point);
     KryoUtil.save(kryo,dataLocation,this);
   }
   public boolean removeUnchanged() {

@@ -22,7 +22,7 @@ public class MultiGameEntityCenter0001 extends MultiGameEntityCenter{
   public PlayerCenter players;
   public DamageAreaCenter damageAreas;
   //---
-  public LinkedList<GamePointEntity<?>> cachedEntity;
+  public LinkedList<GamePointEntity<?>> cachedEntity=new LinkedList<>();
   public MultiGameEntityCenter0001(Screen0011 p,World0001 pw) {
     super(p,pw);
     this.pw=pw;
@@ -38,7 +38,8 @@ public class MultiGameEntityCenter0001 extends MultiGameEntityCenter{
   }
   @Override
   public void acceptAll(GamePointEntity<?>[] entities) {
-    if(entities!=null) for(GamePointEntity<?> e:entities) accept(e);
+    // if(entities!=null)
+    for(GamePointEntity<?> e:entities) accept(e);
   }
   public void accept(GamePointEntity<?> e) {
     if(e instanceof MobEntity a) mobEntities.add.add(a);

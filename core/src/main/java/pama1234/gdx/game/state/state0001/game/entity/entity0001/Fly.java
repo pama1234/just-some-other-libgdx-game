@@ -16,12 +16,15 @@ public class Fly extends MobEntity{
   @Override
   public void update() {
     limitBox.preCtrlUpdate();
-    playerAttract();
+    if(target==null) findTarget();
+    else playerAttract();
     super.update();
     if((point.vel.x>0)!=flipX) flipX=!flipX;
   }
+  public void findTarget() {
+    
+  }
   public void playerAttract() {
-    if(target==null) return;
     float minVel=1.2f,maxVel=0.8f;
     float vx=(target.x()-x()),
       vy=(target.y()-y());
