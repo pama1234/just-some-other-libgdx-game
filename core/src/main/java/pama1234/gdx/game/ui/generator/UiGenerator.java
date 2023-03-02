@@ -18,13 +18,13 @@ public class UiGenerator{
   public static <T extends Screen0011> TextButtonCam<?>[] genButtons_0010(Screen0011 p,Block in) {
     return new TextButtonCam[] {
       new TextButtonCam<Screen0011>(p,true,()->true,self-> {},self-> {},self-> {
-        in.intData[0]-=1;
-        // if(in.intData[0]<0) in.intData[0]+=in.type.intData[0];
-      },self->self.text="-",()->18,()->in.intData[2]+45,()->in.intData[3]),
+        //---
+      },self->self.text="背包显示方式：同心圆（未实现）",()->18,()->in.intData[2]-20,()->in.intData[3]),
       new TextButtonCam<Screen0011>(p,true,()->true,self-> {},self-> {},self-> {
-        in.intData[0]+=1;
-        // if(in.intData[0]>=in.type.intData[0]) in.intData[0]-=in.type.intData[0];
-      },self->self.text="+",()->18,()->in.intData[2]+71,()->in.intData[3]),
+        in.type.pc.pw.timeF=0;
+        in.type.pc.pw.data.tick=0;
+        in.type.pc.pw.data.time=12000;
+      },self->self.text="重置世界时间",()->18,()->in.intData[2]-20,()->in.intData[3]+20),
     };
   }
   public static <T extends Screen0011> TextButtonCam<?>[] genButtons_0009(Screen0011 p,Block in) {

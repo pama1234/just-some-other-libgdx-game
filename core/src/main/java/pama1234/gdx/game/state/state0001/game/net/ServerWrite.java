@@ -71,13 +71,13 @@ public class ServerWrite extends Thread{
     for(Region e:p.world.regions.list) {
       for(int i=0;i<e.data.length;i++) for(int j=0;j<e.data[i].length;j++) {
         Chunk chunk=e.data[i][j];
-        float tx_2=((e.x*pr.regionWidth+(i+0.5f))*pr.chunkWidth),
-          ty_2=((e.y*pr.regionHeight+(j+0.5f))*pr.chunkHeight);
+        float tx_2=((e.x*pr.data.regionWidth+(i+0.5f))*pr.data.chunkWidth),
+          ty_2=((e.y*pr.data.regionHeight+(j+0.5f))*pr.data.chunkHeight);
         float dist=UtilMath.dist(tx_2,ty_2,tcx,tcy);
-        if(dist<p.world.regions.netTransferDist) {
+        if(dist<p.world.regions.data.netTransferDist) {
           boolean flag=true;
-          int tx=e.x*pr.regionWidth+i,
-            ty=e.y*pr.regionHeight+j;
+          int tx=e.x*pr.data.regionWidth+i,
+            ty=e.y*pr.data.regionHeight+j;
           for(NetChunkData n:chunks.list) {
             if(n.is(tx,ty)) {
               flag=false;
@@ -97,7 +97,7 @@ public class ServerWrite extends Thread{
         }
       }
     }
-    for(NetChunkData n:chunks.list) if(UtilMath.dist(n.x,n.y,tcx,tcy)>p.world.regions.netRemoveDist&&
+    for(NetChunkData n:chunks.list) if(UtilMath.dist(n.x,n.y,tcx,tcy)>p.world.regions.data.netRemoveDist&&
       !chunks.remove.contains(n)) chunks.remove.add(n);
   }
   public void writeChunks() {

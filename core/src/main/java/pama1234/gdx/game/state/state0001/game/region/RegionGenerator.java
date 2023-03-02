@@ -36,14 +36,14 @@ public class RegionGenerator{
     MetaBlock[] mblock=world.metaBlocks.array();
     MetaItem[] mitem=world.metaItems.array();
     Chunk[][] data=region.data;
-    if(data==null) data=region.data=new Chunk[pr.regionWidth][pr.regionHeight];
+    if(data==null) data=region.data=new Chunk[pr.data.regionWidth][pr.data.regionHeight];
     for(int i=0;i<data.length;i++) for(int j=0;j<data[i].length;j++) {
       Chunk tc=data[i][j];
       if(tc!=null) {
         if(tc.p==null) tc.innerInit(region);
       }else {
         tc=data[i][j]=new Chunk(region);
-        tc.data=new BlockData[pr.chunkWidth][pr.chunkHeight];
+        tc.data=new BlockData[pr.data.chunkWidth][pr.data.chunkHeight];
       }
       Chunk chunk=data[i][j];
       BlockData[][] blockData=chunk.data;
@@ -74,9 +74,9 @@ public class RegionGenerator{
     }
   }
   public int x(int x1,int x2,int x3) {
-    return (x1*pr.regionWidth+x2)*pr.chunkWidth+x3;
+    return (x1*pr.data.regionWidth+x2)*pr.data.chunkWidth+x3;
   }
   public int y(int y1,int y2,int y3) {
-    return (y1*pr.regionHeight+y2)*pr.chunkHeight+y3;
+    return (y1*pr.data.regionHeight+y2)*pr.data.chunkHeight+y3;
   }
 }

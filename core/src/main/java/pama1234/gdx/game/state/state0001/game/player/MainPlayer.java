@@ -36,6 +36,7 @@ public class MainPlayer extends Player implements LoadAndSave{
   public void display() {
     super.display();
     ctrl.display();
+    p.noTint();
     inventory.display();
     p.noTint();
   }

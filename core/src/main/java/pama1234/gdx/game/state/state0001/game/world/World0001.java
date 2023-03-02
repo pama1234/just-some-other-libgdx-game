@@ -9,7 +9,7 @@ import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.State0001;
-import pama1234.gdx.game.state.state0001.game.entity.MultiGameEntityCenter;
+import pama1234.gdx.game.state.state0001.game.entity.center.MultiGameEntityCenter0001;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
@@ -36,7 +36,7 @@ public class World0001 extends WorldBase2D{
   public MetaItemCenter0001 metaItems;//物品
   public MetaCreatureCenter0001 metaEntitys;//生物
   //---
-  public MultiGameEntityCenter entities;//实体
+  public MultiGameEntityCenter0001 entities;//实体
   public RegionCenter regions;//地图系统
   public BackgroundCenter background;//背景
   //---
@@ -58,7 +58,7 @@ public class World0001 extends WorldBase2D{
     metaEntitys=World0001Generator.createCreatureC(this);
     list[0]=background=new BackgroundCenter(p,this);
     list[1]=regions=new RegionCenter(p,this);
-    list[2]=entities=new MultiGameEntityCenter(p,this);
+    list[2]=entities=new MultiGameEntityCenter0001(p,this);
     r=new RegionWrapper(this);
     yourself=new MainPlayer(p,this,0,0,Gdx.files.local(data.dir+"/main-player.bin"));
     createBackground();

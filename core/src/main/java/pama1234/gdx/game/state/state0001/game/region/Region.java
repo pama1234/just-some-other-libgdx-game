@@ -67,14 +67,14 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
   }
   @Override
   public void update() {
-    int tx_1=x*pr.regionWidth,
-      ty_1=y*pr.regionHeight;
+    int tx_1=x*pr.data.regionWidth,
+      ty_1=y*pr.data.regionHeight;
     for(int i=0;i<data.length;i++) for(int j=0;j<data[i].length;j++) {
       Chunk chunk=data[i][j];
       if(!chunk.update) continue;//TODO
       BlockData[][] blockData=chunk.data;
-      int tx_2=(tx_1+i)*pr.chunkWidth,
-        ty_2=(ty_1+j)*pr.chunkHeight;
+      int tx_2=(tx_1+i)*pr.data.chunkWidth,
+        ty_2=(ty_1+j)*pr.data.chunkHeight;
       for(int n=0;n<blockData.length;n++) for(int m=0;m<blockData[n].length;m++) {
         BlockData tbd=blockData[n][m];
         // if(tbd==null) continue;
@@ -89,15 +89,15 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
     }
   }
   public void netClientUpdate() {
-    int tx_1=x*pr.regionWidth,
-      ty_1=y*pr.regionHeight;
+    int tx_1=x*pr.data.regionWidth,
+      ty_1=y*pr.data.regionHeight;
     for(int i=0;i<data.length;i++) for(int j=0;j<data[i].length;j++) {
       Chunk chunk=data[i][j];
       if(chunk==null) continue;
       // if(!chunk.update) continue;//TODO
       BlockData[][] blockData=chunk.data;
-      int tx_2=(tx_1+i)*pr.chunkWidth,
-        ty_2=(ty_1+j)*pr.chunkHeight;
+      int tx_2=(tx_1+i)*pr.data.chunkWidth,
+        ty_2=(ty_1+j)*pr.data.chunkHeight;
       for(int n=0;n<blockData.length;n++) for(int m=0;m<blockData[n].length;m++) {
         BlockData tbd=blockData[n][m];
         // Block block=tbd==null?pr.nullBlock:tbd.block;
@@ -114,11 +114,11 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
   }
   public void forLoopDisplay() {
     World0001 world=pr.pw;
-    int tcw=pr.chunkWidth*world.settings.blockWidth,
-      tch=pr.chunkHeight*world.settings.blockHeight;
-    int rx=x*pr.regionWidth,
-      ry=y*pr.regionHeight;
-    if(!p.cam2d.boxIntersect(rx*tcw,ry*tch,tcw*pr.regionWidth,tch*pr.regionHeight)) return;
+    int tcw=pr.data.chunkWidth*world.settings.blockWidth,
+      tch=pr.data.chunkHeight*world.settings.blockHeight;
+    int rx=x*pr.data.regionWidth,
+      ry=y*pr.data.regionHeight;
+    if(!p.cam2d.boxIntersect(rx*tcw,ry*tch,tcw*pr.data.regionWidth,tch*pr.data.regionHeight)) return;
     for(int i=0;i<data.length;i++) for(int j=0;j<data[i].length;j++) {
       Chunk chunk=data[i][j];
       BlockData[][] blockData=chunk.data;
@@ -128,8 +128,8 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
       for(int n=0;n<blockData.length;n++) for(int m=0;m<blockData[n].length;m++) {
         Block block=blockData[n][m].block;
         MetaBlock blockType=block.type;
-        int txi=(rx+i)*pr.chunkWidth+n,
-          tyi=(ry+j)*pr.chunkHeight+m;
+        int txi=(rx+i)*pr.data.chunkWidth+n,
+          tyi=(ry+j)*pr.data.chunkHeight+m;
         int tx=txi*world.settings.blockWidth,
           ty=tyi*world.settings.blockHeight;
         blockType.updateDisplay(world,block,txi,tyi);
@@ -141,14 +141,14 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
     p.noTint();
   }
   public void updateDisplay(long sleep) {
-    int tx_1=x*pr.regionWidth,
-      ty_1=y*pr.regionHeight;
+    int tx_1=x*pr.data.regionWidth,
+      ty_1=y*pr.data.regionHeight;
     for(int i=0;i<data.length;i++) for(int j=0;j<data[i].length;j++) {
       Chunk chunk=data[i][j];
       if(!chunk.update) continue;//TODO
       BlockData[][] blockData=chunk.data;
-      int tx_2=(tx_1+i)*pr.chunkWidth,
-        ty_2=(ty_1+j)*pr.chunkHeight;
+      int tx_2=(tx_1+i)*pr.data.chunkWidth,
+        ty_2=(ty_1+j)*pr.data.chunkHeight;
       for(int n=0;n<blockData.length;n++) for(int m=0;m<blockData[n].length;m++) {
         BlockData tbd=blockData[n][m];
         // if(tbd==null) continue;
@@ -168,14 +168,14 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
     }
   }
   public void updateDisplay() {
-    int tx_1=x*pr.regionWidth,
-      ty_1=y*pr.regionHeight;
+    int tx_1=x*pr.data.regionWidth,
+      ty_1=y*pr.data.regionHeight;
     for(int i=0;i<data.length;i++) for(int j=0;j<data[i].length;j++) {
       Chunk chunk=data[i][j];
-      if(!chunk.update||chunk.priority>pr.chunkUpdateDisplayDist) continue;//TODO
+      if(!chunk.update||chunk.priority>pr.data.chunkUpdateDisplayDist) continue;//TODO
       BlockData[][] blockData=chunk.data;
-      int tx_2=(tx_1+i)*pr.chunkWidth,
-        ty_2=(ty_1+j)*pr.chunkHeight;
+      int tx_2=(tx_1+i)*pr.data.chunkWidth,
+        ty_2=(ty_1+j)*pr.data.chunkHeight;
       for(int n=0;n<blockData.length;n++) for(int m=0;m<blockData[n].length;m++) {
         BlockData tbd=blockData[n][m];
         // if(tbd==null) continue;

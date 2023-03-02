@@ -4,8 +4,8 @@ import java.util.Iterator;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
-import pama1234.gdx.game.state.state0001.game.entity.MultiGameEntityCenter;
-import pama1234.gdx.game.state.state0001.game.entity.MultiGameEntityCenter.GameEntityCenter;
+import pama1234.gdx.game.state.state0001.game.entity.center.MultiGameEntityCenter0001;
+import pama1234.gdx.game.state.state0001.game.entity.center.MultiGameEntityCenter0001.GameEntityCenter;
 import pama1234.gdx.game.state.state0001.game.entity.util.MovementLimitBox;
 import pama1234.gdx.game.state.state0001.game.item.Item;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
@@ -81,7 +81,7 @@ public class DroppedItem extends LivingEntity{
   }
   public static class DroppedItemCenter extends GameEntityCenter<Screen0011,DroppedItem>{
     public float itemMergeMoveDist=54,itemMergeDist=18;
-    public DroppedItemCenter(Screen0011 p,MultiGameEntityCenter pc) {
+    public DroppedItemCenter(Screen0011 p,MultiGameEntityCenter0001 pc) {
       super(p,pc);
     }
   }

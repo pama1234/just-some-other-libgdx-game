@@ -7,7 +7,6 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
-import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
@@ -22,34 +21,31 @@ import pama1234.math.UtilMath;
 import pama1234.util.function.GetBoolean;
 
 public class RegionCenter extends EntityCenter<Screen0011,Region> implements LoadAndSave{
-  public static class RegionData{
-    @Tag(0)
+  public static class RegionCenterData{
     public String name;
-    @Tag(1)
     public int version;
-    // public IntMap<String> idToNameMap;
-    public RegionData(String name,int version) {
+    //---
+    public int regionWidth=4,regionHeight=4;
+    public int chunkWidth=64,chunkHeight=64;
+    public float regionLoadDist=360;
+    public int regionLoadDistInt=1;
+    public float chunkRemoveDist=360,regionRemoveDist=512;
+    public float chunkUpdateDisplayDist=60;
+    public float netTransferDist=120;
+    public float netRemoveDist=240;
+    public RegionCenterData(String name,int version) {
       this.name=name;
       this.version=version;
     }
   }
   public World0001 pw;
-  public RegionData data;
+  public RegionCenterData data;
   public FileHandle dataLocation;
-  public int regionWidth=4,regionHeight=4;
-  public int chunkWidth=64,chunkHeight=64;
-  public float regionLoadDist=360;
-  public int regionLoadDistInt=1;
-  public float chunkRemoveDist=360,regionRemoveDist=512;
-  public float chunkUpdateDisplayDist=60;
-  public float netTransferDist=120;
-  public float netRemoveDist=240;
   public RegionPool pool;
   public LoopThread[] loops;
   public LoopThread updateLoop,updateDisplayLoop;
   public LoopThread priorityUpdateDisplayLoop;
   public boolean stop;
-  // public LoopThread fullMapUpdateDisplayLoop;
   public TilemapRenderer0001 tilemapRenderer;
   public Region cachedRegion;
   //---
@@ -62,12 +58,11 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   public RegionCenter(Screen0011 p,World0001 pw,FileHandle metadata) {
     super(p);
     this.pw=pw;
-    data=new RegionData("firstRegion",0);
+    data=new RegionCenterData("firstRegion",0);
     this.dataLocation=metadata;
     pool=new RegionPool(p,this,0);//TODO
     loops=new LoopThread[3];
     updateLoop=loops[0]=createUpdateLoop();
-    // fullMapUpdateDisplayLoop=loops[1]=createFullMapUpdateDisplayLoop();
     updateDisplayLoop=loops[1]=createUpdateDisplayLoop();
     priorityUpdateDisplayLoop=loops[2]=createPriorityUpdateDisplayLoop();
     for(LoopThread e:loops) e.stop=stopLoop;
@@ -78,7 +73,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     //---
     nullBlock=new Block(pw.metaBlocks.nullBlock);
     fakeChunk=new Chunk(null);
-    fakeChunk.data=new BlockData[chunkWidth][chunkHeight];
+    fakeChunk.data=new BlockData[data.chunkWidth][data.chunkHeight];
     BlockData[][] blockData=fakeChunk.data;
     BlockData fakeBlockData=new BlockData(nullBlock);
     for(int i=0;i<blockData.length;i++) for(int j=0;j<blockData[i].length;j++) {
@@ -153,18 +148,18 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     float tcx=player.cx()/pw.settings.blockWidth,
       tcy=player.cy()/pw.settings.blockHeight;
     for(Region e:list) {
-      float tx_1=(((e.x+0.5f)*regionWidth)*chunkWidth),
-        ty_1=(((e.y+0.5f)*regionHeight)*chunkHeight);
-      boolean tb_1=UtilMath.dist(tx_1,ty_1,tcx,tcy)<regionRemoveDist;
+      float tx_1=(((e.x+0.5f)*data.regionWidth)*data.chunkWidth),
+        ty_1=(((e.y+0.5f)*data.regionHeight)*data.chunkHeight);
+      boolean tb_1=UtilMath.dist(tx_1,ty_1,tcx,tcy)<data.regionRemoveDist;
       if(tb_1) e.keep=true;
       for(int i=0;i<e.data.length;i++) {
         for(int j=0;j<e.data[i].length;j++) {
           Chunk chunk=e.data[i][j];
-          float tx_2=((e.x*regionWidth+(i+0.5f))*chunkWidth),
-            ty_2=((e.y*regionHeight+(j+0.5f))*chunkHeight);
+          float tx_2=((e.x*data.regionWidth+(i+0.5f))*data.chunkWidth),
+            ty_2=((e.y*data.regionHeight+(j+0.5f))*data.chunkHeight);
           float dist=UtilMath.dist(tx_2,ty_2,tcx,tcy);
           if(chunk.priority<dist) chunk.priority=dist;
-          boolean tb_2=dist<chunkRemoveDist;
+          boolean tb_2=dist<data.chunkRemoveDist;
           if(tb_2) chunk.update=true;
         }
       }
@@ -175,17 +170,17 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     testAddChunkWithPlayer(pw.yourself);//TODO
   }
   public void testAddChunkWithPlayer(Player player) {
-    int tx_1=UtilMath.round(player.cx()/(regionWidth*chunkWidth*pw.settings.blockWidth)),
-      ty_1=UtilMath.round(player.cy()/(regionHeight*chunkHeight*pw.settings.blockHeight));
+    int tx_1=UtilMath.round(player.cx()/(data.regionWidth*data.chunkWidth*pw.settings.blockWidth)),
+      ty_1=UtilMath.round(player.cy()/(data.regionHeight*data.chunkHeight*pw.settings.blockHeight));
     float tx_2=player.cx()/pw.settings.blockWidth,
       ty_2=player.cy()/pw.settings.blockHeight;
-    for(int i=-regionLoadDistInt;i<=regionLoadDistInt;i++) {
-      for(int j=-regionLoadDistInt;j<=regionLoadDistInt;j++) {
+    for(int i=-data.regionLoadDistInt;i<=data.regionLoadDistInt;i++) {
+      for(int j=-data.regionLoadDistInt;j<=data.regionLoadDistInt;j++) {
         int tx_3=tx_1+i,
           ty_3=ty_1+j;
-        float tx_4=(((tx_3+0.5f)*regionWidth)*chunkWidth),
-          ty_4=(((ty_3+0.5f)*regionHeight)*chunkHeight);
-        if(UtilMath.dist(tx_2,ty_2,tx_4,ty_4)<regionLoadDist) {
+        float tx_4=(((tx_3+0.5f)*data.regionWidth)*data.chunkWidth),
+          ty_4=(((ty_3+0.5f)*data.regionHeight)*data.chunkHeight);
+        if(UtilMath.dist(tx_2,ty_2,tx_4,ty_4)<data.regionLoadDist) {
           boolean flag=testRegionPosInList(tx_3,ty_3,list)||testRegionPosInList(tx_3,ty_3,add);
           if(!flag) add.add(pool.get(tx_3,ty_3));
         }
@@ -301,10 +296,10 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     });
   }
   public Block getBlock(int x,int y) {
-    int cx=UtilMath.floor((float)x/chunkWidth),cy=UtilMath.floor((float)y/chunkHeight);
-    int tx=UtilMath.floor((float)cx/regionWidth),ty=UtilMath.floor((float)cy/regionHeight);
-    int prx=Tools.moveInRange(cx,0,regionWidth),pry=Tools.moveInRange(cy,0,regionHeight);
-    int px=Tools.moveInRange(x,0,chunkWidth),py=Tools.moveInRange(y,0,chunkHeight);
+    int cx=UtilMath.floor((float)x/data.chunkWidth),cy=UtilMath.floor((float)y/data.chunkHeight);
+    int tx=UtilMath.floor((float)cx/data.regionWidth),ty=UtilMath.floor((float)cy/data.regionHeight);
+    int prx=Tools.moveInRange(cx,0,data.regionWidth),pry=Tools.moveInRange(cy,0,data.regionHeight);
+    int px=Tools.moveInRange(x,0,data.chunkWidth),py=Tools.moveInRange(y,0,data.chunkHeight);
     Region tr=getRegions(tx,ty);
     if(tr==null) return nullBlock;
     Chunk chunk=tr.data[prx][pry];
@@ -314,8 +309,8 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     return blockData.block;
   }
   public void addChunk(int cx,int cy,Chunk chunk) {
-    int tx=UtilMath.floor((float)cx/regionWidth),ty=UtilMath.floor((float)cy/regionHeight);
-    int prx=Tools.moveInRange(cx,0,regionWidth),pry=Tools.moveInRange(cy,0,regionHeight);
+    int tx=UtilMath.floor((float)cx/data.regionWidth),ty=UtilMath.floor((float)cy/data.regionHeight);
+    int prx=Tools.moveInRange(cx,0,data.regionWidth),pry=Tools.moveInRange(cy,0,data.regionHeight);
     Region tr=getRegions(tx,ty);
     if(tr==null) synchronized(add) {//TODO
       for(Region r:add) if(r.x==tx&&r.y==ty) {
@@ -326,7 +321,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
         add.add(tr=new Region(p,this,tx,ty,null));
         Chunk[][] data=tr.data;
         if(data==null) {
-          data=tr.data=new Chunk[regionWidth][regionHeight];
+          data=tr.data=new Chunk[this.data.regionWidth][this.data.regionHeight];
           for(int i=0;i<data.length;i++) for(int j=0;j<data[i].length;j++) {
             data[i][j]=fakeChunk;
           }
@@ -337,8 +332,8 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     tr.data[prx][pry]=chunk;
   }
   public void removeChunk(int cx,int cy) {
-    int tx=UtilMath.floor((float)cx/regionWidth),ty=UtilMath.floor((float)cy/regionHeight);
-    int prx=Tools.moveInRange(cx,0,regionWidth),pry=Tools.moveInRange(cy,0,regionHeight);
+    int tx=UtilMath.floor((float)cx/data.regionWidth),ty=UtilMath.floor((float)cy/data.regionHeight);
+    int prx=Tools.moveInRange(cx,0,data.regionWidth),pry=Tools.moveInRange(cy,0,data.regionHeight);
     Region tr=getRegions(tx,ty);
     if(tr!=null) tr.data[prx][pry]=null;
   }
