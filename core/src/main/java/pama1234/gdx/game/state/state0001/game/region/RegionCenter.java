@@ -60,7 +60,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     this.pw=pw;
     data=new RegionCenterData("firstRegion",0);
     this.dataLocation=metadata;
-    pool=new RegionPool(p,this,0);//TODO
+    pool=new RegionPool(p,this,pw.entities,0);//TODO
     loops=new LoopThread[3];
     updateLoop=loops[0]=createUpdateLoop();
     updateDisplayLoop=loops[1]=createUpdateDisplayLoop();

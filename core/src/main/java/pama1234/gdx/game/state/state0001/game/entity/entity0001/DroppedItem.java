@@ -17,8 +17,11 @@ import pama1234.math.physics.MassPoint;
 
 public class DroppedItem extends LivingEntity{
   public DroppedItemCenter pc;
-  public Item data;
   public MovementLimitBox limitBox;
+  public Item data;
+  //---
+  public int count;
+  public LivingEntity owner;
   public DroppedItem(Screen0011 p,World0001 pw,float x,float y,float xVel,float yVel,DroppedItemType type,Item data) {
     super(p,pw,new MassPoint(x,y,xVel,yVel),type);
     this.data=data;
@@ -32,6 +35,11 @@ public class DroppedItem extends LivingEntity{
     itemAttract();
     if(limitBox.inAir) point.vel.y+=pw.settings.g;
     super.update();
+    //---
+    if(owner!=null) {
+      if(count==0) owner=null;
+      else count--;
+    }
   }
   public void itemAttract() {
     Iterator<DroppedItem> di=pc.list.descendingIterator();
@@ -55,14 +63,18 @@ public class DroppedItem extends LivingEntity{
   public void display() {
     p.image(data.type.tiles[0],x()+type.dx,y()+type.dy,type.w,type.h);
   }
-  public static void dropItem_2(Screen0011 p,float x,float y,World0001 world,float randomConst,Item e) {
-    world.entities.items.add.add(
-      new DroppedItem(p,world,
-        x,y,
-        // 0,0,
-        world.random(-randomConst,randomConst)*world.settings.blockWidth,
-        world.random(randomConst/2,randomConst)*world.settings.blockHeight,
-        world.metaEntitys.droppedItem,e));
+  public void owner(LivingEntity e) {
+    owner=e;
+    count=60;
+  }
+  public static void dropItem_2(Screen0011 p,LivingEntity pe,float x,float y,World0001 world,float randomConst,Item e) {
+    DroppedItem out=new DroppedItem(p,world,
+      x,y,
+      world.random(-randomConst,randomConst)*world.settings.blockWidth,
+      world.random(-randomConst/2,-randomConst)*world.settings.blockHeight,
+      world.metaEntitys.droppedItem,e);
+    out.owner(pe);
+    world.entities.items.add.add(out);
   }
   public static void dropItem(Screen0011 p,int x,int y,World0001 world,boolean ceilingEmpty,float randomConst,Item e) {
     world.entities.items.add.add(

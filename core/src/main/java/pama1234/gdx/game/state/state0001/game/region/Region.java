@@ -48,8 +48,8 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
   @Override
   public void save() {//TODO
     if(p.settings.printLog) System.out.println("inner save region "+x+" "+y);
-    boolean tb_1=removeUnchanged();
-    if(tb_1) KryoUtil.save(kryo,dataLocation,this);
+    boolean needSave=removeUnchanged();
+    if(needSave) KryoUtil.save(kryo,dataLocation,this);
   }
   public boolean removeUnchanged() {
     boolean out=false;
@@ -179,7 +179,7 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
         ty_2=(ty_1+j)*pr.data.chunkHeight;
       for(int n=0;n<blockData.length;n++) for(int m=0;m<blockData[n].length;m++) {
         BlockData tbd=blockData[n][m];
-        // if(tbd==null) continue;
+        if(tbd==null) continue;//TODO
         Block block=tbd.block;
         MetaBlock blockType=block.type;
         if(blockType==null) continue;

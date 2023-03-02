@@ -90,6 +90,7 @@ public class PlayerControllerCore extends Entity<Screen0011>{
   public void updatePickItem() {
     for(DroppedItem e:corePlayer.pw.entities.items.list) {
       float td=UtilMath.dist(corePlayer.x(),corePlayer.y(),e.x(),e.y());
+      if(e.owner==corePlayer) continue;
       if(td<itemPickDist) {
         corePlayer.inventory.accept(e.data);
         corePlayer.pw.entities.items.remove.add(e);

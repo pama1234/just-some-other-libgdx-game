@@ -58,13 +58,13 @@ public class Inventory{
       case allItem: {
         if(item!=null) {
           holdSlot.data.item=null;
-          pe.pw.dropItem(item,pe.cx(),pe.cy());
+          pe.pw.dropItem(pe,item,pe.cx(),pe.cy());
         }
       }
         break;
       case oneItem: {
         if(item!=null) {
-          pe.pw.dropItem(item.type.createItem(1),pe.cx(),pe.cy());
+          pe.pw.dropItem(pe,item.type.createItem(1),pe.cx(),pe.cy());
           item.count-=1;
           if(item.count==0) holdSlot.data.item=null;
         }

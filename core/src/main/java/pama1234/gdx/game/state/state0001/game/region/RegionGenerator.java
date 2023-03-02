@@ -3,6 +3,7 @@ package pama1234.gdx.game.state.state0001.game.region;
 import com.badlogic.gdx.Gdx;
 
 import pama1234.gdx.game.app.Screen0011;
+import pama1234.gdx.game.state.state0001.game.entity.center.MultiGameEntityCenter;
 import pama1234.gdx.game.state.state0001.game.item.Item;
 import pama1234.gdx.game.state.state0001.game.item.Item.ItemSlot;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
@@ -17,11 +18,13 @@ import pama1234.math.hash.Random2f;
 public class RegionGenerator{
   public Screen0011 p;
   public RegionCenter pr;
+  public MultiGameEntityCenter pe;
   public PerlinNoise2f noise;
   public Random2f rng;
-  public RegionGenerator(Screen0011 p,RegionCenter pr,float seed) {
+  public RegionGenerator(Screen0011 p,RegionCenter pr,MultiGameEntityCenter pe,float seed) {
     this.p=p;
     this.pr=pr;
+    this.pe=pe;
     noise=new PerlinNoise2f(new HashNoise2f(seed));//TODO
     rng=new Random2f(seed);
   }

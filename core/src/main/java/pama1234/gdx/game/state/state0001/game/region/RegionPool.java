@@ -4,13 +4,14 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import pama1234.gdx.game.app.Screen0011;
+import pama1234.gdx.game.state.state0001.game.entity.center.MultiGameEntityCenter;
 
 public class RegionPool{
   public RegionGenerator gen;
   public int maxSize=10;//缓冲区最大区块数量，区块分大区块和小区块，这里指大区块
   public LinkedList<Region> data;
-  public RegionPool(Screen0011 p,RegionCenter pr,float seed) {
-    gen=new RegionGenerator(p,pr,seed);
+  public RegionPool(Screen0011 p,RegionCenter pr,MultiGameEntityCenter pe,float seed) {
+    gen=new RegionGenerator(p,pr,pe,seed);
     data=new LinkedList<>();
   }
   public Region get(int x,int y) {
@@ -31,9 +32,6 @@ public class RegionPool{
     data.addLast(in);
     if(data.size()>maxSize) data.removeFirst().save();
   }
-  // public void dispose() {
-  //   saveAndClear();
-  // }
   public void saveAndClear() {
     for(Region e:data) e.save();
     data.clear();
