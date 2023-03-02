@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:onClick="doExit"
-        android:text="退出" />
+        android:text="@string/taptap_inform_decline" />
 
     <Button
         android:id="@+id/button2"
@@ -27,5 +27,5 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:onClick="enterGame"
-        android:text="本人同意以上协议" />
+        android:text="@string/taptap_inform_accept" />
 </LinearLayout>

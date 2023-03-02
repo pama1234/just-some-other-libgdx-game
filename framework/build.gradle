@@ -2,9 +2,9 @@
 eclipse.project.name = appName + '-framework'
 
 dependencies {
-  implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+  compileOnly "com.badlogicgames.gdx:gdx:$gdxVersion"
 
-  api project(':server-framework')
+  compileOnly project(':server-framework')
 
   api "com.github.lyze237:gdx-TinyVG:$gdxTinyVGVersion"
   api "space.earlygrey:shapedrawer:$gdxShapeDrawerVersion"
