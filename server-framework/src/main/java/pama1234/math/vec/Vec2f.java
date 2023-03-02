@@ -130,4 +130,7 @@ public class Vec2f extends Vector2f implements ByteBufferData{
   public int bufferSize() {
     return buffer_size;
   }
+  public boolean inBox(float xIn,float yIn,float w,float h) {
+    return Tools.inBox(x,y,xIn,yIn,w,h);
+  }
 }

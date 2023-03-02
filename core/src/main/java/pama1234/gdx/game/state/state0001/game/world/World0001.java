@@ -62,11 +62,16 @@ public class World0001 extends WorldBase2D{
     list[0]=background=new BackgroundCenter(p,this);
     list[1]=regions=new RegionCenter(p,this);
     list[2]=entities=new MultiGameEntityCenter0001(p,this);
+    regionGeneratorFix();
     r=new RegionWrapper(this);
     yourself=new MainPlayer(p,this,0,0,Gdx.files.local(data.dir+"/main-player.bin"));
     createBackground();
     sky=new Sky(this);
     saving=new Mutex(false);
+  }
+  @Deprecated
+  public void regionGeneratorFix() {
+    regions.pool.gen.pe=entities;//TODO
   }
   public String dir() {
     return data.dir;
@@ -95,6 +100,7 @@ public class World0001 extends WorldBase2D{
     for(MetaItem e:metaItems.list) e.init();
     for(MetaCreature<?> e:metaEntitys.list) e.init();
     for(int i=0;i<background.background0001.list.size();i++) background.background0001.list.get(i).setTexture(ImageAsset.backgroundList[4-i]);
+    // regionGeneratorFix();
     if(netMode()!=NetMode.client) {
       Gdx.files.local(dir()+"regions/").mkdirs();//TODO
       yourself.load();

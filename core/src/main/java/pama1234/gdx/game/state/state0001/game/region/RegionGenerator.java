@@ -75,6 +75,8 @@ public class RegionGenerator{
         }
       }
     }
+    pe.acceptAll(region.entities);
+    region.entities=null;
   }
   public int x(int x1,int x2,int x3) {
     return (x1*pr.data.regionWidth+x2)*pr.data.chunkWidth+x3;
