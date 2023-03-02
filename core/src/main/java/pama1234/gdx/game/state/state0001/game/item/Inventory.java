@@ -15,9 +15,9 @@ public class Inventory{
   @Deprecated
   public static final int noDisplay=0;
   public static final int displayHoldSlot=1,displayFullInventory=2,displayHotSlot=3;
-  public static final int moveAll=0,moveOne=1;
+  public static final int allItem=0,oneItem=1;
   public static int timeF=7200;
-  public LivingEntity pc;
+  public LivingEntity pe;
   @Tag(0)
   public ItemSlot[] data;
   @Tag(1)
@@ -34,8 +34,8 @@ public class Inventory{
   public boolean[] hotSlotKeyData;
   public float circleDeg;
   public Inventory() {}
-  public Inventory(LivingEntity pc,int size,int hotSlotSize) {
-    this.pc=pc;
+  public Inventory(LivingEntity pe,int size,int hotSlotSize) {
+    this.pe=pe;
     this.hotSlotSize=hotSlotSize;
     data=new ItemSlot[size];
     for(int i=0;i<data.length;i++) data[i]=new ItemSlot();
@@ -49,13 +49,34 @@ public class Inventory{
     backpackSlots=new DisplaySlot[data.length-hotSlotSize-1];
     for(int i=0;i<backpackSlots.length;i++) backpackSlots[i]=new DisplaySlot(data[i+hotSlots.length]);
     displaySlots=new DisplaySlot[][] {hotSlots,backpackSlots};
-    r=new PathVar(rSize=UtilMath.min(pc.type.w,pc.type.h));
+    r=new PathVar(rSize=UtilMath.min(pe.type.w,pe.type.h));
+  }
+  public void drop(int type) {
+    // Item itemIn=in.data.item;
+    Item item=holdSlot.data.item;
+    switch(type) {
+      case allItem: {
+        if(item!=null) {
+          holdSlot.data.item=null;
+          pe.pw.dropItem(item,pe.cx(),pe.cy());
+        }
+      }
+        break;
+      case oneItem: {
+        if(item!=null) {
+          pe.pw.dropItem(item.type.createItem(1),pe.cx(),pe.cy());
+          item.count-=1;
+          if(item.count==0) holdSlot.data.item=null;
+        }
+      }
+        break;
+    }
   }
   public void switchHold(DisplaySlot in,int type) {
     Item itemIn=in.data.item;
     Item item=holdSlot.data.item;
     switch(type) {
-      case moveAll: {
+      case allItem: {
         if(item!=null&&itemIn!=null&&itemIn.type==item.type) {
           item.count+=itemIn.count;
           itemIn.count=0;
@@ -66,7 +87,7 @@ public class Inventory{
         }
       }
         break;
-      case moveOne: {
+      case oneItem: {
         if(item!=null) {
           if(itemIn==null) {
             in.data.item=item.type.createItem(1);
@@ -78,8 +99,6 @@ public class Inventory{
           if(item.count==0) holdSlot.data.item=null;
         }
       }
-        break;
-      default:
         break;
     }
   }
@@ -126,8 +145,8 @@ public class Inventory{
       case noDisplay: {}
         break;
       case displayHoldSlot: {
-        holdSlot.centerUpdate(pc,0,-12);
-        selectSlot().centerUpdate(pc,0,12);
+        holdSlot.centerUpdate(pe,0,-12);
+        selectSlot().centerUpdate(pe,0,12);
       }
         break;
       case displayHotSlot: {
@@ -135,7 +154,7 @@ public class Inventory{
           hotSlotDisplayCooling-=1;
           if(hotSlotDisplayCooling==0) displayState(displayHoldSlot);
         }
-        updateHotSlot(pc.p);
+        updateHotSlot(pe.p);
       }
         break;
       case displayFullInventory: {
@@ -146,37 +165,37 @@ public class Inventory{
   }
   public void updateFullInventory() {
     r.update();
-    Screen0011 p=pc.p;
+    Screen0011 p=pe.p;
     updateHotSlot(p);
     int ts=18;
     if(backpackSlots.length>ts) {
-      for(int i=0;i<ts;i++) backpackSlots[i].circleUpdate(pc,
+      for(int i=0;i<ts;i++) backpackSlots[i].circleUpdate(pe,
         (float)i/ts+(float)(p.frameCount%timeF)/timeF+circleDeg,
         r.pos*2);
-      for(int i=ts;i<backpackSlots.length;i++) backpackSlots[i].circleUpdate(pc,
+      for(int i=ts;i<backpackSlots.length;i++) backpackSlots[i].circleUpdate(pe,
         (float)(i-ts)/(backpackSlots.length-ts)+(float)(p.frameCount%timeF)/timeF+circleDeg,
         r.pos*3);
     }else {
-      for(int i=0;i<backpackSlots.length;i++) backpackSlots[i].circleUpdate(pc,
+      for(int i=0;i<backpackSlots.length;i++) backpackSlots[i].circleUpdate(pe,
         (float)i/backpackSlots.length+(float)(p.frameCount%timeF)/timeF+circleDeg,
         r.pos*2);
     }
-    holdSlot.centerUpdate(pc,0,12);
+    holdSlot.centerUpdate(pe,0,12);
   }
   public void updateHotSlot(Screen0011 p) {
-    for(int i=0;i<hotSlots.length;i++) hotSlots[i].circleUpdate(pc,
+    for(int i=0;i<hotSlots.length;i++) hotSlots[i].circleUpdate(pe,
       (float)i/hotSlots.length+(float)(p.frameCount%timeF)/timeF+circleDeg,
       r.pos);
   }
   public void display() {
-    Screen0011 p=pc.p;
+    Screen0011 p=pe.p;
     p.textScale(0.5f);
     switch(displayState) {
       case noDisplay: {}
         break;
       case displayHoldSlot: {
-        displaySlotItem(pc.p,holdSlot);
-        displaySlotItem(pc.p,selectSlot());
+        displaySlotItem(pe.p,holdSlot);
+        displaySlotItem(pe.p,selectSlot());
       }
         break;
       case displayHotSlot: {
@@ -196,12 +215,12 @@ public class Inventory{
     p.textScale(1);
   }
   public void displayBackpackSlot() {
-    Screen0011 p=pc.p;
+    Screen0011 p=pe.p;
     for(int i=0;i<backpackSlots.length;i++) displaySlot(p,backpackSlots[i]);
     p.noTint();
   }
   public void displayHotSlotCircle() {
-    Screen0011 p=pc.p;
+    Screen0011 p=pe.p;
     for(int i=0;i<hotSlots.length;i++) displaySlot(p,hotSlots[i]);
     p.noTint();
   }

@@ -236,6 +236,16 @@ public class PlayerControllerFull extends PlayerControllerCore{
       for(int i=0;i<slots.length;i++) if(testAndSelectSlot(x,y,button,slots,i)) return true;
       slots=player.inventory.backpackSlots;
       for(DisplaySlot e:slots) if(testSlot(x,y,button,e)) return true;
+      switch(getTouchInfoButton(button)) {
+        case Buttons.LEFT: {
+          player.inventory.drop(Inventory.allItem);
+        }
+          break;
+        case Buttons.RIGHT: {
+          player.inventory.drop(Inventory.oneItem);
+        }
+          break;
+      }
     }
     return false;
   }
@@ -243,11 +253,11 @@ public class PlayerControllerFull extends PlayerControllerCore{
     if(Tools.inBox(x,y,e.x1,e.y1,e.w1,e.h1)) {
       switch(getTouchInfoButton(button)) {
         case Buttons.LEFT: {
-          player.inventory.switchHold(e,Inventory.moveAll);
+          player.inventory.switchHold(e,Inventory.allItem);
         }
           break;
         case Buttons.RIGHT: {
-          player.inventory.switchHold(e,Inventory.moveOne);
+          player.inventory.switchHold(e,Inventory.oneItem);
         }
           break;
       }
@@ -260,7 +270,7 @@ public class PlayerControllerFull extends PlayerControllerCore{
     if(Tools.inBox(x,y,e.x1,e.y1,e.w1,e.h1)) {
       switch(getTouchInfoButton(button)) {
         case Buttons.LEFT: {
-          player.inventory.switchHold(e,Inventory.moveAll);
+          player.inventory.switchHold(e,Inventory.allItem);
         }
           break;
         case Buttons.RIGHT: {

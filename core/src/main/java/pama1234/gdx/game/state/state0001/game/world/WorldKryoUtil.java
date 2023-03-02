@@ -42,7 +42,7 @@ public class WorldKryoUtil{
     kryo.register(PathPoint.class,new FieldSerializer<PathPoint>(kryo,PathPoint.class));
     kryo.register(PathVar.class,new FieldSerializer<PathVar>(kryo,PathVar.class));
     kryo.register(int[].class);
-    kryo.register(WorldData.class);
+    kryo.register(WorldData.class,new FieldSerializer<WorldData>(kryo,WorldData.class));
     kryo.register(Vec2f.class,new FieldSerializer<PathPoint>(kryo,Vec2f.class));
     registration=kryo.register(MainPlayer.class);
     registration.setInstantiator(()->playerInstance==null?new MainPlayer():playerInstance);

@@ -3,13 +3,14 @@ package pama1234.gdx.game.state.state0001.game.world;
 import java.util.Arrays;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.state.state0001.game.entity.center.MultiGameEntityCenter0001;
+import pama1234.gdx.game.state.state0001.game.entity.entity0001.DroppedItem;
+import pama1234.gdx.game.state.state0001.game.item.Item;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
@@ -29,7 +30,7 @@ import pama1234.gdx.game.util.Mutex;
 import pama1234.math.UtilMath;
 
 public class World0001 extends WorldBase2D{
-  public FileHandle worldDataDir=Gdx.files.local("data/saved/test-world.bin");
+  // public FileHandle worldDataDir=Gdx.files.local("data/saved/test-world.bin");
   public WorldData data;
   //---
   public MetaBlockCenter0001 metaBlocks;//方块
@@ -49,6 +50,7 @@ public class World0001 extends WorldBase2D{
   public Mutex saving;
   public World0001(Screen0011 p,Game pg) {
     super(p,pg,3);
+    worldDataDir=Gdx.files.local("data/saved/test-world.bin");//TODO
     if(netMode()!=NetMode.client) data=WorldData.load(worldDataDir);
     else data=new WorldData();
     if(data.dir==null) data.dir="data/saved/test-world/";
@@ -220,5 +222,8 @@ public class World0001 extends WorldBase2D{
   }
   public NetMode netMode() {
     return pg.netMode;
+  }
+  public void dropItem(Item item,float x,float y) {
+    DroppedItem.dropItem_2(p,x,y,this,0.8f,item);
   }
 }

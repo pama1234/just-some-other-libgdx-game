@@ -74,7 +74,7 @@ public class MainPlayer extends Player implements LoadAndSave{
         Item ti=e.item;
         if(ti!=null) ti.type=mitem[ti.typeId];
       }
-      inventory.pc=this;
+      inventory.pe=this;
       inventory.innerInit();
     }
   }
