@@ -14,6 +14,10 @@ public class TextureLivingEntity extends LivingEntity{
   public float timeStep=1/6f;
   public boolean flipX;
   public int displayState;
+  @Deprecated
+  public TextureLivingEntity() {//kryo only
+    super();
+  }
   public TextureLivingEntity(Screen0011 p,World0001 pw,float x,float y,MetaCreature<? extends TextureLivingEntity> type) {
     super(p,pw,new MassPoint(x,y),type);
   }

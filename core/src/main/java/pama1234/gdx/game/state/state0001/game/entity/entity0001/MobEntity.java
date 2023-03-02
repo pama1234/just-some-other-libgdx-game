@@ -10,6 +10,10 @@ import pama1234.gdx.game.state.state0001.game.world.World0001;
 public class MobEntity extends TextureLivingEntity{
   public MovementLimitBox limitBox;
   public Player target;
+  @Deprecated
+  public MobEntity() {//kryo only
+    super();
+  }
   public MobEntity(Screen0011 p,World0001 pw,float x,float y,MetaCreature<? extends MobEntity> type) {
     super(p,pw,x,y,type);
   }

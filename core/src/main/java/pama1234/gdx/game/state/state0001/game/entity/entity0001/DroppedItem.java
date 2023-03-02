@@ -27,7 +27,7 @@ public class DroppedItem extends LivingEntity{
   public LivingEntity owner;
   @Deprecated
   public DroppedItem() {//kryo only
-    super(null,null,null,null);
+    super();
   }
   @Override
   public void deserializationInit(Screen0011 p,World0001 pw,MetaCreature<?> type) {
@@ -35,6 +35,7 @@ public class DroppedItem extends LivingEntity{
     //---
     data.type=pw.metaItems.array()[data.typeId];
     //---
+    pc=pw.entities.items;
     outerBox=limitBox=new MovementLimitBox(this);
     limitBox.usePlatform=true;
   }

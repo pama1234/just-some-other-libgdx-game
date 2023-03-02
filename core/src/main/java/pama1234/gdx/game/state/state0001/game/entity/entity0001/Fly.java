@@ -9,8 +9,17 @@ import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.math.UtilMath;
 
 public class Fly extends MobEntity{
+  @Deprecated
+  public Fly() {
+    super();
+  }
   public Fly(Screen0011 p,World0001 pw,float x,float y) {
     super(p,pw,x,y,pw.metaEntitys.fly);
+    outerBox=limitBox=new MovementLimitBox(this);
+  }
+  @Override
+  public void deserializationInit(Screen0011 p,World0001 pw,MetaCreature<?> type) {
+    super.deserializationInit(p,pw,type);
     outerBox=limitBox=new MovementLimitBox(this);
   }
   @Override
@@ -21,9 +30,7 @@ public class Fly extends MobEntity{
     super.update();
     if((point.vel.x>0)!=flipX) flipX=!flipX;
   }
-  public void findTarget() {
-    
-  }
+  public void findTarget() {}
   public void playerAttract() {
     float minVel=1.2f,maxVel=0.8f;
     float vx=(target.x()-x()),

@@ -26,6 +26,10 @@ public class LivingEntity extends GamePointEntity<MassPoint>{
   @Tag(3)
   public PathVar life;
   public PathVarLighting light;
+  @Deprecated
+  public LivingEntity() {//kryo only
+    super(null,null,null);
+  }
   public LivingEntity(Screen0011 p,World0001 pw,MassPoint in,MetaCreature<?> type) {
     super(p,pw,in);
     this.type=type;

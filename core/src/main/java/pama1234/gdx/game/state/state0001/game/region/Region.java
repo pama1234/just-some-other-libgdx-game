@@ -22,7 +22,7 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
   public int x,y;
   @Tag(0)
   public Chunk[][] data;
-  // @Tag(1)
+  @Tag(1)
   public GamePointEntity<?>[] entities;
   // public LivingEntity[] entities;
   public boolean keep;//用于测试是否需要加载卸载
