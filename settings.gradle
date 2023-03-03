@@ -1,1 +1,9 @@
 include 'headless', 'android', 'lwjgl3', 'core', 'server', 'pico4', 'taptap','framework','server-framework'
+
+project(':headless').projectDir = new File('game0001/headless')
+project(':android').projectDir = new File('game0001/android')
+project(':lwjgl3').projectDir = new File('game0001/lwjgl3')
+project(':core').projectDir = new File('game0001/core')
+project(':server').projectDir = new File('game0001/server')
+project(':pico4').projectDir = new File('game0001/pico4')
+project(':taptap').projectDir = new File('game0001/taptap')
