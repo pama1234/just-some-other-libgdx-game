@@ -23,7 +23,7 @@ android {
 		}
 	}
 	packagingOptions {
-		exclude 'assets/image/src/*'
+		// exclude 'assets/image/src/*'
 		//无法理解的屎山+1
 		pickFirst "win/libgcc_s_seh_x86_64.dll"
 		pickFirst "win/libstdc++-6_x86.dll"
