@@ -6,6 +6,7 @@ import com.esotericsoftware.kryo.KryoException;
 import com.esotericsoftware.kryo.io.Input;
 
 import pama1234.gdx.game.state.state0001.game.KryoNetUtil;
+import pama1234.gdx.game.state.state0001.game.entity.GamePointEntity;
 import pama1234.gdx.game.state.state0001.game.item.Item;
 import pama1234.gdx.game.state.state0001.game.item.Item.ItemSlot;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
@@ -13,6 +14,7 @@ import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
 import pama1234.gdx.game.state.state0001.game.net.NetState.ClientToServer;
 import pama1234.gdx.game.state.state0001.game.region.Chunk;
 import pama1234.gdx.game.state.state0001.game.region.Chunk.BlockData;
+import pama1234.gdx.game.state.state0001.game.region.RegionCenter;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.WorldData;
 import pama1234.gdx.game.state.state0001.game.world.WorldKryoUtil;
@@ -26,7 +28,7 @@ public class ClientRead extends Thread{
   public ClientRead(ClientCore p) {
     this.p=p;
     input=new Input(p.socketData.i);
-    executeFs=new ExecuteF[] {this::readPlayerPos,this::readChunkData,this::readAuthInfo,this::readWorldData};
+    executeFs=new ExecuteF[] {this::readPlayerPos,this::readChunkData,this::readAuthInfo,this::readWorldData,this::readEntityData};
   }
   @Override
   public void run() {
@@ -50,10 +52,11 @@ public class ClientRead extends Thread{
     MetaBlock[] mblock=p.world.metaBlocks.array();
     MetaItem[] mitem=p.world.metaItems.array();
     int count=input.readInt();
+    RegionCenter pr=p.world.regions;
     while(count>0) {
       count--;
       int cx=input.readInt(),cy=input.readInt();
-      p.world.regions.removeChunk(cx,cy);
+      pr.removeChunk(cx,cy);
     }
     count=input.readInt();
     while(count>0) {
@@ -74,13 +77,26 @@ public class ClientRead extends Thread{
           tb.changed=true;
         }
       }
-      p.world.regions.addChunk(cx,cy,chunk);
+      pr.addChunk(cx,cy,chunk);
     }
-    p.world.regions.refresh();
+    pr.refresh();
+  }
+  public void readEntityData() {
+    int count=input.readInt();
+    while(count>0) {
+      count--;
+      // int cx=input.readInt(),cy=input.readInt();
+      // p.world.regions.removeChunk(cx,cy);
+    }
+    count=input.readInt();
+    while(count>0) {
+      count--;
+      p.world.entities.accept(KryoNetUtil.read(WorldKryoUtil.kryo,input,GamePointEntity.class));
+    }
   }
   public void readAuthInfo() {
     String serverInfo=input.readString();
-    if(serverInfo.equals("pseudo-server-info")) {
+    if(serverInfo.equals("v0.0.1-testWorld")) {
       p.clientWrite.state=ClientToServer.playerAuth;
     }else System.err.println("ClientRead.readAuthInfo() "+serverInfo);
   }

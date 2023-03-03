@@ -43,17 +43,35 @@ public class ServerRead extends Thread{
   }
   public void readPlayerCtrl() {
     PlayerControllerCore ctrlCore=link.player.ctrlCore;
-    if(input.readBoolean()) ctrlCore.left=!ctrlCore.left;
-    if(input.readBoolean()) ctrlCore.right=!ctrlCore.right;
-    if(input.readBoolean()) ctrlCore.jump=!ctrlCore.jump;
-    if(input.readBoolean()) ctrlCore.jumpDown=!ctrlCore.jumpDown;
+    switch(input.readByte()) {
+      case 1: {
+        ctrlCore.left=input.readBoolean();
+      }
+        break;
+      case 2: {
+        ctrlCore.right=input.readBoolean();
+      }
+        break;
+      case 3: {
+        ctrlCore.jump=input.readBoolean();
+      }
+        break;
+      case 4: {
+        ctrlCore.jumpDown=input.readBoolean();
+      }
+        break;
+      default:
+        break;
+    }
+    // if(input.readBoolean()) ctrlCore.left=!ctrlCore.left;
+    // if(input.readBoolean()) ctrlCore.right=!ctrlCore.right;
+    // if(input.readBoolean()) ctrlCore.jump=!ctrlCore.jump;
+    // if(input.readBoolean()) ctrlCore.jumpDown=!ctrlCore.jumpDown;
   }
   public void readPlayerAuth() {
     link.player.name=input.readString();
     p.world.entities.players.add.add(link.player);
     link.serverWrite.state=ServerToClient.worldData;
-    // link.serverWrite.state=ServerToClient.chunkData;
-    // link.serverWrite.state=ServerToClient.playerPos;
   }
   public void disconnect() {
     p.world.entities.players.remove.add(link.player);

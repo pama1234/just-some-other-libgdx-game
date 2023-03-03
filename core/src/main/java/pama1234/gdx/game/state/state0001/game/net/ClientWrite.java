@@ -55,10 +55,27 @@ public class ClientWrite extends Thread{
     writePlayerCtrl=dleft||dright||djump||djumpDown;
   }
   public void writePlayerCtrl() {
-    output.writeBoolean(dleft);
-    output.writeBoolean(dright);
-    output.writeBoolean(djump);
-    output.writeBoolean(djumpDown);
+    PlayerControllerCore ctrl=p.world.yourself.ctrl;
+    if(dleft) {
+      output.writeByte(1);
+      output.writeBoolean(ctrl.left);
+    }
+    if(dright) {
+      output.writeByte(2);
+      output.writeBoolean(ctrl.right);
+    }
+    if(djump) {
+      output.writeByte(3);
+      output.writeBoolean(ctrl.jump);
+    }
+    if(djumpDown) {
+      output.writeByte(4);
+      output.writeBoolean(ctrl.jumpDown);
+    }
+    // output.writeBoolean(dleft);
+    // output.writeBoolean(dright);
+    // output.writeBoolean(djump);
+    // output.writeBoolean(djumpDown);
     clearPlayerCtrlCache(p.world.yourself.ctrl);
   }
   public void writePlayerAuth() {

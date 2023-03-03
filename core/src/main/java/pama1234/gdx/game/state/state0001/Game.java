@@ -151,7 +151,6 @@ public class Game extends StateEntity0001{
   }
   @Override
   public void dispose() {
-    // world().dispose();
-    for(World<?,?> e:worldCenter.list) e.dispose();
+    if(!firstInit) for(World<?,?> e:worldCenter.list) e.dispose();
   }
 }

@@ -2,13 +2,17 @@ package pama1234.gdx.game.state.state0001.game.net;
 
 import com.esotericsoftware.kryo.io.Output;
 
+import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.KryoNetUtil;
+import pama1234.gdx.game.state.state0001.game.entity.GamePointEntity;
+import pama1234.gdx.game.state.state0001.game.entity.center.MultiGameEntityCenter0001;
 import pama1234.gdx.game.state.state0001.game.net.NetState.ServerToClient;
 import pama1234.gdx.game.state.state0001.game.net.ServerCore.ClientLink;
 import pama1234.gdx.game.state.state0001.game.region.Chunk;
 import pama1234.gdx.game.state.state0001.game.region.Region;
 import pama1234.gdx.game.state.state0001.game.region.RegionCenter;
 import pama1234.gdx.game.state.state0001.game.world.WorldKryoUtil;
+import pama1234.gdx.util.wrapper.EntityCenter;
 import pama1234.math.UtilMath;
 import pama1234.math.physics.MassPoint;
 import pama1234.util.function.ExecuteF;
@@ -21,13 +25,15 @@ public class ServerWrite extends Thread{
   public int sleep=-1;
   public ExecuteF[] executeFs;
   public Center<NetChunkData> chunks;
+  public Center<GamePointEntity<?>> entities;
   public int state=ServerToClient.needAuth;
   public ServerWrite(ClientLink link,ServerCore p) {
     this.link=link;
     this.p=p;
     output=new Output(link.socketData.o);
-    executeFs=new ExecuteF[] {this::writePlayerPos,this::writeChunks,this::writeNeedAuth,this::writeWorldData};
+    executeFs=new ExecuteF[] {this::writePlayerPos,this::writeChunks,this::writeNeedAuth,this::writeWorldData,this::writeEntities};
     chunks=new Center<>();
+    entities=new Center<>();
   }
   @Override
   public void run() {
@@ -51,8 +57,10 @@ public class ServerWrite extends Thread{
   }
   public void execute() {
     updateChunks();
+    updateEntities();
     //---
     if(chunks.add.size()>0||chunks.remove.size()>0) state=ServerToClient.chunkData;
+    if(entities.add.size()>0||entities.remove.size()>0) state=ServerToClient.entityData;
     output.writeByte(state);
     executeFs[state].execute();
     output.flush();
@@ -62,17 +70,48 @@ public class ServerWrite extends Thread{
     output.writeFloat(point.pos.x);
     output.writeFloat(point.pos.y);
   }
+  public void updateEntities() {
+    float tcx=link.player.cx()/p.world.settings.blockWidth,
+      tcy=link.player.cy()/p.world.settings.blockHeight;
+    MultiGameEntityCenter0001 pe=p.world.entities;
+    for(EntityCenter<Screen0011,? extends GamePointEntity<?>> l:pe.list) for(GamePointEntity<?> e:l.list) {
+      float dist=UtilMath.dist(e.x(),e.y(),tcx,tcy);
+      if(dist<p.world.regions.data.netTransferDist) {
+        if(!entities.list.contains(e)) entities.add.add(e);
+      }
+    }
+    // for(GamePointEntity<?> e:entities.list) if(UtilMath.dist(e.x(),e.y(),tcx,tcy)>p.world.regions.data.netRemoveDist&&
+    //   !entities.remove.contains(e)) entities.remove.add(e);
+    for(GamePointEntity<?> e:entities.list) {
+      if(UtilMath.dist(e.x(),e.y(),tcx,tcy)>p.world.regions.data.netRemoveDist) entities.remove.add(e);
+    }
+  }
+  public void writeEntities() {
+    output.writeInt(entities.remove.size());
+    for(GamePointEntity<?> e:entities.remove) {
+      // output.writeInt(e.x());
+      // output.writeInt(e.y());
+    }
+    output.writeInt(entities.add.size());
+    for(GamePointEntity<?> e:entities.add) {
+      // output.writeInt(e.x);
+      // output.writeInt(e.y);
+      KryoNetUtil.write(WorldKryoUtil.kryo,output,e);
+    }
+    entities.refresh();
+    state=ServerToClient.playerPos;
+  }
   public void updateChunks() {
     float tcx=link.player.cx()/p.world.settings.blockWidth,
       tcy=link.player.cy()/p.world.settings.blockHeight;
     RegionCenter pr=p.world.regions;
-    for(Region e:p.world.regions.list) {
+    for(Region e:pr.list) {
       for(int i=0;i<e.data.length;i++) for(int j=0;j<e.data[i].length;j++) {
         Chunk chunk=e.data[i][j];
         float tx_2=((e.x*pr.data.regionWidth+(i+0.5f))*pr.data.chunkWidth),
           ty_2=((e.y*pr.data.regionHeight+(j+0.5f))*pr.data.chunkHeight);
         float dist=UtilMath.dist(tx_2,ty_2,tcx,tcy);
-        if(dist<p.world.regions.data.netTransferDist) {
+        if(dist<pr.data.netTransferDist) {
           boolean flag=true;
           int tx=e.x*pr.data.regionWidth+i,
             ty=e.y*pr.data.regionHeight+j;
@@ -95,8 +134,11 @@ public class ServerWrite extends Thread{
         }
       }
     }
-    for(NetChunkData n:chunks.list) if(UtilMath.dist(n.x,n.y,tcx,tcy)>p.world.regions.data.netRemoveDist&&
-      !chunks.remove.contains(n)) chunks.remove.add(n);
+    // for(NetChunkData n:chunks.list) if(UtilMath.dist(n.x,n.y,tcx,tcy)>p.world.regions.data.netRemoveDist&&
+    //   !chunks.remove.contains(n)) chunks.remove.add(n);
+    for(NetChunkData n:chunks.list) {
+      if(UtilMath.dist(n.x,n.y,tcx,tcy)>p.world.regions.data.netRemoveDist) chunks.remove.add(n);
+    }
   }
   public void writeChunks() {
     output.writeInt(chunks.remove.size());
@@ -114,7 +156,7 @@ public class ServerWrite extends Thread{
     state=ServerToClient.playerPos;
   }
   public void writeNeedAuth() {
-    output.writeString("pseudo-server-info");
+    output.writeString("v0.0.1-testWorld");
   }
   public void writeWorldData() {
     KryoNetUtil.write(WorldKryoUtil.kryo,output,p.world.data);
