@@ -174,6 +174,7 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
     serverCenter.dispose();
   }
   public void strokeWeight(float in) {
+    if(in<=0) return;
     Gdx.gl.glLineWidth(strokeWeight=in);
   }
   @Deprecated //use FileUtil instead

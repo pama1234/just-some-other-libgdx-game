@@ -2,9 +2,6 @@ package pama1234.gdx.game.state.state0001;
 
 import static com.badlogic.gdx.Input.Keys.ESCAPE;
 
-import java.io.OutputStream;
-import java.io.PrintStream;
-
 import com.badlogic.gdx.Gdx;
 
 import pama1234.gdx.game.app.Screen0011;
@@ -23,12 +20,8 @@ public class Settings extends StateEntity0001{
   public Slider<?>[] sliders;
   public TextField[] camTextFields;
   public int tx,ty;
-  public boolean logUpdate;
-  public String logText;
-  public StringBuffer logBuffer;
-  public int logMaxLength=1024;
-  public PrintStream stdout=System.out;
-  public PrintStream logOut;
+  // public PrintStream stdout=System.out;
+  // public PrintStream logOut;
   public Settings(Screen0011 p) {
     super(p);
     sliders=new Slider[4];
@@ -36,16 +29,6 @@ public class Settings extends StateEntity0001{
     buttonsCam=SettingsUtil.genButtons_0006(p,this);
     initSliders();
     camTextFields=SettingsUtil.genTextFields_0002(p);
-    logOut=new PrintStream(new OutputStream() {
-      @Override
-      public void write(int b) {
-        char a=(char)b;
-        stdout.append(a);
-        logBuffer.append(a);
-        logUpdate=true;
-      }
-    });
-    checkNeedLog();
   }
   public void initSliders() {
     sliders[0].pos=p.settings.volume;
@@ -62,16 +45,6 @@ public class Settings extends StateEntity0001{
     for(Button<?> e:buttonsCam) p.centerCam.add.add(e);
     for(TextField e:camTextFields) p.camStage.addActor(e);
   }
-  public void checkNeedLog() {
-    if(p.settings.showLog) {
-      System.setOut(logOut);
-      if(logBuffer==null) logBuffer=new StringBuffer();
-    }else {
-      System.setOut(stdout);
-      logText=null;
-      if(logBuffer!=null) logBuffer.setLength(0);
-    }
-  }
   @Override
   public void to(State0001 in) {
     for(Button<?> e:buttons) p.centerScreen.remove.add(e);
@@ -81,14 +54,7 @@ public class Settings extends StateEntity0001{
     p.cam2d.testScale();
   }
   @Override
-  public void update() {
-    if(logUpdate) {
-      logUpdate=false;
-      int length=logBuffer.length();
-      if(length>logMaxLength) logBuffer.delete(0,length-logMaxLength);
-      logText=logBuffer.toString();
-    }
-  }
+  public void update() {}
   @Override
   public void displayCam() {
     tx=-128;
@@ -102,15 +68,17 @@ public class Settings extends StateEntity0001{
     if(p.settings.debugInfo) debugText();
     if(p.settings.showLog) {
       tx=-512;
-      drawLogText();
+      drawLogText(p,p.logText,tx,ty);
       line();
     }
   }
-  public void drawLogText() {
-    p.fontBatch.begin();
-    p.font.setColor(1,1,1,1);
-    p.font.draw(p.fontBatch,logText==null?"null":logText,tx,ty);
-    p.fontBatch.end();
+  public static void drawLogText(Screen0011 p,String logText,float x,float y) {
+    // p.font.setColor(1,1,1,1);
+    p.font.setColor(p.textColor);
+    // p.fontBatch.begin();
+    // p.font.draw(p.fontBatch,logText==null?"null":logText,x,y);
+    // p.fontBatch.end();
+    p.drawText(logText,x,y);
   }
   public void text(String in) {
     p.text(in,tx,ty);

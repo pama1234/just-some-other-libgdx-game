@@ -22,7 +22,8 @@ public class GameDisplayUtil{
     World0001 tw=pg.world();
     Block tb=tw.getBlock(p.mouse.x,p.mouse.y);
     p.textColor(255,191);
-    p.textScale(UtilMath.ceil(p.pus/3f));
+    p.textScale(UtilMath.max((int)(p.pus/3f),1));
+    // p.textScale(UtilMath.ceil(p.pus/3f));
     initDebugText(p);
     debugText(p,"Lighting  block="+(tb!=null?tb.light.toString():"null")+" player="+tw.yourself.light.toString());
     debugText(p,"Player    pos="+getFloatString(tw.yourself.point.pos.x,8)+" "+getFloatString(tw.yourself.point.pos.y,8)+" vel="+getFloatString(tw.yourself.point.vel.x,5)+" "+getFloatString(tw.yourself.point.vel.y,5));
@@ -31,6 +32,14 @@ public class GameDisplayUtil{
     debugText(p,"Regions          Update "+timeString(tw.regions.updateLoop));
     debugText(p,"Regions  Display Update "+timeString(tw.regions.updateDisplayLoop));
     debugText(p,"Priority Display Update "+secondTimeString(tw.regions.priorityUpdateDisplayLoop));
+    debugTextCountY+=1;
+    // Settings.drawLogText(p,p.logText,debugTextX,debugTextY);
+    if(p.settings.showLog) {
+      p.font.setColor(p.textColor);
+      p.font.getData().setScale(p.font.scale);
+      p.drawText(p.logText,debugTextX,debugTextY+debugTextH*debugTextCountY);
+      p.font.getData().setScale(1);
+    }
     p.textScale(p.pus);
   }
   public static String secondTimeString(LoopThread loop) {
@@ -43,10 +52,12 @@ public class GameDisplayUtil{
       (getMillisString(loop.stepMillis)+"ms");
   }
   public static void initDebugText(Screen0011 p) {
+    // float ts=p.pus*UtilMath.max((int)(p.font.defaultSize/2f),1);
+    float ts=p.debugTextH;
+    debugTextCountY=1;
     debugTextH=p.font.scale*p.font.defaultSize;
-    debugTextX=debugTextH;
-    debugTextY=p.bu*1.5f+(p.pus*p.font.defaultSize/2f)*6;
-    debugTextCountY=0;
+    debugTextX=ts;
+    debugTextY=p.debugTextY+ts*p.debugTextCountY;
   }
   public static void debugText(Screen0011 p,String in) {
     p.text(in,debugTextX,debugTextY+debugTextH*debugTextCountY);

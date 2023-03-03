@@ -17,6 +17,7 @@ import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Peripheral;
 import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.profiling.GLErrorListener;
 import com.badlogic.gdx.graphics.profiling.GLProfiler;
 import com.esotericsoftware.kryo.Kryo;
 
@@ -110,8 +111,37 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   public Vec3f gVel;
   //---
   public InetAddress localHost;
+  //---
+  public PrintStream logOut;
+  public boolean logUpdate;
+  public String logText;
+  public StringBuffer logBuffer;
+  public int logMaxLength=1024;
+  {
+    logOut=new PrintStream(new OutputStream() {
+      @Override
+      public void write(int b) {
+        char a=(char)b;
+        stdout.append(a);
+        logBuffer.append(a);
+        logUpdate=true;
+      }
+    });
+    // checkNeedLog();
+  }
+  public void checkNeedLog() {
+    if(settings.showLog) {
+      System.setOut(logOut);
+      if(logBuffer==null) logBuffer=new StringBuffer();
+    }else {
+      System.setOut(stdout);
+      logText=null;
+      if(logBuffer!=null) logBuffer.setLength(0);
+    }
+  }
   public Screen0011() {
     loadSettings();
+    checkNeedLog();
     if(settings.overridePlatform) isAndroid=settings.isAndroid;
   }
   public void debugInfoChange() {
@@ -119,7 +149,15 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   }
   public void debugInfoChange(boolean in) {
     if(in) {
-      if(profiler==null) profiler=new GLProfiler(Gdx.graphics);
+      if(profiler==null) {
+        profiler=new GLProfiler(Gdx.graphics);
+        profiler.setListener(new GLErrorListener() {
+          @Override
+          public void onError(int error) {
+            throw new UnsupportedOperationException("error="+error);
+          }
+        });
+      }
       profiler.enable();
     }else {
       if(profiler!=null) profiler.disable();
@@ -226,6 +264,13 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
       cam2d.scale.des+=Gdx.input.getAccelerometerZ()*settings.accelerometerSensitivity-gVel.z;
       cam2d.testScale();
     }
+    //---
+    if(logUpdate) {
+      logUpdate=false;
+      int length=logBuffer.length();
+      if(length>logMaxLength) logBuffer.delete(0,length-logMaxLength);
+      logText=logBuffer.toString();
+    }
   }
   @Override
   public void mousePressed(MouseInfo info) {}
@@ -259,7 +304,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   public void display() {
     if(settings.debugInfo) {
       textColor(255,191);
-      textScale(pus/2f);
+      textScale(UtilMath.max((int)(pus/2f),1));
       initDebugText();
       debugText("Memory   ="+getMemory()+"Mb");
       float tf=1/frameRate;
@@ -277,7 +322,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     }
   }
   public void initDebugText() {
-    debugTextH=pu/2f;
+    debugTextH=font.scale*font.defaultSize;
     debugTextX=debugTextH;
     debugTextY=bu*1.5f;
     debugTextCountY=0;

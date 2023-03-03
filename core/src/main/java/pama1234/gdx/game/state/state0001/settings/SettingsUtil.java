@@ -113,8 +113,7 @@ public class SettingsUtil{
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.showLog=!p.settings.showLog;
         self.updateText();
-        // if(p.settings.showLog&&ps.logBuffer==null) ps.logBuffer=new StringBuffer();
-        ps.checkNeedLog();
+        p.checkNeedLog();
       },self->self.text="显示日志信息："+(p.settings.showLog?"是":"否"),()->18,()->0,()->320),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.printLog=!p.settings.printLog;

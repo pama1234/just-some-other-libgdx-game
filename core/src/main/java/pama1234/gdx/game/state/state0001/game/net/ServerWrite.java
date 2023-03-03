@@ -55,7 +55,6 @@ public class ServerWrite extends Thread{
     if(chunks.add.size()>0||chunks.remove.size()>0) state=ServerToClient.chunkData;
     output.writeByte(state);
     executeFs[state].execute();
-    // writePlayerPos();
     output.flush();
   }
   public void writePlayerPos() {
@@ -64,7 +63,6 @@ public class ServerWrite extends Thread{
     output.writeFloat(point.pos.y);
   }
   public void updateChunks() {
-    // chunks.list.clear();
     float tcx=link.player.cx()/p.world.settings.blockWidth,
       tcy=link.player.cy()/p.world.settings.blockHeight;
     RegionCenter pr=p.world.regions;
@@ -112,7 +110,6 @@ public class ServerWrite extends Thread{
       output.writeInt(e.y);
       KryoNetUtil.write(WorldKryoUtil.kryo,output,e.chunk);
     }
-    // chunks.list.clear();
     chunks.refresh();
     state=ServerToClient.playerPos;
   }
