@@ -196,6 +196,7 @@ Thumbs.db
 
 /fontOut/
 /data/
+/game*/data/
 
 ## TODO
 /game*/assets/vector/*.tvgt
