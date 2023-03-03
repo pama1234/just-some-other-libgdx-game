@@ -14,6 +14,7 @@ import pama1234.gdx.game.state.state0001.game.region.LoopThread;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
 import pama1234.gdx.util.listener.EntityListener;
+import pama1234.math.UtilMath;
 
 public class GameDisplayUtil{
   public static float debugTextX,debugTextY,debugTextH,debugTextCountY;
@@ -21,7 +22,7 @@ public class GameDisplayUtil{
     World0001 tw=pg.world();
     Block tb=tw.getBlock(p.mouse.x,p.mouse.y);
     p.textColor(255,191);
-    p.textScale(p.pus/2f);
+    p.textScale(UtilMath.ceil(p.pus/3f));
     initDebugText(p);
     debugText(p,"Lighting  block="+(tb!=null?tb.light.toString():"null")+" player="+tw.yourself.light.toString());
     debugText(p,"Player    pos="+getFloatString(tw.yourself.point.pos.x,8)+" "+getFloatString(tw.yourself.point.pos.y,8)+" vel="+getFloatString(tw.yourself.point.vel.x,5)+" "+getFloatString(tw.yourself.point.vel.y,5));
@@ -42,9 +43,9 @@ public class GameDisplayUtil{
       (getMillisString(loop.stepMillis)+"ms");
   }
   public static void initDebugText(Screen0011 p) {
-    debugTextH=p.pu/2f;
+    debugTextH=p.font.scale*p.font.defaultSize;
     debugTextX=debugTextH;
-    debugTextY=p.bu*1.5f+debugTextH*6;
+    debugTextY=p.bu*1.5f+(p.pus*p.font.defaultSize/2f)*6;
     debugTextCountY=0;
   }
   public static void debugText(Screen0011 p,String in) {

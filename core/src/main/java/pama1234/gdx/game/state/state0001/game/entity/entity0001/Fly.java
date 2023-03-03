@@ -17,11 +17,13 @@ public class Fly extends MobEntity{
   public Fly(Screen0011 p,World0001 pw,float x,float y) {
     super(p,pw,x,y,pw.metaEntitys.fly);
     outerBox=limitBox=new MovementLimitBox(this);
+    type.count++;
   }
   @Override
   public void deserializationInit(Screen0011 p,World0001 pw,MetaCreature<?> type) {
     super.deserializationInit(p,pw,type);
     outerBox=limitBox=new MovementLimitBox(this);
+    type.count++;
   }
   @Override
   public void update() {
@@ -71,7 +73,6 @@ public class Fly extends MobEntity{
     }
     @Override
     public Fly createCreature(float x,float y) {
-      count++;
       return new Fly(pc.pw.p,pc.pw,x,y);
     }
   }

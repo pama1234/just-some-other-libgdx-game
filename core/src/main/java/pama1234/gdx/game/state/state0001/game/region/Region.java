@@ -56,8 +56,10 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
     float h=pr.data.chunkHeight*pr.data.regionHeight*pr.pw.settings.blockHeight;
     // System.out.println(w+" "+h);
     entities=pr.pw.entities.getAllInRect(x*w,y*h,w,h,true);
-    System.out.println(x+" "+y+" entities="+entities.length);
-    for(GamePointEntity<?> e:entities) System.out.println(e.getClass()+" "+e.point);
+    if(p.settings.printLog) {
+      System.out.println("entities="+entities.length);
+      for(GamePointEntity<?> e:entities) System.out.println(e.getClass().getSimpleName()+" "+e.point.pos);
+    }
     KryoUtil.save(kryo,dataLocation,this);
   }
   public boolean removeUnchanged() {

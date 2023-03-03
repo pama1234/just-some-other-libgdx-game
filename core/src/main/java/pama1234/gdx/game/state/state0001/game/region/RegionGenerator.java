@@ -79,9 +79,10 @@ public class RegionGenerator{
       }
     }
     if(region.entities!=null) {
-      System.out.println(region.x+" "+region.y+" entities="+region.entities.length);
-      for(GamePointEntity<?> e:region.entities) System.out.println(e.getClass().getSimpleName()+" "+e.point.pos);
-      //---
+      if(p.settings.printLog) {
+        System.out.println("gen region "+region.x+" "+region.y+" entities="+region.entities.length);
+        for(GamePointEntity<?> e:region.entities) System.out.println(e.getClass().getSimpleName()+" "+e.point.pos);
+      }
       MetaCreature<?>[] mcreature=world.metaEntitys.array();
       for(GamePointEntity<?> e:region.entities) if(e instanceof LivingEntity a) a.deserializationInit(p,world,mcreature[a.typeId]);
       pe.acceptAll(region.entities);

@@ -87,6 +87,9 @@ public class UtilMath{
   public static int floor(float in) {
     return (int)Math.floor(in);
   }
+  public static int ceil(float in) {
+    return (int)Math.ceil(in);
+  }
   public static float lerp(float a,float b,float f) {
     return (b-a)*f+a;
   }

@@ -45,7 +45,6 @@ public class ClientWrite extends Thread{
     output.writeByte(state);
     executeFs[state].execute();
     output.flush();
-    // updatePlayerCtrl();
   }
   public void updatePlayerCtrl() {
     PlayerControllerCore ctrl=p.world.yourself.ctrl;
@@ -54,10 +53,8 @@ public class ClientWrite extends Thread{
     djump=jump!=ctrl.jump;
     djumpDown=jumpDown!=ctrl.jumpDown;
     writePlayerCtrl=dleft||dright||djump||djumpDown;
-    // writePlayerCtrl();
   }
   public void writePlayerCtrl() {
-    // if(!writePlayerCtrl) return;
     output.writeBoolean(dleft);
     output.writeBoolean(dright);
     output.writeBoolean(djump);

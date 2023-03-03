@@ -82,7 +82,7 @@ public class ClientRead extends Thread{
     String serverInfo=input.readString();
     if(serverInfo.equals("pseudo-server-info")) {
       p.clientWrite.state=ClientToServer.playerAuth;
-    }else System.out.println("ClientRead.readAuthInfo()");
+    }else System.err.println("ClientRead.readAuthInfo() "+serverInfo);
   }
   public void readWorldData() {
     p.world.data=KryoNetUtil.read(WorldKryoUtil.kryo,input,WorldData.class);
