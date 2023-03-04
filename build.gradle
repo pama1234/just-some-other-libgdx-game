@@ -31,7 +31,7 @@ allprojects {
 	apply plugin: 'idea'
 }
 
-configure(subprojects - project(':android') - project(':pico4') - project(':taptap')) {
+configure(subprojects - [ project('game0001:android') , project('game0001:pico4') , project('game0001:taptap') ]) {
 	apply plugin: 'java-library'
 	sourceCompatibility = 17
 	compileJava {

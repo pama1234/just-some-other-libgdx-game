@@ -7,7 +7,7 @@ eclipse.project.name = appName + '-headless'
 dependencies {
   implementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
   implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
-  implementation project(':core')
+  implementation project(':game0001:core')
 }
 
 jar {
