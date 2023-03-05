@@ -247,7 +247,8 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     }
   }
   public void startAllLoop() {
-    for(LoopThread e:loops) e.start();
+    for(LoopThread e:loops) if(!e.isAlive()) e.start();
+    // for(LoopThread e:loops) e.start();
   }
   public void interruptAllLoop() {
     for(LoopThread e:loops) e.interrupt();
