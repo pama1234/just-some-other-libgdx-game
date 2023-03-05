@@ -89,6 +89,7 @@ public class ServerWrite extends Thread{
   public void writeEntities() {
     output.writeInt(entities.remove.size());
     for(GamePointEntity<?> e:entities.remove) {
+      System.out.println(e.getClass().getSimpleName()+" "+e.point.pos);
       // output.writeInt(e.x());
       // output.writeInt(e.y());
     }

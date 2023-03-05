@@ -6,7 +6,7 @@ eclipse.project.name = appName + '-server'
 
 dependencies {
   api project(':server-framework')
-  
+
   api 'com.aparapi:aparapi:3.0.0'
 }
 
