@@ -42,6 +42,8 @@ com_crashlytics_export_strings.xml
 /game*/pico4/gen/
 /game*/pico4/out/
 
+/game*/pico4/.cxx
+
 ## Taptap:
 /game*/taptap/libs/armeabi-v7a/
 /game*/taptap/libs/arm64-v8a/
@@ -206,3 +208,4 @@ Thumbs.db
 /*.jar
 
 .VSCodeCounter/
+# .vscode/
