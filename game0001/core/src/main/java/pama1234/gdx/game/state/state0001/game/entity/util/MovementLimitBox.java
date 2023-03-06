@@ -82,7 +82,7 @@ public class MovementLimitBox extends OuterBox{
         if(p.point.vel.y>0) p.point.vel.y=0;
         p.point.pos.y=floor;
       }
-    }else if(p.p.settings.printLog) System.out.println(p.getClass().getSimpleName()+" "+p.point.pos+" ceiling>=floor");
+    }else if(p.p.settings.printLog) System.out.println(p.getName()+" "+p.point.pos+" ceiling>=floor");
     if(leftWall<rightWall) {
       if(p.point.pos.x<leftWall) {
         if(p.point.vel.x<0) p.point.vel.x=0;
@@ -91,7 +91,7 @@ public class MovementLimitBox extends OuterBox{
         if(p.point.vel.x>0) p.point.vel.x=0;
         p.point.pos.x=rightWall;
       }
-    }else System.out.println(p.getClass().getSimpleName()+" "+p.point.pos+" leftWall>=rightWall");
+    }else System.out.println(p.getName()+" "+p.point.pos+" leftWall>=rightWall");
   }
   public void bugFix() {
     if(inAir&&p.point.vel.y<0&&h>1) {

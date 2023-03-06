@@ -55,11 +55,10 @@ public abstract class PointEntity<T extends UtilScreen,P extends Point>extends E
   }
   //  abstract public void update2();
   /**
-   * 此特性未在空想世界中使用
+   * 此方法用于调试
    * 
    * @see pama1234.gdx.util.wrapper.PointCenter
    */
-  @Deprecated
   public String getName() {
     return getClass().getSimpleName();
   }
