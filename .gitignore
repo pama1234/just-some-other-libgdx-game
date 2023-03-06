@@ -4,6 +4,7 @@ gradle-app.setting
 /build/
 /framework/build/
 /server-framework/build/
+/game*/build/
 /game*/android/build/
 /game*/taptap/build/
 /game*/pico4/build/
