@@ -108,7 +108,7 @@ dependencies {
 	implementation "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
 	implementation "com.github.simplepeng.SpiderMan:spiderman:$spider_man"//如果程序异常闪退提供log
 
-	implementation project(':game0002:core')
+	implementation project(':game0002:0002-core')
 	// implementation "com.github.lyze237:gdx-TinyVG:$gdxTinyVGVersion"
 
 	// natives "com.badlogicgames.gdx:gdx-bullet-platform:$gdxVersion:natives-arm64-v8a"
