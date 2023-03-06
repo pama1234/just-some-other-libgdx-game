@@ -40,3 +40,13 @@ endif()
 
 include_directories(src/main/include)
 add_subdirectory(src/main/cpp)
+
+# target_link_libraries( # Specifies the target library.
+#                        openxr_loader
+#                        android
+#                        vulkan
+#                        EGL
+#                        GLESv3
+#                        app-glue
+#                        log
+#                        )
