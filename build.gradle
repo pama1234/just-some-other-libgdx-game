@@ -32,8 +32,8 @@ allprojects {
 }
 
 configure(subprojects 
-		- [ project('game0001:android') , project('game0001:pico4') , project('game0001:taptap') ]
-		- [ project('game0002:android') ]) {
+		- [ project('game0001:0001-android') , project('game0001:0001-pico4') , project('game0001:0001-taptap') ]
+		- [ project('game0002:0002-android') ]) {
 	apply plugin: 'java-library'
 	sourceCompatibility = 17
 	compileJava {
