@@ -3,7 +3,6 @@ package pama1234.gdx.game.ui.generator;
 import com.badlogic.gdx.Input;
 
 import pama1234.gdx.game.app.Screen0011;
-import pama1234.gdx.game.app.app0002.Screen0006;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.State0001;
@@ -108,17 +107,6 @@ public class UiGenerator{
       new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.state(State0001.StartMenu);
       },self->self.text="返回",p::getButtonUnitLength,()->p.bu*0.5f,()->p.bu*0.5f),
-    };
-  }
-  public static <T extends Screen0006> Button<?>[] genButtons_0002(T p) {
-    return new Button[] {
-      new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {
-        // p.fullSettings=!p.fullSettings;
-      },self->self.text="开始游戏",p::getButtonUnitLength,()->p.width/4f*3-p.pu*2.5f,()->p.height/4f),
-      new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {
-        // p.fullSettings=!p.fullSettings;
-      },self->self.text="　公告　",p::getButtonUnitLength,()->p.width/4f*3-p.pu*2.5f,()->p.height/2f),
-      // },"公告",p::getButtonUnitLength,()->p.width/8f*5.5f,()->p.height/2f),
     };
   }
   /**

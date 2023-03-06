@@ -6,7 +6,6 @@ import java.util.List;
 
 import com.badlogic.gdx.Game;
 
-import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.app.Screen0012;
 import pama1234.gdx.game.app.Screen0016;
 import pama1234.gdx.game.app.Screen0017;
@@ -31,7 +30,7 @@ public class MainApp extends Game{
   public static final int defaultType=0,taptap=1,pico=2;
   public static int type;
   public List<Class<? extends UtilScreen>> screenList;
-  public int screenType=11;
+  public int screenType=1;
   public MainApp() {
     screenList=Arrays.asList(null,
       Screen0001.class,//3D 粒子系统 单机
@@ -44,7 +43,7 @@ public class MainApp extends Game{
       Screen0008.class,//测试 TextArea
       Screen0009.class,//测试 GIF加载
       Screen0010.class,//测试 天空着色器
-      Screen0011.class,//游戏本体            <---------# √
+      null,
       Screen0012.class,//空白游戏框架
       Screen0013.class,//测试 透明渲染模式
       Screen0014.class,//测试 贴图渲染优化

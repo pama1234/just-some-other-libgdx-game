@@ -22,7 +22,7 @@ sourceSets.main.resources.srcDirs += [
   '../assets'
 ]
 mainClassName = 'pama1234.gdx.game.app.lwjgl3.Launcher'
-eclipse.project.name = appName + '-lwjgl3'
+eclipse.project.name = appName + '-0001-lwjgl3'
 sourceCompatibility = 17
 
 dependencies {
