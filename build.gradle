@@ -31,7 +31,9 @@ allprojects {
 	apply plugin: 'idea'
 }
 
-configure(subprojects - [ project('game0001:android') , project('game0001:pico4') , project('game0001:taptap') ]) {
+configure(subprojects 
+		- [ project('game0001:android') , project('game0001:pico4') , project('game0001:taptap') ]
+		- [ project('game0002:android') ]) {
 	apply plugin: 'java-library'
 	sourceCompatibility = 17
 	compileJava {
@@ -71,7 +73,7 @@ configure(subprojects - [ project('game0001:android') , project('game0001:pico4'
 
 subprojects {
 	version = '0.0.1'
-	ext.appName = 'just-some-other-libgdx-game'
+	ext.appName = 'game'
 	repositories {
 		mavenCentral()
 		maven { url 'https://s01.oss.sonatype.org' }
@@ -83,4 +85,4 @@ subprojects {
 	}
 }
 
-eclipse.project.name = 'just-some-other-libgdx-game' + '-parent'
+eclipse.project.name = 'game' + '-parent'

@@ -1,12 +1,4 @@
-// include 'headless', 'android', 'lwjgl3', 'core', 'server', 'pico4', 'taptap','framework','server-framework'
 include 'framework','server-framework'
-// include 'game0001'
-include 'game0001:headless', 'game0001:android', 'game0001:lwjgl3', 'game0001:core', 'game0001:server', 'game0001:pico4', 'game0001:taptap'
 
-//project(':game0001:headless').projectDir = new File('game0001/headless')
-//project(':game0001:android').projectDir = new File('game0001/android')
-//project(':game0001:lwjgl3').projectDir = new File('game0001/lwjgl3')
-//project(':game0001:core').projectDir = new File('game0001/core')
-//project(':game0001:server').projectDir = new File('game0001/server')
-//project(':game0001:pico4').projectDir = new File('game0001/pico4')
-//project(':game0001:taptap').projectDir = new File('game0001/taptap')
+include 'game0001:headless', 'game0001:android', 'game0001:lwjgl3', 'game0001:core', 'game0001:server', 'game0001:pico4', 'game0001:taptap'
+include 'game0002:android', 'game0002:lwjgl3', 'game0002:core', 'game0002:server'
