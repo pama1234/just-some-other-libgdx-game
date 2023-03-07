@@ -51,7 +51,7 @@ android {
     exclude 'META-INF/dependencies.txt'
   }
   defaultConfig {
-    applicationId 'pama1234.gdx.game.app.pico4'
+    applicationId 'pama1234.gdx.game.app.game0001.pico4'
     minSdkVersion 26
     targetSdkVersion 32
     versionCode 1
