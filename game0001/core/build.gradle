@@ -1,6 +1,10 @@
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
-eclipse.project.dump()
 eclipse.project.name = appName + '-0001-core'
+
+// println(sourceSets)
+// sourceSets{
+//   println(runtimeClasspath)
+// }
 
 dependencies {
   api "com.badlogicgames.gdx:gdx:$gdxVersion"
@@ -8,3 +12,5 @@ dependencies {
   api project(':framework')
   api project(':game0001:0001-server')
 }
+
+// sourceSets.main.java.each { println it}

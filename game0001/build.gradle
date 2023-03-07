@@ -1,0 +1,4 @@
+configure(subprojects
+    - [ project('0001-android') , project('0001-pico4') , project('0001-taptap') ]) {
+
+}
