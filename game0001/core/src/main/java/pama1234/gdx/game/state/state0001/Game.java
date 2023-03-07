@@ -20,6 +20,7 @@ import pama1234.gdx.game.state.state0001.game.net.ServerCore;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
 import pama1234.gdx.game.state.state0001.game.world.World;
 import pama1234.gdx.game.state.state0001.game.world.World0001;
+import pama1234.gdx.game.state.state0001.game.world.World0002;
 import pama1234.gdx.game.state.state0001.game.world.WorldCenter;
 import pama1234.gdx.game.ui.generator.UiGenerator;
 import pama1234.gdx.game.ui.util.Button;
@@ -36,6 +37,7 @@ public class Game extends StateEntity0001{
   public float time;
   //---
   public World0001 world_0001;
+  public World0002 world_0002;
   public WorldCenter<Screen0011,Game,World<Screen0011,Game>> worldCenter;
   // public boolean debug,debugGraphics;
   public boolean androidRightMouseButton;

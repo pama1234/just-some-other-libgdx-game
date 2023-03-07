@@ -34,19 +34,14 @@ public class Screen0001 extends ScreenCore3D{
   @Deprecated
   public ClientPlayerCenter3D playerCenter;//TODO
   public ControllerClientPlayer3D yourself;
-  // public ServerPlayer3D yourself;
   public ArrayList<ArrayList<GraphicsData>> graphicsList;
   public ArrayList<DecalData> decals;
-  // boolean doUpdate=true;//TODO
   public boolean doUpdate;
   public Thread updateCell;
   public Vector3 posCache=new Vector3();
-  // public float viewDist=1024;//TODO
   public static final int layerSize=3;
   public static final int gsize=8;
-  // public float multDist=1;
   public boolean displayHint;
-  // public boolean displayHint=true;
   public Decal infoD;
   public Decal logo;
   public boolean tempTest;//TODO
@@ -80,21 +75,16 @@ public class Screen0001 extends ScreenCore3D{
     CellGroupGenerator3D gen=new CellGroupGenerator3D(0,0);
     group=gen.randomGenerate();
     // group=gen.GenerateFromMiniCore();
-    // for(int i=0;i<cellData.length;i++) cellData[i]=new CellData();
     playerCenter=new ClientPlayerCenter3D(this);
-    // yourself=new ControllerClientPlayer3D(this,"pama1234",cam.point);
     yourself=new ControllerClientPlayer3D(this,new ServerPlayer3D(
       "pama"+String.format("%04d",(int)(random(0,10000))),
       0,0,0));
     noStroke();
     graphicsList=new ArrayList<ArrayList<GraphicsData>>(layerSize);
-    // decals=new ArrayList<>(clientCore.cellData.length);
     decals=new ArrayList<>(group.size);
-    // System.out.println(group.type.length==group.colors.length);
     final int typeSize=group.colors.length;
     int tsize=group.size/typeSize;
     int[] colors=new int[typeSize];
-    // for(int i=0;i<colors.length;i++) colors[i]=Tools.hsbColor((float)i/colors.length*255,0xff,0xff);
     for(int i=0;i<colors.length;i++) colors[i]=group.colors[i];
     graphicsList.add(0,new ArrayList<GraphicsData>(typeSize));
     for(int i=0;i<typeSize;i++) {
@@ -115,8 +105,6 @@ public class Screen0001 extends ScreenCore3D{
     }
     for(int k=1;k<layerSize;k++) {
       graphicsList.add(k,new ArrayList<GraphicsData>(typeSize));
-      // k++;
-      // decals.add(k,new ArrayList<Decal>(ts));
       for(int i=0;i<typeSize;i++) {
         int tgsize=tgsizeF(k);
         Graphics tg=new Graphics(this,tgsize*2,tgsize*2);
@@ -190,10 +178,8 @@ public class Screen0001 extends ScreenCore3D{
         float ty=group.y(i)*multDist;
         float tz=group.z(i)*multDist;
         float tdist=dist(tx,ty,tz,cam.x(),cam.y(),cam.z());
-        // Decal td=decals.get(layerF(tdist)).get(i);
         final DecalData tdd=decals.get(i);
         final Decal td=tdd.decal;
-        // if(tdist>viewDist) continue;
         if(!isVisible(cam.camera,td,Var.DIST/2)) continue;
         final int tlf=layerF(tdist);
         if(tlf!=tdd.layer) {
@@ -214,9 +200,7 @@ public class Screen0001 extends ScreenCore3D{
   @Override
   public void display() {}
   @Override
-  public void frameResized() {
-    // super.frameResized();
-  }
+  public void frameResized() {}
   @Override
   public void keyPressed(char key,int keyCode) {
     if(key=='Z') doUpdate=!doUpdate;
@@ -254,7 +238,6 @@ public class Screen0001 extends ScreenCore3D{
       cam3d.viewDist(tvd);
     }
     if(isAndroid&&key=='T') fullSettings=!fullSettings;//TODO
-    // if(key=='I') configInfo=!configInfo;
     if(key=='P') tempTest=!tempTest;
   }
   @Override
