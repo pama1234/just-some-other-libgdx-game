@@ -80,7 +80,7 @@ public class Block{
     type.initBlock(world,this);
   }
   public void type(World0001 world,MetaBlock<?,?> in,int x,int y) {
-    MetaBlock t=type;
+    MetaBlock<?,?> t=type;
     if(in==t) return;
     changed=true;
     // updateLighting=true;

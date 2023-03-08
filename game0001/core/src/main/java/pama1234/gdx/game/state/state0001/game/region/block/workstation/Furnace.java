@@ -59,7 +59,7 @@ public class Furnace extends MetaBlock<WorldType0001Base<?>,MetaBlockCenter0001<
     tiles[2]=tsrc[9][9];
     tiles[3]=tsrc[10][9];
     //-----------------------------------------------------
-    MetaItemCenter0001 mi=pc.pw.metaItems;
+    MetaItemCenter0001<?> mi=pc.pw.metaItems;
     recipeList=new MeltRecipe[] {
       new MeltRecipe(60,new CraftItem[] {new CraftItem(mi.lightOre,4)},new CraftItem[] {new CraftItem(mi.lightIngot)}),
     };

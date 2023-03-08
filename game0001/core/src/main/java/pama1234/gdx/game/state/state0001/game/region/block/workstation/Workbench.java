@@ -176,7 +176,7 @@ public class Workbench extends MetaBlock<WorldType0001Base<?>,MetaBlockCenter000
     //-----------------------------------------------------
     tiles[0]=tsrc[6][8];
     //-----------------------------------------------------
-    MetaItemCenter0001 mi=pc.pw.metaItems;
+    MetaItemCenter0001<?> mi=pc.pw.metaItems;
     recipeList=new CraftRecipe[] {
       new CraftRecipe(new CraftItem[] {new CraftItem(mi.branch),new CraftItem(mi.stone)},new CraftItem[] {new CraftItem(mi.stonePickaxe)}),
       new CraftRecipe(new CraftItem[] {new CraftItem(mi.branch),new CraftItem(mi.stone)},new CraftItem[] {new CraftItem(mi.stoneAxe)}),
