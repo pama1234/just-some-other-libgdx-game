@@ -63,10 +63,6 @@ public class World0001 extends WorldBase2D<WorldType0001>{
     metaBlocks=type.metaBlocks;
     metaItems=type.metaItems;
     metaEntitys=type.metaEntitys;
-    // metaBlocks=World0001Generator.createBlockC(type);
-    // metaItems=World0001Generator.createItemC(type);
-    // for(MetaBlock e:metaBlocks.list) e.initItemDrop();
-    // metaEntitys=World0001Generator.createCreatureC(type);
     list[0]=background=new BackgroundCenter(p,this);
     list[1]=regions=new RegionCenter(p,this);
     list[2]=entities=new MultiGameEntityCenter0001(p,this);
@@ -98,7 +94,7 @@ public class World0001 extends WorldBase2D<WorldType0001>{
   public void init() {
     super.init();
     sky.init();
-    for(MetaBlock e:metaBlocks.list) e.init();
+    for(MetaBlock<?,?> e:metaBlocks.list) e.init();
     for(MetaItem e:metaItems.list) e.init();
     for(MetaCreature<?> e:metaEntitys.list) e.init();
     for(int i=0;i<background.background0001.list.size();i++) background.background0001.list.get(i).setTexture(ImageAsset.backgroundList[4-i]);

@@ -32,9 +32,9 @@ public class MetaCreature<T extends LivingEntity>extends MetaInfoBase{
   @Override
   public void init() {}
   public static class SpawnData{
-    public MetaBlock block;
+    public MetaBlock<?,?> block;
     public float rate;
-    public SpawnData(MetaBlock block,float rate) {
+    public SpawnData(MetaBlock<?,?> block,float rate) {
       this.block=block;
       this.rate=rate;
     }

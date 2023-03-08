@@ -14,6 +14,7 @@ import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
 import pama1234.gdx.game.state.state0001.game.region.Chunk.BlockData;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
+import pama1234.gdx.game.state.state0001.game.world.world0001.WorldType0001;
 import pama1234.math.hash.HashNoise2f;
 import pama1234.math.hash.PerlinNoise2f;
 import pama1234.math.hash.Random2f;
@@ -39,7 +40,7 @@ public class RegionGenerator{
   }
   public void generateIfNull(Region region) {
     World0001 world=pr.pw;
-    MetaBlock[] mblock=world.metaBlocks.array();
+    MetaBlock<WorldType0001,?>[] mblock=world.metaBlocks.array();
     MetaItem[] mitem=world.metaItems.array();
     Chunk[][] data=region.data;
     if(data==null) data=region.data=new Chunk[pr.data.regionWidth][pr.data.regionHeight];

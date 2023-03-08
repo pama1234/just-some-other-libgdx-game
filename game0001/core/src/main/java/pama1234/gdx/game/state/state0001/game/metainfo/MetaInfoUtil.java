@@ -4,19 +4,31 @@ import pama1234.game.app.server.server0002.game.metainfo.IDGenerator;
 import pama1234.util.wrapper.Center;
 
 public class MetaInfoUtil{
-  public static class MetaCreatureCenter extends CachedArrayCenter<MetaCreature<?>>{
+  public static class MetaCreatureCenter<M extends MetaWorld<?,?,?,?>>extends CachedArrayCenter<MetaCreature<?>>{
+    public M pw;
+    public MetaCreatureCenter(M pw) {
+      this.pw=pw;
+    }
     @Override
     public MetaCreature<?>[] generateArray() {
       return list.toArray(new MetaCreature<?>[list.size()]);
     }
   }
-  public static class MetaBlockCenter extends CachedArrayCenter<MetaBlock>{
+  public static class MetaBlockCenter<M extends MetaWorld<?,?,?,?>>extends CachedArrayCenter<MetaBlock<M,?>>{
+    public M pw;
+    public MetaBlockCenter(M pw) {
+      this.pw=pw;
+    }
     @Override
-    public MetaBlock[] generateArray() {
+    public MetaBlock<M,?>[] generateArray() {
       return list.toArray(new MetaBlock[list.size()]);
     }
   }
-  public static class MetaItemCenter extends CachedArrayCenter<MetaItem>{
+  public static class MetaItemCenter<M extends MetaWorld<?,?,?,?>>extends CachedArrayCenter<MetaItem>{
+    public M pw;
+    public MetaItemCenter(M pw) {
+      this.pw=pw;
+    }
     @Override
     public MetaItem[] generateArray() {
       return list.toArray(new MetaItem[list.size()]);

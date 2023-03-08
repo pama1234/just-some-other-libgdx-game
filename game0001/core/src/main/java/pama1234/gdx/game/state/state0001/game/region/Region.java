@@ -92,7 +92,7 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
         // if(tbd==null) continue;
         Block block=tbd==null?pr.nullBlock:tbd.block;
         // Block block=tbd.block;
-        MetaBlock blockType=block.type;
+        MetaBlock<?,?> blockType=block.type;
         if(blockType==null) continue;
         int tx_3=tx_2+n,
           ty_3=ty_2+m;
@@ -139,7 +139,7 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
       if(!p.cam2d.boxIntersect(tcx,tcy,tcw,tch)) continue;
       for(int n=0;n<blockData.length;n++) for(int m=0;m<blockData[n].length;m++) {
         Block block=blockData[n][m].block;
-        MetaBlock blockType=block.type;
+        MetaBlock<?,?> blockType=block.type;
         int txi=(rx+i)*pr.data.chunkWidth+n,
           tyi=(ry+j)*pr.data.chunkHeight+m;
         int tx=txi*world.settings.blockWidth,
@@ -166,7 +166,7 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
         // if(tbd==null) continue;
         Block block=tbd==null?pr.nullBlock:tbd.block;
         // Block block=tbd.block;
-        MetaBlock blockType=block.type;
+        MetaBlock<?,?> blockType=block.type;
         if(blockType==null) continue;
         int tx=tx_2+n,
           ty=ty_2+m;
@@ -192,7 +192,7 @@ public class Region extends Entity<Screen0011> implements LoadAndSave{
         BlockData tbd=blockData[n][m];
         if(tbd==null) continue;//TODO
         Block block=tbd.block;
-        MetaBlock blockType=block.type;
+        MetaBlock<?,?> blockType=block.type;
         if(blockType==null) continue;
         int tx=tx_2+n,
           ty=ty_2+m;

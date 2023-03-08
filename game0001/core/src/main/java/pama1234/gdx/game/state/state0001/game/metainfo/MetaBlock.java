@@ -4,18 +4,18 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import pama1234.game.app.server.server0002.game.metainfo.MetaInfoBase;
 import pama1234.gdx.game.app.Screen0011;
-import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
+import pama1234.gdx.game.state.state0001.game.metainfo.MetaInfoUtil.MetaBlockCenter;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.WorldBase2D;
 import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
 import pama1234.math.UtilMath;
 
-public class MetaBlock extends MetaInfoBase{
+public class MetaBlock<M extends MetaWorld<?,?,?,?>,C extends MetaBlockCenter<M>>extends MetaInfoBase{
   public static class FullBlockType{
     public static final int stoneType=0,leafType=1,plankType=2,platformType=3;//,oreType=4;
   }
   public static final int noType=0,everyType=1,dirtType=2,stoneType=3,woodType=4;//blockType
-  public MetaBlockCenter0001 pc;
+  public C pc;
   public boolean display,empty,light;//TODO need light boolean?
   public TextureRegion[] tiles;
   public int buildTime=1,destroyTime=1;
@@ -41,14 +41,14 @@ public class MetaBlock extends MetaInfoBase{
   public static int getLighting(float in) {
     return UtilMath.constrain(UtilMath.floor(in*16),0,255);
   }
-  public MetaBlock(MetaBlockCenter0001 pc,String name,int id) {
+  public MetaBlock(C pc,String name,int id) {
     super(name,id);
     this.pc=pc;
     this.name=name;
     empty=true;
     itemDrop=new ItemDropAttr[0];
   }
-  public MetaBlock(MetaBlockCenter0001 pc,
+  public MetaBlock(C pc,
     String name,int id,
     int tilesSize,
     BlockUpdater updater,BlockUpdater displayUpdater,BlockDisplayer displayer,
@@ -59,7 +59,7 @@ public class MetaBlock extends MetaInfoBase{
     this.displayUpdater=displayUpdater;
     this.displayer=displayer;
   }
-  public MetaBlock(MetaBlockCenter0001 pc,
+  public MetaBlock(C pc,
     String name,int id,
     int tilesSize,
     int displayTypeSize,
@@ -89,10 +89,10 @@ public class MetaBlock extends MetaInfoBase{
     return defaultDisplayType;
   }
   public void initBlock(WorldBase2D<?> world,Block in) {}
-  public void from(World0001 world,Block block,MetaBlock type,int x,int y) {
+  public void from(World0001 world,Block block,MetaBlock<M,C> type,int x,int y) {
     if(from!=null) from.change(world,block,type,x,y);
   }
-  public void to(World0001 world,Block block,MetaBlock in,int x,int y) {
+  public void to(World0001 world,Block block,MetaBlock<M,C> in,int x,int y) {
     // block.intData=null;
     if(to!=null) to.change(world,block,in,x,y);
   }
@@ -130,7 +130,7 @@ public class MetaBlock extends MetaInfoBase{
   }
   @FunctionalInterface
   public interface BlockChanger{
-    void change(World0001 world,Block block,MetaBlock type,int x,int y);
+    void change(World0001 world,Block block,MetaBlock<?,?> type,int x,int y);
   }
   public interface TilemapRenderer{
     public void tint(float x,float y,float z);

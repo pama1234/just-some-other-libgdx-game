@@ -18,11 +18,12 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemC
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.region.block.Block.BlockUi;
 import pama1234.gdx.game.state.state0001.game.world.WorldBase2D;
+import pama1234.gdx.game.state.state0001.game.world.world0001.WorldType0001;
 import pama1234.gdx.game.ui.generator.UiGenerator;
 import pama1234.gdx.game.ui.util.TextButtonCam;
 import pama1234.math.Tools;
 
-public class Workbench extends MetaBlock{
+public class Workbench extends MetaBlock<WorldType0001,MetaBlockCenter0001>{
   public static final int stepMod=2,stopMod=1,updateMod=0;
   public int outputSlotSize=2,sloatSize=5;
   public CraftRecipe[] recipeList;

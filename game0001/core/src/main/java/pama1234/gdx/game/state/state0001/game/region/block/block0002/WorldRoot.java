@@ -9,10 +9,11 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlock
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.region.block.Block.BlockUi;
 import pama1234.gdx.game.state.state0001.game.world.WorldBase2D;
+import pama1234.gdx.game.state.state0001.game.world.world0001.WorldType0001;
 import pama1234.gdx.game.ui.generator.UiGenerator;
 import pama1234.gdx.game.ui.util.TextButtonCam;
 
-public class WorldRoot extends MetaBlock{
+public class WorldRoot extends MetaBlock<WorldType0001,MetaBlockCenter0001>{
   public WorldRoot(MetaBlockCenter0001 pc,int id) {
     super(pc,"world-root",id,1,1,(world,in,type,x,y)-> {//change to me
       in.light.set(16);
@@ -57,7 +58,7 @@ public class WorldRoot extends MetaBlock{
     in.ui.displaySlot=new DisplaySlot[0];
     // for(int i=0;i<in.ui.displaySlot.length;i++) in.ui.displaySlot[i]=new DisplaySlot(in.itemData[i]);
     // in.ui.camButton=new TextButtonCam[0];
-    in.ui.camButton=UiGenerator.genButtons_0010(world.p,in);
+    in.ui.camButton=UiGenerator.genButtons_0010(world.p,world,in);
     in.changed=true;
   }
   @Override
