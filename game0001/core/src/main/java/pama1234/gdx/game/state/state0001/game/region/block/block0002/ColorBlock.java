@@ -60,7 +60,7 @@ public class ColorBlock extends MetaBlock{
     tiles[19]=tsrc[tx+1][ty+1];
   }
   @Override
-  public void initBlock(WorldBase2D world,Block in) {
+  public void initBlock(WorldBase2D<?> world,Block in) {
     if(in.intData==null) {
       in.intData=new int[3];
       in.intData[0]=(int)world.random(256);

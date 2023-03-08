@@ -35,7 +35,7 @@ public class Sapling extends MetaBlock{
     tiles[0]=tsrc[6][6];
   }
   @Override
-  public void initBlock(WorldBase2D world,Block in) {
+  public void initBlock(WorldBase2D<?> world,Block in) {
     if(in.intData==null) in.intData=new int[1];
   }
   public void initSaplingLambda() {
