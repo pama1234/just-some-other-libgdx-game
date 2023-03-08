@@ -59,7 +59,7 @@ public class Fly extends MobEntity{
       dx=-12;
       dy=-24;
     }
-    public FlyType(MetaCreatureCenter0001 pc,int id) {
+    public FlyType(MetaCreatureCenter0001<?> pc,int id) {
       super(pc,"fly",id,4,3,1);
       naturalMaxCount=4;
       moveSpeed=4;

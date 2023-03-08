@@ -70,7 +70,7 @@ public class Player extends TextureLivingEntity{
       dx=-w/2f;
       dy=-h;
     }
-    public PlayerType(MetaCreatureCenter0001 pc,int id) {
+    public PlayerType(MetaCreatureCenter0001<?> pc,int id) {
       super(pc,"player",id,32,new TextureRegion[][] {new TextureRegion[4],new TextureRegion[7],new TextureRegion[3]});
     }
     @Override

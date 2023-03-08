@@ -49,7 +49,7 @@ public class ClientRead extends Thread{
     if(point.pos.dist(x,y)>36) point.pos.set(x,y);
   }
   public void readChunkData() {
-    MetaBlock[] mblock=p.world.metaBlocks.array();
+    MetaBlock<?,?>[] mblock=p.world.metaBlocks.array();
     MetaItem[] mitem=p.world.metaItems.array();
     int count=input.readInt();
     RegionCenter pr=p.world.regions;

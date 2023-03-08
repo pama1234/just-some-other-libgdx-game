@@ -30,10 +30,10 @@ import pama1234.gdx.game.state.state0001.game.region.block.workstation.Chest;
 import pama1234.gdx.game.state.state0001.game.region.block.workstation.Furnace;
 import pama1234.gdx.game.state.state0001.game.region.block.workstation.Workbench;
 
-public class World0001Generator{
-  public static MetaBlockCenter0001 createBlockC(WorldType0001 in) {
-    MetaBlockCenter0001 metaBlocks=new MetaBlockCenter0001(in);
-    metaBlocks.list.add(metaBlocks.air=new MetaBlock<WorldType0001,MetaBlockCenter0001>(metaBlocks,"air",metaBlocks.id()));
+public class WorldType0001BaseGenerator{
+  public static <M extends WorldType0001Base<?>> MetaBlockCenter0001<M> createBlockC(M in) {
+    MetaBlockCenter0001 metaBlocks=new MetaBlockCenter0001<>(in);
+    metaBlocks.list.add(metaBlocks.air=new MetaBlock<M,MetaBlockCenter0001<M>>(metaBlocks,"air",metaBlocks.id()));
     metaBlocks.list.add(metaBlocks.dirt=new Dirt(metaBlocks,metaBlocks.id()));
     metaBlocks.list.add(metaBlocks.stone=new Stone(metaBlocks,metaBlocks.id()));
     metaBlocks.list.add(metaBlocks.log=new TreeLog(metaBlocks,metaBlocks.id()));
@@ -55,8 +55,8 @@ public class World0001Generator{
     metaBlocks.list.add(metaBlocks.worldRoot=new WorldRoot(metaBlocks,metaBlocks.id()));
     return metaBlocks;
   }
-  public static MetaItemCenter0001 createItemC(WorldType0001 pw) {
-    MetaItemCenter0001 metaItems=new MetaItemCenter0001(pw);
+  public static <M extends WorldType0001Base<?>> MetaItemCenter0001<M> createItemC(M pw) {
+    MetaItemCenter0001<M> metaItems=new MetaItemCenter0001<>(pw);
     metaItems.list.add(metaItems.dirt=new MetaItem(metaItems,"dirt",metaItems.id(),in-> {
       in.blockType=pw.metaBlocks.dirt;
       in.tiles=new TextureRegion[1];
@@ -200,8 +200,8 @@ public class World0001Generator{
     }));
     return metaItems;
   }
-  public static MetaCreatureCenter0001 createCreatureC(WorldType0001 in) {
-    MetaCreatureCenter0001 metaEntitys=new MetaCreatureCenter0001(in);
+  public static <M extends WorldType0001Base<?>> MetaCreatureCenter0001<M> createCreatureC(M in) {
+    MetaCreatureCenter0001<M> metaEntitys=new MetaCreatureCenter0001<>(in);
     metaEntitys.list.add(metaEntitys.player=new PlayerType(metaEntitys,metaEntitys.id()));
     metaEntitys.list.add(metaEntitys.droppedItem=new DroppedItemType(metaEntitys,metaEntitys.id()));
     metaEntitys.list.add(metaEntitys.fly=new FlyType(metaEntitys,metaEntitys.id()));

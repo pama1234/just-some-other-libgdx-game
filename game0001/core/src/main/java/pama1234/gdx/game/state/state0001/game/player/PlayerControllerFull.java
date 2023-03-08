@@ -292,7 +292,7 @@ public class PlayerControllerFull extends PlayerControllerCore{
         ItemSlot td=player.inventory.selectSlot().data;
         Item ti=td.item;
         if(ti!=null) {
-          MetaBlock tb=ti.type.blockType;
+          MetaBlock<?,?> tb=ti.type.blockType;
           if(tb!=null&&block.type!=tb) {
             player.pw.r.placeBlock(player,block,tb,tx,ty);
           }
