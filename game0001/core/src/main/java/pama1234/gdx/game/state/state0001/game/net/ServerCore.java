@@ -6,7 +6,7 @@ import java.net.SocketException;
 import pama1234.game.app.server.server0002.net.SocketData;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.game.player.Player;
-import pama1234.gdx.game.state.state0001.game.world.World0001;
+import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
 import pama1234.util.net.ServerSocketData;
 import pama1234.util.net.SocketWrapper;
 import pama1234.util.wrapper.Center;

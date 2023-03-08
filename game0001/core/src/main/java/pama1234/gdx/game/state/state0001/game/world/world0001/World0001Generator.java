@@ -1,4 +1,4 @@
-package pama1234.gdx.game.state.state0001.game.world;
+package pama1234.gdx.game.state.state0001.game.world.world0001;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 

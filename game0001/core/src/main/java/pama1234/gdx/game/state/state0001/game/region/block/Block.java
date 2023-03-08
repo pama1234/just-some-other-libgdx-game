@@ -10,7 +10,7 @@ import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock.FullBlockType;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock.ItemDropAttr;
 import pama1234.gdx.game.state.state0001.game.region.PathVarLighting;
-import pama1234.gdx.game.state.state0001.game.world.World0001;
+import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
 import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.game.ui.util.TextButtonCam;
 
