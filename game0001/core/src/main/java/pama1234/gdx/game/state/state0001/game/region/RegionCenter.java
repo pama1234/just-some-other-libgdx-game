@@ -71,7 +71,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
       Gdx.files.internal("shader/main0002/tilemap.vert").readString(),
       Gdx.files.internal("shader/main0002/tilemap.frag").readString())));
     //---
-    nullBlock=new Block(pw,pw.metaBlocks.nullBlock);
+    nullBlock=new Block(pw,pw.type.metaBlocks.nullBlock);
     fakeChunk=new Chunk(null);
     fakeChunk.data=new BlockData[data.chunkWidth][data.chunkHeight];
     BlockData[][] blockData=fakeChunk.data;

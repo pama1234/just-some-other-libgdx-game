@@ -9,11 +9,6 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaWorld
 public class WorldType0002 extends MetaWorld<World0002,MetaBlockCenter0001<?>,MetaItemCenter0001<?>,MetaCreatureCenter0001<?>>{
   public WorldType0002(MetaWorldCenter0001 pc,int id) {
     super(pc,"test-world-2",id);
-    //---
-    // metaBlocks=World0001Generator.createBlockC(this);
-    // metaItems=World0001Generator.createItemC(this);
-    // for(MetaBlock e:metaBlocks.list) e.initItemDrop();
-    // metaEntitys=World0001Generator.createCreatureC(this);
   }
   @Override
   public void init() {}

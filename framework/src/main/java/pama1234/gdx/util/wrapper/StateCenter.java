@@ -22,10 +22,18 @@ public class StateCenter<T extends UtilScreen,E extends EntityListener>extends E
     this(p);
     for(E i:in) list.add(i);
   }
-  public void set(int in) {//TODO
+  public E get() {
+    return list.get(pointer);
+  }
+  public void setWithDispose(int in) {
     list.get(pointer).pause();
     list.get(pointer).dispose();
     list.get(in).init();
+    list.get(in).resume();
+    pointer=in;
+  }
+  public void set(int in) {
+    list.get(pointer).pause();
     list.get(in).resume();
     pointer=in;
   }

@@ -22,7 +22,7 @@ public class Stone extends MetaBlock<WorldType0001Base<?>,MetaBlockCenter0001<Wo
   }
   @Override
   public void initItemDrop() {
-    itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pw.metaItems.stone,1)};
+    itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pwt.metaItems.stone,1)};
   }
   @Override
   public void init() {

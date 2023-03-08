@@ -55,35 +55,35 @@ public class WorldType0001BaseGenerator{
     metaBlocks.list.add(metaBlocks.worldRoot=new WorldRoot(metaBlocks,metaBlocks.id()));
     return metaBlocks;
   }
-  public static <M extends WorldType0001Base<?>> MetaItemCenter0001<M> createItemC(M pw) {
-    MetaItemCenter0001<M> metaItems=new MetaItemCenter0001<>(pw);
+  public static <M extends WorldType0001Base<?>> MetaItemCenter0001<M> createItemC(M pwt) {
+    MetaItemCenter0001<M> metaItems=new MetaItemCenter0001<>(pwt);
     metaItems.list.add(metaItems.dirt=new MetaItem(metaItems,"dirt",metaItems.id(),in-> {
-      in.blockType=pw.metaBlocks.dirt;
+      in.blockType=pwt.metaBlocks.dirt;
       in.tiles=new TextureRegion[1];
       in.tiles[0]=ImageAsset.items[0][2];
     }));
     metaItems.list.add(metaItems.stone=new MetaItem(metaItems,"stone",metaItems.id(),in-> {
-      in.blockType=pw.metaBlocks.stone;
+      in.blockType=pwt.metaBlocks.stone;
       in.tiles=new TextureRegion[1];
       in.tiles[0]=ImageAsset.items[0][3];
     }));
     metaItems.list.add(metaItems.log=new MetaItem(metaItems,"log",metaItems.id(),in-> {
-      in.blockType=pw.metaBlocks.log;
+      in.blockType=pwt.metaBlocks.log;
       in.tiles=new TextureRegion[1];
       in.tiles[0]=ImageAsset.items[1][0];
     }));
     metaItems.list.add(metaItems.branch=new MetaItem(metaItems,"branch",metaItems.id(),in-> {
-      in.blockType=pw.metaBlocks.branch;
+      in.blockType=pwt.metaBlocks.branch;
       in.tiles=new TextureRegion[1];
       in.tiles[0]=ImageAsset.items[1][1];
     }));
     metaItems.list.add(metaItems.leaf=new MetaItem(metaItems,"leaf",metaItems.id(),in-> {
-      in.blockType=pw.metaBlocks.leaf;
+      in.blockType=pwt.metaBlocks.leaf;
       in.tiles=new TextureRegion[1];
       in.tiles[0]=ImageAsset.items[1][2];
     }));
     metaItems.list.add(metaItems.workbench=new MetaItem(metaItems,"workbench",metaItems.id(),in-> {
-      in.blockType=pw.metaBlocks.workbench;
+      in.blockType=pwt.metaBlocks.workbench;
       in.tiles=new TextureRegion[1];
       in.tiles[0]=ImageAsset.items[2][0];
     }));
@@ -113,47 +113,47 @@ public class WorldType0001BaseGenerator{
       in.tiles[0]=ImageAsset.items[2][4];
     }));
     metaItems.list.add(metaItems.sapling=new MetaItem(metaItems,"sapling",metaItems.id(),in-> {
-      in.blockType=pw.metaBlocks.sapling;
+      in.blockType=pwt.metaBlocks.sapling;
       in.tiles=new TextureRegion[1];
       in.tiles[0]=ImageAsset.items[1][3];
     }));
     metaItems.list.add(metaItems.torch=new MetaItem(metaItems,"torch",metaItems.id(),in-> {
-      in.blockType=pw.metaBlocks.torch;
+      in.blockType=pwt.metaBlocks.torch;
       in.tiles=new TextureRegion[1];
       in.tiles[0]=ImageAsset.items[6][0];
     }));
     metaItems.list.add(metaItems.woodPlank=new MetaItem(metaItems,"wood-plank",metaItems.id(),in-> {
-      in.blockType=pw.metaBlocks.woodPlank;
+      in.blockType=pwt.metaBlocks.woodPlank;
       in.tiles=new TextureRegion[1];
       in.tiles[0]=ImageAsset.items[3][0];
     }));
     metaItems.list.add(metaItems.woodPlatform=new MetaItem(metaItems,"wood-platform",metaItems.id(),in-> {
-      in.blockType=pw.metaBlocks.woodPlatform;
+      in.blockType=pwt.metaBlocks.woodPlatform;
       in.tiles=new TextureRegion[1];
       in.tiles[0]=ImageAsset.items[3][2];
     }));
     metaItems.list.add(metaItems.furnace=new MetaItem(metaItems,"furnace",metaItems.id(),in-> {
-      in.blockType=pw.metaBlocks.furnace;
+      in.blockType=pwt.metaBlocks.furnace;
       in.tiles=new TextureRegion[1];
       in.tiles[0]=ImageAsset.items[6][1];
     }));
     metaItems.list.add(metaItems.door=new MetaItem(metaItems,"door",metaItems.id(),in-> {
-      in.blockType=pw.metaBlocks.doorClosed;
+      in.blockType=pwt.metaBlocks.doorClosed;
       in.tiles=new TextureRegion[1];
       in.tiles[0]=ImageAsset.items[3][7];
     }));
     metaItems.list.add(metaItems.chest=new MetaItem(metaItems,"chest",metaItems.id(),in-> {
-      in.blockType=pw.metaBlocks.chest;
+      in.blockType=pwt.metaBlocks.chest;
       in.tiles=new TextureRegion[1];
       in.tiles[0]=ImageAsset.items[3][3];
     }));
     metaItems.list.add(metaItems.lightOre=new MetaItem(metaItems,"light-ore",metaItems.id(),in-> {
-      // in.blockType=pw.metaBlocks.chest;
+      // in.blockType=pw.type.metaBlocks.chest;
       in.tiles=new TextureRegion[1];
       in.tiles[0]=ImageAsset.items[7][0];
     }));
     metaItems.list.add(metaItems.lightIngot=new MetaItem(metaItems,"light-ingot",metaItems.id(),in-> {
-      // in.blockType=pw.metaBlocks.chest;
+      // in.blockType=pw.type.metaBlocks.chest;
       in.tiles=new TextureRegion[1];
       in.tiles[0]=ImageAsset.items[7][1];
     }));
@@ -183,17 +183,17 @@ public class WorldType0001BaseGenerator{
       in.tiles[0]=ImageAsset.items[7][5];
     }));
     metaItems.list.add(metaItems.colorBlock=new MetaItem(metaItems,"color-block",metaItems.id(),in-> {
-      in.blockType=pw.metaBlocks.colorBlock;
+      in.blockType=pwt.metaBlocks.colorBlock;
       in.tiles=new TextureRegion[1];
       in.tiles[0]=ImageAsset.items[8][0];
     }));
     metaItems.list.add(metaItems.lightBlock=new MetaItem(metaItems,"light-block",metaItems.id(),in-> {
-      in.blockType=pw.metaBlocks.lightBlock;
+      in.blockType=pwt.metaBlocks.lightBlock;
       in.tiles=new TextureRegion[1];
       in.tiles[0]=ImageAsset.items[8][1];
     }));
     metaItems.list.add(metaItems.worldRoot=new MetaItem(metaItems,"world-root",metaItems.id(),in-> {
-      in.blockType=pw.metaBlocks.worldRoot;
+      in.blockType=pwt.metaBlocks.worldRoot;
       in.tiles=new TextureRegion[2];
       in.tiles[0]=ImageAsset.items[8][2];
       in.tiles[1]=ImageAsset.items[8][3];

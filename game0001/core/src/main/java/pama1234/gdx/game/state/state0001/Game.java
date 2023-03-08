@@ -4,6 +4,7 @@ import static com.badlogic.gdx.Input.Keys.ESCAPE;
 import static pama1234.gdx.game.state.state0001.game.GameDisplayUtil.debugText;
 
 import java.net.ConnectException;
+import java.util.Arrays;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net.Protocol;
@@ -21,6 +22,7 @@ import pama1234.gdx.game.state.state0001.game.net.ServerCore;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
 import pama1234.gdx.game.state.state0001.game.world.MetaWorldGenerator;
 import pama1234.gdx.game.state.state0001.game.world.World;
+import pama1234.gdx.game.state.state0001.game.world.WorldBase2D;
 import pama1234.gdx.game.state.state0001.game.world.WorldCenter;
 import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
 import pama1234.gdx.game.state.state0001.game.world.world0002.World0002;
@@ -40,9 +42,9 @@ public class Game extends StateEntity0001{
   //---
   public MetaWorldCenter0001 worlds;
   //---
+  public WorldCenter<Screen0011,Game,WorldBase2D<?>> worldCenter;
   public World0001 world_0001;
   public World0002 world_0002;
-  public WorldCenter<Screen0011,Game,World<Screen0011,Game>> worldCenter;
   public boolean androidRightMouseButton;
   public EntityListener displayCamTop;
   public boolean firstInit=true;//TODO
@@ -59,22 +61,26 @@ public class Game extends StateEntity0001{
     //---
     worlds=MetaWorldGenerator.createWorldC(this);
     //---
-    worldCenter=new WorldCenter<Screen0011,Game,World<Screen0011,Game>>(p);
+    worldCenter=new WorldCenter<>(p);
     worldCenter.list.add(world_0001=worlds.world0001.createWorld());
+    worldCenter.list.add(world_0002=worlds.world0002.createWorld());
     worldCenter.pointer=0;
     if(p.settings.debugGraphics) createDebugDisplay();
     selfAddr=new NetAddressInfo("127.0.0.1",12347);
   }
   @Deprecated
-  public World0001 world() {
+  public World0001 world0001() {
     return world_0001;
+  }
+  public WorldBase2D<?> world() {
+    return worldCenter.get();
   }
   public void createDebugDisplay() {
     if(displayCamTop==null) displayCamTop=GameDisplayUtil.createDebugDisplay(p,this);
   }
   @Override
   public void from(State0001 in) {
-    World0001 tw=world();
+    World0001 tw=world0001();
     p.backgroundColor(tw.sky.backgroundColor);
     MainPlayer tp=tw.yourself;
     p.cam.point.des.set(tp.cx(),tp.cy(),0);
@@ -100,7 +106,7 @@ public class Game extends StateEntity0001{
       socketHints.performancePrefBandwidth=1;
       try {
         SocketData socketData=new SocketData(new SocketWrapperGDX(Gdx.net.newClientSocket(Protocol.TCP,serverAddr.addr,serverAddr.port,socketHints)));
-        client=new ClientCore(this,world(),socketData);
+        client=new ClientCore(this,world0001(),socketData);
         client.start();
       }catch(GdxRuntimeException e) {
         Throwable cause=e.getCause();
@@ -119,7 +125,7 @@ public class Game extends StateEntity0001{
   }
   @Override
   public void to(State0001 in) {
-    World0001 tw=world();
+    World0001 tw=world0001();
     // p.cam2d.activeDrag=true;
     for(Button<?> e:menuButtons) p.centerScreen.remove.add(e);
     if(ctrlButtons!=null) for(Button<?> e:ctrlButtons) p.centerScreen.remove.add(e);
@@ -142,7 +148,7 @@ public class Game extends StateEntity0001{
     if(p.settings.debugGraphics) {
       p.beginBlend();
       p.fill(94,203,234,127);
-      RectF[] cullRects=world().yourself.ctrl.cullRects;
+      RectF[] cullRects=world0001().yourself.ctrl.cullRects;
       for(RectF e:cullRects) p.rect(e.x(),e.y(),e.w(),e.h());
       p.endBlend();
     }

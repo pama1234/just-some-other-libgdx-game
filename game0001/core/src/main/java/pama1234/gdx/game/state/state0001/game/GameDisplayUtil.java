@@ -19,7 +19,7 @@ import pama1234.math.UtilMath;
 public class GameDisplayUtil{
   public static float debugTextX,debugTextY,debugTextH,debugTextCountY;
   public static void debugText(Screen0011 p,Game pg) {
-    World0001 tw=pg.world();
+    World0001 tw=pg.world0001();
     Block tb=tw.getBlock(p.mouse.x,p.mouse.y);
     p.textColor(255,191);
     p.textScale(UtilMath.max((int)(p.pus/3f),1));
@@ -106,7 +106,7 @@ public class GameDisplayUtil{
       @Override
       public void display() {
         p.beginBlend();
-        World0001 tw=pg.world();
+        World0001 tw=pg.world0001();
         int bw=tw.settings.blockWidth,
           bh=tw.settings.blockHeight;
         MainPlayer tp=tw.yourself;

@@ -50,7 +50,7 @@ public class SettingsUtil{
       },self->self.text=p.settings.debugGraphics?"显示图形调试信息：是":"显示图形调试信息：否",()->18,()->0,()->60),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         boolean firstInit=((Game)State0001.Game.entity).firstInit;
-        if(!firstInit) ((Game)State0001.Game.entity).world().pauseSave();//判断有没有初始化
+        if(!firstInit) ((Game)State0001.Game.entity).world0001().pauseSave();//判断有没有初始化
         p.state(State0001.Loading);
         //由于Loading中会把firstInit修改为true,所以要修改会原来的值，否则就会因为线程再次启动而崩溃
         ((Game)State0001.Game.entity).firstInit=firstInit;

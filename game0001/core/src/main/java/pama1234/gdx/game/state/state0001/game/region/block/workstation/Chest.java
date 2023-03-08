@@ -79,7 +79,7 @@ public class Chest extends MetaBlock<WorldType0001Base<?>,MetaBlockCenter0001<Wo
   }
   @Override
   public void initItemDrop() {
-    itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pw.metaItems.chest,1)};
+    itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pwt.metaItems.chest,1)};
   }
   @Override
   public void init() {

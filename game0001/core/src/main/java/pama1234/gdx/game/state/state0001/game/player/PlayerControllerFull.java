@@ -285,7 +285,7 @@ public class PlayerControllerFull extends PlayerControllerCore{
   public void creativeModeUpdateSelectBlock(TouchInfo info,int tx,int ty,Block block) {
     if(block!=null) switch(getTouchInfoButton(info.button)) {
       case Buttons.LEFT: {
-        if(block.type!=player.pw.metaBlocks.air) player.pw.r.destroyBlock(player,block,tx,ty);
+        if(block.type!=player.pw.type.metaBlocks.air) player.pw.r.destroyBlock(player,block,tx,ty);
       }
         break;
       case Buttons.RIGHT: {

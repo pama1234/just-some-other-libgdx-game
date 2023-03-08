@@ -163,12 +163,12 @@ public class Workbench extends MetaBlock<WorldType0001Base<?>,MetaBlockCenter000
     in.ui=new BlockUi();
     in.ui.displaySlot=new DisplaySlot[in.itemData.length];
     for(int i=0;i<in.ui.displaySlot.length;i++) in.ui.displaySlot[i]=new DisplaySlot(in.itemData[i]);
-    in.ui.camButton=UiGenerator.genButtons_0009(pc.pw.pc.pg.p,in);
+    in.ui.camButton=UiGenerator.genButtons_0009(pc.pwt.pc.pg.p,in);
     in.changed=true;
   }
   @Override
   public void initItemDrop() {
-    itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pw.metaItems.workbench,1)};
+    itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pwt.metaItems.workbench,1)};
   }
   @Override
   public void init() {
@@ -176,7 +176,7 @@ public class Workbench extends MetaBlock<WorldType0001Base<?>,MetaBlockCenter000
     //-----------------------------------------------------
     tiles[0]=tsrc[6][8];
     //-----------------------------------------------------
-    MetaItemCenter0001<?> mi=pc.pw.metaItems;
+    MetaItemCenter0001<?> mi=pc.pwt.metaItems;
     recipeList=new CraftRecipe[] {
       new CraftRecipe(new CraftItem[] {new CraftItem(mi.branch),new CraftItem(mi.stone)},new CraftItem[] {new CraftItem(mi.stonePickaxe)}),
       new CraftRecipe(new CraftItem[] {new CraftItem(mi.branch),new CraftItem(mi.stone)},new CraftItem[] {new CraftItem(mi.stoneAxe)}),

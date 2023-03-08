@@ -30,7 +30,7 @@ public class MobEntityCenter extends GameEntityCenter<Screen0011,MobEntity>{
     }
     if(pc.pw.netMode()!=NetMode.client) {
       for(Player player:pc.players.list) testCreatureSpawnWithPlayer(player);
-      testCreatureSpawnWithPlayer(pc.pw.yourself);//TODO
+      if(pc.pw.yourself!=null) testCreatureSpawnWithPlayer(pc.pw.yourself);
     }
     super.refresh();
   }
