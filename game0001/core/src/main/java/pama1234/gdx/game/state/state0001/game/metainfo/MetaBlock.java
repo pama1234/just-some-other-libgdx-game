@@ -88,7 +88,7 @@ public class MetaBlock extends MetaInfoBase{
   public int getDisplayType() {//TODO
     return defaultDisplayType;
   }
-  public void initBlock(WorldBase2D world,Block in) {}
+  public void initBlock(WorldBase2D<?> world,Block in) {}
   public void from(World0001 world,Block block,MetaBlock type,int x,int y) {
     if(from!=null) from.change(world,block,type,x,y);
   }

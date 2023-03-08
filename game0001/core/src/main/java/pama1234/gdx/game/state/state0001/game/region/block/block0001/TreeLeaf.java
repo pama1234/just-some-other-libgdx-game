@@ -72,7 +72,7 @@ public class TreeLeaf extends MetaBlock{
     tiles[24]=tsrc[17][4];
   }
   @Override
-  public void initBlock(WorldBase2D world,Block in) {
+  public void initBlock(WorldBase2D<?> world,Block in) {
     if(in.intData==null||in.intData.length<3) in.intData=new int[] {0,-60,-maxLogCount*2};
   }
   public boolean isTreeLeaf(Block tb) {

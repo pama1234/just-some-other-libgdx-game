@@ -60,10 +60,10 @@ public class Block{
   public Block origin;
   @Deprecated
   public Block() {}//只能用于kryo
-  public Block(WorldBase2D world,MetaBlock type) {
+  public Block(WorldBase2D<?> world,MetaBlock type) {
     innerInit(world,type);
   }
-  public void innerInit(WorldBase2D world,MetaBlock type) {
+  public void innerInit(WorldBase2D<?> world,MetaBlock type) {
     innerSetType(type);
     init(world,type);
     light=new PathVarLighting();
@@ -72,7 +72,7 @@ public class Block{
     type=in;
     typeId=in.id;
   }
-  public void init(WorldBase2D world,MetaBlock type) {
+  public void init(WorldBase2D<?> world,MetaBlock type) {
     if(type.displayTypeSize>0) {
       displayType=new int[type.displayTypeSize];
       displayType[0]=type.getDisplayType();

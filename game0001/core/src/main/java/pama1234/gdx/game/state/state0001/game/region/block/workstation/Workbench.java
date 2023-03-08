@@ -150,7 +150,7 @@ public class Workbench extends MetaBlock{
     }
   }
   @Override
-  public void initBlock(WorldBase2D world,Block in) {
+  public void initBlock(WorldBase2D<?> world,Block in) {
     if(in.intData==null) in.intData=new int[6];
     else if(in.intData.length<6) in.intData=new int[6];
     // in.intData[0]=0;

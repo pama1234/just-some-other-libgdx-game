@@ -34,9 +34,7 @@ import pama1234.gdx.game.state.state0001.game.world.background.TextureBackground
 import pama1234.gdx.game.util.Mutex;
 import pama1234.math.UtilMath;
 
-public class World0001 extends WorldBase2D{
-  public WorldType0001 type;
-  //---
+public class World0001 extends WorldBase2D<WorldType0001>{
   public WorldData data;
   //---
   public MetaBlockCenter0001 metaBlocks;//方块

@@ -25,7 +25,7 @@ public class Torch extends MetaBlock{
     itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pw.metaItems.torch,1)};
   }
   @Override
-  public void initBlock(WorldBase2D world,Block in) {
+  public void initBlock(WorldBase2D<?> world,Block in) {
     if(in.intData==null) in.intData=new int[1];
   }
   @Override

@@ -49,7 +49,7 @@ public class Door extends MetaBlock{
     }
   }
   @Override
-  public void initBlock(WorldBase2D world,Block in) {
+  public void initBlock(WorldBase2D<?> world,Block in) {
     if(in.intData==null||in.intData.length<2) in.intData=new int[2];
     // in.intData[0]=1;
     in.changed=true;

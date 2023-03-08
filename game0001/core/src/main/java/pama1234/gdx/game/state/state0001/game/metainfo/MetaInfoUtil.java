@@ -22,13 +22,13 @@ public class MetaInfoUtil{
       return list.toArray(new MetaItem[list.size()]);
     }
   }
-  public static class MetaWorldCenter extends CachedArrayCenter<MetaWorld>{
+  public static class MetaWorldCenter extends CachedArrayCenter<MetaWorld<?,?,?,?>>{
     @Override
-    public MetaWorld[] generateArray() {
+    public MetaWorld<?,?,?,?>[] generateArray() {
       return list.toArray(new MetaWorld[list.size()]);
     }
   }
-  public static abstract class CachedArrayCenter<T> extends Center<T>{
+  public static abstract class CachedArrayCenter<T>extends Center<T>{
     public boolean cacheClean;
     public T[] arrayCache;
     //---

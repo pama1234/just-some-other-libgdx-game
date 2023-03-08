@@ -49,7 +49,7 @@ public class WorldRoot extends MetaBlock{
     };
   }
   @Override
-  public void initBlock(WorldBase2D world,Block in) {
+  public void initBlock(WorldBase2D<?> world,Block in) {
     if(in.intData==null) in.intData=new int[4];
     else if(in.intData.length<4) in.intData=new int[4];
     in.ui=new BlockUi();
