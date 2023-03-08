@@ -137,6 +137,7 @@ public class World0001 extends WorldBase2D<WorldType0001>{
     if(p.isAndroid&&pg.netMode!=NetMode.client) resumeLoad();
     super.resume();
   }
+  @Override
   public void resumeLoad() {
     for(LoopThread e:regions.loops) e.doFinished=LoopThread.doNothing;
     if(p.settings.printLog) System.out.println("World0001.resumeLoad()");
@@ -155,6 +156,7 @@ public class World0001 extends WorldBase2D<WorldType0001>{
       };
     }
   }
+  @Override
   public void pauseSave() {
     saving.lock();
     if(p.settings.printLog) System.out.println("World0001.pauseSave()");
