@@ -8,7 +8,9 @@ import pama1234.gdx.game.state.state0001.game.metainfo.MetaWorld;
 
 public class WorldBase2D extends World<Screen0011,Game> implements StateEntityListener0001{
   public TreeNode<WorldBase2D> node;
-  public MetaWorld metaInfo;
+  //---
+  public int typeId;
+  public MetaWorld type;
   //---
   public WorldBase2D(Screen0011 p,Game pg,int size) {
     super(p,pg,size);

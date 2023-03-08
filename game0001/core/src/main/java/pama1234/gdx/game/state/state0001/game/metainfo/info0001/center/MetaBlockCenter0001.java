@@ -24,6 +24,7 @@ import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
 
 public class MetaBlockCenter0001 extends MetaBlockCenter{
   public World0001 pw;
+  //---
   public MetaBlock air;
   public Dirt dirt;
   public Stone stone;
