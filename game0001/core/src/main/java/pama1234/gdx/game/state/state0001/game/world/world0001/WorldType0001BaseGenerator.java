@@ -31,9 +31,9 @@ import pama1234.gdx.game.state.state0001.game.region.block.workstation.Furnace;
 import pama1234.gdx.game.state.state0001.game.region.block.workstation.Workbench;
 
 public class WorldType0001BaseGenerator{
-  public static <M extends WorldType0001Base<?>> MetaBlockCenter0001<M> createBlockC(M in) {
-    MetaBlockCenter0001 metaBlocks=new MetaBlockCenter0001<>(in);
-    metaBlocks.list.add(metaBlocks.air=new MetaBlock<M,MetaBlockCenter0001<M>>(metaBlocks,"air",metaBlocks.id()));
+  public static MetaBlockCenter0001<WorldType0001Base<?>> createBlockC(WorldType0001Base<?> in) {
+    MetaBlockCenter0001<WorldType0001Base<?>> metaBlocks=new MetaBlockCenter0001<>(in);
+    metaBlocks.list.add(metaBlocks.air=new MetaBlock<WorldType0001Base<?>,MetaBlockCenter0001<WorldType0001Base<?>>>(metaBlocks,"air",metaBlocks.id()));
     metaBlocks.list.add(metaBlocks.dirt=new Dirt(metaBlocks,metaBlocks.id()));
     metaBlocks.list.add(metaBlocks.stone=new Stone(metaBlocks,metaBlocks.id()));
     metaBlocks.list.add(metaBlocks.log=new TreeLog(metaBlocks,metaBlocks.id()));

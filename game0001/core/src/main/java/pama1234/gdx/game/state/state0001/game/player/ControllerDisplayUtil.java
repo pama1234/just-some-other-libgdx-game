@@ -21,7 +21,7 @@ public class ControllerDisplayUtil{
     p.noTint();
   }
   public static void drawSelectBlock(Screen0011 p,ControllerBlockPointer selectBlock,float tw,float th) {
-    MetaBlock type=selectBlock.block==null?null:selectBlock.block.type;
+    MetaBlock<?,?> type=selectBlock.block==null?null:selectBlock.block.type;
     switch(selectBlock.task) {
       case BlockPointer.idle: {
         drawBoxStroke(p,selectBlock,tw,th,type);

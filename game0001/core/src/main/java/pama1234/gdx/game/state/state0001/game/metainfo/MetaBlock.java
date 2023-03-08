@@ -89,10 +89,10 @@ public class MetaBlock<M extends MetaWorld<?,?,?,?>,C extends MetaBlockCenter<M>
     return defaultDisplayType;
   }
   public void initBlock(WorldBase2D<?> world,Block in) {}
-  public void from(World0001 world,Block block,MetaBlock<M,C> type,int x,int y) {
+  public void from(World0001 world,Block block,MetaBlock<?,?> type,int x,int y) {
     if(from!=null) from.change(world,block,type,x,y);
   }
-  public void to(World0001 world,Block block,MetaBlock<M,C> in,int x,int y) {
+  public void to(World0001 world,Block block,MetaBlock<?,?> in,int x,int y) {
     // block.intData=null;
     if(to!=null) to.change(world,block,in,x,y);
   }
