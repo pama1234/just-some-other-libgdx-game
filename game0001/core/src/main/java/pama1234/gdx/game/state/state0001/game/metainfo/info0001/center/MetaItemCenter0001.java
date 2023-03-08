@@ -4,9 +4,7 @@ import pama1234.gdx.game.state.state0001.game.metainfo.MetaInfoUtil.MetaItemCent
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
 import pama1234.gdx.game.state.state0001.game.world.world0001.WorldType0001;
 
-public class MetaItemCenter0001 extends MetaItemCenter{
-  public WorldType0001 pw;
-  //---
+public class MetaItemCenter0001 extends MetaItemCenter<WorldType0001>{
   public MetaItem dirt,stone,
     log,branch,leaf,workbench,
     stonePickaxe,stoneAxe,stoneChisel,stoneSword,
@@ -14,6 +12,6 @@ public class MetaItemCenter0001 extends MetaItemCenter{
     lightOre,lightIngot,lightPickaxe,lightAxe,lightChisel,lightSword;
   public MetaItem colorBlock,lightBlock,worldRoot;
   public MetaItemCenter0001(WorldType0001 pw) {
-    this.pw=pw;
+    super(pw);
   }
 }

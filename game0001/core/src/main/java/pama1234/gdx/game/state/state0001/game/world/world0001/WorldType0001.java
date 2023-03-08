@@ -13,7 +13,7 @@ public class WorldType0001 extends MetaWorld<World0001,MetaBlockCenter0001,MetaI
     //---
     metaBlocks=World0001Generator.createBlockC(this);
     metaItems=World0001Generator.createItemC(this);
-    for(MetaBlock e:metaBlocks.list) e.initItemDrop();
+    for(MetaBlock<?,?> e:metaBlocks.list) e.initItemDrop();
     metaEntitys=World0001Generator.createCreatureC(this);
   }
   @Override

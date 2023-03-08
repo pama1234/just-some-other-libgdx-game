@@ -5,8 +5,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
+import pama1234.gdx.game.state.state0001.game.world.world0001.WorldType0001;
 
-public class NullBlock extends MetaBlock{
+public class NullBlock extends MetaBlock<WorldType0001,MetaBlockCenter0001>{
   public int count;
   public NullBlock(MetaBlockCenter0001 pc,int id) {
     super(pc,"null-block",id,20,1,(world,in,type,x,y)-> {//change to stone

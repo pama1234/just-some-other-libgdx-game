@@ -33,7 +33,7 @@ import pama1234.gdx.game.state.state0001.game.region.block.workstation.Workbench
 public class World0001Generator{
   public static MetaBlockCenter0001 createBlockC(WorldType0001 in) {
     MetaBlockCenter0001 metaBlocks=new MetaBlockCenter0001(in);
-    metaBlocks.list.add(metaBlocks.air=new MetaBlock(metaBlocks,"air",metaBlocks.id()));
+    metaBlocks.list.add(metaBlocks.air=new MetaBlock<WorldType0001,MetaBlockCenter0001>(metaBlocks,"air",metaBlocks.id()));
     metaBlocks.list.add(metaBlocks.dirt=new Dirt(metaBlocks,metaBlocks.id()));
     metaBlocks.list.add(metaBlocks.stone=new Stone(metaBlocks,metaBlocks.id()));
     metaBlocks.list.add(metaBlocks.log=new TreeLog(metaBlocks,metaBlocks.id()));

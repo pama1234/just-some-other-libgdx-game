@@ -12,9 +12,10 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlock
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.region.block.Block.BlockUi;
 import pama1234.gdx.game.state.state0001.game.world.WorldBase2D;
+import pama1234.gdx.game.state.state0001.game.world.world0001.WorldType0001;
 import pama1234.gdx.game.ui.util.TextButtonCam;
 
-public class Chest extends MetaBlock{
+public class Chest extends MetaBlock<WorldType0001,MetaBlockCenter0001>{
   public int sloatSize=9,sloatDisplayWidth=3;
   public Chest(MetaBlockCenter0001 pc,int id) {
     super(pc,"chest",id,1,0,(world,in,type,x,y)-> {//change to me

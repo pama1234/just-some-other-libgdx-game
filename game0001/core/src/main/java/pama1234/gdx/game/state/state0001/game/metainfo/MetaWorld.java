@@ -7,7 +7,7 @@ import pama1234.gdx.game.state.state0001.game.metainfo.MetaInfoUtil.MetaItemCent
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaWorldCenter0001;
 import pama1234.gdx.game.state.state0001.game.world.WorldBase2D;
 
-public abstract class MetaWorld<W extends WorldBase2D<?>,B extends MetaBlockCenter,I extends MetaItemCenter,E extends MetaCreatureCenter>extends MetaInfoBase{
+public abstract class MetaWorld<W extends WorldBase2D<?>,B extends MetaBlockCenter<?>,I extends MetaItemCenter<?>,E extends MetaCreatureCenter<?>>extends MetaInfoBase{
   public MetaWorldCenter0001 pc;
   //---
   public B metaBlocks;//方块

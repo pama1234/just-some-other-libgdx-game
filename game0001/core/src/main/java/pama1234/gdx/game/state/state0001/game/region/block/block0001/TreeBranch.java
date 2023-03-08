@@ -6,8 +6,9 @@ import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
+import pama1234.gdx.game.state.state0001.game.world.world0001.WorldType0001;
 
-public class TreeBranch extends MetaBlock{
+public class TreeBranch extends MetaBlock<WorldType0001,MetaBlockCenter0001>{
   public TreeBranch(MetaBlockCenter0001 pc,int id) {
     super(pc,"tree-branch",id,6,1,(world,in,type,x,y)-> {//change to branch
       in.light.set(16);

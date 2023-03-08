@@ -20,13 +20,13 @@ public class RegionWrapper{
   public void destroyBlock(Block block,int x,int y) {
     placeBlock(block,pw.metaBlocks.air,x,y);
   }
-  public void placeBlock(MainPlayer player,Block block,MetaBlock in,int x,int y) {
+  public void placeBlock(MainPlayer player,Block block,MetaBlock<?,?> in,int x,int y) {
     placeBlock(block,in,x,y);
   }
-  public void placeBlock(BlockPointer bp,Block block,MetaBlock in,int x,int y) {
+  public void placeBlock(BlockPointer bp,Block block,MetaBlock<?,?> in,int x,int y) {
     placeBlock(block,in,x,y);
   }
-  public void placeBlock(Block block,MetaBlock in,int x,int y) {
+  public void placeBlock(Block block,MetaBlock<?,?> in,int x,int y) {
     if(block.xOff!=0||block.yOff!=0) destroyBlock(
       block.origin==null?pw.getBlock(x-block.xOff,y-block.yOff):block.origin,x-block.xOff,y-block.yOff);
     if(block.type.width==1&&block.type.height==1) block.doItemDrop(pw,pw.p,x,y,in.empty);
@@ -34,14 +34,14 @@ public class RegionWrapper{
     putIfOffBlock(block,x,y,in);
     block.type(pw,in,x,y);
   }
-  public void removeAreaIfOff(Block block,int x,int y,MetaBlock in) {
-    MetaBlock type=block.type;
+  public void removeAreaIfOff(Block block,int x,int y,MetaBlock<?,?> in) {
+    MetaBlock<?,?> type=block.type;
     if(type!=null&&(type.width>1||type.height>1)) {
       block.doItemDrop(pw,pw.p,x,y,in.empty);
       allOffAreaToAir(x,y,type);
     }
   }
-  public void testAndRemoveOffBlock(MetaBlock type,int x,int y,MetaBlock in) {
+  public void testAndRemoveOffBlock(MetaBlock<?,?> type,int x,int y,MetaBlock<?,?> in) {
     for(int i=0;i<type.width;i++) for(int j=0;j<type.height;j++) {
       int tx=x+i,
         ty=y+j;
@@ -50,7 +50,7 @@ public class RegionWrapper{
       else if(blockOff.type.width>1||blockOff.type.height>1) removeAreaIfOff(blockOff,tx,ty,in);
     }
   }
-  public void allOffAreaToAir(int x,int y,MetaBlock type) {
+  public void allOffAreaToAir(int x,int y,MetaBlock<?,?> type) {
     for(int i=0;i<type.width;i++) for(int j=0;j<type.height;j++) {
       int tx=x+i,
         ty=y+j;
@@ -59,7 +59,7 @@ public class RegionWrapper{
       blockOff.clearOrigin();
     }
   }
-  public void putIfOffBlock(Block block,int x,int y,MetaBlock in) {
+  public void putIfOffBlock(Block block,int x,int y,MetaBlock<?,?> in) {
     if(in!=null&&(in.width>1||in.height>1)) {
       for(int i=0;i<in.width;i++) for(int j=0;j<in.height;j++) {
         int tx=x+i,
@@ -72,10 +72,10 @@ public class RegionWrapper{
       }
     }
   }
-  public void setBlock(Block block,MetaBlock in,int x,int y) {
+  public void setBlock(Block block,MetaBlock<?,?> in,int x,int y) {
     block.type(pw,in,x,y);
   }
-  public void setBlock(MetaBlock in,int x,int y) {
+  public void setBlock(MetaBlock<?,?> in,int x,int y) {
     setBlock(pw.getBlock(x,y),in,x,y);
   }
 }

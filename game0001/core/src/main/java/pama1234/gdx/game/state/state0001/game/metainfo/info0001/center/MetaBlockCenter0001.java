@@ -22,10 +22,8 @@ import pama1234.gdx.game.state.state0001.game.region.block.workstation.Furnace;
 import pama1234.gdx.game.state.state0001.game.region.block.workstation.Workbench;
 import pama1234.gdx.game.state.state0001.game.world.world0001.WorldType0001;
 
-public class MetaBlockCenter0001 extends MetaBlockCenter{
-  public WorldType0001 pw;
-  //---
-  public MetaBlock air;
+public class MetaBlockCenter0001 extends MetaBlockCenter<WorldType0001>{
+  public MetaBlock<WorldType0001,MetaBlockCenter0001> air;
   public Dirt dirt;
   public Stone stone;
   public TreeLog log;
@@ -46,6 +44,6 @@ public class MetaBlockCenter0001 extends MetaBlockCenter{
   public LightBlock lightBlock;
   public WorldRoot worldRoot;
   public MetaBlockCenter0001(WorldType0001 pw) {
-    this.pw=pw;
+    super(pw);
   }
 }

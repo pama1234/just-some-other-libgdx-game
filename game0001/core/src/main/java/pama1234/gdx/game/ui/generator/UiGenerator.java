@@ -7,6 +7,7 @@ import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
+import pama1234.gdx.game.state.state0001.game.world.WorldBase2D;
 import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.game.ui.util.TextButtonCam;
@@ -14,18 +15,18 @@ import pama1234.gdx.game.ui.util.TextureButton;
 import pama1234.gdx.util.app.ScreenCore3D;
 
 public class UiGenerator{
-  public static <T extends Screen0011> TextButtonCam<?>[] genButtons_0010(T p,Block in) {
+  public static <T extends Screen0011> TextButtonCam<?>[] genButtons_0010(T p,WorldBase2D<?> world,Block in) {
     return new TextButtonCam[] {
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         //---
       },self->self.text="背包显示方式：同心圆（未实现）",()->18,()->in.intData[2]-20,()->in.intData[3]),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
-        in.type.pc.pw.pc.pg.world().timeF=0;
-        in.type.pc.pw.pc.pg.world().data.tick=0;
-        in.type.pc.pw.pc.pg.world().data.time=12000;
+        world.pg.world().timeF=0;
+        world.pg.world().data.tick=0;
+        world.pg.world().data.time=12000;
       },self->self.text="重置世界时间",()->18,()->in.intData[2]-20,()->in.intData[3]+20),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
-        in.type.pc.pw.pc.pg.world().yourself.point.pos.set(4134.0f,3708.0f);
+        world.pg.world().yourself.point.pos.set(4134.0f,3708.0f);
       },self->self.text="传送",()->18,()->in.intData[2]-20,()->in.intData[3]+40),
     };
   }
