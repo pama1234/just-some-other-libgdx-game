@@ -1,7 +1,7 @@
 package pama1234.gdx.game.state.state0001.game.player;
 
 import pama1234.gdx.game.state.state0001.game.item.Item.ItemSlot.GetItemSlot;
-import pama1234.gdx.game.state.state0001.game.world.World0001;
+import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
 import pama1234.gdx.util.info.TouchInfo;
 
 public class ControllerUtil{

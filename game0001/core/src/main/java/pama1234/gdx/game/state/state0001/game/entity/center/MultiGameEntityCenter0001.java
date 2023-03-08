@@ -9,7 +9,7 @@ import pama1234.gdx.game.state.state0001.game.entity.entity0001.DroppedItem;
 import pama1234.gdx.game.state.state0001.game.entity.entity0001.DroppedItem.DroppedItemCenter;
 import pama1234.gdx.game.state.state0001.game.entity.entity0001.MobEntity;
 import pama1234.gdx.game.state.state0001.game.player.Player;
-import pama1234.gdx.game.state.state0001.game.world.World0001;
+import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
 import pama1234.gdx.util.app.UtilScreen;
 import pama1234.gdx.util.listener.EntityListener;
 import pama1234.gdx.util.wrapper.EntityCenter;

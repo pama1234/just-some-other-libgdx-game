@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 
 import pama1234.gdx.game.asset.ImageAsset;
-import pama1234.gdx.game.state.state0001.game.world.World0001;
+import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
 import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 

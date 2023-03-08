@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
-import pama1234.gdx.game.state.state0001.game.world.World0001;
+import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
 import pama1234.math.physics.MassPoint;
 
 public class TextureLivingEntity extends LivingEntity{

@@ -13,7 +13,7 @@ import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
 import pama1234.gdx.game.state.state0001.game.region.Chunk.BlockData;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
-import pama1234.gdx.game.state.state0001.game.world.World0001;
+import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
 import pama1234.math.hash.HashNoise2f;
 import pama1234.math.hash.PerlinNoise2f;
 import pama1234.math.hash.Random2f;

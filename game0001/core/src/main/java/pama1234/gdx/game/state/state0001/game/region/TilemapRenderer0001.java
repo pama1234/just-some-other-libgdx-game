@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock.TilemapRenderer;
-import pama1234.gdx.game.state.state0001.game.world.World0001;
+import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
 
 public class TilemapRenderer0001 implements TilemapRenderer{
   public World0001 pw;

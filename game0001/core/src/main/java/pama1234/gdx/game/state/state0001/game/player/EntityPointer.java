@@ -6,7 +6,7 @@ import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
 import pama1234.gdx.game.state.state0001.game.item.Item;
 import pama1234.gdx.game.state.state0001.game.item.Item.ItemSlot.GetItemSlot;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
-import pama1234.gdx.game.state.state0001.game.world.World0001;
+import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
 
 public class EntityPointer extends PointerBase{
   public static final int idle=0,attack=1;

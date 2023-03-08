@@ -6,7 +6,7 @@ import pama1234.game.app.server.server0002.game.metainfo.MetaInfoBase;
 import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
 import pama1234.gdx.game.state.state0001.game.item.Item;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemCenter0001;
-import pama1234.gdx.game.state.state0001.game.world.World0001;
+import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
 
 public class MetaItem extends MetaInfoBase{
   public static final int notTool=0,allTool=1,shovel=2,pickaxe=3,axe=4,chisel=5;//工具类型

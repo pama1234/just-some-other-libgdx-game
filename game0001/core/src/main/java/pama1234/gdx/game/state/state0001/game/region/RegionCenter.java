@@ -14,7 +14,7 @@ import pama1234.gdx.game.state.state0001.game.net.NetMode;
 import pama1234.gdx.game.state.state0001.game.player.Player;
 import pama1234.gdx.game.state.state0001.game.region.Chunk.BlockData;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
-import pama1234.gdx.game.state.state0001.game.world.World0001;
+import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
 import pama1234.gdx.util.wrapper.EntityCenter;
 import pama1234.math.Tools;
 import pama1234.math.UtilMath;

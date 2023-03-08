@@ -20,7 +20,7 @@ import pama1234.gdx.game.state.state0001.game.region.block.block0002.WorldRoot;
 import pama1234.gdx.game.state.state0001.game.region.block.workstation.Chest;
 import pama1234.gdx.game.state.state0001.game.region.block.workstation.Furnace;
 import pama1234.gdx.game.state.state0001.game.region.block.workstation.Workbench;
-import pama1234.gdx.game.state.state0001.game.world.World0001;
+import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
 
 public class MetaBlockCenter0001 extends MetaBlockCenter{
   public World0001 pw;

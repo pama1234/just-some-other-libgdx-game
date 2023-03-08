@@ -8,7 +8,7 @@ import pama1234.gdx.game.state.state0001.game.GameDisplayUtil;
 import pama1234.gdx.game.state.state0001.game.item.Inventory;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
 import pama1234.gdx.game.state.state0001.game.player.PlayerControllerFull;
-import pama1234.gdx.game.state.state0001.game.world.World0001;
+import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
 import pama1234.gdx.game.ui.generator.UiGenerator;
 import pama1234.gdx.game.ui.util.Button;
 import pama1234.math.UtilMath;

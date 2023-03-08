@@ -1,4 +1,4 @@
-package pama1234.gdx.game.state.state0001.game.world;
+package pama1234.gdx.game.state.state0001.game.metainfo;
 
 import pama1234.game.app.server.server0002.game.metainfo.MetaInfoBase;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaInfoUtil.MetaBlockCenter;

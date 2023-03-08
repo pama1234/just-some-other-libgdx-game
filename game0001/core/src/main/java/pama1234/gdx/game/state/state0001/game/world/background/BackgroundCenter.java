@@ -1,7 +1,7 @@
 package pama1234.gdx.game.state.state0001.game.world.background;
 
 import pama1234.gdx.game.app.Screen0011;
-import pama1234.gdx.game.state.state0001.game.world.World0001;
+import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
 import pama1234.gdx.util.wrapper.EntityCenter;
 
 public class BackgroundCenter extends EntityCenter<Screen0011,BackgroundList>{

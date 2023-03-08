@@ -1,4 +1,4 @@
-package pama1234.gdx.game.state.state0001.game.world;
+package pama1234.gdx.game.state.state0001.game.world.world0001;
 
 import java.util.Arrays;
 
@@ -23,6 +23,10 @@ import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
 import pama1234.gdx.game.state.state0001.game.region.LoopThread;
 import pama1234.gdx.game.state.state0001.game.region.RegionCenter;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
+import pama1234.gdx.game.state.state0001.game.world.RegionWrapper;
+import pama1234.gdx.game.state.state0001.game.world.WorldBase2D;
+import pama1234.gdx.game.state.state0001.game.world.WorldData;
+import pama1234.gdx.game.state.state0001.game.world.WorldSettings;
 import pama1234.gdx.game.state.state0001.game.world.background.BackgroundCenter;
 import pama1234.gdx.game.state.state0001.game.world.background.BackgroundList;
 import pama1234.gdx.game.state.state0001.game.world.background.Sky;
