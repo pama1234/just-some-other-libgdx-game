@@ -88,7 +88,7 @@ public class GameMenu extends StateEntity0001{
     settings.serverAddr.setFromString(screenTextFields[0].getText(),12347);
     settings.selfAddr.setFromString(screenTextFields[1].getText(),12347);
     game.serverAddr=settings.serverAddr;
-    game.world().yourself.name=settings.playerName=screenTextFields[2].getText();
+    game.world0001().yourself.name=settings.playerName=screenTextFields[2].getText();
   }
   @Override
   public void update() {

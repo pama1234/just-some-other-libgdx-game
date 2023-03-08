@@ -23,7 +23,7 @@ public class NullBlock extends MetaBlock<WorldType0001Base<?>,MetaBlockCenter000
   }
   @Override
   public void initItemDrop() {
-    // itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pw.metaItems.stone,1)};
+    // itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pw.type.metaItems.stone,1)};
     itemDrop=new ItemDropAttr[0];
   }
   @Override

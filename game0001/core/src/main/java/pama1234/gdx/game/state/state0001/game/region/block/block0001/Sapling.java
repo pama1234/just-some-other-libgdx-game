@@ -27,7 +27,7 @@ public class Sapling extends MetaBlock<WorldType0001Base<?>,MetaBlockCenter0001<
   }
   @Override
   public void initItemDrop() {
-    itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pw.metaItems.sapling,1)};
+    itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pwt.metaItems.sapling,1)};
   }
   @Override
   public void init() {

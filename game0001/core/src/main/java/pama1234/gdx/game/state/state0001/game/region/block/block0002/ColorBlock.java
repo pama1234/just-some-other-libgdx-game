@@ -25,7 +25,7 @@ public class ColorBlock extends MetaBlock<WorldType0001Base<?>,MetaBlockCenter00
   }
   @Override
   public void initItemDrop() {
-    itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pw.metaItems.colorBlock,1)};
+    itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pwt.metaItems.colorBlock,1)};
   }
   @Override
   public void init() {

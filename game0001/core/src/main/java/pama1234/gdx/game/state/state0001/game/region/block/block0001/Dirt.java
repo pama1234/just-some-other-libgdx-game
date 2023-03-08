@@ -21,7 +21,7 @@ public class Dirt extends MetaBlock<WorldType0001Base<?>,MetaBlockCenter0001<Wor
   }
   @Override
   public void initItemDrop() {
-    itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pw.metaItems.dirt,1)};
+    itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pwt.metaItems.dirt,1)};
   }
   @Override
   public void init() {

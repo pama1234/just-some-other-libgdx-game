@@ -22,7 +22,7 @@ public class TreeBranch extends MetaBlock<WorldType0001Base<?>,MetaBlockCenter00
   }
   @Override
   public void initItemDrop() {
-    itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pw.metaItems.branch,1)};
+    itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pwt.metaItems.branch,1)};
   }
   @Override
   public void init() {

@@ -57,7 +57,7 @@ public class Door extends MetaBlock<WorldType0001Base<?>,MetaBlockCenter0001<Wor
   }
   @Override
   public void initItemDrop() {
-    itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pw.metaItems.door,1)};
+    itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pwt.metaItems.door,1)};
   }
   public void initLambda() {
     displayUpdater=(world,in,x,y)-> {

@@ -23,7 +23,7 @@ public class MainPlayer extends Player implements LoadAndSave{
     super(null,null,0,0,null);
   }
   public MainPlayer(Screen0011 p,World0001 pw,float x,float y,FileHandle dataLocation) {
-    super(p,pw,x,y,pw.metaEntitys.player);
+    super(p,pw,x,y,pw.type.metaEntitys.player);
     innerInit();
     this.dataLocation=dataLocation;
   }
@@ -69,7 +69,7 @@ public class MainPlayer extends Player implements LoadAndSave{
     if(p.settings.printLog) System.out.println("MainPlayer.load() "+point.pos);
     if(inventory==null) createInventory();
     else {
-      MetaItem[] mitem=pw.metaItems.array();
+      MetaItem[] mitem=pw.type.metaItems.array();
       for(ItemSlot e:inventory.data) {
         Item ti=e.item;
         if(ti!=null) ti.type=mitem[ti.typeId];

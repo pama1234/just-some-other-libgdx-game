@@ -22,7 +22,7 @@ public class WoodPlank extends MetaBlock<WorldType0001Base<?>,MetaBlockCenter000
   }
   @Override
   public void initItemDrop() {
-    itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pw.metaItems.woodPlank,1)};
+    itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pwt.metaItems.woodPlank,1)};
   }
   @Override
   public void init() {

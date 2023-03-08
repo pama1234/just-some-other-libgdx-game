@@ -27,7 +27,7 @@ public class TreeLeaf extends MetaBlock<WorldType0001Base<?>,MetaBlockCenter0001
   }
   @Override
   public void initItemDrop() {
-    itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pw.metaItems.leaf,1)};
+    itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pwt.metaItems.leaf,1)};
   }
   @Override
   public void init() {
@@ -171,7 +171,7 @@ public class TreeLeaf extends MetaBlock<WorldType0001Base<?>,MetaBlockCenter0001
       }
       int tp_2=in.displayType[2];
       if(tp_2!=0) r.tile(in.type.tiles[24],x,y);
-      if(!pc.pw.pc.pg.p.settings.debugGraphics||in.intData==null) return;
+      if(!pc.pwt.pc.pg.p.settings.debugGraphics||in.intData==null) return;
       r.end();
       p.textScale(0.5f);
       p.text(Integer.toString(in.intData[0]),x,y);

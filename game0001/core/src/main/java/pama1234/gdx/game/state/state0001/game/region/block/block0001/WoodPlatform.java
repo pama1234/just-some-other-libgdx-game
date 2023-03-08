@@ -24,7 +24,7 @@ public class WoodPlatform extends MetaBlock<WorldType0001Base<?>,MetaBlockCenter
   }
   @Override
   public void initItemDrop() {
-    itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pw.metaItems.woodPlatform,1)};
+    itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pwt.metaItems.woodPlatform,1)};
   }
   @Override
   public void init() {

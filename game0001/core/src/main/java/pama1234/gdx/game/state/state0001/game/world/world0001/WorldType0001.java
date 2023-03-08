@@ -6,14 +6,6 @@ public class WorldType0001 extends WorldType0001Base<World0001>{
   public WorldType0001(MetaWorldCenter0001 pc,int id) {
     super(pc,id);
   }
-  // public WorldType0001(MetaWorldCenter0001 pc,int id) {
-  //   super(pc,"test-world",id);
-  //   //---
-  //   metaBlocks=World0001Generator.createBlockC(this);
-  //   metaItems=World0001Generator.createItemC(this);
-  //   for(MetaBlock<?,?> e:metaBlocks.list) e.initItemDrop();
-  //   metaEntitys=World0001Generator.createCreatureC(this);
-  // }
   @Override
   public void init() {}
   @Override

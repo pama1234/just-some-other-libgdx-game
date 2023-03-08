@@ -33,7 +33,7 @@ public class DroppedItem extends LivingEntity{
   public void deserializationInit(Screen0011 p,World0001 pw,MetaCreature<?> type) {
     super.deserializationInit(p,pw,type);
     //---
-    data.type=pw.metaItems.array()[data.typeId];
+    data.type=pw.type.metaItems.array()[data.typeId];
     //---
     pc=pw.entities.items;
     outerBox=limitBox=new MovementLimitBox(this);

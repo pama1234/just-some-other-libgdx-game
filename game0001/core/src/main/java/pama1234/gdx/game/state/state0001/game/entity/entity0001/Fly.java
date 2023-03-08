@@ -15,7 +15,7 @@ public class Fly extends MobEntity{
     super();
   }
   public Fly(Screen0011 p,World0001 pw,float x,float y) {
-    super(p,pw,x,y,pw.metaEntitys.fly);
+    super(p,pw,x,y,pw.type.metaEntitys.fly);
     outerBox=limitBox=new MovementLimitBox(this);
     type.count++;
   }
@@ -34,7 +34,7 @@ public class Fly extends MobEntity{
     if((point.vel.x>0)!=flipX) flipX=!flipX;
   }
   public void findTarget() {
-    if(!checkTarget(pw.yourself)) for(Player e:pw.entities.players.list) if(checkTarget(e)) break;
+    if(pw.yourself==null||!checkTarget(pw.yourself)) for(Player e:pw.entities.players.list) if(checkTarget(e)) break;
   }
   public boolean checkTarget(Player in) {//TODO
     if(UtilMath.dist(in.cx(),in.cy(),cx(),cy())<type.intData[0]) {

@@ -59,7 +59,7 @@ public class Furnace extends MetaBlock<WorldType0001Base<?>,MetaBlockCenter0001<
     tiles[2]=tsrc[9][9];
     tiles[3]=tsrc[10][9];
     //-----------------------------------------------------
-    MetaItemCenter0001<?> mi=pc.pw.metaItems;
+    MetaItemCenter0001<?> mi=pc.pwt.metaItems;
     recipeList=new MeltRecipe[] {
       new MeltRecipe(60,new CraftItem[] {new CraftItem(mi.lightOre,4)},new CraftItem[] {new CraftItem(mi.lightIngot)}),
     };
@@ -82,12 +82,12 @@ public class Furnace extends MetaBlock<WorldType0001Base<?>,MetaBlockCenter0001<
     in.ui=new BlockUi();
     in.ui.displaySlot=new DisplaySlot[in.itemData.length];
     for(int i=0;i<in.ui.displaySlot.length;i++) in.ui.displaySlot[i]=new DisplaySlot(in.itemData[i]);
-    in.ui.camButton=UiGenerator.genButtons_0009(pc.pw.pc.pg.p,in);
+    in.ui.camButton=UiGenerator.genButtons_0009(pc.pwt.pc.pg.p,in);
     in.changed=true;
   }
   @Override
   public void initItemDrop() {
-    itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pw.metaItems.furnace,1)};
+    itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pwt.metaItems.furnace,1)};
   }
   public void initLambda() {
     updater=(world,in,x,y)-> {

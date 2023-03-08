@@ -12,13 +12,13 @@ public class RegionWrapper{
     this.pw=pw;
   }
   public void destroyBlock(MainPlayer player,Block block,int x,int y) {
-    placeBlock(player,block,pw.metaBlocks.air,x,y);
+    placeBlock(player,block,pw.type.metaBlocks.air,x,y);
   }
   public void destroyBlock(BlockPointer bp,Block block,int x,int y) {
-    placeBlock(bp,block,pw.metaBlocks.air,x,y);
+    placeBlock(bp,block,pw.type.metaBlocks.air,x,y);
   }
   public void destroyBlock(Block block,int x,int y) {
-    placeBlock(block,pw.metaBlocks.air,x,y);
+    placeBlock(block,pw.type.metaBlocks.air,x,y);
   }
   public void placeBlock(MainPlayer player,Block block,MetaBlock<?,?> in,int x,int y) {
     placeBlock(block,in,x,y);
@@ -55,7 +55,7 @@ public class RegionWrapper{
       int tx=x+i,
         ty=y+j;
       Block blockOff=pw.getBlock(tx,ty);
-      blockOff.type(pw,pw.metaBlocks.air,x,y);
+      blockOff.type(pw,pw.type.metaBlocks.air,x,y);
       blockOff.clearOrigin();
     }
   }

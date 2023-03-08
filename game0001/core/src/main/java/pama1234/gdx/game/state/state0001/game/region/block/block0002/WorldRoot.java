@@ -63,7 +63,7 @@ public class WorldRoot extends MetaBlock<WorldType0001Base<?>,MetaBlockCenter000
   }
   @Override
   public void initItemDrop() {
-    itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pw.metaItems.worldRoot,1)};
+    itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pwt.metaItems.worldRoot,1)};
   }
   @Override
   public void init() {

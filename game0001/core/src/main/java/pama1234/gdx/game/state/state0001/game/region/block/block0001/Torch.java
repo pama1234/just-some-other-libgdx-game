@@ -23,7 +23,7 @@ public class Torch extends MetaBlock<WorldType0001Base<?>,MetaBlockCenter0001<Wo
   }
   @Override
   public void initItemDrop() {
-    itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pw.metaItems.torch,1)};
+    itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pwt.metaItems.torch,1)};
   }
   @Override
   public void initBlock(WorldBase2D<?> world,Block in) {

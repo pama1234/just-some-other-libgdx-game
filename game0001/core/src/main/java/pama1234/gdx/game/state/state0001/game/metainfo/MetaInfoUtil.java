@@ -15,9 +15,9 @@ public class MetaInfoUtil{
     }
   }
   public static class MetaBlockCenter<M extends MetaWorld<?,?,?,?>>extends CachedArrayCenter<MetaBlock<M,?>>{
-    public M pw;
+    public M pwt;
     public MetaBlockCenter(M pw) {
-      this.pw=pw;
+      this.pwt=pw;
     }
     @Override
     public MetaBlock<M,?>[] generateArray() {
