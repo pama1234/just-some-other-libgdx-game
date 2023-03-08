@@ -14,10 +14,12 @@ import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.net.SocketWrapperGDX;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
 import pama1234.gdx.game.state.state0001.game.GameDisplayUtil;
+import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaWorldCenter0001;
 import pama1234.gdx.game.state.state0001.game.net.ClientCore;
 import pama1234.gdx.game.state.state0001.game.net.NetMode;
 import pama1234.gdx.game.state.state0001.game.net.ServerCore;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
+import pama1234.gdx.game.state.state0001.game.world.MetaWorldGenerator;
 import pama1234.gdx.game.state.state0001.game.world.World;
 import pama1234.gdx.game.state.state0001.game.world.World0002;
 import pama1234.gdx.game.state.state0001.game.world.WorldCenter;
@@ -36,10 +38,11 @@ public class Game extends StateEntity0001{
   public TextButton<?>[] ctrlButtons;
   public float time;
   //---
+  public MetaWorldCenter0001 worlds;
+  //---
   public World0001 world_0001;
   public World0002 world_0002;
   public WorldCenter<Screen0011,Game,World<Screen0011,Game>> worldCenter;
-  // public boolean debug,debugGraphics;
   public boolean androidRightMouseButton;
   public EntityListener displayCamTop;
   public boolean firstInit=true;//TODO
@@ -53,8 +56,11 @@ public class Game extends StateEntity0001{
     super(p);
     menuButtons=UiGenerator.genButtons_0005(p);
     if(p.isAndroid) ctrlButtons=UiGenerator.genButtons_0007(p,this);
+    //---
+    worlds=MetaWorldGenerator.createWorldC(this);
+    //---
     worldCenter=new WorldCenter<Screen0011,Game,World<Screen0011,Game>>(p);
-    worldCenter.list.add(world_0001=new World0001(p,this));
+    worldCenter.list.add(world_0001=worlds.world0001.createWorld());
     worldCenter.pointer=0;
     if(p.settings.debugGraphics) createDebugDisplay();
     selfAddr=new NetAddressInfo("127.0.0.1",12347);
