@@ -9,10 +9,10 @@ import pama1234.gdx.game.state.state0001.game.region.block.Block;
 
 public class WoodPlatform extends MetaBlock{
   public WoodPlatform(MetaBlockCenter0001 pc,int id) {
-    super(pc,"wood-platform",id,4,2,(in,type,x,y)-> {//change to me
+    super(pc,"wood-platform",id,4,2,(world,in,type,x,y)-> {//change to me
       // in.lighting=16;
       in.light.set(16);
-    },(in,type,x,y)-> {//change from me
+    },(world,in,type,x,y)-> {//change from me
     });
     blockType=woodType;
     destroyTime=10;

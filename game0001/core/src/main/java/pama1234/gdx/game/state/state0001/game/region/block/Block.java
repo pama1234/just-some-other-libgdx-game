@@ -1,5 +1,6 @@
 package pama1234.gdx.game.state.state0001.game.region.block;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
 import pama1234.gdx.game.app.Screen0011;
@@ -10,15 +11,20 @@ import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock.FullBlockType;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock.ItemDropAttr;
 import pama1234.gdx.game.state.state0001.game.region.PathVarLighting;
+import pama1234.gdx.game.state.state0001.game.world.WorldBase2D;
 import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
 import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.game.ui.util.TextButtonCam;
+import pama1234.gdx.game.ui.util.TextField;
 
 public class Block{
   public static class BlockUi{
     public DisplaySlot[] displaySlot;
     public TextButtonCam<?>[] camButton;
     public TextButton<?>[] button;
+    //---
+    public TextField[] textFields;
+    public Actor[] actors;
   }
   public static class Linker{
     @Tag(0)
@@ -54,34 +60,34 @@ public class Block{
   public Block origin;
   @Deprecated
   public Block() {}//只能用于kryo
-  public Block(MetaBlock type) {
-    innerInit(type);
+  public Block(WorldBase2D world,MetaBlock type) {
+    innerInit(world,type);
   }
-  public void innerInit(MetaBlock type) {
+  public void innerInit(WorldBase2D world,MetaBlock type) {
     innerSetType(type);
-    init(type);
+    init(world,type);
     light=new PathVarLighting();
   }
   public void innerSetType(MetaBlock in) {
     type=in;
     typeId=in.id;
   }
-  public void init(MetaBlock type) {
+  public void init(WorldBase2D world,MetaBlock type) {
     if(type.displayTypeSize>0) {
       displayType=new int[type.displayTypeSize];
       displayType[0]=type.getDisplayType();
     }else displayType=null;
-    type.initBlock(this);
+    type.initBlock(world,this);
   }
-  public void type(MetaBlock in,int x,int y) {
+  public void type(World0001 world,MetaBlock in,int x,int y) {
     MetaBlock t=type;
     if(in==t) return;
     changed=true;
     // updateLighting=true;
     innerSetType(in);
-    t.to(this,in,x,y);
-    init(in);
-    in.from(this,t,x,y);
+    t.to(world,this,in,x,y);
+    init(world,in);
+    in.from(world,this,t,x,y);
   }
   public static boolean isEmpty(Block in) {
     return in==null||in.type==null||in.type.empty;//TODO
@@ -98,8 +104,8 @@ public class Block{
   public static boolean isType(Block in,MetaBlock type) {
     return in!=null&&in.type==type;
   }
-  public void doItemDrop(Screen0011 p,int x,int y,boolean empty) {
-    World0001 world=type.pc.pw;
+  public void doItemDrop(World0001 world,Screen0011 p,int x,int y,boolean empty) {
+    // World0001 world=type.pc.pw;
     boolean upEmpty=isNotFullBlock(world.getBlock(x,y-1));
     if(!empty) {
       if(upEmpty) y-=1;

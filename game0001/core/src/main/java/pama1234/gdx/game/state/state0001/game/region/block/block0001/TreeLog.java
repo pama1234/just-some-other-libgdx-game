@@ -9,9 +9,9 @@ import pama1234.gdx.game.state.state0001.game.region.block.Block;
 
 public class TreeLog extends MetaBlock{
   public TreeLog(MetaBlockCenter0001 pc,int id) {
-    super(pc,"tree-log",id,6,1,(in,type,x,y)-> {//change to log
+    super(pc,"tree-log",id,6,1,(world,in,type,x,y)-> {//change to log
       in.light.set(16);
-    },(in,type,x,y)-> {//change from log
+    },(world,in,type,x,y)-> {//change from log
       in.intData=null;
     });
     blockType=woodType;

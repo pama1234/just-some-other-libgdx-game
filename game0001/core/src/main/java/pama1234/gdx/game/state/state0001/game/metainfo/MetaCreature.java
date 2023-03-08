@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import pama1234.game.app.server.server0002.game.metainfo.MetaInfoBase;
 import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaCreatureCenter0001;
+import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
 
 public class MetaCreature<T extends LivingEntity>extends MetaInfoBase{
   public MetaCreatureCenter0001 pc;
@@ -25,7 +26,7 @@ public class MetaCreature<T extends LivingEntity>extends MetaInfoBase{
   public MetaCreature(MetaCreatureCenter0001 pc,String name,int id,float maxLife,int tileWidth,int tileHeight) {
     this(pc,name,id,maxLife,new TextureRegion[tileHeight][tileWidth]);
   }
-  public T createCreature(float x,float y) {
+  public T createCreature(World0001 world,float x,float y) {
     return null;
   }
   @Override

@@ -68,7 +68,7 @@ public class ClientRead extends Thread{
       for(int i=0;i<blockData.length;i++) {
         for(int j=0;j<blockData[i].length;j++) {
           Block tb=blockData[i][j].block;
-          tb.innerInit(mblock[tb.typeId]);
+          tb.innerInit(p.world,mblock[tb.typeId]);
           ItemSlot[] itemData=tb.itemData;
           if(itemData!=null) for(ItemSlot e:itemData) if(e!=null) {
             Item ti=e.item;

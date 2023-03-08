@@ -6,6 +6,7 @@ import pama1234.game.app.server.server0002.game.metainfo.MetaInfoBase;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
+import pama1234.gdx.game.state.state0001.game.world.WorldBase2D;
 import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
 import pama1234.math.UtilMath;
 
@@ -87,13 +88,13 @@ public class MetaBlock extends MetaInfoBase{
   public int getDisplayType() {//TODO
     return defaultDisplayType;
   }
-  public void initBlock(Block in) {}
-  public void from(Block block,MetaBlock type,int x,int y) {
-    if(from!=null) from.change(block,type,x,y);
+  public void initBlock(WorldBase2D world,Block in) {}
+  public void from(World0001 world,Block block,MetaBlock type,int x,int y) {
+    if(from!=null) from.change(world,block,type,x,y);
   }
-  public void to(Block block,MetaBlock in,int x,int y) {
+  public void to(World0001 world,Block block,MetaBlock in,int x,int y) {
     // block.intData=null;
-    if(to!=null) to.change(block,in,x,y);
+    if(to!=null) to.change(world,block,in,x,y);
   }
   public void initFullBlockLambda() {
     // updater=lightUpdater;
@@ -129,7 +130,7 @@ public class MetaBlock extends MetaInfoBase{
   }
   @FunctionalInterface
   public interface BlockChanger{
-    void change(Block block,MetaBlock type,int x,int y);
+    void change(World0001 world,Block block,MetaBlock type,int x,int y);
   }
   public interface TilemapRenderer{
     public void tint(float x,float y,float z);
@@ -158,7 +159,7 @@ public class MetaBlock extends MetaInfoBase{
     //---
     if(in.updateLighting) lightingUpdate(in,x,y,world);
   },defaultDisplayUpdater=(world,in,x,y)-> {
-    if(in.updateLighting) lightingUpdate(in,x,y,in.type.pc.pw);
+    if(in.updateLighting) lightingUpdate(in,x,y,world);
   };
   public static boolean isNotFullBlockOrNotSameType(Block b,Block a) {
     return Block.isNotFullBlock(a)||(a.type.fullBlockType!=b.type.fullBlockType);

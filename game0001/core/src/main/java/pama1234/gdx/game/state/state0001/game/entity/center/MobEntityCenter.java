@@ -48,7 +48,7 @@ public class MobEntityCenter extends GameEntityCenter<Screen0011,MobEntity>{
       for(SpawnData i:e.spawnDatas) {
         if(world.random(1)>i.rate) continue;
         if(i.block==block.type) {
-          LivingEntity out=e.createCreature(tx,ty);
+          LivingEntity out=e.createCreature(world,tx,ty);
           if(out instanceof MobEntity mob) {
             mob.target=player;
             world.entities.mobEntities.add.add(mob);
