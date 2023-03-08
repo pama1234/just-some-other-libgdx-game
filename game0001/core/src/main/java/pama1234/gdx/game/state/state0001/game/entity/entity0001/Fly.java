@@ -72,8 +72,8 @@ public class Fly extends MobEntity{
       for(int i=0;i<tiles[0].length;i++) tiles[0][i]=ImageAsset.creature[6+i][2];
     }
     @Override
-    public Fly createCreature(float x,float y) {
-      return new Fly(pc.pw.p,pc.pw,x,y);
+    public Fly createCreature(World0001 world,float x,float y) {
+      return new Fly(pc.pw.pc.pg.p,world,x,y);
     }
   }
 }

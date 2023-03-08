@@ -29,15 +29,15 @@ public class RegionWrapper{
   public void placeBlock(Block block,MetaBlock in,int x,int y) {
     if(block.xOff!=0||block.yOff!=0) destroyBlock(
       block.origin==null?pw.getBlock(x-block.xOff,y-block.yOff):block.origin,x-block.xOff,y-block.yOff);
-    if(block.type.width==1&&block.type.height==1) block.doItemDrop(pw.p,x,y,in.empty);
+    if(block.type.width==1&&block.type.height==1) block.doItemDrop(pw,pw.p,x,y,in.empty);
     removeAreaIfOff(block,x,y,in);
     putIfOffBlock(block,x,y,in);
-    block.type(in,x,y);
+    block.type(pw,in,x,y);
   }
   public void removeAreaIfOff(Block block,int x,int y,MetaBlock in) {
     MetaBlock type=block.type;
     if(type!=null&&(type.width>1||type.height>1)) {
-      block.doItemDrop(pw.p,x,y,in.empty);
+      block.doItemDrop(pw,pw.p,x,y,in.empty);
       allOffAreaToAir(x,y,type);
     }
   }
@@ -55,7 +55,7 @@ public class RegionWrapper{
       int tx=x+i,
         ty=y+j;
       Block blockOff=pw.getBlock(tx,ty);
-      blockOff.type(pw.metaBlocks.air,x,y);
+      blockOff.type(pw,pw.metaBlocks.air,x,y);
       blockOff.clearOrigin();
     }
   }
@@ -66,14 +66,14 @@ public class RegionWrapper{
           ty=y+j;
         Block blockOff=pw.getBlock(tx,ty);
         testAndRemoveOffBlock(blockOff.type,tx,ty,in);
-        blockOff.doItemDrop(pw.p,tx,ty,in.empty);
+        blockOff.doItemDrop(pw,pw.p,tx,ty,in.empty);
         blockOff.origin(block,i,j);
-        blockOff.type(in,x,y);
+        blockOff.type(pw,in,x,y);
       }
     }
   }
   public void setBlock(Block block,MetaBlock in,int x,int y) {
-    block.type(in,x,y);
+    block.type(pw,in,x,y);
   }
   public void setBlock(MetaBlock in,int x,int y) {
     setBlock(pw.getBlock(x,y),in,x,y);

@@ -15,6 +15,7 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlock
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemCenter0001;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.region.block.Block.BlockUi;
+import pama1234.gdx.game.state.state0001.game.world.WorldBase2D;
 import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
 import pama1234.gdx.game.ui.generator.UiGenerator;
 import pama1234.gdx.game.ui.util.TextButtonCam;
@@ -25,13 +26,13 @@ public class Furnace extends MetaBlock{
   public int outputSlotSize=1,sloatSize=2;
   public MeltRecipe[] recipeList;
   public Furnace(MetaBlockCenter0001 pc,int id) {
-    super(pc,"furnace",id,4,1,(in,type,x,y)-> {//change to me
+    super(pc,"furnace",id,4,1,(world,in,type,x,y)-> {//change to me
       in.light.set(16);
       if(in.offBlock()) return;
       in.intData[4]=x;
       in.intData[5]=y;
-    },(in,type,x,y)-> {//change from me 
-      World0001 world=pc.pw;
+    },(world,in,type,x,y)-> {//change from me 
+      // World0001 world=pc.pw;
       // int x=in.intData[4],y=in.intData[5];
       boolean flag=Block.isEmpty(world.getBlock(x,y-1));
       float randomConst=0.8f;
@@ -65,7 +66,7 @@ public class Furnace extends MetaBlock{
     intData=new int[] {recipeList.length};
   }
   @Override
-  public void initBlock(Block in) {
+  public void initBlock(WorldBase2D world,Block in) {
     if(in.offBlock()) {
       in.ui=new BlockUi();
       in.ui.displaySlot=new DisplaySlot[0];
@@ -81,7 +82,7 @@ public class Furnace extends MetaBlock{
     in.ui=new BlockUi();
     in.ui.displaySlot=new DisplaySlot[in.itemData.length];
     for(int i=0;i<in.ui.displaySlot.length;i++) in.ui.displaySlot[i]=new DisplaySlot(in.itemData[i]);
-    in.ui.camButton=UiGenerator.genButtons_0009(pc.pw.p,in);
+    in.ui.camButton=UiGenerator.genButtons_0009(pc.pw.pc.pg.p,in);
     in.changed=true;
   }
   @Override

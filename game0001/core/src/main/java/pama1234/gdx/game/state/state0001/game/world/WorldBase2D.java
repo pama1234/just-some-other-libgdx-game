@@ -10,10 +10,17 @@ public class WorldBase2D extends World<Screen0011,Game> implements StateEntityLi
   public TreeNode<WorldBase2D> node;
   //---
   public int typeId;
-  public MetaWorld type;
+  public MetaWorld<?> type;
   //---
-  public WorldBase2D(Screen0011 p,Game pg,int size) {
+  public WorldBase2D(Screen0011 p,Game pg,int size,MetaWorld<?> type) {
     super(p,pg,size);
     node=new TreeNode<>(this);
+    this.type=type;
+  }
+  public float random(float max) {
+    return p.random(max);
+  }
+  public float random(float min,float max) {
+    return p.random(min,max);
   }
 }

@@ -25,7 +25,7 @@ public class Debug extends StateEntity0001{
   }
   public void innerInit(Screen0011 p) {
     buttons=UiGenerator.genButtons_0004(p);
-    world=new World0001(p,null);
+    world=new World0001(p,null,null);
     world.data.dir="data/saved/debug-world";
     world.settings.g=0;
     // player=new MainPlayer(p,world,0,0);

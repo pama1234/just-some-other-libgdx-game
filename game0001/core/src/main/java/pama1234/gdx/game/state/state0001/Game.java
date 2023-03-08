@@ -65,6 +65,7 @@ public class Game extends StateEntity0001{
     if(p.settings.debugGraphics) createDebugDisplay();
     selfAddr=new NetAddressInfo("127.0.0.1",12347);
   }
+  @Deprecated
   public World0001 world() {
     return world_0001;
   }

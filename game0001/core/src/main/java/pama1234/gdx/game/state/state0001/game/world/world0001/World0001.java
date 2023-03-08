@@ -35,7 +35,8 @@ import pama1234.gdx.game.util.Mutex;
 import pama1234.math.UtilMath;
 
 public class World0001 extends WorldBase2D{
-  // public FileHandle worldDataDir=Gdx.files.local("data/saved/test-world.bin");
+  public WorldType0001 type;
+  //---
   public WorldData data;
   //---
   public MetaBlockCenter0001 metaBlocks;//方块
@@ -53,16 +54,21 @@ public class World0001 extends WorldBase2D{
   //---
   public RegionWrapper r;
   public Mutex saving;
-  public World0001(Screen0011 p,Game pg) {
-    super(p,pg,3);
+  public World0001(Screen0011 p,Game pg,WorldType0001 type) {
+    super(p,pg,3,type);
+    this.type=type;
+    //---
     worldDataDir=Gdx.files.local("data/saved/test-world.bin");//TODO
     if(netMode()!=NetMode.client) data=WorldData.load(worldDataDir);
     else data=new WorldData();
     if(data.dir==null) data.dir="data/saved/test-world/";
-    metaBlocks=World0001Generator.createBlockC(this);
-    metaItems=World0001Generator.createItemC(this);
-    for(MetaBlock e:metaBlocks.list) e.initItemDrop();
-    metaEntitys=World0001Generator.createCreatureC(this);
+    metaBlocks=type.metaBlocks;
+    metaItems=type.metaItems;
+    metaEntitys=type.metaEntitys;
+    // metaBlocks=World0001Generator.createBlockC(type);
+    // metaItems=World0001Generator.createItemC(type);
+    // for(MetaBlock e:metaBlocks.list) e.initItemDrop();
+    // metaEntitys=World0001Generator.createCreatureC(type);
     list[0]=background=new BackgroundCenter(p,this);
     list[1]=regions=new RegionCenter(p,this);
     list[2]=entities=new MultiGameEntityCenter0001(p,this);
@@ -89,12 +95,6 @@ public class World0001 extends WorldBase2D{
       new TextureBackground(p,tbl,yourself).setProportion(0.3f),
       new TextureBackground(p,tbl,yourself).setProportion(0.4f)
     }));
-  }
-  public float random(float max) {
-    return p.random(max);
-  }
-  public float random(float min,float max) {
-    return p.random(min,max);
   }
   @Override
   public void init() {

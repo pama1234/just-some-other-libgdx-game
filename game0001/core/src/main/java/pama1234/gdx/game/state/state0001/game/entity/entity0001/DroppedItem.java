@@ -42,7 +42,7 @@ public class DroppedItem extends LivingEntity{
   public DroppedItem(Screen0011 p,World0001 pw,float x,float y,float xVel,float yVel,DroppedItemType type,Item data) {
     super(p,pw,new MassPoint(x,y,xVel,yVel),type);
     this.data=data;
-    pc=data.type.pc.pw.entities.items;
+    pc=pw.entities.items;
     outerBox=limitBox=new MovementLimitBox(this);
     limitBox.usePlatform=true;
   }

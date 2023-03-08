@@ -17,7 +17,7 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlock
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemCenter0001;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.region.block.Block.BlockUi;
-import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
+import pama1234.gdx.game.state.state0001.game.world.WorldBase2D;
 import pama1234.gdx.game.ui.generator.UiGenerator;
 import pama1234.gdx.game.ui.util.TextButtonCam;
 import pama1234.math.Tools;
@@ -27,12 +27,12 @@ public class Workbench extends MetaBlock{
   public int outputSlotSize=2,sloatSize=5;
   public CraftRecipe[] recipeList;
   public Workbench(MetaBlockCenter0001 pc,int id) {
-    super(pc,"workbench",id,1,0,(in,type,x,y)-> {//change to workbench
+    super(pc,"workbench",id,1,0,(world,in,type,x,y)-> {//change to workbench
       in.light.set(16);
       in.intData[4]=x;
       in.intData[5]=y;
-    },(in,type,x,y)-> {//change from workbench
-      World0001 world=pc.pw;
+    },(world,in,type,x,y)-> {//change from workbench
+      // World0001 world=pc.pw;
       // int x=in.intData[4],y=in.intData[5];
       boolean flag=Block.isEmpty(world.getBlock(x,y-1));
       float randomConst=0.8f;
@@ -150,7 +150,7 @@ public class Workbench extends MetaBlock{
     }
   }
   @Override
-  public void initBlock(Block in) {
+  public void initBlock(WorldBase2D world,Block in) {
     if(in.intData==null) in.intData=new int[6];
     else if(in.intData.length<6) in.intData=new int[6];
     // in.intData[0]=0;
@@ -162,7 +162,7 @@ public class Workbench extends MetaBlock{
     in.ui=new BlockUi();
     in.ui.displaySlot=new DisplaySlot[in.itemData.length];
     for(int i=0;i<in.ui.displaySlot.length;i++) in.ui.displaySlot[i]=new DisplaySlot(in.itemData[i]);
-    in.ui.camButton=UiGenerator.genButtons_0009(pc.pw.p,in);
+    in.ui.camButton=UiGenerator.genButtons_0009(pc.pw.pc.pg.p,in);
     in.changed=true;
   }
   @Override

@@ -9,10 +9,10 @@ import pama1234.gdx.game.state.state0001.game.region.block.Block;
 
 public class LightOre extends MetaBlock{
   public LightOre(MetaBlockCenter0001 pc,int id) {
-    super(pc,"light-ore",id,24,4,(in,type,x,y)-> {//change to me
+    super(pc,"light-ore",id,24,4,(world,in,type,x,y)-> {//change to me
       // in.lighting=16;
       in.light.set(16);
-    },(in,type,x,y)-> {//change from me
+    },(world,in,type,x,y)-> {//change from me
     });
     blockType=stoneType;
     // fullBlockType=FullBlockType.stoneType;

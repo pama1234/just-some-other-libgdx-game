@@ -58,7 +58,7 @@ public class RegionGenerator{
         Block tb;
         if(tbd!=null) {
           tb=tbd.block;
-          tb.innerInit(mblock[tb.typeId]);
+          tb.innerInit(world,mblock[tb.typeId]);
           ItemSlot[] itemData=tb.itemData;
           if(itemData!=null) for(ItemSlot e:itemData) if(e!=null) {
             Item ti=e.item;
@@ -69,11 +69,11 @@ public class RegionGenerator{
           float posX=x(region.x,i,n),posY=y(region.y,j,m);
           float tx=posX/64f,ty=posY/64f;
           float random=noise.get(tx,ty);
-          if(random>0.97f) tb=new Block(world.metaBlocks.lightOre);
-          else if(random>0.6f) tb=new Block(world.metaBlocks.stone);
-          else if(random>0.3f) tb=new Block(world.metaBlocks.dirt);
-          else if(noise.get(tx,(posY+1)/64f)>0.3f&&rng.get(tx,ty)<0.1f) tb=new Block(world.metaBlocks.sapling);
-          else tb=new Block(world.metaBlocks.air);
+          if(random>0.97f) tb=new Block(world,world.metaBlocks.lightOre);
+          else if(random>0.6f) tb=new Block(world,world.metaBlocks.stone);
+          else if(random>0.3f) tb=new Block(world,world.metaBlocks.dirt);
+          else if(noise.get(tx,(posY+1)/64f)>0.3f&&rng.get(tx,ty)<0.1f) tb=new Block(world,world.metaBlocks.sapling);
+          else tb=new Block(world,world.metaBlocks.air);
           blockData[n][m]=new BlockData(tb);
         }
       }

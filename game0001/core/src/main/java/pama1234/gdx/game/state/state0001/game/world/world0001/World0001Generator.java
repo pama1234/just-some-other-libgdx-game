@@ -31,7 +31,7 @@ import pama1234.gdx.game.state.state0001.game.region.block.workstation.Furnace;
 import pama1234.gdx.game.state.state0001.game.region.block.workstation.Workbench;
 
 public class World0001Generator{
-  public static MetaBlockCenter0001 createBlockC(World0001 in) {
+  public static MetaBlockCenter0001 createBlockC(WorldType0001 in) {
     MetaBlockCenter0001 metaBlocks=new MetaBlockCenter0001(in);
     metaBlocks.list.add(metaBlocks.air=new MetaBlock(metaBlocks,"air",metaBlocks.id()));
     metaBlocks.list.add(metaBlocks.dirt=new Dirt(metaBlocks,metaBlocks.id()));
@@ -55,7 +55,7 @@ public class World0001Generator{
     metaBlocks.list.add(metaBlocks.worldRoot=new WorldRoot(metaBlocks,metaBlocks.id()));
     return metaBlocks;
   }
-  public static MetaItemCenter0001 createItemC(World0001 pw) {
+  public static MetaItemCenter0001 createItemC(WorldType0001 pw) {
     MetaItemCenter0001 metaItems=new MetaItemCenter0001(pw);
     metaItems.list.add(metaItems.dirt=new MetaItem(metaItems,"dirt",metaItems.id(),in-> {
       in.blockType=pw.metaBlocks.dirt;
@@ -200,7 +200,7 @@ public class World0001Generator{
     }));
     return metaItems;
   }
-  public static MetaCreatureCenter0001 createCreatureC(World0001 in) {
+  public static MetaCreatureCenter0001 createCreatureC(WorldType0001 in) {
     MetaCreatureCenter0001 metaEntitys=new MetaCreatureCenter0001(in);
     metaEntitys.list.add(metaEntitys.player=new PlayerType(metaEntitys,metaEntitys.id()));
     metaEntitys.list.add(metaEntitys.droppedItem=new DroppedItemType(metaEntitys,metaEntitys.id()));

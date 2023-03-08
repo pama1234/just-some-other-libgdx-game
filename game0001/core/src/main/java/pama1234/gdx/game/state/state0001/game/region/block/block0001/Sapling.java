@@ -6,14 +6,15 @@ import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
+import pama1234.gdx.game.state.state0001.game.world.WorldBase2D;
 import pama1234.math.UtilMath;
 
 public class Sapling extends MetaBlock{
   public Sapling(MetaBlockCenter0001 pc,int id) {
-    super(pc,"sapling",id,1,0,(in,type,x,y)-> {//change to me
+    super(pc,"sapling",id,1,0,(world,in,type,x,y)-> {//change to me
       // in.light.set(16);
       in.intData=new int[1];
-    },(in,type,x,y)-> {//change from me
+    },(world,in,type,x,y)-> {//change from me
       in.intData=null;
     });
     blockType=woodType;
@@ -34,7 +35,7 @@ public class Sapling extends MetaBlock{
     tiles[0]=tsrc[6][6];
   }
   @Override
-  public void initBlock(Block in) {
+  public void initBlock(WorldBase2D world,Block in) {
     if(in.intData==null) in.intData=new int[1];
   }
   public void initSaplingLambda() {

@@ -11,18 +11,19 @@ import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.region.block.Block.BlockUi;
+import pama1234.gdx.game.state.state0001.game.world.WorldBase2D;
 import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
 import pama1234.gdx.game.ui.util.TextButtonCam;
 
 public class Chest extends MetaBlock{
   public int sloatSize=9,sloatDisplayWidth=3;
   public Chest(MetaBlockCenter0001 pc,int id) {
-    super(pc,"chest",id,1,0,(in,type,x,y)-> {//change to me
+    super(pc,"chest",id,1,0,(world,in,type,x,y)-> {//change to me
       in.light.set(16);
       in.intData[4]=x;
       in.intData[5]=y;
-    },(in,type,x,y)-> {//change from me
-      World0001 world=pc.pw;
+    },(world,in,type,x,y)-> {//change from me
+      // World0001 world=pc.pw;
       // int x=in.intData[4],y=in.intData[5];
       boolean flag=Block.isEmpty(world.getBlock(x,y-1));
       float randomConst=0.8f;
@@ -62,7 +63,7 @@ public class Chest extends MetaBlock{
     };
   }
   @Override
-  public void initBlock(Block in) {
+  public void initBlock(WorldBase2D world,Block in) {
     if(in.intData==null) in.intData=new int[6];
     else if(in.intData.length<6) in.intData=new int[6];
     if(in.itemData==null) {

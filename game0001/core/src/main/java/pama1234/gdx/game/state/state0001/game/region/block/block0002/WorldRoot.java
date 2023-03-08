@@ -8,14 +8,15 @@ import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.region.block.Block.BlockUi;
+import pama1234.gdx.game.state.state0001.game.world.WorldBase2D;
 import pama1234.gdx.game.ui.generator.UiGenerator;
 import pama1234.gdx.game.ui.util.TextButtonCam;
 
 public class WorldRoot extends MetaBlock{
   public WorldRoot(MetaBlockCenter0001 pc,int id) {
-    super(pc,"world-root",id,1,1,(in,type,x,y)-> {//change to me
+    super(pc,"world-root",id,1,1,(world,in,type,x,y)-> {//change to me
       in.light.set(16);
-    },(in,type,x,y)-> {//change from me
+    },(world,in,type,x,y)-> {//change from me
       in.intData=null;
       in.ui=null;
     });
@@ -48,7 +49,7 @@ public class WorldRoot extends MetaBlock{
     };
   }
   @Override
-  public void initBlock(Block in) {
+  public void initBlock(WorldBase2D world,Block in) {
     if(in.intData==null) in.intData=new int[4];
     else if(in.intData.length<4) in.intData=new int[4];
     in.ui=new BlockUi();
@@ -56,7 +57,7 @@ public class WorldRoot extends MetaBlock{
     in.ui.displaySlot=new DisplaySlot[0];
     // for(int i=0;i<in.ui.displaySlot.length;i++) in.ui.displaySlot[i]=new DisplaySlot(in.itemData[i]);
     // in.ui.camButton=new TextButtonCam[0];
-    in.ui.camButton=UiGenerator.genButtons_0010(pc.pw.p,in);
+    in.ui.camButton=UiGenerator.genButtons_0010(world.p,in);
     in.changed=true;
   }
   @Override

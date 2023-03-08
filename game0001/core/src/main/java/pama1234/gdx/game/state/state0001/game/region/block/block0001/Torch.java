@@ -6,12 +6,13 @@ import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
+import pama1234.gdx.game.state.state0001.game.world.WorldBase2D;
 
 public class Torch extends MetaBlock{
   public Torch(MetaBlockCenter0001 pc,int id) {
-    super(pc,"torch",id,4,1,(in,type,x,y)-> {//change to me
+    super(pc,"torch",id,4,1,(world,in,type,x,y)-> {//change to me
       in.light.set(16);
-    },(in,type,x,y)-> {//change from me
+    },(world,in,type,x,y)-> {//change from me
     });
     destroyTime=15;
     buildTime=8;
@@ -24,7 +25,7 @@ public class Torch extends MetaBlock{
     itemDrop=new ItemDropAttr[] {new ItemDropAttr(pc.pw.metaItems.torch,1)};
   }
   @Override
-  public void initBlock(Block in) {
+  public void initBlock(WorldBase2D world,Block in) {
     if(in.intData==null) in.intData=new int[1];
   }
   @Override
@@ -39,11 +40,11 @@ public class Torch extends MetaBlock{
   public void initTorchLambda() {
     updater=(world,in,x,y)-> {
       lightUpdater.update(world,in,x,y);
-      if(Block.isFullBlockOrNull(pc.pw.getBlock(x,y+1))) in.intData[0]=0;
-      else if(Block.isFullBlockOrNull(pc.pw.getBlock(x-1,y))) in.intData[0]=1;
-      else if(Block.isFullBlockOrNull(pc.pw.getBlock(x+1,y))) in.intData[0]=2;
-      else if(Block.isFullBlockOrNull(pc.pw.getBlock(x,y-1))) in.intData[0]=3;
-      else pc.pw.r.destroyBlock(in,x,y);
+      if(Block.isFullBlockOrNull(world.getBlock(x,y+1))) in.intData[0]=0;
+      else if(Block.isFullBlockOrNull(world.getBlock(x-1,y))) in.intData[0]=1;
+      else if(Block.isFullBlockOrNull(world.getBlock(x+1,y))) in.intData[0]=2;
+      else if(Block.isFullBlockOrNull(world.getBlock(x,y-1))) in.intData[0]=3;
+      else world.r.destroyBlock(in,x,y);
     };
     displayUpdater=(world,in,x,y)-> {
       defaultDisplayUpdater.update(world,in,x,y);

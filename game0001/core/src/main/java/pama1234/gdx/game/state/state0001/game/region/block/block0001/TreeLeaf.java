@@ -6,13 +6,14 @@ import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
+import pama1234.gdx.game.state.state0001.game.world.WorldBase2D;
 
 public class TreeLeaf extends MetaBlock{
   public int maxLogCount=7;
   public TreeLeaf(MetaBlockCenter0001 pc,int id) {
-    super(pc,"tree-leaf",id,25,3,(in,type,x,y)-> {//change to me
+    super(pc,"tree-leaf",id,25,3,(world,in,type,x,y)-> {//change to me
       in.light.set(16);
-    },(in,type,x,y)-> {//change from me
+    },(world,in,type,x,y)-> {//change from me
       in.intData=null;
     });
     destroyTime=15;
@@ -71,7 +72,7 @@ public class TreeLeaf extends MetaBlock{
     tiles[24]=tsrc[17][4];
   }
   @Override
-  public void initBlock(Block in) {
+  public void initBlock(WorldBase2D world,Block in) {
     if(in.intData==null||in.intData.length<3) in.intData=new int[] {0,-60,-maxLogCount*2};
   }
   public boolean isTreeLeaf(Block tb) {
@@ -169,7 +170,7 @@ public class TreeLeaf extends MetaBlock{
       }
       int tp_2=in.displayType[2];
       if(tp_2!=0) r.tile(in.type.tiles[24],x,y);
-      if(!pc.pw.p.settings.debugGraphics||in.intData==null) return;
+      if(!pc.pw.pc.pg.p.settings.debugGraphics||in.intData==null) return;
       r.end();
       p.textScale(0.5f);
       p.text(Integer.toString(in.intData[0]),x,y);
