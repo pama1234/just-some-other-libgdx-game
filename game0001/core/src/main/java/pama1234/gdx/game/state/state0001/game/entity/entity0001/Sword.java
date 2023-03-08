@@ -37,7 +37,7 @@ public class Sword extends LivingEntity{
       dx=-6;
       dy=-12;
     }
-    public SwordType(MetaCreatureCenter0001 pc,int id) {
+    public SwordType(MetaCreatureCenter0001<?> pc,int id) {
       super(pc,"sword",id,4,0,0);
       immortal=true;
     }

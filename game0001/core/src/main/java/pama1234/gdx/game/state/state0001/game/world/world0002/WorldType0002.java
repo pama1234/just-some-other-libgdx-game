@@ -6,7 +6,7 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaCreat
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemCenter0001;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaWorldCenter0001;
 
-public class WorldType0002 extends MetaWorld<World0002,MetaBlockCenter0001,MetaItemCenter0001,MetaCreatureCenter0001>{
+public class WorldType0002 extends MetaWorld<World0002,MetaBlockCenter0001<?>,MetaItemCenter0001<?>,MetaCreatureCenter0001<?>>{
   public WorldType0002(MetaWorldCenter0001 pc,int id) {
     super(pc,"test-world-2",id);
     //---

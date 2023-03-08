@@ -9,12 +9,12 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlock
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.region.block.Block.BlockUi;
 import pama1234.gdx.game.state.state0001.game.world.WorldBase2D;
-import pama1234.gdx.game.state.state0001.game.world.world0001.WorldType0001;
+import pama1234.gdx.game.state.state0001.game.world.world0001.WorldType0001Base;
 import pama1234.gdx.game.ui.generator.UiGenerator;
 import pama1234.gdx.game.ui.util.TextButtonCam;
 
-public class WorldRoot extends MetaBlock<WorldType0001,MetaBlockCenter0001>{
-  public WorldRoot(MetaBlockCenter0001 pc,int id) {
+public class WorldRoot extends MetaBlock<WorldType0001Base<?>,MetaBlockCenter0001<WorldType0001Base<?>>>{
+  public WorldRoot(MetaBlockCenter0001<WorldType0001Base<?>> pc,int id) {
     super(pc,"world-root",id,1,1,(world,in,type,x,y)-> {//change to me
       in.light.set(16);
     },(world,in,type,x,y)-> {//change from me

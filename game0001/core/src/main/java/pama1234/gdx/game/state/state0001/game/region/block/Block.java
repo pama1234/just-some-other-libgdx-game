@@ -34,7 +34,7 @@ public class Block{
     @Tag(2)
     public Block[] blockArray;
   }
-  public MetaBlock type;
+  public MetaBlock<?,?> type;
   @Tag(0)
   public int typeId;
   public boolean changed;
@@ -60,26 +60,26 @@ public class Block{
   public Block origin;
   @Deprecated
   public Block() {}//只能用于kryo
-  public Block(WorldBase2D<?> world,MetaBlock type) {
+  public Block(WorldBase2D<?> world,MetaBlock<?,?> type) {
     innerInit(world,type);
   }
-  public void innerInit(WorldBase2D<?> world,MetaBlock type) {
+  public void innerInit(WorldBase2D<?> world,MetaBlock<?,?> type) {
     innerSetType(type);
     init(world,type);
     light=new PathVarLighting();
   }
-  public void innerSetType(MetaBlock in) {
+  public void innerSetType(MetaBlock<?,?> in) {
     type=in;
     typeId=in.id;
   }
-  public void init(WorldBase2D<?> world,MetaBlock type) {
+  public void init(WorldBase2D<?> world,MetaBlock<?,?> type) {
     if(type.displayTypeSize>0) {
       displayType=new int[type.displayTypeSize];
       displayType[0]=type.getDisplayType();
     }else displayType=null;
     type.initBlock(world,this);
   }
-  public void type(World0001 world,MetaBlock in,int x,int y) {
+  public void type(World0001 world,MetaBlock<?,?> in,int x,int y) {
     MetaBlock t=type;
     if(in==t) return;
     changed=true;
@@ -101,7 +101,7 @@ public class Block{
   public static boolean isFullBlockOrNull(Block in) {
     return in==null||!(in.type==null||in.type.empty||!in.type.fullBlock);
   }
-  public static boolean isType(Block in,MetaBlock type) {
+  public static boolean isType(Block in,MetaBlock<?,?> type) {
     return in!=null&&in.type==type;
   }
   public void doItemDrop(World0001 world,Screen0011 p,int x,int y,boolean empty) {

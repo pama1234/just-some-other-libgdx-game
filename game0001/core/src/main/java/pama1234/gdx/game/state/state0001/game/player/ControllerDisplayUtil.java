@@ -57,7 +57,7 @@ public class ControllerDisplayUtil{
     }
     p.noTint();
   }
-  public static void drawBoxStroke(Screen0011 p,ControllerBlockPointer selectBlock,float tw,float th,MetaBlock type) {
+  public static void drawBoxStroke(Screen0011 p,ControllerBlockPointer selectBlock,float tw,float th,MetaBlock<?,?> type) {
     p.beginBlend();
     p.fill(127,127);
     if(type!=null) GameDisplayUtil.boxStroke(p,1,
@@ -82,7 +82,7 @@ public class ControllerDisplayUtil{
     }
   }
   public static void drawSelectBlockTouchScreen(Screen0011 p,ControllerBlockPointer selectBlock,float tw,float th,float scale) {
-    MetaBlock type=selectBlock.block==null?null:selectBlock.block.type;
+    MetaBlock<?,?> type=selectBlock.block==null?null:selectBlock.block.type;
     float tr=scale<1?2:2/scale;
     float tf=2/scale;
     float tf_2=0.8f/scale;
@@ -118,7 +118,7 @@ public class ControllerDisplayUtil{
     }
     p.noTint();
   }
-  public static void drawBlockLine(Screen0011 p,ControllerBlockPointer selectBlock,float tw,float th,MetaBlock type,float tr,float tf) {
+  public static void drawBlockLine(Screen0011 p,ControllerBlockPointer selectBlock,float tw,float th,MetaBlock<?,?> type,float tr,float tf) {
     p.beginBlend();
     if(type!=null) {
       p.fill(127,191);

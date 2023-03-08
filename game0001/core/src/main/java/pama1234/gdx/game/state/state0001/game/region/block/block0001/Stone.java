@@ -5,10 +5,10 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
-import pama1234.gdx.game.state.state0001.game.world.world0001.WorldType0001;
+import pama1234.gdx.game.state.state0001.game.world.world0001.WorldType0001Base;
 
-public class Stone extends MetaBlock<WorldType0001,MetaBlockCenter0001>{
-  public Stone(MetaBlockCenter0001 pc,int id) {
+public class Stone extends MetaBlock<WorldType0001Base<?>,MetaBlockCenter0001<WorldType0001Base<?>>>{
+  public Stone(MetaBlockCenter0001<WorldType0001Base<?>> pc,int id) {
     super(pc,"stone",id,20,2,(world,in,type,x,y)-> {//change to stone
       // in.lighting=16;
       in.light.set(16);

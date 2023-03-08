@@ -8,7 +8,7 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaCreat
 import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
 
 public class MetaCreature<T extends LivingEntity>extends MetaInfoBase{
-  public MetaCreatureCenter0001 pc;
+  public MetaCreatureCenter0001<?> pc;
   public int w,h;
   public float dx,dy;
   public float maxLife=32;
@@ -17,13 +17,13 @@ public class MetaCreature<T extends LivingEntity>extends MetaInfoBase{
   public int count,naturalMaxCount;
   public SpawnData[] spawnDatas;
   public TextureRegion[][] tiles;
-  public MetaCreature(MetaCreatureCenter0001 pc,String name,int id,float maxLife,TextureRegion[][] tiles) {
+  public MetaCreature(MetaCreatureCenter0001<?> pc,String name,int id,float maxLife,TextureRegion[][] tiles) {
     super(name,id);
     this.pc=pc;
     this.maxLife=maxLife;
     this.tiles=tiles;
   }
-  public MetaCreature(MetaCreatureCenter0001 pc,String name,int id,float maxLife,int tileWidth,int tileHeight) {
+  public MetaCreature(MetaCreatureCenter0001<?> pc,String name,int id,float maxLife,int tileWidth,int tileHeight) {
     this(pc,name,id,maxLife,new TextureRegion[tileHeight][tileWidth]);
   }
   public T createCreature(World0001 world,float x,float y) {

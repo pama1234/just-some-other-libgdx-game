@@ -37,9 +37,9 @@ import pama1234.math.UtilMath;
 public class World0001 extends WorldBase2D<WorldType0001>{
   public WorldData data;
   //---
-  public MetaBlockCenter0001 metaBlocks;//方块
-  public MetaItemCenter0001 metaItems;//物品
-  public MetaCreatureCenter0001 metaEntitys;//生物
+  public MetaBlockCenter0001<?> metaBlocks;//方块
+  public MetaItemCenter0001<?> metaItems;//物品
+  public MetaCreatureCenter0001<?> metaEntitys;//生物
   //---
   public MultiGameEntityCenter0001 entities;//实体
   public RegionCenter regions;//地图系统

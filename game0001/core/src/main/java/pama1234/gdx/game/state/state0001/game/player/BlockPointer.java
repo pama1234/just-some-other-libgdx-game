@@ -72,7 +72,7 @@ public class BlockPointer extends PointerBase{
   public static float getSpeed(Item item,Block block) {
     if(item==null||block==null) return 1;
     MetaItem mi=item.type;
-    MetaBlock mb=block.type;
+    MetaBlock<?,?> mb=block.type;
     int itemType=mi.toolType;
     int blockType=mb.blockType;
     // System.out.println(itemType+" "+blockType);
@@ -87,7 +87,7 @@ public class BlockPointer extends PointerBase{
       case build: {
         ItemSlot ts=slot();
         if(ts.item==null) break;
-        MetaBlock tbt=ts.item.type.blockType;
+        MetaBlock<?,?> tbt=ts.item.type.blockType;
         if(tbt==null||block==null||block.type==tbt) taskComplete();
         else if(progress>=tbt.buildTime+block.type.destroyTime) {
           pw.r.placeBlock(this,block,tbt,x,y);

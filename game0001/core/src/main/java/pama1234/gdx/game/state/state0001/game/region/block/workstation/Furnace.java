@@ -16,16 +16,16 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemC
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.region.block.Block.BlockUi;
 import pama1234.gdx.game.state.state0001.game.world.WorldBase2D;
-import pama1234.gdx.game.state.state0001.game.world.world0001.WorldType0001;
+import pama1234.gdx.game.state.state0001.game.world.world0001.WorldType0001Base;
 import pama1234.gdx.game.ui.generator.UiGenerator;
 import pama1234.gdx.game.ui.util.TextButtonCam;
 import pama1234.math.Tools;
 
-public class Furnace extends MetaBlock<WorldType0001,MetaBlockCenter0001>{
+public class Furnace extends MetaBlock<WorldType0001Base<?>,MetaBlockCenter0001<WorldType0001Base<?>>>{
   // public static final int stepMod=2,stopMod=1,updateMod=0;
   public int outputSlotSize=1,sloatSize=2;
   public MeltRecipe[] recipeList;
-  public Furnace(MetaBlockCenter0001 pc,int id) {
+  public Furnace(MetaBlockCenter0001<WorldType0001Base<?>> pc,int id) {
     super(pc,"furnace",id,4,1,(world,in,type,x,y)-> {//change to me
       in.light.set(16);
       if(in.offBlock()) return;

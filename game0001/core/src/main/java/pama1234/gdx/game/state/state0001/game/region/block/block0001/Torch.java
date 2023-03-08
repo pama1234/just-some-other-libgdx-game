@@ -7,10 +7,10 @@ import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.WorldBase2D;
-import pama1234.gdx.game.state.state0001.game.world.world0001.WorldType0001;
+import pama1234.gdx.game.state.state0001.game.world.world0001.WorldType0001Base;
 
-public class Torch extends MetaBlock<WorldType0001,MetaBlockCenter0001>{
-  public Torch(MetaBlockCenter0001 pc,int id) {
+public class Torch extends MetaBlock<WorldType0001Base<?>,MetaBlockCenter0001<WorldType0001Base<?>>>{
+  public Torch(MetaBlockCenter0001<WorldType0001Base<?>> pc,int id) {
     super(pc,"torch",id,4,1,(world,in,type,x,y)-> {//change to me
       in.light.set(16);
     },(world,in,type,x,y)-> {//change from me

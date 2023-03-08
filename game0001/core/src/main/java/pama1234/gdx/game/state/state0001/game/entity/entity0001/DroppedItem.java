@@ -110,7 +110,7 @@ public class DroppedItem extends LivingEntity{
       dx=-6;
       dy=-12;
     }
-    public DroppedItemType(MetaCreatureCenter0001 pc,int id) {
+    public DroppedItemType(MetaCreatureCenter0001<?> pc,int id) {
       super(pc,"dropped item",id,4,0,0);
       immortal=true;
     }
