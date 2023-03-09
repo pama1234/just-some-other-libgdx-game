@@ -5,7 +5,8 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
-import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
+import pama1234.gdx.game.state.state0001.game.world.WorldBase2D;
+import pama1234.gdx.game.state.state0001.game.world.world0001.WorldType0001Base;
 import pama1234.math.physics.MassPoint;
 
 public class TextureLivingEntity extends LivingEntity{
@@ -18,7 +19,7 @@ public class TextureLivingEntity extends LivingEntity{
   public TextureLivingEntity() {//kryo only
     super();
   }
-  public TextureLivingEntity(Screen0011 p,World0001 pw,float x,float y,MetaCreature<? extends TextureLivingEntity> type) {
+  public TextureLivingEntity(Screen0011 p,WorldBase2D<? extends WorldType0001Base<?>> pw,float x,float y,MetaCreature<? extends TextureLivingEntity> type) {
     super(p,pw,new MassPoint(x,y),type);
   }
   @Override

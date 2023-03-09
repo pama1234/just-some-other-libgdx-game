@@ -4,7 +4,6 @@ import static com.badlogic.gdx.Input.Keys.ESCAPE;
 import static pama1234.gdx.game.state.state0001.game.GameDisplayUtil.debugText;
 
 import java.net.ConnectException;
-import java.util.Arrays;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net.Protocol;

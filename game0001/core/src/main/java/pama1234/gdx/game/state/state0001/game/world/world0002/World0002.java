@@ -12,4 +12,6 @@ public class World0002 extends WorldBase2D<WorldType0002>{
   public void pauseSave() {}
   @Override
   public void resumeLoad() {}
+  @Override
+  public void initCenter() {}
 }

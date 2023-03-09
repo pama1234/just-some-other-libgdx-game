@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
-import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
+import pama1234.gdx.game.state.state0001.game.world.WorldBase2D;
 import pama1234.gdx.util.element.Graphics;
 
 public class BackgroundCloud extends Background{
@@ -44,7 +44,7 @@ public class BackgroundCloud extends Background{
   }
   @Override
   public void update() {
-    World0001 world=pc.pc.pw;
+    WorldBase2D<?> world=pc.pc.pw;
     int tw=world.blockWidth(),
       th=world.blockHeight();
     x1=world.xToBlockCordInt(cam.x1())*tw;

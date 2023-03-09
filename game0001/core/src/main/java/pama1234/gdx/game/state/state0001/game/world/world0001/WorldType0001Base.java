@@ -9,8 +9,8 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaWorld
 import pama1234.gdx.game.state.state0001.game.world.WorldBase2D;
 
 public abstract class WorldType0001Base<W extends WorldBase2D<?>>extends MetaWorld<W,MetaBlockCenter0001<?>,MetaItemCenter0001<?>,MetaCreatureCenter0001<?>>{
-  public WorldType0001Base(MetaWorldCenter0001 pc,int id) {
-    super(pc,"test-world",id);
+  public WorldType0001Base(MetaWorldCenter0001 pc,String name,int id) {
+    super(pc,name,id);
     //---
     metaBlocks=WorldType0001BaseGenerator.createBlockC(this);
     metaItems=WorldType0001BaseGenerator.createItemC(this);

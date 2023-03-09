@@ -2,17 +2,18 @@ package pama1234.gdx.game.state.state0001.game.player;
 
 import pama1234.gdx.game.state.state0001.game.item.Item.ItemSlot;
 import pama1234.gdx.game.state.state0001.game.item.Item.ItemSlot.GetItemSlot;
-import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
+import pama1234.gdx.game.state.state0001.game.world.WorldBase2D;
+import pama1234.gdx.game.state.state0001.game.world.world0001.WorldType0001Base;
 
 public abstract class PointerBase{
-  public World0001 pw;
+  public WorldBase2D<? extends WorldType0001Base<?>> pw;
   public GetItemSlot slot;
   public int task;
   public boolean active;
-  public PointerBase(World0001 pw) {
+  public PointerBase(WorldBase2D<? extends WorldType0001Base<?>> pw) {
     this.pw=pw;
   }
-  public PointerBase(World0001 pw,GetItemSlot slot) {
+  public PointerBase(WorldBase2D<? extends WorldType0001Base<?>> pw,GetItemSlot slot) {
     this.pw=pw;
     this.slot=slot;
   }

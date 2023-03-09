@@ -10,7 +10,8 @@ import pama1234.gdx.game.state.state0001.game.item.Inventory;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaCreatureCenter0001;
 import pama1234.gdx.game.state.state0001.game.net.NetMode;
-import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
+import pama1234.gdx.game.state.state0001.game.world.WorldBase2D;
+import pama1234.gdx.game.state.state0001.game.world.world0001.WorldType0001Base;
 
 public class Player extends TextureLivingEntity{
   public PlayerControllerCore ctrlCore;
@@ -18,7 +19,7 @@ public class Player extends TextureLivingEntity{
   public float nameWidth;
   @Tag(4)
   public Inventory inventory;
-  public Player(Screen0011 p,World0001 pw,float x,float y,PlayerType type) {
+  public Player(Screen0011 p,WorldBase2D<? extends WorldType0001Base<?>> pw,float x,float y,PlayerType type) {
     super(p,pw,x,y,type);
     name("unnamed");
     timeStep=1/2f;
