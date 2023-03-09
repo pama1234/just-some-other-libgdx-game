@@ -27,6 +27,8 @@ public class PlayerControllerFull extends PlayerControllerCore{
   public RectF[] cullRects;
   public float camScale=2;
   public ControllerBlockPointer selectBlock;
+  public float zoomSpeed=0.0625f;
+  public boolean zoomIn,zoomOut;
   public PlayerControllerFull(Screen0011 p,MainPlayer player) {
     super(p,player,true);
     this.player=player;
@@ -56,6 +58,7 @@ public class PlayerControllerFull extends PlayerControllerCore{
   public void postUpdate() {
     super.postUpdate();
     p.cam.point.des.set(player.cx(),player.cy());
+    if(zoomIn!=zoomOut) camScale(zoomIn?zoomSpeed:-zoomSpeed);
   }
   public void updateCtrlInfo() {
     updateKeyInfo();
@@ -92,15 +95,16 @@ public class PlayerControllerFull extends PlayerControllerCore{
   public void keyPressed(char key,int keyCode) {
     if(ControlBindUtil.isKey(ControlBindUtil.shift,keyCode)) shift(true);
     else if(ControlBindUtil.isKey(ControlBindUtil.openInventory,keyCode)) player.inventory.displayStateChange();
-    // else if(keyCode==Keys.V) shift(!shift);
-    else if(ControlBindUtil.isKey(ControlBindUtil.camZoomIn,keyCode)) camScale(0.5f);
-    else if(ControlBindUtil.isKey(ControlBindUtil.camZoomOut,keyCode)) camScale(-0.5f);
+    else if(ControlBindUtil.isKey(ControlBindUtil.camZoomIn,keyCode)) zoomIn=true;
+    else if(ControlBindUtil.isKey(ControlBindUtil.camZoomOut,keyCode)) zoomOut=true;
     else if(testIsHotSlotKey(keyCode,true)) player.inventory.selectSlotWithKeyEvent();
   }
   @Override
   public void keyReleased(char key,int keyCode) {
     if(ControlBindUtil.isKey(ControlBindUtil.shift,keyCode)) shift(false);
     else if(testIsHotSlotKey(keyCode,false)) player.inventory.selectSlotWithKeyEvent();
+    else if(ControlBindUtil.isKey(ControlBindUtil.camZoomIn,keyCode)) zoomIn=false;
+    else if(ControlBindUtil.isKey(ControlBindUtil.camZoomOut,keyCode)) zoomOut=false;
   }
   public boolean testIsHotSlotKey(int keyCode,boolean bIn) {
     boolean[] tba=player.inventory.hotSlotKeyData;

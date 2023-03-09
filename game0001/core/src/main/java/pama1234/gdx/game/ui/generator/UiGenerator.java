@@ -53,11 +53,6 @@ public class UiGenerator{
         pg.androidRightMouseButton=!pg.androidRightMouseButton;
         self.updateText();
       },self->self.text=pg.androidRightMouseButton?"mR":"mL",p::getButtonUnitLength,()->p.width-p.bu*4f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,false),
-      // new TextButton<T>(p,true,()->true,self-> {},self-> {
-      //   pg.world().yourself.ctrl.shift(!pg.world().yourself.ctrl.shift);
-      //   self.updateText();
-      // },self-> {},
-      //   self->self.text=pg.world().yourself.ctrl.shift?"S":"s","s",p::getButtonUnitLength,()->p.width-p.bu*2.5f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,true),
       new TextButton<T>(p,true,()->true,self-> {},self-> {
         p.inputProcessor.keyDown(Input.Keys.S);
       },self-> {

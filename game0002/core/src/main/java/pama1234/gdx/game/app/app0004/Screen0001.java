@@ -25,6 +25,8 @@ import pama1234.gdx.game.util.ControllerClientPlayer3D;
 import pama1234.gdx.util.FileUtil;
 import pama1234.gdx.util.app.ScreenCore3D;
 import pama1234.gdx.util.element.Graphics;
+import pama1234.math.UtilMath;
+import pama1234.math.vec.Vec3f;
 
 /**
  * 3D 粒子系统 单机模式
@@ -35,7 +37,7 @@ public class Screen0001 extends ScreenCore3D{
   public ClientPlayerCenter3D playerCenter;//TODO
   public ControllerClientPlayer3D yourself;
   public ArrayList<ArrayList<GraphicsData>> graphicsList;
-  public ArrayList<DecalData> decals;
+  public ArrayList<DecalData>[] decals;
   public boolean doUpdate;
   public Thread updateCell;
   public Vector3 posCache=new Vector3();
@@ -46,6 +48,14 @@ public class Screen0001 extends ScreenCore3D{
   public Decal logo;
   public boolean tempTest;//TODO
   public ConfigInfo configInfo;
+  public float[][] tesselatedMat= {
+    {0,0,0},{1,0,0},
+    {0,1,0},{1,1,0},
+    //---
+    {0,0,1},{1,0,1},
+    {0,1,1},{1,1,1},
+  };
+  public Vec3f size;
   public static class GraphicsData{
     public Graphics g;
     public TextureRegion tr;
@@ -75,13 +85,21 @@ public class Screen0001 extends ScreenCore3D{
     CellGroupGenerator3D gen=new CellGroupGenerator3D(0,0);
     group=gen.randomGenerate();
     // group=gen.GenerateFromMiniCore();
+    size=new Vec3f(
+      group.updater.x2-group.updater.x1,
+      group.updater.y2-group.updater.y1,
+      group.updater.z2-group.updater.z1);
+    cam3d.viewDist(UtilMath.min(size.x,size.y,size.z)/2f);
+    // System.out.println(size);
+    // println(group.updater.x2,group.updater.x1);
     playerCenter=new ClientPlayerCenter3D(this);
     yourself=new ControllerClientPlayer3D(this,new ServerPlayer3D(
       "pama"+String.format("%04d",(int)(random(0,10000))),
       0,0,0));
     noStroke();
     graphicsList=new ArrayList<ArrayList<GraphicsData>>(layerSize);
-    decals=new ArrayList<>(group.size);
+    decals=new ArrayList[tesselatedMat.length];
+    for(int i=0;i<decals.length;i++) decals[i]=new ArrayList<>(group.size);
     final int typeSize=group.colors.length;
     int tsize=group.size/typeSize;
     int[] colors=new int[typeSize];
@@ -98,9 +116,9 @@ public class Screen0001 extends ScreenCore3D{
       tg.endShape();
       TextureRegion tr=new TextureRegion(tg.texture);
       graphicsList.get(0).add(0*typeSize+i,new GraphicsData(tg,tr));
-      for(int j=0;j<tsize;j++) {
+      for(int k=0;k<decals.length;k++) for(int j=0;j<tsize;j++) {
         Decal td=Decal.newDecal(Var.DIST,Var.DIST,tr,true);
-        decals.add(i*tsize+j,new DecalData(td,0));
+        decals[k].add(i*tsize+j,new DecalData(td,0));
       }
     }
     for(int k=1;k<layerSize;k++) {
@@ -173,23 +191,29 @@ public class Screen0001 extends ScreenCore3D{
     // Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
     // Gdx.gl20.glDepthMask(false);
     synchronized(group) {
-      for(int i=0;i<group.size;i++) {
-        float tx=group.x(i)*multDist;
-        float ty=group.y(i)*multDist;
-        float tz=group.z(i)*multDist;
-        float tdist=dist(tx,ty,tz,cam.x(),cam.y(),cam.z());
-        final DecalData tdd=decals.get(i);
-        final Decal td=tdd.decal;
-        if(!isVisible(cam.camera,td,Var.DIST/2)) continue;
-        final int tlf=layerF(tdist);
-        if(tlf!=tdd.layer) {
-          tdd.layer=tlf;
-          td.setTextureRegion(graphicsList.get(tlf).get(group.type[i]).tr);
+      for(int j=0;j<tesselatedMat.length;j++) {
+        float[] tfa=tesselatedMat[j];
+        float lx=(tfa[0]+UtilMath.floor((cam3d.point.pos.x)/size.x))*size.x;//TODO
+        float ly=(tfa[1]+UtilMath.floor((cam3d.point.pos.y)/size.y))*size.y;
+        float lz=(tfa[2]+UtilMath.floor((cam3d.point.pos.z)/size.z))*size.z;
+        for(int i=0;i<group.size;i++) {
+          float tx=group.x(i)*multDist+lx;
+          float ty=group.y(i)*multDist+ly;
+          float tz=group.z(i)*multDist+lz;
+          float tdist=dist(tx,ty,tz,cam.x(),cam.y(),cam.z());
+          final DecalData tdd=decals[j].get(i);
+          final Decal td=tdd.decal;
+          td.setPosition(tx,ty,tz);
+          if(!isVisible(cam.camera,td,Var.DIST/2)) continue;
+          final int tlf=layerF(tdist);
+          if(tlf!=tdd.layer) {
+            tdd.layer=tlf;
+            td.setTextureRegion(graphicsList.get(tlf).get(group.type[i]).tr);
+          }
+          td.lookAt(cam.camera.position,cam.camera.up);
+          td.setColor(1,1,1,colorF(tdist));
+          decal(td);
         }
-        td.setPosition(tx,ty,tz);
-        td.lookAt(cam.camera.position,cam.camera.up);
-        td.setColor(1,1,1,colorF(tdist));
-        decal(td);
       }
     }
     if(displayHint) decal(infoD);
