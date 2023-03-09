@@ -46,7 +46,7 @@ public class Screen0007 extends UtilScreen3D{
     //---
     CellGroupGenerator3D gen=new CellGroupGenerator3D(0,0);
     // group=gen.randomGenerate();
-    group=gen.GenerateFromMiniCore();
+    group=gen.generateFromMiniCore();
     //---
     playerCenter=new ServerPlayerCenter3D();
     //---

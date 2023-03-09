@@ -35,7 +35,7 @@ public class Server0001 extends UtilServer{//particle server 3d
   public void init() {
     CellGroupGenerator3D gen=new CellGroupGenerator3D(0,0);
     // group=gen.randomGenerate();
-    group=gen.GenerateFromMiniCore();
+    group=gen.generateFromMiniCore();
     //---
     updateCell=new Thread("UpdateCell") {
       @Override

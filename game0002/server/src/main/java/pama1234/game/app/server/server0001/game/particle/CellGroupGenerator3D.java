@@ -62,7 +62,7 @@ public class CellGroupGenerator3D{
     }
     return group;
   }
-  public CellGroup3D GenerateFromMiniCore() {
+  public CellGroup3D generateFromMiniCore() {
     CellGroup3D group;
     int[] colors;
     float boxR;

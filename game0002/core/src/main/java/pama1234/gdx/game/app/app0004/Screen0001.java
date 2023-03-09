@@ -79,12 +79,12 @@ public class Screen0001 extends ScreenCore3D{
   public void setup() {
     cam.point.f=0.1f;//TODO
     cam3d.viewDir.f=0.1f;
-    cam.point.set(0,0,-320);
+    cam.point.set(0,0,-240);
     backgroundColor(0);
     textColor(255);
     CellGroupGenerator3D gen=new CellGroupGenerator3D(0,0);
-    group=gen.randomGenerate(64,isAndroid?1024:8192);
-    // group=gen.GenerateFromMiniCore();
+    // group=gen.randomGenerate(64,isAndroid?1024:8192);
+    group=gen.generateFromMiniCore();
     size=new Vec3f(
       group.updater.x2-group.updater.x1,
       group.updater.y2-group.updater.y1,
