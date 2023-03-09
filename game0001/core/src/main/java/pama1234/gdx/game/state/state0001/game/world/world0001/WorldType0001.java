@@ -4,7 +4,7 @@ import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaWorld
 
 public class WorldType0001 extends WorldType0001Base<World0001>{
   public WorldType0001(MetaWorldCenter0001 pc,int id) {
-    super(pc,id);
+    super(pc,"test-world",id);
   }
   @Override
   public void init() {}

@@ -8,7 +8,8 @@ import pama1234.gdx.game.state.state0001.game.item.Item.ItemSlot.GetItemSlot;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
-import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
+import pama1234.gdx.game.state.state0001.game.world.WorldBase2D;
+import pama1234.gdx.game.state.state0001.game.world.world0001.WorldType0001Base;
 import pama1234.math.UtilMath;
 
 public class BlockPointer extends PointerBase{
@@ -18,10 +19,10 @@ public class BlockPointer extends PointerBase{
   public float maxDist=6;
   public int x,y;
   public float progress;
-  public BlockPointer(World0001 in) {
+  public BlockPointer(WorldBase2D<? extends WorldType0001Base<?>> in) {
     super(in);
   }
-  public BlockPointer(World0001 in,GetItemSlot slot) {
+  public BlockPointer(WorldBase2D<? extends WorldType0001Base<?>> in,GetItemSlot slot) {
     super(in,slot);
   }
   public boolean isInRange(int xIn,int yIn) {

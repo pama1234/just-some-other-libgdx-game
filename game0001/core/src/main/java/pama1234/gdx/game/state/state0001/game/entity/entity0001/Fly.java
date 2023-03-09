@@ -6,7 +6,9 @@ import pama1234.gdx.game.state.state0001.game.entity.util.MovementLimitBox;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaCreatureCenter0001;
 import pama1234.gdx.game.state.state0001.game.player.Player;
+import pama1234.gdx.game.state.state0001.game.world.WorldBase2D;
 import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
+import pama1234.gdx.game.state.state0001.game.world.world0001.WorldType0001Base;
 import pama1234.math.UtilMath;
 
 public class Fly extends MobEntity{
@@ -20,7 +22,7 @@ public class Fly extends MobEntity{
     type.count++;
   }
   @Override
-  public void deserializationInit(Screen0011 p,World0001 pw,MetaCreature<?> type) {
+  public void deserializationInit(Screen0011 p,WorldBase2D<? extends WorldType0001Base<?>> pw,MetaCreature<?> type) {
     super.deserializationInit(p,pw,type);
     outerBox=limitBox=new MovementLimitBox(this);
     type.count++;

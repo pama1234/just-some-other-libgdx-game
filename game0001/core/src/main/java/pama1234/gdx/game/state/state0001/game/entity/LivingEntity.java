@@ -8,7 +8,8 @@ import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
 import pama1234.gdx.game.state.state0001.game.player.GameMode;
 import pama1234.gdx.game.state.state0001.game.region.PathVarLighting;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
-import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
+import pama1234.gdx.game.state.state0001.game.world.WorldBase2D;
+import pama1234.gdx.game.state.state0001.game.world.world0001.WorldType0001Base;
 import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 import pama1234.math.physics.MassPoint;
@@ -30,7 +31,7 @@ public class LivingEntity extends GamePointEntity<MassPoint>{
   public LivingEntity() {//kryo only
     super(null,null,null);
   }
-  public LivingEntity(Screen0011 p,World0001 pw,MassPoint in,MetaCreature<?> type) {
+  public LivingEntity(Screen0011 p,WorldBase2D<? extends WorldType0001Base<?>> pw,MassPoint in,MetaCreature<?> type) {
     super(p,pw,in);
     this.type=type;
     this.typeId=type.id;
@@ -39,7 +40,7 @@ public class LivingEntity extends GamePointEntity<MassPoint>{
     life=new PathVar(type.maxLife);
     light=new PathVarLighting();
   }
-  public void deserializationInit(Screen0011 p,World0001 pw,MetaCreature<?> type) {
+  public void deserializationInit(Screen0011 p,WorldBase2D<? extends WorldType0001Base<?>> pw,MetaCreature<?> type) {
     this.p=p;
     this.pw=pw;
     this.type=type;

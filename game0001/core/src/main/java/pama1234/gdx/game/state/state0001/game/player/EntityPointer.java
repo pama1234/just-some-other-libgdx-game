@@ -6,15 +6,16 @@ import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
 import pama1234.gdx.game.state.state0001.game.item.Item;
 import pama1234.gdx.game.state.state0001.game.item.Item.ItemSlot.GetItemSlot;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
-import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
+import pama1234.gdx.game.state.state0001.game.world.WorldBase2D;
+import pama1234.gdx.game.state.state0001.game.world.world0001.WorldType0001Base;
 
 public class EntityPointer extends PointerBase{
   public static final int idle=0,attack=1;
   public LivingEntity entity;
-  public EntityPointer(World0001 in) {
+  public EntityPointer(WorldBase2D<? extends WorldType0001Base<?>> in) {
     super(in);
   }
-  public EntityPointer(World0001 in,GetItemSlot slot) {
+  public EntityPointer(WorldBase2D<? extends WorldType0001Base<?>> in,GetItemSlot slot) {
     super(in,slot);
   }
   public void startTask(int type) {

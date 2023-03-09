@@ -8,16 +8,10 @@ import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.State0001;
-import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
 import pama1234.gdx.game.state.state0001.game.entity.center.MultiGameEntityCenter0001;
-import pama1234.gdx.game.state.state0001.game.entity.entity0001.DroppedItem;
-import pama1234.gdx.game.state.state0001.game.item.Item;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem;
-import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaBlockCenter0001;
-import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaCreatureCenter0001;
-import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaItemCenter0001;
 import pama1234.gdx.game.state.state0001.game.net.NetMode;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
 import pama1234.gdx.game.state.state0001.game.region.LoopThread;
@@ -26,32 +20,13 @@ import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.RegionWrapper;
 import pama1234.gdx.game.state.state0001.game.world.WorldBase2D;
 import pama1234.gdx.game.state.state0001.game.world.WorldData;
-import pama1234.gdx.game.state.state0001.game.world.WorldSettings;
 import pama1234.gdx.game.state.state0001.game.world.background.BackgroundCenter;
 import pama1234.gdx.game.state.state0001.game.world.background.BackgroundList;
 import pama1234.gdx.game.state.state0001.game.world.background.Sky;
 import pama1234.gdx.game.state.state0001.game.world.background.TextureBackground;
 import pama1234.gdx.game.util.Mutex;
-import pama1234.math.UtilMath;
 
 public class World0001 extends WorldBase2D<WorldType0001>{
-  public WorldData data;
-  //---
-  public MetaBlockCenter0001<?> metaBlocks;//方块
-  public MetaItemCenter0001<?> metaItems;//物品
-  public MetaCreatureCenter0001<?> metaEntitys;//生物
-  //---
-  public MultiGameEntityCenter0001 entities;//实体
-  public RegionCenter regions;//地图系统
-  public BackgroundCenter background;//背景
-  //---
-  public MainPlayer yourself;
-  public WorldSettings settings=new WorldSettings();
-  public float timeF;
-  public Sky sky;
-  //---
-  public RegionWrapper r;
-  public Mutex saving;
   public World0001(Screen0011 p,Game pg,WorldType0001 type) {
     super(p,pg,3,type);
     this.type=type;
@@ -63,15 +38,19 @@ public class World0001 extends WorldBase2D<WorldType0001>{
     metaBlocks=type.metaBlocks;
     metaItems=type.metaItems;
     metaEntitys=type.metaEntitys;
-    list[0]=background=new BackgroundCenter(p,this);
-    list[1]=regions=new RegionCenter(p,this);
-    list[2]=entities=new MultiGameEntityCenter0001(p,this);
+    initCenter();
     regionGeneratorFix();
     r=new RegionWrapper(this);
     yourself=new MainPlayer(p,this,0,0,Gdx.files.local(data.dir+"/main-player.bin"));
     createBackground();
     sky=new Sky(this);
     saving=new Mutex(false);
+  }
+  @Override
+  public void initCenter() {
+    list[0]=background=new BackgroundCenter(p,this);
+    list[1]=regions=new RegionCenter(p,this);
+    list[2]=entities=new MultiGameEntityCenter0001(p,this);
   }
   @Deprecated
   public void regionGeneratorFix() {
@@ -199,38 +178,5 @@ public class World0001 extends WorldBase2D<WorldType0001>{
       Block tb=regions.getBlock(x+i,y+j);
       if(tb!=null) tb.updateLighting=true;
     }
-  }
-  public int blockWidth() {
-    return settings.blockWidth;
-  }
-  public int blockHeight() {
-    return settings.blockHeight;
-  }
-  public int xToBlockCordInt(float in) {
-    return UtilMath.floor(in/settings.blockWidth);
-  }
-  public int yToBlockCordInt(float in) {
-    return UtilMath.floor(in/settings.blockHeight);
-  }
-  public float xToBlockCordFloat(float in) {
-    return in/settings.blockWidth;
-  }
-  public float yToBlockCordFloat(float in) {
-    return in/settings.blockHeight;
-  }
-  public Block getBlock(int x,int y) {
-    return regions.getBlock(x,y);
-  }
-  public Block getBlock(float x,float y) {
-    return regions.getBlock(xToBlockCordInt(x),yToBlockCordInt(y));
-  }
-  public float skyLight() {
-    return sky.skyHsb[2];
-  }
-  public NetMode netMode() {
-    return pg.netMode;
-  }
-  public void dropItem(LivingEntity pe,Item item,float x,float y) {
-    DroppedItem.dropItem_2(p,pe,x,y,this,2f,item);
   }
 }

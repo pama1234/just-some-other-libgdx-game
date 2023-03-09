@@ -13,7 +13,9 @@ import pama1234.gdx.game.state.state0001.game.item.Item;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaItem.ItemCountType;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaCreatureCenter0001;
+import pama1234.gdx.game.state.state0001.game.world.WorldBase2D;
 import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
+import pama1234.gdx.game.state.state0001.game.world.world0001.WorldType0001Base;
 import pama1234.math.UtilMath;
 import pama1234.math.physics.MassPoint;
 
@@ -30,7 +32,7 @@ public class DroppedItem extends LivingEntity{
     super();
   }
   @Override
-  public void deserializationInit(Screen0011 p,World0001 pw,MetaCreature<?> type) {
+  public void deserializationInit(Screen0011 p,WorldBase2D<? extends WorldType0001Base<?>> pw,MetaCreature<?> type) {
     super.deserializationInit(p,pw,type);
     //---
     data.type=pw.type.metaItems.array()[data.typeId];
@@ -39,7 +41,7 @@ public class DroppedItem extends LivingEntity{
     outerBox=limitBox=new MovementLimitBox(this);
     limitBox.usePlatform=true;
   }
-  public DroppedItem(Screen0011 p,World0001 pw,float x,float y,float xVel,float yVel,DroppedItemType type,Item data) {
+  public DroppedItem(Screen0011 p,WorldBase2D<? extends WorldType0001Base<?>> pw,float x,float y,float xVel,float yVel,DroppedItemType type,Item data) {
     super(p,pw,new MassPoint(x,y,xVel,yVel),type);
     this.data=data;
     pc=pw.entities.items;
@@ -84,7 +86,7 @@ public class DroppedItem extends LivingEntity{
     owner=e;
     timeCount=60;
   }
-  public static void dropItem_2(Screen0011 p,LivingEntity pe,float x,float y,World0001 world,float randomConst,Item e) {
+  public static void dropItem_2(Screen0011 p,LivingEntity pe,float x,float y,WorldBase2D<? extends WorldType0001Base<?>> world,float randomConst,Item e) {
     DroppedItem out=new DroppedItem(p,world,
       x,y,
       world.random(-randomConst,randomConst)*world.settings.blockWidth,
