@@ -12,14 +12,14 @@ import pama1234.gdx.game.state.state0001.game.entity.util.MovementLimitBox;
 import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
 import pama1234.gdx.game.state.state0001.game.region.LoopThread;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
-import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
+import pama1234.gdx.game.state.state0001.game.world.WorldBase2D;
 import pama1234.gdx.util.listener.EntityListener;
 import pama1234.math.UtilMath;
 
 public class GameDisplayUtil{
   public static float debugTextX,debugTextY,debugTextH,debugTextCountY;
   public static void debugText(Screen0011 p,Game pg) {
-    World0001 tw=pg.world0001();
+    WorldBase2D<?> tw=pg.world();
     Block tb=tw.getBlock(p.mouse.x,p.mouse.y);
     p.textColor(255,191);
     p.textScale(UtilMath.max((int)(p.pus/3f),1));
@@ -106,7 +106,7 @@ public class GameDisplayUtil{
       @Override
       public void display() {
         p.beginBlend();
-        World0001 tw=pg.world0001();
+        WorldBase2D<?> tw=pg.world();
         int bw=tw.settings.blockWidth,
           bh=tw.settings.blockHeight;
         MainPlayer tp=tw.yourself;

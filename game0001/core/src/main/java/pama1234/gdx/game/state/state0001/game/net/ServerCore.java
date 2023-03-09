@@ -6,7 +6,7 @@ import java.net.SocketException;
 import pama1234.game.app.server.server0002.net.SocketData;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.game.player.Player;
-import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
+import pama1234.gdx.game.state.state0001.game.world.WorldBase2D;
 import pama1234.util.net.ServerSocketData;
 import pama1234.util.net.SocketWrapper;
 import pama1234.util.wrapper.Center;
@@ -14,14 +14,14 @@ import pama1234.util.wrapper.Center;
 public class ServerCore{
   public boolean stop;
   public Game game;
-  public World0001 world;
+  public WorldBase2D<?> world;
   //---
   public ServerSocketData serverSocketData;
   public Center<SocketData> socketCenter;
   public Center<ServerRead> serverReadPool;
   public Center<ServerWrite> serverWritePool;
   public Thread acceptThread;
-  public ServerCore(Game game,World0001 world,ServerSocketData serverSocketData) {
+  public ServerCore(Game game,WorldBase2D<?> world,ServerSocketData serverSocketData) {
     this.game=game;
     this.world=world;
     this.serverSocketData=serverSocketData;
