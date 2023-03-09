@@ -16,6 +16,13 @@ public class UtilMath{
   public static float min(float a,float b) {
     return a<b?a:b;
   }
+  @Deprecated
+  public static float min(float... in) {
+    // if(in==null||in.length==0) return Integer.MIN_VALUE;
+    float out=Integer.MAX_VALUE;
+    for(float f:in) if(f<out) out=f;
+    return out;
+  }
   public static float max(float a,float b) {
     return a>b?a:b;
   }
