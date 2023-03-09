@@ -29,7 +29,6 @@ import pama1234.gdx.game.util.Mutex;
 public class World0001 extends WorldBase2D<WorldType0001>{
   public World0001(Screen0011 p,Game pg,WorldType0001 type) {
     super(p,pg,3,type);
-    this.type=type;
     //---
     worldDataDir=Gdx.files.local("data/saved/test-world.bin");//TODO
     if(netMode()!=NetMode.client) data=WorldData.load(worldDataDir);

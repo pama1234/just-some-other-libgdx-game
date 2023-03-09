@@ -21,12 +21,12 @@ public class UiGenerator{
         //---
       },self->self.text="背包显示方式：同心圆（未实现）",()->18,()->in.intData[2]-20,()->in.intData[3]),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
-        world.pg.world0001().timeF=0;
-        world.pg.world0001().data.tick=0;
-        world.pg.world0001().data.time=12000;
+        world.pg.world().timeF=0;
+        world.pg.world().data.tick=0;
+        world.pg.world().data.time=12000;
       },self->self.text="重置世界时间",()->18,()->in.intData[2]-20,()->in.intData[3]+20),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
-        world.pg.world0001().yourself.point.pos.set(4134.0f,3708.0f);
+        world.pg.world().yourself.point.pos.set(4134.0f,3708.0f);
       },self->self.text="传送",()->18,()->in.intData[2]-20,()->in.intData[3]+40),
     };
   }

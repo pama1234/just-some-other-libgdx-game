@@ -49,6 +49,7 @@ public abstract class WorldBase2D<M extends WorldType0001Base<?>>extends World<S
     super(p,pg,size);
     node=new TreeNode<>(this);
     this.type=type;
+    typeId=type.id;
     //---
     // initCenter();
   }

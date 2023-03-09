@@ -67,10 +67,6 @@ public class Game extends StateEntity0001{
     if(p.settings.debugGraphics) createDebugDisplay();
     selfAddr=new NetAddressInfo("127.0.0.1",12347);
   }
-  @Deprecated
-  public World0001 world0001() {
-    return world_0001;
-  }
   public WorldBase2D<?> world() {
     return worldCenter.get();
   }
@@ -79,7 +75,7 @@ public class Game extends StateEntity0001{
   }
   @Override
   public void from(State0001 in) {
-    World0001 tw=world0001();
+    WorldBase2D<?> tw=world();
     p.backgroundColor(tw.sky.backgroundColor);
     MainPlayer tp=tw.yourself;
     p.cam.point.des.set(tp.cx(),tp.cy(),0);
@@ -105,7 +101,7 @@ public class Game extends StateEntity0001{
       socketHints.performancePrefBandwidth=1;
       try {
         SocketData socketData=new SocketData(new SocketWrapperGDX(Gdx.net.newClientSocket(Protocol.TCP,serverAddr.addr,serverAddr.port,socketHints)));
-        client=new ClientCore(this,world0001(),socketData);
+        client=new ClientCore(this,world(),socketData);
         client.start();
       }catch(GdxRuntimeException e) {
         Throwable cause=e.getCause();
@@ -124,7 +120,7 @@ public class Game extends StateEntity0001{
   }
   @Override
   public void to(State0001 in) {
-    World0001 tw=world0001();
+    WorldBase2D<?> tw=world();
     // p.cam2d.activeDrag=true;
     for(Button<?> e:menuButtons) p.centerScreen.remove.add(e);
     if(ctrlButtons!=null) for(Button<?> e:ctrlButtons) p.centerScreen.remove.add(e);
@@ -147,7 +143,7 @@ public class Game extends StateEntity0001{
     if(p.settings.debugGraphics) {
       p.beginBlend();
       p.fill(94,203,234,127);
-      RectF[] cullRects=world0001().yourself.ctrl.cullRects;
+      RectF[] cullRects=world().yourself.ctrl.cullRects;
       for(RectF e:cullRects) p.rect(e.x(),e.y(),e.w(),e.h());
       p.endBlend();
     }
