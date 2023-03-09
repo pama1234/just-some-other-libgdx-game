@@ -73,10 +73,10 @@ public class UiGenerator{
         p.inputProcessor.keyUp(Input.Keys.F);
       },self->self.text="F",p::getButtonUnitLength,()->p.bu*1.5f,()->p.bu*2.25f,()->p.bu,()->p.bu*0.75f),
       new TextButton<T>(p,false,()->p.fullSettings,self-> {},self-> {},self-> {
-        p.inputProcessor.scrolled(0,-1);
+        p.inputProcessor.scrolled(0,1);
       },self->self.text="sU",p::getButtonUnitLength,()->p.bu*2.5f,()->p.bu*2.25f,()->p.bu,()->p.bu*0.75f),
       new TextButton<T>(p,false,()->p.fullSettings,self-> {},self-> {},self-> {
-        p.inputProcessor.scrolled(0,1);
+        p.inputProcessor.scrolled(0,-1);
       },self->self.text="sD",p::getButtonUnitLength,()->p.bu*3.5f,()->p.bu*2.25f,()->p.bu,()->p.bu*0.75f),
       //--------------------------------------------------------------------
       new TextButton<T>(p,true,()->true,self-> {},self-> {
