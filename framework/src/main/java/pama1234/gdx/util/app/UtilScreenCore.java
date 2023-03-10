@@ -17,6 +17,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.IntArray;
 
@@ -124,10 +125,13 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
   public void setCamera(Camera in) {
     if(usedCamera!=in) usedCamera=in;
     else return;
-    fontBatch.setProjectionMatrix(in.combined);
-    imageBatch.setProjectionMatrix(in.combined);
-    rFill.setProjectionMatrix(in.combined);
-    rStroke.setProjectionMatrix(in.combined);
+    setMatrix(in.combined);
+  }
+  public void setMatrix(Matrix4 combined) {
+    fontBatch.setProjectionMatrix(combined);
+    imageBatch.setProjectionMatrix(combined);
+    rFill.setProjectionMatrix(combined);
+    rStroke.setProjectionMatrix(combined);
   }
   @Override
   public void init() {}

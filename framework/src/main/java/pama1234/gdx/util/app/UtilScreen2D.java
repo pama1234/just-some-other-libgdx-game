@@ -5,6 +5,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.IntArray;
 
@@ -21,6 +22,8 @@ import pama1234.util.wrapper.ServerEntityCenter;
  * @see ScreenCore2D
  */
 public abstract class UtilScreen2D extends UtilScreen{
+  public Matrix4[] matrixStack=new Matrix4[10];
+  public int matrixStackPointer=-1;
   public CameraController2D cam2d;//TODO do we need this?
   @Override
   public void show() {
@@ -67,37 +70,38 @@ public abstract class UtilScreen2D extends UtilScreen{
     textScale(1);
     strokeWeight(defaultStrokeWeight=u/16*cam2d.scale.pos);
   }
-  /**
-   * 警告：非正式API
-   */
-  public void pushMatrix(float dx,float dy,float r) {
-    // rFill.translate(dx,dy,0);
-    // rFill.rotate(0,0,1,r);
-    // rStroke.translate(dx,dy,0);
-    // rStroke.rotate(0,0,1,r);
+  @Deprecated
+  public void pushMatrix(float dx,float dy,float deg) {
+    pushMatrix();
+    translate(dx,dy);
+    rotate(deg);
   }
-  /**
-   * 警告：非正式API
-   */
+  @Deprecated
   public void clearMatrix() {
-    rFill.setProjectionMatrix(usedCamera.combined);
-    rStroke.setProjectionMatrix(usedCamera.combined);
+    matrixStackPointer=0;
+    // Arrays.fill(matrixStack,null);
+    setMatrix(usedCamera.combined);
   }
-  /**
-   * 警告：非正式API
-   */
-  public void drawWithMatrix(float dx,float dy,float r,ExecuteF e) {
-    pushMatrix(dx,dy,r);
+  public Matrix4 matrix() {
+    if(matrixStackPointer<0) return usedCamera.combined;
+    return matrixStack[matrixStackPointer];
+  }
+  @Deprecated
+  public void drawWithMatrix(float dx,float dy,float deg,ExecuteF e) {
+    pushMatrix(dx,dy,deg);
     e.execute();
     popMatrix();
   }
   @Deprecated
   public void pushMatrix() {
-    //TODO
+    matrixStack[matrixStackPointer+1]=matrixStackPointer<0?usedCamera.combined:matrixStack[matrixStackPointer].cpy();
+    matrixStackPointer++;
+    setMatrix(matrix());
   }
   @Deprecated
   public void popMatrix() {
-    //TODO
+    matrixStackPointer--;
+    setMatrix(matrix());
   }
   @Deprecated
   public void pushStyle() {
@@ -108,7 +112,19 @@ public abstract class UtilScreen2D extends UtilScreen{
     //TODO
   }
   @Deprecated
-  public void translate(float dx,float dy) {}
+  public void clearStyle() {
+    //TODO
+  }
   @Deprecated
-  public void rotate(float r) {}
+  public void translate(float dx,float dy) {
+    Matrix4 matrix=matrix();
+    matrix.translate(dx,dy,0);
+    setMatrix(matrix);
+  }
+  @Deprecated
+  public void rotate(float deg) {
+    Matrix4 matrix=matrix();
+    matrix.rotate(0,0,1,deg);
+    setMatrix(matrix);
+  }
 }

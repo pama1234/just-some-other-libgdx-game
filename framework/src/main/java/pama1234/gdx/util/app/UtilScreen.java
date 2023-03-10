@@ -62,6 +62,8 @@ public abstract class UtilScreen extends UtilScreenCore{
     if(!shader.isCompiled()) throw new IllegalArgumentException("Error compiling shader: "+shader.getLog());
     return shader;
   }
+  @Deprecated
+  public float[] polygonCache=new float[8];
   @Override
   public void render(float delta) {
     frameRate=delta;
@@ -329,8 +331,6 @@ public abstract class UtilScreen extends UtilScreenCore{
     }
   }
   @Deprecated
-  public float[] polygonCache=new float[8];
-  @Deprecated
   public void setPolygonCache(float x1,float y1,float x2,float y2,float x3,float y3,float x4,float y4) {
     polygonCache[0]=x1;
     polygonCache[1]=y1;
@@ -349,7 +349,7 @@ public abstract class UtilScreen extends UtilScreenCore{
       rFill.flush();
     }
     if(stroke) {
-      rFill.polygon(polygonCache);
+      rStroke.polygon(polygonCache);
       rStroke.flush();
     }
   }
@@ -358,9 +358,7 @@ public abstract class UtilScreen extends UtilScreenCore{
     //TODO
   }
   @Deprecated
-  public void dot(float x,float y,int color) {
-    
-  }
+  public void dot(float x,float y,int color) {}
   public void line(float x1,float y1,float x2,float y2) {
     if(stroke) {
       rStroke.line(x1,y1,x2,y2);
