@@ -1,8 +1,8 @@
-package pama1234.processing.game.duel.util.graphics;
+package pama1234.gdx.game.duel.util.graphics;
 
+import pama1234.gdx.game.duel.Duel;
 import pama1234.math.Tools;
-import pama1234.processing.game.duel.Duel;
-import processing.core.PApplet;
+import pama1234.math.UtilMath;
 
 public final class ParticleBuilder{
   private final Duel duel;
@@ -27,7 +27,7 @@ public final class ParticleBuilder{
     directionAngle=0.0f;
     speed=0.0f;
     rotationAngle=0.0f;
-    displayColor=Tools.color(0.0f);
+    displayColor=Tools.color(0);
     strokeWeightValue=1.0f;
     displaySize=10.0f;
     lifespanFrameCount=60;
@@ -45,8 +45,8 @@ public final class ParticleBuilder{
   public ParticleBuilder polarVelocity(float dir,float spd) {
     directionAngle=dir;
     speed=spd;
-    xVelocity=spd*PApplet.cos(dir);
-    yVelocity=spd*PApplet.sin(dir);
+    xVelocity=spd*UtilMath.cos(dir);
+    yVelocity=spd*UtilMath.sin(dir);
     return this;
   }
   public ParticleBuilder rotation(float v) {
@@ -70,7 +70,7 @@ public final class ParticleBuilder{
     return this;
   }
   public ParticleBuilder lifespanSecond(float v) {
-    lifespan(PApplet.parseInt(v*Duel.IDEAL_FRAME_RATE));
+    lifespan(UtilMath.floor(v*Duel.IDEAL_FRAME_RATE));
     return this;
   }
   public Particle build() {

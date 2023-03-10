@@ -1,12 +1,12 @@
-package pama1234.processing.game.duel.util.state;
+package pama1234.gdx.game.duel.util.state;
 
-import pama1234.processing.game.duel.Duel;
-import pama1234.processing.game.duel.GameSystem;
-import processing.core.PApplet;
+import pama1234.gdx.game.duel.Duel;
+import pama1234.gdx.game.duel.GameSystem;
+import pama1234.math.UtilMath;
 
 public final class GameResultState extends GameSystemState{
   public final String resultMessage;
-  public final int durationFrameCount=PApplet.parseInt(Duel.IDEAL_FRAME_RATE);
+  public final int durationFrameCount=UtilMath.floor(Duel.IDEAL_FRAME_RATE);
   public GameResultState(Duel duel,String msg) {
     super(duel);
     resultMessage=msg;
@@ -26,11 +26,12 @@ public final class GameResultState extends GameSystemState{
   @Override
   public void displayMessage(GameSystem system) {
     if(system.demoPlay) return;
-    duel.fill(0.0f);
+    duel.fill(0);
     duel.text(resultMessage,0.0f,0.0f);
     if(properFrameCount>durationFrameCount) {
       duel.pushStyle();
-      duel.textFont(duel.smallFont,duel.smallFontSize);
+      // duel.textFont(duel.smallFont,duel.smallFontSize);
+      duel.textSize(duel.smallFontSize);
       duel.text("Press X key to reset.",0.0f,80.0f);
       duel.popStyle();
     }

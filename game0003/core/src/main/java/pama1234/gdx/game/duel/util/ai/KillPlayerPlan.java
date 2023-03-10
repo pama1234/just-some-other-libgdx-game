@@ -1,11 +1,10 @@
-package pama1234.processing.game.duel.util.ai;
+package pama1234.gdx.game.duel.util.ai;
 
-import pama1234.processing.game.duel.Duel;
-import pama1234.processing.game.duel.util.actor.AbstractPlayerActor;
-import pama1234.processing.game.duel.util.actor.PlayerActor;
-import pama1234.processing.game.duel.util.input.AbstractInputDevice;
-import processing.core.PApplet;
-import processing.core.PConstants;
+import pama1234.gdx.game.duel.Duel;
+import pama1234.gdx.game.duel.util.actor.AbstractPlayerActor;
+import pama1234.gdx.game.duel.util.actor.PlayerActor;
+import pama1234.gdx.game.duel.util.input.AbstractInputDevice;
+import pama1234.math.UtilMath;
 
 public final class KillPlayerPlan extends PlayerPlan{
   private final Duel duel;
@@ -17,9 +16,9 @@ public final class KillPlayerPlan extends PlayerPlan{
   public void execute(PlayerActor player,AbstractInputDevice input) {
     int horizontalMove;
     final float relativeAngle=player.getAngle(player.group.enemyGroup.player)-player.aimAngle;
-    if(PApplet.abs(relativeAngle)<PApplet.radians(1.0f)) horizontalMove=0;
+    if(UtilMath.abs(relativeAngle)<UtilMath.rad(1.0f)) horizontalMove=0;
     else {
-      if((relativeAngle+PConstants.TWO_PI)%PConstants.TWO_PI>PConstants.PI) horizontalMove=-1;
+      if((relativeAngle+UtilMath.TWO_PI)%UtilMath.TWO_PI>UtilMath.PI) horizontalMove=-1;
       else horizontalMove=+1;
     }
     input.operateMoveButton(horizontalMove,0);
@@ -30,7 +29,7 @@ public final class KillPlayerPlan extends PlayerPlan{
   @Override
   public PlayerPlan nextPlan(PlayerActor player) {
     final AbstractPlayerActor enemy=player.group.enemyGroup.player;
-    if((PApplet.abs(player.getAngle(player.group.enemyGroup.player)-player.aimAngle)>PConstants.QUARTER_PI)||(player.getDistance(enemy)<400.0f)||!player.engine.controllingInputDevice.longShotButtonPressed) return movePlan;
+    if((UtilMath.abs(player.getAngle(player.group.enemyGroup.player)-player.aimAngle)>UtilMath.QUARTER_PI)||(player.getDistance(enemy)<400.0f)||!player.engine.controllingInputDevice.longShotButtonPressed) return movePlan;
     return this;
   }
 }

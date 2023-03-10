@@ -1,21 +1,20 @@
-package pama1234.processing.game.duel.util.state;
+package pama1234.gdx.game.duel.util.state;
 
-import pama1234.processing.game.duel.Duel;
-import pama1234.processing.game.duel.GameSystem;
-import pama1234.processing.game.duel.util.actor.AbstractPlayerActor;
-import pama1234.processing.game.duel.util.actor.Actor;
-import pama1234.processing.game.duel.util.actor.ActorGroup;
-import pama1234.processing.game.duel.util.actor.NullPlayerActor;
-import pama1234.processing.game.duel.util.actor.PlayerActor;
-import pama1234.processing.game.duel.util.arrow.AbstractArrowActor;
-import processing.core.PApplet;
-import processing.core.PConstants;
+import pama1234.gdx.game.duel.Duel;
+import pama1234.gdx.game.duel.GameSystem;
+import pama1234.gdx.game.duel.util.actor.AbstractPlayerActor;
+import pama1234.gdx.game.duel.util.actor.Actor;
+import pama1234.gdx.game.duel.util.actor.ActorGroup;
+import pama1234.gdx.game.duel.util.actor.NullPlayerActor;
+import pama1234.gdx.game.duel.util.actor.PlayerActor;
+import pama1234.gdx.game.duel.util.arrow.AbstractArrowActor;
+import pama1234.math.UtilMath;
 
 public final class PlayGameState extends GameSystemState{
   public PlayGameState(Duel duel) {
     super(duel);
   }
-  public int messageDurationFrameCount=PApplet.parseInt(Duel.IDEAL_FRAME_RATE);
+  public int messageDurationFrameCount=UtilMath.floor(Duel.IDEAL_FRAME_RATE);
   @Override
   public void updateSystem(GameSystem system) {
     system.myGroup.update();
@@ -37,7 +36,7 @@ public final class PlayGameState extends GameSystemState{
   @Override
   public void displayMessage(GameSystem system) {
     if(properFrameCount>=messageDurationFrameCount) return;
-    this.duel.fill(0.0f,255.0f*(1.0f-PApplet.parseFloat(properFrameCount)/messageDurationFrameCount));
+    this.duel.fill(0,(int)(255*(1-(float)(properFrameCount)/messageDurationFrameCount)));
     this.duel.text("Go",0.0f,0.0f);
   }
   @Override
@@ -86,10 +85,10 @@ public final class PlayGameState extends GameSystemState{
     group.removingArrowList.add(arrow);
   }
   public void thrustPlayerActor(Actor referenceActor,PlayerActor targetPlayerActor) {
-    final float relativeAngle=PApplet.atan2(targetPlayerActor.yPosition-referenceActor.yPosition,targetPlayerActor.xPosition-referenceActor.xPosition);
-    final float thrustAngle=relativeAngle+this.duel.random(-0.5f*PConstants.HALF_PI,0.5f*PConstants.HALF_PI);
-    targetPlayerActor.xVelocity+=20.0f*PApplet.cos(thrustAngle);
-    targetPlayerActor.yVelocity+=20.0f*PApplet.sin(thrustAngle);
+    final float relativeAngle=UtilMath.atan2(targetPlayerActor.yPosition-referenceActor.yPosition,targetPlayerActor.xPosition-referenceActor.xPosition);
+    final float thrustAngle=relativeAngle+this.duel.random(-0.5f*UtilMath.HALF_PI,0.5f*UtilMath.HALF_PI);
+    targetPlayerActor.xVelocity+=20.0f*UtilMath.cos(thrustAngle);
+    targetPlayerActor.yVelocity+=20.0f*UtilMath.sin(thrustAngle);
     targetPlayerActor.state=this.duel.system.damagedState.entryState(targetPlayerActor);
     this.duel.system.screenShakeValue+=10.0f;
   }

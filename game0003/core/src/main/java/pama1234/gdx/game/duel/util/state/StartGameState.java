@@ -1,19 +1,18 @@
-package pama1234.processing.game.duel.util.state;
+package pama1234.gdx.game.duel.util.state;
 
+import pama1234.gdx.game.duel.Duel;
+import pama1234.gdx.game.duel.GameSystem;
+import pama1234.gdx.game.duel.util.graphics.Particle;
 import pama1234.math.Tools;
-import pama1234.processing.game.duel.Duel;
-import pama1234.processing.game.duel.GameSystem;
-import pama1234.processing.game.duel.util.graphics.Particle;
-import processing.core.PApplet;
-import processing.core.PConstants;
+import pama1234.math.UtilMath;
 
 public final class StartGameState extends GameSystemState{
   public StartGameState(Duel duel) {
     super(duel);
   }
-  public final int frameCountPerNumber=PApplet.parseInt(Duel.IDEAL_FRAME_RATE);
+  public final int frameCountPerNumber=UtilMath.floor(Duel.IDEAL_FRAME_RATE);
   public final float ringSize=200.0f;
-  public final int ringColor=Tools.color(0.0f);
+  public final int ringColor=Tools.color(0);
   public final float ringStrokeWeight=5.0f;
   public int displayNumber=4;
   @Override
@@ -32,12 +31,12 @@ public final class StartGameState extends GameSystemState{
     if(currentNumberFrameCount==0) displayNumber--;
     if(displayNumber<=0) return;
     duel.fill(ringColor);
-    duel.text(displayNumber,0.0f,0.0f);
-    duel.rotate(-PConstants.HALF_PI);
+    duel.text(Integer.toString(displayNumber),0.0f,0.0f);
+    duel.rotate(-UtilMath.HALF_PI);
     duel.strokeWeight(3.0f);
     duel.stroke(ringColor);
     duel.noFill();
-    duel.arc(0.0f,0.0f,ringSize,ringSize,0.0f,PConstants.TWO_PI*PApplet.parseFloat(properFrameCount%frameCountPerNumber)/frameCountPerNumber);
+    duel.arc(0.0f,0.0f,ringSize,ringSize,0.0f,UtilMath.TWO_PI*(float)(properFrameCount%frameCountPerNumber)/frameCountPerNumber);
     duel.strokeWeight(1.0f);
   }
   @Override

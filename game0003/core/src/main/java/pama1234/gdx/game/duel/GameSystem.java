@@ -18,7 +18,7 @@ import pama1234.gdx.game.duel.util.player.MovePlayerActorState;
 import pama1234.gdx.game.duel.util.state.GameSystemState;
 import pama1234.gdx.game.duel.util.state.StartGameState;
 import pama1234.math.Tools;
-import processing.core.PConstants;
+import pama1234.math.UtilMath;
 
 public final class GameSystem{
   private final Duel duel;
@@ -51,13 +51,13 @@ public final class GameSystem{
     PlayerEngine myEngine;
     if(demo) myEngine=new ComputerPlayerEngine(duel);
     else myEngine=new HumanPlayerEngine(duel.currentKeyInput);
-    PlayerActor myPlayer=new PlayerActor(duel,myEngine,Tools.color(255.0f));
+    PlayerActor myPlayer=new PlayerActor(duel,myEngine,Tools.color(255));
     myPlayer.xPosition=Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f;
     myPlayer.yPosition=Duel.INTERNAL_CANVAS_SIDE_LENGTH-100.0f;
     myPlayer.state=moveState;
     myGroup.setPlayer(myPlayer);
     PlayerEngine otherEngine=new ComputerPlayerEngine(duel);
-    PlayerActor otherPlayer=new PlayerActor(duel,otherEngine,Tools.color(0.0f));
+    PlayerActor otherPlayer=new PlayerActor(duel,otherEngine,Tools.color(0));
     otherPlayer.xPosition=Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f;
     otherPlayer.yPosition=100.0f;
     otherPlayer.state=moveState;
@@ -65,7 +65,7 @@ public final class GameSystem{
     // other
     commonParticleSet=new ParticleSet(duel,2048);
     currentState=new StartGameState(duel);
-    currentBackground=new GameBackground(duel,Tools.color(224.0f),0.1f);
+    currentBackground=new GameBackground(duel,Tools.color(224),0.1f);
     demoPlay=demo;
     showsInstructionWindow=instruction;
   }
@@ -102,11 +102,11 @@ public final class GameSystem{
       .type(Particle.square)
       .position(x,y)
       .particleSize(particleSize)
-      .particleColor(Tools.color(0.0f))
+      .particleColor(Tools.color(0))
       .lifespanSecond(lifespanSecondValue);
     for(int i=0;i<particleCount;i++) {
       final Particle newParticle=builder
-        .polarVelocity(duel.random(PConstants.TWO_PI),duel.random(minSpeed,maxSpeed))
+        .polarVelocity(duel.random(UtilMath.TWO_PI),duel.random(minSpeed,maxSpeed))
         .build();
       duel.system.commonParticleSet.particleList.add(newParticle);
     }

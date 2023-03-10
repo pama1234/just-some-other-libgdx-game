@@ -357,6 +357,10 @@ public abstract class UtilScreen extends UtilScreenCore{
   public void arc(float x1,float y1,float x2,float y2,float a,float b) {
     //TODO
   }
+  @Deprecated
+  public void dot(float x,float y,int color) {
+    
+  }
   public void line(float x1,float y1,float x2,float y2) {
     if(stroke) {
       rStroke.line(x1,y1,x2,y2);

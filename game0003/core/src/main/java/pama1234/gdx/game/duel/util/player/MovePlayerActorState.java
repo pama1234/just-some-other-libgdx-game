@@ -1,7 +1,7 @@
-package pama1234.processing.game.duel.util.player;
+package pama1234.gdx.game.duel.util.player;
 
-import pama1234.processing.game.duel.util.actor.PlayerActor;
-import pama1234.processing.game.duel.util.input.AbstractInputDevice;
+import pama1234.gdx.game.duel.util.actor.PlayerActor;
+import pama1234.gdx.game.duel.util.input.AbstractInputDevice;
 
 public final class MovePlayerActorState extends PlayerActorState{
   public PlayerActorState drawShortbowState,drawLongbowState;

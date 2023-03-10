@@ -1,7 +1,7 @@
-package pama1234.processing.game.duel.util.state;
+package pama1234.gdx.game.duel.util.state;
 
-import pama1234.processing.game.duel.Duel;
-import pama1234.processing.game.duel.GameSystem;
+import pama1234.gdx.game.duel.Duel;
+import pama1234.gdx.game.duel.GameSystem;
 
 public abstract class GameSystemState{
   public final Duel duel;

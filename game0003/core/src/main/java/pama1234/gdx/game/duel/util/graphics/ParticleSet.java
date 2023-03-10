@@ -1,9 +1,9 @@
-package pama1234.processing.game.duel.util.graphics;
+package pama1234.gdx.game.duel.util.graphics;
 
 import java.util.ArrayList;
 
-import pama1234.processing.game.duel.Duel;
-import pama1234.processing.game.duel.util.ObjectPool;
+import pama1234.gdx.game.duel.Duel;
+import pama1234.gdx.game.duel.util.ObjectPool;
 
 public final class ParticleSet{
   private final Duel duel;

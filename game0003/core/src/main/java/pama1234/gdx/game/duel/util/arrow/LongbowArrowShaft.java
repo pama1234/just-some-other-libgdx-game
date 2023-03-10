@@ -9,8 +9,8 @@ public final class LongbowArrowShaft extends LongbowArrowComponent{
   @Override
   public void display() {
     this.duel.strokeWeight(5.0f);
-    this.duel.stroke(0.0f);
-    this.duel.fill(0.0f);
+    this.duel.stroke(0);
+    this.duel.fill(0);
     this.duel.pushMatrix();
     this.duel.translate(xPosition,yPosition);
     this.duel.rotate(rotationAngle);
