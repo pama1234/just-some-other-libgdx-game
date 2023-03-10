@@ -14,6 +14,7 @@ import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.gdx.util.input.UtilInputProcesser;
 import pama1234.gdx.util.wrapper.EntityCenter;
+import pama1234.util.function.ExecuteF;
 import pama1234.util.wrapper.ServerEntityCenter;
 
 /**
@@ -65,5 +66,27 @@ public abstract class UtilScreen2D extends UtilScreen{
     setCamera(cam.camera);
     textScale(1);
     strokeWeight(defaultStrokeWeight=u/16*cam2d.scale.pos);
+  }
+  /**
+   * 警告：非正式API
+   */
+  public void pushMatrix(float dx,float dy,float r) {
+    rFill.translate(dx,dy,0);
+    rFill.rotate(0,0,1,r);
+  }
+  /**
+   * 警告：非正式API
+   */
+  public void popMatrix() {
+    rFill.setProjectionMatrix(usedCamera.combined);
+    rStroke.setProjectionMatrix(usedCamera.combined);
+  }
+  /**
+   * 警告：非正式API
+   */
+  public void drawWithMatrix(float dx,float dy,float r,ExecuteF e) {
+    pushMatrix(dx,dy,r);
+    e.execute();
+    popMatrix();
   }
 }

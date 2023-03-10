@@ -123,6 +123,7 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
   }
   public void setCamera(Camera in) {
     if(usedCamera!=in) usedCamera=in;
+    else return;
     fontBatch.setProjectionMatrix(in.combined);
     imageBatch.setProjectionMatrix(in.combined);
     rFill.setProjectionMatrix(in.combined);
