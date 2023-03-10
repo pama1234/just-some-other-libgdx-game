@@ -71,13 +71,15 @@ public abstract class UtilScreen2D extends UtilScreen{
    * 警告：非正式API
    */
   public void pushMatrix(float dx,float dy,float r) {
-    rFill.translate(dx,dy,0);
-    rFill.rotate(0,0,1,r);
+    // rFill.translate(dx,dy,0);
+    // rFill.rotate(0,0,1,r);
+    // rStroke.translate(dx,dy,0);
+    // rStroke.rotate(0,0,1,r);
   }
   /**
    * 警告：非正式API
    */
-  public void popMatrix() {
+  public void clearMatrix() {
     rFill.setProjectionMatrix(usedCamera.combined);
     rStroke.setProjectionMatrix(usedCamera.combined);
   }
@@ -90,6 +92,14 @@ public abstract class UtilScreen2D extends UtilScreen{
     popMatrix();
   }
   @Deprecated
+  public void pushMatrix() {
+    //TODO
+  }
+  @Deprecated
+  public void popMatrix() {
+    //TODO
+  }
+  @Deprecated
   public void pushStyle() {
     //TODO
   }
@@ -97,4 +107,8 @@ public abstract class UtilScreen2D extends UtilScreen{
   public void popStyle() {
     //TODO
   }
+  @Deprecated
+  public void translate(float dx,float dy) {}
+  @Deprecated
+  public void rotate(float r) {}
 }

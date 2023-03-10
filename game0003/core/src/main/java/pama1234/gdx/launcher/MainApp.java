@@ -19,6 +19,7 @@ import pama1234.gdx.game.app.app0002.Screen0015;
 import pama1234.gdx.game.app.app0003.Screen0008;
 import pama1234.gdx.game.app.app0003.Screen0009;
 import pama1234.gdx.game.app.app0003.Screen0013;
+import pama1234.gdx.game.duel.Duel;
 import pama1234.gdx.util.app.UtilScreen;
 
 public class MainApp extends Game{
@@ -26,10 +27,10 @@ public class MainApp extends Game{
   public static final int defaultType=0,taptap=1,pico=2;
   public static int type;
   public List<Class<? extends UtilScreen>> screenList;
-  public int screenType=6;
+  public int screenType=1;
   public MainApp() {
     screenList=Arrays.asList(null,
-      null,//3D 粒子系统 单机
+      Duel.class,//几何决斗
       null,//2D 粒子系统
       null,//3D 粒子系统 联机 客户端
       Screen0004.class,//测试 3D渲染 文本框UI
