@@ -1,12 +1,15 @@
 package pama1234.math;
 
 public class UtilMath{
-  static public final float radDeg=(float)(180./Math.PI);
-  static public final float degRad=(float)(Math.PI/180.);
-  static public final float PI=(float)Math.PI;
-  static public final float PI2=PI*2;
-  static public final float HALF_PI=PI/2;
-  static public final float FLOAT_ROUNDING_ERROR=0.000001f; // 32 bits
+  public static final float radDeg=(float)(180./Math.PI);
+  public static final float degRad=(float)(Math.PI/180.);
+  public static final float PI=(float)Math.PI;
+  public static final float PI2=PI*2;
+  @Deprecated
+  public static final float TWO_PI=PI2;
+  public static final float HALF_PI=PI/2;
+  public static final float QUARTER_PI=PI/4;
+  public static final float FLOAT_ROUNDING_ERROR=0.000001f; // 32 bits
   public static int min(int a,int b) {
     return a<b?a:b;
   }
@@ -156,13 +159,13 @@ public class UtilMath{
     if(value>max) return max;
     return value;
   }
-  static public boolean nearEqual(float a,float b) {
+  public static boolean nearEqual(float a,float b) {
     return Math.abs(a-b)<=FLOAT_ROUNDING_ERROR;
   }
   public static boolean nearZero(float in) {
     return Math.abs(in)<=FLOAT_ROUNDING_ERROR;
   }
-  static public boolean nearEqual(float a,float b,float c) {
+  public static boolean nearEqual(float a,float b,float c) {
     return Math.abs(a-b)<=c;
   }
   public static boolean nearZero(float in,float c) {

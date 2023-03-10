@@ -89,4 +89,12 @@ public abstract class UtilScreen2D extends UtilScreen{
     e.execute();
     popMatrix();
   }
+  @Deprecated
+  public void pushStyle() {
+    //TODO
+  }
+  @Deprecated
+  public void popStyle() {
+    //TODO
+  }
 }

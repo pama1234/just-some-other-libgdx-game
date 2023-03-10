@@ -328,6 +328,35 @@ public abstract class UtilScreen extends UtilScreenCore{
       rStroke.flush();
     }
   }
+  @Deprecated
+  public float[] polygonCache=new float[8];
+  @Deprecated
+  public void setPolygonCache(float x1,float y1,float x2,float y2,float x3,float y3,float x4,float y4) {
+    polygonCache[0]=x1;
+    polygonCache[1]=y1;
+    polygonCache[2]=x2;
+    polygonCache[3]=y2;
+    //---
+    polygonCache[4]=x3;
+    polygonCache[5]=y3;
+    polygonCache[6]=x4;
+    polygonCache[7]=y4;
+  }
+  public void quad(float x1,float y1,float x2,float y2,float x3,float y3,float x4,float y4) {
+    if(fill|stroke) setPolygonCache(x1,y1,x2,y2,x3,y3,x4,y4);
+    if(fill) {
+      rFill.polygon(polygonCache);
+      rFill.flush();
+    }
+    if(stroke) {
+      rFill.polygon(polygonCache);
+      rStroke.flush();
+    }
+  }
+  @Deprecated
+  public void arc(float x1,float y1,float x2,float y2,float a,float b) {
+    //TODO
+  }
   public void line(float x1,float y1,float x2,float y2) {
     if(stroke) {
       rStroke.line(x1,y1,x2,y2);
