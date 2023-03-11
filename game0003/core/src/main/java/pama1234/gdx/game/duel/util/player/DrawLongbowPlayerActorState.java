@@ -1,19 +1,20 @@
 package pama1234.gdx.game.duel.util.player;
 
+import com.badlogic.gdx.graphics.Color;
+
 import pama1234.gdx.game.duel.Duel;
 import pama1234.gdx.game.duel.util.actor.PlayerActor;
 import pama1234.gdx.game.duel.util.arrow.LongbowArrowHead;
 import pama1234.gdx.game.duel.util.arrow.LongbowArrowShaft;
 import pama1234.gdx.game.duel.util.graphics.Particle;
 import pama1234.gdx.game.duel.util.input.AbstractInputDevice;
-import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 
 public final class DrawLongbowPlayerActorState extends DrawBowPlayerActorState{
   private final Duel duel;
   public final float unitAngleSpeed=0.1f*UtilMath.PI2/Duel.IDEAL_FRAME_RATE;
   public final int chargeRequiredFrameCount=UtilMath.floor(0.5f*Duel.IDEAL_FRAME_RATE);
-  public final int effectColor=Tools.color(192,64,64);
+  public final Color effectColor=Duel.color(192,64,64);
   public final float ringSize=80.0f;
   public final float ringStrokeWeight=5.0f;
   public DrawLongbowPlayerActorState(Duel duel) {
@@ -50,7 +51,7 @@ public final class DrawLongbowPlayerActorState extends DrawBowPlayerActorState{
       .position(parentActor.xPosition,parentActor.yPosition)
       .polarVelocity(0.0f,0.0f)
       .rotation(parentActor.aimAngle)
-      .particleColor(Tools.color(192.0f,64.0f,64.0f))
+      .particleColor(Duel.color(192,64,64))
       .lifespanSecond(2.0f)
       .weight(16.0f)
       .build();
@@ -72,7 +73,7 @@ public final class DrawLongbowPlayerActorState extends DrawBowPlayerActorState{
     duel.rotate(UtilMath.HALF_PI);
     duel.strokeWeight(ringStrokeWeight);
     // duel.arc(0,0,ringSize,ringSize,0,UtilMath.TWO_PI*UtilMath.min(1.0f,UtilMath.floor(parentActor.chargedFrameCount)/chargeRequiredFrameCount));
-    duel.arc(0,0,ringSize,0,180*UtilMath.deg(UtilMath.min(1,UtilMath.floor(parentActor.chargedFrameCount)/chargeRequiredFrameCount)));
+    duel.arc(0,0,ringSize,0,360*UtilMath.min(1,UtilMath.floor(parentActor.chargedFrameCount)/chargeRequiredFrameCount));
     duel.strokeWeight(1.0f);
     duel.rotate(+UtilMath.HALF_PI);
     parentActor.chargedFrameCount++;

@@ -25,6 +25,6 @@ public final class ComputerPlayerEngine extends PlayerEngine{
   @Override
   public void run(PlayerActor player) {
     currentPlan.execute(player,controllingInputDevice);
-    if(this.duel.frameCount%planUpdateFrameCount==0) currentPlan=currentPlan.nextPlan(player);
+    if(duel.frameCount%planUpdateFrameCount==0) currentPlan=currentPlan.nextPlan(player);
   }
 }

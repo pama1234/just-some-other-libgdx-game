@@ -15,7 +15,7 @@ public class UtilShapeRenderer extends ShapeRenderer{
     float cy=radius*MathUtils.sin(start*MathUtils.degreesToRadians);
     ImmediateModeRenderer renderer=getRenderer();
     if(getCurrentType()==ShapeType.Line) {
-      check(ShapeType.Line,ShapeType.Filled,segments*2+2);
+      check(ShapeType.Line,ShapeType.Filled,segments*2);
       // renderer.color(colorBits);
       // renderer.vertex(x,y,0);
       // renderer.color(colorBits);

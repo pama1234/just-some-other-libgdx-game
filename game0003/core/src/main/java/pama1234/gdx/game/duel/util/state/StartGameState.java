@@ -1,9 +1,10 @@
 package pama1234.gdx.game.duel.util.state;
 
+import com.badlogic.gdx.graphics.Color;
+
 import pama1234.gdx.game.duel.Duel;
 import pama1234.gdx.game.duel.GameSystem;
 import pama1234.gdx.game.duel.util.graphics.Particle;
-import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 
 public final class StartGameState extends GameSystemState{
@@ -12,7 +13,7 @@ public final class StartGameState extends GameSystemState{
   }
   public final int frameCountPerNumber=UtilMath.floor(Duel.IDEAL_FRAME_RATE);
   public final float ringSize=200.0f;
-  public final int ringColor=Tools.color(0);
+  public final Color ringColor=Duel.color(0);
   public final float ringStrokeWeight=5.0f;
   public int displayNumber=4;
   @Override
@@ -37,11 +38,11 @@ public final class StartGameState extends GameSystemState{
     duel.drawText(Integer.toString(displayNumber),-32,-32);
     duel.font.getData().setScale(1);
     duel.rotate(UtilMath.HALF_PI);
-    duel.strokeWeight(3.0f);
+    duel.strokeWeight(3);
     duel.stroke(ringColor);
     duel.noFill();
     // duel.arc(0.0f,0.0f,ringSize,ringSize,0.0f,UtilMath.TWO_PI*(float)(properFrameCount%frameCountPerNumber)/frameCountPerNumber);
-    duel.arc(0,0,ringSize,0,180*(float)(properFrameCount%frameCountPerNumber)/frameCountPerNumber);
+    duel.arc(0,0,ringSize,0,360*(float)(properFrameCount%frameCountPerNumber)/frameCountPerNumber);
     duel.strokeWeight(1.0f);
   }
   @Override

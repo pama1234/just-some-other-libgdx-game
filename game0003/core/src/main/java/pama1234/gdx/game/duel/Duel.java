@@ -21,8 +21,7 @@ import pama1234.gdx.util.info.MouseInfo;
  * </p>
  * Modified by: Pama1234 (https://space.bilibili.com/646050693)
  * </p>
- * Altered with self-made framework v0.0.1
- * Altered with Processing-Libgdx v0.0.1
+ * Altered with self-made framework v0.0.1 Altered with Processing-Libgdx v0.0.1
  * </p>
  * </p>
  *

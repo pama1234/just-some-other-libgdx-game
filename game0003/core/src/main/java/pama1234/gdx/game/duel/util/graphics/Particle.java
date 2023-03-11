@@ -1,5 +1,7 @@
 package pama1234.gdx.game.duel.util.graphics;
 
+import com.badlogic.gdx.graphics.Color;
+
 import pama1234.gdx.game.duel.Duel;
 import pama1234.gdx.game.duel.util.Body;
 import pama1234.gdx.game.duel.util.ObjectPool;
@@ -18,7 +20,7 @@ public final class Particle extends Body implements Poolable<Particle>{
   public ObjectPool<Particle> belongingPool;
   public int allocationIdentifier;
   public float rotationAngle;
-  public int displayColor;
+  public Color displayColor;
   public float strokeWeightValue;
   public float displaySize;
   public int lifespanFrameCount;
@@ -58,7 +60,7 @@ public final class Particle extends Body implements Poolable<Particle>{
     directionAngle=0.0f;
     speed=0.0f;
     rotationAngle=0.0f;
-    displayColor=Tools.color(0);
+    displayColor=Duel.color(0);
     strokeWeightValue=1.0f;
     displaySize=10.0f;
     lifespanFrameCount=0;
@@ -95,7 +97,8 @@ public final class Particle extends Body implements Poolable<Particle>{
         break;
       case square:
         duel.noFill();
-        duel.stroke(displayColor,f(255*getFadeRatio()));
+        duel.stroke(displayColor);
+        duel.strokeColor.a=f(255*getFadeRatio());
         duel.pushMatrix();
         duel.translate(xPosition,yPosition);
         duel.rotate(rotationAngle);
@@ -103,7 +106,8 @@ public final class Particle extends Body implements Poolable<Particle>{
         duel.popMatrix();
         break;
       case line:
-        duel.stroke(displayColor,f(128*getFadeRatio()));
+        duel.stroke(displayColor);
+        duel.strokeColor.a=f(128*getFadeRatio());
         duel.strokeWeight(strokeWeightValue*UtilMath.pow(getFadeRatio(),4.0f));
         duel.line(xPosition,yPosition,xPosition+800.0f*UtilMath.cos(rotationAngle),yPosition+800.0f*UtilMath.sin(rotationAngle));
         duel.strokeWeight(1.0f);
@@ -111,7 +115,8 @@ public final class Particle extends Body implements Poolable<Particle>{
       case ring:
         final float ringSizeExpandRatio=2*(UtilMath.pow(getProgressRatio()-1,5)+1);
         duel.noFill();
-        duel.stroke(displayColor,f(255*getFadeRatio()));
+        duel.stroke(displayColor);
+        duel.strokeColor.a=f(255*getFadeRatio());
         duel.strokeWeight(strokeWeightValue*getFadeRatio());
         duel.circle(xPosition,yPosition,displaySize*(1+ringSizeExpandRatio));
         duel.strokeWeight(1.0f);

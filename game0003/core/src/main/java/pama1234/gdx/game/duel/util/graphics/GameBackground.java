@@ -24,11 +24,11 @@ public final class GameBackground{
   }
   public void update() {
     for(BackgroundLine eachLine:lineList) {
-      eachLine.update(this.duel.random(-maxAccelerationMagnitude,maxAccelerationMagnitude));
+      eachLine.update(duel.random(-maxAccelerationMagnitude,maxAccelerationMagnitude));
     }
   }
   public void display() {
-    this.duel.stroke(lineColor);
+    duel.stroke(lineColor);
     for(BackgroundLine eachLine:lineList) eachLine.display();
   }
 }

@@ -199,6 +199,11 @@ public abstract class UtilScreen extends UtilScreenCore{
     // setTextColor(gray,255);
   }
   @Deprecated
+  public void setTextColor(Color in) {
+    font.getColor().set(in);
+    // setTextColor(gray,255);
+  }
+  @Deprecated
   public void setTextColor(int gray,int alpha) {
     font.getColor().set(gray/255f,gray/255f,gray/255f,alpha/255f);
   }
@@ -371,7 +376,7 @@ public abstract class UtilScreen extends UtilScreenCore{
   }
   public void arc(float x,float y,float radius,float start,float degrees) {
     if(stroke) {
-      rStroke.arcNoBorder(x,y,radius,start,degrees,UtilMath.max(1,(int)(12*(float)Math.cbrt(radius)*(degrees/360))));
+      rStroke.arcNoBorder(x,y,radius,start,degrees,UtilMath.max(1,(int)(6*(float)Math.cbrt(radius)*(degrees/360))));
       rStroke.flush();
     }
   }

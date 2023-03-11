@@ -3,7 +3,6 @@ package pama1234.gdx.game.duel.util.actor;
 import pama1234.gdx.game.duel.Duel;
 import pama1234.gdx.game.duel.util.arrow.AbstractArrowActor;
 import pama1234.gdx.game.duel.util.graphics.Particle;
-import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 
 public class ShortbowArrow extends AbstractArrowActor{
@@ -36,7 +35,7 @@ public class ShortbowArrow extends AbstractArrowActor{
         .position(this.xPosition,this.yPosition)
         .polarVelocity(particleDirectionAngle,particleSpeed)
         .particleSize(2.0f)
-        .particleColor(Tools.color(192))
+        .particleColor(Duel.color(192))
         .lifespanSecond(0.5f)
         .build();
       duel.system.commonParticleSet.particleList.add(newParticle);

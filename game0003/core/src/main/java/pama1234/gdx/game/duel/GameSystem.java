@@ -17,7 +17,6 @@ import pama1234.gdx.game.duel.util.player.HumanPlayerEngine;
 import pama1234.gdx.game.duel.util.player.MovePlayerActorState;
 import pama1234.gdx.game.duel.util.state.GameSystemState;
 import pama1234.gdx.game.duel.util.state.StartGameState;
-import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 
 public final class GameSystem{
@@ -102,7 +101,7 @@ public final class GameSystem{
       .type(Particle.square)
       .position(x,y)
       .particleSize(particleSize)
-      .particleColor(Tools.color(0))
+      .particleColor(Duel.color(0))
       .lifespanSecond(lifespanSecondValue);
     for(int i=0;i<particleCount;i++) {
       final Particle newParticle=builder

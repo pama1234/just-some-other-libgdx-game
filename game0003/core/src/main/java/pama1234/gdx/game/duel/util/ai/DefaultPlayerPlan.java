@@ -25,7 +25,7 @@ public abstract class DefaultPlayerPlan extends PlayerPlan{
     final AbstractPlayerActor enemy=player.group.enemyGroup.player;
     // Draw longbow if enemy is damaged
     if(enemy.state.isDamaged()) {
-      if(this.duel.random(1.0f)<0.3f) return killPlan;
+      if(duel.random(1.0f)<0.3f) return killPlan;
     }
     // Avoid the nearest arrow
     AbstractArrowActor nearestArrow=null;
@@ -40,30 +40,30 @@ public abstract class DefaultPlayerPlan extends PlayerPlan{
     if(tmpMinDistancePow2<40000.0f) {
       final float playerAngleInArrowFrame=nearestArrow.getAngle(player);
       float escapeAngle=nearestArrow.directionAngle;
-      if(playerAngleInArrowFrame-nearestArrow.directionAngle>0.0f) escapeAngle+=UtilMath.QUARTER_PI+this.duel.random(UtilMath.QUARTER_PI);
-      else escapeAngle-=UtilMath.QUARTER_PI+this.duel.random(UtilMath.QUARTER_PI);
+      if(playerAngleInArrowFrame-nearestArrow.directionAngle>0.0f) escapeAngle+=UtilMath.QUARTER_PI+duel.random(UtilMath.QUARTER_PI);
+      else escapeAngle-=UtilMath.QUARTER_PI+duel.random(UtilMath.QUARTER_PI);
       final float escapeTargetX=player.xPosition+100.0f*UtilMath.cos(escapeAngle);
       final float escapeTargetY=player.yPosition+100.0f*UtilMath.sin(escapeAngle);
       setMoveDirection(player,escapeTargetX,escapeTargetY,0.0f);
-      if(this.duel.random(1.0f)<0.7f) return movePlan;
+      if(duel.random(1.0f)<0.7f) return movePlan;
       else return jabPlan;
     }
     // Away from enemy
     setMoveDirection(player,enemy);
     if(player.getDistancePow2(enemy)<100000.0f) {
-      if(this.duel.random(1.0f)<0.7f) return movePlan;
+      if(duel.random(1.0f)<0.7f) return movePlan;
       else return jabPlan;
     }
     // If there is nothing special
-    if(this.duel.random(1.0f)<0.2f) return movePlan;
+    if(duel.random(1.0f)<0.2f) return movePlan;
     else return jabPlan;
   }
   public void setMoveDirection(PlayerActor player,AbstractPlayerActor enemy) {
     float targetX,targetY;
-    if(enemy.xPosition>Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f) targetX=this.duel.random(0.0f,Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f);
-    else targetX=this.duel.random(Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f,Duel.INTERNAL_CANVAS_SIDE_LENGTH);
-    if(enemy.yPosition>Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f) targetY=this.duel.random(0.0f,Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f);
-    else targetY=this.duel.random(Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f,Duel.INTERNAL_CANVAS_SIDE_LENGTH);
+    if(enemy.xPosition>Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f) targetX=duel.random(0.0f,Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f);
+    else targetX=duel.random(Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f,Duel.INTERNAL_CANVAS_SIDE_LENGTH);
+    if(enemy.yPosition>Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f) targetY=duel.random(0.0f,Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f);
+    else targetY=duel.random(Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f,Duel.INTERNAL_CANVAS_SIDE_LENGTH);
     setMoveDirection(player,targetX,targetY,100.0f);
   }
   public void setMoveDirection(PlayerActor player,float targetX,float targetY,float allowance) {

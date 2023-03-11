@@ -23,7 +23,7 @@ public final class KillPlayerPlan extends PlayerPlan{
     }
     input.operateMoveButton(horizontalMove,0);
     input.operateShotButton(false);
-    if(player.state.hasCompletedLongBowCharge(player)&&this.duel.random(1.0f)<0.05f) input.operateLongShotButton(false);
+    if(player.state.hasCompletedLongBowCharge(player)&&duel.random(1.0f)<0.05f) input.operateLongShotButton(false);
     else input.operateLongShotButton(true);
   }
   @Override

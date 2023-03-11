@@ -1,7 +1,8 @@
 package pama1234.gdx.game.duel.util.graphics;
 
+import com.badlogic.gdx.graphics.Color;
+
 import pama1234.gdx.game.duel.Duel;
-import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 
 public final class ParticleBuilder{
@@ -14,7 +15,7 @@ public final class ParticleBuilder{
   public float xVelocity,yVelocity;
   public float directionAngle,speed;
   public float rotationAngle;
-  public int displayColor;
+  public Color displayColor;
   public float strokeWeightValue;
   public float displaySize;
   public int lifespanFrameCount;
@@ -27,7 +28,7 @@ public final class ParticleBuilder{
     directionAngle=0.0f;
     speed=0.0f;
     rotationAngle=0.0f;
-    displayColor=Tools.color(0);
+    displayColor=Duel.color(0);
     strokeWeightValue=1.0f;
     displaySize=10.0f;
     lifespanFrameCount=60;
@@ -53,7 +54,7 @@ public final class ParticleBuilder{
     rotationAngle=v;
     return this;
   }
-  public ParticleBuilder particleColor(int c) {
+  public ParticleBuilder particleColor(Color c) {
     displayColor=c;
     return this;
   }
@@ -74,7 +75,7 @@ public final class ParticleBuilder{
     return this;
   }
   public Particle build() {
-    final Particle newParticle=this.duel.system.commonParticleSet.allocate();
+    final Particle newParticle=duel.system.commonParticleSet.allocate();
     newParticle.particleTypeNumber=this.particleTypeNumber;
     newParticle.xPosition=this.xPosition;
     newParticle.yPosition=this.yPosition;
