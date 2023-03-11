@@ -21,7 +21,7 @@ public final class DamagedPlayerActorState extends PlayerActorState{
     duel.noFill();
     duel.beginBlend();
     duel.stroke(192,64,64,255*UtilMath.floor(parentActor.damageRemainingFrameCount)/durationFrameCount);
-    duel.circle(0,0,64);
+    duel.circle(0,0,32);
     duel.endBlend();
   }
   @Override

@@ -65,13 +65,13 @@ public final class DrawLongbowPlayerActorState extends DrawBowPlayerActorState{
   public void displayEffect(PlayerActor parentActor) {
     duel.noFill();
     duel.stroke(0);
-    duel.arc(0,0,100,UtilMath.deg(parentActor.aimAngle)-90,180);
+    duel.arc(0,0,50,UtilMath.deg(parentActor.aimAngle)-90,180);
     if(hasCompletedLongBowCharge(parentActor)) duel.stroke(effectColor);
     else duel.stroke(0,128);
     duel.line(0,0,800*UtilMath.cos(parentActor.aimAngle),800*UtilMath.sin(parentActor.aimAngle));
     duel.rotate(UtilMath.HALF_PI);
     duel.strokeWeight(ringStrokeWeight);
-    duel.arc(0,0,ringSize,0,360*UtilMath.min(1,(float)(parentActor.chargedFrameCount)/chargeRequiredFrameCount));
+    duel.arc(0,0,ringSize/2f,0,360*UtilMath.min(1,(float)(parentActor.chargedFrameCount)/chargeRequiredFrameCount));
     duel.strokeWeight(1);
     duel.rotate(+UtilMath.HALF_PI);
     parentActor.chargedFrameCount++;

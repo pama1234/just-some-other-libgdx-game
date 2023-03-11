@@ -35,13 +35,13 @@ public final class StartGameState extends GameSystemState{
     // duel.fill(ringColor);
     duel.setTextColor(ringColor);
     duel.font.getData().setScale(4);
-    duel.drawText(Integer.toString(displayNumber),-32,-32);
+    duel.drawText(Integer.toString(displayNumber),-16,-32);
     duel.font.getData().setScale(1);
     duel.rotate(UtilMath.HALF_PI);
     duel.strokeWeight(3);
     duel.stroke(ringColor);
     duel.noFill();
-    duel.arc(0,0,ringSize,0,360*(float)(properFrameCount%frameCountPerNumber)/frameCountPerNumber);
+    duel.arc(0,0,ringSize/2f,0,360*(float)(properFrameCount%frameCountPerNumber)/frameCountPerNumber);
     duel.strokeWeight(1);
   }
   @Override

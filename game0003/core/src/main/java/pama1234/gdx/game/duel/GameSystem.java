@@ -51,8 +51,8 @@ public final class GameSystem{
     PlayerEngine myEngine;
     if(demo) myEngine=new ComputerPlayerEngine(duel);
     else {
-      if(duel.isAndroid) myEngine=new HumanPlayerEngine(duel.currentInput);
-      else myEngine=new AndroidHumanPlayerEngine(duel.currentInput);
+      if(duel.isAndroid) myEngine=new AndroidHumanPlayerEngine(duel.currentInput);
+      else myEngine=new HumanPlayerEngine(duel.currentInput);
     }
     PlayerActor myPlayer=new PlayerActor(duel,myEngine,Duel.color(255));
     myPlayer.xPosition=Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f;

@@ -39,8 +39,7 @@ public class Duel extends ScreenCore2D{
   public int smallFontSize=16,largeFontSize=128;
   public boolean paused;
   public int canvasSideLength=INTERNAL_CANVAS_SIDE_LENGTH;
-  @Override
-  public void init() {}
+  public TouchInfo moveCtrl;
   @Override
   public void setup() {
     if(isAndroid) {
@@ -62,12 +61,20 @@ public class Duel extends ScreenCore2D{
   public void display() {}
   @Override
   public void displayWithCam() {
+    doStroke();
     system.display();
     clearMatrix();
+    noStroke();
+    doFill();
   }
   @Override
   public void update() {
-    if(!paused) system.update();
+    if(!paused) {
+      if(isAndroid) {
+        if(moveCtrl!=null) currentInput.targetTouchMoved(moveCtrl.x-moveCtrl.sx,moveCtrl.y-moveCtrl.sy);
+      }
+      system.update();
+    }
   }
   public void newGame(boolean demo,boolean instruction) {
     system=new GameSystem(this,demo,instruction);
@@ -90,12 +97,17 @@ public class Duel extends ScreenCore2D{
   @Override
   public void frameResized() {}
   @Override
-  public void touchMoved(TouchInfo info) {
+  public void touchStarted(TouchInfo info) {
     if(isAndroid) {
       if(info.osx<width/2f) {
-        // println(info.dx,info.dy);
-        currentInput.targetTouchMoved(info.dx,info.dy);
+        if(moveCtrl==null) moveCtrl=info;
       }
     }
+  }
+  @Override
+  public void touchMoved(TouchInfo info) {}
+  @Override
+  public void touchEnded(TouchInfo info) {
+    if(moveCtrl==info) moveCtrl=null;
   }
 }

@@ -118,7 +118,7 @@ public final class Particle extends Body implements Poolable<Particle>{
         duel.stroke(displayColor);
         duel.strokeColor.a=f(255*getFadeRatio());
         duel.strokeWeight(strokeWeightValue*getFadeRatio());
-        duel.circle(xPosition,yPosition,displaySize*(1+ringSizeExpandRatio));
+        duel.circle(xPosition,yPosition,displaySize*(1+ringSizeExpandRatio)/2f);
         duel.strokeWeight(1.0f);
         break;
       default:

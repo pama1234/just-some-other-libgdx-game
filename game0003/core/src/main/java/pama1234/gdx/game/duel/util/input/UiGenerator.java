@@ -12,12 +12,12 @@ public class UiGenerator{
         p.inputProcessor.keyDown(Input.Keys.Z);
       },self-> {
         p.inputProcessor.keyUp(Input.Keys.Z);
-      },self->self.text="Z ",p::getButtonUnitLength,()->p.width-p.bu*3f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,false),
+      },self->self.text="Z ",p::getButtonUnitLength,()->p.width-p.bu*4f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,false),
       new TextButton<Duel>(p,true,()->true,self-> {},self-> {
         p.inputProcessor.keyDown(Input.Keys.X);
       },self-> {
         p.inputProcessor.keyUp(Input.Keys.X);
-      },self->self.text=" X",p::getButtonUnitLength,()->p.width-p.bu*1.5f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,false),
+      },self->self.text=" X",p::getButtonUnitLength,()->p.width-p.bu*2.5f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,false),
     };
   }
 }
