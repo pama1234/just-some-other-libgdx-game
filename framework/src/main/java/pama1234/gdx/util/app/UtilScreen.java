@@ -15,6 +15,7 @@ import com.badlogic.gdx.utils.ScreenUtils;
 
 import dev.lyze.gdxtinyvg.TinyVG;
 import pama1234.gdx.util.info.TouchInfo;
+import pama1234.math.UtilMath;
 
 /**
  * 此中间类主要放渲染相关的东东
@@ -368,10 +369,9 @@ public abstract class UtilScreen extends UtilScreenCore{
   public void arc(float x1,float y1,float x2,float y2,float a,float b) {
     //TODO
   }
-  @Deprecated
   public void arc(float x,float y,float radius,float start,float degrees) {
     if(stroke) {
-      rStroke.arc(x,y,radius,start,degrees);
+      rStroke.arcNoBorder(x,y,radius,start,degrees,UtilMath.max(1,(int)(12*(float)Math.cbrt(radius)*(degrees/360))));
       rStroke.flush();
     }
   }

@@ -9,12 +9,12 @@ import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.decals.CameraGroupStrategy;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.utils.IntArray;
 
 import dev.lyze.gdxtinyvg.drawers.TinyVGShapeDrawer;
 import pama1234.gdx.util.element.CameraController3D;
+import pama1234.gdx.util.element.UtilShapeRenderer;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.gdx.util.input.UtilInputProcesser;
@@ -45,8 +45,8 @@ public abstract class UtilScreen3D extends UtilScreen{
     // genFont();
     fillColor=new Color(1,1,1,1);
     strokeColor=new Color(0,0,0,1);
-    rFill=new ShapeRenderer();
-    rStroke=new ShapeRenderer();
+    rFill=new UtilShapeRenderer();
+    rStroke=new UtilShapeRenderer();
     rFill.setColor(fillColor);
     rStroke.setColor(strokeColor);
     decalBatch=new DecalBatch(new CameraGroupStrategy(cam.camera));//TODO
