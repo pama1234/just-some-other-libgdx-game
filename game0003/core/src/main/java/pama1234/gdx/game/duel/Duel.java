@@ -51,6 +51,8 @@ public class Duel extends UtilScreen2D{
     currentKeyInput=new KeyInput();
     newGame(true,true); // demo play (computer vs computer), shows instruction window
     //---
+    setTextColor(0);
+    //---
     cam.point.des.set(canvasSideLength/2f,canvasSideLength/2f);
     cam.point.pos.set(cam.point.des);
     cam2d.activeDrag=false;
@@ -59,7 +61,6 @@ public class Duel extends UtilScreen2D{
   public void display() {}
   @Override
   public void displayWithCam() {
-    textColor(0);
     system.display();
     clearMatrix();
   }

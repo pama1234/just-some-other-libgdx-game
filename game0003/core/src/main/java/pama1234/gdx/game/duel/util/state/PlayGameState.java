@@ -36,8 +36,8 @@ public final class PlayGameState extends GameSystemState{
   @Override
   public void displayMessage(GameSystem system) {
     if(properFrameCount>=messageDurationFrameCount) return;
-    duel.doFill();
-    duel.textColor(0,(int)(255*(1-(float)(properFrameCount)/messageDurationFrameCount)));
+    // duel.doFill();
+    duel.setTextColor(0,(int)(255*(1-(float)(properFrameCount)/messageDurationFrameCount)));
     duel.drawText("Go",0.0f,0.0f);
   }
   @Override

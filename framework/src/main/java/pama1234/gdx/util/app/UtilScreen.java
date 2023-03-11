@@ -192,6 +192,15 @@ public abstract class UtilScreen extends UtilScreenCore{
     textColor.set(gray/255f,gray/255f,gray/255f,alpha/255f);
     font.color(textColor);
   }
+  @Deprecated
+  public void setTextColor(int gray) {
+    font.getColor().set(gray/255f,gray/255f,gray/255f,1);
+    // setTextColor(gray,255);
+  }
+  @Deprecated
+  public void setTextColor(int gray,int alpha) {
+    font.getColor().set(gray/255f,gray/255f,gray/255f,alpha/255f);
+  }
   public void rect(float x,float y,float w,float h) {
     if(fill) {
       rFill.rect(x,y,w,h);

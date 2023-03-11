@@ -18,17 +18,18 @@ public class DrawUtil{
     // duel.textFont(duel.smallFont,duel.smallFontSize);
     // duel.textLeading(26);
     // duel.textAlign(PConstants.RIGHT,PConstants.BASELINE);
-    duel.textColor(0);
-    duel.drawText("Z key:",280,180);
-    duel.drawText("X key:",280,250);
-    duel.drawText("Arrow key:",280,345);
+    // duel.textColor(0);
+    duel.setTextColor(0);
+    duel.drawText("    Z key:",200,180);
+    duel.drawText("    X key:",200,250);
+    duel.drawText("Arrow key:",200,345);
     // duel.textAlign(PConstants.LEFT);
     duel.drawText("Weak shot\n (auto aiming)",300,180);
     duel.drawText("Lethal shot\n (manual aiming,\n  requires charge)",300,250);
     duel.drawText("Move\n (or aim lethal shot)",300,345);
     // duel.textAlign(PConstants.CENTER);
-    duel.drawText("- Press Z key to start -",fu*0.5f,430);
-    duel.drawText("(Click to hide this window)",fu*0.5f,475);
+    duel.drawText("- Press Z key to start -",fu*0.3f,430);
+    duel.drawText("(Click to hide this window)",fu*0.3f,475);
     duel.popStyle();
     duel.strokeWeight(1);
   }

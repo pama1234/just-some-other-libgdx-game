@@ -30,8 +30,9 @@ public final class StartGameState extends GameSystemState{
     final int currentNumberFrameCount=properFrameCount%frameCountPerNumber;
     if(currentNumberFrameCount==0) displayNumber--;
     if(displayNumber<=0) return;
-    duel.doFill();
-    duel.fill(ringColor);
+    // duel.doFill();
+    // duel.fill(ringColor);
+    duel.setTextColor(ringColor);
     duel.drawText(Integer.toString(displayNumber),0.0f,0.0f);
     duel.rotate(-UtilMath.HALF_PI);
     duel.strokeWeight(3.0f);

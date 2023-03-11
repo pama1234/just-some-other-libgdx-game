@@ -88,13 +88,14 @@ public final class Particle extends Body implements Poolable<Particle>{
   }
   @Override
   public void display() {
+    // duel.beginBlend();
     switch(particleTypeNumber) {
       case dot:
         duel.dot(UtilMath.floor(xPosition),UtilMath.floor(yPosition),Tools.color((int)(128+127*getProgressRatio())));
         break;
       case square:
         duel.noFill();
-        duel.stroke(displayColor,(int)(255*getFadeRatio()));
+        duel.stroke(displayColor,f(255*getFadeRatio()));
         duel.pushMatrix();
         duel.translate(xPosition,yPosition);
         duel.rotate(rotationAngle);
@@ -102,7 +103,7 @@ public final class Particle extends Body implements Poolable<Particle>{
         duel.popMatrix();
         break;
       case line:
-        duel.stroke(displayColor,(int)(128*getFadeRatio()));
+        duel.stroke(displayColor,f(128*getFadeRatio()));
         duel.strokeWeight(strokeWeightValue*UtilMath.pow(getFadeRatio(),4.0f));
         duel.line(xPosition,yPosition,xPosition+800.0f*UtilMath.cos(rotationAngle),yPosition+800.0f*UtilMath.sin(rotationAngle));
         duel.strokeWeight(1.0f);
@@ -110,7 +111,7 @@ public final class Particle extends Body implements Poolable<Particle>{
       case ring:
         final float ringSizeExpandRatio=2.0f*(UtilMath.pow(getProgressRatio()-1.0f,5.0f)+1.0f);
         duel.noFill();
-        duel.stroke(displayColor,(int)(255*getFadeRatio()));
+        duel.stroke(displayColor,f(255*getFadeRatio()));
         duel.strokeWeight(strokeWeightValue*getFadeRatio());
         duel.circle(xPosition,yPosition,displaySize*(1.0f+ringSizeExpandRatio));
         duel.strokeWeight(1.0f);
@@ -118,5 +119,9 @@ public final class Particle extends Body implements Poolable<Particle>{
       default:
         break;
     }
+    // duel.endBlend();
+  }
+  public int f(float in) {
+    return (int)(UtilMath.constrain(in,0,255));
   }
 }

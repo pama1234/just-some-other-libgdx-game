@@ -35,9 +35,9 @@ public final class ParticleSet{
     }
   }
   public void display() {
-    for(Particle eachParticle:particleList) {
-      eachParticle.display();
-    }
+    duel.beginBlend();
+    for(Particle eachParticle:particleList) eachParticle.display();
+    duel.endBlend();
   }
   public Particle allocate() {
     return particlePool.allocate();

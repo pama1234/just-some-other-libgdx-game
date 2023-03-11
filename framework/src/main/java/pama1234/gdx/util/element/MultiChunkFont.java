@@ -173,6 +173,10 @@ public class MultiChunkFont extends BitmapFont{
   public void color(Color in) {
     foreground=in;
     fontBatch.setColor(foreground);
+    //---
+  }
+  public void setColor(Color in) {
+    super.setColor(in);
     // for(int i=0;i<length;i++) if(data[i]!=null) data[i].setColor(in);
   }
   // @Override
