@@ -16,7 +16,7 @@ public final class DrawLongbowPlayerActorState extends DrawBowPlayerActorState{
   public final int chargeRequiredFrameCount=UtilMath.floor(0.5f*Duel.IDEAL_FRAME_RATE);
   public final Color effectColor=Duel.color(192,64,64);
   public final float ringSize=80.0f;
-  public final float ringStrokeWeight=5.0f;
+  public final float ringStrokeWeight=5;
   public DrawLongbowPlayerActorState(Duel duel) {
     this.duel=duel;
   }
@@ -65,16 +65,14 @@ public final class DrawLongbowPlayerActorState extends DrawBowPlayerActorState{
   public void displayEffect(PlayerActor parentActor) {
     duel.noFill();
     duel.stroke(0);
-    // duel.arc(0,0,100,100,parentActor.aimAngle-UtilMath.QUARTER_PI,parentActor.aimAngle+UtilMath.QUARTER_PI);
     duel.arc(0,0,100,UtilMath.deg(parentActor.aimAngle)-90,180);
     if(hasCompletedLongBowCharge(parentActor)) duel.stroke(effectColor);
     else duel.stroke(0,128);
-    duel.line(0.0f,0.0f,800.0f*UtilMath.cos(parentActor.aimAngle),800.0f*UtilMath.sin(parentActor.aimAngle));
+    duel.line(0,0,800*UtilMath.cos(parentActor.aimAngle),800*UtilMath.sin(parentActor.aimAngle));
     duel.rotate(UtilMath.HALF_PI);
     duel.strokeWeight(ringStrokeWeight);
-    // duel.arc(0,0,ringSize,ringSize,0,UtilMath.TWO_PI*UtilMath.min(1.0f,UtilMath.floor(parentActor.chargedFrameCount)/chargeRequiredFrameCount));
-    duel.arc(0,0,ringSize,0,360*UtilMath.min(1,UtilMath.floor(parentActor.chargedFrameCount)/chargeRequiredFrameCount));
-    duel.strokeWeight(1.0f);
+    duel.arc(0,0,ringSize,0,360*UtilMath.min(1,(float)(parentActor.chargedFrameCount)/chargeRequiredFrameCount));
+    duel.strokeWeight(1);
     duel.rotate(+UtilMath.HALF_PI);
     parentActor.chargedFrameCount++;
   }
@@ -85,7 +83,7 @@ public final class DrawLongbowPlayerActorState extends DrawBowPlayerActorState{
     final Particle newParticle=duel.system.commonParticleSet.builder
       .type(Particle.ring)
       .position(parentActor.xPosition,parentActor.yPosition)
-      .polarVelocity(0.0f,0.0f)
+      .polarVelocity(0,0)
       .particleSize(ringSize)
       .particleColor(effectColor)
       .weight(ringStrokeWeight)

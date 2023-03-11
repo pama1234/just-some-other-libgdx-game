@@ -81,7 +81,6 @@ public abstract class UtilScreen2D extends UtilScreen{
     translate(dx,dy);
     rotate(deg);
   }
-  @Deprecated
   public void clearMatrix() {
     matrixStackPointer=0;
     // Arrays.fill(matrixStack,null);
@@ -97,13 +96,11 @@ public abstract class UtilScreen2D extends UtilScreen{
     e.execute();
     popMatrix();
   }
-  @Deprecated
   public void pushMatrix() {
     matrixStack[matrixStackPointer+1]=matrixStackPointer<0?usedCamera.combined:matrixStack[matrixStackPointer].cpy();
     matrixStackPointer++;
     setMatrix(matrix());
   }
-  @Deprecated
   public void popMatrix() {
     matrixStackPointer--;
     setMatrix(matrix());

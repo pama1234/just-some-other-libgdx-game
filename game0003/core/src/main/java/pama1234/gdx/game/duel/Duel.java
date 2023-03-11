@@ -32,20 +32,11 @@ public class Duel extends UtilScreen2D{
   public static final int INTERNAL_CANVAS_SIDE_LENGTH=640;
   public KeyInput currentKeyInput;
   public GameSystem system;
-  // public PFont smallFont,largeFont;
   public int smallFontSize=16,largeFontSize=128;
   public boolean paused;
   public int canvasSideLength=INTERNAL_CANVAS_SIDE_LENGTH;
   @Override
-  public void init() {
-    // frameRate(IDEAL_FRAME_RATE);
-    // smallFont=createFont(fontPath,smallFontSize,true);
-    // largeFont=createFont(fontPath,largeFontSize,true);
-    // textFont(largeFont,largeFontSize);
-    // textAlign(CENTER,CENTER);
-    // rectMode(CENTER);
-    // ellipseMode(CENTER);
-  }
+  public void init() {}
   @Override
   public void setup() {
     currentKeyInput=new KeyInput();
@@ -56,6 +47,7 @@ public class Duel extends UtilScreen2D{
     cam.point.des.set(canvasSideLength/2f,canvasSideLength/2f);
     cam.point.pos.set(cam.point.des);
     cam2d.activeDrag=false;
+    cam2d.activeScrollZoom=cam2d.activeTouchZoom=false;
   }
   @Override
   public void display() {}

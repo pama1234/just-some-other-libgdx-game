@@ -30,7 +30,6 @@ public final class DrawShortbowPlayerActorState extends DrawBowPlayerActorState{
   public void displayEffect(PlayerActor parentActor) {
     duel.line(0,0,70*UtilMath.cos(parentActor.aimAngle),70*UtilMath.sin(parentActor.aimAngle));
     duel.noFill();
-    // duel.arc(0.0f,0.0f,100.0f,100.0f,parentActor.aimAngle-UtilMath.QUARTER_PI,parentActor.aimAngle+UtilMath.QUARTER_PI);
     duel.arc(0,0,100,UtilMath.deg(parentActor.aimAngle)-22.5f,45);
   }
   @Override

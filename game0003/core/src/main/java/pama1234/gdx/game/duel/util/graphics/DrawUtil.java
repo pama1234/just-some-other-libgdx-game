@@ -4,15 +4,17 @@ import pama1234.gdx.game.duel.Duel;
 
 public class DrawUtil{
   public static void displayDemo(Duel duel) {
+    int fu=Duel.INTERNAL_CANVAS_SIDE_LENGTH;
     duel.pushStyle();
     duel.stroke(0);
     duel.strokeWeight(2);
     duel.doFill();
+    duel.beginBlend();
     duel.fill(255,240);
-    int fu=Duel.INTERNAL_CANVAS_SIDE_LENGTH;
     duel.rect(fu*0.15f,fu*0.2f,
       fu*0.7f,
       fu*0.6f);
+    duel.endBlend();
     duel.setTextColor(0);
     duel.drawText("    Z key:",200,180);
     duel.drawText("    X key:",200,250);

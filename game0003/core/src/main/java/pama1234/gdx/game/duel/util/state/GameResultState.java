@@ -19,9 +19,11 @@ public final class GameResultState extends GameSystemState{
   }
   @Override
   public void displaySystem(GameSystem system) {
+    duel.beginBlend();
     system.myGroup.displayPlayer();
     system.otherGroup.displayPlayer();
     system.commonParticleSet.display();
+    duel.endBlend();
   }
   @Override
   public void displayMessage(GameSystem system) {

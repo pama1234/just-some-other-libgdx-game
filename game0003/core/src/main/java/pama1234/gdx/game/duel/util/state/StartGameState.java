@@ -12,7 +12,7 @@ public final class StartGameState extends GameSystemState{
     super(duel);
   }
   public final int frameCountPerNumber=UtilMath.floor(Duel.IDEAL_FRAME_RATE);
-  public final float ringSize=200.0f;
+  public final float ringSize=200;
   public final Color ringColor=Duel.color(0);
   public final float ringStrokeWeight=5.0f;
   public int displayNumber=4;
@@ -41,9 +41,8 @@ public final class StartGameState extends GameSystemState{
     duel.strokeWeight(3);
     duel.stroke(ringColor);
     duel.noFill();
-    // duel.arc(0.0f,0.0f,ringSize,ringSize,0.0f,UtilMath.TWO_PI*(float)(properFrameCount%frameCountPerNumber)/frameCountPerNumber);
     duel.arc(0,0,ringSize,0,360*(float)(properFrameCount%frameCountPerNumber)/frameCountPerNumber);
-    duel.strokeWeight(1.0f);
+    duel.strokeWeight(1);
   }
   @Override
   public void checkStateTransition(GameSystem system) {
