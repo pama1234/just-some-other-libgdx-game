@@ -9,6 +9,7 @@ import pama1234.gdx.game.duel.util.graphics.GameBackground;
 import pama1234.gdx.game.duel.util.graphics.Particle;
 import pama1234.gdx.game.duel.util.graphics.ParticleBuilder;
 import pama1234.gdx.game.duel.util.graphics.ParticleSet;
+import pama1234.gdx.game.duel.util.player.AndroidHumanPlayerEngine;
 import pama1234.gdx.game.duel.util.player.DamagedPlayerActorState;
 import pama1234.gdx.game.duel.util.player.DrawBowPlayerActorState;
 import pama1234.gdx.game.duel.util.player.DrawLongbowPlayerActorState;
@@ -49,7 +50,10 @@ public final class GameSystem{
     // prepare PlayerActor
     PlayerEngine myEngine;
     if(demo) myEngine=new ComputerPlayerEngine(duel);
-    else myEngine=new HumanPlayerEngine(duel.currentKeyInput);
+    else {
+      if(duel.isAndroid) myEngine=new HumanPlayerEngine(duel.currentInput);
+      else myEngine=new AndroidHumanPlayerEngine(duel.currentInput);
+    }
     PlayerActor myPlayer=new PlayerActor(duel,myEngine,Duel.color(255));
     myPlayer.xPosition=Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f;
     myPlayer.yPosition=Duel.INTERNAL_CANVAS_SIDE_LENGTH-100.0f;
@@ -77,7 +81,7 @@ public final class GameSystem{
   }
   public void update() {
     if(demoPlay) {
-      if(duel.currentKeyInput.isZPressed) {
+      if(duel.currentInput.isZPressed) {
         duel.system=new GameSystem(duel); // stop demo and start game
         return;
       }

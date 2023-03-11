@@ -1,11 +1,15 @@
 package pama1234.gdx.game.duel.util.input;
 
 public abstract class AbstractInputDevice{
-  public int horizontalMoveButton,verticalMoveButton;
+  public float horizontalMove,verticalMove;
   public boolean shotButtonPressed,longShotButtonPressed;
+  public void operateMove(float horizontal,float vertical) {
+    horizontalMove=horizontal;
+    verticalMove=vertical;
+  }
   public void operateMoveButton(int horizontal,int vertical) {
-    horizontalMoveButton=horizontal;
-    verticalMoveButton=vertical;
+    horizontalMove=horizontal;
+    verticalMove=vertical;
   }
   public void operateShotButton(boolean pressed) {
     shotButtonPressed=pressed;

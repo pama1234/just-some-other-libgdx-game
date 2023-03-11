@@ -27,7 +27,7 @@ public final class DrawLongbowPlayerActorState extends DrawBowPlayerActorState{
   }
   @Override
   public void aim(PlayerActor parentActor,AbstractInputDevice input) {
-    parentActor.aimAngle+=input.horizontalMoveButton*unitAngleSpeed;
+    parentActor.aimAngle+=input.horizontalMove*unitAngleSpeed;
   }
   @Override
   public void fire(PlayerActor parentActor) {

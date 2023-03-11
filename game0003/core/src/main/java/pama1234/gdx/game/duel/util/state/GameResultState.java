@@ -43,7 +43,7 @@ public final class GameResultState extends GameSystemState{
         duel.newGame(true,system.showsInstructionWindow);
       }
     }else {
-      if(properFrameCount>durationFrameCount&&duel.currentKeyInput.isXPressed) {
+      if(properFrameCount>durationFrameCount&&duel.currentInput.isXPressed) {
         duel.newGame(true,true); // back to demoplay with instruction window
       }
     }

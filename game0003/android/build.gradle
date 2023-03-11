@@ -50,7 +50,7 @@ android {
     exclude 'META-INF/dependencies.txt'
   }
   defaultConfig {
-    applicationId 'pama1234.gdx.game.app.particle'
+    applicationId 'pama1234.gdx.game.app.duel'
     minSdkVersion 26
     targetSdkVersion 32
     versionCode 1

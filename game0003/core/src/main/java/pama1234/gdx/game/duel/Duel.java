@@ -2,9 +2,10 @@ package pama1234.gdx.game.duel;
 
 import com.badlogic.gdx.Input.Buttons;
 
-import pama1234.gdx.game.duel.util.input.KeyInput;
+import pama1234.gdx.game.duel.util.input.InputData;
 import pama1234.gdx.util.app.UtilScreen2D;
 import pama1234.gdx.util.info.MouseInfo;
+import pama1234.gdx.util.info.TouchInfo;
 
 /**
  * Title: Duel
@@ -30,7 +31,7 @@ import pama1234.gdx.util.info.MouseInfo;
 public class Duel extends UtilScreen2D{
   public static final float IDEAL_FRAME_RATE=60;
   public static final int INTERNAL_CANVAS_SIDE_LENGTH=640;
-  public KeyInput currentKeyInput;
+  public InputData currentInput;
   public GameSystem system;
   public int smallFontSize=16,largeFontSize=128;
   public boolean paused;
@@ -39,13 +40,15 @@ public class Duel extends UtilScreen2D{
   public void init() {}
   @Override
   public void setup() {
-    currentKeyInput=new KeyInput();
+    currentInput=new InputData();
     newGame(true,true); // demo play (computer vs computer), shows instruction window
     //---
     setTextColor(0);
     //---
     cam.point.des.set(canvasSideLength/2f,canvasSideLength/2f);
     cam.point.pos.set(cam.point.des);
+    if(isAndroid) cam2d.scale.pos=cam2d.scale.des=0.25f;
+    isAndroid=true;
     cam2d.activeDrag=false;
     cam2d.activeScrollZoom=cam2d.activeTouchZoom=false;
   }
@@ -58,7 +61,7 @@ public class Duel extends UtilScreen2D{
   }
   @Override
   public void update() {
-    system.update();
+    if(!paused) system.update();
   }
   public void newGame(boolean demo,boolean instruction) {
     system=new GameSystem(this,demo,instruction);
@@ -69,18 +72,25 @@ public class Duel extends UtilScreen2D{
   }
   @Override
   public void keyPressed(char key,int keyCode) {
-    currentKeyInput.keyPressedEvent(this,key,keyCode);
+    currentInput.keyPressedEvent(this,key,keyCode);
   }
   @Deprecated
   public void doPause() {
-    // if(paused) loop();
-    // else noLoop();
     paused=!paused;
   }
   @Override
   public void keyReleased(char key,int keyCode) {
-    currentKeyInput.keyReleased(this,key,keyCode);
+    currentInput.keyReleased(this,key,keyCode);
   }
   @Override
   public void frameResized() {}
+  @Override
+  public void touchMoved(TouchInfo info) {
+    if(isAndroid) {
+      if(info.osx<width/2f) {
+        println(info.dx,info.dy);
+        currentInput.targetTouchMoved(info.dx,info.dy);
+      }
+    }
+  }
 }
