@@ -25,24 +25,20 @@ public class TouchInfo extends ScreenCamInfo{
     if(!active) return;
     px=x;
     py=y;
-    putRaw(ox,oy);
+    // putRaw(ox,oy);
   }
-  public void putRaw(int x,int y) {
-    Vector3 tv=p.unproject(ox=x,oy=y);
-    put(tv.x,tv.y);
+  public void putRaw(int xIn,int yIn) {
+    Vector3 tv=p.unproject(ox=xIn,oy=yIn);
+    set(tv.x,tv.y);
     dx=x-px;
     dy=y-py;
   }
-  public void put(float a,float b) {
-    x=a;
-    y=b;
-  }
-  public void begin(int xIn,int yIn,int p,int b) {
+  public void begin(int xIn,int yIn,int pIn,int b) {
     active=true;
-    Vector3 tv=this.p.unproject(ox=osx=xIn,oy=osy=yIn);
+    Vector3 tv=p.unproject(ox=osx=xIn,oy=osy=yIn);
     sx=x=tv.x;
     sy=y=tv.y;
-    pointer=p;
+    pointer=pIn;
     button=b;
   }
   public void end() {

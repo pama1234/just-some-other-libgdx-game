@@ -3,7 +3,9 @@ package pama1234.gdx.game.duel;
 import com.badlogic.gdx.Input.Buttons;
 
 import pama1234.gdx.game.duel.util.input.InputData;
-import pama1234.gdx.util.app.UtilScreen2D;
+import pama1234.gdx.game.duel.util.input.UiGenerator;
+import pama1234.gdx.game.ui.util.TextButton;
+import pama1234.gdx.util.app.ScreenCore2D;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
 
@@ -28,9 +30,10 @@ import pama1234.gdx.util.info.TouchInfo;
  *
  * The font "Unifont" https://unifoundry.com/unifont/ is part of the GNU Project.
  */
-public class Duel extends UtilScreen2D{
+public class Duel extends ScreenCore2D{
   public static final float IDEAL_FRAME_RATE=60;
   public static final int INTERNAL_CANVAS_SIDE_LENGTH=640;
+  public TextButton<?>[] buttons;
   public InputData currentInput;
   public GameSystem system;
   public int smallFontSize=16,largeFontSize=128;
@@ -40,6 +43,10 @@ public class Duel extends UtilScreen2D{
   public void init() {}
   @Override
   public void setup() {
+    if(isAndroid) {
+      buttons=UiGenerator.genButtons_0010(this);
+      for(TextButton<?> e:buttons) centerScreen.add.add(e);
+    }
     currentInput=new InputData();
     newGame(true,true); // demo play (computer vs computer), shows instruction window
     //---
@@ -48,7 +55,6 @@ public class Duel extends UtilScreen2D{
     cam.point.des.set(canvasSideLength/2f,canvasSideLength/2f);
     cam.point.pos.set(cam.point.des);
     if(isAndroid) cam2d.scale.pos=cam2d.scale.des=0.25f;
-    isAndroid=true;
     cam2d.activeDrag=false;
     cam2d.activeScrollZoom=cam2d.activeTouchZoom=false;
   }
@@ -74,7 +80,6 @@ public class Duel extends UtilScreen2D{
   public void keyPressed(char key,int keyCode) {
     currentInput.keyPressedEvent(this,key,keyCode);
   }
-  @Deprecated
   public void doPause() {
     paused=!paused;
   }
@@ -88,7 +93,7 @@ public class Duel extends UtilScreen2D{
   public void touchMoved(TouchInfo info) {
     if(isAndroid) {
       if(info.osx<width/2f) {
-        println(info.dx,info.dy);
+        // println(info.dx,info.dy);
         currentInput.targetTouchMoved(info.dx,info.dy);
       }
     }

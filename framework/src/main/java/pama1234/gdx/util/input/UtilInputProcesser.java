@@ -77,8 +77,10 @@ public class UtilInputProcesser implements EssentialListener,InputProcessor{
     // if(flag=Tools.inBox(screenX,screenY,p.u/4,p.u/4,p.u,p.u)) coverButton=!coverButton;
     // if(coverButton) button=Buttons.RIGHT;
     // if(gadgets[0].state==1) button=Buttons.RIGHT;
-    if(!flag) info.begin(screenX,screenY,pointer,button);
-    // else info.put(screenX,screenY,pointer,button);
+    if(!flag) {
+      info.begin(screenX,screenY,pointer,button);
+      // info.flip();
+    }// else info.put(screenX,screenY,pointer,button);
     if(pointer==0) {
       MouseInfo mouse=p.mouse;
       mouse.pressed=true;
@@ -96,12 +98,8 @@ public class UtilInputProcesser implements EssentialListener,InputProcessor{
         default:
           throw new RuntimeException("??? "+button);
       }
-      // mouse.ox=screenX;
-      // mouse.oy=screenY;
       mouse.putRaw(screenX,screenY);
       mouse.flip();
-      // target.mouse.px=target.mouse.x;
-      // target.mouse.py=target.mouse.y;
       if(!flag) {
         p.center.mousePressed(mouse);
         p.mousePressed(mouse);
@@ -118,6 +116,7 @@ public class UtilInputProcesser implements EssentialListener,InputProcessor{
   public boolean touchUp(int screenX,int screenY,int pointer,int button) {
     TouchInfo info=p.touches[pointer];
     info.putRaw(screenX,screenY);
+    // info.flip();
     p.center.touchEnded(info);
     p.touchEnded(info);
     info.end();

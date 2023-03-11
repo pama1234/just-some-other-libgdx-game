@@ -34,21 +34,11 @@ public class MouseInfo extends ScreenCamInfo{
     py=y;
     putRaw(ox,oy);
   }
-  public void putRaw(int x,int y) {
-    Vector3 tv=p.unproject(ox=x,oy=y);
-    put(tv.x,tv.y);
+  public void putRaw(int xIn,int yIn) {
+    Vector3 tv=p.unproject(ox=xIn,oy=yIn);
+    set(tv.x,tv.y);
     dx=x-px;
     dy=y-py;
-  }
-  public void put(float a,float b) {
-    x=a;
-    y=b;
-  }
-  public void flip() {
-    sx=x;
-    sy=y;
-    osx=ox;
-    osy=oy;
   }
   public boolean inbox(float a,float b,float w,float h) {
     return Tools.inBox(x,y,a,b,w,h);

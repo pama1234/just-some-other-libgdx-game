@@ -31,4 +31,14 @@ public class ScreenCamInfo{
    */
   public int ox,oy;
   public int osx,osy;
+  public void set(float a,float b) {
+    x=a;
+    y=b;
+  }
+  public void flip() {
+    sx=x;
+    sy=y;
+    osx=ox;
+    osy=oy;
+  }
 }
