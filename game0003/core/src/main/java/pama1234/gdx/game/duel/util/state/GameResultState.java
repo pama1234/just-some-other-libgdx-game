@@ -26,6 +26,7 @@ public final class GameResultState extends GameSystemState{
   @Override
   public void displayMessage(GameSystem system) {
     if(system.demoPlay) return;
+    duel.doFill();
     duel.fill(0);
     duel.drawText(resultMessage,0.0f,0.0f);
     if(properFrameCount>durationFrameCount) {

@@ -98,7 +98,7 @@ public final class Particle extends Body implements Poolable<Particle>{
         duel.pushMatrix();
         duel.translate(xPosition,yPosition);
         duel.rotate(rotationAngle);
-        duel.rect(0.0f,0.0f,displaySize,displaySize);
+        duel.rect(-displaySize/2f,-displaySize/2f,displaySize,displaySize);
         duel.popMatrix();
         break;
       case line:

@@ -51,13 +51,13 @@ public final class GameSystem{
     PlayerEngine myEngine;
     if(demo) myEngine=new ComputerPlayerEngine(duel);
     else myEngine=new HumanPlayerEngine(duel.currentKeyInput);
-    PlayerActor myPlayer=new PlayerActor(duel,myEngine,Tools.color(255));
+    PlayerActor myPlayer=new PlayerActor(duel,myEngine,Duel.color(255));
     myPlayer.xPosition=Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f;
     myPlayer.yPosition=Duel.INTERNAL_CANVAS_SIDE_LENGTH-100.0f;
     myPlayer.state=moveState;
     myGroup.setPlayer(myPlayer);
     PlayerEngine otherEngine=new ComputerPlayerEngine(duel);
-    PlayerActor otherPlayer=new PlayerActor(duel,otherEngine,Tools.color(0));
+    PlayerActor otherPlayer=new PlayerActor(duel,otherEngine,Duel.color(0));
     otherPlayer.xPosition=Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f;
     otherPlayer.yPosition=100.0f;
     otherPlayer.state=moveState;

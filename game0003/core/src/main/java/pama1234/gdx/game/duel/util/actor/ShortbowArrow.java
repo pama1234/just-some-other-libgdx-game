@@ -27,11 +27,11 @@ public class ShortbowArrow extends AbstractArrowActor{
   }
   @Override
   public void act() {
-    if((this.duel.random(1.0f)>=0.5f)) return;
-    final float particleDirectionAngle=this.directionAngle+UtilMath.PI+this.duel.random(-UtilMath.QUARTER_PI,UtilMath.QUARTER_PI);
+    if((duel.random(1.0f)>=0.5f)) return;
+    final float particleDirectionAngle=this.directionAngle+UtilMath.PI+duel.random(-UtilMath.QUARTER_PI,UtilMath.QUARTER_PI);
     for(int i=0;i<3;i++) {
-      final float particleSpeed=this.duel.random(0.5f,2.0f);
-      final Particle newParticle=this.duel.system.commonParticleSet.builder
+      final float particleSpeed=duel.random(0.5f,2.0f);
+      final Particle newParticle=duel.system.commonParticleSet.builder
         .type(Particle.square)
         .position(this.xPosition,this.yPosition)
         .polarVelocity(particleDirectionAngle,particleSpeed)
@@ -39,29 +39,30 @@ public class ShortbowArrow extends AbstractArrowActor{
         .particleColor(Tools.color(192))
         .lifespanSecond(0.5f)
         .build();
-      this.duel.system.commonParticleSet.particleList.add(newParticle);
+      duel.system.commonParticleSet.particleList.add(newParticle);
     }
   }
   @Override
   public void display() {
-    this.duel.stroke(0);
-    this.duel.fill(0);
-    this.duel.pushMatrix();
-    this.duel.translate(xPosition,yPosition);
-    this.duel.rotate(rotationAngle);
-    this.duel.line(-halfLength,0.0f,halfLength,0.0f);
-    this.duel.quad(
+    duel.stroke(0);
+    duel.doFill();
+    duel.fill(0);
+    duel.pushMatrix();
+    duel.translate(xPosition,yPosition);
+    duel.rotate(rotationAngle);
+    duel.line(-halfLength,0.0f,halfLength,0.0f);
+    duel.quad(
       halfLength,0.0f,
       halfLength-halfHeadLength,-halfHeadWidth,
       halfLength+halfHeadLength,0.0f,
       halfLength-halfHeadLength,+halfHeadWidth);
-    this.duel.line(-halfLength,0.0f,-halfLength-featherLength,-halfFeatherWidth);
-    this.duel.line(-halfLength,0.0f,-halfLength-featherLength,+halfFeatherWidth);
-    this.duel.line(-halfLength+4.0f,0.0f,-halfLength-featherLength+4.0f,-halfFeatherWidth);
-    this.duel.line(-halfLength+4.0f,0.0f,-halfLength-featherLength+4.0f,+halfFeatherWidth);
-    this.duel.line(-halfLength+8.0f,0.0f,-halfLength-featherLength+8.0f,-halfFeatherWidth);
-    this.duel.line(-halfLength+8.0f,0.0f,-halfLength-featherLength+8.0f,+halfFeatherWidth);
-    this.duel.popMatrix();
+    duel.line(-halfLength,0.0f,-halfLength-featherLength,-halfFeatherWidth);
+    duel.line(-halfLength,0.0f,-halfLength-featherLength,+halfFeatherWidth);
+    duel.line(-halfLength+4.0f,0.0f,-halfLength-featherLength+4.0f,-halfFeatherWidth);
+    duel.line(-halfLength+4.0f,0.0f,-halfLength-featherLength+4.0f,+halfFeatherWidth);
+    duel.line(-halfLength+8.0f,0.0f,-halfLength-featherLength+8.0f,-halfFeatherWidth);
+    duel.line(-halfLength+8.0f,0.0f,-halfLength-featherLength+8.0f,+halfFeatherWidth);
+    duel.popMatrix();
   }
   @Override
   public boolean isLethal() {

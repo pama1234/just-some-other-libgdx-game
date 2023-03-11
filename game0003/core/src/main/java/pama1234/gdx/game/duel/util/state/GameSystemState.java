@@ -15,7 +15,7 @@ public abstract class GameSystemState{
   }
   public void display(GameSystem system) {
     displaySystem(system);
-    this.duel.translate(Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f,Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f);
+    duel.translate(Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f,Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f);
     displayMessage(system);
     checkStateTransition(system);
   }

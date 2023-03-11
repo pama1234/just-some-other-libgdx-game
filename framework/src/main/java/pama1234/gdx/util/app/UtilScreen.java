@@ -342,13 +342,15 @@ public abstract class UtilScreen extends UtilScreenCore{
     polygonCache[6]=x4;
     polygonCache[7]=y4;
   }
+  @Deprecated
   public void quad(float x1,float y1,float x2,float y2,float x3,float y3,float x4,float y4) {
-    if(fill|stroke) setPolygonCache(x1,y1,x2,y2,x3,y3,x4,y4);
-    if(fill) {
-      rFill.polygon(polygonCache);
-      rFill.flush();
-    }
+    // if(fill|stroke) setPolygonCache(x1,y1,x2,y2,x3,y3,x4,y4);
+    // if(fill) {
+    //   rFill.polygon(polygonCache);
+    //   rFill.flush();
+    // }
     if(stroke) {
+      setPolygonCache(x1,y1,x2,y2,x3,y3,x4,y4);
       rStroke.polygon(polygonCache);
       rStroke.flush();
     }

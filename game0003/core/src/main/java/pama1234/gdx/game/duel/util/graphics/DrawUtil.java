@@ -7,6 +7,7 @@ public class DrawUtil{
     duel.pushStyle();
     duel.stroke(0);
     duel.strokeWeight(2);
+    duel.doFill();
     duel.fill(255,240);
     int fu=Duel.INTERNAL_CANVAS_SIDE_LENGTH;
     duel.rect(fu*0.15f,fu*0.2f,

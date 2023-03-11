@@ -1,5 +1,7 @@
 package pama1234.gdx.game.duel.util.actor;
 
+import com.badlogic.gdx.graphics.Color;
+
 import pama1234.gdx.game.duel.Duel;
 import pama1234.gdx.game.duel.util.ai.PlayerEngine;
 import pama1234.math.UtilMath;
@@ -8,14 +10,14 @@ public final class PlayerActor extends AbstractPlayerActor{
   private final Duel duel;
   public final float bodySize=32.0f;
   public final float halfBodySize=bodySize*0.5f;
-  public final int fillColor;
+  public final Color fillColor;
   public float aimAngle;
   public int chargedFrameCount;
   public int damageRemainingFrameCount;
-  public PlayerActor(Duel duel,PlayerEngine _engine,int col) {
+  public PlayerActor(Duel duel,PlayerEngine _engine,Color color) {
     super(16.0f,_engine);
     this.duel=duel;
-    fillColor=col;
+    fillColor=color;
   }
   public void addVelocity(float xAcceleration,float yAcceleration) {
     xVelocity=UtilMath.constrain(xVelocity+xAcceleration,-10.0f,10.0f);
@@ -51,15 +53,16 @@ public final class PlayerActor extends AbstractPlayerActor{
   }
   @Override
   public void display() {
-    this.duel.stroke(0);
-    this.duel.fill(fillColor);
-    this.duel.pushMatrix();
-    this.duel.translate(xPosition,yPosition);
-    this.duel.pushMatrix();
-    this.duel.rotate(rotationAngle);
-    this.duel.rect(-16,-16,32,32);
-    this.duel.popMatrix();
+    duel.stroke(0);
+    duel.doFill();
+    duel.fill(fillColor);
+    duel.pushMatrix();
+    duel.translate(xPosition,yPosition);
+    duel.pushMatrix();
+    duel.rotate(rotationAngle);
+    duel.rect(-16,-16,32,32);
+    duel.popMatrix();
     state.displayEffect(this);
-    this.duel.popMatrix();
+    duel.popMatrix();
   }
 }
