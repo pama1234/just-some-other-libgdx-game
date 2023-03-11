@@ -369,6 +369,13 @@ public abstract class UtilScreen extends UtilScreenCore{
     //TODO
   }
   @Deprecated
+  public void arc(float x,float y,float radius,float start,float degrees) {
+    if(stroke) {
+      rStroke.arc(x,y,radius,start,degrees);
+      rStroke.flush();
+    }
+  }
+  @Deprecated
   public void dot(float x,float y,int color) {}
   public void line(float x1,float y1,float x2,float y2) {
     if(stroke) {

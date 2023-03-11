@@ -26,16 +26,12 @@ public final class GameResultState extends GameSystemState{
   @Override
   public void displayMessage(GameSystem system) {
     if(system.demoPlay) return;
-    // duel.doFill();
-    // duel.fill(0);
     duel.setTextColor(0);
-    duel.drawText(resultMessage,0.0f,0.0f);
+    duel.drawText(resultMessage,-20,-8);
     if(properFrameCount>durationFrameCount) {
-      duel.pushStyle();
-      // duel.textFont(duel.smallFont,duel.smallFontSize);
-      duel.textSize(duel.smallFontSize);
-      duel.drawText("Press X key to reset.",0.0f,80.0f);
-      duel.popStyle();
+      // duel.pushStyle();
+      duel.drawText("Press X key to reset.",-40,80);
+      // duel.popStyle();
     }
   }
   @Override

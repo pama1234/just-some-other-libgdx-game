@@ -33,8 +33,10 @@ public final class StartGameState extends GameSystemState{
     // duel.doFill();
     // duel.fill(ringColor);
     duel.setTextColor(ringColor);
-    duel.drawText(Integer.toString(displayNumber),0.0f,0.0f);
-    duel.rotate(-UtilMath.HALF_PI);
+    duel.font.getData().setScale(4);
+    duel.drawText(Integer.toString(displayNumber),-32,-32);
+    duel.font.getData().setScale(1);
+    duel.rotate(UtilMath.HALF_PI);
     duel.strokeWeight(3.0f);
     duel.stroke(ringColor);
     duel.noFill();

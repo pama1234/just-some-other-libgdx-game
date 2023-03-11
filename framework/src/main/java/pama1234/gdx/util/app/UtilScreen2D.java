@@ -120,13 +120,11 @@ public abstract class UtilScreen2D extends UtilScreen{
   public void clearStyle() {
     //TODO
   }
-  @Deprecated
   public void translate(float dx,float dy) {
     Matrix4 matrix=matrix();
     matrix.translate(dx,dy,0);
     setMatrix(matrix);
   }
-  @Deprecated
   public void rotate(float rad) {
     Matrix4 matrix=matrix();
     matrix.rotate(0,0,1,UtilMath.deg(rad));

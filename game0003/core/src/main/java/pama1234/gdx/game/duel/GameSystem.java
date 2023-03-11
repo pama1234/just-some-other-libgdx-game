@@ -65,7 +65,7 @@ public final class GameSystem{
     // other
     commonParticleSet=new ParticleSet(duel,2048);
     currentState=new StartGameState(duel);
-    currentBackground=new GameBackground(duel,Tools.color(224),0.1f);
+    currentBackground=new GameBackground(duel,Duel.color(224),0.1f);
     demoPlay=demo;
     showsInstructionWindow=instruction;
   }
@@ -88,8 +88,8 @@ public final class GameSystem{
   }
   public void display() {
     duel.pushMatrix();
-    if(screenShakeValue>0.0f) {
-      duel.translate(duel.random(-screenShakeValue,screenShakeValue),duel.random(-screenShakeValue,screenShakeValue));
+    if(screenShakeValue>0) {
+      duel.translate(duel.random(screenShakeValue,screenShakeValue),duel.random(-screenShakeValue,screenShakeValue));
       screenShakeValue-=50.0f/Duel.IDEAL_FRAME_RATE;
     }
     currentBackground.display();

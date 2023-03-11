@@ -109,11 +109,11 @@ public final class Particle extends Body implements Poolable<Particle>{
         duel.strokeWeight(1.0f);
         break;
       case ring:
-        final float ringSizeExpandRatio=2.0f*(UtilMath.pow(getProgressRatio()-1.0f,5.0f)+1.0f);
+        final float ringSizeExpandRatio=2*(UtilMath.pow(getProgressRatio()-1,5)+1);
         duel.noFill();
         duel.stroke(displayColor,f(255*getFadeRatio()));
         duel.strokeWeight(strokeWeightValue*getFadeRatio());
-        duel.circle(xPosition,yPosition,displaySize*(1.0f+ringSizeExpandRatio));
+        duel.circle(xPosition,yPosition,displaySize*(1+ringSizeExpandRatio));
         duel.strokeWeight(1.0f);
         break;
       default:

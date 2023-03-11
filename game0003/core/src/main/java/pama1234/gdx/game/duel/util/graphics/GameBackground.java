@@ -2,14 +2,16 @@ package pama1234.gdx.game.duel.util.graphics;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.graphics.Color;
+
 import pama1234.gdx.game.duel.Duel;
 
 public final class GameBackground{
   public final Duel duel;
   public final ArrayList<BackgroundLine> lineList=new ArrayList<BackgroundLine>();
   public final float maxAccelerationMagnitude;
-  public final int lineColor;
-  public GameBackground(Duel duel,int col,float maxAcc) {
+  public final Color lineColor;
+  public GameBackground(Duel duel,Color col,float maxAcc) {
     this.duel=duel;
     lineColor=col;
     maxAccelerationMagnitude=maxAcc;
@@ -27,8 +29,6 @@ public final class GameBackground{
   }
   public void display() {
     this.duel.stroke(lineColor);
-    for(BackgroundLine eachLine:lineList) {
-      eachLine.display();
-    }
+    for(BackgroundLine eachLine:lineList) eachLine.display();
   }
 }
