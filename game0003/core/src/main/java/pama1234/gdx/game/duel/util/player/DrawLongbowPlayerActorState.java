@@ -11,9 +11,9 @@ import pama1234.math.UtilMath;
 
 public final class DrawLongbowPlayerActorState extends DrawBowPlayerActorState{
   private final Duel duel;
-  public final float unitAngleSpeed=0.1f*UtilMath.TWO_PI/Duel.IDEAL_FRAME_RATE;
+  public final float unitAngleSpeed=0.1f*UtilMath.PI2/Duel.IDEAL_FRAME_RATE;
   public final int chargeRequiredFrameCount=UtilMath.floor(0.5f*Duel.IDEAL_FRAME_RATE);
-  public final int effectColor=Tools.color(192.0f,64.0f,64.0f);
+  public final int effectColor=Tools.color(192,64,64);
   public final float ringSize=80.0f;
   public final float ringStrokeWeight=5.0f;
   public DrawLongbowPlayerActorState(Duel duel) {
@@ -68,7 +68,7 @@ public final class DrawLongbowPlayerActorState extends DrawBowPlayerActorState{
     if(hasCompletedLongBowCharge(parentActor)) duel.stroke(effectColor);
     else duel.stroke(0,128);
     duel.line(0.0f,0.0f,800.0f*UtilMath.cos(parentActor.aimAngle),800.0f*UtilMath.sin(parentActor.aimAngle));
-    duel.rotate(-UtilMath.HALF_PI);
+    duel.rotate(UtilMath.HALF_PI);
     duel.strokeWeight(ringStrokeWeight);
     duel.arc(0.0f,0.0f,ringSize,ringSize,0.0f,UtilMath.TWO_PI*UtilMath.min(1.0f,UtilMath.floor(parentActor.chargedFrameCount)/chargeRequiredFrameCount));
     duel.strokeWeight(1.0f);

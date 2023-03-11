@@ -57,7 +57,7 @@ public final class PlayerActor extends AbstractPlayerActor{
     this.duel.translate(xPosition,yPosition);
     this.duel.pushMatrix();
     this.duel.rotate(rotationAngle);
-    this.duel.rect(0.0f,0.0f,32.0f,32.0f);
+    this.duel.rect(-16,-16,32,32);
     this.duel.popMatrix();
     state.displayEffect(this);
     this.duel.popMatrix();

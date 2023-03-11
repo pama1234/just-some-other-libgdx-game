@@ -37,7 +37,7 @@ public final class PlayGameState extends GameSystemState{
   public void displayMessage(GameSystem system) {
     if(properFrameCount>=messageDurationFrameCount) return;
     this.duel.fill(0,(int)(255*(1-(float)(properFrameCount)/messageDurationFrameCount)));
-    this.duel.text("Go",0.0f,0.0f);
+    this.duel.drawText("Go",0.0f,0.0f);
   }
   @Override
   public void checkStateTransition(GameSystem system) {

@@ -11,10 +11,12 @@ import com.badlogic.gdx.utils.IntArray;
 
 import dev.lyze.gdxtinyvg.drawers.TinyVGShapeDrawer;
 import pama1234.gdx.util.element.CameraController2D;
+import pama1234.gdx.util.element.Style;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.gdx.util.input.UtilInputProcesser;
 import pama1234.gdx.util.wrapper.EntityCenter;
+import pama1234.math.UtilMath;
 import pama1234.util.function.ExecuteF;
 import pama1234.util.wrapper.ServerEntityCenter;
 
@@ -24,6 +26,9 @@ import pama1234.util.wrapper.ServerEntityCenter;
 public abstract class UtilScreen2D extends UtilScreen{
   public Matrix4[] matrixStack=new Matrix4[10];
   public int matrixStackPointer=-1;
+  //---
+  public Style[] styleStack=new Style[10];
+  public int styleStackPointer=-1;
   public CameraController2D cam2d;//TODO do we need this?
   @Override
   public void show() {
@@ -122,9 +127,9 @@ public abstract class UtilScreen2D extends UtilScreen{
     setMatrix(matrix);
   }
   @Deprecated
-  public void rotate(float deg) {
+  public void rotate(float rad) {
     Matrix4 matrix=matrix();
-    matrix.rotate(0,0,1,deg);
+    matrix.rotate(0,0,1,UtilMath.deg(rad));
     setMatrix(matrix);
   }
 }

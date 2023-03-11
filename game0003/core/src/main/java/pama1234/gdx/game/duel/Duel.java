@@ -56,9 +56,12 @@ public class Duel extends UtilScreen2D{
     cam2d.activeDrag=false;
   }
   @Override
-  public void display() {
-    background(255);
+  public void display() {}
+  @Override
+  public void displayWithCam() {
+    textColor(0);
     system.display();
+    clearMatrix();
   }
   @Override
   public void update() {
@@ -85,8 +88,6 @@ public class Duel extends UtilScreen2D{
   public void keyReleased(char key,int keyCode) {
     currentKeyInput.keyReleased(this,key,keyCode);
   }
-  @Override
-  public void displayWithCam() {}
   @Override
   public void frameResized() {}
 }
