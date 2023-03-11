@@ -64,6 +64,15 @@ public class Duel extends ScreenCore2D{
     doStroke();
     system.display();
     clearMatrix();
+    if(isAndroid) {
+      if(moveCtrl!=null) {
+        // doStroke();
+        cross(moveCtrl.sx,moveCtrl.sy,32,32);
+        line(moveCtrl.x,moveCtrl.y,moveCtrl.sx,moveCtrl.sy);
+        cross(moveCtrl.x,moveCtrl.y,16,16);
+        // noStroke();
+      }
+    }
     noStroke();
     doFill();
   }
