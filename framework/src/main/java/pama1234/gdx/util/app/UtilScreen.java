@@ -156,6 +156,11 @@ public abstract class UtilScreen extends UtilScreenCore{
     font.draw(fontBatch,in==null?"null":in,x,y);
     fontBatch.end();
   }
+  public void drawTextCenter(String in,float x,float y) {
+    fontBatch.begin();
+    font.draw(fontBatch,in==null?"null":in,x,y);
+    fontBatch.end();
+  }
   public float textWidth(String in) {
     return font.textWidth(in);
   }

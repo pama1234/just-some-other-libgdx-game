@@ -9,6 +9,7 @@ import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.util.app.ScreenCore2D;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
+import pama1234.math.UtilMath;
 
 /**
  * Title: Duel
@@ -43,6 +44,9 @@ public class Duel extends ScreenCore2D{
   public TouchInfo moveCtrl;
   //---
   public DemoInfo demoInfo;
+  public float maxDist;
+  public float magCache;
+  public float dxCache,dyCache;
   @Override
   public void setup() {
     if(isAndroid) {
@@ -63,7 +67,7 @@ public class Duel extends ScreenCore2D{
   }
   @Override
   public void display() {
-    if(system.demoPlay&&system.showsInstructionWindow) DemoInfo.displayDemo(this);
+    system.displayScreen();
   }
   @Override
   public void displayWithCam() {
@@ -76,6 +80,8 @@ public class Duel extends ScreenCore2D{
         cross(moveCtrl.sx,moveCtrl.sy,32,32);
         line(moveCtrl.x,moveCtrl.y,moveCtrl.sx,moveCtrl.sy);
         cross(moveCtrl.x,moveCtrl.y,16,16);
+        float deg=UtilMath.deg(UtilMath.atan2(dxCache,dyCache));
+        arc(moveCtrl.sx,moveCtrl.sy,magCache,-deg-45,90);
         // noStroke();
       }
     }
@@ -86,7 +92,11 @@ public class Duel extends ScreenCore2D{
   public void update() {
     if(!paused) {
       if(isAndroid) {
-        if(moveCtrl!=null) currentInput.targetTouchMoved(moveCtrl.x-moveCtrl.sx,moveCtrl.y-moveCtrl.sy);
+        if(moveCtrl!=null) {
+          dxCache=moveCtrl.x-moveCtrl.sx;
+          dyCache=moveCtrl.y-moveCtrl.sy;
+          currentInput.targetTouchMoved(dxCache,dyCache,magCache=UtilMath.min(UtilMath.mag(dxCache,dyCache),maxDist));
+        }
       }
       system.update();
     }
@@ -110,7 +120,9 @@ public class Duel extends ScreenCore2D{
     currentInput.keyReleased(this,key,keyCode);
   }
   @Override
-  public void frameResized() {}
+  public void frameResized() {
+    maxDist=u;
+  }
   @Override
   public void touchStarted(TouchInfo info) {
     if(isAndroid) {
@@ -123,6 +135,9 @@ public class Duel extends ScreenCore2D{
   public void touchMoved(TouchInfo info) {}
   @Override
   public void touchEnded(TouchInfo info) {
-    if(moveCtrl==info) moveCtrl=null;
+    if(moveCtrl==info) {
+      moveCtrl=null;
+      magCache=0;
+    }
   }
 }

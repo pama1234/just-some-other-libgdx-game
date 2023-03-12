@@ -10,17 +10,22 @@ public abstract class GameSystemState{
   }
   public int properFrameCount;
   public void update(GameSystem system) {
+    checkStateTransition(system);
     properFrameCount++;
     updateSystem(system);
   }
   public void display(GameSystem system) {
     displaySystem(system);
     duel.translate(Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f,Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f);
+    drawCam();
+  }
+  public void displayScreen(GameSystem system) {
     displayMessage(system);
-    checkStateTransition(system);
   }
   public abstract void updateSystem(GameSystem system);
   public abstract void displaySystem(GameSystem system);
   public abstract void displayMessage(GameSystem system);
   public abstract void checkStateTransition(GameSystem system);
+  //---
+  public void drawCam() {}
 }

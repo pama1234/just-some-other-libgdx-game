@@ -38,17 +38,18 @@ public final class PlayGameState extends GameSystemState{
     if(properFrameCount>=messageDurationFrameCount) return;
     // duel.doFill();
     duel.setTextColor(0,(int)(255*(1-(float)(properFrameCount)/messageDurationFrameCount)));
-    duel.setTextScale(4);
-    duel.drawText("Go",-32,-32);
+    duel.setTextScale(duel.pus);
+    // duel.drawText("Go",-32,-32);
+    String in="Go";
+    duel.drawText(in,(duel.width-duel.textWidth(in))/2f,(duel.height-duel.textScale()*20)/2f);
     duel.setTextScale(1);
   }
   @Override
   public void checkStateTransition(GameSystem system) {
-    if(system.myGroup.player.isNull()) {
-      system.currentState=new GameResultState(this.duel,"You lose.");
-    }else if(system.otherGroup.player.isNull()) {
-      system.currentState=new GameResultState(this.duel,"You win.");
-    }
+    // if(system.myGroup.player.isNull()) system.currentState=new GameResultState(this.duel,"You lose.");
+    // else if(system.otherGroup.player.isNull()) system.currentState=new GameResultState(this.duel,"You win.");
+    if(system.myGroup.player.isNull()) system.currentState=new GameResultState(this.duel,"你输了");
+    else if(system.otherGroup.player.isNull()) system.currentState=new GameResultState(this.duel,"你赢了");
   }
   public void checkCollision() {
     final ActorGroup myGroup=duel.system.myGroup;

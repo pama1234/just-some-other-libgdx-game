@@ -34,11 +34,22 @@ public final class StartGameState extends GameSystemState{
     // duel.doFill();
     // duel.fill(ringColor);
     duel.setTextColor(ringColor);
-    duel.setTextScale(4);
-    duel.drawText(Integer.toString(displayNumber),-16,-32);
+    duel.setTextScale(duel.pus);
+    String in=Integer.toString(displayNumber);
+    // duel.drawText(in,-16,-32);
+    duel.drawText(in,(duel.width-duel.textWidth(in))/2f,(duel.height-duel.textScale()*20)/2f);
+    // duel.setCamera(duel.cam.camera);
+    // duel.pushMatrix();
     duel.setTextScale(1);
+    drawCam();
+    // duel.popMatrix();
+    // duel.setCamera(duel.screenCam);
+  }
+  @Override
+  public void drawCam() {
     duel.rotate(UtilMath.HALF_PI);
     duel.strokeWeight(3);
+    duel.doStroke();
     duel.stroke(ringColor);
     duel.noFill();
     duel.arc(0,0,ringSize/2f,0,360*(float)(properFrameCount%frameCountPerNumber)/frameCountPerNumber);

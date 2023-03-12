@@ -30,8 +30,11 @@ public final class GameResultState extends GameSystemState{
     if(system.demoPlay) return;
     duel.setTextColor(0);
     duel.textScale(2);
-    duel.drawText(resultMessage,-20,-8);
-    if(properFrameCount>durationFrameCount) duel.drawText("按 X 键重新开始",-40,80);
+    duel.drawText(resultMessage,(duel.width-duel.textWidth(resultMessage))/2f,(duel.height-duel.textScale()*20)/2f);
+    if(properFrameCount>durationFrameCount) {
+      String in="按 X 键重新开始";
+      duel.drawText(in,(duel.width-duel.textWidth(in))/2f,(duel.height+duel.textScale()*20)/2f);
+    }
   }
   @Override
   public void checkStateTransition(GameSystem system) {

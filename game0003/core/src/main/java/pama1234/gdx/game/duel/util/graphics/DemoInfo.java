@@ -11,7 +11,7 @@ public class DemoInfo extends Entity<Duel>{
   public Graphics text;
   public DemoInfo(Duel p) {
     super(p);
-    text=new Graphics(p,576,576);
+    text=new Graphics(p,576,460);
     text.begin();
     // p.background(255,200);
     drawText_ch(p,UtilMath.min(p.width,p.height));
@@ -36,9 +36,9 @@ public class DemoInfo extends Entity<Duel>{
     p.popMatrix();
     // duel.translate(-(duel.width-fu)/2f,-(duel.height-fu)/2f);
     // p.scale(UtilMath.max(1,p.pus));
-    int tf=UtilMath.max(1,(int)(fu/576f));
-    // System.out.println(tf);
     Texture img=p.demoInfo.text.texture;
+    int tf=UtilMath.max(1,(int)(fu/img.getHeight()));
+    // System.out.println(tf);
     int tw=img.getWidth()*tf;
     int th=img.getHeight()*tf;
     p.image(img,(p.width-tw)/2f,(p.height-th)/2f,tw,th);
@@ -58,20 +58,20 @@ public class DemoInfo extends Entity<Duel>{
     duel.drawText("(Click to hide this window)",192,475);
   }
   public static void drawText_ch(Duel duel,int fu) {
-    duel.setTextScale(2);
-    duel.drawText("几何决斗！",200,100);
+    duel.setTextScale(3);
+    duel.drawText("几何决斗！",180,0);
     duel.setTextScale(1);
-    duel.drawText("      Z 按键:",180,180);
-    duel.drawText("      X 按键:",180,250);
-    duel.drawText("左手触摸屏幕:",180,345);
-    duel.drawText("普通攻击\n (自动瞄准)",300,180);
-    duel.drawText("致命大招\n (手动瞄准,\n  需要蓄力)",300,250);
-    duel.drawText("移动\n (或使用大招时进行瞄准)",300,345);
-    duel.drawText("- 按 Z 键开始游戏 -",192,430);
-    duel.drawText("(轻触显示或隐藏此界面)",192,460);
+    duel.drawText("      Z 按键:",180,80);
+    duel.drawText("      X 按键:",180,150);
+    duel.drawText("左手触摸屏幕:",180,245);
+    duel.drawText("普通攻击\n (自动瞄准)",300,80);
+    duel.drawText("致命大招\n (手动瞄准,\n  需要蓄力)",300,150);
+    duel.drawText("移动\n (或使用大招时进行瞄准)",300,245);
+    duel.drawText("- 按 Z 键开始游戏 -",192,330);
+    duel.drawText("(轻触显示或隐藏此界面)",192,360);
     duel.setTextColor(92);
-    duel.drawText("由FAL制作！( https://www.fal-works.com/ )",20,500);
-    duel.drawText("由Pama1234移植到安卓版！( https://space.bilibili.com/646050693 )",20,520);
-    duel.drawText("原型版本，视觉BUG很多，敬请关注此开源项目！会更新联机版！",20,540);
+    duel.drawText("由FAL制作！( https://www.fal-works.com/ )",20,400);
+    duel.drawText("由Pama1234移植到安卓版！( https://space.bilibili.com/646050693 )",20,420);
+    duel.drawText("原型版本，视觉BUG很多，敬请关注此开源项目！会更新联机版！",20,440);
   }
 }
