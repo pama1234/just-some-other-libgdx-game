@@ -29,13 +29,9 @@ public final class GameResultState extends GameSystemState{
   public void displayMessage(GameSystem system) {
     if(system.demoPlay) return;
     duel.setTextColor(0);
+    duel.textScale(2);
     duel.drawText(resultMessage,-20,-8);
-    if(properFrameCount>durationFrameCount) {
-      // duel.pushStyle();
-      // duel.drawText("Press X key to reset.",-40,80);
-      duel.drawText("按 X 键重新开始",-40,80);
-      // duel.popStyle();
-    }
+    if(properFrameCount>durationFrameCount) duel.drawText("按 X 键重新开始",-40,80);
   }
   @Override
   public void checkStateTransition(GameSystem system) {

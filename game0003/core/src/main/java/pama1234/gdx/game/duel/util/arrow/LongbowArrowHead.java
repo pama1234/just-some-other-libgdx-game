@@ -11,6 +11,7 @@ public final class LongbowArrowHead extends LongbowArrowComponent{
   @Override
   public void display() {
     duel.strokeWeight(5);
+    duel.doStroke();
     duel.stroke(0);
     duel.doFill();
     duel.fill(0);
@@ -19,10 +20,10 @@ public final class LongbowArrowHead extends LongbowArrowComponent{
     duel.rotate(rotationAngle);
     duel.line(-halfLength,0.0f,0.0f,0.0f);
     duel.quad(
-      0.0f,0.0f,
+      0,0,
       -halfHeadLength,-halfHeadWidth,
-      +halfHeadLength,0.0f,
-      -halfHeadLength,+halfHeadWidth);
+      halfHeadLength,0,
+      -halfHeadLength,halfHeadWidth);
     duel.popMatrix();
     duel.strokeWeight(1);
   }

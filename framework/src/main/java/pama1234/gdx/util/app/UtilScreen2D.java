@@ -97,7 +97,9 @@ public abstract class UtilScreen2D extends UtilScreen{
     popMatrix();
   }
   public void pushMatrix() {
-    matrixStack[matrixStackPointer+1]=(matrixStackPointer<0?usedCamera.combined:matrixStack[matrixStackPointer]).cpy();
+    Matrix4 tmat=matrixStack[matrixStackPointer+1];
+    Matrix4 matIn=matrixStackPointer<0?usedCamera.combined:matrixStack[matrixStackPointer];
+    matrixStack[matrixStackPointer+1]=tmat==null?matIn.cpy():tmat.set(matIn);
     matrixStackPointer++;
     setMatrix(matrix());
   }
@@ -125,6 +127,11 @@ public abstract class UtilScreen2D extends UtilScreen{
   public void rotate(float rad) {
     Matrix4 matrix=matrix();
     matrix.rotate(0,0,1,UtilMath.deg(rad));
+    setMatrix(matrix);
+  }
+  public void scale(float in) {
+    Matrix4 matrix=matrix();
+    matrix.scale(in,in,in);
     setMatrix(matrix);
   }
 }

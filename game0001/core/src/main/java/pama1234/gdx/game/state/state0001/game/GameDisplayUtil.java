@@ -36,9 +36,9 @@ public class GameDisplayUtil{
     // Settings.drawLogText(p,p.logText,debugTextX,debugTextY);
     if(p.settings.showLog) {
       p.font.setColor(p.textColor);
-      p.font.getData().setScale(p.font.scale);
+      p.setTextScale(p.font.scale);
       p.drawText(p.logText,debugTextX,debugTextY+debugTextH*debugTextCountY);
-      p.font.getData().setScale(1);
+      p.setTextScale(1);
     }
     p.textScale(p.pus);
   }

@@ -98,7 +98,6 @@ public final class GameSystem{
     currentBackground.display();
     currentState.display(this);
     duel.popMatrix();
-    if(demoPlay&&showsInstructionWindow) DrawUtil.displayDemo(duel);
   }
   public void addSquareParticles(float x,float y,int particleCount,float particleSize,float minSpeed,float maxSpeed,float lifespanSecondValue) {
     final ParticleBuilder builder=duel.system.commonParticleSet.builder

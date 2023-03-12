@@ -34,9 +34,9 @@ public final class StartGameState extends GameSystemState{
     // duel.doFill();
     // duel.fill(ringColor);
     duel.setTextColor(ringColor);
-    duel.font.getData().setScale(4);
+    duel.setTextScale(4);
     duel.drawText(Integer.toString(displayNumber),-16,-32);
-    duel.font.getData().setScale(1);
+    duel.setTextScale(1);
     duel.rotate(UtilMath.HALF_PI);
     duel.strokeWeight(3);
     duel.stroke(ringColor);
@@ -50,7 +50,7 @@ public final class StartGameState extends GameSystemState{
       final Particle newParticle=system.commonParticleSet.builder
         .type(Particle.ring)
         .position(Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f,Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f)
-        .polarVelocity(0.0f,0.0f)
+        .polarVelocity(0,0)
         .particleSize(ringSize)
         .particleColor(ringColor)
         .weight(ringStrokeWeight)

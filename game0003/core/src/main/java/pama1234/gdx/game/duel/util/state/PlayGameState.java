@@ -38,9 +38,9 @@ public final class PlayGameState extends GameSystemState{
     if(properFrameCount>=messageDurationFrameCount) return;
     // duel.doFill();
     duel.setTextColor(0,(int)(255*(1-(float)(properFrameCount)/messageDurationFrameCount)));
-    duel.font.getData().setScale(4);
+    duel.setTextScale(4);
     duel.drawText("Go",-32,-32);
-    duel.font.getData().setScale(1);
+    duel.setTextScale(1);
   }
   @Override
   public void checkStateTransition(GameSystem system) {

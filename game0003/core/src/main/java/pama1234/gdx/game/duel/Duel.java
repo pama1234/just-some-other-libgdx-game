@@ -2,6 +2,7 @@ package pama1234.gdx.game.duel;
 
 import com.badlogic.gdx.Input.Buttons;
 
+import pama1234.gdx.game.duel.util.graphics.DrawUtil;
 import pama1234.gdx.game.duel.util.input.InputData;
 import pama1234.gdx.game.duel.util.input.UiGenerator;
 import pama1234.gdx.game.ui.util.TextButton;
@@ -58,7 +59,9 @@ public class Duel extends ScreenCore2D{
     cam2d.activeScrollZoom=cam2d.activeTouchZoom=false;
   }
   @Override
-  public void display() {}
+  public void display() {
+    if(system.demoPlay&&system.showsInstructionWindow) DrawUtil.displayDemo(this);
+  }
   @Override
   public void displayWithCam() {
     doStroke();

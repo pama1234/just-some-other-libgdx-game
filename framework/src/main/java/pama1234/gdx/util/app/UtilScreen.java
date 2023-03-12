@@ -165,6 +165,9 @@ public abstract class UtilScreen extends UtilScreenCore{
   public void textScale(float in) {
     font.textScale(in);
   }
+  public void setTextScale(float in) {
+    font.getData().setScale(in);
+  }
   public float textScale() {
     return font.scale;
   }
@@ -193,17 +196,13 @@ public abstract class UtilScreen extends UtilScreenCore{
     textColor.set(gray/255f,gray/255f,gray/255f,alpha/255f);
     font.color(textColor);
   }
-  @Deprecated
   public void setTextColor(int gray) {
     font.getColor().set(gray/255f,gray/255f,gray/255f,1);
     // setTextColor(gray,255);
   }
-  @Deprecated
   public void setTextColor(Color in) {
     font.getColor().set(in);
-    // setTextColor(gray,255);
   }
-  @Deprecated
   public void setTextColor(int gray,int alpha) {
     font.getColor().set(gray/255f,gray/255f,gray/255f,alpha/255f);
   }
@@ -345,7 +344,6 @@ public abstract class UtilScreen extends UtilScreenCore{
       rStroke.flush();
     }
   }
-  @Deprecated
   public void setPolygonCache(float x1,float y1,float x2,float y2,float x3,float y3,float x4,float y4) {
     polygonCache[0]=x1;
     polygonCache[1]=y1;
@@ -357,7 +355,6 @@ public abstract class UtilScreen extends UtilScreenCore{
     polygonCache[6]=x4;
     polygonCache[7]=y4;
   }
-  @Deprecated
   public void quad(float x1,float y1,float x2,float y2,float x3,float y3,float x4,float y4) {
     // if(fill|stroke) setPolygonCache(x1,y1,x2,y2,x3,y3,x4,y4);
     // if(fill) {
@@ -380,8 +377,11 @@ public abstract class UtilScreen extends UtilScreenCore{
       rStroke.flush();
     }
   }
-  @Deprecated
-  public void dot(float x,float y,int color) {}
+  public void dot(float x,float y,int color) {
+    rFill.getColor().set(color);
+    rFill.rect(x-0.5f,y-0.5f,1,1);
+    rFill.flush();
+  }
   public void line(float x1,float y1,float x2,float y2) {
     if(stroke) {
       rStroke.line(x1,y1,x2,y2);

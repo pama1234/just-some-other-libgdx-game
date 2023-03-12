@@ -1,29 +1,44 @@
 package pama1234.gdx.game.duel.util.graphics;
 
 import pama1234.gdx.game.duel.Duel;
+import pama1234.math.UtilMath;
 
 public class DrawUtil{
   public static void displayDemo(Duel duel) {
-    int fu=Duel.INTERNAL_CANVAS_SIDE_LENGTH;
-    duel.pushStyle();
+    int fu=UtilMath.min(duel.width,duel.height);
+    // duel.pushStyle();
+    duel.beginBlend();
+    duel.doStroke();
     duel.stroke(0);
     duel.strokeWeight(2);
     duel.doFill();
-    duel.beginBlend();
     duel.fill(255,200);
     duel.rect(fu*0.05f,fu*0.15f,
       fu*0.9f,
       fu*0.7f);
     duel.endBlend();
+    duel.pushMatrix();
+    duel.scale(UtilMath.max(1,duel.pus-1));
     duel.setTextColor(0);
-    // duel.drawText("    Z key:",200,180);
-    // duel.drawText("    X key:",200,250);
-    // duel.drawText("Arrow key:",200,345);
-    // duel.drawText("Weak shot\n (auto aiming)",300,180);
-    // duel.drawText("Lethal shot\n (manual aiming,\n  requires charge)",300,250);
-    // duel.drawText("Move\n (or aim lethal shot)",300,345);
-    // duel.drawText("- Press Z key to start -",fu*0.3f,430);
-    // duel.drawText("(Click to hide this window)",fu*0.3f,475);
+    // duel.setTextScale(duel.pus);
+    // drawText_en(duel,fu);
+    drawText_ch(duel,fu);
+    duel.popMatrix();
+    duel.setTextScale(1);
+    // duel.popStyle();
+    duel.strokeWeight(1);
+  }
+  public static void drawText_en(Duel duel,int fu) {
+    duel.drawText("    Z key:",200,180);
+    duel.drawText("    X key:",200,250);
+    duel.drawText("Arrow key:",200,345);
+    duel.drawText("Weak shot\n (auto aiming)",300,180);
+    duel.drawText("Lethal shot\n (manual aiming,\n  requires charge)",300,250);
+    duel.drawText("Move\n (or aim lethal shot)",300,345);
+    duel.drawText("- Press Z key to start -",fu*0.3f,430);
+    duel.drawText("(Click to hide this window)",fu*0.3f,475);
+  }
+  public static void drawText_ch(Duel duel,int fu) {
     duel.drawText("      Z 按键:",180,180);
     duel.drawText("      X 按键:",180,250);
     duel.drawText("左手触摸屏幕:",180,345);
@@ -36,7 +51,5 @@ public class DrawUtil{
     duel.drawText("由FAL制作！( https://www.fal-works.com/ )",70,480);
     duel.drawText("由Pama1234移植到安卓版！( https://space.bilibili.com/646050693 )",70,500);
     duel.drawText("原型版本，视觉BUG很多，敬请关注此开源项目！会更新联机版！",70,520);
-    duel.popStyle();
-    duel.strokeWeight(1);
   }
 }

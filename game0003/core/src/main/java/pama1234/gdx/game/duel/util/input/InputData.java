@@ -9,6 +9,7 @@ import pama1234.gdx.game.duel.Duel;
 import pama1234.math.UtilMath;
 
 public final class InputData{
+  public float maxDist;
   public float dx,dy;
   public boolean isUpPressed=false;
   public boolean isDownPressed=false;
@@ -17,7 +18,7 @@ public final class InputData{
   public boolean isZPressed=false;
   public boolean isXPressed=false;
   public void targetTouchMoved(float dxIn,float dyIn) {
-    float dist=UtilMath.mag(dxIn,dyIn);
+    float dist=UtilMath.min(UtilMath.mag(dxIn,dyIn),maxDist);
     if(dist<0.01f) {
       dx=0;
       dy=0;

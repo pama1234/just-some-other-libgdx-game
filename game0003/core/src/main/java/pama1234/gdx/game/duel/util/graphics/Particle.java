@@ -53,16 +53,16 @@ public final class Particle extends Body implements Poolable<Particle>{
   }
   @Override
   public void initialize() {
-    xPosition=0.0f;
-    yPosition=0.0f;
-    xVelocity=0.0f;
-    yVelocity=0.0f;
-    directionAngle=0.0f;
-    speed=0.0f;
-    rotationAngle=0.0f;
+    xPosition=0;
+    yPosition=0;
+    xVelocity=0;
+    yVelocity=0;
+    directionAngle=0;
+    speed=0;
+    rotationAngle=0;
     displayColor=Duel.color(0);
-    strokeWeightValue=1.0f;
-    displaySize=10.0f;
+    strokeWeightValue=1;
+    displaySize=10;
     lifespanFrameCount=0;
     properFrameCount=0;
     particleTypeNumber=0;
@@ -76,17 +76,17 @@ public final class Particle extends Body implements Poolable<Particle>{
     if(properFrameCount>lifespanFrameCount) duel.system.commonParticleSet.removingParticleList.add(this);
     switch(particleTypeNumber) {
       case square:
-        rotationAngle+=1.5f*UtilMath.TWO_PI/Duel.IDEAL_FRAME_RATE;
+        rotationAngle+=1.5f*UtilMath.PI2/Duel.IDEAL_FRAME_RATE;
         break;
       default:
         break;
     }
   }
   public float getProgressRatio() {
-    return UtilMath.min(1.0f,UtilMath.floor(properFrameCount)/lifespanFrameCount);
+    return UtilMath.min(1,(float)properFrameCount/lifespanFrameCount);
   }
   public float getFadeRatio() {
-    return 1.0f-getProgressRatio();
+    return 1-getProgressRatio();
   }
   @Override
   public void display() {
@@ -95,38 +95,50 @@ public final class Particle extends Body implements Poolable<Particle>{
       case dot:
         duel.dot(UtilMath.floor(xPosition),UtilMath.floor(yPosition),Tools.color((int)(128+127*getProgressRatio())));
         break;
-      case square:
-        duel.noFill();
-        duel.stroke(displayColor);
-        duel.strokeColor.a=f(255*getFadeRatio());
-        duel.pushMatrix();
-        duel.translate(xPosition,yPosition);
-        duel.rotate(rotationAngle);
-        duel.rect(-displaySize/2f,-displaySize/2f,displaySize,displaySize);
-        duel.popMatrix();
+      case square: {
+        float alpha=f(getFadeRatio());
+        if(alpha>0.01f) {
+          duel.noFill();
+          duel.stroke(displayColor);
+          duel.strokeColor.a=alpha;
+          duel.pushMatrix();
+          duel.translate(xPosition,yPosition);
+          duel.rotate(rotationAngle);
+          duel.rect(-displaySize/2f,-displaySize/2f,displaySize,displaySize);
+          duel.popMatrix();
+        }
+      }
         break;
-      case line:
-        duel.stroke(displayColor);
-        duel.strokeColor.a=f(128*getFadeRatio());
-        duel.strokeWeight(strokeWeightValue*UtilMath.pow(getFadeRatio(),4.0f));
-        duel.line(xPosition,yPosition,xPosition+800.0f*UtilMath.cos(rotationAngle),yPosition+800.0f*UtilMath.sin(rotationAngle));
-        duel.strokeWeight(1.0f);
+      case line: {
+        float alpha=f(getFadeRatio()/2f);
+        if(alpha>0.01f) {
+          duel.stroke(displayColor);
+          duel.strokeColor.a=alpha;
+          duel.strokeWeight(strokeWeightValue*UtilMath.pow(getFadeRatio(),4));
+          duel.line(xPosition,yPosition,xPosition+800*UtilMath.cos(rotationAngle),yPosition+800*UtilMath.sin(rotationAngle));
+          duel.strokeWeight(1);
+        }
+      }
         break;
-      case ring:
+      case ring: {
         final float ringSizeExpandRatio=2*(UtilMath.pow(getProgressRatio()-1,5)+1);
-        duel.noFill();
-        duel.stroke(displayColor);
-        duel.strokeColor.a=f(255*getFadeRatio());
-        duel.strokeWeight(strokeWeightValue*getFadeRatio());
-        duel.circle(xPosition,yPosition,displaySize*(1+ringSizeExpandRatio)/2f);
-        duel.strokeWeight(1.0f);
+        float alpha=f(getFadeRatio());
+        if(alpha>0.01f) {
+          duel.noFill();
+          duel.stroke(displayColor);
+          duel.strokeColor.a=alpha;
+          duel.strokeWeight(strokeWeightValue*getFadeRatio());
+          duel.circle(xPosition,yPosition,displaySize*(1+ringSizeExpandRatio)/2f);
+          duel.strokeWeight(1);
+        }
+      }
         break;
       default:
         break;
     }
     // duel.endBlend();
   }
-  public int f(float in) {
-    return (int)(UtilMath.constrain(in,0,255));
+  public float f(float in) {
+    return UtilMath.constrain(in,0,1);
   }
 }
