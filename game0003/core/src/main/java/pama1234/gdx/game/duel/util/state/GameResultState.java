@@ -29,11 +29,11 @@ public final class GameResultState extends GameSystemState{
   public void displayMessage(GameSystem system) {
     if(system.demoPlay) return;
     duel.setTextColor(0);
-    duel.textScale(2);
-    duel.drawText(resultMessage,(duel.width-duel.textWidth(resultMessage))/2f,(duel.height-duel.textScale()*20)/2f);
+    duel.setTextScale(duel.pus);
+    duel.drawText(resultMessage,(duel.width-duel.textWidth(resultMessage))/2f,(duel.height-duel.pu*1.5f)/2f);
     if(properFrameCount>durationFrameCount) {
       String in="按 X 键重新开始";
-      duel.drawText(in,(duel.width-duel.textWidth(in))/2f,(duel.height+duel.textScale()*20)/2f);
+      duel.drawText(in,(duel.width-duel.textWidth(in))/2f,(duel.height+duel.pu*0.5f)/2f);
     }
   }
   @Override

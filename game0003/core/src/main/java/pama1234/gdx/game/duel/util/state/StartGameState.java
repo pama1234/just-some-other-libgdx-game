@@ -25,6 +25,8 @@ public final class StartGameState extends GameSystemState{
   public void displaySystem(GameSystem system) {
     system.myGroup.displayPlayer();
     system.otherGroup.displayPlayer();
+    duel.translate(Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f,Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f);
+    drawRing();
   }
   @Override
   public void displayMessage(GameSystem system) {
@@ -37,16 +39,15 @@ public final class StartGameState extends GameSystemState{
     duel.setTextScale(duel.pus);
     String in=Integer.toString(displayNumber);
     // duel.drawText(in,-16,-32);
-    duel.drawText(in,(duel.width-duel.textWidth(in))/2f,(duel.height-duel.textScale()*20)/2f);
+    duel.drawText(in,(duel.width-duel.textWidth(in))/2f,(duel.height-duel.pu)/2f);
     // duel.setCamera(duel.cam.camera);
     // duel.pushMatrix();
     duel.setTextScale(1);
-    drawCam();
+    // drawCam();
     // duel.popMatrix();
     // duel.setCamera(duel.screenCam);
   }
-  @Override
-  public void drawCam() {
+  public void drawRing() {
     duel.rotate(UtilMath.HALF_PI);
     duel.strokeWeight(3);
     duel.doStroke();

@@ -27,11 +27,13 @@ public final class PlayGameState extends GameSystemState{
   }
   @Override
   public void displaySystem(GameSystem system) {
+    duel.beginBlend();
     system.myGroup.displayPlayer();
     system.otherGroup.displayPlayer();
     system.myGroup.displayArrows();
     system.otherGroup.displayArrows();
     system.commonParticleSet.display();
+    duel.endBlend();
   }
   @Override
   public void displayMessage(GameSystem system) {
@@ -41,7 +43,7 @@ public final class PlayGameState extends GameSystemState{
     duel.setTextScale(duel.pus);
     // duel.drawText("Go",-32,-32);
     String in="Go";
-    duel.drawText(in,(duel.width-duel.textWidth(in))/2f,(duel.height-duel.textScale()*20)/2f);
+    duel.drawText(in,(duel.width-duel.textWidth(in))/2f,(duel.height-duel.pu)/2f);
     duel.setTextScale(1);
   }
   @Override

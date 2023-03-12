@@ -77,11 +77,13 @@ public class Duel extends ScreenCore2D{
     if(isAndroid) {
       if(moveCtrl!=null) {
         // doStroke();
+        stroke(0);
+        strokeWeight(2);
         cross(moveCtrl.sx,moveCtrl.sy,32,32);
         line(moveCtrl.x,moveCtrl.y,moveCtrl.sx,moveCtrl.sy);
         cross(moveCtrl.x,moveCtrl.y,16,16);
         float deg=UtilMath.deg(UtilMath.atan2(dxCache,dyCache));
-        arc(moveCtrl.sx,moveCtrl.sy,magCache,-deg-45,90);
+        arc(moveCtrl.sx,moveCtrl.sy,magCache,45-deg,90);
         // noStroke();
       }
     }
@@ -137,6 +139,8 @@ public class Duel extends ScreenCore2D{
   public void touchEnded(TouchInfo info) {
     if(moveCtrl==info) {
       moveCtrl=null;
+      currentInput.dx=0;
+      currentInput.dy=0;
       magCache=0;
     }
   }
