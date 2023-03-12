@@ -4,7 +4,7 @@ import pama1234.gdx.game.duel.util.actor.ActorGroup;
 import pama1234.gdx.game.duel.util.actor.PlayerActor;
 import pama1234.gdx.game.duel.util.ai.ComputerPlayerEngine;
 import pama1234.gdx.game.duel.util.ai.PlayerEngine;
-import pama1234.gdx.game.duel.util.graphics.DrawUtil;
+import pama1234.gdx.game.duel.util.graphics.DemoInfo;
 import pama1234.gdx.game.duel.util.graphics.GameBackground;
 import pama1234.gdx.game.duel.util.graphics.Particle;
 import pama1234.gdx.game.duel.util.graphics.ParticleBuilder;
