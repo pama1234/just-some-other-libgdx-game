@@ -29,11 +29,21 @@ public class UtilMath{
   public static float max(float a,float b) {
     return a>b?a:b;
   }
+  public static float dist(float[] a,float[] b) {
+    float out=0;
+    for(int i=0;i<a.length;i++) out+=sq(a[i]-b[i]);
+    return sqrt(out);
+  }
   public static float dist(float x1,float y1,float x2,float y2) {
     return mag(x1-x2,y1-y2);
   }
   public static float dist(float x1,float y1,float z1,float x2,float y2,float z2) {
     return mag(x1-x2,y1-y2,z1-z2);
+  }
+  public static float mag(float[] in) {
+    float out=0;
+    for(float e:in) out+=e*e;
+    return sqrt(out);
   }
   public static float mag(float a,float b) {
     return sqrt(a*a+b*b);

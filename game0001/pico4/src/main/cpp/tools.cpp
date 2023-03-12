@@ -1,5 +1,5 @@
 #include <iostream>
-#include "jni_Tools.h"
+#include <jni.h>
 
 JNIEXPORT jstring JNICALL Java_jni_Tools_bar(JNIEnv *env, jobject thisObject)
 {

@@ -11,12 +11,12 @@ import pama1234.gdx.game.duel.util.arrow.AbstractArrowActor;
 import pama1234.math.UtilMath;
 
 public final class PlayGameState extends GameSystemState{
-  public PlayGameState(Duel duel) {
-    super(duel);
+  public PlayGameState(Duel duel,GameSystem system) {
+    super(duel,system);
   }
   public int messageDurationFrameCount=UtilMath.floor(Duel.IDEAL_FRAME_RATE);
   @Override
-  public void updateSystem(GameSystem system) {
+  public void updateSystem() {
     system.myGroup.update();
     system.myGroup.act();
     system.otherGroup.update();
@@ -26,7 +26,7 @@ public final class PlayGameState extends GameSystemState{
     system.commonParticleSet.update();
   }
   @Override
-  public void displaySystem(GameSystem system) {
+  public void displaySystem() {
     duel.beginBlend();
     system.myGroup.displayPlayer();
     system.otherGroup.displayPlayer();
@@ -36,7 +36,7 @@ public final class PlayGameState extends GameSystemState{
     duel.endBlend();
   }
   @Override
-  public void displayMessage(GameSystem system) {
+  public void displayMessage() {
     if(properFrameCount>=messageDurationFrameCount) return;
     // duel.doFill();
     duel.setTextColor(0,(int)(255*(1-(float)(properFrameCount)/messageDurationFrameCount)));
@@ -47,11 +47,11 @@ public final class PlayGameState extends GameSystemState{
     duel.setTextScale(1);
   }
   @Override
-  public void checkStateTransition(GameSystem system) {
-    // if(system.myGroup.player.isNull()) system.currentState=new GameResultState(this.duel,"You lose.");
-    // else if(system.otherGroup.player.isNull()) system.currentState=new GameResultState(this.duel,"You win.");
-    if(system.myGroup.player.isNull()) system.currentState=new GameResultState(this.duel,"你输了");
-    else if(system.otherGroup.player.isNull()) system.currentState=new GameResultState(this.duel,"你赢了");
+  public void checkStateTransition() {
+    // if(system.myGroup.player.isNull()) system.currentState=new GameResultState(duel,"You lose.");
+    // else if(system.otherGroup.player.isNull()) system.currentState=new GameResultState(duel,"You win.");
+    if(system.myGroup.player.isNull()) system.currentState=new GameResultState(duel,system,"你输了");
+    else if(system.otherGroup.player.isNull()) system.currentState=new GameResultState(duel,system,"你赢了");
   }
   public void checkCollision() {
     final ActorGroup myGroup=duel.system.myGroup;

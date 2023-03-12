@@ -8,8 +8,8 @@ import pama1234.gdx.game.duel.util.graphics.Particle;
 import pama1234.math.UtilMath;
 
 public final class StartGameState extends GameSystemState{
-  public StartGameState(Duel duel) {
-    super(duel);
+  public StartGameState(Duel duel,GameSystem system) {
+    super(duel,system);
   }
   public final int frameCountPerNumber=UtilMath.floor(Duel.IDEAL_FRAME_RATE);
   public final float ringSize=200;
@@ -17,19 +17,19 @@ public final class StartGameState extends GameSystemState{
   public final float ringStrokeWeight=5.0f;
   public int displayNumber=4;
   @Override
-  public void updateSystem(GameSystem system) {
+  public void updateSystem() {
     system.myGroup.update();
     system.otherGroup.update();
   }
   @Override
-  public void displaySystem(GameSystem system) {
+  public void displaySystem() {
     system.myGroup.displayPlayer();
     system.otherGroup.displayPlayer();
     duel.translate(Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f,Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f);
     drawRing();
   }
   @Override
-  public void displayMessage(GameSystem system) {
+  public void displayMessage() {
     final int currentNumberFrameCount=properFrameCount%frameCountPerNumber;
     if(currentNumberFrameCount==0) displayNumber--;
     if(displayNumber<=0) return;
@@ -57,7 +57,7 @@ public final class StartGameState extends GameSystemState{
     duel.strokeWeight(1);
   }
   @Override
-  public void checkStateTransition(GameSystem system) {
+  public void checkStateTransition() {
     if(properFrameCount>=frameCountPerNumber*3) {
       final Particle newParticle=system.commonParticleSet.builder
         .type(Particle.ring)
@@ -69,7 +69,7 @@ public final class StartGameState extends GameSystemState{
         .lifespanSecond(1.0f)
         .build();
       system.commonParticleSet.particleList.add(newParticle);
-      system.currentState=new PlayGameState(duel);
+      system.currentState=new PlayGameState(duel,system);
     }
   }
 }

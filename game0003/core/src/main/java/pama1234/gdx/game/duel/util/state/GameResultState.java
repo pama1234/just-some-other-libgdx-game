@@ -7,18 +7,18 @@ import pama1234.math.UtilMath;
 public final class GameResultState extends GameSystemState{
   public final String resultMessage;
   public final int durationFrameCount=UtilMath.floor(Duel.IDEAL_FRAME_RATE);
-  public GameResultState(Duel duel,String msg) {
-    super(duel);
+  public GameResultState(Duel duel,GameSystem system,String msg) {
+    super(duel,system);
     resultMessage=msg;
   }
   @Override
-  public void updateSystem(GameSystem system) {
+  public void updateSystem() {
     system.myGroup.update();
     system.otherGroup.update();
     system.commonParticleSet.update();
   }
   @Override
-  public void displaySystem(GameSystem system) {
+  public void displaySystem() {
     duel.beginBlend();
     system.myGroup.displayPlayer();
     system.otherGroup.displayPlayer();
@@ -26,7 +26,7 @@ public final class GameResultState extends GameSystemState{
     duel.endBlend();
   }
   @Override
-  public void displayMessage(GameSystem system) {
+  public void displayMessage() {
     if(system.demoPlay) return;
     duel.setTextColor(0);
     duel.setTextScale(duel.pus);
@@ -37,7 +37,7 @@ public final class GameResultState extends GameSystemState{
     }
   }
   @Override
-  public void checkStateTransition(GameSystem system) {
+  public void checkStateTransition() {
     if(system.demoPlay) {
       if(properFrameCount>durationFrameCount*3) {
         duel.newGame(true,system.showsInstructionWindow);

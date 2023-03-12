@@ -67,7 +67,7 @@ public final class GameSystem{
     otherGroup.setPlayer(otherPlayer);
     // other
     commonParticleSet=new ParticleSet(duel,2048);
-    currentState=new StartGameState(duel);
+    currentState=new StartGameState(duel,this);
     currentBackground=new GameBackground(duel,Duel.color(224),0.1f);
     demoPlay=demo;
     showsInstructionWindow=instruction;
@@ -87,7 +87,7 @@ public final class GameSystem{
       }
     }
     currentBackground.update();
-    currentState.update(this);
+    currentState.update();
   }
   public void display() {
     duel.pushMatrix();
@@ -96,11 +96,11 @@ public final class GameSystem{
       screenShakeValue-=50.0f/Duel.IDEAL_FRAME_RATE;
     }
     currentBackground.display();
-    currentState.display(this);
+    currentState.display();
     duel.popMatrix();
   }
   public void displayScreen() {
-    currentState.displayScreen(this);
+    currentState.displayScreen();
     if(demoPlay&&showsInstructionWindow) DemoInfo.displayDemo(duel);
   }
   public void addSquareParticles(float x,float y,int particleCount,float particleSize,float minSpeed,float maxSpeed,float lifespanSecondValue) {
@@ -112,7 +112,7 @@ public final class GameSystem{
       .lifespanSecond(lifespanSecondValue);
     for(int i=0;i<particleCount;i++) {
       final Particle newParticle=builder
-        .polarVelocity(duel.random(UtilMath.TWO_PI),duel.random(minSpeed,maxSpeed))
+        .polarVelocity(duel.random(UtilMath.PI2),duel.random(minSpeed,maxSpeed))
         .build();
       duel.system.commonParticleSet.particleList.add(newParticle);
     }

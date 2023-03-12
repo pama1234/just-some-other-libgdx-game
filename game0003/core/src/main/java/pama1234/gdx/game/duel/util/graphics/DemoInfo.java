@@ -19,8 +19,6 @@ public class DemoInfo extends Entity<Duel>{
     p.doStroke();
     p.stroke(0);
     p.strokeWeight(2);
-    // p.doFill();
-    // p.fill(255,220);
     p.noFill();
     p.rect(0,0,text.texture.getWidth(),text.texture.getHeight());
     p.endBlend();
@@ -32,39 +30,11 @@ public class DemoInfo extends Entity<Duel>{
   }
   public static void displayDemo(Duel p) {
     int fu=UtilMath.min(p.width,p.height);
-    // p.beginBlend();
-    // p.doStroke();
-    // p.stroke(0);
-    // p.strokeWeight(2);
-    // p.doFill();
-    // p.fill(255,200);
-    // p.pushMatrix();
-    // float dx=(p.width-fu)/2f;
-    // float dy=(p.height-fu)/2f;
-    // p.translate(dx,dy);
-    // p.rect(fu*0.05f,fu*0.05f,
-    //   fu*0.9f,
-    //   fu*0.9f);
-    // p.endBlend();
-    // p.popMatrix();
-    // duel.translate(-(duel.width-fu)/2f,-(duel.height-fu)/2f);
-    // p.scale(UtilMath.max(1,p.pus));
     Texture img=p.demoInfo.text.texture;
     int tf=UtilMath.max(1,(int)(fu/img.getHeight()));
-    // System.out.println(tf);
     int tw=img.getWidth()*tf;
     int th=img.getHeight()*tf;
-    // p.endShape();
-    // p.endBlend();
-    // p.beginBlend();
     p.image(img,(p.width-tw)/2f,(p.height-th)/2f,tw,th);
-    // p.endBlend();
-    // p.beginBlend();
-    // p.beginShape();
-    // duel.setTextColor(0);
-    // drawText_ch(duel,fu);
-    // p.setTextScale(1);
-    // p.strokeWeight(1);
   }
   public static void drawText_en(Duel duel,int fu) {
     duel.drawText("    Z key:",200,180);

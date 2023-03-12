@@ -136,6 +136,26 @@ subprojects {
     maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
     maven { url 'https://jitpack.io' }
   }
+
+  tasks.withType(Copy).all { duplicatesStrategy = DuplicatesStrategy.EXCLUDE }
+
+  tasks.withType(Jar) {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+
+    //  manifest {
+    //     attributes["Main-Class"] = "com.example.backendapp.BackendAppApplication"
+    //  }
+  }
+
+  tasks.withType(Tar) {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+  }
+
+  tasks.withType(Zip) {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+  }
+
+  // tasks.getByName('distTar') { duplicatesStrategy = DuplicatesStrategy.EXCLUDE }
 }
 
 eclipse.project.name = 'game' + '-parent'

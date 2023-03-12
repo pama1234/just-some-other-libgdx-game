@@ -5,23 +5,25 @@ import pama1234.gdx.game.duel.GameSystem;
 
 public abstract class GameSystemState{
   public final Duel duel;
-  public GameSystemState(Duel duel) {
+  public GameSystem system;
+  public GameSystemState(Duel duel,GameSystem system) {
     this.duel=duel;
+    this.system=system;
   }
   public int properFrameCount;
-  public void update(GameSystem system) {
-    checkStateTransition(system);
+  public void update() {
+    checkStateTransition();
     properFrameCount++;
-    updateSystem(system);
+    updateSystem();
   }
-  public void display(GameSystem system) {
-    displaySystem(system);
+  public void display() {
+    displaySystem();
   }
-  public void displayScreen(GameSystem system) {
-    displayMessage(system);
+  public void displayScreen() {
+    displayMessage();
   }
-  public abstract void updateSystem(GameSystem system);
-  public abstract void displaySystem(GameSystem system);
-  public abstract void displayMessage(GameSystem system);
-  public abstract void checkStateTransition(GameSystem system);
+  public abstract void updateSystem();
+  public abstract void displaySystem();
+  public abstract void displayMessage();
+  public abstract void checkStateTransition();
 }
