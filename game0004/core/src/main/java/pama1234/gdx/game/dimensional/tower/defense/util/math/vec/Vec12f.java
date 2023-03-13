@@ -1,5 +1,7 @@
 package pama1234.gdx.game.dimensional.tower.defense.util.math.vec;
 
+import java.util.Arrays;
+
 import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 
@@ -7,6 +9,13 @@ public class Vec12f{
   public float[] data;
   public Vec12f() {
     data=new float[12];
+  }
+  public Vec12f(float... in) {
+    if(in==null||in.length!=12) throw new RuntimeException("in==null||in.length!=12"+in.length+" "+Arrays.toString(in));
+    data=in;
+  }
+  public Vec12f(Vec12f pos) {
+    data=pos.data.clone();
   }
   public float mag() {
     return UtilMath.mag(data);

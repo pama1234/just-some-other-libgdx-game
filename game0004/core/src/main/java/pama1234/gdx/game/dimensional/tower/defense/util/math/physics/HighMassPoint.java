@@ -7,6 +7,14 @@ public class HighMassPoint extends HighPoint{
   {
     f=0.8f;
   }
+  public HighMassPoint() {
+    super();
+    vel=new Vec12f();
+  }
+  public HighMassPoint(Vec12f pos) {
+    super(pos);
+    vel=new Vec12f();
+  }
   @Override
   public void update() {
     if(step==1) {

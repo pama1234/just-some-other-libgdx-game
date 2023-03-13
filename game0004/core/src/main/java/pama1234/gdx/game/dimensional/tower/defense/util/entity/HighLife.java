@@ -1,6 +1,9 @@
 package pama1234.gdx.game.dimensional.tower.defense.util.entity;
 
+import com.badlogic.gdx.graphics.g3d.decals.Decal;
+
 import pama1234.gdx.game.dimensional.tower.defense.DemonDefense;
+import pama1234.gdx.game.dimensional.tower.defense.util.DimCut;
 import pama1234.gdx.game.dimensional.tower.defense.util.math.physics.HighMassPoint;
 import pama1234.gdx.game.dimensional.tower.defense.util.math.vec.Vec12f;
 import pama1234.math.Tools;
@@ -8,14 +11,36 @@ import pama1234.math.physics.PathVar;
 
 public abstract class HighLife extends HighPointEntity<DemonDefense,HighMassPoint>{
   public PathVar life;
-  public HighLife(DemonDefense p) {
-    super(p);
+  public DimCut lowDimLink;
+  public Decal decal;
+  public HighLife(DemonDefense p,HighMassPoint point,Decal decal) {
+    super(p,point);
+    this.decal=decal;
+    lowDimLink=new DimCut();
   }
   public abstract boolean inBody(Vec12f in);
+  @Override
+  public void update() {
+    super.update();
+    decal.setPosition(
+      point.pos.data[lowDimLink.data[0]],
+      point.pos.data[lowDimLink.data[1]],
+      point.pos.data[lowDimLink.data[2]]);
+    decal.lookAt(p.cam.camera.position,p.cam.camera.up);
+    // System.out.println(decal.getPosition());
+    // System.out.println(decal.getRotation());
+  }
+  @Override
+  public void display() {
+    p.decal(decal);
+    // p.flushDecal();
+    // System.out.println("HighLife.display()");
+  }
+  //---------------------------------------------------------------
   public static class RectLife extends HighLife{
     public Vec12f dpos,size;
-    public RectLife(DemonDefense p) {
-      super(p);
+    public RectLife(DemonDefense p,HighMassPoint point,Decal decal) {
+      super(p,point,decal);
     }
     @Override
     public boolean inBody(Vec12f in) {
@@ -26,8 +51,8 @@ public abstract class HighLife extends HighPointEntity<DemonDefense,HighMassPoin
   }
   public static class CircleLife extends HighLife{
     public float size;
-    public CircleLife(DemonDefense p) {
-      super(p);
+    public CircleLife(DemonDefense p,HighMassPoint point,Decal decal) {
+      super(p,point,decal);
     }
     @Override
     public boolean inBody(Vec12f in) {

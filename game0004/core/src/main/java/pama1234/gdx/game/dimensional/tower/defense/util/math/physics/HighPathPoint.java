@@ -7,6 +7,14 @@ public class HighPathPoint extends HighPoint{
   {
     f=0.2f;
   }
+  public HighPathPoint() {
+    super();
+    des=new Vec12f();
+  }
+  public HighPathPoint(Vec12f pos) {
+    super(pos);
+    des=new Vec12f(pos);
+  }
   @Override
   public void update() {
     pos.setEach(des,(a,b)->a+(b-a)*f);

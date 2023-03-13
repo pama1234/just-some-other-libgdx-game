@@ -6,8 +6,9 @@ import pama1234.gdx.util.entity.Entity;
 
 public class HighPointEntity<T extends UtilScreen,P extends HighPoint>extends Entity<T>{
   public P point;
-  public HighPointEntity(T p) {
+  public HighPointEntity(T p,P point) {
     super(p);
+    this.point=point;
   }
   @Override
   public void update() {
