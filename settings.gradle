@@ -3,9 +3,11 @@ include 'framework','server-framework'
 include 'game0001:headless', 'game0001:android', 'game0001:lwjgl3', 'game0001:core', 'game0001:server', 'game0001:pico4', 'game0001:taptap'
 include 'game0002:android', 'game0002:lwjgl3', 'game0002:core', 'game0002:server'
 include 'game0003:android', 'game0003:lwjgl3', 'game0003:core', 'game0003:server'
+include 'game0004:android', 'game0004:lwjgl3', 'game0004:core', 'game0004:server'
 
 project(':game0001').children.each{e -> e.name = '0001-' + e.name}
 project(':game0002').children.each{e -> e.name = '0002-' + e.name}
 project(':game0003').children.each{e -> e.name = '0003-' + e.name}
+project(':game0004').children.each{e -> e.name = '0004-' + e.name}
 
 // println(project(":game0002").children.dump())
