@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.MathUtils;
+import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.utils.ScreenUtils;
 
 import dev.lyze.gdxtinyvg.TinyVG;
@@ -24,6 +25,9 @@ import pama1234.math.UtilMath;
  * @see UtilScreen3D
  */
 public abstract class UtilScreen extends UtilScreenCore{
+  public Matrix4[] matrixStack=new Matrix4[10];
+  public int matrixStackPointer=-1;
+  //---
   public static SpriteBatch createSpriteBatch() {
     return new SpriteBatch(1000,createDefaultShader());
   }
@@ -402,12 +406,7 @@ public abstract class UtilScreen extends UtilScreenCore{
     textScale(pus);
     strokeWeight(defaultStrokeWeight=u);
   }
-  public void withCam() {
-    setCamera(cam.camera);
-    textScale(1);
-    // strokeWeight(defaultStrokeWeight=u/16*cam2d.scale.pos);
-    strokeWeight(defaultStrokeWeight=u/16);
-  }
+  public abstract void withCam();
   public void fillRect(float x,float y,float w,float h) {
     rFill.rect(x,y,w,h);
     rFill.flush();
@@ -483,5 +482,25 @@ public abstract class UtilScreen extends UtilScreenCore{
   }
   public void backgroundColor(Color in) {
     backgroundColor.set(in);
+  }
+  public Matrix4 matrix() {
+    if(matrixStackPointer<0) return usedCamera.combined;
+    return matrixStack[matrixStackPointer];
+  }
+  public void pushMatrix() {
+    Matrix4 tmat=matrixStack[matrixStackPointer+1];
+    Matrix4 matIn=matrixStackPointer<0?usedCamera.combined:matrixStack[matrixStackPointer];
+    matrixStack[matrixStackPointer+1]=tmat==null?matIn.cpy():tmat.set(matIn);
+    matrixStackPointer++;
+    setMatrix(matrix());
+  }
+  public void popMatrix() {
+    matrixStackPointer--;
+    setMatrix(matrix());
+  }
+  public void clearMatrix() {
+    matrixStackPointer=-1;
+    // Arrays.fill(matrixStack,null);
+    setMatrix(usedCamera.combined);
   }
 }

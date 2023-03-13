@@ -28,7 +28,19 @@ public class Vec12f{
   public void sub(Vec12f in) {
     for(int i=0;i<data.length;i++) data[i]-=in.data[i];
   }
+  @Deprecated
   public void mult(float in) {
+    scale(in);
+  }
+  public void scale(float in) {
     for(int i=0;i<data.length;i++) data[i]*=in;
+  }
+  public void execute(Vec12f in,ExecuteVec executer) {
+    for(int i=0;i<data.length;i++) data[i]=executer.execute(data[i],in.data[i]);
+  }
+  @FunctionalInterface
+  public interface ExecuteVec{
+    // public void execute(Vec12f a,Vec12f b);
+    public float execute(float a,float b);
   }
 }

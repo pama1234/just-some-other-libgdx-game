@@ -88,6 +88,8 @@ www-test/
 *.iws
 *.iml
 
+.run/
+
 ## Eclipse:
 .classpath
 .project

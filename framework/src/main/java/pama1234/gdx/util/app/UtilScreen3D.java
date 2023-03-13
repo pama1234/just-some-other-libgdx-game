@@ -61,7 +61,14 @@ public abstract class UtilScreen3D extends UtilScreen{
     innerResize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
     setup();
   }
-  //TODO this do nothing... strange
+  @Override
+  public void withCam() {
+    setCamera(cam.camera);
+    textScale(1);
+    // strokeWeight(defaultStrokeWeight=u/16*cam2d.scale.pos);
+    strokeWeight(defaultStrokeWeight=u/16);
+  }
+  //TODO this do nothing
   public Vector3 unproject(float x,float y) {
     vectorCache.set(x,y,0);
     return vectorCache;

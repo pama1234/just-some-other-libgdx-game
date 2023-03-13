@@ -38,7 +38,6 @@ public class Duel extends ScreenCore2D{
   public TextButton<?>[] buttons;
   public InputData currentInput;
   public GameSystem system;
-  public int smallFontSize=16,largeFontSize=128;
   public boolean paused;
   public int canvasSideLength=INTERNAL_CANVAS_SIDE_LENGTH;
   public TouchInfo moveCtrl;

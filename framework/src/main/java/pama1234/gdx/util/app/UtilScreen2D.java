@@ -24,11 +24,9 @@ import pama1234.util.wrapper.ServerEntityCenter;
  * @see ScreenCore2D
  */
 public abstract class UtilScreen2D extends UtilScreen{
-  public Matrix4[] matrixStack=new Matrix4[10];
-  public int matrixStackPointer=-1;
-  //---
   public Style[] styleStack=new Style[10];
   public int styleStackPointer=-1;
+  //---
   public CameraController2D cam2d;//TODO do we need this?
   @Override
   public void show() {
@@ -81,31 +79,11 @@ public abstract class UtilScreen2D extends UtilScreen{
     translate(dx,dy);
     rotate(deg);
   }
-  public void clearMatrix() {
-    matrixStackPointer=-1;
-    // Arrays.fill(matrixStack,null);
-    setMatrix(usedCamera.combined);
-  }
-  public Matrix4 matrix() {
-    if(matrixStackPointer<0) return usedCamera.combined;
-    return matrixStack[matrixStackPointer];
-  }
   @Deprecated
   public void drawWithMatrix(float dx,float dy,float deg,ExecuteF e) {
     pushMatrix(dx,dy,deg);
     e.execute();
     popMatrix();
-  }
-  public void pushMatrix() {
-    Matrix4 tmat=matrixStack[matrixStackPointer+1];
-    Matrix4 matIn=matrixStackPointer<0?usedCamera.combined:matrixStack[matrixStackPointer];
-    matrixStack[matrixStackPointer+1]=tmat==null?matIn.cpy():tmat.set(matIn);
-    matrixStackPointer++;
-    setMatrix(matrix());
-  }
-  public void popMatrix() {
-    matrixStackPointer--;
-    setMatrix(matrix());
   }
   @Deprecated
   public void pushStyle() {
