@@ -20,7 +20,6 @@ import pama1234.gdx.game.app.app0003.Screen0008;
 import pama1234.gdx.game.app.app0003.Screen0009;
 import pama1234.gdx.game.app.app0003.Screen0013;
 import pama1234.gdx.game.dimensional.tower.defense.DemonDefense;
-import pama1234.gdx.game.duel.Duel;
 import pama1234.gdx.util.app.UtilScreen;
 
 public class MainApp extends Game{
@@ -31,7 +30,7 @@ public class MainApp extends Game{
   public int screenType=2;
   public MainApp() {
     screenList=Arrays.asList(null,
-      Duel.class,//几何决斗
+      null,//几何决斗
       DemonDefense.class,//12D塔防
       null,//3D 粒子系统 联机 客户端
       Screen0004.class,//测试 3D渲染 文本框UI
