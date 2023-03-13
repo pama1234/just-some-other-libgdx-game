@@ -2,7 +2,7 @@
 /* LibGdx conversion 2014 by Anton Persson */
 /* Released under Apache 2.0 */
 /* https://code.google.com/p/animated-gifs-in-android/ */
-package pama1234.gdx.game.util.gif;
+package pama1234.gdx.util.gif;
 
 import java.io.InputStream;
 import java.util.Vector;

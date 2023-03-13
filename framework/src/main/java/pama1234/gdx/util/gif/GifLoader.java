@@ -1,4 +1,4 @@
-package pama1234.gdx.game.util.gif;
+package pama1234.gdx.util.gif;
 
 import com.badlogic.gdx.assets.AssetDescriptor;
 import com.badlogic.gdx.assets.AssetManager;

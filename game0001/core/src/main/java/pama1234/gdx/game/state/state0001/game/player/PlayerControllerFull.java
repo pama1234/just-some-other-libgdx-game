@@ -188,6 +188,16 @@ public class PlayerControllerFull extends PlayerControllerCore{
     }
     selectBlock.testStopTask(info);
   }
+  public boolean updateAndTestInventorySlot(float x,float y,int button) {
+    if(player.inventory.displayState==Inventory.displayFullInventory) {
+      DisplaySlot[] slots=player.inventory.hotSlots;
+      for(int i=0;i<slots.length;i++) if(testAndSelectSlot(x,y,button,slots,i)) return true;
+      slots=player.inventory.backpackSlots;
+      for(DisplaySlot e:slots) if(testSlot(x,y,button,e)) return true;
+      doDropItem(button);
+    }
+    return false;
+  }
   public boolean updateAndTestSelectEntity(int tx,int ty,int button) {
     for(EntityCenter<Screen0011,? extends GamePointEntity<?>> l:player.pw.entities.list) {
       if(l==player.pw.entities.items) continue;
@@ -234,24 +244,17 @@ public class PlayerControllerFull extends PlayerControllerCore{
       for(TextButtonCam<?> e:camButton) if(info==e.touch) e.clickEnd();
     }
   }
-  public boolean updateAndTestInventorySlot(float x,float y,int button) {
-    if(player.inventory.displayState==Inventory.displayFullInventory) {
-      DisplaySlot[] slots=player.inventory.hotSlots;
-      for(int i=0;i<slots.length;i++) if(testAndSelectSlot(x,y,button,slots,i)) return true;
-      slots=player.inventory.backpackSlots;
-      for(DisplaySlot e:slots) if(testSlot(x,y,button,e)) return true;
-      switch(getTouchInfoButton(button)) {
-        case Buttons.LEFT: {
-          player.inventory.drop(Inventory.allItem);
-        }
-          break;
-        case Buttons.RIGHT: {
-          player.inventory.drop(Inventory.oneItem);
-        }
-          break;
+  public void doDropItem(int button) {
+    switch(getTouchInfoButton(button)) {
+      case Buttons.LEFT: {
+        player.inventory.drop(Inventory.allItem);
       }
+        break;
+      case Buttons.RIGHT: {
+        player.inventory.drop(Inventory.oneItem);
+      }
+        break;
     }
-    return false;
   }
   public boolean testSlot(float x,float y,int button,DisplaySlot e) {
     if(Tools.inBox(x,y,e.x1,e.y1,e.w1,e.h1)) {
