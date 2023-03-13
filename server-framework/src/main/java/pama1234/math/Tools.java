@@ -72,6 +72,12 @@ public class Tools{
   public static boolean inRange(float a,float min,float max) {
     return a>min&&a<max;
   }
+  public static boolean inRangeAdapt(float a,float min,float max) {
+    return min<max?inRange(a,min,max):inRange(a,max,min);
+  }
+  public static boolean inBox(float a,float x,float w) {
+    return a>x&&a<x+w;
+  }
   public static boolean inBox(float a,float b,float x,float y,float w,float h) {
     return a>x&&a<x+w&&b>y&&b<y+h;
   }

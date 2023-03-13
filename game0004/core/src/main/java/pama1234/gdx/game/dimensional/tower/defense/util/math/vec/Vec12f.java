@@ -1,5 +1,6 @@
-package pama1234.gdx.game.dimensional.tower.defense.util;
+package pama1234.gdx.game.dimensional.tower.defense.util.math.vec;
 
+import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 
 public class Vec12f{
@@ -12,6 +13,10 @@ public class Vec12f{
   }
   public float dist(Vec12f in) {
     return UtilMath.dist(data,in.data);
+  }
+  public boolean inRect(Vec12f a,Vec12f b) {
+    for(int i=0;i<data.length;i++) if(!Tools.inRangeAdapt(data[i],a.data[i],b.data[i])) return false;
+    return true;
   }
   public void set(float in) {
     for(int i=0;i<data.length;i++) data[i]=in;
@@ -35,12 +40,11 @@ public class Vec12f{
   public void scale(float in) {
     for(int i=0;i<data.length;i++) data[i]*=in;
   }
-  public void execute(Vec12f in,ExecuteVec executer) {
+  public void setEach(Vec12f in,ExecuteVec executer) {
     for(int i=0;i<data.length;i++) data[i]=executer.execute(data[i],in.data[i]);
   }
   @FunctionalInterface
   public interface ExecuteVec{
-    // public void execute(Vec12f a,Vec12f b);
     public float execute(float a,float b);
   }
 }

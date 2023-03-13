@@ -1,5 +1,6 @@
-package pama1234.gdx.game.dimensional.tower.defense.util;
+package pama1234.gdx.game.dimensional.tower.defense.util.entity;
 
+import pama1234.gdx.game.dimensional.tower.defense.util.math.physics.HighPoint;
 import pama1234.gdx.util.app.UtilScreen;
 import pama1234.gdx.util.entity.Entity;
 

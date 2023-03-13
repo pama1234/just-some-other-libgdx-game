@@ -1,4 +1,6 @@
-package pama1234.gdx.game.dimensional.tower.defense.util;
+package pama1234.gdx.game.dimensional.tower.defense.util.math.physics;
+
+import pama1234.gdx.game.dimensional.tower.defense.util.math.vec.Vec12f;
 
 public class HighMassPoint extends HighPoint{
   public Vec12f vel;
@@ -11,10 +13,10 @@ public class HighMassPoint extends HighPoint{
       pos.add(vel);
       if(f!=1) vel.scale(f);
     }else {
-      pos.execute(vel,(a,b)->a+b*step);
+      pos.setEach(vel,(a,b)->a+b*step);
       if(f!=1) {
         float tf=(f-1)*step;
-        vel.execute(vel,(a,b)->a+b*tf);
+        vel.setEach(vel,(a,b)->a+b*tf);
       }
     }
   }

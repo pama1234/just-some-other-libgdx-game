@@ -7,9 +7,9 @@ import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import pama1234.gdx.game.asset.MusicAsset;
-import pama1234.gdx.game.util.gif.GifDecoder;
 import pama1234.gdx.util.FileUtil;
 import pama1234.gdx.util.app.ScreenCore2D;
+import pama1234.gdx.util.gif.GifDecoder;
 import pama1234.gdx.util.info.MouseInfo;
 
 public class Screen0009 extends ScreenCore2D{
