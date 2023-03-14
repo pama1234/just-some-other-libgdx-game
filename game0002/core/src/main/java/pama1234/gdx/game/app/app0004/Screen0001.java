@@ -1,10 +1,8 @@
 package pama1234.gdx.game.app.app0004;
 
-import static com.badlogic.gdx.math.MathUtils.log;
 import static com.badlogic.gdx.math.MathUtils.map;
 import static pama1234.gdx.game.ui.generator.InfoUtil.info0001;
 import static pama1234.math.UtilMath.dist;
-import static pama1234.math.UtilMath.pow;
 
 import java.util.ArrayList;
 
@@ -267,9 +265,5 @@ public class Screen0001 extends ScreenCore3D{
   @Override
   public void dispose() {
     super.dispose();
-  }
-  public static void main(String[] args) {
-    pow(1,1);
-    log(1,1);
   }
 }

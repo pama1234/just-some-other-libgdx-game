@@ -55,4 +55,35 @@ public class UtilShapeRenderer extends ShapeRenderer{
     renderer.color(colorBits);
     renderer.vertex(x+cx,y+cy,0);
   }
+  @Override
+  public void polygon(float[] vertices) {
+    polygon(vertices,0,vertices.length);
+  }
+  @Override
+  public void polygon(float[] vertices,int offset,int count) {
+    if(count<6) throw new IllegalArgumentException("Polygons must contain at least 3 points.");
+    if(count%2!=0) throw new IllegalArgumentException("Polygons must have an even number of vertices.");
+    check(ShapeType.Line,ShapeType.Filled,count);
+    float colorBits=getColor().toFloatBits();
+    float firstX=vertices[0];
+    float firstY=vertices[1];
+    ImmediateModeRenderer renderer=getRenderer();
+    for(int i=offset,n=offset+count;i<n;i+=2) {
+      float x1=vertices[i];
+      float y1=vertices[i+1];
+      float x2;
+      float y2;
+      if(i+2>=count) {
+        x2=firstX;
+        y2=firstY;
+      }else {
+        x2=vertices[i+2];
+        y2=vertices[i+3];
+      }
+      renderer.color(colorBits);
+      renderer.vertex(x1,y1,0);
+      renderer.color(colorBits);
+      renderer.vertex(x2,y2,0);
+    }
+  }
 }

@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.GL30;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
+import pama1234.gdx.util.ShaderUtil;
 import pama1234.gdx.util.app.ScreenCore3D;
 import pama1234.gdx.util.element.Graphics;
 import pama1234.gdx.util.listener.EntityListener;
@@ -91,7 +92,7 @@ public class Screen0005 extends ScreenCore3D{
     // imageBatch.end();
   }
   public void createAndPrintDefaultShader() {
-    ShaderProgram shader=createDefaultShader();
+    ShaderProgram shader=ShaderUtil.createDefaultShader();
     System.out.println(shader.getVertexShaderSource());
     System.out.println();
     System.out.println(shader.getFragmentShaderSource());

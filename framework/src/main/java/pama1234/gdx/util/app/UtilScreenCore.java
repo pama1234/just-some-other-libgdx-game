@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Matrix4;
@@ -69,6 +70,7 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
   public boolean fill=true,stroke=true;
   public float defaultStrokeWeight,strokeWeight;
   public UtilShapeRenderer rFill,rStroke;
+  public PolygonSpriteBatch pFill;
   public boolean background=true;
   public Color backgroundColor;
   public EntityCenter<UtilScreen,EntityListener> center,centerCam,centerScreen;
@@ -117,10 +119,12 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
   public void beginShape() {
     rFill.begin(ShapeType.Filled);
     rStroke.begin(ShapeType.Line);
+    pFill.begin();
   }
   public void endShape() {
     rFill.end();
     rStroke.end();
+    pFill.end();
   }
   public void setCamera(Camera in) {
     if(usedCamera!=in) usedCamera=in;
@@ -174,13 +178,13 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
     stop=true;
     fontBatch.dispose();
     font.dispose();
-    // center.refresh();
     center.dispose();
     serverCenter.dispose();
   }
   //---------------------------------------------------------------------------
   /**
    * 移动至FileUtil
+   * 
    * @param in
    * @return
    */
@@ -193,7 +197,6 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
       Thread.sleep(i);
     }catch(InterruptedException e) {
       e.printStackTrace();
-      // System.out.println(e);
     }
   }
   public float random(float max) {

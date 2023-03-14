@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.VertexAttribute;
 import com.badlogic.gdx.graphics.VertexAttributes;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
+import pama1234.gdx.util.ShaderUtil;
 import pama1234.gdx.util.app.ScreenCore3D;
 import pama1234.gdx.util.element.Graphics;
 import pama1234.gdx.util.listener.EntityListener;
@@ -145,7 +146,7 @@ public class Screen0015 extends ScreenCore3D{
     mesh.setVertices(verts);
   }
   public void createAndPrintDefaultShader() {
-    ShaderProgram shader=createDefaultShader();
+    ShaderProgram shader=ShaderUtil.createDefaultShader();
     System.out.println(shader.getVertexShaderSource());
     System.out.println();
     System.out.println(shader.getFragmentShaderSource());

@@ -130,6 +130,9 @@ public class Duel extends ScreenCore2D{
   public void strokeWeight(float in) {
     super.strokeWeight(in*strokeUnit);
   }
+  public void strokeWeightOriginal(float in) {
+    super.strokeWeight(in);
+  }
   @Override
   public void touchStarted(TouchInfo info) {
     if(isAndroid) {

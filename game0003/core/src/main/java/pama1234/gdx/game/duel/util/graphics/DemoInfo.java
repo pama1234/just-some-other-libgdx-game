@@ -18,13 +18,13 @@ public class DemoInfo extends Entity<Duel>{
     p.background(255,200);
     p.doStroke();
     p.stroke(0);
-    p.strokeWeight(2);
+    p.strokeWeightOriginal(2);
     p.noFill();
     p.rect(0,0,text.texture.getWidth(),text.texture.getHeight());
     p.endBlend();
     p.endShape();
     p.setTextScale(1);
-    p.strokeWeight(1);
+    p.strokeWeightOriginal(1);
     drawText_ch(p,UtilMath.min(p.width,p.height));
     text.end();
   }
