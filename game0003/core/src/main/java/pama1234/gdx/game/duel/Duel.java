@@ -46,6 +46,7 @@ public class Duel extends ScreenCore2D{
   public float maxDist;
   public float magCache;
   public float dxCache,dyCache;
+  public float strokeUnit;
   @Override
   public void setup() {
     if(isAndroid) {
@@ -123,6 +124,11 @@ public class Duel extends ScreenCore2D{
   @Override
   public void frameResized() {
     maxDist=u;
+    strokeUnit=isAndroid?u/128f:u/64f;
+  }
+  @Override
+  public void strokeWeight(float in) {
+    super.strokeWeight(in*strokeUnit);
   }
   @Override
   public void touchStarted(TouchInfo info) {

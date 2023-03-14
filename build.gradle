@@ -26,47 +26,11 @@ buildscript {
   }
 }
 
-configure(allprojects
-    - [ project('game0001') , project('game0002') , project('game0003') , project('game0004') ]) {
-// allprojects{
+// configure(allprojects
+//     - [ project('game0001') , project('game0002') , project('game0003') , project('game0004') ]) {
+allprojects{
   apply plugin: 'idea'
   apply plugin: 'eclipse'
-
-  // afterEvaluate {
-	// 	eclipse {
-	// 		project {
-	// 			//hide gradle build folders from eclipse
-	// 			resourceFilter {
-	// 				appliesTo = 'FOLDERS'
-	// 				type = 'EXCLUDE_ALL'
-	// 				matcher {
-	// 					id = 'org.eclipse.ui.ide.multiFilter'
-	// 					arguments = '1.0-projectRelativePath-matches-true-false-build'
-	// 				}
-	// 			}
-	// 		}
-	// 		// jdt {
-	// 		// 	file {
-	// 		// 		withProperties { properties ->
-	// 		// 			def libgdxJdtProperties = new Properties()
-	// 		// 			libgdxJdtProperties.load(new FileInputStream(".settings/org.eclipse.jdt.libgdx.prefs"))
-	// 		// 			properties.putAll(libgdxJdtProperties)
-	// 		// 		}
-	// 		// 	}
-	// 		// }
-	// 		// classpath.file {
-	// 		// 	whenMerged { classpath ->
-	// 		// 		classpath.entries.findAll { entry -> entry.kind == 'lib' || entry.kind == 'src' }*.exported = true
-	// 		// 	}
-	// 		// }
-	// 	}
-	// 	//Set all projects to use UTF-8 file encoding for all files
-	// 	// eclipseJdt.doLast {
-	// 	// 	File f = new File(projectDir, '.settings/org.eclipse.core.resources.prefs')
-	// 	// 	f.write('eclipse.preferences.version=1\n')
-	// 	// 	f.append('encoding/<project>=UTF-8')
-	// 	// }
-	// }
 }
 
 configure(subprojects 
@@ -81,17 +45,6 @@ configure(subprojects
   compileJava {
     options.incremental = true
     options.encoding = 'UTF-8'
-  }
-
-  sourceSets {
-    main {
-      java {
-        srcDirs = ['src/main/java']
-      }
-      resources {
-        srcDirs = ['src/main/resources']
-      }
-    }
   }
 
   dependencies {
@@ -122,7 +75,6 @@ configure(subprojects
       greclipse().configFile new File(rootProject.projectDir.absolutePath, 'doc/eclipse.formatter.xml')
     }
   }
-
 }
 
 subprojects {
@@ -142,10 +94,6 @@ subprojects {
 
   tasks.withType(Jar) {
     duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-
-    //  manifest {
-    //     attributes["Main-Class"] = "com.example.backendapp.BackendAppApplication"
-    //  }
   }
 
   tasks.withType(Tar) {

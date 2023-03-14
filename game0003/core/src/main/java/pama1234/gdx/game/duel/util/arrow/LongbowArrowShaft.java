@@ -18,6 +18,5 @@ public final class LongbowArrowShaft extends LongbowArrowComponent{
     duel.rotate(rotationAngle);
     duel.line(-halfLength,0,halfLength,0);
     duel.popMatrix();
-    // duel.strokeWeight(1);
   }
 }

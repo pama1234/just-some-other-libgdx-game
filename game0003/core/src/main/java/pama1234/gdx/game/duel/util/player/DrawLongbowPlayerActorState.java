@@ -73,7 +73,6 @@ public final class DrawLongbowPlayerActorState extends DrawBowPlayerActorState{
     duel.rotate(UtilMath.HALF_PI);
     duel.strokeWeight(ringStrokeWeight);
     duel.arc(0,0,ringSize/2f,0,360*UtilMath.min(1,(float)(parentActor.chargedFrameCount)/chargeRequiredFrameCount));
-    // duel.strokeWeight(1);
     duel.rotate(+UtilMath.HALF_PI);
     parentActor.chargedFrameCount++;
   }

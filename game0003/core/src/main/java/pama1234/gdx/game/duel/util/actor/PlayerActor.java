@@ -54,6 +54,7 @@ public final class PlayerActor extends AbstractPlayerActor{
   @Override
   public void display() {
     duel.stroke(0);
+    duel.strokeWeight(3);
     duel.doFill();
     duel.fill(fillColor);
     duel.pushMatrix();

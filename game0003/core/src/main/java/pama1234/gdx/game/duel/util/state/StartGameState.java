@@ -33,19 +33,11 @@ public final class StartGameState extends GameSystemState{
     final int currentNumberFrameCount=properFrameCount%frameCountPerNumber;
     if(currentNumberFrameCount==0) displayNumber--;
     if(displayNumber<=0) return;
-    // duel.doFill();
-    // duel.fill(ringColor);
     duel.setTextColor(ringColor);
     duel.setTextScale(duel.pus);
     String in=Integer.toString(displayNumber);
-    // duel.drawText(in,-16,-32);
     duel.drawText(in,(duel.width-duel.textWidth(in))/2f,(duel.height-duel.pu)/2f);
-    // duel.setCamera(duel.cam.camera);
-    // duel.pushMatrix();
     duel.setTextScale(1);
-    // drawCam();
-    // duel.popMatrix();
-    // duel.setCamera(duel.screenCam);
   }
   public void drawRing() {
     duel.rotate(UtilMath.HALF_PI);
@@ -54,7 +46,6 @@ public final class StartGameState extends GameSystemState{
     duel.stroke(ringColor);
     duel.noFill();
     duel.arc(0,0,ringSize/2f,0,360*(float)(properFrameCount%frameCountPerNumber)/frameCountPerNumber);
-    // duel.strokeWeight(1);
   }
   @Override
   public void checkStateTransition() {

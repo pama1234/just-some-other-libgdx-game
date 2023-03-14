@@ -101,9 +101,7 @@ public final class Particle extends Body implements Poolable<Particle>{
         if(alpha>0.01f) {
           duel.noFill();
           duel.stroke(displayColor,alpha);
-          // duel.strokeColor.a=alpha;
           duel.strokeWeight(2);
-          // duel.strokeWeight(strokeWeightValue*UtilMath.pow(getFadeRatio(),4));
           duel.pushMatrix();
           duel.translate(xPosition,yPosition);
           duel.rotate(rotationAngle);
@@ -116,10 +114,8 @@ public final class Particle extends Body implements Poolable<Particle>{
         int alpha=colorClamp(getFadeRatio()/2f);
         if(alpha>0.01f) {
           duel.stroke(displayColor,alpha);
-          // duel.strokeColor.a=alpha;
           duel.strokeWeight(strokeWeightValue*UtilMath.pow(getFadeRatio(),4));
           duel.line(xPosition,yPosition,xPosition+800*UtilMath.cos(rotationAngle),yPosition+800*UtilMath.sin(rotationAngle));
-          // duel.strokeWeight(1);
         }
       }
         break;
@@ -129,10 +125,8 @@ public final class Particle extends Body implements Poolable<Particle>{
         if(alpha>0.01f) {
           duel.noFill();
           duel.stroke(displayColor,alpha);
-          // duel.strokeColor.a=alpha;
           duel.strokeWeight(strokeWeightValue*getFadeRatio());
           duel.circle(xPosition,yPosition,displaySize*(1+ringSizeExpandRatio)/2f);
-          // duel.strokeWeight(1);
         }
       }
         break;

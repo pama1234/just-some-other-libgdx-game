@@ -178,11 +178,13 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
     center.dispose();
     serverCenter.dispose();
   }
-  public void strokeWeight(float in) {
-    if(in<=0) return;
-    Gdx.gl.glLineWidth(strokeWeight=in);
-  }
-  @Deprecated //use FileUtil instead
+  //---------------------------------------------------------------------------
+  /**
+   * 移动至FileUtil
+   * @param in
+   * @return
+   */
+  @Deprecated
   public Texture loadTexture(String in) {
     return new Texture(Gdx.files.internal(in));
   }
@@ -219,6 +221,7 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
     System.out.println(out);
     return out;
   }
+  //---------------------------------------------------------------------------
   @Override
   public void mousePressed(MouseInfo info) {}
   @Override
