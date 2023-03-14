@@ -16,7 +16,7 @@ public final class DrawLongbowPlayerActorState extends DrawBowPlayerActorState{
   public final int chargeRequiredFrameCount=UtilMath.floor(0.5f*Duel.IDEAL_FRAME_RATE);
   public final Color effectColor=Duel.color(192,64,64);
   public final float ringSize=80.0f;
-  public final float ringStrokeWeight=5;
+  public final float ringStrokeWeight=8;
   public DrawLongbowPlayerActorState(Duel duel) {
     this.duel=duel;
   }
@@ -65,6 +65,7 @@ public final class DrawLongbowPlayerActorState extends DrawBowPlayerActorState{
   public void displayEffect(PlayerActor parentActor) {
     duel.noFill();
     duel.stroke(0);
+    duel.strokeWeight(5);
     duel.arc(0,0,50,UtilMath.deg(parentActor.aimAngle)-90,180);
     if(hasCompletedLongBowCharge(parentActor)) duel.stroke(effectColor);
     else duel.stroke(0,128);
@@ -72,7 +73,7 @@ public final class DrawLongbowPlayerActorState extends DrawBowPlayerActorState{
     duel.rotate(UtilMath.HALF_PI);
     duel.strokeWeight(ringStrokeWeight);
     duel.arc(0,0,ringSize/2f,0,360*UtilMath.min(1,(float)(parentActor.chargedFrameCount)/chargeRequiredFrameCount));
-    duel.strokeWeight(1);
+    // duel.strokeWeight(1);
     duel.rotate(+UtilMath.HALF_PI);
     parentActor.chargedFrameCount++;
   }

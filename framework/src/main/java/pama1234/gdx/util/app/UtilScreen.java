@@ -281,6 +281,11 @@ public abstract class UtilScreen extends UtilScreenCore{
     strokeColor.set(in);
     rStroke.setColor(strokeColor);
   }
+  public void stroke(Color in,int alpha) {
+    strokeColor.set(in);
+    strokeColor.a=alpha/255f;
+    rStroke.setColor(strokeColor);
+  }
   public void stroke(int gray) {
     stroke(gray,255);
   }

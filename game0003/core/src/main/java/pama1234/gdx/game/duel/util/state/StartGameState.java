@@ -54,7 +54,7 @@ public final class StartGameState extends GameSystemState{
     duel.stroke(ringColor);
     duel.noFill();
     duel.arc(0,0,ringSize/2f,0,360*(float)(properFrameCount%frameCountPerNumber)/frameCountPerNumber);
-    duel.strokeWeight(1);
+    // duel.strokeWeight(1);
   }
   @Override
   public void checkStateTransition() {

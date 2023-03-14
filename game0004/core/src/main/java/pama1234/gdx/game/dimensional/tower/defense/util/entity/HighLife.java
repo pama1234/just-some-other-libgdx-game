@@ -27,14 +27,10 @@ public abstract class HighLife extends HighPointEntity<DemonDefense,HighMassPoin
       point.pos.data[lowDimLink.data[1]],
       point.pos.data[lowDimLink.data[2]]);
     decal.lookAt(p.cam.camera.position,p.cam.camera.up);
-    // System.out.println(decal.getPosition());
-    // System.out.println(decal.getRotation());
   }
   @Override
   public void display() {
     p.decal(decal);
-    // p.flushDecal();
-    // System.out.println("HighLife.display()");
   }
   //---------------------------------------------------------------
   public static class RectLife extends HighLife{

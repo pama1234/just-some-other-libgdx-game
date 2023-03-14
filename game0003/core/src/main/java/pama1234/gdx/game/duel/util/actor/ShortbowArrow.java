@@ -43,6 +43,7 @@ public class ShortbowArrow extends AbstractArrowActor{
   }
   @Override
   public void display() {
+    duel.strokeWeight(3);
     duel.stroke(0);
     duel.doFill();
     duel.fill(0);

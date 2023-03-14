@@ -28,6 +28,7 @@ public final class DrawShortbowPlayerActorState extends DrawBowPlayerActorState{
   }
   @Override
   public void displayEffect(PlayerActor parentActor) {
+    duel.strokeWeight(5);
     duel.line(0,0,70*UtilMath.cos(parentActor.aimAngle),70*UtilMath.sin(parentActor.aimAngle));
     duel.noFill();
     duel.arc(0,0,50,UtilMath.deg(parentActor.aimAngle)-22.5f,45);

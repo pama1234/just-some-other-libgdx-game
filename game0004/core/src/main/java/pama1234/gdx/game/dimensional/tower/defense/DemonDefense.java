@@ -20,14 +20,10 @@ public class DemonDefense extends UtilScreen3D{
     Graphics g=new Graphics(this,16,16);
     noStroke();
     g.beginShape();
-    // doFill();
-    // beginBlend();
     fill(255,127);
     circle(8,8,8);
     fill(255);
     circle(8,8,4);
-    // endBlend();
-    // background(255);
     g.endShape();
     playerImage=FileUtil.toTextureRegion(g.texture);
     yourself=new HighPlayer(this,new HighMassPoint(new Vec12f()),createPlayerDecal());
@@ -43,7 +39,6 @@ public class DemonDefense extends UtilScreen3D{
   @Override
   public void displayWithCam() {
     flushDecal();
-    // circle(0,32,16);
   }
   @Override
   public void frameResized() {}

@@ -25,6 +25,6 @@ public final class LongbowArrowHead extends LongbowArrowComponent{
       halfHeadLength,0,
       -halfHeadLength,halfHeadWidth);
     duel.popMatrix();
-    duel.strokeWeight(1);
+    // duel.strokeWeight(1);
   }
 }

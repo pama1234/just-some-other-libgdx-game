@@ -37,8 +37,6 @@ public final class ActorGroup{
     player.display();
   }
   public void displayArrows() {
-    for(AbstractArrowActor eachArrow:arrowList) {
-      eachArrow.display();
-    }
+    for(AbstractArrowActor eachArrow:arrowList) eachArrow.display();
   }
 }

@@ -6,7 +6,7 @@ import pama1234.gdx.game.duel.Duel;
 import pama1234.gdx.game.duel.util.ObjectPool;
 
 public final class ParticleSet{
-  private final Duel duel;
+  public final Duel duel;
   public final ArrayList<Particle> particleList;
   public final ArrayList<Particle> removingParticleList;
   public final ObjectPool<Particle> particlePool;
