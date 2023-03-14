@@ -119,12 +119,12 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
   public void beginShape() {
     rFill.begin(ShapeType.Filled);
     rStroke.begin(ShapeType.Line);
-    pFill.begin();
+    // pFill.begin();
   }
   public void endShape() {
     rFill.end();
     rStroke.end();
-    pFill.end();
+    // pFill.end();
   }
   public void setCamera(Camera in) {
     if(usedCamera!=in) usedCamera=in;

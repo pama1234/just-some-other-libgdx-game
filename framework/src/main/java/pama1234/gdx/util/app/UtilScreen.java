@@ -75,6 +75,9 @@ public abstract class UtilScreen extends UtilScreenRender{
     innerResize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
   }
   //---------------------------------------------------------------------------
+  public abstract void displayWithCam();
+  public abstract CameraController createCamera();
+  //---------------------------------------------------------------------------
   @Override
   public void render(float delta) {
     frameRate=delta;
@@ -104,8 +107,6 @@ public abstract class UtilScreen extends UtilScreenRender{
     inputProcessor.display();
     endShape();
   }
-  public abstract void displayWithCam();
-  public abstract CameraController createCamera();
   //---------------------------------------------------------------------------
   public void beginBlend() {
     Gdx.gl.glEnable(GL20.GL_BLEND);

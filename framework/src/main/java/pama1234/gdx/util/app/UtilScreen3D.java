@@ -46,6 +46,7 @@ public abstract class UtilScreen3D extends UtilScreen{
     vectorCache.set(x,y,0);
     return vectorCache;
   }
+  //---------------------------------------------------------------------------
   public void decal(Decal in) {
     decalBatch.add(in);
     // System.out.println(in);
@@ -63,6 +64,7 @@ public abstract class UtilScreen3D extends UtilScreen{
     decalBatch.flush();
     beginShape();
   }
+  //---------------------------------------------------------------------------
   public void model(ModelInstance in) {
     modelBatch.begin(usedCamera);
     modelBatch.render(in);
@@ -81,6 +83,7 @@ public abstract class UtilScreen3D extends UtilScreen{
     modelBatch.flush();
     beginShape();
   }
+  //---------------------------------------------------------------------------
   @Override
   public void dispose() {
     super.dispose();
