@@ -26,18 +26,18 @@ buildscript {
   }
 }
 
-// configure(allprojects
-//     - [ project('game0001') , project('game0002') , project('game0003') , project('game0004') ]) {
 allprojects{
   apply plugin: 'idea'
   apply plugin: 'eclipse'
 }
 
 configure(subprojects 
+    - [ project('game0001') , project('game0002') , project('game0003') , project('game0004') , project('game0005') ]
     - [ project('game0001:game0001-android') , project('game0001:game0001-pico4') , project('game0001:game0001-taptap') ]
     - [ project('game0002:game0002-android') ]
     - [ project('game0003:game0003-android') ]
-    - [ project('game0004:game0004-android') ]) {
+    - [ project('game0004:game0004-android') ]
+    - [ project('game0005:game0005-android') ]) {
 
   apply plugin: "java"
   apply plugin: 'java-library'
@@ -89,22 +89,6 @@ subprojects {
     maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
     maven { url 'https://jitpack.io' }
   }
-
-  tasks.withType(Copy).all { duplicatesStrategy = DuplicatesStrategy.EXCLUDE }
-
-  tasks.withType(Jar) {
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-  }
-
-  tasks.withType(Tar) {
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-  }
-
-  tasks.withType(Zip) {
-    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-  }
-
-  // tasks.getByName('distTar') { duplicatesStrategy = DuplicatesStrategy.EXCLUDE }
 }
 
 eclipse.project.name = 'game' + '-parent'
