@@ -50,11 +50,11 @@ public class ShortbowArrow extends AbstractArrowActor{
     duel.pushMatrix();
     duel.translate(xPosition,yPosition);
     duel.rotate(rotationAngle);
-    duel.line(-halfLength,0.0f,halfLength,0.0f);
+    duel.line(-halfLength,0,halfLength,0);
     duel.quad(
-      halfLength,0.0f,
+      halfLength,0,
       halfLength-halfHeadLength,-halfHeadWidth,
-      halfLength+halfHeadLength,0.0f,
+      halfLength+halfHeadLength,0,
       halfLength-halfHeadLength,+halfHeadWidth);
     duel.line(-halfLength,0.0f,-halfLength-featherLength,-halfFeatherWidth);
     duel.line(-halfLength,0.0f,-halfLength-featherLength,+halfFeatherWidth);
