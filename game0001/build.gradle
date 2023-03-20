@@ -4,4 +4,9 @@ configure(subprojects
       project('0001-pico4') ,
       project('0001-taptap')
     ]) {
-    }
+  
+	apply plugin: "java"
+
+	sourceSets.main.java.srcDirs = ["src/main/java"]
+	sourceSets.main.resources.srcDirs = ["src/main/resources"]
+}
