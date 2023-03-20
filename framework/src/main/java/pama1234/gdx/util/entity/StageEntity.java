@@ -1,9 +1,8 @@
-package pama1234.gdx.game;
+package pama1234.gdx.util.entity;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import pama1234.gdx.util.app.UtilScreen;
-import pama1234.gdx.util.entity.Entity;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
 

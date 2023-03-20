@@ -20,7 +20,6 @@ import pama1234.game.app.server.server0001.game.net.data.Client0001Core;
 import pama1234.game.app.server.server0001.game.net.io.ClientRead;
 import pama1234.game.app.server.server0001.game.net.io.ClientWrite;
 import pama1234.game.app.server.server0001.particle.Var;
-import pama1234.gdx.game.net.SocketWrapperGDX;
 import pama1234.gdx.game.ui.ConfigInfo;
 import pama1234.gdx.game.ui.generator.UiGenerator;
 import pama1234.gdx.game.ui.util.Button;
@@ -29,6 +28,7 @@ import pama1234.gdx.game.util.ControllerClientPlayer3D;
 import pama1234.gdx.util.FileUtil;
 import pama1234.gdx.util.app.ScreenCore3D;
 import pama1234.gdx.util.element.Graphics;
+import pama1234.gdx.util.net.SocketWrapperGDX;
 import pama1234.math.Tools;
 import pama1234.util.net.NetAddressInfo;
 

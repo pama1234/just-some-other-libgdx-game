@@ -5,6 +5,9 @@ public class UtilMath{
   public static final float degRad=(float)(Math.PI/180.);
   public static final float PI=(float)Math.PI;
   public static final float PI2=PI*2;
+  /**
+   * 请替换为 {@link UtilMath#PI2 PI2}
+   */
   @Deprecated
   public static final float TWO_PI=PI2;
   public static final float HALF_PI=PI/2;

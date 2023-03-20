@@ -12,6 +12,7 @@ import pama1234.gdx.game.app.app0001.Screen0003;
 import pama1234.gdx.game.app.app0001.Screen0007;
 import pama1234.gdx.util.app.UtilScreen;
 
+@SuppressWarnings("deprecation")
 public class MainApp extends Game{
   public static final String[] typeName=new String[] {"通用版","Taptap版","Pico4-VR版"};
   public static final int defaultType=0,taptap=1,pico=2;

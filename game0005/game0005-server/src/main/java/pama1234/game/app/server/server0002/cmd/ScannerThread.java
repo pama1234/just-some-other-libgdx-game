@@ -21,7 +21,7 @@ public class ScannerThread extends Thread{
     System.out.println("test of pama1234 v0.1 server");
     while(!p.stop) {
       String in=scanner.nextLine();
-      String[] data=in.replaceAll("^\"","").split("\"?( |$)(?=(([^\"]*\"){2})*[^\"]*$)\"?");//TODO faster
+      String[] data=in.replaceAll("^\"","").split("\"?( |$)(?=(([^\"]*\"){2})*[^\"]*$)\"?");//TODO 更换为非正则的更快的方案
       // System.out.println(in);
       // System.out.println(Arrays.toString(data));
       commandList.executeSub(p,commandList,data,0,-1);

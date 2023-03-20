@@ -22,6 +22,7 @@ import pama1234.math.physics.PathPoint;
 import pama1234.math.physics.PathVar;
 import pama1234.math.vec.Vec2f;
 
+@SuppressWarnings("deprecation")
 public class WorldKryoUtil{
   public static Region regionInstance;
   public static MainPlayer playerInstance;

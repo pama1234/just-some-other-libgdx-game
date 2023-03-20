@@ -51,7 +51,13 @@ public class ClientCore{
           break;
         case ServerDataTransfer: {
           s.clientState=ClientState.ClientDataTransfer;
-          if(readSize!=p.cellData.length) throw new RuntimeException("state DataTransfer readSize!=p.cellData.length "+readSize+" "+p.cellData.length+" "+Arrays.toString(readNBytes(s,inData,0,inData.length)));//TODO
+          if(readSize!=p.cellData.length) throw new RuntimeException(
+            "state DataTransfer readSize!=p.cellData.length "+
+              readSize+
+              " "+
+              p.cellData.length+
+              " "+
+              Arrays.toString(readNBytes(s,inData,0,inData.length)));//TODO
           for(int i=0;i<readSize;i++) {
             readNBytes(s,inData,0,4*5);
             p.cellData[i].id=ByteUtil.byteToInt(inData,0);
@@ -72,7 +78,8 @@ public class ClientCore{
           byte[] nameBytes=new byte[readSize];
           readNBytes(s,nameBytes,0,readSize);
           String version=new String(nameBytes);
-          if(!version.equals(protocolVersion)) throw new RuntimeException("!version.equals(protocolVersion)"+version+" "+protocolVersion);
+          if(!version.equals(protocolVersion)) throw new RuntimeException(
+            "!version.equals(protocolVersion)"+version+" "+protocolVersion);
           s.clientState=ClientState.ClientAuthentication;
         }
           break;

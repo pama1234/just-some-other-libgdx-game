@@ -11,7 +11,6 @@ import com.badlogic.gdx.net.SocketHints;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 
 import pama1234.gdx.game.app.Screen0011;
-import pama1234.gdx.game.net.SocketWrapperGDX;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
 import pama1234.gdx.game.state.state0001.game.GameDisplayUtil;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaWorldCenter0001;
@@ -30,6 +29,7 @@ import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.game.util.RectF;
 import pama1234.gdx.util.listener.EntityListener;
+import pama1234.gdx.util.net.SocketWrapperGDX;
 import pama1234.util.net.NetAddressInfo;
 import pama1234.util.net.ServerSocketData;
 import pama1234.util.net.SocketData;

@@ -9,8 +9,7 @@ public class MultiChunkFontData extends BitmapFontData{
   public MultiChunkFontData() {}
   public MultiChunkFontData(FileHandle fontFile,boolean flip) {
     super(fontFile,flip);
-    // descent=-1.5f;//TODO why??
-    descent=-2;
+    descent=-2;//TODO 更换为不是硬代码的逻辑
     lineHeight=18;
   }
   @Override

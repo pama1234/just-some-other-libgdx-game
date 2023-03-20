@@ -1,4 +1,4 @@
-package pama1234.gdx.game;
+package pama1234.gdx.util.element;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.scenes.scene2d.Stage;

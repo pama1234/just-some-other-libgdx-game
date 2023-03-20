@@ -13,8 +13,8 @@ import pama1234.game.app.server.server0001.game.net.io.ServerRead;
 import pama1234.game.app.server.server0001.game.net.io.ServerWrite;
 import pama1234.game.app.server.server0001.game.particle.CellGroup3D;
 import pama1234.game.app.server.server0001.game.particle.CellGroupGenerator3D;
-import pama1234.gdx.game.net.SocketWrapperGDX;
 import pama1234.gdx.util.app.UtilScreen3D;
+import pama1234.gdx.util.net.SocketWrapperGDX;
 import pama1234.util.net.NetAddressInfo;
 import pama1234.util.wrapper.Center;
 

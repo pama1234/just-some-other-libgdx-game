@@ -18,7 +18,7 @@ public final class KillPlayerPlan extends PlayerPlan{
     final float relativeAngle=player.getAngle(player.group.enemyGroup.player)-player.aimAngle;
     if(UtilMath.abs(relativeAngle)<UtilMath.rad(1.0f)) horizontalMove=0;
     else {
-      if((relativeAngle+UtilMath.TWO_PI)%UtilMath.TWO_PI>UtilMath.PI) horizontalMove=-1;
+      if((relativeAngle+UtilMath.PI2)%UtilMath.PI2>UtilMath.PI) horizontalMove=-1;
       else horizontalMove=+1;
     }
     input.operateMoveButton(horizontalMove,0);
