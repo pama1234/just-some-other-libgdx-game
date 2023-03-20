@@ -1,6 +1,7 @@
 package pama1234.gdx.game.asset;
 
-import com.badlogic.gdx.Gdx;
+import static pama1234.gdx.game.asset.MusicAssetUtil.load;
+
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.audio.Music;
 
@@ -21,9 +22,5 @@ public class MusicAsset{
   }
   public static void put_0001(AssetManager manager) {
     moonlightSonata=manager.get("music/Beethoven-Moonlight-Sonata.mp3");
-  }
-  //----------------------------------------------------
-  public static Music load(String in) {
-    return Gdx.audio.newMusic(Gdx.files.internal("music/"+in));
   }
 }

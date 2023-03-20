@@ -1,5 +1,8 @@
 package pama1234.gdx.game.asset;
 
+import static pama1234.gdx.game.asset.ImageAssetUtil.loadFromTexture;
+import static pama1234.gdx.game.asset.ImageAssetUtil.loadFromTexture_0001;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Pixmap;
@@ -8,25 +11,15 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import pama1234.gdx.util.FileUtil;
-import pama1234.math.UtilMath;
-
 public class ImageAsset{
   public static Texture shaderOnly;
   public static TextureRegion //
   exit,
     background,sky,select;
   public static TextureRegion[] backgroundList=new TextureRegion[5];
-  // public static int //
-  // tileWidth=18,
-  //   tileHeight=18,
-  //   tileWidthGap=2,
-  //   tileHeightGap=2;
   public static TextureRegion[][] tiles,items,creature,player;
-  // public static TextureRegion background;
   public static Animation<TextureRegion> bigEarth;
   public static void load_0001(AssetManager manager) {
-    // background=load("background.png");
     manager.load("image/exit.png",Texture.class);
     manager.load("image/background/background.png",Texture.class);
     for(int i=1;i<=5;i++) manager.load("image/background/"+i+".png",Texture.class);
@@ -73,24 +66,5 @@ public class ImageAsset{
     }
     bigEarth=new Animation<TextureRegion>(.04f,tr);
     bigEarth.setPlayMode(Animation.PlayMode.LOOP);
-  }
-  //----------------------------------------------------
-  public static TextureRegion load(String in) {
-    return FileUtil.loadTextureRegion("image/"+in);
-  }
-  public static TextureRegion loadFromTexture(Texture in) {
-    return FileUtil.toTextureRegion(in);
-  }
-  public static TextureRegion[][] loadFromTexture_0001(Texture in,int w,int h,int w2,int h2) {
-    int tw=w+w2,th=h+h2;
-    TextureRegion[][] out=new TextureRegion[UtilMath.round(in.getWidth()/(float)tw)][UtilMath.round(in.getHeight()/(float)th)];
-    for(int i=0;i<out.length;i++) for(int j=0;j<out[i].length;j++) out[i][j]=FileUtil.toTextureRegion(in,i*tw,j*th,w,h);
-    return out;
-  }
-  public static TextureRegion[][] loadFromTexture_0001(Texture in,int x,int y,int w,int h,int w2,int h2) {
-    int tw=w+w2,th=h+h2;
-    TextureRegion[][] out=new TextureRegion[UtilMath.round(in.getWidth()/(float)tw)][UtilMath.round(in.getHeight()/(float)th)];
-    for(int i=0;i<out.length;i++) for(int j=0;j<out[i].length;j++) out[i][j]=FileUtil.toTextureRegion(in,x+i*tw,y+j*th,w,h);
-    return out;
   }
 }

@@ -31,9 +31,10 @@ public class World0001 extends WorldBase2D<WorldType0001>{
     super(p,pg,3,type);
     //---
     worldDataDir=Gdx.files.local("data/saved/test-world.bin");//TODO
-    if(netMode()!=NetMode.client) data=WorldData.load(worldDataDir);
-    else data=new WorldData();
-    if(data.dir==null) data.dir="data/saved/test-world/";
+    if(netMode()!=NetMode.client) {
+      data=WorldData.load(worldDataDir);
+      if(data.dir==null) data.dir="data/saved/test-world/";
+    }else data=new WorldData();
     metaBlocks=type.metaBlocks;
     metaItems=type.metaItems;
     metaEntitys=type.metaEntitys;

@@ -50,8 +50,6 @@ public abstract class WorldBase2D<M extends WorldType0001Base<?>>extends World<S
     node=new TreeNode<>(this);
     this.type=type;
     typeId=type.id;
-    //---
-    // initCenter();
   }
   public abstract void initCenter();
   public float random(float max) {
