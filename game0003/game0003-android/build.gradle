@@ -192,4 +192,4 @@ task run(type: Exec) {
   commandLine "$adb", 'shell', 'am', 'start', '-n', 'pama1234.gdx.game.app/pama1234.gdx.game.app.android.AndroidLauncher'
 }
 
-eclipse.project.name = appName + "-0003-android"
+eclipse.project.name = appName + "-game0003-android"

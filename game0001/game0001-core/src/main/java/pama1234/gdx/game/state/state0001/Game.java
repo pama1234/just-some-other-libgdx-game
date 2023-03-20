@@ -121,12 +121,11 @@ public class Game extends StateEntity0001{
   @Override
   public void to(State0001 in) {
     WorldBase2D<?> tw=world();
-    // p.cam2d.activeDrag=true;
     for(Button<?> e:menuButtons) p.centerScreen.remove.add(e);
     if(ctrlButtons!=null) for(Button<?> e:ctrlButtons) p.centerScreen.remove.add(e);
     p.centerCam.remove.add(worldCenter);
     worldCenter.pause();
-    tw.to(in);//TODO
+    tw.to(in);
     if(p.settings.debugGraphics) p.centerCam.remove.add(displayCamTop);
     if(netMode==NetMode.client) {
       client.stop();

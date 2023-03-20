@@ -1,4 +1,4 @@
-package pama1234.gdx.game.app.app0004;
+package pama1234.gdx.game.app.app0001;
 
 import static com.badlogic.gdx.math.MathUtils.map;
 import static pama1234.gdx.game.ui.generator.InfoUtil.info0001;
@@ -6,15 +6,21 @@ import static pama1234.math.UtilMath.dist;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Net.Protocol;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.net.SocketHints;
 
-import pama1234.game.app.server.server0001.game.ServerPlayer3D;
-import pama1234.game.app.server.server0001.game.particle.CellGroup3D;
-import pama1234.game.app.server.server0001.game.particle.CellGroupGenerator3D;
+import pama1234.game.app.server.server0001.game.net.SocketData0001;
+import pama1234.game.app.server.server0001.game.net.SocketData0001.Token;
+import pama1234.game.app.server.server0001.game.net.data.Client0001Core;
+import pama1234.game.app.server.server0001.game.net.io.ClientRead;
+import pama1234.game.app.server.server0001.game.net.io.ClientWrite;
 import pama1234.game.app.server.server0001.particle.Var;
+import pama1234.gdx.game.net.SocketWrapperGDX;
 import pama1234.gdx.game.ui.ConfigInfo;
 import pama1234.gdx.game.ui.generator.UiGenerator;
 import pama1234.gdx.game.ui.util.Button;
@@ -23,37 +29,35 @@ import pama1234.gdx.game.util.ControllerClientPlayer3D;
 import pama1234.gdx.util.FileUtil;
 import pama1234.gdx.util.app.ScreenCore3D;
 import pama1234.gdx.util.element.Graphics;
-import pama1234.math.UtilMath;
-import pama1234.math.vec.Vec3f;
+import pama1234.math.Tools;
+import pama1234.util.net.NetAddressInfo;
 
 /**
- * 3D 粒子系统 单机模式
+ * 3D 粒子系统 联机 客户端
  */
-public class Screen0001 extends ScreenCore3D{
-  public CellGroup3D group;
+public class Screen0003 extends ScreenCore3D{
+  public SocketData0001 clientSocket;
+  public Client0001Core clientCore;
+  //---
+  public ClientRead clientRead;
+  public ClientWrite clientWrite;
+  //---
   @Deprecated
   public ClientPlayerCenter3D playerCenter;//TODO
   public ControllerClientPlayer3D yourself;
   public ArrayList<ArrayList<GraphicsData>> graphicsList;
-  public ArrayList<DecalData>[] decals;
+  public ArrayList<DecalData> decals;
   public boolean doUpdate;
-  public Thread updateCell;
   public Vector3 posCache=new Vector3();
   public static final int layerSize=3;
   public static final int gsize=8;
   public boolean displayHint;
   public Decal infoD;
   public Decal logo;
-  public boolean tempTest;//TODO
   public ConfigInfo configInfo;
-  public float[][] tesselatedMat= {
-    {0,0,0},{1,0,0},
-    {0,1,0},{1,1,0},
-    //---
-    {0,0,1},{1,0,1},
-    {0,1,1},{1,1,1},
-  };
-  public Vec3f size;
+  public int tempCellSize=128;
+  public int tempColorSize=12;
+  public int tempSize=tempCellSize*tempColorSize;
   public static class GraphicsData{
     public Graphics g;
     public TextureRegion tr;
@@ -62,7 +66,7 @@ public class Screen0001 extends ScreenCore3D{
       this.tr=tr;
     }
   }
-  public static class DecalData{//TODO
+  public static class DecalData{
     public Decal decal;
     public int layer;
     public DecalData(Decal g,int layer) {
@@ -71,39 +75,51 @@ public class Screen0001 extends ScreenCore3D{
     }
   }
   public int tgsizeF(int k) {
+    // return (int)pow(gsize,(k+2)*0.3f);
     return 8*(k*2+1);
   }
   @Override
   public void setup() {
-    cam.point.f=0.1f;//TODO
-    cam3d.viewDir.f=0.1f;
-    cam.point.set(0,0,-240);
+    cam.point.set(0,0,-320);
     backgroundColor(0);
     textColor(255);
-    CellGroupGenerator3D gen=new CellGroupGenerator3D(0,0);
-    if(random(1)>0.5f) group=gen.randomGenerate(64,isAndroid?1024:8192);
-    group=gen.generateFromMiniCore();
-    size=new Vec3f(
-      group.updater.x2-group.updater.x1,
-      group.updater.y2-group.updater.y1,
-      group.updater.z2-group.updater.z1);
-    cam3d.viewDist(UtilMath.min(size.x,size.y,size.z)/2f);
-    // System.out.println(size);
-    // println(group.updater.x2,group.updater.x1);
+    clientCore=new Client0001Core(tempSize,"pama"+String.format("%04d",(int)(random(0,10000))));
     playerCenter=new ClientPlayerCenter3D(this);
-    yourself=new ControllerClientPlayer3D(this,new ServerPlayer3D(
-      "pama"+String.format("%04d",(int)(random(0,10000))),
-      0,0,0));
+    yourself=new ControllerClientPlayer3D(this,clientCore.yourself);
+    //---
+    dataServerInfo=new NetAddressInfo("192.168.2.105",12347);
+    //---
+    SocketHints tsh=new SocketHints();
+    tsh.connectTimeout=10000;
+    tsh.socketTimeout=5000;
+    tsh.keepAlive=true;
+    tsh.performancePrefConnectionTime=0;
+    tsh.performancePrefLatency=2;
+    tsh.performancePrefBandwidth=1;
+    //---
+    clientSocket=new SocketData0001(new Token(yourself.data.name()),new SocketWrapperGDX(Gdx.net.newClientSocket(Protocol.TCP,dataServerInfo.addr,dataServerInfo.port,tsh)));
+    new Thread() {
+      public void run() {
+        while(!clientSocket.s.isConnected()) {
+          try {
+            sleep(200);
+          }catch(InterruptedException e) {
+            e.printStackTrace();
+          }
+        }
+        (clientRead=new ClientRead(clientCore,clientSocket)).start();
+        (clientWrite=new ClientWrite(clientCore,clientSocket)).start();
+      }
+    }.start();
     noStroke();
     graphicsList=new ArrayList<ArrayList<GraphicsData>>(layerSize);
-    decals=new ArrayList[tesselatedMat.length];
-    for(int i=0;i<decals.length;i++) decals[i]=new ArrayList<>(group.size);
-    final int typeSize=group.colors.length;
-    int tsize=group.size/typeSize;
-    int[] colors=new int[typeSize];
-    for(int i=0;i<colors.length;i++) colors[i]=group.colors[i];
-    graphicsList.add(0,new ArrayList<GraphicsData>(typeSize));
-    for(int i=0;i<typeSize;i++) {
+    decals=new ArrayList<>(clientCore.cellData.length);
+    final int ts=tempColorSize;
+    int tsize=tempCellSize;
+    int[] colors=new int[tempColorSize];
+    for(int i=0;i<colors.length;i++) colors[i]=Tools.hsbColor((float)i/colors.length*255,0xff,0xff);
+    graphicsList.add(0,new ArrayList<GraphicsData>(ts));
+    for(int i=0;i<ts;i++) {
       int tgsize=tgsizeF(0);
       Graphics tg=new Graphics(this,tgsize*2,tgsize*2);
       tg.beginShape();
@@ -113,15 +129,15 @@ public class Screen0001 extends ScreenCore3D{
       circle(tgsize,tgsize,tgsize/2);
       tg.endShape();
       TextureRegion tr=new TextureRegion(tg.texture);
-      graphicsList.get(0).add(0*typeSize+i,new GraphicsData(tg,tr));
-      for(int k=0;k<decals.length;k++) for(int j=0;j<tsize;j++) {
+      graphicsList.get(0).add(0*ts+i,new GraphicsData(tg,tr));
+      for(int j=0;j<tsize;j++) {
         Decal td=Decal.newDecal(Var.DIST,Var.DIST,tr,true);
-        decals[k].add(i*tsize+j,new DecalData(td,0));
+        decals.add(i*tsize+j,new DecalData(td,0));
       }
     }
     for(int k=1;k<layerSize;k++) {
-      graphicsList.add(k,new ArrayList<GraphicsData>(typeSize));
-      for(int i=0;i<typeSize;i++) {
+      graphicsList.add(k,new ArrayList<GraphicsData>(ts));
+      for(int i=0;i<ts;i++) {
         int tgsize=tgsizeF(k);
         Graphics tg=new Graphics(this,tgsize*2,tgsize*2);
         tg.beginShape();
@@ -134,20 +150,6 @@ public class Screen0001 extends ScreenCore3D{
         graphicsList.get(k).add(i,new GraphicsData(tg,tr));
       }
     }
-    updateCell=new Thread() {
-      @Override
-      public void run() {
-        while(!stop) {
-          if(doUpdate) group.update();
-          else try {
-            sleep(1000);
-          }catch(InterruptedException e) {
-            e.printStackTrace();
-          }
-        }
-      }
-    };
-    updateCell.start();
     //TODO
     Graphics tg=new Graphics(this,360,16*info0001.length);
     tg.beginShape();
@@ -159,7 +161,6 @@ public class Screen0001 extends ScreenCore3D{
     logo.setPosition(0,-512,0);
     //TODO
     if(isAndroid) {
-      // if(true) {
       buttons=UiGenerator.genButtons_0001(this);
       for(Button<?> e:buttons) centerScreen.add.add(e);
     }
@@ -168,12 +169,14 @@ public class Screen0001 extends ScreenCore3D{
     centerCam.add.add(yourself);//TODO
   }
   @Override
-  public void update() {}
+  public void update() {
+    if(clientSocket.stop) clientSocket.dispose();
+  }
   public float colorF(float in) {
     in/=cam3d.viewDist()/2;
     in=2-in;
     if(in>1) in=1;
-    else if(in<0) in=0;
+    if(in<0) in=0;
     return in;
   }
   public int layerF(float dist) {
@@ -186,33 +189,24 @@ public class Screen0001 extends ScreenCore3D{
   }
   @Override
   public void displayWithCam() {
-    // Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
-    // Gdx.gl20.glDepthMask(false);
-    synchronized(group) {
-      for(int j=0;j<tesselatedMat.length;j++) {
-        float[] tfa=tesselatedMat[j];
-        float lx=(tfa[0]+UtilMath.floor((cam3d.point.pos.x)/size.x))*size.x;//TODO
-        float ly=(tfa[1]+UtilMath.floor((cam3d.point.pos.y)/size.y))*size.y;
-        float lz=(tfa[2]+UtilMath.floor((cam3d.point.pos.z)/size.z))*size.z;
-        for(int i=0;i<group.size;i++) {
-          float tx=group.x(i)*multDist+lx;
-          float ty=group.y(i)*multDist+ly;
-          float tz=group.z(i)*multDist+lz;
-          float tdist=dist(tx,ty,tz,cam.x(),cam.y(),cam.z());
-          final DecalData tdd=decals[j].get(i);
-          final Decal td=tdd.decal;
-          td.setPosition(tx,ty,tz);
-          if(!isVisible(cam.camera,td,Var.DIST/2)) continue;
-          final int tlf=layerF(tdist);
-          if(tlf!=tdd.layer) {
-            tdd.layer=tlf;
-            td.setTextureRegion(graphicsList.get(tlf).get(group.type[i]).tr);
-          }
-          td.lookAt(cam.camera.position,cam.camera.up);
-          td.setColor(1,1,1,colorF(tdist));
-          decal(td);
-        }
+    for(int i=0;i<clientCore.cellData.length;i++) {
+      float tx=clientCore.cellData[i].x*multDist;
+      float ty=clientCore.cellData[i].y*multDist;
+      float tz=clientCore.cellData[i].z*multDist;
+      float tdist=dist(tx,ty,tz,cam.x(),cam.y(),cam.z());
+      final DecalData tdd=decals.get(clientCore.cellData[i].id);
+      final Decal td=tdd.decal;
+      if(!isVisible(cam.camera,td,Var.DIST/2)) continue;
+      final int tlf=layerF(tdist);
+      if(tlf!=tdd.layer) {
+        tdd.layer=tlf;
+        td.setTextureRegion(graphicsList.get(tlf).get(clientCore.cellData[i].type).tr);
       }
+      td.setPosition(tx,ty,tz);
+      td.lookAt(cam.camera.position,cam.camera.up);
+      float colorF=colorF(tdist);
+      td.setColor(colorF,colorF,colorF,1);
+      decal(td);
     }
     if(displayHint) decal(infoD);
     logo.lookAt(cam.camera.position,cam.camera.up);
@@ -260,10 +254,10 @@ public class Screen0001 extends ScreenCore3D{
       cam3d.viewDist(tvd);
     }
     if(isAndroid&&key=='T') fullSettings=!fullSettings;//TODO
-    if(key=='P') tempTest=!tempTest;
   }
   @Override
   public void dispose() {
     super.dispose();
+    clientSocket.dispose();
   }
 }

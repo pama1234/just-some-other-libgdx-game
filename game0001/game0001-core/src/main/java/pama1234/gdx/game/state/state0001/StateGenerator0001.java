@@ -30,6 +30,5 @@ public class StateGenerator0001{
   public interface StateEntityListener0001 extends EntityListener,DisplayWithCam{
     default public void from(State0001 in) {}
     default public void to(State0001 in) {}
-    // default public void exit() {}
   }
 }

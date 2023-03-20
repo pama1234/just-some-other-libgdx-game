@@ -9,7 +9,6 @@ import pama1234.math.Tools;
 
 public class FirstRun extends StateEntity0001{
   float time;
-  // float time=30;
   boolean moveCam;
   public FirstRun(Screen0011 p) {
     super(p);
@@ -26,7 +25,6 @@ public class FirstRun extends StateEntity0001{
     p.cam2d.active(false);
     p.cam2d.scale.des=p.isAndroid?1/3f:1;
     p.cam2d.point.set(256,256,0);
-    // p.textScale(2);
   }
   @Override
   public void to(State0001 in) {
