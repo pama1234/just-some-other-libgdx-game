@@ -1,0 +1,223 @@
+apply plugin: 'com.android.application'
+
+android {
+  namespace 'pama1234'
+  compileSdkVersion 32
+  signingConfigs {
+    release {
+      // storeFile file('sign.jks')
+      // storePassword ''
+      // keyAlias 'xxx'
+      // keyPassword ''
+    }
+  }
+  sourceSets {
+    main {
+      manifest.srcFile 'AndroidManifest.xml'
+      java.srcDirs = ['src/main/java']
+      aidl.srcDirs = ['src/main/java']
+      renderscript.srcDirs = ['src/main/java']
+      res.srcDirs = ['res']
+      assets.srcDirs = ['../assets']
+      jniLibs.srcDirs = ['libs']
+    }
+  }
+  packagingOptions {
+    // exclude 'assets/image/src/*'
+
+    //无法理解的屎山+1
+    pickFirst "win/libgcc_s_seh_x86_64.dll"
+    pickFirst "win/libstdc++-6_x86.dll"
+    pickFirst "win/libgcc_s_sjlj_x86.dll"
+    pickFirst "win/libstdc++-6_x86_64.dll"
+    pickFirst "win/libaparapi_x86_64.dll"
+    pickFirst "win/libaparapi_x86.dll"
+    pickFirst "osx/libaparapi_x86_64.dylib"
+    pickFirst "javax/vecmath/ExceptionStrings.properties"
+    pickFirst "library.properties"
+    pickFirst "rootdoc.txt"
+    // Preventing from license violations (more or less):
+    pickFirst 'META-INF/LICENSE.txt'
+    pickFirst 'META-INF/LICENSE'
+    pickFirst 'META-INF/license.txt'
+    pickFirst 'META-INF/LGPL2.1'
+    pickFirst 'META-INF/NOTICE.txt'
+    pickFirst 'META-INF/NOTICE'
+    pickFirst 'META-INF/notice.txt'
+    // Excluding unnecessary meta-data:
+    exclude 'META-INF/robovm/ios/robovm.xml'
+    exclude 'META-INF/DEPENDENCIES.txt'
+    exclude 'META-INF/DEPENDENCIES'
+    exclude 'META-INF/dependencies.txt'
+  }
+  defaultConfig {
+    applicationId 'pama1234.gdx.game.app.game0001.pico4'
+    minSdkVersion 26
+    targetSdkVersion 32
+    versionCode 1
+    versionName "1.0"
+    multiDexEnabled true
+  }
+  compileOptions {
+    encoding = 'UTF-8'
+    sourceCompatibility "11"
+    targetCompatibility "11"
+    coreLibraryDesugaringEnabled true
+  }
+  
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+      
+      signingConfig signingConfigs.release
+    }
+  }
+  
+  externalNativeBuild {
+    cmake {
+      // Provides a relative path to your CMake build script.
+      path "CMakeLists.txt"
+    }
+  }
+}
+
+def Properties props = new Properties()
+    def propFile = file('./signing.properties')
+    if (propFile.canRead()){
+        props.load(new FileInputStream(propFile))
+
+        if (props!=null && props.containsKey('STORE_FILE') && props.containsKey('STORE_PASSWORD') &&
+                props.containsKey('KEY_ALIAS') && props.containsKey('KEY_PASSWORD')) {
+
+            android.signingConfigs.release.storeFile = file(props['STORE_FILE'])
+            android.signingConfigs.release.storePassword = props['STORE_PASSWORD']
+            android.signingConfigs.release.keyAlias = props['KEY_ALIAS']
+            android.signingConfigs.release.keyPassword = props['KEY_PASSWORD']
+        } else {
+            android.buildTypes.release.signingConfig = null
+        }
+    }else {
+        android.buildTypes.release.signingConfig = null
+    }
+
+repositories {
+  // needed for AAPT2, may be needed for other tools
+  mavenCentral()
+  maven { url 'https://jitpack.io' }
+  google()
+}
+
+configurations { natives }
+
+dependencies {
+  coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.2'
+  implementation "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
+  implementation "com.github.simplepeng.SpiderMan:spiderman:$spider_man"  //如果程序异常闪退提供log
+  implementation project(':game0001:game0001-core')
+
+  natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a"
+  natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
+  natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86"
+  natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86_64"
+
+  natives 'org.khronos.openxr:openxr_loader_for_android:1.0.26'
+
+
+  // This follows advice from https://blog.gradle.org/log4j-vulnerability
+  constraints {
+    implementation("org.apache.logging.log4j:log4j-core") {
+      version {
+        strictly("[2.17, 3[")
+        prefer("2.17.0")
+      }
+      because("CVE-2021-44228, CVE-2021-45046, CVE-2021-45105: Log4j vulnerable to remote code execution and other critical security vulnerabilities")
+    }
+  }
+}
+
+// Called every time gradle gets executed, takes the native dependencies of
+// the natives configuration, and extracts them to the proper libs/ folders
+// so they get packed with the APK.
+task copyAndroidNatives() {
+  doFirst {
+    file("libs/armeabi-v7a/").mkdirs()
+    file("libs/arm64-v8a/").mkdirs()
+    file("libs/x86_64/").mkdirs()
+    file("libs/x86/").mkdirs()
+
+    configurations.getByName("natives").copy().files.each { jar ->
+      def outputDir = null
+      if(jar.name.endsWith("natives-armeabi-v7a.jar")) outputDir = file("libs/armeabi-v7a")
+      if(jar.name.endsWith("natives-arm64-v8a.jar")) outputDir = file("libs/arm64-v8a")
+      if(jar.name.endsWith("natives-x86_64.jar")) outputDir = file("libs/x86_64")
+      if(jar.name.endsWith("natives-x86.jar")) outputDir = file("libs/x86")
+
+      if(jar.name.startsWith("openxr_loader_for_android")) {
+        ext.copySoFile={pathString ->
+          copy {
+            from zipTree(jar)
+            into file('libs/'+pathString)
+            include "**/*"+pathString+"/*.so"
+            eachFile { fcp ->
+              fcp.path = (fcp.path as String).split("/").last()
+            }
+            includeEmptyDirs false
+          }
+        }
+        copySoFile('armeabi-v7a')
+        copySoFile('arm64-v8a')
+        copySoFile('x86_64')
+        copySoFile('x86')
+      }else if(outputDir != null) {
+        copy {
+          from zipTree(jar)
+          into outputDir
+          include "*.so"
+        }
+      }
+    }
+  }
+}
+
+tasks.whenTaskAdded { packageTask ->
+  if (packageTask.name.contains("package")) {
+    packageTask.dependsOn 'copyAndroidNatives'
+  }
+}
+
+// tasks.whenTaskAdded { cleanTask ->
+//   if (cleanTask.name.equals("clean")) {
+//     println(cleanTask)
+//     cleanTask.dependsOn 'cleanAndroidNatives'
+//   }
+// }
+
+// task cleanAndroidNatives() {
+//   delete file('libs').listFiles()
+//   println("cleanAndroidNatives")
+// }
+
+task run(type: Exec) {
+  def path
+  def localProperties = project.file("../local.properties")
+  if (localProperties.exists()) {
+    Properties properties = new Properties()
+    localProperties.withInputStream { instr ->
+      properties.load(instr)
+    }
+    def sdkDir = properties.getProperty('sdk.dir')
+    if (sdkDir) {
+      path = sdkDir
+    } else {
+      path = "$System.env.ANDROID_SDK_ROOT"
+    }
+  } else {
+    path = "$System.env.ANDROID_SDK_ROOT"
+  }
+
+  def adb = path + "/platform-tools/adb"
+  commandLine "$adb", 'shell', 'am', 'start', '-n', 'pama1234.gdx.game.app/pama1234.gdx.game.app.android.AndroidLauncher'
+}
+
+eclipse.project.name = appName + '-game0001-game0001-pico4'

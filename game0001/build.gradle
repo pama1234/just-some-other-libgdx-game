@@ -1,8 +1,8 @@
 configure(subprojects
     - [
-      project('0001-android') ,
-      project('0001-pico4') ,
-      project('0001-taptap')
+      project('game0001-android') ,
+      project('game0001-pico4') ,
+      project('game0001-taptap')
     ]) {
   
 	apply plugin: "java"

@@ -34,10 +34,10 @@ allprojects{
 }
 
 configure(subprojects 
-    - [ project('game0001:0001-android') , project('game0001:0001-pico4') , project('game0001:0001-taptap') ]
-    - [ project('game0002:0002-android') ]
-    - [ project('game0003:0003-android') ]
-    - [ project('game0004:0004-android') ]) {
+    - [ project('game0001:game0001-android') , project('game0001:game0001-pico4') , project('game0001:game0001-taptap') ]
+    - [ project('game0002:game0002-android') ]
+    - [ project('game0003:game0003-android') ]
+    - [ project('game0004:game0004-android') ]) {
 
   apply plugin: "java"
   apply plugin: 'java-library'
