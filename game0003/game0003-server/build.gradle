@@ -6,6 +6,8 @@ eclipse.project.name = appName + '-game0003-server'
 
 dependencies {
   api project(':server-framework')
+
+  api 'org.tensorflow:tensorflow-core-platform-gpu:0.5.0'
 }
 
 jar {
