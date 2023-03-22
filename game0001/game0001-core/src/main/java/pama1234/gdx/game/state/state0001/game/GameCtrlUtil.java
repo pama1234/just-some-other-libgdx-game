@@ -20,15 +20,17 @@ public class GameCtrlUtil{
   }
   public static <T extends Screen0011> TextButton<?>[] genButtons_0007(T p,Game pg) {
     return new TextButton[] {
-      new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {
-        pg.androidRightMouseButton=!pg.androidRightMouseButton;
-        self.updateText();
-      },self->self.text=pg.androidRightMouseButton?"mR":"mL",p::getButtonUnitLength,()->p.width-p.bu*4f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,false),
+      new TextButton<T>(p,true,()->true,self-> {},self-> {
+        p.inputProcessor.keyDown(Input.Keys.SPACE);
+      },self-> {
+        p.inputProcessor.keyUp(Input.Keys.SPACE);
+      },self->self.text="↑",p::getButtonUnitLength,()->p.width-p.bu*2.5f,()->p.height-p.bu*2.5f,()->p.bu-p.pus,false),
       new TextButton<T>(p,true,()->true,self-> {},self-> {
         p.inputProcessor.keyDown(Input.Keys.S);
       },self-> {
         p.inputProcessor.keyUp(Input.Keys.S);
       },self->self.text="↓",p::getButtonUnitLength,()->p.width-p.bu*2.5f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,false),
+      //--------------------------------------------------------------------
       new TextButton<T>(p,true,()->true,self-> {},self-> {
         p.inputProcessor.keyDown(Input.Keys.A);
       },self-> {
@@ -40,17 +42,55 @@ public class GameCtrlUtil{
         p.inputProcessor.keyUp(Input.Keys.D);
       },self->self.text=" →",p::getButtonUnitLength,()->p.bu*3f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,false),
       //--------------------------------------------------------------------
-      new TextButton<T>(p,true,()->true,self-> {},self-> {
-        p.inputProcessor.keyDown(Input.Keys.SPACE);
-      },self-> {
-        p.inputProcessor.keyUp(Input.Keys.SPACE);
-      },self->self.text="↑",p::getButtonUnitLength,()->p.width-p.bu*2.5f,()->p.height-p.bu*2.5f,()->p.bu-p.pus,false),
       new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.inputProcessor.scrolled(0,1);
       },self->self.text="+ ",p::getButtonUnitLength,()->p.width-p.bu*3.5f,()->p.bu*0.5f,()->p.bu-p.pus,false),
       new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.inputProcessor.scrolled(0,-1);
       },self->self.text=" -",p::getButtonUnitLength,()->p.width-p.bu*2f,()->p.bu*0.5f,()->p.bu-p.pus,false),
+      new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {
+        pg.androidRightMouseButton=!pg.androidRightMouseButton;
+        self.updateText();
+      },self->self.text=pg.androidRightMouseButton?"mR":"mL",p::getButtonUnitLength,()->p.width-p.bu*4f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,false),
+    };
+  }
+  public static <T extends Screen0011> TextButton<?>[] genButtons_0011(T p,Game pg) {
+    return new TextButton[] {
+      new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {
+        p.inputProcessor.scrolled(0,1);
+      },self->self.text="+ ",p::getButtonUnitLength,()->p.width-p.bu*3.5f,()->p.bu*0.5f,()->p.bu-p.pus,false),
+      new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {
+        p.inputProcessor.scrolled(0,-1);
+      },self->self.text=" -",p::getButtonUnitLength,()->p.width-p.bu*2f,()->p.bu*0.5f,()->p.bu-p.pus,false),
+      new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {
+        pg.androidRightMouseButton=!pg.androidRightMouseButton;
+        self.updateText();
+      },self->self.text=pg.androidRightMouseButton?"mR":"mL",p::getButtonUnitLength,()->p.width-p.bu*4f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,false),
+    };
+  }
+  public static <T extends Screen0011> TextButton<?>[] genButtons_0012(T p,Game pg) {
+    return new TextButton[] {
+      new TextButton<T>(p,true,()->true,self-> {},self-> {
+        p.inputProcessor.keyDown(Input.Keys.SPACE);
+      },self-> {
+        p.inputProcessor.keyUp(Input.Keys.SPACE);
+      },self->self.text="↑",p::getButtonUnitLength,()->p.width-p.bu*2.5f,()->p.height-p.bu*2.5f,()->p.bu-p.pus,false),
+      new TextButton<T>(p,true,()->true,self-> {},self-> {
+        p.inputProcessor.keyDown(Input.Keys.S);
+      },self-> {
+        p.inputProcessor.keyUp(Input.Keys.S);
+      },self->self.text="↓",p::getButtonUnitLength,()->p.width-p.bu*2.5f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,false),
+      //--------------------------------------------------------------------
+      new TextButton<T>(p,true,()->true,self-> {},self-> {
+        p.inputProcessor.keyDown(Input.Keys.A);
+      },self-> {
+        p.inputProcessor.keyUp(Input.Keys.A);
+      },self->self.text="← ",p::getButtonUnitLength,()->p.bu*1.5f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,false),
+      new TextButton<T>(p,true,()->true,self-> {},self-> {
+        p.inputProcessor.keyDown(Input.Keys.D);
+      },self-> {
+        p.inputProcessor.keyUp(Input.Keys.D);
+      },self->self.text=" →",p::getButtonUnitLength,()->p.bu*3f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,false),
     };
   }
 }

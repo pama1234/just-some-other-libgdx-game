@@ -1,10 +1,19 @@
 package pama1234.math;
 
+import java.lang.reflect.Array;
+
 import pama1234.math.vec.Vec2f;
 
-// import com.badlogic.gdx.graphics.Color;
-// import com.badlogic.gdx.math.MathUtils;
 public class Tools{
+  public static <T> T[] concat(T[] a,T[] b) {
+    int aLen=a.length;
+    int bLen=b.length;
+    @SuppressWarnings("unchecked")
+    T[] c=(T[])Array.newInstance(a.getClass().getComponentType(),aLen+bLen);
+    System.arraycopy(a,0,c,0,aLen);
+    System.arraycopy(b,0,c,aLen,bLen);
+    return c;
+  }
   public static String getMillisString(long in) {
     return String.format("%03d",in);
   }
@@ -37,11 +46,6 @@ public class Tools{
     in+=a;
     return in;
   }
-  // public static void main(String[] args) {
-  //   System.out.println(moveInRange(9,0,8));//1
-  //   System.out.println(moveInRange(9,0,9));//0
-  //   System.out.println(moveInRange(9,0,10));//9
-  // }
   public static float moveInRange(float in,float a,float b) {
     b-=a;
     in-=a;
@@ -103,11 +107,6 @@ public class Tools{
   public static Vec2f lineSegIntersects(Vec2f out,float xs1,float ys1,float xe1,float ye1,float xs2,float ys2,float xe2,float ye2) {
     return out;
   }
-  // public static void main(String[] args) {
-  //   // System.out.println(lineSegIntersects(new Vec2f(),0,0,1,1,2,1,3,0));
-  //   System.out.println(lineSlope(0,0,10,10));
-  //   System.out.println(lineSlope(0,0,10,10));
-  // }
   @Deprecated
   public static Vec2f lineSegIntersects(Vec2f out,Vec2f s1,Vec2f e1,Vec2f s2,Vec2f e2) {
     return lineSegIntersects(out,s1.x,s1.y,e1.x,e1.y,s2.x,s2.y,e2.x,e2.y);

@@ -9,15 +9,7 @@ public class TouchInfo extends ScreenCamInfo{
    * 表示此触碰信息是否参与按钮等信息，不由{@link UtilScreenCore}进行赋值
    */
   public boolean active;
-  /**
-   * （未实现）用于记录鼠标开始时的当前帧数
-   * 
-   * @see pama1234.gdx.util.app.UtilScreenCore#frameCount
-   */
-  public int startTime;
   public int pointer,button;
-  //---------------------------
-  public int state;
   public TouchInfo(UtilScreenCore p) {
     this.p=p;
   }

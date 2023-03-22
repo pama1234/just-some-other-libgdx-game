@@ -30,7 +30,18 @@ public class ScreenCamInfo{
    * @see pama1234.gdx.util.app.UtilScreen2D#unproject(float,float)
    */
   public int ox,oy;
+  /**
+   * osx是未经过相机视角变化的鼠标按下时的鼠标位置
+   */
   public int osx,osy;
+  /**
+   * （未实现）用于记录鼠标开始时的当前帧数
+   * 
+   * @see pama1234.gdx.util.app.UtilScreenCore#frameCount
+   */
+  public int startTime;
+  //---
+  public int state;
   public void set(float a,float b) {
     x=a;
     y=b;

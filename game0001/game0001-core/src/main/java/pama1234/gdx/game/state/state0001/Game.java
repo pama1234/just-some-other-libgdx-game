@@ -1,6 +1,9 @@
 package pama1234.gdx.game.state.state0001;
 
 import static com.badlogic.gdx.Input.Keys.ESCAPE;
+import static pama1234.gdx.game.state.state0001.game.GameCtrlUtil.genButtons_0005;
+import static pama1234.gdx.game.state.state0001.game.GameCtrlUtil.genButtons_0011;
+import static pama1234.gdx.game.state.state0001.game.GameCtrlUtil.genButtons_0012;
 import static pama1234.gdx.game.state.state0001.game.GameDisplayUtil.debugText;
 
 import java.net.ConnectException;
@@ -12,7 +15,6 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
-import pama1234.gdx.game.state.state0001.game.GameCtrlUtil;
 import pama1234.gdx.game.state.state0001.game.GameDisplayUtil;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaWorldCenter0001;
 import pama1234.gdx.game.state.state0001.game.net.ClientCore;
@@ -25,17 +27,20 @@ import pama1234.gdx.game.state.state0001.game.world.WorldBase2D;
 import pama1234.gdx.game.state.state0001.game.world.WorldCenter;
 import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
 import pama1234.gdx.game.state.state0001.game.world.world0002.World0002;
+import pama1234.gdx.game.ui.GameController;
 import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.game.util.RectF;
 import pama1234.gdx.util.listener.EntityListener;
 import pama1234.gdx.util.net.SocketWrapperGDX;
+import pama1234.math.Tools;
 import pama1234.util.net.NetAddressInfo;
 import pama1234.util.net.ServerSocketData;
 import pama1234.util.net.SocketData;
 
 public class Game extends StateEntity0001{
   public Button<?>[] menuButtons;
+  public GameController ctrlVertex;
   public TextButton<?>[] ctrlButtons;
   public float time;
   //---
@@ -55,8 +60,14 @@ public class Game extends StateEntity0001{
   public ClientCore client;
   public Game(Screen0011 p) {
     super(p);
-    menuButtons=GameCtrlUtil.genButtons_0005(p);
-    if(p.isAndroid) ctrlButtons=GameCtrlUtil.genButtons_0007(p,this);
+    menuButtons=genButtons_0005(p);
+    if(p.isAndroid) ctrlButtons=p.settings.ctrlButton?Tools.concat(genButtons_0011(p,this),genButtons_0012(p,this)):genButtons_0011(p,this);
+    if(!p.settings.ctrlButton) ctrlVertex=new GameController(p) {
+      @Override
+      public boolean inActiveRect(float x,float y) {
+        return Tools.inRect(x,y,0,p.u*2,p.width/3f,p.height);
+      }
+    };
     //---
     worlds=MetaWorldGenerator.createWorldC(this);
     //---
@@ -83,6 +94,7 @@ public class Game extends StateEntity0001{
     // p.cam2d.activeDrag=false;
     for(Button<?> e:menuButtons) p.centerScreen.add.add(e);
     if(ctrlButtons!=null) for(Button<?> e:ctrlButtons) p.centerScreen.add.add(e);
+    if(ctrlVertex!=null) p.centerScreen.add.add(ctrlVertex);
     if(firstInit) {
       firstInit=false;
       tw.init();
@@ -123,6 +135,7 @@ public class Game extends StateEntity0001{
     WorldBase2D<?> tw=world();
     for(Button<?> e:menuButtons) p.centerScreen.remove.add(e);
     if(ctrlButtons!=null) for(Button<?> e:ctrlButtons) p.centerScreen.remove.add(e);
+    if(ctrlVertex!=null) p.centerScreen.remove.add(ctrlVertex);
     p.centerCam.remove.add(worldCenter);
     worldCenter.pause();
     tw.to(in);

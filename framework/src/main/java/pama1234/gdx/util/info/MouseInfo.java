@@ -15,12 +15,6 @@ public class MouseInfo extends ScreenCamInfo{
    */
   public boolean left,right,center;
   /**
-   * （未实现）用于记录鼠标开始时的当前帧数
-   * 
-   * @see pama1234.gdx.util.app.UtilScreenCore#frameCount
-   */
-  public int startTime;
-  /**
    * 被按下的键的int表示
    * 
    * @see com.badlogic.gdx.Input.Buttons
