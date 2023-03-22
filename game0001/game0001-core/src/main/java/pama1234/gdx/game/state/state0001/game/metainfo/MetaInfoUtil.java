@@ -4,6 +4,16 @@ import pama1234.game.app.server.server0002.game.metainfo.IDGenerator;
 import pama1234.util.wrapper.Center;
 
 public class MetaInfoUtil{
+  public static class MetaSkillCenter<M extends MetaWorld<?,?,?,?>>extends CachedArrayCenter<MetaSkill>{
+    public M pw;
+    public MetaSkillCenter(M pw) {
+      this.pw=pw;
+    }
+    @Override
+    public MetaSkill[] generateArray() {
+      return list.toArray(new MetaSkill[list.size()]);
+    }
+  }
   public static class MetaCreatureCenter<M extends MetaWorld<?,?,?,?>>extends CachedArrayCenter<MetaCreature<?>>{
     public M pw;
     public MetaCreatureCenter(M pw) {
@@ -40,7 +50,7 @@ public class MetaInfoUtil{
       return list.toArray(new MetaWorld[list.size()]);
     }
   }
-  public static abstract class CachedArrayCenter<T>extends Center<T>{
+  public static abstract class CachedArrayCenter<T> extends Center<T>{
     public boolean cacheClean;
     public T[] arrayCache;
     //---

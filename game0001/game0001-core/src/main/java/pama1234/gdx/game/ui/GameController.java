@@ -73,6 +73,12 @@ public abstract class GameController extends Entity<Screen0011>{
       downReleased();
     }
   }
+  @Override
+  public void frameResized(int w,int h) {
+    maxDist=p.u;
+    mx=maxDist/2f;
+    my=maxDist/2f;
+  }
   public void downPressed() {
     if(down) return;
     down=true;
@@ -112,12 +118,6 @@ public abstract class GameController extends Entity<Screen0011>{
     if(!right) return;
     right=false;
     p.inputProcessor.keyUp(Input.Keys.D);
-  }
-  @Override
-  public void frameResized(int w,int h) {
-    maxDist=p.u;
-    mx=maxDist/2f*3;
-    my=maxDist/2f*3;
   }
   @Override
   public void touchStarted(TouchInfo info) {

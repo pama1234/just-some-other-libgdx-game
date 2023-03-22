@@ -14,7 +14,6 @@ public class TouchInfo extends ScreenCamInfo{
     if(!active) return;
     px=x;
     py=y;
-    // putRaw(ox,oy);
   }
   public void putRaw(int xIn,int yIn) {
     Vector3 tv=p.unproject(ox=xIn,oy=yIn);
