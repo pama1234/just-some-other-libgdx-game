@@ -50,7 +50,7 @@ public class PlayerControllerFull extends PlayerControllerCore{
   }
   @Override
   public void preUpdate() {
-    for(TouchInfo e:p.touches) if(e.active) touchUpdate(e);
+    for(TouchInfo e:p.touches) if(e.active&&e.state==0) touchUpdate(e);
     updateCtrlInfo();
     super.preUpdate();
   }
@@ -225,7 +225,7 @@ public class PlayerControllerFull extends PlayerControllerCore{
       TextButtonCam<?>[] camButton=ui.camButton;
       for(TextButtonCam<?> e:camButton) {
         TouchInfo temp=e.touch;
-        if(info==temp||!info.active) continue;
+        if(info==temp||!info.active||info.state!=0) continue;
         e.touch=info;
         if(e.inButton(e.nx.get(),e.ny.get())) {
           e.clickStart();

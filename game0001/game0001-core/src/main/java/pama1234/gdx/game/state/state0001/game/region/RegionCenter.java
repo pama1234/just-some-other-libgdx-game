@@ -130,6 +130,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
     for(Region e:list) {
       e.keep=false;
       for(int i=0;i<e.data.length;i++) for(int j=0;j<e.data[i].length;j++) {
+        if(e.data[i][j]==null) continue;//TODO
         e.data[i][j].priority=0;
         e.data[i][j].update=false;
       }

@@ -61,13 +61,15 @@ public class Game extends StateEntity0001{
   public Game(Screen0011 p) {
     super(p);
     menuButtons=genButtons_0005(p);
-    if(p.isAndroid) ctrlButtons=p.settings.ctrlButton?Tools.concat(genButtons_0011(p,this),genButtons_0012(p,this)):genButtons_0011(p,this);
-    if(!p.settings.ctrlButton) ctrlVertex=new GameController(p) {
-      @Override
-      public boolean inActiveRect(float x,float y) {
-        return Tools.inRect(x,y,0,p.u*2,p.width/3f,p.height);
-      }
-    };
+    if(p.isAndroid) {
+      ctrlButtons=p.settings.ctrlButton?Tools.concat(genButtons_0011(p,this),genButtons_0012(p,this)):genButtons_0011(p,this);
+      if(!p.settings.ctrlButton) ctrlVertex=new GameController(p) {
+        @Override
+        public boolean inActiveRect(float x,float y) {
+          return Tools.inRect(x,y,0,p.u*2,p.width/3f,p.height);
+        }
+      };
+    }
     //---
     worlds=MetaWorldGenerator.createWorldC(this);
     //---

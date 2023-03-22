@@ -30,7 +30,7 @@ public abstract class Button<T extends UtilScreen>extends Entity<T>{
       if(!mouseLimit) {
         TouchInfo temp=touch;
         for(TouchInfo e:p.touches) {
-          if(e==temp||!e.active) continue;
+          if(e==temp||!e.active||e.state!=0) continue;
           touch=e;
           if(inButton(nx.get(),ny.get())) {
             clickStart();

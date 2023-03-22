@@ -5,9 +5,6 @@ import com.badlogic.gdx.math.Vector3;
 import pama1234.gdx.util.app.UtilScreenCore;
 
 public class TouchInfo extends ScreenCamInfo{
-  /**
-   * 表示此触碰信息是否参与按钮等信息，不由{@link UtilScreenCore}进行赋值
-   */
   public boolean active;
   public int pointer,button;
   public TouchInfo(UtilScreenCore p) {
