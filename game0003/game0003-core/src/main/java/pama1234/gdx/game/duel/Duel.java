@@ -26,7 +26,9 @@ import pama1234.math.UtilMath;
  * </p>
  * Modified by: Pama1234 (https://space.bilibili.com/646050693)
  * </p>
- * Altered with self-made framework v0.0.1 Altered with Processing-Libgdx v0.0.1
+ * Altered with self-made framework v0.0.1
+ * </p>
+ * Altered with Processing-Libgdx v0.0.1
  * </p>
  * </p>
  *

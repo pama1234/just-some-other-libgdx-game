@@ -12,6 +12,7 @@ import com.badlogic.gdx.utils.GdxRuntimeException;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
+import pama1234.gdx.game.state.state0001.game.GameCtrlUtil;
 import pama1234.gdx.game.state.state0001.game.GameDisplayUtil;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaWorldCenter0001;
 import pama1234.gdx.game.state.state0001.game.net.ClientCore;
@@ -24,7 +25,6 @@ import pama1234.gdx.game.state.state0001.game.world.WorldBase2D;
 import pama1234.gdx.game.state.state0001.game.world.WorldCenter;
 import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
 import pama1234.gdx.game.state.state0001.game.world.world0002.World0002;
-import pama1234.gdx.game.ui.generator.UiGenerator;
 import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.game.util.RectF;
@@ -55,8 +55,8 @@ public class Game extends StateEntity0001{
   public ClientCore client;
   public Game(Screen0011 p) {
     super(p);
-    menuButtons=UiGenerator.genButtons_0005(p);
-    if(p.isAndroid) ctrlButtons=UiGenerator.genButtons_0007(p,this);
+    menuButtons=GameCtrlUtil.genButtons_0005(p);
+    if(p.isAndroid) ctrlButtons=GameCtrlUtil.genButtons_0007(p,this);
     //---
     worlds=MetaWorldGenerator.createWorldC(this);
     //---

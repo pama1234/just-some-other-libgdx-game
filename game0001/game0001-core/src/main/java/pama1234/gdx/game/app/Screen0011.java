@@ -95,6 +95,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     public boolean isAndroid;
     public boolean showLog;
     public boolean printLog;
+    public boolean ctrlButton;
   }
   public SettingsData settings;
   public FileHandle settingsFile=Gdx.files.local("data/settings.bin");

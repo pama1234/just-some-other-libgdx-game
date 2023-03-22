@@ -119,7 +119,11 @@ public class SettingsUtil{
         p.settings.printLog=!p.settings.printLog;
         // p.debugInfoChange(p.settings.printLog);
         self.updateText();
-      },self->self.text=p.settings.printLog?"打印日志信息：是":"打印日志信息：否",()->18,()->0,()->340),
+      },self->self.text="打印日志信息："+(p.settings.printLog?"是":"否"),()->18,()->0,()->340),
+      new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
+        p.settings.ctrlButton=!p.settings.ctrlButton;
+        self.updateText();
+      },self->self.text="安卓版玩家控制移动UI："+(p.settings.ctrlButton?"按钮":"摇杆"),()->18,()->0,()->360),
     };
   }
 }

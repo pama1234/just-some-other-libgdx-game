@@ -20,8 +20,6 @@ public class Settings extends StateEntity0001{
   public Slider<?>[] sliders;
   public TextField[] camTextFields;
   public int tx,ty;
-  // public PrintStream stdout=System.out;
-  // public PrintStream logOut;
   public Settings(Screen0011 p) {
     super(p);
     sliders=new Slider[4];
@@ -73,11 +71,7 @@ public class Settings extends StateEntity0001{
     }
   }
   public static void drawLogText(Screen0011 p,String logText,float x,float y) {
-    // p.font.setColor(1,1,1,1);
     p.font.setColor(p.textColor);
-    // p.fontBatch.begin();
-    // p.font.draw(p.fontBatch,logText==null?"null":logText,x,y);
-    // p.fontBatch.end();
     p.drawText(logText,x,y);
   }
   public void text(String in) {
