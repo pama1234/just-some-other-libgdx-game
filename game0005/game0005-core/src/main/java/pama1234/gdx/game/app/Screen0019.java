@@ -1,7 +1,9 @@
 package pama1234.gdx.game.app;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.assets.AssetManager;
 
+import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.neat.GameState;
 import pama1234.gdx.game.neat.InputHandler;
 import pama1234.gdx.game.neat.NEAT;
@@ -30,6 +32,17 @@ public class Screen0019 extends ScreenCore2D{
     inputHandler=new InputHandler(gameState);
     // 设置输入监听器
     Gdx.input.setInputProcessor(inputHandler);
+    //---
+    // Initialize AssetManager
+    AssetManager assetManager=new AssetManager();
+    // Load ImageAsset using AssetManager
+    ImageAsset.load_0001(assetManager);
+    while(true) {
+      if(assetManager.update()) {
+        ImageAsset.put_0001(assetManager);
+        break;
+      }
+    }
   }
   @Override
   public void update() {}
@@ -54,6 +67,11 @@ public class Screen0019 extends ScreenCore2D{
   @Override
   public void frameResized() {}
   public void renderGame() {
-    // 渲染游戏画面
+    // 渲染玩家
+    image(ImageAsset.playerTexture,gameState.getPlayerX(),gameState.getPlayerY());
+    // 渲染敌人
+    image(ImageAsset.enemyTexture,gameState.getEnemyX(),gameState.getEnemyY());
+    // 渲染障碍物
+    image(ImageAsset.obstacleTexture,gameState.getObstacleX(),gameState.getObstacleY());
   }
 }
