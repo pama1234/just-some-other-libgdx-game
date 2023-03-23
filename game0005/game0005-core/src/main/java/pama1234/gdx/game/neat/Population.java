@@ -7,10 +7,16 @@ import java.util.List;
 public class Population{
   private NEATConfig config;
   public List<Genome> genomes;
+  /**
+   * 缓存列表，使用后需要清空
+   */
+  private List<Genome> newGenomes;
+  @Deprecated
   private int speciesCount;
   public Population(NEATConfig config) {
     this.config=config;
     this.genomes=new ArrayList<>();
+    this.newGenomes=new ArrayList<>();
     this.speciesCount=0;
   }
   public void initialize() {
@@ -32,11 +38,16 @@ public class Population{
       genomes.remove(genomes.size()-1);
     }
     // 将新个体加入种群
+    for(int i=0;i<config.getPopulationSize()-genomes.size();i++) {
+      Genome genome=new Genome(config.getNumInputs(),config.getNumOutputs());
+      genome.initialize();
+      newGenomes.add(genome);
+    }
     for(Genome genome:newGenomes) {
       genomes.add(genome);
     }
     // 清空分组列表和新个体列表
-    speciesList.clear();
+    // speciesList.clear();
     newGenomes.clear();
   }
   public List<Genome> getBestGenomes() {

@@ -40,9 +40,13 @@ public class Screen0019 extends ScreenCore2D{
     // 更新 NEAT 神经网络
     neat.update();
     // 获取 NEAT 产生的决策，并应用到游戏状态中
-    double[] inputs=new double[] {gameState.getPlayerX(),gameState.getEnemyX(),gameState.getObstacleX()};
-    double[] outputs=neat.evaluate(inputs);
-    boolean shouldJump=outputs[0]>0.5;
+    float[] inputs=new float[] {
+      gameState.getPlayerX(),
+      gameState.getEnemyX(),
+      gameState.getObstacleX()
+    };
+    float[] outputs=neat.evaluate(inputs);
+    boolean shouldJump=outputs[0]>0.5f;
     gameState.update(shouldJump);
     // 渲染游戏画面
     renderGame();

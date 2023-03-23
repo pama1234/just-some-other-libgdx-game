@@ -14,13 +14,13 @@ public class Genome implements Comparable<Genome>{
   private int numOutputs;
   private List<Node> nodes;
   private List<Connection> connections;
-  private double fitness;
+  private float fitness;
   public Genome(int numInputs,int numOutputs) {
     this.numInputs=numInputs;
     this.numOutputs=numOutputs;
     this.nodes=new ArrayList<>();
     this.connections=new ArrayList<>();
-    this.fitness=0.0;
+    this.fitness=0.0f;
   }
   public void initialize() {
     // 初始化输入和输出节点
@@ -68,7 +68,7 @@ public class Genome implements Comparable<Genome>{
     }
     return child;
   }
-  public void mutate(double mutationRate) {
+  public void mutate(float mutationRate) {
     for(Node node:nodes) {
       if(node.getType()==NodeType.HIDDEN&&Math.random()<mutationRate) {
         node.setActivationFunction(ActivationFunction.getRandomFunction());
@@ -132,7 +132,7 @@ public class Genome implements Comparable<Genome>{
   }
   @Override
   public int compareTo(Genome other) {
-    return Double.compare(fitness,other.fitness);
+    return Float.compare(fitness,other.fitness);
   }
   @Override
   public Genome clone() {
@@ -149,9 +149,9 @@ public class Genome implements Comparable<Genome>{
   public boolean isCompatibleWith(Genome other,NEATConfig config) {
     int numExcess=getNumExcessGenes(other);
     int numDisjoint=getNumDisjointGenes(other);
-    double weightDifference=getWeightDifference(other);
+    float weightDifference=getWeightDifference(other);
     int maxGenes=Math.max(connections.size(),other.connections.size());
-    double compatibilityDistance=(config.getExcessCoefficient()*numExcess/maxGenes)
+    float compatibilityDistance=(config.getExcessCoefficient()*numExcess/maxGenes)
       +(config.getDisjointCoefficient()*numDisjoint/maxGenes)
       +(config.getWeightDifferenceCoefficient()*weightDifference);
     return compatibilityDistance<=config.getCompatibilityThreshold();
@@ -160,12 +160,12 @@ public class Genome implements Comparable<Genome>{
     int numExcess=0;
     int maxInnovation=Math.max(getMaxInnovation(),other.getMaxInnovation());
     for(Connection connection:connections) {
-      if(connection.getInnovation()>maxInnovation) {
+      if(connection.getInnovationNumber()>maxInnovation) {
         numExcess++;
       }
     }
     for(Connection connection:other.connections) {
-      if(connection.getInnovation()>maxInnovation) {
+      if(connection.getInnovationNumber()>maxInnovation) {
         numExcess++;
       }
     }
@@ -175,11 +175,11 @@ public class Genome implements Comparable<Genome>{
     int numDisjoint=0;
     Set<Integer> thisInnovations=new HashSet<>();
     for(Connection connection:connections) {
-      thisInnovations.add(connection.getInnovation());
+      thisInnovations.add(connection.getInnovationNumber());
     }
     Set<Integer> otherInnovations=new HashSet<>();
     for(Connection connection:other.connections) {
-      otherInnovations.add(connection.getInnovation());
+      otherInnovations.add(connection.getInnovationNumber());
     }
     Set<Integer> allInnovations=new HashSet<>();
     allInnovations.addAll(thisInnovations);
@@ -191,8 +191,8 @@ public class Genome implements Comparable<Genome>{
     }
     return numDisjoint;
   }
-  private double getWeightDifference(Genome other) {
-    double weightDifference=0.0;
+  private float getWeightDifference(Genome other) {
+    float weightDifference=0.0f;
     for(Connection connection:connections) {
       Connection matchingConnection=other.getConnection(connection.getInNode(),connection.getOutNode());
       if(matchingConnection!=null) {
@@ -204,16 +204,54 @@ public class Genome implements Comparable<Genome>{
   private int getMaxInnovation() {
     int maxInnovation=0;
     for(Connection connection:connections) {
-      if(connection.getInnovation()>maxInnovation) {
-        maxInnovation=connection.getInnovation();
+      if(connection.getInnovationNumber()>maxInnovation) {
+        maxInnovation=connection.getInnovationNumber();
       }
     }
     return maxInnovation;
   }
-  public double[] evaluate(double[] inputs) {
-    // Feed the inputs to the neural network and get the outputs
-    double[] outputs=neuralNetwork.feedForward(inputs);
+  // public float[] evaluate(float[] inputs) {//TODO
+  //   // Feed the inputs to the neural network and get the outputs
+  //   float[] outputs=neuralNetwork.feedForward(inputs);
+  //   // Return the outputs
+  //   return outputs;
+  // }
+  public float[] evaluate(float[] inputs) {
+    // Create an array to store the outputs
+    float[] outputs=new float[numOutputs];
+    // Feed the inputs to the input nodes
+    for(int i=0;i<numInputs;i++) {
+      nodes.get(i).setValue(inputs[i]);
+    }
+    // Calculate the values of the hidden nodes
+    for(Node hiddenNode:getHiddenNodes()) {
+      float sum=0;
+      for(Connection connection:connections) {
+        if(connection.getOutNode().equals(hiddenNode)&&connection.isEnabled()) {
+          sum+=connection.getInNode().getValue(0)*connection.getWeight();
+        }
+      }
+      hiddenNode.setValue(hiddenNode.getActivationFunction().apply(sum));
+    }
+    // Calculate the values of the output nodes
+    for(int i=0;i<numOutputs;i++) {
+      Node outputNode=nodes.get(numInputs+i);
+      float sum=0;
+      for(Connection connection:connections) {
+        if(connection.getOutNode().equals(outputNode)&&connection.isEnabled()) {
+          sum+=connection.getInNode().getValue(0)*connection.getWeight();
+        }
+      }
+      outputNode.setValue(outputNode.getActivationFunction().apply(sum));
+      outputs[i]=outputNode.getValue(0);
+    }
     // Return the outputs
     return outputs;
+  }
+  public float getFitness() {
+    return fitness;
+  }
+  public void setFitness(float fitness) {
+    this.fitness=fitness;
   }
 }

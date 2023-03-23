@@ -27,7 +27,7 @@ public class NEAT{
     // 更新迭代计数器
     generationCount++;
   }
-  public double[] evaluate(double[] inputs) {
+  public float[] evaluate(float[] inputs) {
     return bestGenome.evaluate(inputs);
   }
 }

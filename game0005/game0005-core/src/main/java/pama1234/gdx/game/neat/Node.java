@@ -49,4 +49,13 @@ public class Node implements Cloneable{
   public int hashCode() {
     return Objects.hash(id);
   }
+  public void setValue(float value) {
+    // Set the value of the node based on the activation function
+    this.activationFunction.setValue(value);
+  }
+  @Deprecated
+  public float getValue(float in) {
+    // Get the value of the node based on the activation function
+    return this.activationFunction.apply(in);
+  }
 }

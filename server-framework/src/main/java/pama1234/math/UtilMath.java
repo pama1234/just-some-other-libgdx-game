@@ -217,4 +217,10 @@ public class UtilMath{
   public static double longBitsToDouble(long value) {
     return Double.longBitsToDouble(value);
   }
+  public static float tanh(float in) {
+    return (float)Math.tanh(in);
+  }
+  public static float exp(float in) {
+    return (float)Math.exp(in);
+  }
 }

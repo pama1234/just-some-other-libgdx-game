@@ -2,22 +2,40 @@ package pama1234.gdx.game.neat;
 
 import java.util.function.Function;
 
+import pama1234.math.UtilMath;
+
 public class ActivationFunction{
-  private Function<Double,Double> function;
-  private ActivationFunction(Function<Double,Double> function) {
+  private Function<Float,Float> function;
+  private ActivationFunction(Function<Float,Float> function) {
     this.function=function;
   }
-  public double activate(double input) {
+  public float activate(float input) {
     return function.apply(input);
   }
   public static ActivationFunction getRandomFunction() {
     ActivationFunction[] functions= {
-      new ActivationFunction(x->1.0/(1.0+Math.exp(-4.9*x))),
-      new ActivationFunction(x->Math.tanh(x)),
-      new ActivationFunction(x->Math.max(0.0,x)),
-      new ActivationFunction(x->Math.sin(x))
+      new ActivationFunction(x->1.0f/(1.0f+UtilMath.exp(-4.9f*x))),
+      new ActivationFunction(x->UtilMath.tanh(x)),
+      new ActivationFunction(x->UtilMath.max(0.0f,x)),
+      new ActivationFunction(x->UtilMath.sin(x))
     };
     int index=(int)(Math.random()*functions.length);
     return functions[index];
+  }
+  // Set the value of the activation function
+  public void setValue(Function<Float,Float> newFunction) {
+    this.function=newFunction;
+  }
+  // Set the value of the activation function using a float
+  public void setValue(float newValue) {
+    this.function=x->newValue;
+  }
+  // Get the value of the activation function
+  public Function<Float,Float> getValue() {
+    return this.function;
+  }
+  // Apply the activation function to an input value
+  public float apply(float input) {
+    return function.apply(input);
   }
 }

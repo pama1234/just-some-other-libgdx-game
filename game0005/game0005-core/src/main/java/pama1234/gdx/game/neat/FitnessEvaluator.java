@@ -1,16 +1,17 @@
 package pama1234.gdx.game.neat;
 
 public class FitnessEvaluator{
-  public static void evaluate(Population population) {
-    // Iterate through the individuals in the population
-    for(Genome individual:population.genomes) {
-      // 1. Simulate the game using the individual neural network as the AI
-      // 2. Compute the fitness of the individual based on the game's outcome
-      // 3. Set the individual's fitness value
-      // Example:
-      // GameState gameState = simulateGame(individual);
-      // double fitness = computeFitness(gameState);
-      // individual.setFitness(fitness);
+  // Evaluate the fitness of a given population
+  public double evaluate(Population population) {
+    double totalFitness=0;
+    // Iterate through each individual in the population
+    for(Genome genome:population.genomes) {
+      // Calculate the fitness of the individual
+      double fitness=genome.getFitness();
+      // Add the fitness to the total fitness
+      totalFitness+=fitness;
     }
+    // Return the average fitness of the population
+    return totalFitness/population.genomes.size();
   }
 }

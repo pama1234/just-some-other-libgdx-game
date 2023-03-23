@@ -5,21 +5,21 @@ public class NEATConfig{
   private int numOutputs;
   private int populationSize;
   private int maxGenerations;
-  private double mutationRate;
-  private double c1;
-  private double c2;
-  private double c3;
-  private double compatibilityThreshold;
+  private float mutationRate;
+  private float c1;
+  private float c2;
+  private float c3;
+  private float compatibilityThreshold;
   public NEATConfig() {
     this.numInputs=0;
     this.numOutputs=0;
     this.populationSize=0;
     this.maxGenerations=0;
-    this.mutationRate=0.5;
-    this.c1=1.0;
-    this.c2=1.0;
-    this.c3=0.4;
-    this.compatibilityThreshold=3.0;
+    this.mutationRate=0.5f;
+    this.c1=1.0f;
+    this.c2=1.0f;
+    this.c3=0.4f;
+    this.compatibilityThreshold=3.0f;
   }
   public void setNumInputs(int numInputs) {
     this.numInputs=numInputs;
@@ -33,19 +33,19 @@ public class NEATConfig{
   public void setMaxGenerations(int maxGenerations) {
     this.maxGenerations=maxGenerations;
   }
-  public void setMutationRate(double mutationRate) {
+  public void setMutationRate(float mutationRate) {
     this.mutationRate=mutationRate;
   }
-  public void setC1(double c1) {
+  public void setC1(float c1) {
     this.c1=c1;
   }
-  public void setC2(double c2) {
+  public void setC2(float c2) {
     this.c2=c2;
   }
-  public void setC3(double c3) {
+  public void setC3(float c3) {
     this.c3=c3;
   }
-  public void setCompatibilityThreshold(double compatibilityThreshold) {
+  public void setCompatibilityThreshold(float compatibilityThreshold) {
     this.compatibilityThreshold=compatibilityThreshold;
   }
   public int getNumInputs() {
@@ -60,19 +60,30 @@ public class NEATConfig{
   public int getMaxGenerations() {
     return maxGenerations;
   }
-  public double getMutationRate() {
+  public float getMutationRate() {
     return mutationRate;
   }
-  public double getC1() {
+  public float getC1() {
     return c1;
   }
-  public double getC2() {
+  public float getC2() {
     return c2;
   }
-  public double getC3() {
+  public float getC3() {
     return c3;
   }
-  public double getCompatibilityThreshold() {
+  public float getCompatibilityThreshold() {
     return compatibilityThreshold;
+  }
+  // Method to get the disjoint coefficient
+  public float getDisjointCoefficient() {
+    return c1;
+  }
+  // Method to get the excess coefficient
+  public float getExcessCoefficient() {
+    return c2;
+  } // Method to get the weight difference coefficient
+  public float getWeightDifferenceCoefficient() {
+    return c3;
   }
 }
