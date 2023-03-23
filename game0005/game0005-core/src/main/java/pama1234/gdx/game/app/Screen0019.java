@@ -1,6 +1,5 @@
 package pama1234.gdx.game.app;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.assets.AssetManager;
 
 import pama1234.gdx.game.asset.ImageAsset;
@@ -16,6 +15,7 @@ public class Screen0019 extends ScreenCore2D{
   private InputHandler inputHandler;
   @Override
   public void setup() {
+    // cam2d.active(true);
     // 初始化 NEAT 参数
     NEATConfig config=new NEATConfig();
     // 设置输入和输出节点数
@@ -31,7 +31,7 @@ public class Screen0019 extends ScreenCore2D{
     // 初始化输入处理器
     inputHandler=new InputHandler(gameState);
     // 设置输入监听器
-    Gdx.input.setInputProcessor(inputHandler);
+    inputProcessor.sub.add.add(inputHandler);
     //---
     // Initialize AssetManager
     AssetManager assetManager=new AssetManager();
@@ -45,28 +45,21 @@ public class Screen0019 extends ScreenCore2D{
     }
   }
   @Override
-  public void update() {}
-  @Override
-  public void displayWithCam() {}
-  @Override
-  public void display() {
+  public void update() {
     // 更新 NEAT 神经网络
     neat.update();
     // 获取 NEAT 产生的决策，并应用到游戏状态中
     float[] inputs=new float[] {
-      gameState.getPlayerX(),
-      gameState.getEnemyX(),
-      gameState.getObstacleX()
+      gameState.getPlayerX(),gameState.getPlayerY(),
+      gameState.getEnemyX(),gameState.getEnemyY(),
+      gameState.getObstacleX(),gameState.getObstacleY()
     };
     float[] outputs=neat.evaluate(inputs);
     boolean shouldJump=outputs[0]>0.5f;
     gameState.update(shouldJump);
-    // 渲染游戏画面
-    renderGame();
   }
   @Override
-  public void frameResized() {}
-  public void renderGame() {
+  public void displayWithCam() {
     // 渲染玩家
     image(ImageAsset.playerTexture,gameState.getPlayerX(),gameState.getPlayerY());
     // 渲染敌人
@@ -74,4 +67,8 @@ public class Screen0019 extends ScreenCore2D{
     // 渲染障碍物
     image(ImageAsset.obstacleTexture,gameState.getObstacleX(),gameState.getObstacleY());
   }
+  @Override
+  public void display() {}
+  @Override
+  public void frameResized() {}
 }

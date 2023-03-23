@@ -5,8 +5,7 @@ import com.badlogic.gdx.math.MathUtils;
 public class GameState{
   private int score;
   private float playerX,playerY;
-  private float enemyX,enemyY; // Declare enemy xy variable
-  // Declare obstacleXY variable
+  private float enemyX,enemyY;
   private float obstacleX,obstacleY;
   private boolean isGameOver;
   public GameState() {

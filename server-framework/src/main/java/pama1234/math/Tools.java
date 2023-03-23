@@ -275,6 +275,7 @@ public class Tools{
    * @param t 三角形
    * @return 判断向量是否在三角形内
    */
+  @Deprecated
   public static boolean inTriangle(Vec2f v,Triangle2f t) {
     // 计算三角形的三个顶点
     Vec2f a=t.getVertex(0);
@@ -290,12 +291,14 @@ public class Tools{
     // Vec2f cv=v.subNew(c);
     // 判断二维矢量是否在三角形的内部
     boolean isInTriangle=isPointInTriangle(a,b,c,v);
+    if(isInTriangle) return true;
     // 判断二维矢量是否与三角形的任意一条边相交
     boolean isIntersectEdgeAB=isIntersectEdge(v,a,ab);
     boolean isIntersectEdgeBC=isIntersectEdge(v,b,bc);
     boolean isIntersectEdgeCA=isIntersectEdge(v,c,ca);
     // 如果二维矢量在三角形内部或与三角形的任意一条边相交，则认为二维矢量与三角形相交
-    return isInTriangle||isIntersectEdgeAB||isIntersectEdgeBC||isIntersectEdgeCA;
+    // return isInTriangle||isIntersectEdgeAB||isIntersectEdgeBC||isIntersectEdgeCA;
+    return isIntersectEdgeAB||isIntersectEdgeBC||isIntersectEdgeCA;
   }
   public static boolean isPointInTriangle(Vec2f a,Vec2f b,Vec2f c,Vec2f v) {
     // 计算三角形的面积
@@ -317,14 +320,14 @@ public class Tools{
     float diffArea=UtilMath.abs(areaABC-0.5f*UtilMath.abs(av.crossProduct(ab)+bv.crossProduct(bc)+cv.crossProduct(ca)));
     return Math.abs(sumDist-3)<1e-6f&&diffArea<1e-6f;
   }
-  public static boolean isIntersectEdge(Vec2f v,Vec2f p,Vec2f e) {
+  public static boolean isIntersectEdge(Vec2f in,Vec2f a,Vec2f b) {
     // 计算二维矢量与边的交点
-    float t=e.dot(v.subNew(p))/e.dot(e);
-    Vec2f intersection=p.addNew(e.scalarMultiply(t));
+    float t=b.dot(in.subNew(a))/b.dot(b);
+    Vec2f intersection=a.addNew(b.scalarMultiply(t));
     // 判断交点是否在边的内部
-    float lenPToI=v.dist(intersection);
-    float lenIToE=intersection.dist(p.addNew(e));
-    float lenPToE=e.length();
+    float lenPToI=in.dist(intersection);
+    float lenIToE=intersection.dist(a.addNew(b));
+    float lenPToE=b.length();
     return lenPToI+lenIToE<lenPToE+1e-6;
   }
   public static void main(String[] args) {
@@ -333,5 +336,29 @@ public class Tools{
     Triangle2f c=new Triangle2f(-1,-1,0,-1,-1,4);
     // System.out.println(inTriangle(a,b));
     System.out.println(inTriangle(a,c));
+  }
+  /**
+   * 
+   * 此方法为AI生成，未验证
+   * 
+   * @param xIn
+   * @param yIn
+   * @param cx
+   * @param cy
+   * @param angle
+   * @param r
+   * @return
+   */
+  @Deprecated
+  public static boolean inSector(float xIn,float yIn,float cx,float cy,float angle,float r) {
+    // calculate vector angle relative to x-axis
+    float vectorAngle=UtilMath.atan2(yIn,xIn)*180/UtilMath.PI;
+    // calculate angle between sector center and vector
+    float angleBetween=Math.abs(angle-vectorAngle);
+    if(angleBetween>180) angleBetween=360-angleBetween;
+    // calculate vector length
+    float vectorLength=UtilMath.sqrt(xIn*xIn+yIn*yIn);
+    // check if vector is within sector angle and radius
+    return angleBetween<=angle/2&&vectorLength<=r;
   }
 }
