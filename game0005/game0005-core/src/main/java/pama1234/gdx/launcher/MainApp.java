@@ -6,10 +6,6 @@ import java.util.List;
 
 import com.badlogic.gdx.Game;
 
-import pama1234.gdx.game.app.Screen0012;
-import pama1234.gdx.game.app.Screen0016;
-import pama1234.gdx.game.app.Screen0017;
-import pama1234.gdx.game.app.Screen0018;
 import pama1234.gdx.game.app.app0002.Screen0004;
 import pama1234.gdx.game.app.app0002.Screen0005;
 import pama1234.gdx.game.app.app0002.Screen0006;
@@ -19,6 +15,10 @@ import pama1234.gdx.game.app.app0002.Screen0015;
 import pama1234.gdx.game.app.app0003.Screen0008;
 import pama1234.gdx.game.app.app0003.Screen0009;
 import pama1234.gdx.game.app.app0003.Screen0013;
+import pama1234.gdx.game.app.app0004.Screen0012;
+import pama1234.gdx.game.app.app0004.Screen0016;
+import pama1234.gdx.game.app.app0004.Screen0017;
+import pama1234.gdx.game.app.app0004.Screen0018;
 import pama1234.gdx.util.app.UtilScreen;
 
 public class MainApp extends Game{

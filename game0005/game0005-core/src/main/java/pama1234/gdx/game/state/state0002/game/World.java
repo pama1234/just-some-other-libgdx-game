@@ -1,6 +1,6 @@
 package pama1234.gdx.game.state.state0002.game;
 
-import pama1234.gdx.game.app.Screen0012;
+import pama1234.gdx.game.app.app0004.Screen0012;
 import pama1234.gdx.util.wrapper.EntityCenter;
 
 public class World extends EntityCenter<Screen0012,Player>{

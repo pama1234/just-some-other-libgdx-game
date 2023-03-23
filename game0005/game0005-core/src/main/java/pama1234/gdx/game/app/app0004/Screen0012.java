@@ -1,21 +1,20 @@
-package pama1234.gdx.game.app;
+package pama1234.gdx.game.app.app0004;
 
 import static pama1234.math.Tools.getFloatString;
 import static pama1234.math.Tools.getMillisString;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
 
 import pama1234.gdx.game.asset.MusicAsset;
-import pama1234.gdx.game.state.state0003.State0003;
-import pama1234.gdx.game.state.state0003.State0003.StateChanger;
-import pama1234.gdx.game.state.state0003.StateGenerator0003;
+import pama1234.gdx.game.state.state0002.State0002;
+import pama1234.gdx.game.state.state0002.State0002.StateChanger;
+import pama1234.gdx.game.state.state0002.StateGenerator0002;
 import pama1234.gdx.util.app.ScreenCore2D;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.math.Tools;
 
-public class Screen0016 extends ScreenCore2D implements StateChanger{
-  public State0003 state;
+public class Screen0012 extends ScreenCore2D implements StateChanger{
+  public State0002 state;
   public boolean firstRun;
   public boolean debugInfo;
   public boolean mute;
@@ -27,20 +26,19 @@ public class Screen0016 extends ScreenCore2D implements StateChanger{
   public void setup() {
     noStroke();
     MusicAsset.load_init();
-    StateGenerator0003.loadState0001(this);
-    FileHandle firstRunFile=Gdx.files.local("data/firstRun.txt");
-    firstRun=!firstRunFile.exists();
+    StateGenerator0002.loadState0001(this);
+    firstRun=!Gdx.files.local("data/firstRun.txt").exists();
     // firstRun=true;
     if(firstRun) {
-      state(State0003.FirstRun);
-      firstRunFile.writeString("1234",false);
+      state(State0002.FirstRun);
+      Gdx.files.local("data/firstRun.txt").writeString("1234",false);
     }else {
-      state(State0003.Loading);
+      state(State0002.Loading);
     }
   }
   @Override
-  public State0003 state(State0003 in) {
-    State0003 out=state;
+  public State0002 state(State0002 in) {
+    State0002 out=state;
     state=in;
     if(out!=null) {
       centerScreen.remove.add(out);
@@ -56,8 +54,8 @@ public class Screen0016 extends ScreenCore2D implements StateChanger{
     }
     return out;
   }
-  public State0003 stateNull() {
-    State0003 out=state;
+  public State0002 stateNull() {
+    State0002 out=state;
     state=null;
     if(out!=null) {
       centerScreen.list.remove(out);
@@ -120,6 +118,6 @@ public class Screen0016 extends ScreenCore2D implements StateChanger{
   public void dispose() {
     stateNull();
     super.dispose();
-    State0003.disposeAll();
+    State0002.disposeAll();
   }
 }

@@ -2,6 +2,7 @@ package pama1234.math;
 
 import java.lang.reflect.Array;
 
+import pama1234.math.geometry.Triangle2f;
 import pama1234.math.vec.Vec2f;
 
 public class Tools{
@@ -266,5 +267,71 @@ public class Tools{
     long out=System.currentTimeMillis()-timeData;
     time();
     return out;
+  }
+  /**
+   * 此方法为AI生成，已验证为有错，需要修改
+   * 
+   * @param v 向量
+   * @param t 三角形
+   * @return 判断向量是否在三角形内
+   */
+  public static boolean inTriangle(Vec2f v,Triangle2f t) {
+    // 计算三角形的三个顶点
+    Vec2f a=t.getVertex(0);
+    Vec2f b=t.getVertex(1);
+    Vec2f c=t.getVertex(2);
+    // 计算三角形的边向量
+    Vec2f ab=b.subNew(a);
+    Vec2f bc=c.subNew(b);
+    Vec2f ca=a.subNew(c);
+    // 计算二维矢量与三角形三个顶点的向量差
+    // Vec2f av=v.subNew(a);
+    // Vec2f bv=v.subNew(b);
+    // Vec2f cv=v.subNew(c);
+    // 判断二维矢量是否在三角形的内部
+    boolean isInTriangle=isPointInTriangle(a,b,c,v);
+    // 判断二维矢量是否与三角形的任意一条边相交
+    boolean isIntersectEdgeAB=isIntersectEdge(v,a,ab);
+    boolean isIntersectEdgeBC=isIntersectEdge(v,b,bc);
+    boolean isIntersectEdgeCA=isIntersectEdge(v,c,ca);
+    // 如果二维矢量在三角形内部或与三角形的任意一条边相交，则认为二维矢量与三角形相交
+    return isInTriangle||isIntersectEdgeAB||isIntersectEdgeBC||isIntersectEdgeCA;
+  }
+  public static boolean isPointInTriangle(Vec2f a,Vec2f b,Vec2f c,Vec2f v) {
+    // 计算三角形的面积
+    float areaABC=0.5f*UtilMath.abs(a.crossProduct(b)+b.crossProduct(c)+c.crossProduct(a));
+    // 计算三角形的边向量
+    Vec2f ab=b.subNew(a);
+    Vec2f bc=c.subNew(b);
+    Vec2f ca=a.subNew(c);
+    // 计算二维矢量与三角形三个顶点的向量差
+    Vec2f av=v.subNew(a);
+    Vec2f bv=v.subNew(b);
+    Vec2f cv=v.subNew(c);
+    // 计算二维矢量到三角形三个顶点的距离
+    float distAB=av.dot(ab)/ab.length();
+    float distBC=bv.dot(bc)/bc.length();
+    float distCA=cv.dot(ca)/ca.length();
+    // 判断二维矢量是否在三角形的内部
+    float sumDist=distAB+distBC+distCA;
+    float diffArea=UtilMath.abs(areaABC-0.5f*UtilMath.abs(av.crossProduct(ab)+bv.crossProduct(bc)+cv.crossProduct(ca)));
+    return Math.abs(sumDist-3)<1e-6f&&diffArea<1e-6f;
+  }
+  public static boolean isIntersectEdge(Vec2f v,Vec2f p,Vec2f e) {
+    // 计算二维矢量与边的交点
+    float t=e.dot(v.subNew(p))/e.dot(e);
+    Vec2f intersection=p.addNew(e.scalarMultiply(t));
+    // 判断交点是否在边的内部
+    float lenPToI=v.dist(intersection);
+    float lenIToE=intersection.dist(p.addNew(e));
+    float lenPToE=e.length();
+    return lenPToI+lenIToE<lenPToE+1e-6;
+  }
+  public static void main(String[] args) {
+    Vec2f a=new Vec2f(0,0);
+    // Triangle2f b=new Triangle2f(-1,-1,1,-1,-1,4);
+    Triangle2f c=new Triangle2f(-1,-1,0,-1,-1,4);
+    // System.out.println(inTriangle(a,b));
+    System.out.println(inTriangle(a,c));
   }
 }

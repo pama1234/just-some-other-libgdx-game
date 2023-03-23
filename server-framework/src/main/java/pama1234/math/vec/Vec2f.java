@@ -34,9 +34,21 @@ public class Vec2f extends Vector2f implements ByteBufferData{
     x+=a;
     y+=b;
   }
+  public Vec2f addNew(Vec2f in) {
+    return new Vec2f(x+in.x,y+in.y);
+  }
   public void sub(float a,float b) {
     x-=a;
     y-=b;
+  }
+  public Vec2f subNew(Vec2f in) {
+    return new Vec2f(x-in.x,y-in.y);
+  }
+  public float crossProduct(Vec2f v) {
+    return x*v.y-y*v.x;
+  }
+  public Vec2f scalarMultiply(float k) {
+    return new Vec2f(x*k,y*k);
   }
   /**
    * 
@@ -46,6 +58,9 @@ public class Vec2f extends Vector2f implements ByteBufferData{
    */
   public float dist(float a,float b) {
     return (float)Math.sqrt(Tools.sq(x-a)+Tools.sq(y-b));
+  }
+  public float dist(Vec2f in) {
+    return dist(in.x,in.y);
   }
   /**
    * 测试其中的两个数值是否为“正无穷，负无穷，NaN”，如果是这三者，则将其赋值为0

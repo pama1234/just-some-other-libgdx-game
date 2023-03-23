@@ -1,6 +1,6 @@
 package pama1234.gdx.game.state.state0002;
 
-import pama1234.gdx.game.app.Screen0012;
+import pama1234.gdx.game.app.app0004.Screen0012;
 import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.state.state0002.StateGenerator0002.StateEntity0002;
 import pama1234.gdx.game.ui.generator.ButtonGenerator0002;

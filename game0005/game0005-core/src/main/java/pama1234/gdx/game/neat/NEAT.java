@@ -1,0 +1,33 @@
+package pama1234.gdx.game.neat;
+
+public class NEAT{
+  private NEATConfig config;
+  private Population population;
+  private FitnessEvaluator evaluator;
+  private Genome bestGenome;
+  private int generationCount;
+  public NEAT(NEATConfig config) {
+    this.config=config;
+    this.evaluator=new FitnessEvaluator();
+    this.population=new Population(config);
+    this.population.initialize();
+    this.bestGenome=population.getBestGenome();
+    this.generationCount=0;
+  }
+  public void update() {
+    // 计算种群适应度
+    evaluator.evaluate(population);
+    // 更新最佳基因组
+    Genome bestGenomeInPopulation=population.getBestGenome();
+    if(bestGenomeInPopulation.getFitness()>bestGenome.getFitness()) {
+      bestGenome=bestGenomeInPopulation;
+    }
+    // 选择和繁殖下一代
+    population.breedNextGeneration();
+    // 更新迭代计数器
+    generationCount++;
+  }
+  public double[] evaluate(double[] inputs) {
+    return bestGenome.evaluate(inputs);
+  }
+}

@@ -2,7 +2,7 @@ package pama1234.gdx.game.ui.generator;
 
 import com.badlogic.gdx.Input;
 
-import pama1234.gdx.game.app.Screen0016;
+import pama1234.gdx.game.app.app0004.Screen0016;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0003.Game;
 import pama1234.gdx.game.state.state0003.Settings;
