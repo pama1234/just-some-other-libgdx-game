@@ -82,7 +82,10 @@ public class Population{
   private List<List<Genome>> getSpecies() {
     // 分组个体
     List<List<Genome>> speciesList=new ArrayList<>();
-    speciesList.add(Collections.singletonList(genomes.get(0)));
+    List<Genome> firstSpecies=new ArrayList<>();
+    firstSpecies.add(genomes.get(0));
+    speciesList.add(firstSpecies);
+    // speciesList.add(Collections.singletonList(genomes.get(0)));
     for(int i=1;i<genomes.size();i++) {
       Genome genome=genomes.get(i);
       boolean assigned=false;

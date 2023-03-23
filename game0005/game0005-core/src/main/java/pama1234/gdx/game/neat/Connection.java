@@ -8,6 +8,7 @@ public class Connection{
   private int innovationNumber;
   public Connection(Node inputNode,Node outputNode,double weight,boolean isEnabled,int innovationNumber) {
     this.inputNode=inputNode;
+    // System.out.println(outputNode);
     this.outputNode=outputNode;
     this.weight=weight;
     this.isEnabled=isEnabled;

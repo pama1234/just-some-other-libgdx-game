@@ -85,6 +85,7 @@ public class Genome implements Comparable<Genome>{
   }
   public Connection getConnection(Node inNode,Node outNode) {
     for(Connection connection:connections) {
+      // System.out.println("Checking connection: "+connection.getInNode()+" -> "+connection.getOutNode());
       if(connection.getInNode().equals(inNode)&&connection.getOutNode().equals(outNode)) {
         return connection;
       }
@@ -118,8 +119,8 @@ public class Genome implements Comparable<Genome>{
     }
     return outputNodes;
   }
-  public Node getHiddenNode() {//TODO
-    return null;
+  public Node getHiddenNode() {
+    return getHiddenNodes().get(0);
   }
   public List<Node> getHiddenNodes() {
     List<Node> hiddenNodes=new ArrayList<>();
@@ -210,12 +211,6 @@ public class Genome implements Comparable<Genome>{
     }
     return maxInnovation;
   }
-  // public float[] evaluate(float[] inputs) {//TODO
-  //   // Feed the inputs to the neural network and get the outputs
-  //   float[] outputs=neuralNetwork.feedForward(inputs);
-  //   // Return the outputs
-  //   return outputs;
-  // }
   public float[] evaluate(float[] inputs) {
     // Create an array to store the outputs
     float[] outputs=new float[numOutputs];

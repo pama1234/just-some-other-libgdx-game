@@ -30,4 +30,16 @@ public class NEAT{
   public float[] evaluate(float[] inputs) {
     return bestGenome.evaluate(inputs);
   }
+  public int getGenerationCount() {
+    return generationCount;
+  }
+  public void setGenerationCount(int generationCount) {
+    this.generationCount=generationCount;
+  }
+  public NEATConfig getConfig() {
+    return config;
+  }
+  public void setConfig(NEATConfig config) {
+    this.config=config;
+  }
 }
