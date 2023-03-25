@@ -584,7 +584,7 @@ public class Network{
 			'}';
 	}
 	/**
-	 * 警告：AI生成，未验证
+	 * 警告：AI生成，已确认有错
 	 * </p>
 	 * Copies a network.
 	 *

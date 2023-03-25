@@ -1,85 +1,65 @@
 package pama1234.gdx.game.app;
 
-import com.badlogic.gdx.Input;
-import com.badlogic.gdx.assets.AssetManager;
+import java.util.Arrays;
 
-import pama1234.gdx.game.asset.ImageAsset;
-import pama1234.gdx.game.neat.game.GameState;
 import pama1234.gdx.game.neat.util.raimannma.architecture.EvolveOptions;
 import pama1234.gdx.game.neat.util.raimannma.architecture.NEAT;
+import pama1234.gdx.game.neat.util.raimannma.architecture.Network;
 import pama1234.gdx.util.app.ScreenCore2D;
+
 /**
  * 此草图直接搬运并魔改了 https://github.com/raimannma/NEAT4J 的neat实现
  */
 public class Screen0019 extends ScreenCore2D{
   private NEAT neat;
-  private GameState gameState;
-  // private InputHandler inputHandler;
+  private Network network;
+  private float[][] inputs;
+  private float[][] outputs;
   @Override
   public void setup() {
-    // cam2d.active(true);
-    // 初始化 NEAT 参数
-    EvolveOptions config=new EvolveOptions();
-    // 设置输入和输出节点数
-    // config.setNumInputs(3); // 输入：玩家位置、敌人位置、障碍物位置
-    // config.setNumOutputs(1); // 输出：玩家是否跳跃
-    // 设置种群大小和迭代次数
-    config.setPopulationSize(50);
-    // config.setMaxGenerations(1000);
-    // 创建 NEAT 实例
-    neat=new NEAT(3,1,config);
-    // 初始化游戏状态
-    gameState=new GameState();
-    // 初始化输入处理器
-    // inputHandler=new InputHandler(gameState);
-    // 设置输入监听器
-    // inputProcessor.sub.add.add(inputHandler);
-    //---
-    // Initialize AssetManager
-    AssetManager assetManager=new AssetManager();
-    // Load ImageAsset using AssetManager
-    ImageAsset.load_0001(assetManager);
-    while(true) {
-      if(assetManager.update()) {
-        ImageAsset.put_0001(assetManager);
-        break;
-      }
-    }
+    // 初始化neat对象
+    // 2, // 输入节点数
+    // 1, // 输出节点数
+    // 100, // 最大种群数
+    // 0.5, // 物种间距离阈值
+    // 0.2, // 物种同一性阈值
+    // 0.5, // 物种基因杂交概率
+    // 0.5, // 物种基因突变概率
+    // 0.1, // 神经元基因添加概率
+    // 0.1, // 连接基因添加概率
+    // new FeedForwardNetwork(), // 神经网络类型
+    // new EuclideanDistanceMetric() // 物种距离计算方法
+    EvolveOptions options=new EvolveOptions();
+    options.setFitnessFunction(n->n.score);//TODO
+    neat=new NEAT(2,1,options);
+    // 创建并训练网络
+    // neat.createPopulation();
+    // neat.train();
+    // 获取最佳网络
+    network=neat.evolve();
+    // 初始化输入和输出数组
+    inputs=new float[][] {{0.0f,1.0f}};
+    outputs=new float[1][1];
   }
   @Override
   public void update() {
-    // 更新 NEAT 神经网络
-    neat.evolve();
-    // neat.update();
-    // 获取 NEAT 产生的决策，并应用到游戏状态中
-    // float[] inputs=new float[] {
-    //   gameState.playerX,gameState.enemyX,gameState.obstacleX,
-    //   // gameState.playerX,gameState.playerY,
-    //   // gameState.enemyX,gameState.enemyY,
-    //   // gameState.obstacleX,gameState.getObstacleY()
-    // };
-    // float[] outputs=neat.evaluate(inputs);
-    // boolean[] outputdata=new boolean[] {outputs[0]>0.5f};
-    // gameState.update(outputs);
+    // 更新网络
+    // network.setInputValues(inputs);
+    // network.calculate();
+    // network.getOutputValues(outputs);
+    network.test(inputs,outputs);
+    // 输出结果
+    System.out.println("Output: "+Arrays.toString(outputs));
   }
   @Override
-  public void displayWithCam() {
-    // 渲染玩家
-    image(ImageAsset.playerTexture,gameState.playerX,gameState.playerY);
-    // 渲染敌人
-    image(ImageAsset.enemyTexture,gameState.enemyX,gameState.enemyY);
-    // 渲染障碍物
-    image(ImageAsset.obstacleTexture,gameState.obstacleX,gameState.obstacleY);
-  }
+  public void displayWithCam() {}
   @Override
   public void display() {}
   @Override
   public void frameResized() {}
   @Override
-  public void keyPressed(char key,int keyCode) {
-    if(keyCode==Input.Keys.SPACE) {
-      // Perform an action
-      gameState.reset();
-    }
+  public void dispose() {
+    super.dispose();
+    // neat.dispose();
   }
 }
