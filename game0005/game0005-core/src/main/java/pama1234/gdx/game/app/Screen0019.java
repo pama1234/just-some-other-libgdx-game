@@ -4,11 +4,13 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
 
 import pama1234.gdx.game.asset.ImageAsset;
-import pama1234.gdx.game.neat.NEAT;
-import pama1234.gdx.game.neat.NEATConfig;
 import pama1234.gdx.game.neat.game.GameState;
+import pama1234.gdx.game.neat.util.raimannma.architecture.EvolveOptions;
+import pama1234.gdx.game.neat.util.raimannma.architecture.NEAT;
 import pama1234.gdx.util.app.ScreenCore2D;
-
+/**
+ * 此草图直接搬运并魔改了 https://github.com/raimannma/NEAT4J 的neat实现
+ */
 public class Screen0019 extends ScreenCore2D{
   private NEAT neat;
   private GameState gameState;
@@ -17,15 +19,15 @@ public class Screen0019 extends ScreenCore2D{
   public void setup() {
     // cam2d.active(true);
     // 初始化 NEAT 参数
-    NEATConfig config=new NEATConfig();
+    EvolveOptions config=new EvolveOptions();
     // 设置输入和输出节点数
-    config.setNumInputs(3); // 输入：玩家位置、敌人位置、障碍物位置
-    config.setNumOutputs(1); // 输出：玩家是否跳跃
+    // config.setNumInputs(3); // 输入：玩家位置、敌人位置、障碍物位置
+    // config.setNumOutputs(1); // 输出：玩家是否跳跃
     // 设置种群大小和迭代次数
     config.setPopulationSize(50);
-    config.setMaxGenerations(1000);
+    // config.setMaxGenerations(1000);
     // 创建 NEAT 实例
-    neat=new NEAT(config);
+    neat=new NEAT(3,1,config);
     // 初始化游戏状态
     gameState=new GameState();
     // 初始化输入处理器
@@ -47,26 +49,27 @@ public class Screen0019 extends ScreenCore2D{
   @Override
   public void update() {
     // 更新 NEAT 神经网络
-    neat.update();
+    neat.evolve();
+    // neat.update();
     // 获取 NEAT 产生的决策，并应用到游戏状态中
-    float[] inputs=new float[] {
-      gameState.getPlayerX(),gameState.getEnemyX(),gameState.getObstacleX(),
-      // gameState.getPlayerX(),gameState.getPlayerY(),
-      // gameState.getEnemyX(),gameState.getEnemyY(),
-      // gameState.getObstacleX(),gameState.getObstacleY()
-    };
-    float[] outputs=neat.evaluate(inputs);
+    // float[] inputs=new float[] {
+    //   gameState.playerX,gameState.enemyX,gameState.obstacleX,
+    //   // gameState.playerX,gameState.playerY,
+    //   // gameState.enemyX,gameState.enemyY,
+    //   // gameState.obstacleX,gameState.getObstacleY()
+    // };
+    // float[] outputs=neat.evaluate(inputs);
     // boolean[] outputdata=new boolean[] {outputs[0]>0.5f};
-    gameState.update(outputs);
+    // gameState.update(outputs);
   }
   @Override
   public void displayWithCam() {
     // 渲染玩家
-    image(ImageAsset.playerTexture,gameState.getPlayerX(),gameState.getPlayerY());
+    image(ImageAsset.playerTexture,gameState.playerX,gameState.playerY);
     // 渲染敌人
-    image(ImageAsset.enemyTexture,gameState.getEnemyX(),gameState.getEnemyY());
+    image(ImageAsset.enemyTexture,gameState.enemyX,gameState.enemyY);
     // 渲染障碍物
-    image(ImageAsset.obstacleTexture,gameState.getObstacleX(),gameState.getObstacleY());
+    image(ImageAsset.obstacleTexture,gameState.obstacleX,gameState.obstacleY);
   }
   @Override
   public void display() {}

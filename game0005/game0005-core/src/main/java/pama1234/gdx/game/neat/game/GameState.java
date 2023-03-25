@@ -3,53 +3,14 @@ package pama1234.gdx.game.neat.game;
 import com.badlogic.gdx.math.MathUtils;
 
 public class GameState{
-  private int score;
-  private float playerX,playerY;
-  private float enemyX,enemyY;
-  private float obstacleX,obstacleY;
-  private boolean isGameOver;
+  public int score;
+  public float playerX,playerY;
+  public float enemyX,enemyY;
+  public float obstacleX,obstacleY;
+  public boolean isGameOver;
   public GameState() {
     score=0;
     isGameOver=false;
-  }
-  public int getScore() {
-    return score;
-  }
-  public void setScore(int score) {
-    this.score=score;
-  }
-  public void increaseScore(int increment) {
-    this.score+=increment;
-  }
-  public boolean isGameOver() {
-    return isGameOver;
-  }
-  public void setGameOver(boolean isGameOver) {
-    this.isGameOver=isGameOver;
-  }
-  public float getPlayerX() {
-    return playerX;
-  }
-  public float getPlayerY() {
-    return playerY;
-  }
-  public float getEnemyX() {
-    return enemyX;
-  }
-  public float getEnemyY() {
-    return enemyY;
-  }
-  public float getObstacleX() {
-    return obstacleX;
-  }
-  public void setObstacleX(float obstacleX) {
-    this.obstacleX=obstacleX;
-  }
-  public float getObstacleY() {
-    return obstacleY;
-  }
-  public void setObstacleY(float obstacleY) {
-    this.obstacleY=obstacleY;
   }
   public void update(float[] in) {
     boolean shouldJump=in[0]>0.5f;
@@ -62,13 +23,13 @@ public class GameState{
       if(enemyX<-GameConfig.ENEMY_WIDTH) {
         enemyX=GameConfig.WORLD_WIDTH;
         enemyY=MathUtils.random(GameConfig.OBSTACLE_Y_MIN,GameConfig.OBSTACLE_Y_MAX);
-        increaseScore(1);
+        score+=1;
       }
       obstacleX-=GameConfig.OBSTACLE_SPEED;
       if(obstacleX<-GameConfig.OBSTACLE_WIDTH) {
         obstacleX=GameConfig.WORLD_WIDTH;
         obstacleY=MathUtils.random(GameConfig.OBSTACLE_Y_MIN,GameConfig.OBSTACLE_Y_MAX);
-        increaseScore(1);
+        score+=1;
       }
       if(playerY<=GameConfig.PLAYER_HEIGHT/2||playerY>=GameConfig.WORLD_HEIGHT-GameConfig.PLAYER_HEIGHT/2) {
         isGameOver=true;
