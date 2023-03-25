@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 
+import com.google.gson.JsonObject;
+
 import pama1234.gdx.game.neat.util.raimannma.methods.Activation;
 // import org.jetbrains.annotations.NotNull;
 
@@ -90,21 +92,21 @@ public class Node{
 		this.gated=new ArrayList<>();
 		this.self=new Connection(this,this,0);
 	}
-	// /**
-	//  * Convert a JsonObject to a node.
-	//  *
-	//  * @param jsonObject the json object which holds the information
-	//  * @return the node created from the information of the json object
-	//  */
-	// public static  Node fromJSON(final  JsonObject jsonObject) {
-	// 	final Node node=new Node();
-	// 	node.bias=jsonObject.get("bias").getAsDouble();
-	// 	node.type=NodeType.valueOf(jsonObject.get("type").getAsString());
-	// 	node.activationType=Activation.valueOf(jsonObject.get("activationType").getAsString());
-	// 	node.mask=jsonObject.get("mask").getAsDouble();
-	// 	node.index=jsonObject.get("index").getAsInt();
-	// 	return node;
-	// }
+	/**
+	 * Convert a JsonObject to a node.
+	 *
+	 * @param jsonObject the json object which holds the information
+	 * @return the node created from the information of the json object
+	 */
+	public static Node fromJSON(final JsonObject jsonObject) {
+		final Node node=new Node();
+		node.bias=jsonObject.get("bias").getAsFloat();
+		node.type=NodeType.valueOf(jsonObject.get("type").getAsString());
+		node.activationType=Activation.valueOf(jsonObject.get("activationType").getAsString());
+		node.mask=jsonObject.get("mask").getAsFloat();
+		node.index=jsonObject.get("index").getAsInt();
+		return node;
+	}
 	/**
 	 * Activates the node.
 	 * <p>
@@ -223,43 +225,43 @@ public class Node{
 		connection.gateNode=this;
 		this.gated.add(connection);
 	}
-	// /**
-	//  * Converts the node to a JsonObject that can later be converted back.
-	//  *
-	//  * @return the created JsonObject
-	//  */
-	// public JsonObject toJSON() {
-	// 	final JsonObject jsonObject=new JsonObject();
-	// 	jsonObject.addProperty("bias",this.bias);
-	// 	jsonObject.addProperty("type",this.type.name());
-	// 	jsonObject.addProperty("activationType",this.activationType.name());
-	// 	jsonObject.addProperty("mask",this.mask);
-	// 	jsonObject.addProperty("index",this.index);
-	// 	return jsonObject;
-	// }
 	/**
-	 * 警告：AI生成，已基本验证
-	 * </p>
-	 * Creates a copy of this node.
+	 * Converts the node to a JsonObject that can later be converted back.
 	 *
-	 * @return the copy of this node
+	 * @return the created JsonObject
 	 */
-	public Node copy() {
-		Node out=new Node(this.type);
-		out.bias=this.bias;
-		out.type=this.type;
-		out.activationType=this.activationType;
-		out.mask=this.mask;
-		out.index=this.index;
-		out.state=this.state;
-		out.activation=this.activation;
-		// for(Connection connection:this.in) {
-		// 	Node from=connection.from.copy();
-		// 	Connection newConnection=from.connect(out,connection.weight);
-		// 	newConnection.gain=connection.gain;
-		// }
-		return out;
+	public JsonObject toJSON() {
+		final JsonObject jsonObject=new JsonObject();
+		jsonObject.addProperty("bias",this.bias);
+		jsonObject.addProperty("type",this.type.name());
+		jsonObject.addProperty("activationType",this.activationType.name());
+		jsonObject.addProperty("mask",this.mask);
+		jsonObject.addProperty("index",this.index);
+		return jsonObject;
 	}
+	// /**
+	//  * 警告：AI生成，已基本验证
+	//  * </p>
+	//  * Creates a copy of this node.
+	//  *
+	//  * @return the copy of this node
+	//  */
+	// public Node copy() {
+	// 	Node out=new Node(this.type);
+	// 	out.bias=this.bias;
+	// 	out.type=this.type;
+	// 	out.activationType=this.activationType;
+	// 	out.mask=this.mask;
+	// 	out.index=this.index;
+	// 	out.state=this.state;
+	// 	out.activation=this.activation;
+	// 	// for(Connection connection:this.in) {
+	// 	// 	Node from=connection.from.copy();
+	// 	// 	Connection newConnection=from.connect(out,connection.weight);
+	// 	// 	newConnection.gain=connection.gain;
+	// 	// }
+	// 	return out;
+	// }
 	@Override
 	public int hashCode() {
 		return Objects.hash(this.activationType,this.bias,this.type);

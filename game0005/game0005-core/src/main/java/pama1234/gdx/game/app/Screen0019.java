@@ -4,7 +4,6 @@ import pama1234.gdx.game.neat.util.raimannma.architecture.EvolveOptions;
 import pama1234.gdx.game.neat.util.raimannma.architecture.NEAT;
 import pama1234.gdx.game.neat.util.raimannma.architecture.Network;
 import pama1234.gdx.util.app.ScreenCore2D;
-import pama1234.math.UtilMath;
 
 /**
  * 此草图直接搬运并魔改了 https://github.com/raimannma/NEAT4J 的neat实现
@@ -32,6 +31,8 @@ public class Screen0019 extends ScreenCore2D{
     // new FeedForwardNetwork(), // 神经网络类型
     // new EuclideanDistanceMetric() // 物种距离计算方法
     options=new EvolveOptions();
+    options.setLog(1);
+    options.setIterations(100);
     options.setError(0.05f); // set target error for evolution
     // options.setFitnessFunction(n->UtilMath.sqrt(random(0,Character.MAX_VALUE)));//TODO
     neat=new NEAT(2,1,options);
@@ -69,6 +70,7 @@ public class Screen0019 extends ScreenCore2D{
   }
   @Override
   public void displayWithCam() {
+    text("测试："+network.test(inputs,outputs),0,-20);
     text("得分："+network.score,0,0);
   }
   @Override

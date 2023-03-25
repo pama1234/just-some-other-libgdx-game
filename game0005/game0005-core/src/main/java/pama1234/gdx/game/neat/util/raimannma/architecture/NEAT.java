@@ -8,6 +8,10 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.IntStream;
+
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 
 import pama1234.gdx.game.neat.util.raimannma.methods.Mutation;
 import pama1234.gdx.game.neat.util.raimannma.methods.Selection;
@@ -234,29 +238,29 @@ public class NEAT{
 		this.evaluate();
 		return (float)this.population.stream().mapToDouble(network->network.score).average().orElseThrow();
 	}
-	// /**
-	//  * Convert the population to a JsonObject.
-	//  *
-	//  * @return the json object representing the population
-	//  */
-	// public JsonObject toJson() {
-	// 	final JsonArray jsonArray = new JsonArray();
-	// 	this.population.stream().map(Network::toJSON).forEach(jsonArray::add);
-	// 	final JsonObject jsonObject = new JsonObject();
-	// 	jsonObject.add("genomes", jsonArray);
-	// 	return jsonObject;
-	// }
-	// /**
-	//  * Imports population from a json.
-	//  *
-	//  * @param jsonObject a population represented as JsonObject.
-	//  */
-	// public void fromJson(final  JsonObject jsonObject) {
-	// 	final JsonArray arr = jsonObject.get("genomes").getAsJsonArray();
-	// 	IntStream.range(0, arr.size())
-	// 		.forEach(i -> this.population.add(Network.fromJSON(arr.get(i).getAsJsonObject())));
-	// 	this.populationSize = this.population.size();
-	// }
+	/**
+	 * Convert the population to a JsonObject.
+	 *
+	 * @return the json object representing the population
+	 */
+	public JsonObject toJson() {
+		final JsonArray jsonArray=new JsonArray();
+		this.population.stream().map(Network::toJSON).forEach(jsonArray::add);
+		final JsonObject jsonObject=new JsonObject();
+		jsonObject.add("genomes",jsonArray);
+		return jsonObject;
+	}
+	/**
+	 * Imports population from a json.
+	 *
+	 * @param jsonObject a population represented as JsonObject.
+	 */
+	public void fromJson(final JsonObject jsonObject) {
+		final JsonArray arr=jsonObject.get("genomes").getAsJsonArray();
+		IntStream.range(0,arr.size())
+			.forEach(i->this.population.add(Network.fromJSON(arr.get(i).getAsJsonObject())));
+		this.populationSize=this.population.size();
+	}
 	@Override
 	public int hashCode() {
 		return Arrays.hashCode(this.mutation)
