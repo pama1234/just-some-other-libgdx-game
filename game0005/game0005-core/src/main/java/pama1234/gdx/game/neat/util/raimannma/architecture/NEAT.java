@@ -172,6 +172,7 @@ public class NEAT{
 				// calculate score with the given fitness function
 				genome.score=this.fitnessFunction.getWith(genome);
 				if(Float.isNaN(genome.score)) {
+					System.out.println("NEAT.evaluate()");
 					genome.score=-Float.MAX_VALUE;
 				}
 			});

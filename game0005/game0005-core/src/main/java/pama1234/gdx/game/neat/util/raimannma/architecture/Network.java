@@ -4,7 +4,7 @@ import static pama1234.gdx.game.neat.util.raimannma.methods.Mutation.SUB_NODE;
 import static pama1234.gdx.game.neat.util.raimannma.methods.Utils.pickRandom;
 import static pama1234.gdx.game.neat.util.raimannma.methods.Utils.randBoolean;
 import static pama1234.gdx.game.neat.util.raimannma.methods.Utils.randFloat;
-import static pama1234.gdx.game.neat.util.raimannma.methods.Utils.randIntExcludeUp;
+import static pama1234.gdx.game.neat.util.raimannma.methods.Utils.randInt;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -121,7 +121,7 @@ public class Network{
 		final int size2=network2.nodes.size(); // size of parent 2
 		// size of offspring
 		final int size=equal||score1==score2
-			?randIntExcludeUp(Math.min(size1,size2),Math.max(size1,size2))// select random size between min and max
+			?randInt(Math.min(size1,size2),Math.max(size1,size2))// select random size between min and max
 			:score1>score2?size1:size2; // Select size of fittest.
 		network1.setNodeIndices(); // set indices for network 1
 		network2.setNodeIndices(); // set indices for network 2
@@ -408,7 +408,17 @@ public class Network{
 			}
 			// Log
 			if(options.getLog()>0&&neat.generation%options.getLog()==0) {
-				System.out.println("Iteration: "+neat.generation+"; Fitness: "+fittest.score+"; Error: "+-error+"; Population: "+neat.population.size());
+				System.out.println(
+					"Iteration: "+
+						neat.generation+
+						"; Fitness: "+
+						fittest.score+
+						// "; Fittest :"+
+						// fittest.toString()+
+						"; Error: "+
+						-error+
+						"; Population: "+
+						neat.population.size());
 			}
 		}
 		if(bestGenome!=null) {
@@ -592,54 +602,54 @@ public class Network{
 	//  * @return the copied network
 	//  */
 	// public Network copy() {
-	// 	// throw new RuntimeException("Network.copy() not implemented");
-	// 	// return Network.fromJSON(this.toJSON()); // simply convert to json and back
-	// 	final Network out=new Network(this.input,this.output);
-	// 	out.dropout=this.dropout;
-	// 	out.score=this.score;
-	// 	// Copy nodes
-	// 	for(Node node:this.nodes) {
-	// 		out.nodes.add(node.copy());
-	// 	}
-	// 	// Copy connections
-	// 	for(Connection connection:this.connections) {
-	// 		// System.out.println(connection.toString());
-	// 		if(!(connection.from.index<0||connection.to.index<0)) {
-	// 			final Node from=out.nodes.get(connection.from.index);
-	// 			final Node to=out.nodes.get(connection.to.index);
-	// 			final Connection newConnection=out.connect(from,to,connection.weight);
-	// 			newConnection.weight=connection.weight;
-	// 			newConnection.gain=connection.gain;
-	// 			if(connection.gateNode!=null) {
-	// 				final Node gateNode=out.nodes.get(connection.gateNode.index);
-	// 				out.gate(gateNode,newConnection);
-	// 			}
-	// 		}
-	// 	}
-	// 	// Copy self connections
-	// 	for(Connection connection:this.selfConnections) {
-	// 		final Node node=out.nodes.get(connection.from.index);
-	// 		final Connection newConnection=node.connect(node,connection.weight);
-	// 		newConnection.weight=connection.weight;
-	// 		newConnection.gain=connection.gain;
-	// 		if(connection.gateNode!=null) {
-	// 			final Node gateNode=out.nodes.get(connection.gateNode.index);
-	// 			out.gate(gateNode,newConnection);
-	// 		}
-	// 	}
-	// 	// Copy gates
-	// 	for(Connection connection:this.gates) {
-	// 		final Node from=out.nodes.get(connection.from.index);
-	// 		final Node to=out.nodes.get(connection.to.index);
-	// 		final Connection newConnection=out.connect(from,to,connection.weight);
-	// 		newConnection.weight=connection.weight;
-	// 		newConnection.gain=connection.gain;
-	// 		if(connection.gateNode!=null) {
-	// 			final Node gateNode=out.nodes.get(connection.gateNode.index);
-	// 			out.gate(gateNode,newConnection);
-	// 		}
-	// 	}
-	// 	return out;
+	//   // throw new RuntimeException("Network.copy() not implemented");
+	//   // return Network.fromJSON(this.toJSON()); // simply convert to json and back
+	//   final Network out=new Network(this.input,this.output);
+	//   out.dropout=this.dropout;
+	//   out.score=this.score;
+	//   // Copy nodes
+	//   for(Node node:this.nodes) {
+	//     out.nodes.add(node.copy());
+	//   }
+	//   // Copy connections
+	//   for(Connection connection:this.connections) {
+	//     // System.out.println(connection.toString());
+	//     if(!(connection.from.index<0||connection.to.index<0)) {
+	//       final Node from=out.nodes.get(connection.from.index);
+	//       final Node to=out.nodes.get(connection.to.index);
+	//       final Connection newConnection=out.connect(from,to,connection.weight);
+	//       newConnection.weight=connection.weight;
+	//       newConnection.gain=connection.gain;
+	//       if(connection.gateNode!=null) {
+	//         final Node gateNode=out.nodes.get(connection.gateNode.index);
+	//         out.gate(gateNode,newConnection);
+	//       }
+	//     }
+	//   }
+	//   // Copy self connections
+	//   for(Connection connection:this.selfConnections) {
+	//     final Node node=out.nodes.get(connection.from.index);
+	//     final Connection newConnection=node.connect(node,connection.weight);
+	//     newConnection.weight=connection.weight;
+	//     newConnection.gain=connection.gain;
+	//     if(connection.gateNode!=null) {
+	//       final Node gateNode=out.nodes.get(connection.gateNode.index);
+	//       out.gate(gateNode,newConnection);
+	//     }
+	//   }
+	//   // Copy gates
+	//   for(Connection connection:this.gates) {
+	//     final Node from=out.nodes.get(connection.from.index);
+	//     final Node to=out.nodes.get(connection.to.index);
+	//     final Connection newConnection=out.connect(from,to,connection.weight);
+	//     newConnection.weight=connection.weight;
+	//     newConnection.gain=connection.gain;
+	//     if(connection.gateNode!=null) {
+	//       final Node gateNode=out.nodes.get(connection.gateNode.index);
+	//       out.gate(gateNode,newConnection);
+	//     }
+	//   }
+	//   return out;
 	// }
 	/**
 	 * Copies a network.

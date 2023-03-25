@@ -31,8 +31,8 @@ public class Screen0019 extends ScreenCore2D{
     // new FeedForwardNetwork(), // 神经网络类型
     // new EuclideanDistanceMetric() // 物种距离计算方法
     options=new EvolveOptions();
-    options.setLog(1);
-    options.setIterations(100);
+    options.setPopulationSize(1000);
+    options.setLog(10);
     options.setError(0.05f); // set target error for evolution
     // options.setFitnessFunction(n->UtilMath.sqrt(random(0,Character.MAX_VALUE)));//TODO
     neat=new NEAT(2,1,options);
