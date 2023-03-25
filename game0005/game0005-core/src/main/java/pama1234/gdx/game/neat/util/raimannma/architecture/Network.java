@@ -602,14 +602,17 @@ public class Network{
 		}
 		// Copy connections
 		for(Connection connection:this.connections) {
-			final Node from=out.nodes.get(connection.from.index);
-			final Node to=out.nodes.get(connection.to.index);
-			final Connection newConnection=out.connect(from,to,connection.weight);
-			newConnection.weight=connection.weight;
-			newConnection.gain=connection.gain;
-			if(connection.gateNode!=null) {
-				final Node gateNode=out.nodes.get(connection.gateNode.index);
-				out.gate(gateNode,newConnection);
+			// System.out.println(connection.toString());
+			final Node from=connection.from.index<0?null:out.nodes.get(connection.from.index);
+			final Node to=connection.to.index<0?null:out.nodes.get(connection.to.index);
+			if(from!=null&&to!=null) {
+				final Connection newConnection=out.connect(from,to,connection.weight);
+				newConnection.weight=connection.weight;
+				newConnection.gain=connection.gain;
+				if(connection.gateNode!=null) {
+					final Node gateNode=out.nodes.get(connection.gateNode.index);
+					out.gate(gateNode,newConnection);
+				}
 			}
 		}
 		// Copy self connections

@@ -11,10 +11,11 @@ import pama1234.gdx.util.app.ScreenCore2D;
  * 此草图直接搬运并魔改了 https://github.com/raimannma/NEAT4J 的neat实现
  */
 public class Screen0019 extends ScreenCore2D{
-  private NEAT neat;
-  private Network network;
-  private float[][] inputs;
-  private float[][] outputs;
+  public NEAT neat;
+  public Network network;
+  public EvolveOptions options;
+  public float[][] inputs;
+  public float[][] outputs;
   @Override
   public void setup() {
     // 初始化neat对象
@@ -29,14 +30,16 @@ public class Screen0019 extends ScreenCore2D{
     // 0.1, // 连接基因添加概率
     // new FeedForwardNetwork(), // 神经网络类型
     // new EuclideanDistanceMetric() // 物种距离计算方法
-    EvolveOptions options=new EvolveOptions();
+    options=new EvolveOptions();
+    options.setError(0.05f); // set target error for evolution
     options.setFitnessFunction(n->n.score);//TODO
     neat=new NEAT(2,1,options);
     // 创建并训练网络
     // neat.createPopulation();
     // neat.train();
     // 获取最佳网络
-    network=neat.evolve();
+    // network=neat.evolve();
+    network=new Network(2,1);
     // 初始化输入和输出数组
     inputs=new float[][] {{0.0f,1.0f}};
     outputs=new float[1][1];
@@ -47,9 +50,10 @@ public class Screen0019 extends ScreenCore2D{
     // network.setInputValues(inputs);
     // network.calculate();
     // network.getOutputValues(outputs);
-    network.test(inputs,outputs);
+    // network.test(inputs,outputs);
+    network.evolve(inputs,outputs,options);
     // 输出结果
-    System.out.println("Output: "+Arrays.toString(outputs));
+    System.out.println("Output: "+Arrays.deepToString(outputs));
   }
   @Override
   public void displayWithCam() {}
