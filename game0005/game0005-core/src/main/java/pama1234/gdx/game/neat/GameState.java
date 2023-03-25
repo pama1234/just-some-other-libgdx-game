@@ -51,7 +51,8 @@ public class GameState{
   public void setObstacleY(float obstacleY) {
     this.obstacleY=obstacleY;
   }
-  public void update(boolean shouldJump) {
+  public void update(float[] in) {
+    boolean shouldJump=in[0]>0.5f;
     if(!isGameOver) {
       playerY+=GameConfig.GRAVITY;
       if(shouldJump) {
@@ -78,6 +79,15 @@ public class GameState{
       if(obstacleX<=playerX+GameConfig.PLAYER_WIDTH/2&&obstacleX>=playerX-GameConfig.OBSTACLE_WIDTH&&obstacleY<=playerY+GameConfig.PLAYER_HEIGHT/2&&obstacleY>=playerY-GameConfig.OBSTACLE_HEIGHT) {
         isGameOver=true;
       }
+    }else {
+      score=0;
+      isGameOver=false;
+      playerX=GameConfig.PLAYER_START_X;
+      playerY=GameConfig.PLAYER_START_Y;
+      enemyX=GameConfig.ENEMY_START_X;
+      enemyY=MathUtils.random(GameConfig.OBSTACLE_Y_MIN,GameConfig.OBSTACLE_Y_MAX);
+      obstacleX=GameConfig.OBSTACLE_START_X;
+      obstacleY=MathUtils.random(GameConfig.OBSTACLE_Y_MIN,GameConfig.OBSTACLE_Y_MAX);
     }
   }
 }

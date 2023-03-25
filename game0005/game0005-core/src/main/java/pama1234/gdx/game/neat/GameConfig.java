@@ -27,4 +27,9 @@ public class GameConfig{
   public static final float OBSTACLE_Y_MAX=10f;
   public static final float PLAYER_WIDTH=1f;
   public static final float PLAYER_HEIGHT=1.5f;
+  //---
+  public static final float PLAYER_START_X=2f;
+  public static final float PLAYER_START_Y=WORLD_HEIGHT/2f;
+  public static final float ENEMY_START_X=WORLD_WIDTH+ENEMY_WIDTH/2f;
+  public static final float OBSTACLE_START_X=WORLD_WIDTH+OBSTACLE_WIDTH/2f;
 }

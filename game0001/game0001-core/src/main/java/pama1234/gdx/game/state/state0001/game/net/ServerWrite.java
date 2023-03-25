@@ -15,7 +15,7 @@ import pama1234.gdx.game.state.state0001.game.world.WorldKryoUtil;
 import pama1234.gdx.util.wrapper.EntityCenter;
 import pama1234.math.UtilMath;
 import pama1234.math.physics.MassPoint;
-import pama1234.util.function.ExecuteF;
+import pama1234.util.function.ExecuteFunction;
 import pama1234.util.wrapper.Center;
 
 public class ServerWrite extends Thread{
@@ -23,7 +23,7 @@ public class ServerWrite extends Thread{
   public ServerCore p;
   public Output output;
   public int sleep=-1;
-  public ExecuteF[] executeFs;
+  public ExecuteFunction[] executeFs;
   public Center<NetChunkData> chunks;
   public Center<GamePointEntity<?>> entities;
   public int state=ServerToClient.needAuth;
@@ -31,7 +31,7 @@ public class ServerWrite extends Thread{
     this.link=link;
     this.p=p;
     output=new Output(link.socketData.o);
-    executeFs=new ExecuteF[] {this::writePlayerPos,this::writeChunks,this::writeNeedAuth,this::writeWorldData,this::writeEntities};
+    executeFs=new ExecuteFunction[] {this::writePlayerPos,this::writeChunks,this::writeNeedAuth,this::writeWorldData,this::writeEntities};
     chunks=new Center<>();
     entities=new Center<>();
   }

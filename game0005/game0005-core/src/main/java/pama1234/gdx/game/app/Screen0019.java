@@ -50,13 +50,14 @@ public class Screen0019 extends ScreenCore2D{
     neat.update();
     // 获取 NEAT 产生的决策，并应用到游戏状态中
     float[] inputs=new float[] {
-      gameState.getPlayerX(),gameState.getPlayerY(),
-      gameState.getEnemyX(),gameState.getEnemyY(),
-      gameState.getObstacleX(),gameState.getObstacleY()
+      gameState.getPlayerX(),gameState.getEnemyX(),gameState.getObstacleX(),
+      // gameState.getPlayerX(),gameState.getPlayerY(),
+      // gameState.getEnemyX(),gameState.getEnemyY(),
+      // gameState.getObstacleX(),gameState.getObstacleY()
     };
     float[] outputs=neat.evaluate(inputs);
-    boolean shouldJump=outputs[0]>0.5f;
-    gameState.update(shouldJump);
+    // boolean[] outputdata=new boolean[] {outputs[0]>0.5f};
+    gameState.update(outputs);
   }
   @Override
   public void displayWithCam() {

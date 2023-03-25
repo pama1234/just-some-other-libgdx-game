@@ -9,7 +9,7 @@ import pama1234.gdx.util.element.CameraController;
 import pama1234.gdx.util.element.CameraController2D;
 import pama1234.gdx.util.element.Style;
 import pama1234.math.UtilMath;
-import pama1234.util.function.ExecuteF;
+import pama1234.util.function.ExecuteFunction;
 
 /**
  * @see ScreenCore2D
@@ -49,7 +49,7 @@ public abstract class UtilScreen2D extends UtilScreen{
     rotate(deg);
   }
   @Deprecated
-  public void drawWithMatrix(float dx,float dy,float deg,ExecuteF e) {
+  public void drawWithMatrix(float dx,float dy,float deg,ExecuteFunction e) {
     pushMatrix(dx,dy,deg);
     e.execute();
     popMatrix();

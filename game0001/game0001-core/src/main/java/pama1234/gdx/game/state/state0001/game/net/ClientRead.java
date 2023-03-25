@@ -19,16 +19,16 @@ import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.WorldData;
 import pama1234.gdx.game.state.state0001.game.world.WorldKryoUtil;
 import pama1234.math.physics.Point;
-import pama1234.util.function.ExecuteF;
+import pama1234.util.function.ExecuteFunction;
 
 public class ClientRead extends Thread{
   public ClientCore p;
   public Input input;
-  public ExecuteF[] executeFs;
+  public ExecuteFunction[] executeFs;
   public ClientRead(ClientCore p) {
     this.p=p;
     input=new Input(p.socketData.i);
-    executeFs=new ExecuteF[] {this::readPlayerPos,this::readChunkData,this::readAuthInfo,this::readWorldData,this::readEntityData};
+    executeFs=new ExecuteFunction[] {this::readPlayerPos,this::readChunkData,this::readAuthInfo,this::readWorldData,this::readEntityData};
   }
   @Override
   public void run() {

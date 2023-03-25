@@ -1,12 +1,11 @@
 package pama1234.gdx.game.neat;
 
-import java.util.function.Function;
-
 import pama1234.math.UtilMath;
+import pama1234.util.function.FloatToFloat;
 
 public class ActivationFunction{
-  private Function<Float,Float> function;
-  private ActivationFunction(Function<Float,Float> function) {
+  private FloatToFloat function;
+  private ActivationFunction(FloatToFloat function) {
     this.function=function;
   }
   public float activate(float input) {
@@ -23,7 +22,7 @@ public class ActivationFunction{
     return functions[index];
   }
   // Set the value of the activation function
-  public void setValue(Function<Float,Float> newFunction) {
+  public void setValue(FloatToFloat newFunction) {
     this.function=newFunction;
   }
   // Set the value of the activation function using a float
@@ -31,7 +30,7 @@ public class ActivationFunction{
     this.function=x->newValue;
   }
   // Get the value of the activation function
-  public Function<Float,Float> getValue() {
+  public FloatToFloat getValue() {
     return this.function;
   }
   // Apply the activation function to an input value

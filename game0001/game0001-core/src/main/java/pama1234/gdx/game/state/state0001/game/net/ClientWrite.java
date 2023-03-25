@@ -4,13 +4,13 @@ import com.esotericsoftware.kryo.io.Output;
 
 import pama1234.gdx.game.state.state0001.game.net.NetState.ClientToServer;
 import pama1234.gdx.game.state.state0001.game.player.PlayerControllerCore;
-import pama1234.util.function.ExecuteF;
+import pama1234.util.function.ExecuteFunction;
 
 public class ClientWrite extends Thread{
   public ClientCore p;
   public Output output;
   public int sleep=-1;
-  public ExecuteF[] executeFs;
+  public ExecuteFunction[] executeFs;
   public boolean left,right,jump,jumpDown;
   public boolean dleft,dright,djump,djumpDown;
   public boolean writePlayerCtrl;
@@ -18,7 +18,7 @@ public class ClientWrite extends Thread{
   public ClientWrite(ClientCore p) {
     this.p=p;
     output=new Output(p.socketData.o);
-    executeFs=new ExecuteF[] {this::writePlayerCtrl,this::writePlayerAuth};
+    executeFs=new ExecuteFunction[] {this::writePlayerCtrl,this::writePlayerAuth};
   }
   @Override
   public void run() {
