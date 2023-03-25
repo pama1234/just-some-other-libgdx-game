@@ -29,23 +29,23 @@ public enum Utils{
 		return max>min?rand.nextInt(min,max):min;
 	}
 	/**
-	 * Generates a random double between min and max.
+	 * Generates a random float between min and max.
 	 *
 	 * @param min the minimum value
 	 * @param max the maximum value
-	 * @return the random double between min and max
+	 * @return the random float between min and max
 	 */
-	public static double randDouble(final double min,final double max) {
-		return max>min?rand.nextDouble(min,max):min;
+	public static float randFloat(final float min,final float max) {
+		return max>min?rand.nextFloat(min,max):min;
 	}
 	/**
-	 * Generates a random double between min and max.
+	 * Generates a random float between min and max.
 	 *
 	 * @param max the maximum value
-	 * @return the random double between 0 and max
+	 * @return the random float between 0 and max
 	 */
-	public static double randDouble(final double max) {
-		return max>0?rand.nextDouble(max):0;
+	public static float randFloat(final float max) {
+		return max>0?rand.nextFloat(max):0;
 	}
 	/**
 	 * Chooses a random element from the given array.
@@ -77,12 +77,12 @@ public enum Utils{
 		return new ArrayList<>(collection).get(randInt(collection.size()));
 	}
 	/**
-	 * Generates a random double between min and max.
+	 * Generates a random float between min and max.
 	 *
-	 * @return the random double between 0 and 1
+	 * @return the random float between 0 and 1
 	 */
-	public static double randDouble() {
-		return rand.nextDouble();
+	public static float randFloat() {
+		return rand.nextFloat();
 	}
 	/**
 	 * Generates a random boolean.

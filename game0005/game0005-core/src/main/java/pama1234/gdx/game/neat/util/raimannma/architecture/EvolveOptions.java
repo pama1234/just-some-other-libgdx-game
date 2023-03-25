@@ -2,11 +2,11 @@ package pama1234.gdx.game.neat.util.raimannma.architecture;
 
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.function.ToDoubleFunction;
 
 import pama1234.gdx.game.neat.util.raimannma.methods.Loss;
 import pama1234.gdx.game.neat.util.raimannma.methods.Mutation;
 import pama1234.gdx.game.neat.util.raimannma.methods.Selection;
+import pama1234.util.function.GetFloatWith;
 
 /**
  * The type Evolve options.
@@ -17,7 +17,7 @@ public class EvolveOptions{
 	/**
 	 * Determines how "fit" a network is. A higher value means, that the network is fitter.
 	 */
-	private ToDoubleFunction<Network> fitnessFunction;
+	private GetFloatWith<Network> fitnessFunction;
 	/**
 	 * Amount of networks in every population.
 	 */
@@ -30,7 +30,7 @@ public class EvolveOptions{
 	/**
 	 * The probability that one network gets mutated.
 	 */
-	private double mutationRate;
+	private float mutationRate;
 	/**
 	 * Amount of mutation steps a network does, if it gets mutated.
 	 */
@@ -70,11 +70,11 @@ public class EvolveOptions{
 	/**
 	 * The target error. Evolution would stop, if this error rate has been reached.
 	 */
-	private double error;
+	private float error;
 	/**
 	 * Set a penalty for large networks. Should be a small number.
 	 */
-	private double growth;
+	private float growth;
 	/**
 	 * How often should the trainingset be tested for every network? Should be 1 for feedforward
 	 * problems. Useful for time series dataset.
@@ -98,15 +98,15 @@ public class EvolveOptions{
 	 * Instantiates a new Evolve options.
 	 */
 	public EvolveOptions() {
-		this.setError(Double.NaN);
-		this.setGrowth(0.0001);
+		this.setError(Float.NaN);
+		this.setGrowth(0.0001f);
 		this.setLoss(Loss.MSE);
 		this.setAmount(1);
 		this.setIterations(-1);
 		this.setClear(false);
 		this.setPopulationSize(100);
 		this.setElitism(10);
-		this.setMutationRate(0.4);
+		this.setMutationRate(0.4f);
 		this.setMutationAmount(1);
 		this.setSelection(new Selection.FitnessProportionate());
 		this.setMutations(Mutation.ALL);
@@ -120,7 +120,7 @@ public class EvolveOptions{
 	 *
 	 * @return the fitness function
 	 */
-	public ToDoubleFunction<Network> getFitnessFunction() {
+	public GetFloatWith<Network> getFitnessFunction() {
 		return this.fitnessFunction;
 	}
 	/**
@@ -129,7 +129,7 @@ public class EvolveOptions{
 	 * @param fitnessFunction the fitness function
 	 * @return itself to function as builder class
 	 */
-	public EvolveOptions setFitnessFunction(final ToDoubleFunction<Network> fitnessFunction) {
+	public EvolveOptions setFitnessFunction(final GetFloatWith<Network> fitnessFunction) {
 		this.fitnessFunction=fitnessFunction;
 		return this;
 	}
@@ -174,7 +174,7 @@ public class EvolveOptions{
 	 *
 	 * @return the mutation rate
 	 */
-	public double getMutationRate() {
+	public float getMutationRate() {
 		return this.mutationRate;
 	}
 	/**
@@ -183,7 +183,7 @@ public class EvolveOptions{
 	 * @param mutationRate the mutation rate
 	 * @return itself to function as builder class
 	 */
-	public EvolveOptions setMutationRate(final double mutationRate) {
+	public EvolveOptions setMutationRate(final float mutationRate) {
 		this.mutationRate=mutationRate;
 		return this;
 	}
@@ -354,7 +354,7 @@ public class EvolveOptions{
 	 *
 	 * @return the error
 	 */
-	public double getError() {
+	public float getError() {
 		return this.error;
 	}
 	/**
@@ -363,7 +363,7 @@ public class EvolveOptions{
 	 * @param error the error
 	 * @return itself to function as builder class
 	 */
-	public EvolveOptions setError(final double error) {
+	public EvolveOptions setError(final float error) {
 		this.error=error;
 		return this;
 	}
@@ -372,7 +372,7 @@ public class EvolveOptions{
 	 *
 	 * @return the growth
 	 */
-	public double getGrowth() {
+	public float getGrowth() {
 		return this.growth;
 	}
 	/**
@@ -381,7 +381,7 @@ public class EvolveOptions{
 	 * @param growth the growth
 	 * @return itself to function as builder class
 	 */
-	public EvolveOptions setGrowth(final double growth) {
+	public EvolveOptions setGrowth(final float growth) {
 		this.growth=growth;
 		return this;
 	}

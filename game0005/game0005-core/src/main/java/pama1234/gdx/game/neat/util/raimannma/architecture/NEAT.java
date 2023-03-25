@@ -8,11 +8,11 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import java.util.function.ToDoubleFunction;
 
 import pama1234.gdx.game.neat.util.raimannma.methods.Mutation;
 import pama1234.gdx.game.neat.util.raimannma.methods.Selection;
 import pama1234.gdx.game.neat.util.raimannma.methods.Utils;
+import pama1234.util.function.GetFloatWith;
 
 /**
  * The type Neat.
@@ -31,7 +31,7 @@ public class NEAT{
 	/**
 	 * The Fitness function.
 	 */
-	private final ToDoubleFunction<Network> fitnessFunction;
+	private final GetFloatWith<Network> fitnessFunction;
 	/**
 	 * The Equal.
 	 */
@@ -43,7 +43,7 @@ public class NEAT{
 	/**
 	 * The Mutation rate.
 	 */
-	private final double mutationRate;
+	private final float mutationRate;
 	/**
 	 * The Mutation amount.
 	 */
@@ -118,7 +118,7 @@ public class NEAT{
 			final Network copy=this.template==null
 				?new Network(this.input,this.output)
 				:this.template.copy();
-			copy.score=Double.NaN;
+			copy.score=Float.NaN;
 			this.population.add(copy);
 		}
 	}
@@ -149,7 +149,7 @@ public class NEAT{
 		// add all elitist to the new population
 		this.population.addAll(elitists);
 		// reset scores
-		this.population.forEach(network->network.score=Double.NaN);
+		this.population.forEach(network->network.score=Float.NaN);
 		// increment generation counter
 		this.generation++;
 		// return the fittest network
@@ -166,9 +166,9 @@ public class NEAT{
 			.parallelStream() //parallel
 			.forEach(genome-> {
 				// calculate score with the given fitness function
-				genome.score=this.fitnessFunction.applyAsDouble(genome);
-				if(Double.isNaN(genome.score)) {
-					genome.score=-Double.MAX_VALUE;
+				genome.score=this.fitnessFunction.getWith(genome);
+				if(Float.isNaN(genome.score)) {
+					genome.score=-Float.MAX_VALUE;
 				}
 			});
 	}
@@ -177,7 +177,7 @@ public class NEAT{
 	 */
 	private void sort() {
 		// sort from high to low
-		this.population.sort((o1,o2)->Double.compare(o2.score,o1.score));
+		this.population.sort((o1,o2)->Float.compare(o2.score,o1.score));
 	}
 	/**
 	 * Returns a genome for crossover based on the selection method provided.
@@ -192,7 +192,7 @@ public class NEAT{
 	 */
 	private void mutate() {
 		for(final Network network:this.population) {
-			if(Utils.randDouble()<=this.mutationRate) {
+			if(Utils.randFloat()<=this.mutationRate) {
 				for(int j=0;j<this.mutationAmount;j++) {
 					network.mutate(this.selectMutationMethod(network));
 				}
@@ -229,10 +229,10 @@ public class NEAT{
 	 *
 	 * @return Average fitness of the current population
 	 */
-	public double getAverage() {
+	public float getAverage() {
 		// evaluate
 		this.evaluate();
-		return this.population.stream().mapToDouble(network->network.score).average().orElseThrow();
+		return (float)this.population.stream().mapToDouble(network->network.score).average().orElseThrow();
 	}
 	// /**
 	//  * Convert the population to a JsonObject.

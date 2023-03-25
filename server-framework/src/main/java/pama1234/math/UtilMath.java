@@ -166,6 +166,12 @@ public class UtilMath{
     else if(y<0) return x-HALF_PI;
     return x+y; // returns 0 for 0,0 or NaN if either y or x is NaN
   }
+  public static float atan(float in) {
+    return (float)Math.atan(in);
+  }
+  public static float log(float in) {
+    return (float)Math.log(in);
+  }
   public static float clamp(float value,float min,float max) {
     if(value<min) return min;
     if(value>max) return max;

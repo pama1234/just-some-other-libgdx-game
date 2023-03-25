@@ -1,6 +1,6 @@
 package pama1234.gdx.game.neat.util.raimannma.architecture;
 
-import static pama1234.gdx.game.neat.util.raimannma.methods.Utils.randDouble;
+import static pama1234.gdx.game.neat.util.raimannma.methods.Utils.randFloat;
 
 // import com.google.gson.JsonObject;
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ public class Node{
 	 * @see <a href="https://becominghuman.ai/what-is-an-artificial-neuron-8b2e421ce42e">Neuron's
 	 *      bias</a>
 	 */
-	public double bias;
+	public float bias;
 	/**
 	 * The Index. -used for crossover
 	 */
@@ -57,15 +57,15 @@ public class Node{
 	 * Used for dropout. This is either 0 (ignored) or 1 (included) during training and is used to
 	 * avoid overfit.
 	 */
-	public double mask;
+	public float mask;
 	/**
 	 * The state of this node.
 	 */
-	private double state;
+	private float state;
 	/**
 	 * The output value of this node.
 	 */
-	private double activation;
+	private float activation;
 	/**
 	 * Instantiates a new Node.
 	 */
@@ -78,7 +78,7 @@ public class Node{
 	 * @param type the type
 	 */
 	public Node(final NodeType type) {
-		this.bias=type==NodeType.INPUT?0:randDouble(-1,1);
+		this.bias=type==NodeType.INPUT?0:randFloat(-1,1);
 		this.activationType=Activation.LOGISTIC;
 		this.type=type;
 		this.activation=0;
@@ -113,7 +113,7 @@ public class Node{
 	 *
 	 * @return A neuron's squashed output value.
 	 */
-	public double activate() {
+	public float activate() {
 		this.state=this.self.gain*this.self.weight*this.state+this.bias;
 		this.in.forEach(connection->this.state+=connection.from.activation*connection.weight*connection.gain);
 		this.activation=this.activationType.calc(this.state);
@@ -131,7 +131,7 @@ public class Node{
 	 *
 	 * @param input the input to this node
 	 */
-	public void activate(final double input) {
+	public void activate(final float input) {
 		this.activation=input; // just copy
 	}
 	/**
@@ -141,7 +141,7 @@ public class Node{
 	 * @param weight the weight value of the connection between this and the target node
 	 * @return the created connection pointing from this node to the target node
 	 */
-	public Connection connect(final Node target,final double weight) {
+	public Connection connect(final Node target,final float weight) {
 		final Connection out;
 		if(target==this) {
 			if(this.self.weight==0) {
