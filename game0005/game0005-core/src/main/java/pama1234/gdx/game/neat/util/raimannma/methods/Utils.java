@@ -25,6 +25,17 @@ public enum Utils{
 	 * @param max the maximum value
 	 * @return the random integer between min and max
 	 */
+	@Deprecated
+	public static int randIntExcludeUp(final int min,final int max) {
+		return randInt(min,max-1);
+	}
+	/**
+	 * Generates a random integer between min and max.
+	 *
+	 * @param min the minimum value
+	 * @param max the maximum value
+	 * @return the random integer between min and max
+	 */
 	public static int randInt(final int min,final int max) {
 		return max>min?rand.nextInt(min,max):min;
 	}

@@ -4,7 +4,7 @@ import static pama1234.gdx.game.neat.util.raimannma.methods.Mutation.SUB_NODE;
 import static pama1234.gdx.game.neat.util.raimannma.methods.Utils.pickRandom;
 import static pama1234.gdx.game.neat.util.raimannma.methods.Utils.randBoolean;
 import static pama1234.gdx.game.neat.util.raimannma.methods.Utils.randFloat;
-import static pama1234.gdx.game.neat.util.raimannma.methods.Utils.randInt;
+import static pama1234.gdx.game.neat.util.raimannma.methods.Utils.randIntExcludeUp;
 
 // import com.google.gson.JsonArray;
 // import com.google.gson.JsonObject;
@@ -120,7 +120,7 @@ public class Network{
 		final int size2=network2.nodes.size(); // size of parent 2
 		// size of offspring
 		final int size=equal||score1==score2
-			?randInt(Math.min(size1,size2),Math.max(size1,size2))// select random size between min and max
+			?randIntExcludeUp(Math.min(size1,size2),Math.max(size1,size2))// select random size between min and max
 			:score1>score2?size1:size2; // Select size of fittest.
 		network1.setNodeIndices(); // set indices for network 1
 		network2.setNodeIndices(); // set indices for network 2
@@ -603,9 +603,9 @@ public class Network{
 		// Copy connections
 		for(Connection connection:this.connections) {
 			// System.out.println(connection.toString());
-			final Node from=connection.from.index<0?null:out.nodes.get(connection.from.index);
-			final Node to=connection.to.index<0?null:out.nodes.get(connection.to.index);
-			if(from!=null&&to!=null) {
+			if(!(connection.from.index<0||connection.to.index<0)) {
+				final Node from=out.nodes.get(connection.from.index);
+				final Node to=out.nodes.get(connection.to.index);
 				final Connection newConnection=out.connect(from,to,connection.weight);
 				newConnection.weight=connection.weight;
 				newConnection.gain=connection.gain;
@@ -633,8 +633,10 @@ public class Network{
 			final Connection newConnection=out.connect(from,to,connection.weight);
 			newConnection.weight=connection.weight;
 			newConnection.gain=connection.gain;
-			final Node gateNode=out.nodes.get(connection.gateNode.index);
-			out.gate(gateNode,newConnection);
+			if(connection.gateNode!=null) {
+				final Node gateNode=out.nodes.get(connection.gateNode.index);
+				out.gate(gateNode,newConnection);
+			}
 		}
 		return out;
 	}

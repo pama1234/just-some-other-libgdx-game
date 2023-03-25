@@ -135,7 +135,7 @@ public enum Mutation{
 		@Override
 		public void mutate(final Network network) {
 			// pick a random node hidden or output node and modify it's bias
-			network.nodes.get(Utils.randInt(network.input,network.nodes.size())).bias+=Utils.randFloat(this.min,this.max);
+			network.nodes.get(Utils.randIntExcludeUp(network.input,network.nodes.size())).bias+=Utils.randFloat(this.min,this.max);
 		}
 	},
 	/**
@@ -149,11 +149,12 @@ public enum Mutation{
 			if(this.mutateOutput) {
 				// if output nodes can also be mutated
 				// pick random hidden or output node and mutate activation
-				network.nodes.get(Utils.randInt(network.input,network.nodes.size())).activationType=Utils.pickRandom(MOD_ACTIVATION.allowed);
+				// System.out.println(network.input+" "+network.nodes.size());
+				network.nodes.get(Utils.randIntExcludeUp(network.input,network.nodes.size())).activationType=Utils.pickRandom(MOD_ACTIVATION.allowed);
 			}else if(network.nodes.size()-network.output-network.input>0) {
 				// if there were hidden nodes
 				// pick random hidden node and mutate activation
-				network.nodes.get(Utils.randInt(network.input,network.nodes.size()-network.output)).activationType=Utils.pickRandom(MOD_ACTIVATION.allowed);
+				network.nodes.get(Utils.randIntExcludeUp(network.input,network.nodes.size()-network.output)).activationType=Utils.pickRandom(MOD_ACTIVATION.allowed);
 			}
 		}
 	},
@@ -207,7 +208,8 @@ public enum Mutation{
 			if(!availableConnections.isEmpty()) {
 				// if there are connections
 				// pick a random connection and gate it with a random hidden or output node
-				network.gate(network.nodes.get(Utils.randInt(network.input,network.nodes.size())),Utils.pickRandom(availableConnections));
+				// System.out.println(network.input+" "+network.nodes.size());
+				network.gate(network.nodes.get(Utils.randIntExcludeUp(network.input,network.nodes.size())),Utils.pickRandom(availableConnections));
 			}
 		}
 	},
@@ -294,12 +296,12 @@ public enum Mutation{
 			final int index2;
 			if(this.mutateOutput) {
 				// pick random hidden or output node indices
-				index=Utils.randInt(network.input,network.nodes.size());
-				index2=Utils.randInt(network.input,network.nodes.size());
+				index=Utils.randIntExcludeUp(network.input,network.nodes.size());
+				index2=Utils.randIntExcludeUp(network.input,network.nodes.size());
 			}else {
 				// pick random hidden node indices
-				index=Utils.randInt(network.input,network.nodes.size()-network.output);
-				index2=Utils.randInt(network.input,network.nodes.size()-network.output);
+				index=Utils.randIntExcludeUp(network.input,network.nodes.size()-network.output);
+				index2=Utils.randIntExcludeUp(network.input,network.nodes.size()-network.output);
 			}
 			// get nodes from indices
 			final Node node=network.nodes.get(index);
