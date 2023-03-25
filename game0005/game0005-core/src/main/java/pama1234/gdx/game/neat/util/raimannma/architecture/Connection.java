@@ -7,7 +7,7 @@ import java.util.Objects;
  *
  * @author Manuel Raimann
  */
-public class Connection {
+public class Connection{
 	/**
 	 * The output node of this connection.
 	 */
@@ -30,7 +30,6 @@ public class Connection {
 	 * Used for gating, gets multiplied with weight
 	 */
 	public double gain;
-
 	/**
 	 * Instantiates a new Connection.
 	 *
@@ -38,27 +37,25 @@ public class Connection {
 	 * @param to     The output node of this connection.
 	 * @param weight The weight of this connection.
 	 */
-	Connection(final Node from, final Node to, final double weight) {
-		this.from = from;
-		this.to = to;
-		this.gain = 1;
-		this.weight = weight;
-		this.gateNode = null;
+	Connection(final Node from,final Node to,final double weight) {
+		this.from=from;
+		this.to=to;
+		this.gain=1;
+		this.weight=weight;
+		this.gateNode=null;
 	}
-
 	/**
-	 * Get innovation ID.
-	 * Encode two integers into a single integer.
+	 * Get innovation ID. Encode two integers into a single integer.
 	 *
 	 * @param a the first integer
 	 * @param b the second integer
 	 * @return An Integer that uniquely represents a pair of Integers
-	 * @see <a href="https://en.wikipedia.org/wiki/Pairing_function">(Cantor pairing function)|Pairing function (Cantor pairing function)}</a>
+	 * @see <a href="https://en.wikipedia.org/wiki/Pairing_function">(Cantor pairing
+	 *      function)|Pairing function (Cantor pairing function)}</a>
 	 */
-	public static int getInnovationID(final int a, final int b) {
-		return (int) Math.floor(0.5 * (a + b) * (a + b + 1) + b);
+	public static int getInnovationID(final int a,final int b) {
+		return (int)Math.floor(0.5*(a+b)*(a+b+1)+b);
 	}
-
 	// /**
 	//  * Convert a JsonObject to a connection.
 	//  *
@@ -69,47 +66,32 @@ public class Connection {
 	// public static Connection fromJSON(final JsonObject jsonObject, final List<Node> nodes) {
 	// 	final int fromIndex = jsonObject.get("from").getAsInt(); // get from index from JSON
 	// 	final int toIndex = jsonObject.get("to").getAsInt(); // get to index from JSON
-
 	// 	final Node from = nodes.stream().filter(node -> node.index == fromIndex).findAny().orElseThrow(); // get from node by searching for the index in nodes list
 	// 	final Node to = nodes.stream().filter(node -> node.index == toIndex).findAny().orElseThrow(); // get to node by searching for the index in nodes list
-
 	// 	final double weight = jsonObject.get("weight").getAsDouble(); // get weight from JSON
-
 	// 	final Connection connection = new Connection(from, to, weight); // create new connection with from, to and weight
-
 	// 	if (jsonObject.has("gateNode")) {
 	// 		final int gateNodeIndex = jsonObject.get("gateNode").getAsInt(); // get gate node index from JSON
 	// 		connection.gateNode = nodes.stream().filter(node -> node.index == gateNodeIndex).findAny().orElseThrow(); // get gate node by searching for the index in the nodes list
-
 	// 		connection.gain = jsonObject.get("gain").getAsDouble(); // get gain from JSON
 	// 	}
-
 	// 	return connection;
 	// }
-
 	/**
-	 * Stores connection data in an array.
-	 * Used for crossover.
+	 * Stores connection data in an array. Used for crossover.
 	 * <p>
-	 * ConnectionData
-	 * [0] weight value
-	 * [1] node from index
-	 * [2] node to index
-	 * [3] gate node index
+	 * ConnectionData [0] weight value [1] node from index [2] node to index [3] gate node index
 	 *
 	 * @return array containing information about the connection
 	 */
-	
 	protected Double[] getConnectionData() {
-		final Double[] data = new Double[4];
-		data[0] = this.weight;
-		data[1] = (double) this.from.index;
-		data[2] = (double) this.to.index;
-		data[3] = this.gateNode != null ? this.gateNode.index : Double.NaN;
+		final Double[] data=new Double[4];
+		data[0]=this.weight;
+		data[1]=(double)this.from.index;
+		data[2]=(double)this.to.index;
+		data[3]=this.gateNode!=null?this.gateNode.index:Double.NaN;
 		return data;
 	}
-
-
 	// /**
 	//  * Converts the connection to a JsonObject that can later be converted back.
 	//  *
@@ -127,39 +109,38 @@ public class Connection {
 	// 	}
 	// 	return jsonObject;
 	// }
-
 	@Override
 	public boolean equals(final Object o) {
-		if (this == o) {
+		if(this==o) {
 			return true;
 		}
-		if (o == null || this.getClass() != o.getClass()) {
+		if(o==null||this.getClass()!=o.getClass()) {
 			return false;
 		}
-		final Connection that = (Connection) o;
-		return this.from.index == that.from.index && this.to.index == that.to.index;
+		final Connection that=(Connection)o;
+		return this.from.index==that.from.index&&this.to.index==that.to.index;
 	}
-
 	@Override
 	public int hashCode() {
-		return Objects.hash(this.to.index, this.from.index);
+		return Objects.hash(this.to.index,this.from.index);
 	}
-
 	@Override
 	public String toString() {
-		return "architecture.Connection{" +
-			"from=" + this.from.index +
-			", to=" + this.to.index +
-			", weight=" + this.weight +
-			", isGated()=" + this.isGated() +
+		return "architecture.Connection{"+
+			"from="+
+			this.from.index+
+			", to="+
+			this.to.index+
+			", weight="+
+			this.weight+
+			", isGated()="+
+			this.isGated()+
 			'}';
 	}
-
 	public boolean isSelfConnection() {
 		return this.from.equals(this.to);
 	}
-
 	public boolean isGated() {
-		return this.gateNode != null;
+		return this.gateNode!=null;
 	}
 }

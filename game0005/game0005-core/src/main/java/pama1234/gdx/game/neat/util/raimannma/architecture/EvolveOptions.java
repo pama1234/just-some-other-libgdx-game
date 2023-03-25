@@ -3,6 +3,7 @@ package pama1234.gdx.game.neat.util.raimannma.architecture;
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.function.ToDoubleFunction;
+
 import pama1234.gdx.game.neat.util.raimannma.methods.Loss;
 import pama1234.gdx.game.neat.util.raimannma.methods.Mutation;
 import pama1234.gdx.game.neat.util.raimannma.methods.Selection;
@@ -12,7 +13,7 @@ import pama1234.gdx.game.neat.util.raimannma.methods.Selection;
  *
  * @author Manuel Raimann
  */
-public class EvolveOptions {
+public class EvolveOptions{
 	/**
 	 * Determines how "fit" a network is. A higher value means, that the network is fitter.
 	 */
@@ -22,7 +23,8 @@ public class EvolveOptions {
 	 */
 	private int populationSize;
 	/**
-	 * Amount of networks that survive a evolution step without mutation (fittest ones get picked first).
+	 * Amount of networks that survive a evolution step without mutation (fittest ones get picked
+	 * first).
 	 */
 	private int elitism;
 	/**
@@ -70,19 +72,17 @@ public class EvolveOptions {
 	 */
 	private double error;
 	/**
-	 * Set a penalty for large networks.
-	 * Should be a small number.
+	 * Set a penalty for large networks. Should be a small number.
 	 */
 	private double growth;
 	/**
-	 * How often should the trainingset be tested for every network?
-	 * Should be 1 for feedforward problems.
-	 * Useful for time series dataset.
+	 * How often should the trainingset be tested for every network? Should be 1 for feedforward
+	 * problems. Useful for time series dataset.
 	 */
 	private int amount;
 	/**
-	 * The loss function used to determine the fitness.
-	 * Unnecessary if you set your own fitness function.
+	 * The loss function used to determine the fitness. Unnecessary if you set your own fitness
+	 * function.
 	 */
 	private Loss loss;
 	/**
@@ -90,12 +90,10 @@ public class EvolveOptions {
 	 */
 	private int iterations;
 	/**
-	 * Log after "generation mod log == 0".
-	 * 1 -> Log after each generation
-	 * 10 -> Log every 10th generation
+	 * Log after "generation mod log == 0". 1 -> Log after each generation 10 -> Log every 10th
+	 * generation
 	 */
 	private int log;
-
 	/**
 	 * Instantiates a new Evolve options.
 	 */
@@ -117,7 +115,6 @@ public class EvolveOptions {
 		this.setMaxConnections(Integer.MAX_VALUE);
 		this.setMaxGates(Integer.MAX_VALUE);
 	}
-
 	/**
 	 * Gets fitness function.
 	 *
@@ -126,7 +123,6 @@ public class EvolveOptions {
 	public ToDoubleFunction<Network> getFitnessFunction() {
 		return this.fitnessFunction;
 	}
-
 	/**
 	 * Sets fitness function.
 	 *
@@ -134,10 +130,9 @@ public class EvolveOptions {
 	 * @return itself to function as builder class
 	 */
 	public EvolveOptions setFitnessFunction(final ToDoubleFunction<Network> fitnessFunction) {
-		this.fitnessFunction = fitnessFunction;
+		this.fitnessFunction=fitnessFunction;
 		return this;
 	}
-
 	/**
 	 * Gets population size.
 	 *
@@ -146,7 +141,6 @@ public class EvolveOptions {
 	public int getPopulationSize() {
 		return this.populationSize;
 	}
-
 	/**
 	 * Sets population size.
 	 *
@@ -154,10 +148,9 @@ public class EvolveOptions {
 	 * @return itself to function as builder class
 	 */
 	public EvolveOptions setPopulationSize(final int populationSize) {
-		this.populationSize = populationSize;
+		this.populationSize=populationSize;
 		return this;
 	}
-
 	/**
 	 * Gets elitism.
 	 *
@@ -166,7 +159,6 @@ public class EvolveOptions {
 	public int getElitism() {
 		return this.elitism;
 	}
-
 	/**
 	 * Sets elitism.
 	 *
@@ -174,10 +166,9 @@ public class EvolveOptions {
 	 * @return itself to function as builder class
 	 */
 	public EvolveOptions setElitism(final int elitism) {
-		this.elitism = elitism;
+		this.elitism=elitism;
 		return this;
 	}
-
 	/**
 	 * Gets mutation rate.
 	 *
@@ -186,7 +177,6 @@ public class EvolveOptions {
 	public double getMutationRate() {
 		return this.mutationRate;
 	}
-
 	/**
 	 * Sets mutation rate.
 	 *
@@ -194,10 +184,9 @@ public class EvolveOptions {
 	 * @return itself to function as builder class
 	 */
 	public EvolveOptions setMutationRate(final double mutationRate) {
-		this.mutationRate = mutationRate;
+		this.mutationRate=mutationRate;
 		return this;
 	}
-
 	/**
 	 * Gets mutation amount.
 	 *
@@ -206,7 +195,6 @@ public class EvolveOptions {
 	public int getMutationAmount() {
 		return this.mutationAmount;
 	}
-
 	/**
 	 * Sets mutation amount.
 	 *
@@ -214,10 +202,9 @@ public class EvolveOptions {
 	 * @return itself to function as builder class
 	 */
 	public EvolveOptions setMutationAmount(final int mutationAmount) {
-		this.mutationAmount = mutationAmount;
+		this.mutationAmount=mutationAmount;
 		return this;
 	}
-
 	/**
 	 * Gets selection.
 	 *
@@ -226,7 +213,6 @@ public class EvolveOptions {
 	public Selection getSelection() {
 		return this.selection;
 	}
-
 	/**
 	 * Sets selection.
 	 *
@@ -234,10 +220,9 @@ public class EvolveOptions {
 	 * @return itself to function as builder class
 	 */
 	public EvolveOptions setSelection(final Selection selection) {
-		this.selection = selection;
+		this.selection=selection;
 		return this;
 	}
-
 	/**
 	 * Get mutations.
 	 *
@@ -246,7 +231,6 @@ public class EvolveOptions {
 	public Mutation[] getMutations() {
 		return this.mutations;
 	}
-
 	/**
 	 * Sets mutations.
 	 *
@@ -254,10 +238,9 @@ public class EvolveOptions {
 	 * @return itself to function as builder class
 	 */
 	public EvolveOptions setMutations(final Mutation[] mutations) {
-		this.mutations = mutations;
+		this.mutations=mutations;
 		return this;
 	}
-
 	/**
 	 * Gets template.
 	 *
@@ -266,7 +249,6 @@ public class EvolveOptions {
 	public Network getTemplate() {
 		return this.template;
 	}
-
 	/**
 	 * Sets template.
 	 *
@@ -274,10 +256,9 @@ public class EvolveOptions {
 	 * @return itself to function as builder class
 	 */
 	public EvolveOptions setTemplate(final Network template) {
-		this.template = template;
+		this.template=template;
 		return this;
 	}
-
 	/**
 	 * Gets max nodes.
 	 *
@@ -286,7 +267,6 @@ public class EvolveOptions {
 	public int getMaxNodes() {
 		return this.maxNodes;
 	}
-
 	/**
 	 * Sets max nodes.
 	 *
@@ -294,10 +274,9 @@ public class EvolveOptions {
 	 * @return itself to function as builder class
 	 */
 	public EvolveOptions setMaxNodes(final int maxNodes) {
-		this.maxNodes = maxNodes;
+		this.maxNodes=maxNodes;
 		return this;
 	}
-
 	/**
 	 * Gets max connections.
 	 *
@@ -306,7 +285,6 @@ public class EvolveOptions {
 	public int getMaxConnections() {
 		return this.maxConnections;
 	}
-
 	/**
 	 * Sets max connections.
 	 *
@@ -314,10 +292,9 @@ public class EvolveOptions {
 	 * @return itself to function as builder class
 	 */
 	public EvolveOptions setMaxConnections(final int maxConnections) {
-		this.maxConnections = maxConnections;
+		this.maxConnections=maxConnections;
 		return this;
 	}
-
 	/**
 	 * Gets max gates.
 	 *
@@ -326,7 +303,6 @@ public class EvolveOptions {
 	public int getMaxGates() {
 		return this.maxGates;
 	}
-
 	/**
 	 * Sets max gates.
 	 *
@@ -334,10 +310,9 @@ public class EvolveOptions {
 	 * @return itself to function as builder class
 	 */
 	public EvolveOptions setMaxGates(final int maxGates) {
-		this.maxGates = maxGates;
+		this.maxGates=maxGates;
 		return this;
 	}
-
 	/**
 	 * Is equal.
 	 *
@@ -346,7 +321,6 @@ public class EvolveOptions {
 	public boolean isEqual() {
 		return this.equal;
 	}
-
 	/**
 	 * Sets equal.
 	 *
@@ -354,10 +328,9 @@ public class EvolveOptions {
 	 * @return itself to function as builder class
 	 */
 	public EvolveOptions setEqual(final boolean equal) {
-		this.equal = equal;
+		this.equal=equal;
 		return this;
 	}
-
 	/**
 	 * Is clear.
 	 *
@@ -366,7 +339,6 @@ public class EvolveOptions {
 	public boolean isClear() {
 		return this.clear;
 	}
-
 	/**
 	 * Sets clear.
 	 *
@@ -374,10 +346,9 @@ public class EvolveOptions {
 	 * @return itself to function as builder class
 	 */
 	public EvolveOptions setClear(final boolean clear) {
-		this.clear = clear;
+		this.clear=clear;
 		return this;
 	}
-
 	/**
 	 * Gets error.
 	 *
@@ -386,7 +357,6 @@ public class EvolveOptions {
 	public double getError() {
 		return this.error;
 	}
-
 	/**
 	 * Sets error.
 	 *
@@ -394,10 +364,9 @@ public class EvolveOptions {
 	 * @return itself to function as builder class
 	 */
 	public EvolveOptions setError(final double error) {
-		this.error = error;
+		this.error=error;
 		return this;
 	}
-
 	/**
 	 * Gets growth.
 	 *
@@ -406,7 +375,6 @@ public class EvolveOptions {
 	public double getGrowth() {
 		return this.growth;
 	}
-
 	/**
 	 * Sets growth.
 	 *
@@ -414,10 +382,9 @@ public class EvolveOptions {
 	 * @return itself to function as builder class
 	 */
 	public EvolveOptions setGrowth(final double growth) {
-		this.growth = growth;
+		this.growth=growth;
 		return this;
 	}
-
 	/**
 	 * Gets amount.
 	 *
@@ -426,7 +393,6 @@ public class EvolveOptions {
 	public int getAmount() {
 		return this.amount;
 	}
-
 	/**
 	 * Sets amount.
 	 *
@@ -434,10 +400,9 @@ public class EvolveOptions {
 	 * @return itself to function as builder class
 	 */
 	public EvolveOptions setAmount(final int amount) {
-		this.amount = amount;
+		this.amount=amount;
 		return this;
 	}
-
 	/**
 	 * Gets loss.
 	 *
@@ -446,7 +411,6 @@ public class EvolveOptions {
 	public Loss getLoss() {
 		return this.loss;
 	}
-
 	/**
 	 * Sets loss.
 	 *
@@ -454,10 +418,9 @@ public class EvolveOptions {
 	 * @return itself to function as builder class
 	 */
 	public EvolveOptions setLoss(final Loss loss) {
-		this.loss = loss;
+		this.loss=loss;
 		return this;
 	}
-
 	/**
 	 * Gets iterations.
 	 *
@@ -466,7 +429,6 @@ public class EvolveOptions {
 	public int getIterations() {
 		return this.iterations;
 	}
-
 	/**
 	 * Sets iterations.
 	 *
@@ -474,10 +436,9 @@ public class EvolveOptions {
 	 * @return itself to function as builder class
 	 */
 	public EvolveOptions setIterations(final int iterations) {
-		this.iterations = iterations;
+		this.iterations=iterations;
 		return this;
 	}
-
 	/**
 	 * Gets log.
 	 *
@@ -486,7 +447,6 @@ public class EvolveOptions {
 	public int getLog() {
 		return this.log;
 	}
-
 	/**
 	 * Sets log.
 	 *
@@ -494,13 +454,12 @@ public class EvolveOptions {
 	 * @return itself to function as builder class
 	 */
 	public EvolveOptions setLog(final int log) {
-		this.log = log;
+		this.log=log;
 		return this;
 	}
-
 	@Override
 	public int hashCode() {
 		return Arrays.hashCode(this.mutations)
-			+ 31 * Objects.hash(this.fitnessFunction, this.populationSize, this.elitism, this.mutationRate, this.mutationAmount, this.selection, this.template, this.maxNodes, this.maxConnections, this.maxGates, this.equal, this.clear, this.error, this.growth, this.amount, this.loss, this.iterations, this.log);
+			+31*Objects.hash(this.fitnessFunction,this.populationSize,this.elitism,this.mutationRate,this.mutationAmount,this.selection,this.template,this.maxNodes,this.maxConnections,this.maxGates,this.equal,this.clear,this.error,this.growth,this.amount,this.loss,this.iterations,this.log);
 	}
 }

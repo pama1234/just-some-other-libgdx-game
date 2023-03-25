@@ -237,6 +237,28 @@ public class Node{
 	// 	jsonObject.addProperty("index",this.index);
 	// 	return jsonObject;
 	// }
+	/**
+	 * 警告：AI生成，未验证
+	 * </p>
+	 * Creates a copy of this node.
+	 *
+	 * @return the copy of this node
+	 */
+	public Node copy() {
+		Node copy=new Node(this.type);
+		copy.bias=this.bias;
+		copy.activationType=this.activationType;
+		copy.index=this.index;
+		copy.mask=this.mask;
+		copy.state=this.state;
+		copy.activation=this.activation;
+		for(Connection connection:this.in) {
+			Node from=connection.from.copy();
+			Connection newConnection=from.connect(copy,connection.weight);
+			newConnection.gain=connection.gain;
+		}
+		return copy;
+	}
 	@Override
 	public int hashCode() {
 		return Objects.hash(this.activationType,this.bias,this.type);

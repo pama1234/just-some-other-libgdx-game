@@ -5,6 +5,7 @@ import static pama1234.gdx.game.neat.util.raimannma.methods.Utils.pickRandom;
 import static pama1234.gdx.game.neat.util.raimannma.methods.Utils.randBoolean;
 import static pama1234.gdx.game.neat.util.raimannma.methods.Utils.randDouble;
 import static pama1234.gdx.game.neat.util.raimannma.methods.Utils.randInt;
+
 // import com.google.gson.JsonArray;
 // import com.google.gson.JsonObject;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
+
 import pama1234.gdx.game.neat.util.raimannma.methods.Loss;
 import pama1234.gdx.game.neat.util.raimannma.methods.Mutation;
 // import org.jetbrains.annotations.NotNull;
@@ -578,13 +580,56 @@ public class Network{
 			'}';
 	}
 	/**
+	 * 警告：AI生成，未验证
+	 * </p>
 	 * Copies a network.
 	 *
 	 * @return the copied network
 	 */
 	public Network copy() {
-		throw new RuntimeException("Network.copy() not implemented");
+		// throw new RuntimeException("Network.copy() not implemented");
 		// return Network.fromJSON(this.toJSON()); // simply convert to json and back
+		final Network out=new Network(this.input,this.output);
+		out.dropout=this.dropout;
+		out.score=this.score;
+		// Copy nodes
+		for(Node node:this.nodes) {
+			out.nodes.add(node.copy());
+		}
+		// Copy connections
+		for(Connection connection:this.connections) {
+			final Node from=out.nodes.get(connection.from.index);
+			final Node to=out.nodes.get(connection.to.index);
+			final Connection newConnection=out.connect(from,to,connection.weight);
+			newConnection.weight=connection.weight;
+			newConnection.gain=connection.gain;
+			if(connection.gateNode!=null) {
+				final Node gateNode=out.nodes.get(connection.gateNode.index);
+				out.gate(gateNode,newConnection);
+			}
+		}
+		// Copy self connections
+		for(Connection connection:this.selfConnections) {
+			final Node node=out.nodes.get(connection.from.index);
+			final Connection newConnection=node.connect(node,connection.weight);
+			newConnection.weight=connection.weight;
+			newConnection.gain=connection.gain;
+			if(connection.gateNode!=null) {
+				final Node gateNode=out.nodes.get(connection.gateNode.index);
+				out.gate(gateNode,newConnection);
+			}
+		}
+		// Copy gates
+		for(Connection connection:this.gates) {
+			final Node from=out.nodes.get(connection.from.index);
+			final Node to=out.nodes.get(connection.to.index);
+			final Connection newConnection=out.connect(from,to,connection.weight);
+			newConnection.weight=connection.weight;
+			newConnection.gain=connection.gain;
+			final Node gateNode=out.nodes.get(connection.gateNode.index);
+			out.gate(gateNode,newConnection);
+		}
+		return out;
 	}
 	// /**
 	//  * Convert a network to JsonObject.

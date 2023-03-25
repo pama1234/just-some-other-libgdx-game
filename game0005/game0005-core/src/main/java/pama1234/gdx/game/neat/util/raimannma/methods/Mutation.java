@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
 import pama1234.gdx.game.neat.util.raimannma.architecture.Connection;
 import pama1234.gdx.game.neat.util.raimannma.architecture.Network;
 import pama1234.gdx.game.neat.util.raimannma.architecture.Node;

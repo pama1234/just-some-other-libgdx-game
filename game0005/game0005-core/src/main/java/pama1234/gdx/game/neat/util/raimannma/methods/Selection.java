@@ -3,6 +3,7 @@ package pama1234.gdx.game.neat.util.raimannma.methods;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.IntStream;
+
 import pama1234.gdx.game.neat.util.raimannma.architecture.Network;
 
 /**
