@@ -1,4 +1,4 @@
-package pama1234.gdx.game.neat;
+package pama1234.gdx.game.neat.game;
 
 import com.badlogic.gdx.math.MathUtils;
 
@@ -79,15 +79,16 @@ public class GameState{
       if(obstacleX<=playerX+GameConfig.PLAYER_WIDTH/2&&obstacleX>=playerX-GameConfig.OBSTACLE_WIDTH&&obstacleY<=playerY+GameConfig.PLAYER_HEIGHT/2&&obstacleY>=playerY-GameConfig.OBSTACLE_HEIGHT) {
         isGameOver=true;
       }
-    }else {
-      score=0;
-      isGameOver=false;
-      playerX=GameConfig.PLAYER_START_X;
-      playerY=GameConfig.PLAYER_START_Y;
-      enemyX=GameConfig.ENEMY_START_X;
-      enemyY=MathUtils.random(GameConfig.OBSTACLE_Y_MIN,GameConfig.OBSTACLE_Y_MAX);
-      obstacleX=GameConfig.OBSTACLE_START_X;
-      obstacleY=MathUtils.random(GameConfig.OBSTACLE_Y_MIN,GameConfig.OBSTACLE_Y_MAX);
-    }
+    }else reset();
+  }
+  public void reset() {
+    score=0;
+    isGameOver=false;
+    playerX=GameConfig.PLAYER_START_X;
+    playerY=GameConfig.PLAYER_START_Y;
+    enemyX=GameConfig.ENEMY_START_X;
+    enemyY=MathUtils.random(GameConfig.OBSTACLE_Y_MIN,GameConfig.OBSTACLE_Y_MAX);
+    obstacleX=GameConfig.OBSTACLE_START_X;
+    obstacleY=MathUtils.random(GameConfig.OBSTACLE_Y_MIN,GameConfig.OBSTACLE_Y_MAX);
   }
 }

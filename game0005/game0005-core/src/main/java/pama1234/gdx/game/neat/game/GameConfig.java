@@ -1,4 +1,4 @@
-package pama1234.gdx.game.neat;
+package pama1234.gdx.game.neat.game;
 
 public class GameConfig{
   public static final int SCREEN_WIDTH=800;

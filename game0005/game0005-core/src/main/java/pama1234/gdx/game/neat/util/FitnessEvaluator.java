@@ -1,4 +1,7 @@
-package pama1234.gdx.game.neat;
+package pama1234.gdx.game.neat.util;
+
+import pama1234.gdx.game.neat.Genome;
+import pama1234.gdx.game.neat.Population;
 
 public class FitnessEvaluator{
   // Evaluate the fitness of a given population

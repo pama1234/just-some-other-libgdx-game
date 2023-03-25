@@ -2,6 +2,8 @@ package pama1234.gdx.game.neat;
 
 import java.util.Objects;
 
+import pama1234.gdx.game.neat.util.ActivationFunction;
+
 public class Node implements Cloneable{
   public enum NodeType{
     INPUT,
@@ -11,6 +13,7 @@ public class Node implements Cloneable{
   private NodeType type;
   private int id;
   private ActivationFunction activationFunction;
+  private float cache;
   public Node(NodeType type,int id) {
     this.type=type;
     this.id=id;
@@ -49,13 +52,17 @@ public class Node implements Cloneable{
   public int hashCode() {
     return Objects.hash(id);
   }
-  public void setValue(float value) {
+  public void setValue(float in) {
     // Set the value of the node based on the activation function
-    this.activationFunction.setValue(value);
+    cache=this.activationFunction.apply(in);
+    // this.activationFunction.setValue(in);
   }
-  @Deprecated
-  public float getValue(float in) {
+  public float getValue() {
+    // 根据缓存获取浮点数
+    return cache;
+  }
+  public float apply(float in) {
     // Get the value of the node based on the activation function
-    return this.activationFunction.apply(in);
+    return cache=this.activationFunction.apply(in);
   }
 }

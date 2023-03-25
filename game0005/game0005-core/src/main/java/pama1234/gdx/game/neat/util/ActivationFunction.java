@@ -1,4 +1,4 @@
-package pama1234.gdx.game.neat;
+package pama1234.gdx.game.neat.util;
 
 import pama1234.math.UtilMath;
 import pama1234.util.function.FloatToFloat;
@@ -26,6 +26,7 @@ public class ActivationFunction{
     this.function=newFunction;
   }
   // Set the value of the activation function using a float
+  @Deprecated
   public void setValue(float newValue) {
     this.function=x->newValue;
   }

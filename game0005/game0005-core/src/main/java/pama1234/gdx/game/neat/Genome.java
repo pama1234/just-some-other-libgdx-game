@@ -8,6 +8,8 @@ import java.util.Map;
 import java.util.Set;
 
 import pama1234.gdx.game.neat.Node.NodeType;
+import pama1234.gdx.game.neat.util.ActivationFunction;
+import pama1234.gdx.game.neat.util.Connection;
 
 public class Genome implements Comparable<Genome>{
   private int numInputs;
@@ -223,7 +225,7 @@ public class Genome implements Comparable<Genome>{
       float sum=0;
       for(Connection connection:connections) {
         if(connection.getOutNode().equals(hiddenNode)&&connection.isEnabled()) {
-          sum+=connection.getInNode().getValue(0)*connection.getWeight();
+          sum+=connection.getInNode().apply(connection.getOutNode().getValue())*connection.getWeight();
         }
       }
       hiddenNode.setValue(hiddenNode.getActivationFunction().apply(sum));
@@ -234,11 +236,12 @@ public class Genome implements Comparable<Genome>{
       float sum=0;
       for(Connection connection:connections) {
         if(connection.getOutNode().equals(outputNode)&&connection.isEnabled()) {
-          sum+=connection.getInNode().getValue(0)*connection.getWeight();
+          sum+=connection.getInNode().apply(connection.getOutNode().getValue())*connection.getWeight();
         }
       }
-      outputNode.setValue(outputNode.getActivationFunction().apply(sum));
-      outputs[i]=outputNode.getValue(0);
+      // outputNode.setValue(outputNode.getActivationFunction().apply(sum));
+      // outputs[i]=outputNode.getValue(connection.getOutNode().getValue());
+      outputs[i]=outputNode.apply(sum);
     }
     // Return the outputs
     return outputs;

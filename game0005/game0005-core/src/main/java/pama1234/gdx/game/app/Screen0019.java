@@ -1,18 +1,18 @@
 package pama1234.gdx.game.app;
 
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.assets.AssetManager;
 
 import pama1234.gdx.game.asset.ImageAsset;
-import pama1234.gdx.game.neat.GameState;
-import pama1234.gdx.game.neat.InputHandler;
 import pama1234.gdx.game.neat.NEAT;
 import pama1234.gdx.game.neat.NEATConfig;
+import pama1234.gdx.game.neat.game.GameState;
 import pama1234.gdx.util.app.ScreenCore2D;
 
 public class Screen0019 extends ScreenCore2D{
   private NEAT neat;
   private GameState gameState;
-  private InputHandler inputHandler;
+  // private InputHandler inputHandler;
   @Override
   public void setup() {
     // cam2d.active(true);
@@ -29,9 +29,9 @@ public class Screen0019 extends ScreenCore2D{
     // 初始化游戏状态
     gameState=new GameState();
     // 初始化输入处理器
-    inputHandler=new InputHandler(gameState);
+    // inputHandler=new InputHandler(gameState);
     // 设置输入监听器
-    inputProcessor.sub.add.add(inputHandler);
+    // inputProcessor.sub.add.add(inputHandler);
     //---
     // Initialize AssetManager
     AssetManager assetManager=new AssetManager();
@@ -72,4 +72,11 @@ public class Screen0019 extends ScreenCore2D{
   public void display() {}
   @Override
   public void frameResized() {}
+  @Override
+  public void keyPressed(char key,int keyCode) {
+    if(keyCode==Input.Keys.SPACE) {
+      // Perform an action
+      gameState.reset();
+    }
+  }
 }
