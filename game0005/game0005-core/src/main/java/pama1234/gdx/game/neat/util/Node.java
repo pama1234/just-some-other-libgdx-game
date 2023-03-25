@@ -1,8 +1,6 @@
-package pama1234.gdx.game.neat;
+package pama1234.gdx.game.neat.util;
 
 import java.util.Objects;
-
-import pama1234.gdx.game.neat.util.ActivationFunction;
 
 public class Node implements Cloneable{
   public enum NodeType{

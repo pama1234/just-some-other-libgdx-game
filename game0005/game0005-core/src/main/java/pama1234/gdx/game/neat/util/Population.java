@@ -1,8 +1,10 @@
-package pama1234.gdx.game.neat;
+package pama1234.gdx.game.neat.util;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import pama1234.gdx.game.neat.NEATConfig;
 
 public class Population{
   private NEATConfig config;
@@ -10,14 +12,14 @@ public class Population{
   /**
    * 缓存列表，使用后需要清空
    */
-  private List<Genome> newGenomes;
-  @Deprecated
-  private int speciesCount;
+  private List<Genome> cache;
+  // @Deprecated
+  // private int speciesCount;
   public Population(NEATConfig config) {
     this.config=config;
-    this.genomes=new ArrayList<>();
-    this.newGenomes=new ArrayList<>();
-    this.speciesCount=0;
+    genomes=new ArrayList<>();
+    cache=new ArrayList<>();
+    // speciesCount=0;
   }
   public void initialize() {
     for(int i=0;i<config.getPopulationSize();i++) {
@@ -25,7 +27,7 @@ public class Population{
       genome.initialize();
       genomes.add(genome);
     }
-    speciesCount=1;
+    // speciesCount=1;
   }
   public void breedNextGeneration() {
     // 各个种群自我繁殖
@@ -41,14 +43,14 @@ public class Population{
     for(int i=0;i<config.getPopulationSize()-genomes.size();i++) {
       Genome genome=new Genome(config.getNumInputs(),config.getNumOutputs());
       genome.initialize();
-      newGenomes.add(genome);
+      cache.add(genome);
     }
-    for(Genome genome:newGenomes) {
+    for(Genome genome:cache) {
       genomes.add(genome);
     }
     // 清空分组列表和新个体列表
     // speciesList.clear();
-    newGenomes.clear();
+    cache.clear();
   }
   public List<Genome> getBestGenomes() {
     List<Genome> bestGenomes=new ArrayList<>();
@@ -75,7 +77,7 @@ public class Population{
       int numOffspring=(int)(fitnessProportion*config.getPopulationSize()-1);
       for(int i=0;i<numOffspring;i++) {
         Genome offspring=breed(genome,getRandomGenome(species),averageFitness);
-        newGenomes.add(offspring);
+        cache.add(offspring);
       }
     }
   }

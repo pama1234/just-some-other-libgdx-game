@@ -1,4 +1,4 @@
-package pama1234.gdx.game.neat;
+package pama1234.gdx.game.neat.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,9 +7,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import pama1234.gdx.game.neat.Node.NodeType;
-import pama1234.gdx.game.neat.util.ActivationFunction;
-import pama1234.gdx.game.neat.util.Connection;
+import pama1234.gdx.game.neat.NEATConfig;
+import pama1234.gdx.game.neat.util.Node.NodeType;
 
 public class Genome implements Comparable<Genome>{
   private int numInputs;

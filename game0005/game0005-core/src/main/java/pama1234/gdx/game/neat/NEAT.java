@@ -1,6 +1,7 @@
 package pama1234.gdx.game.neat;
 
-import pama1234.gdx.game.neat.util.FitnessEvaluator;
+import pama1234.gdx.game.neat.util.Genome;
+import pama1234.gdx.game.neat.util.Population;
 
 public class NEAT{
   private NEATConfig config;

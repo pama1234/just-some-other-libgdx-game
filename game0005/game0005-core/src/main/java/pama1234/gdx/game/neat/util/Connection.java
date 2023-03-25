@@ -1,7 +1,5 @@
 package pama1234.gdx.game.neat.util;
 
-import pama1234.gdx.game.neat.Node;
-
 public class Connection{
   private Node inputNode;
   private Node outputNode;
