@@ -238,7 +238,7 @@ public class Node{
 	// 	return jsonObject;
 	// }
 	/**
-	 * 警告：AI生成，未验证
+	 * 警告：AI生成，已基本验证
 	 * </p>
 	 * Creates a copy of this node.
 	 *
@@ -247,9 +247,10 @@ public class Node{
 	public Node copy() {
 		Node out=new Node(this.type);
 		out.bias=this.bias;
+		out.type=this.type;
 		out.activationType=this.activationType;
-		out.index=this.index;
 		out.mask=this.mask;
+		out.index=this.index;
 		out.state=this.state;
 		out.activation=this.activation;
 		// for(Connection connection:this.in) {

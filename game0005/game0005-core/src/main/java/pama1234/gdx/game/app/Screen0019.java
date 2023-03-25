@@ -33,7 +33,7 @@ public class Screen0019 extends ScreenCore2D{
     // new EuclideanDistanceMetric() // 物种距离计算方法
     options=new EvolveOptions();
     options.setError(0.05f); // set target error for evolution
-    options.setFitnessFunction(n->UtilMath.sqrt(random(0,Character.MAX_VALUE)));//TODO
+    // options.setFitnessFunction(n->UtilMath.sqrt(random(0,Character.MAX_VALUE)));//TODO
     neat=new NEAT(2,1,options);
     // 创建并训练网络
     // neat.createPopulation();
@@ -42,8 +42,18 @@ public class Screen0019 extends ScreenCore2D{
     // network=neat.evolve();
     network=new Network(2,1);
     // 初始化输入和输出数组
-    inputs=new float[][] {{0.0f,1.0f}};
-    outputs=new float[1][1];
+    inputs=new float[][] {
+      {0,0},
+      {0,1},
+      {1,0},
+      {1,1},
+    };
+    outputs=new float[][] {
+      {0},
+      {0},
+      {0},
+      {1},
+    };
     (evolve=new Thread(()->network.evolve(inputs,outputs,options),
       "NEAT Evolve Thread")).start();
   }
