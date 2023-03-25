@@ -1,11 +1,10 @@
 package pama1234.gdx.game.app;
 
-import java.util.Arrays;
-
 import pama1234.gdx.game.neat.util.raimannma.architecture.EvolveOptions;
 import pama1234.gdx.game.neat.util.raimannma.architecture.NEAT;
 import pama1234.gdx.game.neat.util.raimannma.architecture.Network;
 import pama1234.gdx.util.app.ScreenCore2D;
+import pama1234.math.UtilMath;
 
 /**
  * 此草图直接搬运并魔改了 https://github.com/raimannma/NEAT4J 的neat实现
@@ -16,6 +15,8 @@ public class Screen0019 extends ScreenCore2D{
   public EvolveOptions options;
   public float[][] inputs;
   public float[][] outputs;
+  //---
+  public Thread evolve;
   @Override
   public void setup() {
     // 初始化neat对象
@@ -32,7 +33,7 @@ public class Screen0019 extends ScreenCore2D{
     // new EuclideanDistanceMetric() // 物种距离计算方法
     options=new EvolveOptions();
     options.setError(0.05f); // set target error for evolution
-    options.setFitnessFunction(n->n.score);//TODO
+    options.setFitnessFunction(n->UtilMath.sqrt(random(0,Character.MAX_VALUE)));//TODO
     neat=new NEAT(2,1,options);
     // 创建并训练网络
     // neat.createPopulation();
@@ -43,6 +44,8 @@ public class Screen0019 extends ScreenCore2D{
     // 初始化输入和输出数组
     inputs=new float[][] {{0.0f,1.0f}};
     outputs=new float[1][1];
+    (evolve=new Thread(()->network.evolve(inputs,outputs,options),
+      "NEAT Evolve Thread")).start();
   }
   @Override
   public void update() {
@@ -51,12 +54,13 @@ public class Screen0019 extends ScreenCore2D{
     // network.calculate();
     // network.getOutputValues(outputs);
     // network.test(inputs,outputs);
-    network.evolve(inputs,outputs,options);
     // 输出结果
-    System.out.println("Output: "+Arrays.deepToString(outputs));
+    // System.out.println("Output: "+Arrays.deepToString(outputs));
   }
   @Override
-  public void displayWithCam() {}
+  public void displayWithCam() {
+    text("得分："+network.score,0,0);
+  }
   @Override
   public void display() {}
   @Override
@@ -64,6 +68,8 @@ public class Screen0019 extends ScreenCore2D{
   @Override
   public void dispose() {
     super.dispose();
+    evolve.interrupt();
+    evolve.stop();
     // neat.dispose();
   }
 }

@@ -27,7 +27,8 @@ public enum Utils{
 	 */
 	@Deprecated
 	public static int randIntExcludeUp(final int min,final int max) {
-		return randInt(min,max-1);
+		// return randInt(min,max-1);
+		return randInt(min,max);
 	}
 	/**
 	 * Generates a random integer between min and max.
