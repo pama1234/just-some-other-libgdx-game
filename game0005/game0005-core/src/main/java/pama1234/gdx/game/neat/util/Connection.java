@@ -3,10 +3,10 @@ package pama1234.gdx.game.neat.util;
 public class Connection{
   private Node inputNode;
   private Node outputNode;
-  private double weight;
+  private float weight;
   private boolean isEnabled;
   private int innovationNumber;
-  public Connection(Node inputNode,Node outputNode,double weight,boolean isEnabled,int innovationNumber) {
+  public Connection(Node inputNode,Node outputNode,float weight,boolean isEnabled,int innovationNumber) {
     this.inputNode=inputNode;
     // System.out.println(outputNode);
     this.outputNode=outputNode;
@@ -26,10 +26,10 @@ public class Connection{
   public void setOutputNode(Node outputNode) {
     this.outputNode=outputNode;
   }
-  public double getWeight() {
+  public float getWeight() {
     return weight;
   }
-  public void setWeight(double weight) {
+  public void setWeight(float weight) {
     this.weight=weight;
   }
   public boolean isEnabled() {

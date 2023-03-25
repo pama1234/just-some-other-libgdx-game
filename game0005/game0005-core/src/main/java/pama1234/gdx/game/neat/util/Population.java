@@ -68,12 +68,12 @@ public class Population{
     // 计算适应度总和和平均适应度
     float totalFitness=0.0f;
     for(Genome genome:species) {
-      totalFitness+=genome.getFitness();
+      totalFitness+=genome.getScore();
     }
     float averageFitness=totalFitness/species.size();
     // 计算每个基因组的繁殖次数
     for(Genome genome:species) {
-      float fitnessProportion=genome.getFitness()/totalFitness;
+      float fitnessProportion=genome.getScore()/totalFitness;
       int numOffspring=(int)(fitnessProportion*config.getPopulationSize()-1);
       for(int i=0;i<numOffspring;i++) {
         Genome offspring=breed(genome,getRandomGenome(species),averageFitness);
@@ -108,15 +108,15 @@ public class Population{
   }
   private Genome breed(Genome parent1,Genome parent2,float averageFitness) {
     Genome offspring;
-    if(parent1.getFitness()==parent2.getFitness()) {
+    if(parent1.getScore()==parent2.getScore()) {
       offspring=parent1.crossover(parent2);
-    }else if(parent1.getFitness()>parent2.getFitness()) {
+    }else if(parent1.getScore()>parent2.getScore()) {
       offspring=parent1.clone();
     }else {
       offspring=parent2.clone();
     }
     offspring.mutate(config.getMutationRate());
-    offspring.setFitness(averageFitness);
+    offspring.setScore(averageFitness);
     return offspring;
   }
   private Genome getRandomGenome(List<Genome> genomes) {

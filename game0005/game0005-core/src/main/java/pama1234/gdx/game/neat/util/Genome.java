@@ -10,18 +10,24 @@ import java.util.Set;
 import pama1234.gdx.game.neat.NEATConfig;
 import pama1234.gdx.game.neat.util.Node.NodeType;
 
+/**
+ * 类似于 https://github.com/raimannma/NEAT4J 中的Network类
+ */
 public class Genome implements Comparable<Genome>{
   private int numInputs;
   private int numOutputs;
   private List<Node> nodes;
   private List<Connection> connections;
-  private float fitness;
+  /**
+   * 别名：fitness
+   */
+  private float score;
   public Genome(int numInputs,int numOutputs) {
     this.numInputs=numInputs;
     this.numOutputs=numOutputs;
     this.nodes=new ArrayList<>();
     this.connections=new ArrayList<>();
-    this.fitness=0.0f;
+    this.score=0.0f;
   }
   public void initialize() {
     // 初始化输入和输出节点
@@ -134,7 +140,7 @@ public class Genome implements Comparable<Genome>{
   }
   @Override
   public int compareTo(Genome other) {
-    return Float.compare(fitness,other.fitness);
+    return Float.compare(score,other.score);
   }
   @Override
   public Genome clone() {
@@ -145,7 +151,7 @@ public class Genome implements Comparable<Genome>{
     for(Connection connection:connections) {
       clone.connections.add(connection.clone());
     }
-    clone.fitness=fitness;
+    clone.score=score;
     return clone;
   }
   public boolean isCompatibleWith(Genome other,NEATConfig config) {
@@ -245,10 +251,10 @@ public class Genome implements Comparable<Genome>{
     // Return the outputs
     return outputs;
   }
-  public float getFitness() {
-    return fitness;
+  public float getScore() {
+    return score;
   }
-  public void setFitness(float fitness) {
-    this.fitness=fitness;
+  public void setScore(float fitness) {
+    this.score=fitness;
   }
 }
