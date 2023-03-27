@@ -70,11 +70,11 @@ public class EvolveOptions{
   /**
    * The target error. Evolution would stop, if this error rate has been reached.
    */
-  private double error;
+  private float error;
   /**
    * Set a penalty for large networks. Should be a small number.
    */
-  private double growth;
+  private float growth;
   /**
    * How often should the trainingset be tested for every network? Should be 1 for feedforward
    * problems. Useful for time series dataset.
@@ -98,8 +98,8 @@ public class EvolveOptions{
    * Instantiates a new Evolve options.
    */
   public EvolveOptions() {
-    this.setError(Double.NaN);
-    this.setGrowth(0.0001);
+    this.setError(Float.NaN);
+    this.setGrowth(0.0001f);
     this.setLoss(Loss.MSE);
     this.setAmount(1);
     this.setIterations(-1);
@@ -354,7 +354,7 @@ public class EvolveOptions{
    *
    * @return the error
    */
-  public double getError() {
+  public float getError() {
     return this.error;
   }
   /**
@@ -363,7 +363,7 @@ public class EvolveOptions{
    * @param error the error
    * @return itself to function as builder class
    */
-  public EvolveOptions setError(final double error) {
+  public EvolveOptions setError(final float error) {
     this.error=error;
     return this;
   }
@@ -372,7 +372,7 @@ public class EvolveOptions{
    *
    * @return the growth
    */
-  public double getGrowth() {
+  public float getGrowth() {
     return this.growth;
   }
   /**
@@ -381,7 +381,7 @@ public class EvolveOptions{
    * @param growth the growth
    * @return itself to function as builder class
    */
-  public EvolveOptions setGrowth(final double growth) {
+  public EvolveOptions setGrowth(final float growth) {
     this.growth=growth;
     return this;
   }

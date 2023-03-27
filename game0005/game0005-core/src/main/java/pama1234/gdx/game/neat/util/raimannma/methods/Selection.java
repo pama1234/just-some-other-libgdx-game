@@ -28,10 +28,10 @@ public abstract class Selection{
   public final static class FitnessProportionate extends Selection{
     @Override
     public Network select(final List<Network> population) {
-      final double minimalFitness=population.stream().mapToDouble(network->network.score).min().orElseThrow();
-      final double totalFitness=population.stream().mapToDouble(network->network.score).sum();
-      final double random=Utils.randDouble(totalFitness+minimalFitness*population.size());
-      double value=0;
+      final float minimalFitness=(float)population.stream().mapToDouble(network->network.score).min().orElseThrow();
+      final float totalFitness=(float)population.stream().mapToDouble(network->network.score).sum();
+      final float random=Utils.randDouble(totalFitness+minimalFitness*population.size());
+      float value=0;
       for(final Network genome:population) {
         value+=genome.score+minimalFitness;
         if(random<value) {

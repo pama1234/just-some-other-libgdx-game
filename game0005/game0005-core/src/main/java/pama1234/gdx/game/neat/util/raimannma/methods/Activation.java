@@ -15,7 +15,7 @@ public enum Activation{
    */
   ABSOLUTE {
     @Override
-    public double calc(final double x) {
+    public float calc(final float x) {
       return Math.abs(x);
     }
   },
@@ -27,8 +27,8 @@ public enum Activation{
    */
   ARC_TAN {
     @Override
-    public double calc(final double x) {
-      return Math.atan(x);
+    public float calc(final float x) {
+      return (float)Math.atan(x);
     }
   },
   /**
@@ -39,8 +39,8 @@ public enum Activation{
    */
   AR_SINH {
     @Override
-    public double calc(final double x) {
-      return Math.log(x+Math.sqrt(x*x+1));
+    public float calc(final float x) {
+      return (float)Math.log(x+Math.sqrt(x*x+1));
     }
   },
   /**
@@ -48,8 +48,8 @@ public enum Activation{
    */
   BENT_IDENTITY {
     @Override
-    public double calc(final double x) {
-      return (Math.sqrt(Math.pow(x,2)+1)-1)/2+x;
+    public float calc(final float x) {
+      return (float)((Math.sqrt(Math.pow(x,2)+1)-1)/2+x);
     }
   },
   /**
@@ -59,7 +59,7 @@ public enum Activation{
    */
   BINARY_STEP {
     @Override
-    public double calc(final double x) {
+    public float calc(final float x) {
       return x>0?1:0;
     }
   },
@@ -68,7 +68,7 @@ public enum Activation{
    */
   BIPOLAR {
     @Override
-    public double calc(final double x) {
+    public float calc(final float x) {
       return x>0?1:-1;
     }
   },
@@ -79,8 +79,8 @@ public enum Activation{
    */
   BIPOLAR_SIGMOID {
     @Override
-    public double calc(final double x) {
-      return 2/(1+Math.exp(-x))-1;
+    public float calc(final float x) {
+      return (float)(2/(1+Math.exp(-x))-1);
     }
   },
   /**
@@ -90,8 +90,8 @@ public enum Activation{
    */
   GAUSSIAN {
     @Override
-    public double calc(final double x) {
-      return Math.exp(-Math.pow(x,2));
+    public float calc(final float x) {
+      return (float)Math.exp(-Math.pow(x,2));
     }
   },
   /**
@@ -99,7 +99,7 @@ public enum Activation{
    */
   HARD_TANH {
     @Override
-    public double calc(final double x) {
+    public float calc(final float x) {
       return Math.max(-1,Math.min(1,x));
     }
   },
@@ -110,7 +110,7 @@ public enum Activation{
    */
   IDENTITY {
     @Override
-    public double calc(final double x) {
+    public float calc(final float x) {
       return x;
     }
   },
@@ -119,7 +119,7 @@ public enum Activation{
    */
   INVERSE {
     @Override
-    public double calc(final double x) {
+    public float calc(final float x) {
       return 1-x;
     }
   },
@@ -130,8 +130,8 @@ public enum Activation{
    */
   LOGISTIC {
     @Override
-    public double calc(final double x) {
-      return 1/(1+Math.exp(-x));
+    public float calc(final float x) {
+      return (float)(1/(1+Math.exp(-x)));
     }
   },
   /**
@@ -142,7 +142,7 @@ public enum Activation{
    */
   RELU {
     @Override
-    public double calc(final double x) {
+    public float calc(final float x) {
       return x>0?x:0;
     }
   },
@@ -153,8 +153,8 @@ public enum Activation{
    */
   SINUSOID {
     @Override
-    public double calc(final double x) {
-      return Math.sin(x);
+    public float calc(final float x) {
+      return (float)Math.sin(x);
     }
   },
   /**
@@ -162,7 +162,7 @@ public enum Activation{
    */
   SOFTSIGN {
     @Override
-    public double calc(final double x) {
+    public float calc(final float x) {
       return x/(1+Math.abs(x));
     }
   },
@@ -171,8 +171,8 @@ public enum Activation{
    */
   SOFT_PLUS {
     @Override
-    public double calc(final double x) {
-      return Math.log(1+Math.exp(x));
+    public float calc(final float x) {
+      return (float)Math.log(1+Math.exp(x));
     }
   },
   /**
@@ -182,8 +182,8 @@ public enum Activation{
    */
   SINC {
     @Override
-    public double calc(final double x) {
-      return x==0?1:Math.sin(x)/x;
+    public float calc(final float x) {
+      return (float)(x==0?1:Math.sin(x)/x);
     }
   },
   /**
@@ -195,15 +195,15 @@ public enum Activation{
    */
   TANH {
     @Override
-    public double calc(final double x) {
-      return Math.tanh(x);
+    public float calc(final float x) {
+      return (float)Math.tanh(x);
     }
   };
   /**
    * Calculates the activation value of given input and .
    *
    * @param x the x
-   * @return the double
+   * @return the float
    */
-  public abstract double calc(double x);
+  public abstract float calc(float x);
 }

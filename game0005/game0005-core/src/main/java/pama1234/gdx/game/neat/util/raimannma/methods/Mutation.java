@@ -305,7 +305,7 @@ public enum Mutation{
       final Node node=network.nodes.get(index);
       final Node node2=network.nodes.get(index2);
       // Swap bias and activationType of the nodes
-      final double biasTemp=node.bias;
+      final float biasTemp=node.bias;
       final Activation activationTypeTemp=node.activationType;
       node.bias=node2.bias;
       node.activationType=node2.activationType;

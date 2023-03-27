@@ -11,9 +11,9 @@ public class Screen0019 extends ScreenCore2D{
   // public NEAT neat;
   public Network network;
   public EvolveOptions options;
-  public double[][] inputs;
-  public double[][] outputs;
-  public double score;
+  public float[][] inputs;
+  public float[][] outputs;
+  public float score;
   //---
   public Thread evolve;
   @Override
@@ -43,13 +43,13 @@ public class Screen0019 extends ScreenCore2D{
     // network=neat.evolve();
     network=new Network(2,1);
     // 初始化输入和输出数组
-    inputs=new double[][] {
+    inputs=new float[][] {
       {0,0},
       {0,1},
       {1,0},
       {1,1},
     };
-    outputs=new double[][] {
+    outputs=new float[][] {
       {0},
       {0},
       {0},

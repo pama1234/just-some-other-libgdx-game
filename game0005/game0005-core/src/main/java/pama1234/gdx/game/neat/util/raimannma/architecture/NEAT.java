@@ -122,7 +122,7 @@ class NEAT{
       final Network copy=this.template==null
         ?new Network(this.input,this.output)
         :this.template.copy();
-      copy.score=Double.NaN;
+      copy.score=Float.NaN;
       this.population.add(copy);
     }
   }
@@ -153,7 +153,7 @@ class NEAT{
     // add all elitist to the new population
     this.population.addAll(elitists);
     // reset scores
-    this.population.forEach(network->network.score=Double.NaN);
+    this.population.forEach(network->network.score=Float.NaN);
     // increment generation counter
     this.generation++;
     // return the fittest network
@@ -170,9 +170,9 @@ class NEAT{
       .parallelStream() //parallel
       .forEach(genome-> {
         // calculate score with the given fitness function
-        genome.score=this.fitnessFunction.applyAsDouble(genome);
+        genome.score=(float)this.fitnessFunction.applyAsDouble(genome);
         if(Double.isNaN(genome.score)) {
-          genome.score=-Double.MAX_VALUE;
+          genome.score=-Float.MAX_VALUE;
         }
       });
   }

@@ -23,6 +23,7 @@ import com.google.gson.JsonObject;
 
 import pama1234.gdx.game.neat.util.raimannma.methods.Loss;
 import pama1234.gdx.game.neat.util.raimannma.methods.Mutation;
+import pama1234.math.UtilMath;
 
 /**
  * The type Network.
@@ -45,7 +46,7 @@ public class Network{
   /**
    * The Score. used for NEAT.
    */
-  public double score;
+  public float score;
   /**
    * The Connections of the network.
    */
@@ -71,7 +72,7 @@ public class Network{
   public Network(final int input,final int output) {
     this.input=input;
     this.output=output;
-    this.score=Double.NaN;
+    this.score=Float.NaN;
     this.nodes=new ArrayList<>();
     this.connections=new HashSet<>();
     this.gates=new HashSet<>();
@@ -84,7 +85,7 @@ public class Network{
       this.nodes.add(new Node(Node.NodeType.OUTPUT));
     }
     // Create simplest Network with input and output size matching parameters
-    final double initWeight=this.input*Math.sqrt((double)2/this.input);
+    final float initWeight=this.input*UtilMath.sqrt(2f/this.input);
     for(int i=0;i<this.input;i++) { // iterate over the input nodes
       final Node inputNode=this.nodes.get(i);
       for(int j=this.input;j<this.output+this.input;j++) { // iterate over the output nodes
@@ -188,7 +189,7 @@ public class Network{
         final Connection connection=offspring.connect(
           offspring.nodes.get((int)(double)connectionData[1]),
           offspring.nodes.get((int)(double)connectionData[2]));
-        connection.weight=connectionData[0];
+        connection.weight=(float)(double)connectionData[0];
         if(!Double.isNaN(connectionData[3])&&connectionData[3]<size) {
           offspring.gate(offspring.nodes.get((int)(double)connectionData[3]),connection);
         }
@@ -219,8 +220,8 @@ public class Network{
   public static Network fromJSON(final JsonObject json) {
     // create default network with input and output size from json
     final Network network=new Network(json.get("input").getAsInt(),json.get("output").getAsInt());
-    network.dropout=json.get("dropout").getAsDouble(); // set dropout probability
-    network.score=json.get("score").getAsDouble(); // set score value
+    network.dropout=json.get("dropout").getAsFloat(); // set dropout probability
+    network.score=json.get("score").getAsFloat(); // set score value
     // clearing the network
     network.nodes.clear();
     network.connections.clear();
@@ -255,7 +256,7 @@ public class Network{
    * @param weight the connection weight
    * @return the created connection
    */
-  private Connection connect(final Node from,final Node to,final double weight) {
+  private Connection connect(final Node from,final Node to,final float weight) {
     final Connection connection=from.connect(to,weight); // connect from with to
     if(from.equals(to)) {
       // if from equals to
@@ -318,7 +319,7 @@ public class Network{
    * @param growth the growth rate
    * @return the growth score
    */
-  private double getGrowthScore(final double growth) {
+  private float getGrowthScore(final float growth) {
     return growth*(this.nodes.size()
       +this.connections.size()
       +this.gates.size()
@@ -332,7 +333,7 @@ public class Network{
    * @param outputs the outputs of the dataset
    * @return the error
    */
-  public double test(final double[][] inputs,final double[][] outputs) {
+  public float test(final float[][] inputs,final float[][] outputs) {
     return this.test(inputs,outputs,Loss.MSE);
   }
   /**
@@ -343,7 +344,7 @@ public class Network{
    * @param loss    the loss function
    * @return the error
    */
-  public double test(final double[][] inputs,final double[][] outputs,final Loss loss) {
+  public float test(final float[][] inputs,final float[][] outputs,final Loss loss) {
     if(loss==null) {
       return this.test(inputs,outputs);
     }else if(this.dropout!=0) {
@@ -351,10 +352,10 @@ public class Network{
         .filter(node->node.type==Node.NodeType.HIDDEN)
         .forEach(node->node.mask=1-this.dropout);
     }
-    return IntStream.range(0,inputs.length)
+    return (float)(IntStream.range(0,inputs.length)
       .mapToDouble(i->loss.calc(outputs[i],this.activate(inputs[i])))
       .sum()
-      /inputs.length;
+      /inputs.length);
   }
   /**
    * Evolves the network to reach a lower error on a dataset using the NEAT algorithm.
@@ -364,13 +365,13 @@ public class Network{
    * @param options options evolution options
    * @return the error of the network after evolution
    */
-  public double evolve(final double[][] inputs,final double[][] outputs,final EvolveOptions options) {
+  public float evolve(final float[][] inputs,final float[][] outputs,final EvolveOptions options) {
     if(inputs[0].length!=this.input||outputs[0].length!=this.output) {
       // check dataset dimensions
       throw new IllegalStateException("Dataset input/output size should be same as network input/output size!");
     }
-    double targetError=options.getError();
-    final double growth=options.getGrowth();
+    float targetError=options.getError();
+    final float growth=options.getGrowth();
     final Loss loss=options.getLoss();
     final int amount=options.getAmount();
     if(options.getIterations()==-1&&Double.isNaN(options.getError())) {
@@ -383,7 +384,7 @@ public class Network{
     if(options.getFitnessFunction()==null) {
       // if user doesn't specified a fitness function -> create default fitness function
       options.setFitnessFunction(genome-> {
-        final double sum=IntStream.range(0,amount)
+        final float sum=(float)IntStream.range(0,amount)
           .mapToDouble(i->-genome.test(inputs,outputs,loss))
           .sum();
         return (sum-genome.getGrowthScore(growth))/amount;
@@ -391,8 +392,8 @@ public class Network{
     }
     options.setTemplate(this); // set this network as template
     final NEAT neat=new NEAT(this.input,this.output,options); // create NEAT instance
-    double error=-Double.MAX_VALUE;
-    double bestScore=-Double.MAX_VALUE;
+    float error=-Float.MAX_VALUE;
+    float bestScore=-Float.MAX_VALUE;
     Network bestGenome=null;
     // start evolution loop
     while(error<-targetError&&neat.generation<options.getIterations()) {
@@ -427,11 +428,11 @@ public class Network{
    * @param input the input data
    * @return the activation values of the output nodes
    */
-  private double[] activate(final double[] input) {
+  private float[] activate(final float[] input) {
     if(input.length!=this.input) {
       throw new IllegalStateException("Dataset input size should be same as network input size!");
     }
-    final List<Double> output=new ArrayList<>();
+    final List<Float> output=new ArrayList<>();
     int inputIndex=0;
     for(final Node node:this.nodes) {
       if(node.type==Node.NodeType.INPUT&&this.input>inputIndex) {
@@ -445,7 +446,10 @@ public class Network{
         node.activate();
       }
     }
-    return output.stream().mapToDouble(i->i).toArray(); // convert list to array
+    float[] out=new float[output.size()];
+    for(int i=0;i<out.length;i++) out[i]=output.get(i);
+    return out;
+    // return output.stream().mapToDouble(i->i).toArray(); // convert list to array
   }
   /**
    * Removes a node from a network. All its connections will be redirected. If it gates a

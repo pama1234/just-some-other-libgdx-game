@@ -26,13 +26,13 @@ public class Connection{
   /**
    * The weight of this connection.
    */
-  public double weight;
+  public float weight;
   /**
    * The connection gain.
    * <p>
    * Used for gating, gets multiplied with weight
    */
-  public double gain;
+  public float gain;
   /**
    * Instantiates a new Connection.
    *
@@ -40,7 +40,7 @@ public class Connection{
    * @param to     The output node of this connection.
    * @param weight The weight of this connection.
    */
-  Connection(final Node from,final Node to,final double weight) {
+  Connection(final Node from,final Node to,final float weight) {
     this.from=from;
     this.to=to;
     this.gain=1;
@@ -71,12 +71,12 @@ public class Connection{
     final int toIndex=jsonObject.get("to").getAsInt(); // get to index from JSON
     final Node from=nodes.stream().filter(node->node.index==fromIndex).findAny().orElseThrow(); // get from node by searching for the index in nodes list
     final Node to=nodes.stream().filter(node->node.index==toIndex).findAny().orElseThrow(); // get to node by searching for the index in nodes list
-    final double weight=jsonObject.get("weight").getAsDouble(); // get weight from JSON
+    final float weight=jsonObject.get("weight").getAsFloat(); // get weight from JSON
     final Connection connection=new Connection(from,to,weight); // create new connection with from, to and weight
     if(jsonObject.has("gateNode")) {
       final int gateNodeIndex=jsonObject.get("gateNode").getAsInt(); // get gate node index from JSON
       connection.gateNode=nodes.stream().filter(node->node.index==gateNodeIndex).findAny().orElseThrow(); // get gate node by searching for the index in the nodes list
-      connection.gain=jsonObject.get("gain").getAsDouble(); // get gain from JSON
+      connection.gain=jsonObject.get("gain").getAsFloat(); // get gain from JSON
     }
     return connection;
   }
@@ -89,7 +89,7 @@ public class Connection{
    */
   protected Double[] getConnectionData() {
     final Double[] data=new Double[4];
-    data[0]=this.weight;
+    data[0]=(double)this.weight;
     data[1]=(double)this.from.index;
     data[2]=(double)this.to.index;
     data[3]=this.gateNode!=null?this.gateNode.index:Double.NaN;

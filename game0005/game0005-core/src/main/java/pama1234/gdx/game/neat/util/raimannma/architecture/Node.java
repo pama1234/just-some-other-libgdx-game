@@ -44,7 +44,7 @@ public class Node{
    * @see <a href="https://becominghuman.ai/what-is-an-artificial-neuron-8b2e421ce42e">Neuron's
    *      bias</a>
    */
-  public double bias;
+  public float bias;
   /**
    * The Index. -used for crossover
    */
@@ -61,11 +61,11 @@ public class Node{
   /**
    * The state of this node.
    */
-  private double state;
+  private float state;
   /**
    * The output value of this node.
    */
-  private double activation;
+  private float activation;
   /**
    * Instantiates a new Node.
    */
@@ -98,7 +98,7 @@ public class Node{
    */
   public static Node fromJSON(final JsonObject jsonObject) {
     final Node node=new Node();
-    node.bias=jsonObject.get("bias").getAsDouble();
+    node.bias=jsonObject.get("bias").getAsFloat();
     node.type=NodeType.valueOf(jsonObject.get("type").getAsString());
     node.activationType=Activation.valueOf(jsonObject.get("activationType").getAsString());
     node.mask=jsonObject.get("mask").getAsDouble();
@@ -113,7 +113,7 @@ public class Node{
    *
    * @return A neuron's squashed output value.
    */
-  public double activate() {
+  public float activate() {
     this.state=this.self.gain*this.self.weight*this.state+this.bias;
     this.in.forEach(connection->this.state+=connection.from.activation*connection.weight*connection.gain);
     this.activation=this.activationType.calc(this.state);
@@ -131,7 +131,7 @@ public class Node{
    *
    * @param input the input to this node
    */
-  public void activate(final double input) {
+  public void activate(final float input) {
     this.activation=input; // just copy
   }
   /**
@@ -141,7 +141,7 @@ public class Node{
    * @param weight the weight value of the connection between this and the target node
    * @return the created connection pointing from this node to the target node
    */
-  public Connection connect(final Node target,final double weight) {
+  public Connection connect(final Node target,final float weight) {
     final Connection out;
     if(target==this) {
       if(this.self.weight==0) {
