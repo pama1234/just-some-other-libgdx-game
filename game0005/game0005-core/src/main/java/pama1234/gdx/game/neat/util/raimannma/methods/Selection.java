@@ -30,7 +30,7 @@ public abstract class Selection{
     public Network select(final List<Network> population) {
       final float minimalFitness=(float)population.stream().mapToDouble(network->network.score).min().orElseThrow();
       final float totalFitness=(float)population.stream().mapToDouble(network->network.score).sum();
-      final float random=Utils.randDouble(totalFitness+minimalFitness*population.size());
+      final float random=Utils.randFloat(totalFitness+minimalFitness*population.size());
       float value=0;
       for(final Network genome:population) {
         value+=genome.score+minimalFitness;

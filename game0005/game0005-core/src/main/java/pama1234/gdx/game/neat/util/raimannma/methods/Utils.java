@@ -35,7 +35,7 @@ public enum Utils{
    * @param max the maximum value
    * @return the random float between min and max
    */
-  public static float randDouble(final float min,final float max) {
+  public static float randFloat(final float min,final float max) {
     return max>min?rand.nextFloat(min,max):min;
   }
   /**
@@ -44,7 +44,7 @@ public enum Utils{
    * @param max the maximum value
    * @return the random float between 0 and max
    */
-  public static float randDouble(final float max) {
+  public static float randFloat(final float max) {
     return max>0?rand.nextFloat(max):0;
   }
   /**

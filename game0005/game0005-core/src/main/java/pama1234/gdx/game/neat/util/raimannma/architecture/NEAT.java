@@ -47,7 +47,7 @@ class NEAT{
   /**
    * The Mutation rate.
    */
-  private final double mutationRate;
+  private final float mutationRate;
   /**
    * The Mutation amount.
    */
@@ -233,10 +233,10 @@ class NEAT{
    *
    * @return Average fitness of the current population
    */
-  public double getAverage() {
+  public float getAverage() {
     // evaluate
     this.evaluate();
-    return this.population.stream().mapToDouble(network->network.score).average().orElseThrow();
+    return (float)this.population.stream().mapToDouble(network->network.score).average().orElseThrow();
   }
   /**
    * Convert the population to a JsonObject.

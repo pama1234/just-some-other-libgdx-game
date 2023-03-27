@@ -30,7 +30,7 @@ public class EvolveOptions{
   /**
    * The probability that one network gets mutated.
    */
-  private double mutationRate;
+  private float mutationRate;
   /**
    * Amount of mutation steps a network does, if it gets mutated.
    */
@@ -106,7 +106,7 @@ public class EvolveOptions{
     this.setClear(false);
     this.setPopulationSize(100);
     this.setElitism(10);
-    this.setMutationRate(0.4);
+    this.setMutationRate(0.4f);
     this.setMutationAmount(1);
     this.setSelection(new Selection.FitnessProportionate());
     this.setMutations(Mutation.ALL);
@@ -174,7 +174,7 @@ public class EvolveOptions{
    *
    * @return the mutation rate
    */
-  public double getMutationRate() {
+  public float getMutationRate() {
     return this.mutationRate;
   }
   /**
@@ -183,7 +183,7 @@ public class EvolveOptions{
    * @param mutationRate the mutation rate
    * @return itself to function as builder class
    */
-  public EvolveOptions setMutationRate(final double mutationRate) {
+  public EvolveOptions setMutationRate(final float mutationRate) {
     this.mutationRate=mutationRate;
     return this;
   }

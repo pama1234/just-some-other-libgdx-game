@@ -1,6 +1,6 @@
 package pama1234.gdx.game.neat.util.raimannma.architecture;
 
-import static pama1234.gdx.game.neat.util.raimannma.methods.Utils.randDouble;
+import static pama1234.gdx.game.neat.util.raimannma.methods.Utils.randFloat;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -78,7 +78,7 @@ public class Node{
    * @param type the type
    */
   public Node(final NodeType type) {
-    this.bias=type==NodeType.INPUT?0:randDouble(-1,1);
+    this.bias=type==NodeType.INPUT?0:randFloat(-1,1);
     this.activationType=Activation.LOGISTIC;
     this.type=type;
     this.activation=0;

@@ -122,7 +122,7 @@ public enum Mutation{
       if(!allConnections.isEmpty()) {
         // if there are connections
         // modify the weight of a random one
-        Utils.pickRandom(allConnections).weight+=Utils.randDouble(this.min,this.max);
+        Utils.pickRandom(allConnections).weight+=Utils.randFloat(this.min,this.max);
       }
     }
   },
@@ -135,7 +135,7 @@ public enum Mutation{
     @Override
     public void mutate(final Network network) {
       // pick a random node hidden or output node and modify it's bias
-      network.nodes.get(Utils.randInt(network.input,network.nodes.size())).bias+=Utils.randDouble(this.min,this.max);
+      network.nodes.get(Utils.randInt(network.input,network.nodes.size())).bias+=Utils.randFloat(this.min,this.max);
     }
   },
   /**

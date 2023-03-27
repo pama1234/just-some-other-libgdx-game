@@ -3,7 +3,7 @@ package pama1234.gdx.game.neat.util.raimannma.architecture;
 import static pama1234.gdx.game.neat.util.raimannma.methods.Mutation.SUB_NODE;
 import static pama1234.gdx.game.neat.util.raimannma.methods.Utils.pickRandom;
 import static pama1234.gdx.game.neat.util.raimannma.methods.Utils.randBoolean;
-import static pama1234.gdx.game.neat.util.raimannma.methods.Utils.randDouble;
+import static pama1234.gdx.game.neat.util.raimannma.methods.Utils.randFloat;
 import static pama1234.gdx.game.neat.util.raimannma.methods.Utils.randInt;
 
 import java.util.ArrayList;
@@ -90,7 +90,7 @@ public class Network{
       final Node inputNode=this.nodes.get(i);
       for(int j=this.input;j<this.output+this.input;j++) { // iterate over the output nodes
         // connect input and output node
-        this.connect(inputNode,this.nodes.get(j),randDouble(initWeight));
+        this.connect(inputNode,this.nodes.get(j),randFloat(initWeight));
       }
     }
   }
