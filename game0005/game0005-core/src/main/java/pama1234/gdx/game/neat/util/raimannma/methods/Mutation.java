@@ -122,7 +122,7 @@ public enum Mutation{
       if(!allConnections.isEmpty()) {
         // if there are connections
         // modify the weight of a random one
-        Utils.pickRandom(allConnections).weight+=Utils.randFloat(this.min,this.max);
+        Utils.pickRandom(allConnections).weight+=Utils.randDouble(this.min,this.max);
       }
     }
   },
@@ -135,7 +135,7 @@ public enum Mutation{
     @Override
     public void mutate(final Network network) {
       // pick a random node hidden or output node and modify it's bias
-      network.nodes.get(Utils.randInt(network.input,network.nodes.size())).bias+=Utils.randFloat(this.min,this.max);
+      network.nodes.get(Utils.randInt(network.input,network.nodes.size())).bias+=Utils.randDouble(this.min,this.max);
     }
   },
   /**
@@ -149,7 +149,6 @@ public enum Mutation{
       if(this.mutateOutput) {
         // if output nodes can also be mutated
         // pick random hidden or output node and mutate activation
-        // System.out.println(network.input+" "+network.nodes.size());
         network.nodes.get(Utils.randInt(network.input,network.nodes.size())).activationType=Utils.pickRandom(MOD_ACTIVATION.allowed);
       }else if(network.nodes.size()-network.output-network.input>0) {
         // if there were hidden nodes
@@ -208,7 +207,6 @@ public enum Mutation{
       if(!availableConnections.isEmpty()) {
         // if there are connections
         // pick a random connection and gate it with a random hidden or output node
-        // System.out.println(network.input+" "+network.nodes.size());
         network.gate(network.nodes.get(Utils.randInt(network.input,network.nodes.size())),Utils.pickRandom(availableConnections));
       }
     }
@@ -307,7 +305,7 @@ public enum Mutation{
       final Node node=network.nodes.get(index);
       final Node node2=network.nodes.get(index2);
       // Swap bias and activationType of the nodes
-      final float biasTemp=node.bias;
+      final double biasTemp=node.bias;
       final Activation activationTypeTemp=node.activationType;
       node.bias=node2.bias;
       node.activationType=node2.activationType;

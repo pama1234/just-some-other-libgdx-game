@@ -1,8 +1,7 @@
 package pama1234.gdx.game.neat.util.raimannma.architecture;
 
-import static pama1234.gdx.game.neat.util.raimannma.methods.Utils.randFloat;
+import static pama1234.gdx.game.neat.util.raimannma.methods.Utils.randDouble;
 
-// import com.google.gson.JsonObject;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -12,7 +11,6 @@ import java.util.Set;
 import com.google.gson.JsonObject;
 
 import pama1234.gdx.game.neat.util.raimannma.methods.Activation;
-// import org.jetbrains.annotations.NotNull;
 
 /**
  * The type Node.
@@ -46,7 +44,7 @@ public class Node{
    * @see <a href="https://becominghuman.ai/what-is-an-artificial-neuron-8b2e421ce42e">Neuron's
    *      bias</a>
    */
-  public float bias;
+  public double bias;
   /**
    * The Index. -used for crossover
    */
@@ -59,15 +57,15 @@ public class Node{
    * Used for dropout. This is either 0 (ignored) or 1 (included) during training and is used to
    * avoid overfit.
    */
-  public float mask;
+  public double mask;
   /**
    * The state of this node.
    */
-  private float state;
+  private double state;
   /**
    * The output value of this node.
    */
-  private float activation;
+  private double activation;
   /**
    * Instantiates a new Node.
    */
@@ -80,7 +78,7 @@ public class Node{
    * @param type the type
    */
   public Node(final NodeType type) {
-    this.bias=type==NodeType.INPUT?0:randFloat(-1,1);
+    this.bias=type==NodeType.INPUT?0:randDouble(-1,1);
     this.activationType=Activation.LOGISTIC;
     this.type=type;
     this.activation=0;
@@ -100,10 +98,10 @@ public class Node{
    */
   public static Node fromJSON(final JsonObject jsonObject) {
     final Node node=new Node();
-    node.bias=jsonObject.get("bias").getAsFloat();
+    node.bias=jsonObject.get("bias").getAsDouble();
     node.type=NodeType.valueOf(jsonObject.get("type").getAsString());
     node.activationType=Activation.valueOf(jsonObject.get("activationType").getAsString());
-    node.mask=jsonObject.get("mask").getAsFloat();
+    node.mask=jsonObject.get("mask").getAsDouble();
     node.index=jsonObject.get("index").getAsInt();
     return node;
   }
@@ -115,7 +113,7 @@ public class Node{
    *
    * @return A neuron's squashed output value.
    */
-  public float activate() {
+  public double activate() {
     this.state=this.self.gain*this.self.weight*this.state+this.bias;
     this.in.forEach(connection->this.state+=connection.from.activation*connection.weight*connection.gain);
     this.activation=this.activationType.calc(this.state);
@@ -133,7 +131,7 @@ public class Node{
    *
    * @param input the input to this node
    */
-  public void activate(final float input) {
+  public void activate(final double input) {
     this.activation=input; // just copy
   }
   /**
@@ -143,7 +141,7 @@ public class Node{
    * @param weight the weight value of the connection between this and the target node
    * @return the created connection pointing from this node to the target node
    */
-  public Connection connect(final Node target,final float weight) {
+  public Connection connect(final Node target,final double weight) {
     final Connection out;
     if(target==this) {
       if(this.self.weight==0) {
@@ -239,29 +237,6 @@ public class Node{
     jsonObject.addProperty("index",this.index);
     return jsonObject;
   }
-  // /**
-  //  * 警告：AI生成，已基本验证
-  //  * </p>
-  //  * Creates a copy of this node.
-  //  *
-  //  * @return the copy of this node
-  //  */
-  // public Node copy() {
-  // 	Node out=new Node(this.type);
-  // 	out.bias=this.bias;
-  // 	out.type=this.type;
-  // 	out.activationType=this.activationType;
-  // 	out.mask=this.mask;
-  // 	out.index=this.index;
-  // 	out.state=this.state;
-  // 	out.activation=this.activation;
-  // 	// for(Connection connection:this.in) {
-  // 	// 	Node from=connection.from.copy();
-  // 	// 	Connection newConnection=from.connect(out,connection.weight);
-  // 	// 	newConnection.gain=connection.gain;
-  // 	// }
-  // 	return out;
-  // }
   @Override
   public int hashCode() {
     return Objects.hash(this.activationType,this.bias,this.type);
