@@ -7,6 +7,7 @@ import java.util.List;
 import com.badlogic.gdx.Game;
 
 import pama1234.gdx.game.app.Screen0019;
+import pama1234.gdx.game.app.Screen0020;
 import pama1234.gdx.game.app.app0002.Screen0004;
 import pama1234.gdx.game.app.app0002.Screen0005;
 import pama1234.gdx.game.app.app0002.Screen0006;
@@ -27,7 +28,7 @@ public class MainApp extends Game{
   public static final int defaultType=0,taptap=1,pico=2;
   public static int type;
   public List<Class<? extends UtilScreen>> screenList;
-  public int screenType=19;
+  public int screenType=20;
   public MainApp() {
     screenList=Arrays.asList(null,
       null,//几何决斗
@@ -48,7 +49,8 @@ public class MainApp extends Game{
       Screen0016.class,//测试 联机游戏 客户端
       Screen0017.class,//某个音游项目
       Screen0018.class,//网络爬虫之类的
-      Screen0019.class//AI生成的AI生成器
+      Screen0019.class,//NEAT4J魔改版测试
+      Screen0020.class//更多的NEAT4J魔改版测试
     );
   }
   @Override

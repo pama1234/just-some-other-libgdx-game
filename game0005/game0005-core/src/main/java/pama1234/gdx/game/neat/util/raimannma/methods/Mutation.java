@@ -32,7 +32,7 @@ public enum Mutation{
       // create a new hidden node and add it to network.nodes
       final Node node=new Node(Node.NodeType.HIDDEN);
       node.activationType=Utils.pickRandom(MOD_ACTIVATION.allowed);
-      network.nodes.add(Math.max(0,Math.min(network.nodes.indexOf(connection.to),network.nodes.size()-network.output)),node);
+      network.nodes.add(Math.max(0,Math.min(network.nodes.indexOf(connection.to),network.nodes.size()-network.outputSize)),node);
       network.setNodeIndices();
       if(connection.gateNode!=null) {
         // if connection had gate node
@@ -72,9 +72,9 @@ public enum Mutation{
     @Override
     public void mutate(final Network network) {
       final List<Node[]> availableNodes=new ArrayList<>();
-      for(int i=0;i<network.nodes.size()-network.output;i++) { // iterate over input and hidden nodes
+      for(int i=0;i<network.nodes.size()-network.outputSize;i++) { // iterate over input and hidden nodes
         final Node from=network.nodes.get(i);
-        for(int j=Math.max(i+1,network.input);j<network.nodes.size();j++) { // iterate over hidden and output nodes starting from index one more than outer loop (forwarding)
+        for(int j=Math.max(i+1,network.inputSize);j<network.nodes.size();j++) { // iterate over hidden and output nodes starting from index one more than outer loop (forwarding)
           final Node to=network.nodes.get(j);
           if(from.isNotProjectingTo(to)) {
             availableNodes.add(new Node[] {from,to}); // add as an pair
@@ -135,7 +135,7 @@ public enum Mutation{
     @Override
     public void mutate(final Network network) {
       // pick a random node hidden or output node and modify it's bias
-      network.nodes.get(Utils.randInt(network.input,network.nodes.size())).bias+=Utils.randFloat(this.min,this.max);
+      network.nodes.get(Utils.randInt(network.inputSize,network.nodes.size())).bias+=Utils.randFloat(this.min,this.max);
     }
   },
   /**
@@ -149,11 +149,11 @@ public enum Mutation{
       if(this.mutateOutput) {
         // if output nodes can also be mutated
         // pick random hidden or output node and mutate activation
-        network.nodes.get(Utils.randInt(network.input,network.nodes.size())).activationType=Utils.pickRandom(MOD_ACTIVATION.allowed);
-      }else if(network.nodes.size()-network.output-network.input>0) {
+        network.nodes.get(Utils.randInt(network.inputSize,network.nodes.size())).activationType=Utils.pickRandom(MOD_ACTIVATION.allowed);
+      }else if(network.nodes.size()-network.outputSize-network.inputSize>0) {
         // if there were hidden nodes
         // pick random hidden node and mutate activation
-        network.nodes.get(Utils.randInt(network.input,network.nodes.size()-network.output)).activationType=Utils.pickRandom(MOD_ACTIVATION.allowed);
+        network.nodes.get(Utils.randInt(network.inputSize,network.nodes.size()-network.outputSize)).activationType=Utils.pickRandom(MOD_ACTIVATION.allowed);
       }
     }
   },
@@ -207,7 +207,7 @@ public enum Mutation{
       if(!availableConnections.isEmpty()) {
         // if there are connections
         // pick a random connection and gate it with a random hidden or output node
-        network.gate(network.nodes.get(Utils.randInt(network.input,network.nodes.size())),Utils.pickRandom(availableConnections));
+        network.gate(network.nodes.get(Utils.randInt(network.inputSize,network.nodes.size())),Utils.pickRandom(availableConnections));
       }
     }
   },
@@ -235,9 +235,9 @@ public enum Mutation{
     @Override
     public void mutate(final Network network) {
       final ArrayList<Node[]> availableNodes=new ArrayList<>();
-      for(int i=network.input;i<network.nodes.size();i++) { // iterate over all hidden and output nodes
+      for(int i=network.inputSize;i<network.nodes.size();i++) { // iterate over all hidden and output nodes
         final Node from=network.nodes.get(i);
-        for(int j=network.input;j<i;j++) { // iterate over all hidden and output nodes with index less than outer loop (backwarding)
+        for(int j=network.inputSize;j<i;j++) { // iterate over all hidden and output nodes with index less than outer loop (backwarding)
           final Node to=network.nodes.get(j);
           if(from.isNotProjectingTo(to)) {
             availableNodes.add(new Node[] {from,to}); // store the pair of nodes
@@ -281,11 +281,11 @@ public enum Mutation{
   SWAP_NODES(true) {
     @Override
     public void mutate(final Network network) {
-      if(this.mutateOutput&&network.nodes.size()-network.input<2) {
+      if(this.mutateOutput&&network.nodes.size()-network.inputSize<2) {
         // if mutating output
         // there should be at least 2 hidden and output nodes
         return;
-      }else if(!this.mutateOutput&&network.nodes.size()-network.input-network.output<2) {
+      }else if(!this.mutateOutput&&network.nodes.size()-network.inputSize-network.outputSize<2) {
         // if not mutating output
         // there should be at least 2 hidden nodes
         return;
@@ -294,12 +294,12 @@ public enum Mutation{
       final int index2;
       if(this.mutateOutput) {
         // pick random hidden or output node indices
-        index=Utils.randInt(network.input,network.nodes.size());
-        index2=Utils.randInt(network.input,network.nodes.size());
+        index=Utils.randInt(network.inputSize,network.nodes.size());
+        index2=Utils.randInt(network.inputSize,network.nodes.size());
       }else {
         // pick random hidden node indices
-        index=Utils.randInt(network.input,network.nodes.size()-network.output);
-        index2=Utils.randInt(network.input,network.nodes.size()-network.output);
+        index=Utils.randInt(network.inputSize,network.nodes.size()-network.outputSize);
+        index2=Utils.randInt(network.inputSize,network.nodes.size()-network.outputSize);
       }
       // get nodes from indices
       final Node node=network.nodes.get(index);

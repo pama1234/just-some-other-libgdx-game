@@ -31,14 +31,8 @@ import pama1234.math.UtilMath;
  * @author Manuel Raimann
  */
 public class Network{
-  /**
-   * The Input size.
-   */
-  public final int input;
-  /**
-   * The Output size.
-   */
-  public final int output;
+  public final int inputSize;
+  public final int outputSize;
   /**
    * The Nodes of the network.
    */
@@ -70,25 +64,25 @@ public class Network{
    * @param output the output size
    */
   public Network(final int input,final int output) {
-    this.input=input;
-    this.output=output;
+    this.inputSize=input;
+    this.outputSize=output;
     this.score=Float.NaN;
     this.nodes=new ArrayList<>();
     this.connections=new HashSet<>();
     this.gates=new HashSet<>();
     this.selfConnections=new HashSet<>();
     this.dropout=0;
-    for(int i=0;i<this.input;i++) {
+    for(int i=0;i<this.inputSize;i++) {
       this.nodes.add(new Node(Node.NodeType.INPUT));
     }
-    for(int i=0;i<this.output;i++) {
+    for(int i=0;i<this.outputSize;i++) {
       this.nodes.add(new Node(Node.NodeType.OUTPUT));
     }
     // Create simplest Network with input and output size matching parameters
-    final float initWeight=this.input*UtilMath.sqrt(2f/this.input);
-    for(int i=0;i<this.input;i++) { // iterate over the input nodes
+    final float initWeight=this.inputSize*UtilMath.sqrt(2f/this.inputSize);
+    for(int i=0;i<this.inputSize;i++) { // iterate over the input nodes
       final Node inputNode=this.nodes.get(i);
-      for(int j=this.input;j<this.output+this.input;j++) { // iterate over the output nodes
+      for(int j=this.inputSize;j<this.outputSize+this.inputSize;j++) { // iterate over the output nodes
         // connect input and output node
         this.connect(inputNode,this.nodes.get(j),randFloat(initWeight));
       }
@@ -106,12 +100,12 @@ public class Network{
    * @return new network created from mixing parent networks
    */
   public static Network crossover(final Network network1,final Network network2,final boolean equal) {
-    if(network1.input!=network2.input||network1.output!=network2.output) {
+    if(network1.inputSize!=network2.inputSize||network1.outputSize!=network2.outputSize) {
       // Networks must have same input/output sizes
       throw new IllegalStateException("Networks don't have the same input/output size!");
     }
     // create offspring
-    final Network offspring=new Network(network1.input,network1.output);
+    final Network offspring=new Network(network1.inputSize,network1.outputSize);
     offspring.connections.clear();
     offspring.nodes.clear();
     final double score1=Double.isNaN(network1.score)?-Double.MAX_VALUE:network1.score;
@@ -127,7 +121,7 @@ public class Network{
     // Create nodes for the offspring
     for(int i=0;i<size;i++) {
       final Node node; // first choice for the new node
-      if(i<size-network1.output) {
+      if(i<size-network1.outputSize) {
         // creating a input or hidden node
         if(randBoolean()) { // choose random
           // try getting a input or hidden node from network 1, fallback to network 2
@@ -319,12 +313,12 @@ public class Network{
    * @param growth the growth rate
    * @return the growth score
    */
-  private float getGrowthScore(final float growth) {
+  public float getGrowthScore(final float growth) {
     return growth*(this.nodes.size()
       +this.connections.size()
       +this.gates.size()
-      -this.input
-      -this.output);
+      -this.inputSize
+      -this.outputSize);
   }
   /**
    * Test the network on dataset.
@@ -366,7 +360,7 @@ public class Network{
    * @return the error of the network after evolution
    */
   public float evolve(final float[][] inputs,final float[][] outputs,final EvolveOptions options) {
-    if(inputs[0].length!=this.input||outputs[0].length!=this.output) {
+    if(inputs[0].length!=this.inputSize||outputs[0].length!=this.outputSize) {
       // check dataset dimensions
       throw new IllegalStateException("Dataset input/output size should be same as network input/output size!");
     }
@@ -391,7 +385,7 @@ public class Network{
       });
     }
     options.setTemplate(this); // set this network as template
-    final NEAT neat=new NEAT(this.input,this.output,options); // create NEAT instance
+    final NEAT neat=new NEAT(this.inputSize,this.outputSize,options); // create NEAT instance
     float error=-Float.MAX_VALUE;
     float bestScore=-Float.MAX_VALUE;
     Network bestGenome=null;
@@ -406,9 +400,7 @@ public class Network{
         bestGenome=fittest;
       }
       // Log
-      if(options.getLog()>0&&neat.generation%options.getLog()==0) {
-        System.out.println("Iteration: "+neat.generation+"; Fitness: "+fittest.score+"; Error: "+-error+"; Population: "+neat.population.size());
-      }
+      printLog(options,neat,error,fittest);
     }
     if(bestGenome!=null) {
       // set this network equal to fittest network of evolution
@@ -422,6 +414,19 @@ public class Network{
     }
     return -error;
   }
+  public void printLog(final EvolveOptions options,final NEAT neat,float error,final Network fittest) {
+    if(options.getLog()>0&&neat.generation%options.getLog()==0) {
+      System.out.println(
+        "Iteration: "+
+          neat.generation+
+          "; Fitness: "+
+          fittest.score+
+          "; Error: "+
+          -error+
+          "; Population: "+
+          neat.population.size());
+    }
+  }
   /**
    * Activate the network with given input data.
    *
@@ -429,13 +434,13 @@ public class Network{
    * @return the activation values of the output nodes
    */
   private float[] activate(final float[] input) {
-    if(input.length!=this.input) {
+    if(input.length!=this.inputSize) {
       throw new IllegalStateException("Dataset input size should be same as network input size!");
     }
     final List<Float> output=new ArrayList<>();
     int inputIndex=0;
     for(final Node node:this.nodes) {
-      if(node.type==Node.NodeType.INPUT&&this.input>inputIndex) {
+      if(node.type==Node.NodeType.INPUT&&this.inputSize>inputIndex) {
         // input node
         node.activate(input[inputIndex++]);
       }else if(node.type==Node.NodeType.OUTPUT) {
@@ -547,7 +552,7 @@ public class Network{
   }
   @Override
   public int hashCode() {
-    return Objects.hash(this.input,this.output,this.nodes,this.connections,this.gates,this.selfConnections,this.dropout);
+    return Objects.hash(this.inputSize,this.outputSize,this.nodes,this.connections,this.gates,this.selfConnections,this.dropout);
   }
   @Override
   public boolean equals(final Object o) {
@@ -558,8 +563,8 @@ public class Network{
       return false;
     }
     final Network network=(Network)o;
-    return this.input==network.input&&
-      this.output==network.output&&
+    return this.inputSize==network.inputSize&&
+      this.outputSize==network.outputSize&&
       Double.compare(network.dropout,this.dropout)==0&&
       Objects.equals(this.nodes,network.nodes)&&
       Objects.equals(this.connections,network.connections)&&
@@ -570,9 +575,9 @@ public class Network{
   public String toString() {
     return "Network{"+
       "input="+
-      this.input+
+      this.inputSize+
       ", output="+
-      this.output+
+      this.outputSize+
       ", gates="+
       this.gates+
       ", nodes="+
@@ -612,8 +617,8 @@ public class Network{
       .filter(conn->!this.gates.contains(conn))
       .forEach(conn->conn.gateNode=null);
     final JsonObject json=new JsonObject();
-    json.addProperty("input",this.input); // add input property
-    json.addProperty("output",this.output); // add output property
+    json.addProperty("input",this.inputSize); // add input property
+    json.addProperty("output",this.outputSize); // add output property
     json.addProperty("dropout",this.dropout); // add dropout property
     json.addProperty("score",this.score); // add score property
     final JsonArray jsonNodes=new JsonArray();

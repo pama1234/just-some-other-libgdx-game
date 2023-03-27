@@ -23,7 +23,7 @@ import pama1234.gdx.game.neat.util.raimannma.methods.Utils;
  *
  * @author Manuel Raimann
  */
-class NEAT{
+public class NEAT{
   /**
    * The Output.
    */
@@ -99,7 +99,7 @@ class NEAT{
    * @param outputSize the outputSize
    * @param options    the options
    */
-  NEAT(final int inputSize,final int outputSize,final EvolveOptions options) {
+  public NEAT(final int inputSize,final int outputSize,final EvolveOptions options) {
     this.input=inputSize;
     this.output=outputSize;
     this.fitnessFunction=options.getFitnessFunction();

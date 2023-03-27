@@ -14,11 +14,9 @@
 
 ### 0. 对于各大AI聊天类网站的测试
 
-### 1. 生成使用neat训练游戏AI的libgdx程序
+### 1. （已解决）生成使用neat训练游戏AI的libgdx程序
 
-结论01：还是直接把<https://github.com/raimannma/NEAT4J>的库改成单精度浮点数版本的好了
-
-结论02：直接用<https://github.com/raimannma/NEAT4J>吧！
+最终方案：使用魔改版<https://github.com/raimannma/NEAT4J>
 
 ### 2. 生成一系列几何判断库
 
