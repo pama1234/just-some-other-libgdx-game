@@ -1,5 +1,6 @@
 package pama1234.gdx.game.app.app0004;
 
+import org.locationtech.jts.algorithm.Angle;
 import org.locationtech.jts.geom.Coordinate;
 import org.locationtech.jts.geom.GeometryFactory;
 import org.locationtech.jts.geom.Point;
@@ -20,6 +21,12 @@ public class Screen0017 extends ScreenCore2D{
     Tools.time();
     for(int i=0;i<1024;i++) test_2();
     System.out.println(Tools.period()+"ms");//4ms
+    Tools.time();
+    for(int i=0;i<1024;i++) test_3();
+    System.out.println(Tools.period()+"ms");//ms
+    Tools.time();
+    for(int i=0;i<1024;i++) test_4();
+    System.out.println(Tools.period()+"ms");//ms
   }
   public void test_1() {
     // Coordinate coord=new Coordinate(10,20);
@@ -57,6 +64,65 @@ public class Screen0017 extends ScreenCore2D{
     //   System.out.println("点在三角形内");
     // }else {
     //   System.out.println("点不在三角形内");
+    // }
+  }
+  public void test_3() {
+    Coordinate center=new Coordinate(0,0);
+    double radius=5;
+    double startAngle=Math.toRadians(30);
+    double endAngle=Math.toRadians(120);
+    // 根据起始角度和结束角度计算扇形的顶点坐标数组
+    int segments=30;
+    Coordinate[] coords=new Coordinate[segments+3];
+    coords[0]=center;
+    for(int i=0;i<=segments;i++) {
+      double angle=startAngle+(endAngle-startAngle)*((double)i/segments);
+      double x=center.x+radius*Math.cos(angle);
+      double y=center.y+radius*Math.sin(angle);
+      coords[i+1]=new Coordinate(x,y);
+    }
+    coords[segments+2]=center;
+    // 构造扇形对象
+    org.locationtech.jts.geom.Polygon sector=new GeometryFactory().createPolygon(coords);
+    // 构造待判断的点对象
+    Point point=new GeometryFactory().createPoint(new Coordinate(1,1));
+    // 判断点是否在扇形内
+    double angle=Angle.angle(center,point.getCoordinate());
+    boolean isInSector=angle>=startAngle&&angle<=endAngle&&
+      point.getCoordinate().distance(center)<=radius;
+    // Distance.pointToSegment(point.getCoordinate(),center,(Coordinate)sector.getExteriorRing().getCoordinateSequence())<=radius;
+    // if(isInSector) {
+    //   System.out.println("点在扇形内");
+    // }else {
+    //   System.out.println("点不在扇形内");
+    // }
+  }
+  public void test_4() {
+    // 构造扇形的中心点、半径、起始角度和结束角度
+    Vector2 center=new Vector2(0,0);
+    float radius=5;
+    float startAngle=30;
+    float endAngle=120;
+    // 构造扇形的顶点坐标数组
+    int segments=30;
+    float[] vertices=new float[(segments+1)*2];
+    vertices[0]=center.x;
+    vertices[1]=center.y;
+    for(int i=0;i<segments;i++) {
+      float angle=startAngle+(endAngle-startAngle)*((float)i/segments);
+      vertices[(i+1)*2]=center.x+radius*(float)Math.cos(Math.toRadians(angle));
+      vertices[(i+1)*2+1]=center.y+radius*(float)Math.sin(Math.toRadians(angle));
+    }
+    // 构造扇形对象
+    Polygon sector=new Polygon(vertices);
+    // 构造待判断的点对象
+    Vector2 point=new Vector2(1,1);
+    // 判断点是否在扇形内
+    boolean isInSector=Intersector.isPointInPolygon(sector.getTransformedVertices(),0,vertices.length,point.x,point.y);
+    // if(isInSector) {
+    //   System.out.println("点在扇形内");
+    // }else {
+    //   System.out.println("点不在扇形内");
     // }
   }
   @Override
