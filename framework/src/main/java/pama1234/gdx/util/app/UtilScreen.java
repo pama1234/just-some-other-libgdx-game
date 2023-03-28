@@ -74,8 +74,6 @@ public abstract class UtilScreen extends UtilScreenRender{
     withCam();
     innerResize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
   }
-  //---------------------------------------------------------------------------
-  public abstract void displayWithCam();
   public abstract CameraController createCamera();
   //---------------------------------------------------------------------------
   @Override

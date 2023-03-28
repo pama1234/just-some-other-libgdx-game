@@ -35,19 +35,19 @@ public class MainApp extends Game{
       null,//12D塔防
       null,//3D 粒子系统 联机 客户端
       Screen0004.class,//测试 3D渲染 文本框UI
-      Screen0005.class,//空白
+      Screen0005.class,//着色器TileMap测试
       Screen0006.class,//测试 按钮UI
       null,//粒子系统libgdx服务器
       Screen0008.class,//测试 TextArea
       Screen0009.class,//测试 GIF加载
       Screen0010.class,//测试 天空着色器
-      null,
+      null,//空想世界1
       Screen0012.class,//空白游戏框架
       Screen0013.class,//测试 透明渲染模式
       Screen0014.class,//测试 贴图渲染优化
       Screen0015.class,//测试 贴图渲染优化
       Screen0016.class,//测试 联机游戏 客户端
-      Screen0017.class,//某个音游项目
+      Screen0017.class,//几何框架测试
       Screen0018.class,//网络爬虫之类的
       Screen0019.class,//NEAT4J魔改版测试
       Screen0020.class//更多的NEAT4J魔改版测试

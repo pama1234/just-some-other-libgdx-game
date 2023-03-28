@@ -142,6 +142,7 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
   public abstract void setup();
   public abstract void update();
   public abstract void display();
+  public abstract void displayWithCam();
   public abstract void frameResized();
   public abstract Vector3 unproject(float x,float y);
   @Override
