@@ -9,6 +9,9 @@ import pama1234.util.neat.raimannma.architecture.NEAT;
 import pama1234.util.neat.raimannma.architecture.Network;
 import pama1234.util.neat.raimannma.methods.Loss;
 
+/**
+ * 此草图直接搬运并魔改了 https://github.com/raimannma/NEAT4J 的neat实现
+ */
 public class Screen0020 extends ScreenCore2D{
   public NEAT neat;
   public EvolveOptions options;

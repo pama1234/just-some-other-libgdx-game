@@ -49,8 +49,8 @@ public class MainApp extends Game{
       Screen0016.class,//测试 联机游戏 客户端
       Screen0017.class,//几何框架测试
       Screen0018.class,//网络爬虫之类的
-      Screen0019.class,//NEAT4J魔改版测试
-      Screen0020.class//更多的NEAT4J魔改版测试
+      Screen0019.class,//DJL测试
+      Screen0020.class//NEAT4J魔改版测试
     );
   }
   @Override
