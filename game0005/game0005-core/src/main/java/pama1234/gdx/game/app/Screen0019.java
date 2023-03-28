@@ -1,8 +1,8 @@
 package pama1234.gdx.game.app;
 
-import pama1234.gdx.game.neat.util.raimannma.architecture.EvolveOptions;
-import pama1234.gdx.game.neat.util.raimannma.architecture.Network;
 import pama1234.gdx.util.app.ScreenCore2D;
+import pama1234.util.neat.raimannma.architecture.EvolveOptions;
+import pama1234.util.neat.raimannma.architecture.Network;
 
 /**
  * 此草图直接搬运并魔改了 https://github.com/raimannma/NEAT4J 的neat实现

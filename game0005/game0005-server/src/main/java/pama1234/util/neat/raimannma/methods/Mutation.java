@@ -1,13 +1,13 @@
-package pama1234.gdx.game.neat.util.raimannma.methods;
+package pama1234.util.neat.raimannma.methods;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-import pama1234.gdx.game.neat.util.raimannma.architecture.Connection;
-import pama1234.gdx.game.neat.util.raimannma.architecture.Network;
-import pama1234.gdx.game.neat.util.raimannma.architecture.Node;
+import pama1234.util.neat.raimannma.architecture.Connection;
+import pama1234.util.neat.raimannma.architecture.Network;
+import pama1234.util.neat.raimannma.architecture.Node;
 
 /**
  * Mutation methods.

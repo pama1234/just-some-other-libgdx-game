@@ -1,4 +1,4 @@
-package pama1234.gdx.game.neat.util.raimannma.methods;
+package pama1234.util.neat.raimannma.methods;
 
 import java.util.ArrayList;
 import java.util.Collection;

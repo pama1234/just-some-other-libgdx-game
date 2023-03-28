@@ -1,6 +1,6 @@
-package pama1234.gdx.game.neat.util.raimannma.architecture;
+package pama1234.util.neat.raimannma.architecture;
 
-import static pama1234.gdx.game.neat.util.raimannma.methods.Utils.pickRandom;
+import static pama1234.util.neat.raimannma.methods.Utils.pickRandom;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,9 +14,9 @@ import java.util.stream.IntStream;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import pama1234.gdx.game.neat.util.raimannma.methods.Mutation;
-import pama1234.gdx.game.neat.util.raimannma.methods.Selection;
-import pama1234.gdx.game.neat.util.raimannma.methods.Utils;
+import pama1234.util.neat.raimannma.methods.Mutation;
+import pama1234.util.neat.raimannma.methods.Selection;
+import pama1234.util.neat.raimannma.methods.Utils;
 
 /**
  * The type Neat.

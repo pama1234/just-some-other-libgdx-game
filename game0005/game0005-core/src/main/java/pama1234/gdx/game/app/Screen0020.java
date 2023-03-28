@@ -2,12 +2,12 @@ package pama1234.gdx.game.app;
 
 import java.util.stream.IntStream;
 
-import pama1234.gdx.game.neat.util.raimannma.architecture.EvolveOptions;
-import pama1234.gdx.game.neat.util.raimannma.architecture.NEAT;
-import pama1234.gdx.game.neat.util.raimannma.architecture.Network;
-import pama1234.gdx.game.neat.util.raimannma.methods.Loss;
 import pama1234.gdx.util.app.ScreenCore2D;
 import pama1234.util.function.ExecuteFunction;
+import pama1234.util.neat.raimannma.architecture.EvolveOptions;
+import pama1234.util.neat.raimannma.architecture.NEAT;
+import pama1234.util.neat.raimannma.architecture.Network;
+import pama1234.util.neat.raimannma.methods.Loss;
 
 public class Screen0020 extends ScreenCore2D{
   public NEAT neat;
@@ -18,7 +18,6 @@ public class Screen0020 extends ScreenCore2D{
   public float[][] outputs;
   public float score;
   //---
-  // public Thread evolve;
   public float error=-Float.MAX_VALUE;
   public float bestScore=-Float.MAX_VALUE;
   public Network bestGenome=null;
@@ -30,8 +29,14 @@ public class Screen0020 extends ScreenCore2D{
     stateDo=new ExecuteFunction[] {this::evolve,ExecuteFunction.doNothing};
     //---
     options=new EvolveOptions();
-    options.setLog(1);
+    options.setLog(5);
     options.setError(0.05f);
+    if(Double.isNaN(options.getError())) {
+      options.setError(-1);
+    }
+    // else if(options.getIterations()<=0) {
+    //   options.setIterations(Integer.MAX_VALUE);
+    // }
     final int amount=options.getAmount();
     final float growth=options.getGrowth();
     final Loss loss=options.getLoss();
@@ -56,15 +61,15 @@ public class Screen0020 extends ScreenCore2D{
     };
     network=new Network(inputs[0].length,outputs[0].length);
     neat=new NEAT(network.inputSize,network.outputSize,options);
-    // evolve=new Thread(()->score=network.evolve(inputs,outputs,options),"NEAT Evolve Thread");
-    // evolve.start();
   }
   @Override
   public void update() {
     stateDo[state].execute();
   }
   public void evolve() {
-    if(error<-options.getError()&&neat.generation<options.getIterations()) {
+    // System.out.println(error+" "+options.getError()+" "+neat.generation+" "+options.getIterations());
+    if(error<-options.getError()&&
+      (neat.generation<options.getIterations()||options.getIterations()<0)) {
       final Network fittest=neat.evolve(); // run one evolution step
       error=fittest.score+fittest.getGrowthScore(options.getGrowth()); // calculate error of the fittest genome
       if(fittest.score>bestScore) {
@@ -99,8 +104,5 @@ public class Screen0020 extends ScreenCore2D{
   @Override
   public void dispose() {
     super.dispose();
-    // evolve.interrupt();
-    // evolve.stop();
-    // neat.dispose();
   }
 }

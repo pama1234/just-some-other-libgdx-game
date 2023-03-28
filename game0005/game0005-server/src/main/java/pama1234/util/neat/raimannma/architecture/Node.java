@@ -1,6 +1,6 @@
-package pama1234.gdx.game.neat.util.raimannma.architecture;
+package pama1234.util.neat.raimannma.architecture;
 
-import static pama1234.gdx.game.neat.util.raimannma.methods.Utils.randFloat;
+import static pama1234.util.neat.raimannma.methods.Utils.randFloat;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -10,7 +10,7 @@ import java.util.Set;
 
 import com.google.gson.JsonObject;
 
-import pama1234.gdx.game.neat.util.raimannma.methods.Activation;
+import pama1234.util.neat.raimannma.methods.Activation;
 
 /**
  * The type Node.

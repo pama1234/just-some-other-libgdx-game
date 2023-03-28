@@ -1,4 +1,4 @@
-package pama1234.gdx.game.neat.util.raimannma.architecture;
+package pama1234.util.neat.raimannma.architecture;
 
 import java.util.List;
 import java.util.Objects;

@@ -1,12 +1,12 @@
-package pama1234.gdx.game.neat.util.raimannma.architecture;
+package pama1234.util.neat.raimannma.architecture;
 
 import java.util.Arrays;
 import java.util.Objects;
 import java.util.function.ToDoubleFunction;
 
-import pama1234.gdx.game.neat.util.raimannma.methods.Loss;
-import pama1234.gdx.game.neat.util.raimannma.methods.Mutation;
-import pama1234.gdx.game.neat.util.raimannma.methods.Selection;
+import pama1234.util.neat.raimannma.methods.Loss;
+import pama1234.util.neat.raimannma.methods.Mutation;
+import pama1234.util.neat.raimannma.methods.Selection;
 
 /**
  * The type Evolve options.

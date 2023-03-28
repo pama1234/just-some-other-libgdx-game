@@ -1,10 +1,10 @@
-package pama1234.gdx.game.neat.util.raimannma.architecture;
+package pama1234.util.neat.raimannma.architecture;
 
-import static pama1234.gdx.game.neat.util.raimannma.methods.Mutation.SUB_NODE;
-import static pama1234.gdx.game.neat.util.raimannma.methods.Utils.pickRandom;
-import static pama1234.gdx.game.neat.util.raimannma.methods.Utils.randBoolean;
-import static pama1234.gdx.game.neat.util.raimannma.methods.Utils.randFloat;
-import static pama1234.gdx.game.neat.util.raimannma.methods.Utils.randInt;
+import static pama1234.util.neat.raimannma.methods.Mutation.SUB_NODE;
+import static pama1234.util.neat.raimannma.methods.Utils.pickRandom;
+import static pama1234.util.neat.raimannma.methods.Utils.randBoolean;
+import static pama1234.util.neat.raimannma.methods.Utils.randFloat;
+import static pama1234.util.neat.raimannma.methods.Utils.randInt;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,9 +21,9 @@ import java.util.stream.Stream;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import pama1234.gdx.game.neat.util.raimannma.methods.Loss;
-import pama1234.gdx.game.neat.util.raimannma.methods.Mutation;
 import pama1234.math.UtilMath;
+import pama1234.util.neat.raimannma.methods.Loss;
+import pama1234.util.neat.raimannma.methods.Mutation;
 
 /**
  * The type Network.
@@ -372,9 +372,10 @@ public class Network{
       throw new IllegalArgumentException("At least one of the following options must be specified: error, iterations");
     }else if(Double.isNaN(options.getError())) {
       targetError=-1; // run until iterations
-    }else if(options.getIterations()<=0) {
-      options.setIterations(Integer.MAX_VALUE);
     }
+    // else if(options.getIterations()<=0) {
+    //   options.setIterations(Integer.MAX_VALUE);
+    // }
     if(options.getFitnessFunction()==null) {
       // if user doesn't specified a fitness function -> create default fitness function
       options.setFitnessFunction(genome-> {
@@ -390,7 +391,8 @@ public class Network{
     float bestScore=-Float.MAX_VALUE;
     Network bestGenome=null;
     // start evolution loop
-    while(error<-targetError&&neat.generation<options.getIterations()) {
+    while(error<-targetError&&
+      (neat.generation<options.getIterations()||options.getIterations()<0)) {
       final Network fittest=neat.evolve(); // run one evolution step
       error=fittest.score+fittest.getGrowthScore(growth); // calculate error of the fittest genome
       if(fittest.score>bestScore) {

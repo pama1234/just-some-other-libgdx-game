@@ -6,6 +6,9 @@ eclipse.project.name = appName + '-game0005-server'
 
 dependencies {
   api project(':server-framework')
+
+  api 'com.google.code.gson:gson:2.10.1'
+  api 'ai.djl:api:0.21.0'
 }
 
 jar {
