@@ -28,7 +28,7 @@ public class MainApp extends Game{
   public static final int defaultType=0,taptap=1,pico=2;
   public static int type;
   public List<Class<? extends UtilScreen>> screenList;
-  public int screenType=20;
+  public int screenType=17;
   public MainApp() {
     screenList=Arrays.asList(null,
       null,//几何决斗

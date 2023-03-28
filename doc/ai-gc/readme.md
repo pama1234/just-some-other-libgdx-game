@@ -20,7 +20,19 @@
 
 ### 2. （已解决）生成一系列几何判断库
 
-最终方案：使用<https://github.com/locationtech/jts>
+测试框架
+
+- jts：<https://github.com/locationtech/jts>
+- libgdx
+
+最终方案：使用libgdx自身的几何判断库
+
+测试项：判断二维矢量点是否在三角形内，重复1024次
+
+|项目|消耗时间|
+|---|---|
+|jts|161ms|
+|libgdx|4ms|
 
 ### 3. 生成可用模拟原始生命的粒子系统规则与参数（包括具体数值或数值的取值范围）
 
