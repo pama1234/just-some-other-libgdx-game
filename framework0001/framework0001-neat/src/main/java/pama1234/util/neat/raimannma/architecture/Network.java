@@ -437,28 +437,38 @@ public class Network{
    * @param input the input data
    * @return the activation values of the output nodes
    */
-  private float[] activate(final float[] input) {
-    if(input.length!=this.inputSize) {
-      throw new IllegalStateException("Dataset input size should be same as network input size!");
-    }
-    final List<Float> output=new ArrayList<>();
-    int inputIndex=0;
+  public float[] activate(final float[] input) {
+    // if(input.length!=this.inputSize) throw new IllegalStateException(
+    //   "Dataset input size should be same as network input size!");
+    return activate(0,input,0,new float[outputSize]);
+  }
+  public float[] activate(
+    final int inputOffset,final float[] input,
+    final int outputOffset,final float[] output) {
+    int inputIndex=inputOffset;
+    int outputIndex=outputOffset;
     for(final Node node:this.nodes) {
-      if(node.type==Node.NodeType.INPUT&&this.inputSize>inputIndex) {
-        // input node
-        node.activate(input[inputIndex++]);
-      }else if(node.type==Node.NodeType.OUTPUT) {
-        // output node
-        output.add(node.activate());
-      }else {
-        // hidden node
-        node.activate();
-      }
+      if(node.type==Node.NodeType.INPUT&&this.inputSize>inputIndex) node.activate(input[inputIndex++]); // input node
+      else if(node.type==Node.NodeType.OUTPUT) output[outputIndex++]=node.activate(); // output node
+      else node.activate(); // hidden node
     }
-    float[] out=new float[output.size()];//TODO faster
-    for(int i=0;i<out.length;i++) out[i]=output.get(i);
-    return out;
-    // return output.stream().mapToDouble(i->i).toArray(); // convert list to array
+    return output;
+  }
+  public float[] activate(
+    final int inputOffset,final int inputSize,final float[] input,
+    final int outputOffset,final int outputSize,final float[] output) {
+    int inputIndex=inputOffset;
+    int outputIndex=outputOffset;
+    for(final Node node:this.nodes) {
+      if(node.type==Node.NodeType.INPUT&&this.inputSize>inputIndex) node.activate(
+        inputIndex<inputSize?input[inputIndex++]:0); // input node
+      else if(node.type==Node.NodeType.OUTPUT) {
+        if(outputIndex<outputSize) output[outputIndex++]=node.activate();
+        else node.activate();
+      }// output node
+      else node.activate(); // hidden node
+    }
+    return output;
   }
   /**
    * Removes a node from a network. All its connections will be redirected. If it gates a

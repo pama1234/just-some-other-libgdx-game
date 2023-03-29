@@ -6,4 +6,6 @@ dependencies {
 
   api project(':framework')
   api project(':game0003:game0003-server')
+
+  api project(':framework0001:framework0001-neat')
 }
