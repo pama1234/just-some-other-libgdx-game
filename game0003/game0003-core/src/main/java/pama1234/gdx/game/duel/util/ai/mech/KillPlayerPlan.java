@@ -1,16 +1,16 @@
 package pama1234.gdx.game.duel.util.ai.mech;
 
-import pama1234.gdx.game.duel.Duel;
+import pama1234.gdx.game.duel.GetRandom;
 import pama1234.gdx.game.duel.util.actor.AbstractPlayerActor;
 import pama1234.gdx.game.duel.util.actor.PlayerActor;
 import pama1234.gdx.game.duel.util.input.AbstractInputDevice;
 import pama1234.math.UtilMath;
 
 public final class KillPlayerPlan extends PlayerPlan{
-  private final Duel duel;
+  public GetRandom rng;
   public PlayerPlan movePlan,escapePlan;
-  public KillPlayerPlan(Duel duel) {
-    this.duel=duel;
+  public KillPlayerPlan(GetRandom rng) {
+    this.rng=rng;
   }
   @Override
   public void execute(PlayerActor player,AbstractInputDevice input) {
@@ -23,7 +23,7 @@ public final class KillPlayerPlan extends PlayerPlan{
     }
     input.operateMoveButton(horizontalMove,0);
     input.operateShotButton(false);
-    if(player.state.hasCompletedLongBowCharge(player)&&duel.random(1)<0.05f) input.operateLongShotButton(false);
+    if(player.state.hasCompletedLongBowCharge(player)&&rng.random(1)<0.05f) input.operateLongShotButton(false);
     else input.operateLongShotButton(true);
   }
   @Override

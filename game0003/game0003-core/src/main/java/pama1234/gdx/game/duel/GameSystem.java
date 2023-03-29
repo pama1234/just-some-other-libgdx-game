@@ -49,7 +49,7 @@ public final class GameSystem{
     damagedState.moveState=moveState;
     // prepare PlayerActor
     PlayerEngine myEngine;
-    if(demo) myEngine=new ComputerPlayerEngine(duel);
+    if(demo) myEngine=new ComputerPlayerEngine(duel::random);
     else {
       if(duel.isAndroid) myEngine=new AndroidHumanPlayerEngine(duel.currentInput);
       else myEngine=new HumanPlayerEngine(duel.currentInput);
@@ -59,7 +59,7 @@ public final class GameSystem{
     myPlayer.yPosition=Duel.INTERNAL_CANVAS_SIDE_LENGTH-100;
     myPlayer.state=moveState;
     myGroup.setPlayer(myPlayer);
-    PlayerEngine otherEngine=new ComputerPlayerEngine(duel);
+    PlayerEngine otherEngine=new ComputerPlayerEngine(duel::random);
     PlayerActor otherPlayer=new PlayerActor(duel,otherEngine,Duel.color(0));
     otherPlayer.xPosition=Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f;
     otherPlayer.yPosition=100;

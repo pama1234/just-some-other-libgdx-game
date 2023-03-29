@@ -1,19 +1,20 @@
 package pama1234.gdx.game.duel.util.ai.mech;
 
-import pama1234.gdx.game.duel.Duel;
+import pama1234.gdx.game.duel.GetRandom;
 import pama1234.gdx.game.duel.util.actor.PlayerActor;
 import pama1234.gdx.game.duel.util.player.PlayerEngine;
 
 public final class ComputerPlayerEngine extends PlayerEngine{
-  private final Duel duel;
+  public GetRandom rng;
+  public int time;
   public final int planUpdateFrameCount=10;
   public PlayerPlan currentPlan;
-  public ComputerPlayerEngine(Duel duel) {
-    this.duel=duel;
+  public ComputerPlayerEngine(GetRandom rng) {
+    this.rng=rng;
     // There shoud be a smarter way!!!
-    final MovePlayerPlan move=new MovePlayerPlan(duel);
-    final JabPlayerPlan jab=new JabPlayerPlan(duel);
-    final KillPlayerPlan kill=new KillPlayerPlan(this.duel);
+    final MovePlayerPlan move=new MovePlayerPlan(rng);
+    final JabPlayerPlan jab=new JabPlayerPlan(rng);
+    final KillPlayerPlan kill=new KillPlayerPlan(rng);
     move.movePlan=move;
     move.jabPlan=jab;
     move.killPlan=kill;
@@ -26,6 +27,7 @@ public final class ComputerPlayerEngine extends PlayerEngine{
   @Override
   public void run(PlayerActor player) {
     currentPlan.execute(player,controllingInputDevice);
-    if(duel.frameCount%planUpdateFrameCount==0) currentPlan=currentPlan.nextPlan(player);
+    if(time%planUpdateFrameCount==0) currentPlan=currentPlan.nextPlan(player);
+    time++;
   }
 }

@@ -5,8 +5,8 @@ import pama1234.gdx.game.duel.util.input.InputData;
 
 public class HumanPlayerEngine extends PlayerEngine{
   public final InputData currentInput;
-  public HumanPlayerEngine(InputData _keyInput) {
-    currentInput=_keyInput;
+  public HumanPlayerEngine(InputData keyInput) {
+    currentInput=keyInput;
   }
   @Override
   public void run(PlayerActor player) {
