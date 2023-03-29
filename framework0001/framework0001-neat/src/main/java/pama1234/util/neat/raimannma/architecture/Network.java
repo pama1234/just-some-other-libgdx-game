@@ -149,9 +149,9 @@ public class Network{
       offspring.nodes.add(newNode);
     }
     // Maps for offspring connections
-    final Map<Integer,ConnectionData> network1Connections=makeConnections(network1);
-    final Map<Integer,ConnectionData> network2Connections=makeConnections(network2);
-    final List<ConnectionData> connections=new ArrayList<>();
+    final Map<Integer,int[]> network1Connections=makeConnections(network1);
+    final Map<Integer,int[]> network2Connections=makeConnections(network2);
+    final List<int[]> connections=new ArrayList<>();
     // List of innovation IDs from both parents
     final List<Integer> innovationIDs1=new ArrayList<>(network1Connections.keySet());
     for(final Integer innovationID:innovationIDs1) {
@@ -177,16 +177,18 @@ public class Network{
     }
     // Add common conn genes uniformly
     connections.stream()
-      .filter(connectionData->connectionData.gain<size&&connectionData.gain>=0) // node index must be lower than size
-      .filter(connectionData->connectionData.toIndex<size) // node index must be lower than size
       .forEach(connectionData-> {
+        final int gain=ConnectionData.gain(connectionData);
+        if(gain>=size||gain<0) return; // node index must be lower than size
+        final int toIndex=ConnectionData.toIndex(connectionData);
+        if(toIndex>=size) return;// node index must be lower than size
         final Connection connection=offspring.connect(
-          offspring.nodes.get((int)connectionData.gain),
-          offspring.nodes.get(connectionData.toIndex));
-        connection.weight=connectionData.weight;
-        if(connectionData.gateNodeIndex>=0&&connectionData.gateNodeIndex<size) {
-          offspring.gate(offspring.nodes.get(connectionData.gateNodeIndex),connection);
-        }
+          offspring.nodes.get(gain),
+          offspring.nodes.get(toIndex));
+        connection.weight=ConnectionData.weight(connectionData);
+        if(ConnectionData.gateNodeIndex(connectionData)>=0&&
+          ConnectionData.gateNodeIndex(connectionData)<size) offspring.gate(
+            offspring.nodes.get(ConnectionData.gateNodeIndex(connectionData)),connection);
       });
     offspring.setNodeIndices();
     return offspring;
@@ -197,12 +199,12 @@ public class Network{
    * @param network the network
    * @return the resulting map
    */
-  private static Map<Integer,ConnectionData> makeConnections(final Network network) {
-    final Map<Integer,ConnectionData> connections=new HashMap<>();
+  private static Map<Integer,int[]> makeConnections(final Network network) {
+    final Map<Integer,int[]> connections=new HashMap<>();
     Stream.concat(network.connections.stream(),network.selfConnections.stream()) // create stream with all connections
       .forEach(connection->connections.put(
         Connection.getInnovationID(connection.from.index,connection.to.index),
-        connection.getConnectionData()));
+        connection.getConnectionDataAsIntArray()));
     return connections;
   }
   /**

@@ -14,4 +14,16 @@ public class ConnectionData{
     this.toIndex=toIndex;
     this.gateNodeIndex=gateNodeIndex;
   }
+  public static float weight(int[] data) {
+    return Float.intBitsToFloat(data[0]);
+  }
+  public static int gain(int[] data) {
+    return (int)Float.intBitsToFloat(data[1]);
+  }
+  public static int toIndex(int[] data) {
+    return data[2];
+  }
+  public static int gateNodeIndex(int[] data) {
+    return data[3];
+  }
 }

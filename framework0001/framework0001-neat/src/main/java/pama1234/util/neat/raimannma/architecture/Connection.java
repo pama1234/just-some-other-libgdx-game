@@ -88,12 +88,15 @@ public class Connection{
    * @return array containing information about the connection
    */
   protected ConnectionData getConnectionData() {
-    // final int[] data=new int[4];
-    // data[0]=Float.floatToIntBits(weight);
-    // data[1]=Float.floatToIntBits(gain);
-    // data[2]=to.index;
-    // data[3]=gateNode!=null?gateNode.index:-1;
     return new ConnectionData(weight,gain,to.index,gateNode!=null?gateNode.index:-1);
+  }
+  protected int[] getConnectionDataAsIntArray() {
+    final int[] data=new int[4];
+    data[0]=Float.floatToIntBits(weight);
+    data[1]=Float.floatToIntBits(gain);
+    data[2]=to.index;
+    data[3]=gateNode!=null?gateNode.index:-1;
+    return data;
   }
   /**
    * Converts the connection to a JsonObject that can later be converted back.
