@@ -3,7 +3,6 @@ package pama1234.gdx.game.duel;
 import pama1234.gdx.game.duel.util.actor.ActorGroup;
 import pama1234.gdx.game.duel.util.actor.PlayerActor;
 import pama1234.gdx.game.duel.util.ai.ComputerPlayerEngine;
-import pama1234.gdx.game.duel.util.ai.PlayerEngine;
 import pama1234.gdx.game.duel.util.graphics.DemoInfo;
 import pama1234.gdx.game.duel.util.graphics.GameBackground;
 import pama1234.gdx.game.duel.util.graphics.Particle;
@@ -16,6 +15,7 @@ import pama1234.gdx.game.duel.util.player.DrawLongbowPlayerActorState;
 import pama1234.gdx.game.duel.util.player.DrawShortbowPlayerActorState;
 import pama1234.gdx.game.duel.util.player.HumanPlayerEngine;
 import pama1234.gdx.game.duel.util.player.MovePlayerActorState;
+import pama1234.gdx.game.duel.util.player.PlayerEngine;
 import pama1234.gdx.game.duel.util.state.GameSystemState;
 import pama1234.gdx.game.duel.util.state.StartGameState;
 import pama1234.math.UtilMath;
@@ -56,13 +56,13 @@ public final class GameSystem{
     }
     PlayerActor myPlayer=new PlayerActor(duel,myEngine,Duel.color(255));
     myPlayer.xPosition=Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f;
-    myPlayer.yPosition=Duel.INTERNAL_CANVAS_SIDE_LENGTH-100.0f;
+    myPlayer.yPosition=Duel.INTERNAL_CANVAS_SIDE_LENGTH-100;
     myPlayer.state=moveState;
     myGroup.setPlayer(myPlayer);
     PlayerEngine otherEngine=new ComputerPlayerEngine(duel);
     PlayerActor otherPlayer=new PlayerActor(duel,otherEngine,Duel.color(0));
     otherPlayer.xPosition=Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f;
-    otherPlayer.yPosition=100.0f;
+    otherPlayer.yPosition=100;
     otherPlayer.state=moveState;
     otherGroup.setPlayer(otherPlayer);
     // other
@@ -93,7 +93,7 @@ public final class GameSystem{
     duel.pushMatrix();
     if(screenShakeValue>0) {
       duel.translate(duel.random(screenShakeValue,screenShakeValue),duel.random(-screenShakeValue,screenShakeValue));
-      screenShakeValue-=50.0f/Duel.IDEAL_FRAME_RATE;
+      screenShakeValue-=50f/Duel.IDEAL_FRAME_RATE;
     }
     currentBackground.display();
     currentState.display();

@@ -20,10 +20,10 @@ public final class DrawShortbowPlayerActorState extends DrawBowPlayerActorState{
   public void fire(PlayerActor parentActor) {
     ShortbowArrow newArrow=new ShortbowArrow(this.duel);
     final float directionAngle=parentActor.aimAngle;
-    newArrow.xPosition=parentActor.xPosition+24.0f*UtilMath.cos(directionAngle);
-    newArrow.yPosition=parentActor.yPosition+24.0f*UtilMath.sin(directionAngle);
+    newArrow.xPosition=parentActor.xPosition+24*UtilMath.cos(directionAngle);
+    newArrow.yPosition=parentActor.yPosition+24*UtilMath.sin(directionAngle);
     newArrow.rotationAngle=directionAngle;
-    newArrow.setVelocity(directionAngle,24.0f);
+    newArrow.setVelocity(directionAngle,24);
     parentActor.group.addArrow(newArrow);
   }
   @Override

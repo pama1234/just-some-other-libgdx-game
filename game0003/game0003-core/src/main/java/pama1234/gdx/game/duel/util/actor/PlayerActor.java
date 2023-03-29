@@ -3,7 +3,7 @@ package pama1234.gdx.game.duel.util.actor;
 import com.badlogic.gdx.graphics.Color;
 
 import pama1234.gdx.game.duel.Duel;
-import pama1234.gdx.game.duel.util.ai.PlayerEngine;
+import pama1234.gdx.game.duel.util.player.PlayerEngine;
 import pama1234.math.UtilMath;
 
 public final class PlayerActor extends AbstractPlayerActor{
@@ -20,8 +20,8 @@ public final class PlayerActor extends AbstractPlayerActor{
     fillColor=color;
   }
   public void addVelocity(float xAcceleration,float yAcceleration) {
-    xVelocity=UtilMath.constrain(xVelocity+xAcceleration,-10.0f,10.0f);
-    yVelocity=UtilMath.constrain(yVelocity+yAcceleration,-7.0f,7.0f);
+    xVelocity=UtilMath.constrain(xVelocity+xAcceleration,-10,10);
+    yVelocity=UtilMath.constrain(yVelocity+yAcceleration,-7,7);
   }
   @Override
   public void act() {

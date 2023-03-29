@@ -2,6 +2,7 @@ package pama1234.gdx.game.duel.util.ai;
 
 import pama1234.gdx.game.duel.Duel;
 import pama1234.gdx.game.duel.util.actor.PlayerActor;
+import pama1234.gdx.game.duel.util.player.PlayerEngine;
 
 public final class ComputerPlayerEngine extends PlayerEngine{
   private final Duel duel;

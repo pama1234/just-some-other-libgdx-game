@@ -15,7 +15,7 @@ public final class DrawLongbowPlayerActorState extends DrawBowPlayerActorState{
   public final float unitAngleSpeed=0.1f*UtilMath.PI2/Duel.IDEAL_FRAME_RATE;
   public final int chargeRequiredFrameCount=UtilMath.floor(0.5f*Duel.IDEAL_FRAME_RATE);
   public final Color effectColor=Duel.color(192,64,64);
-  public final float ringSize=80.0f;
+  public final float ringSize=80;
   public final float ringStrokeWeight=8;
   public DrawLongbowPlayerActorState(Duel duel) {
     this.duel=duel;
@@ -31,33 +31,33 @@ public final class DrawLongbowPlayerActorState extends DrawBowPlayerActorState{
   }
   @Override
   public void fire(PlayerActor parentActor) {
-    final float arrowComponentInterval=24.0f;
+    final float arrowComponentInterval=24;
     final int arrowShaftNumber=5;
     for(int i=0;i<arrowShaftNumber;i++) {
       LongbowArrowShaft newArrow=new LongbowArrowShaft(this.duel);
       newArrow.xPosition=parentActor.xPosition+i*arrowComponentInterval*UtilMath.cos(parentActor.aimAngle);
       newArrow.yPosition=parentActor.yPosition+i*arrowComponentInterval*UtilMath.sin(parentActor.aimAngle);
       newArrow.rotationAngle=parentActor.aimAngle;
-      newArrow.setVelocity(parentActor.aimAngle,64.0f);
+      newArrow.setVelocity(parentActor.aimAngle,64);
       parentActor.group.addArrow(newArrow);
     }
     LongbowArrowHead newArrow=new LongbowArrowHead(this.duel);
     newArrow.xPosition=parentActor.xPosition+arrowShaftNumber*arrowComponentInterval*UtilMath.cos(parentActor.aimAngle);
     newArrow.yPosition=parentActor.yPosition+arrowShaftNumber*arrowComponentInterval*UtilMath.sin(parentActor.aimAngle);
     newArrow.rotationAngle=parentActor.aimAngle;
-    newArrow.setVelocity(parentActor.aimAngle,64.0f);
+    newArrow.setVelocity(parentActor.aimAngle,64);
     final Particle newParticle=duel.system.commonParticleSet.builder
       .type(Particle.line)
       .position(parentActor.xPosition,parentActor.yPosition)
-      .polarVelocity(0.0f,0.0f)
+      .polarVelocity(0,0)
       .rotation(parentActor.aimAngle)
       .particleColor(Duel.color(192,64,64))
-      .lifespanSecond(2.0f)
-      .weight(16.0f)
+      .lifespanSecond(2)
+      .weight(16)
       .build();
     duel.system.commonParticleSet.particleList.add(newParticle);
     parentActor.group.addArrow(newArrow);
-    duel.system.screenShakeValue+=10.0f;
+    duel.system.screenShakeValue+=10;
     parentActor.chargedFrameCount=0;
     parentActor.state=moveState.entryState(parentActor);
   }

@@ -1,7 +1,6 @@
 package pama1234.gdx.game.duel.util.player;
 
 import pama1234.gdx.game.duel.util.actor.PlayerActor;
-import pama1234.gdx.game.duel.util.ai.PlayerEngine;
 import pama1234.gdx.game.duel.util.input.InputData;
 
 public class HumanPlayerEngine extends PlayerEngine{
