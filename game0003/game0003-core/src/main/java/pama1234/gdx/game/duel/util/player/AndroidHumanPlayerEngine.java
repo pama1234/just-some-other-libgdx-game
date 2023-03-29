@@ -4,8 +4,8 @@ import pama1234.gdx.game.duel.util.actor.PlayerActor;
 import pama1234.gdx.game.duel.util.input.InputData;
 
 public class AndroidHumanPlayerEngine extends HumanPlayerEngine{
-  public AndroidHumanPlayerEngine(InputData _keyInput) {
-    super(_keyInput);
+  public AndroidHumanPlayerEngine(InputData keyInput) {
+    super(keyInput);
   }
   @Override
   public void run(PlayerActor player) {

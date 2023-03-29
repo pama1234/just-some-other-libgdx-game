@@ -26,8 +26,15 @@ import pama1234.util.neat.raimannma.architecture.NetworkModule;
  */
 public class NetworkGroup{
   public FloatBlock input,output;
+  public FloatBlock logicInput,logicOutput;
+  public FloatBlock memory;
   public NetworkModule vision,logic,behavior,world;
-  public NetworkGroup() {}
+  public NetworkGroup() {//TODO
+    vision=new NetworkModule(null,input,logicInput);
+    logic=new NetworkModule(null,logicInput,logicOutput);
+    behavior=new NetworkModule(null,logicOutput,output);
+    world=new NetworkModule(null,output,input);
+  }
   public void execute() {
     vision.execute();
     logic.execute();
