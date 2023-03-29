@@ -72,7 +72,7 @@ public abstract class Selection{
       if(population.get(0).score<population.get(1).score) {
         population.sort((o1,o2)->Double.compare(o2.score,o1.score));
       }
-      return population.get((int)Math.floor(Math.pow(Utils.randDouble(),this.power)*population.size()));
+      return population.get((int)Math.floor(Math.pow(Utils.randFloat(),this.power)*population.size()));
     }
   }
   /**

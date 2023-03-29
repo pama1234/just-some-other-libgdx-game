@@ -2,8 +2,8 @@ package pama1234.util.neat.raimannma.architecture;
 
 import java.util.Arrays;
 import java.util.Objects;
-import java.util.function.ToDoubleFunction;
 
+import pama1234.util.function.GetFloatWith;
 import pama1234.util.neat.raimannma.methods.Loss;
 import pama1234.util.neat.raimannma.methods.Mutation;
 import pama1234.util.neat.raimannma.methods.Selection;
@@ -17,7 +17,7 @@ public class EvolveOptions{
   /**
    * Determines how "fit" a network is. A higher value means, that the network is fitter.
    */
-  private ToDoubleFunction<Network> fitnessFunction;
+  private GetFloatWith<Network> fitnessFunction;
   /**
    * Amount of networks in every population.
    */
@@ -120,7 +120,7 @@ public class EvolveOptions{
    *
    * @return the fitness function
    */
-  public ToDoubleFunction<Network> getFitnessFunction() {
+  public GetFloatWith<Network> getFitnessFunction() {
     return this.fitnessFunction;
   }
   /**
@@ -129,7 +129,7 @@ public class EvolveOptions{
    * @param fitnessFunction the fitness function
    * @return itself to function as builder class
    */
-  public EvolveOptions setFitnessFunction(final ToDoubleFunction<Network> fitnessFunction) {
+  public EvolveOptions setFitnessFunction(final GetFloatWith<Network> fitnessFunction) {
     this.fitnessFunction=fitnessFunction;
     return this;
   }

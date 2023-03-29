@@ -8,12 +8,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
-import java.util.function.ToDoubleFunction;
 import java.util.stream.IntStream;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+import pama1234.util.function.GetFloatWith;
 import pama1234.util.neat.raimannma.methods.Mutation;
 import pama1234.util.neat.raimannma.methods.Selection;
 import pama1234.util.neat.raimannma.methods.Utils;
@@ -35,7 +35,7 @@ public class NEAT{
   /**
    * The Fitness function.
    */
-  private final ToDoubleFunction<Network> fitnessFunction;
+  private final GetFloatWith<Network> fitnessFunction;
   /**
    * The Equal.
    */
@@ -170,8 +170,8 @@ public class NEAT{
       .parallelStream() //parallel
       .forEach(genome-> {
         // calculate score with the given fitness function
-        genome.score=(float)this.fitnessFunction.applyAsDouble(genome);
-        if(Double.isNaN(genome.score)) {
+        genome.score=this.fitnessFunction.getWith(genome);
+        if(Float.isNaN(genome.score)) {
           genome.score=-Float.MAX_VALUE;
         }
       });
@@ -181,7 +181,7 @@ public class NEAT{
    */
   private void sort() {
     // sort from high to low
-    this.population.sort((o1,o2)->Double.compare(o2.score,o1.score));
+    this.population.sort((o1,o2)->Float.compare(o2.score,o1.score));
   }
   /**
    * Returns a genome for crossover based on the selection method provided.
@@ -196,7 +196,7 @@ public class NEAT{
    */
   private void mutate() {
     for(final Network network:this.population) {
-      if(Utils.randDouble()<=this.mutationRate) {
+      if(Utils.randFloat()<=this.mutationRate) {
         for(int j=0;j<this.mutationAmount;j++) {
           network.mutate(this.selectMutationMethod(network));
         }

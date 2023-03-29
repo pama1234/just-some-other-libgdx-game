@@ -56,7 +56,7 @@ public class Network{
   /**
    * The Dropout probability.
    */
-  private double dropout;
+  private float dropout;
   /**
    * Instantiates a new Network.
    *
@@ -108,8 +108,8 @@ public class Network{
     final Network offspring=new Network(network1.inputSize,network1.outputSize);
     offspring.connections.clear();
     offspring.nodes.clear();
-    final double score1=Double.isNaN(network1.score)?-Double.MAX_VALUE:network1.score;
-    final double score2=Double.isNaN(network2.score)?-Double.MAX_VALUE:network2.score;
+    final float score1=Float.isNaN(network1.score)?-Float.MAX_VALUE:network1.score;
+    final float score2=Float.isNaN(network2.score)?-Float.MAX_VALUE:network2.score;
     final int size1=network1.nodes.size(); // size of parent 1
     final int size2=network2.nodes.size(); // size of parent 2
     // size of offspring
@@ -453,7 +453,7 @@ public class Network{
         node.activate();
       }
     }
-    float[] out=new float[output.size()];
+    float[] out=new float[output.size()];//TODO faster
     for(int i=0;i<out.length;i++) out[i]=output.get(i);
     return out;
     // return output.stream().mapToDouble(i->i).toArray(); // convert list to array
@@ -567,7 +567,7 @@ public class Network{
     final Network network=(Network)o;
     return this.inputSize==network.inputSize&&
       this.outputSize==network.outputSize&&
-      Double.compare(network.dropout,this.dropout)==0&&
+      Float.compare(network.dropout,this.dropout)==0&&
       Objects.equals(this.nodes,network.nodes)&&
       Objects.equals(this.connections,network.connections)&&
       Objects.equals(this.gates,network.gates)&&

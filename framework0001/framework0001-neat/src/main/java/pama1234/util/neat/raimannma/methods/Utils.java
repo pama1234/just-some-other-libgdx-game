@@ -81,8 +81,8 @@ public enum Utils{
    *
    * @return the random double between 0 and 1
    */
-  public static double randDouble() {
-    return rand.nextDouble();
+  public static float randFloat() {
+    return rand.nextFloat();
   }
   /**
    * Generates a random boolean.
