@@ -438,9 +438,10 @@ public class Network{
    * @return the activation values of the output nodes
    */
   public float[] activate(final float[] input) {
-    // if(input.length!=this.inputSize) throw new IllegalStateException(
-    //   "Dataset input size should be same as network input size!");
-    return activate(0,input,0,new float[outputSize]);
+    return activate(input,new float[outputSize]);
+  }
+  public float[] activate(final float[] input,final float[] output) {
+    return activate(0,input,0,output);
   }
   public float[] activate(
     final int inputOffset,final float[] input,
@@ -457,6 +458,8 @@ public class Network{
   public float[] activate(
     final int inputOffset,final int inputSize,final float[] input,
     final int outputOffset,final int outputSize,final float[] output) {
+    if(inputSize>=this.inputSize||outputSize>=this.outputSize) return activate(
+      inputOffset,input,outputOffset,output);
     int inputIndex=inputOffset;
     int outputIndex=outputOffset;
     for(final Node node:this.nodes) {
@@ -469,6 +472,9 @@ public class Network{
       else node.activate(); // hidden node
     }
     return output;
+  }
+  public float[] activate(final FloatBlock input,final FloatBlock output) {
+    return activate(input.offset,input.size,input.data(),output.offset,output.size,output.data());
   }
   /**
    * Removes a node from a network. All its connections will be redirected. If it gates a

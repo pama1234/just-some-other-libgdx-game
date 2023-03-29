@@ -2,6 +2,7 @@ package pama1234.gdx.game.duel.util.ai.nnet;
 
 import pama1234.gdx.game.duel.util.actor.PlayerActor;
 import pama1234.gdx.game.duel.util.player.PlayerEngine;
+import pama1234.util.neat.raimannma.architecture.NetworkModule;
 
 public class ComputerLifeEngine extends PlayerEngine{
   public NetworkGroup networks;
@@ -19,11 +20,11 @@ public class ComputerLifeEngine extends PlayerEngine{
    *    3. 动作执行（梯形）
    *    +----1----+----2---+----3---+
    * 
-   *    *+++··
-   *    *+++++++··*········*····
+   *    *+++··    |        |        |
+   *    *+++++++··*········*····    |
    *    *+++++++++>++++++++>++++++··>
-   *    *+++++++··*········*····
-   *    *+++··
+   *    *+++++++··*········*····    |
+   *    *+++··    |        |        |
    * 
    * +--> vision -> logic -> behavior -+
    * |                                 |

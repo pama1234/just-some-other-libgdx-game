@@ -30,7 +30,7 @@ public abstract class DefaultPlayerPlan extends PlayerPlan{
     }
     // Avoid the nearest arrow
     AbstractArrowActor nearestArrow=null;
-    float tmpMinDistancePow2=999999999;
+    float tmpMinDistancePow2=Float.MAX_VALUE;
     for(AbstractArrowActor eachArrow:enemy.group.arrowList) {
       final float distancePow2=player.getDistancePow2(eachArrow);
       if(distancePow2<tmpMinDistancePow2) {
