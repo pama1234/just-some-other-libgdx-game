@@ -32,6 +32,7 @@ allprojects{
 }
 
 configure(subprojects 
+    - [ project('framework0001') ]
     - [ project('game0001') , project('game0002') , project('game0003') , project('game0004') , project('game0005') ]
     - [ project('game0001:game0001-android') , project('game0001:game0001-pico4') , project('game0001:game0001-taptap') ]
     - [ project('game0002:game0002-android') ]

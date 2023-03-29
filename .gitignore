@@ -18,6 +18,8 @@ gradle-app.setting
 /game*/game*-server/build/
 /game*/game*-shared/build/
 
+/framework*/framework*-*/build/
+
 ## Java:
 *.class
 *.war
@@ -117,6 +119,7 @@ www-test/
 .externalToolBuilders/
 *.launch
 
+/framework*/framework*-*/bin/
 
 ## NetBeans:
 
@@ -137,6 +140,8 @@ www-test/
 /game*/game*-server/nbproject/private/
 /game*/game*-shared/nbproject/private/
 
+/framework*/framework*-*/nbproject/private/
+
 /game*/nbbuild/
 /framework/nbbuild/
 /server-framework/nbbuild/
@@ -152,6 +157,8 @@ www-test/
 /game*/game*-headless/nbbuild/
 /game*/game*-server/nbbuild/
 /game*/game*-shared/nbbuild/
+
+/framework*/framework*-*/nbbuild/
 
 /dist/
 /framework/dist/
@@ -170,6 +177,8 @@ www-test/
 /game*/game*-server/dist/
 /game*/game*-shared/dist/
 
+/framework*/framework*-*/dist/
+
 /nbdist/
 /framework/nbdist/
 /server-framework/nbdist/
@@ -186,6 +195,8 @@ www-test/
 /game*/game*-headless/nbdist/
 /game*/game*-server/nbdist/
 /game*/game*-shared/nbdist/
+
+/framework*/framework*-*/nbdist/
 
 nbactions.xml
 nb-configuration.xml

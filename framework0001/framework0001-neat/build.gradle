@@ -1,20 +1,13 @@
 apply plugin: 'application'
 
 sourceCompatibility = 17
-mainClassName = 'pama1234.gdx.game.app.server.ServerLauncher'
-eclipse.project.name = appName + '-game0005-server'
+mainClassName = 'pama1234.util.neat.raimannma.test.MainTest'
+eclipse.project.name = appName + '-neat'
 
 dependencies {
   api project(':server-framework')
 
-  api project(':framework0001:framework0001-neat')
-
-  api 'commons-cli:commons-cli:1.5.0'
-  api 'ai.djl:api:0.21.0'
-  api 'ai.djl:basicdataset:0.21.0'
-  api 'ai.djl:model-zoo:0.21.0'
-
-  runtimeOnly 'ai.djl.mxnet:mxnet-engine:0.21.0'
+  api 'com.google.code.gson:gson:2.10.1'
 }
 
 jar {
