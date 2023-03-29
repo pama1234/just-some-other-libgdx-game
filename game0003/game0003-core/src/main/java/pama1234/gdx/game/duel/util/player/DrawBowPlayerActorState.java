@@ -7,7 +7,7 @@ public abstract class DrawBowPlayerActorState extends PlayerActorState{
   public PlayerActorState moveState;
   @Override
   public void act(PlayerActor parentActor) {
-    final AbstractInputDevice input=parentActor.engine.controllingInputDevice;
+    final AbstractInputDevice input=parentActor.engine.inputDevice;
     aim(parentActor,input);
     parentActor.addVelocity(0.25f*input.horizontalMove,0.25f*input.verticalMove);
     if(triggerPulled(parentActor)) fire(parentActor);

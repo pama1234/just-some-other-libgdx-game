@@ -9,8 +9,8 @@ public class AndroidHumanPlayerEngine extends HumanPlayerEngine{
   }
   @Override
   public void run(PlayerActor player) {
-    controllingInputDevice.operateMove(currentInput.dx,currentInput.dy);
-    controllingInputDevice.operateShotButton(currentInput.isZPressed);
-    controllingInputDevice.operateLongShotButton(currentInput.isXPressed);
+    inputDevice.operateMove(currentInput.dx,currentInput.dy);
+    inputDevice.operateShotButton(currentInput.isZPressed);
+    inputDevice.operateLongShotButton(currentInput.isXPressed);
   }
 }

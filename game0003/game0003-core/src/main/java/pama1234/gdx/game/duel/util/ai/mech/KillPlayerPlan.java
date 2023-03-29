@@ -29,7 +29,7 @@ public final class KillPlayerPlan extends PlayerPlan{
   @Override
   public PlayerPlan nextPlan(PlayerActor player) {
     final AbstractPlayerActor enemy=player.group.enemyGroup.player;
-    if((UtilMath.abs(player.getAngle(player.group.enemyGroup.player)-player.aimAngle)>UtilMath.QUARTER_PI)||(player.getDistance(enemy)<400)||!player.engine.controllingInputDevice.longShotButtonPressed) return movePlan;
+    if((UtilMath.abs(player.getAngle(player.group.enemyGroup.player)-player.aimAngle)>UtilMath.QUARTER_PI)||(player.getDistance(enemy)<400)||!player.engine.inputDevice.longShotButtonPressed) return movePlan;
     return this;
   }
 }

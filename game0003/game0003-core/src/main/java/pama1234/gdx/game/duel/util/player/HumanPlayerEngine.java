@@ -14,8 +14,8 @@ public class HumanPlayerEngine extends PlayerEngine{
     final int intDown=currentInput.isDownPressed?1:0;
     final int intLeft=currentInput.isLeftPressed?-1:0;
     final int intRight=currentInput.isRightPressed?1:0;
-    controllingInputDevice.operateMoveButton(intLeft+intRight,intUp+intDown);
-    controllingInputDevice.operateShotButton(currentInput.isZPressed);
-    controllingInputDevice.operateLongShotButton(currentInput.isXPressed);
+    inputDevice.operateMoveButton(intLeft+intRight,intUp+intDown);
+    inputDevice.operateShotButton(currentInput.isZPressed);
+    inputDevice.operateLongShotButton(currentInput.isXPressed);
   }
 }

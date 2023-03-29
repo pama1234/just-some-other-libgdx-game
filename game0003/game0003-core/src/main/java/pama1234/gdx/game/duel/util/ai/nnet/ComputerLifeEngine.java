@@ -2,7 +2,7 @@ package pama1234.gdx.game.duel.util.ai.nnet;
 
 import pama1234.gdx.game.duel.util.actor.PlayerActor;
 import pama1234.gdx.game.duel.util.player.PlayerEngine;
-import pama1234.util.neat.raimannma.architecture.NetworkModule;
+import pama1234.math.UtilMath;
 
 public class ComputerLifeEngine extends PlayerEngine{
   public NetworkGroup networks;
@@ -10,28 +10,12 @@ public class ComputerLifeEngine extends PlayerEngine{
     this.networks=networks;
   }
   @Override
-  public void run(PlayerActor player) {}
-  /**
-   * <pre>
-   * {@code
-   * 业务逻辑如下：
-   *    1. 视觉（梯形）
-   *    2. 业务逻辑（长方形）
-   *    3. 动作执行（梯形）
-   *    +----1----+----2---+----3---+
-   * 
-   *    *+++··    |        |        |
-   *    *+++++++··*········*····    |
-   *    *+++++++++>++++++++>++++++··>
-   *    *+++++++··*········*····    |
-   *    *+++··    |        |        |
-   * 
-   * +--> vision -> logic -> behavior -+
-   * |                                 |
-   * +------------- world <------------+
-   * }</pre>
-   */
-  public static class NetworkGroup{
-    public NetworkModule vision,logic,behavior,world;
+  public void run(PlayerActor player) {
+    networks.execute();
+    float rad=networks.output.data(0)*UtilMath.PI;
+    float mag=UtilMath.constrain(networks.output.data(1),-1,1);
+    float dx=UtilMath.sin(rad);
+    float dy=UtilMath.cos(rad);
+    inputDevice.operateMove(dx*mag,dy*mag);
   }
 }

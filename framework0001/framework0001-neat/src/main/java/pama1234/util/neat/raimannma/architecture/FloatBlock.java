@@ -24,4 +24,7 @@ public class FloatBlock{
     this.size=size;
     data=in;
   }
+  public float data(int pos) {
+    return data[offset+pos];
+  }
 }

@@ -6,15 +6,13 @@ import pama1234.gdx.game.duel.util.graphics.Particle;
 import pama1234.math.UtilMath;
 
 public class ShortbowArrow extends AbstractArrowActor{
-  private final Duel duel;
   public final float terminalSpeed;
   public final float halfHeadLength=8;
   public final float halfHeadWidth=4;
   public final float halfFeatherWidth=4;
   public final float featherLength=8;
   public ShortbowArrow(Duel duel) {
-    super(8,20);
-    this.duel=duel;
+    super(duel,8,20);
     terminalSpeed=8;
   }
   @Override

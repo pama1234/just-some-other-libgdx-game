@@ -105,6 +105,6 @@ public final class DrawLongbowPlayerActorState extends DrawBowPlayerActorState{
   }
   @Override
   public boolean triggerPulled(PlayerActor parentActor) {
-    return !buttonPressed(parentActor.engine.controllingInputDevice)&&hasCompletedLongBowCharge(parentActor);
+    return !buttonPressed(parentActor.engine.inputDevice)&&hasCompletedLongBowCharge(parentActor);
   }
 }

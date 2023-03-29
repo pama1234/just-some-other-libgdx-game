@@ -26,7 +26,7 @@ public final class ComputerPlayerEngine extends PlayerEngine{
   }
   @Override
   public void run(PlayerActor player) {
-    currentPlan.execute(player,controllingInputDevice);
+    currentPlan.execute(player,inputDevice);
     if(time%planUpdateFrameCount==0) currentPlan=currentPlan.nextPlan(player);
     time++;
   }

@@ -7,8 +7,8 @@ public final class MovePlayerActorState extends PlayerActorState{
   public PlayerActorState drawShortbowState,drawLongbowState;
   @Override
   public void act(PlayerActor parentActor) {
-    final AbstractInputDevice input=parentActor.engine.controllingInputDevice;
-    parentActor.addVelocity(1.0f*input.horizontalMove,1.0f*input.verticalMove);
+    final AbstractInputDevice input=parentActor.engine.inputDevice;
+    parentActor.addVelocity(input.horizontalMove,input.verticalMove);
     if(input.shotButtonPressed) {
       parentActor.state=drawShortbowState.entryState(parentActor);
       parentActor.aimAngle=getEnemyPlayerActorAngle(parentActor);
