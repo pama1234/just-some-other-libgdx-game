@@ -2,7 +2,7 @@ package pama1234.gdx.game.duel;
 
 import pama1234.gdx.game.duel.util.actor.ActorGroup;
 import pama1234.gdx.game.duel.util.actor.PlayerActor;
-import pama1234.gdx.game.duel.util.ai.ComputerPlayerEngine;
+import pama1234.gdx.game.duel.util.ai.mech.ComputerPlayerEngine;
 import pama1234.gdx.game.duel.util.graphics.DemoInfo;
 import pama1234.gdx.game.duel.util.graphics.GameBackground;
 import pama1234.gdx.game.duel.util.graphics.Particle;

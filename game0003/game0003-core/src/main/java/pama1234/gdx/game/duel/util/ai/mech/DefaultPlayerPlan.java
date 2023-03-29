@@ -1,4 +1,4 @@
-package pama1234.gdx.game.duel.util.ai;
+package pama1234.gdx.game.duel.util.ai.mech;
 
 import pama1234.gdx.game.duel.Duel;
 import pama1234.gdx.game.duel.util.actor.AbstractPlayerActor;
