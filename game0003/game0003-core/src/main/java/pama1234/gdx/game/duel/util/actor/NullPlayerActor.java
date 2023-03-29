@@ -2,7 +2,7 @@ package pama1234.gdx.game.duel.util.actor;
 
 public final class NullPlayerActor extends AbstractPlayerActor{
   public NullPlayerActor() {
-    super(0.0f,null);
+    super(0,null);
   }
   @Override
   public void act() {}

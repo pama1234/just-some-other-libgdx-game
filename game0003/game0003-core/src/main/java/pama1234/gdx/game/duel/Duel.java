@@ -51,6 +51,7 @@ public class Duel extends ScreenCore2D{
   public float strokeUnit;
   @Override
   public void setup() {
+    TextUtil.used=TextUtil.gen_ch(this::textWidthNoScale);
     if(isAndroid) {
       buttons=UiGenerator.genButtons_0010(this);
       for(TextButton<?> e:buttons) centerScreen.add.add(e);

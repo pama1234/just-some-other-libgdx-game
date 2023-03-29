@@ -31,13 +31,13 @@ public class TextButton<T extends UtilScreen>extends Button<T>{
     ButtonEvent press,ButtonEvent clickStart,ButtonEvent clickEnd,ButtonEvent updateText,
     GetInt bu,GetFloat x,GetFloat y) {
     this(p,textOffset,active,press,clickStart,clickEnd,updateText,bu,x,y,null,bu::get);//()->bu.get()*2);
-    this.rect.w=()->p.textWidthCam(this.text)*p.pus+(this.textOffset?p.pu:0);//TODO
+    this.rect.w=()->p.textWidthNoScale(this.text)*p.pus+(this.textOffset?p.pu:0);//TODO
   }
   public TextButton(T p,boolean textOffset,GetBoolean active,
     ButtonEvent press,ButtonEvent clickStart,ButtonEvent clickEnd,ButtonEvent updateText,
     GetInt bu,GetFloat x,GetFloat y,GetFloat h,boolean mouseLimit) {
     this(p,textOffset,active,press,clickStart,clickEnd,updateText,bu,x,y,null,h);//()->bu.get()*2);
-    this.rect.w=()->p.textWidthCam(this.text)*p.pus+(this.textOffset?p.pu:0);//TODO
+    this.rect.w=()->p.textWidthNoScale(this.text)*p.pus+(this.textOffset?p.pu:0);//TODO
     this.mouseLimit=mouseLimit;
   }
   public TextButton(T p,boolean textOffset,
@@ -49,7 +49,7 @@ public class TextButton<T extends UtilScreen>extends Button<T>{
     // updateText();
     this.textOffset=textOffset;
     this.bu=bu;
-    this.rect=new RectF(x,y,()->p.textWidthCam(this.text)*p.pus+(this.textOffset?p.pu:0),h);
+    this.rect=new RectF(x,y,()->p.textWidthNoScale(this.text)*p.pus+(this.textOffset?p.pu:0),h);
     this.mouseLimit=mouseLimit;
   }
   public TextButton(T p,boolean textOffset,GetBoolean active,

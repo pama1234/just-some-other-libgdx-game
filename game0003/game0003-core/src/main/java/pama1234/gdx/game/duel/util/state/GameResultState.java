@@ -2,6 +2,7 @@ package pama1234.gdx.game.duel.util.state;
 
 import pama1234.gdx.game.duel.Duel;
 import pama1234.gdx.game.duel.GameSystem;
+import pama1234.gdx.game.duel.TextUtil;
 import pama1234.math.UtilMath;
 
 public final class GameResultState extends GameSystemState{
@@ -31,10 +32,10 @@ public final class GameResultState extends GameSystemState{
     duel.setTextColor(0);
     duel.setTextScale(duel.pus);
     duel.drawText(resultMessage,(duel.width-duel.textWidth(resultMessage))/2f,(duel.height-duel.pu*2f)/2f);
-    if(properFrameCount>durationFrameCount) {
-      String in="按 X 键重新开始";
-      duel.drawText(in,(duel.width-duel.textWidth(in))/2f,(duel.height+duel.pu*1f)/2f);
-    }
+    if(properFrameCount>durationFrameCount) duel.drawText(
+      TextUtil.used.restart,
+      (duel.width-TextUtil.used.restartTextWidth*duel.pus)/2f,
+      (duel.height+duel.pu*1f)/2f);
   }
   @Override
   public void checkStateTransition() {

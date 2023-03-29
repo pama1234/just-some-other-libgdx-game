@@ -12,7 +12,7 @@ public class TextButtonCam<T extends UtilScreen>extends TextButton<T>{
   }
   public TextButtonCam(T p,boolean textOffset,GetBoolean active,ButtonEvent press,ButtonEvent clickStart,ButtonEvent clickEnd,ButtonEvent updateText,GetInt bu,GetFloat x,GetFloat y) {
     super(p,textOffset,active,press,clickStart,clickEnd,updateText,bu,x,y);
-    this.rect.w=()->p.textWidthCam(this.text)+(this.textOffset?16:0);//TODO
+    this.rect.w=()->p.textWidthNoScale(this.text)+(this.textOffset?16:0);//TODO
   }
   @Override
   public void display() {

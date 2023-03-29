@@ -2,6 +2,7 @@ package pama1234.gdx.game.duel.util.state;
 
 import pama1234.gdx.game.duel.Duel;
 import pama1234.gdx.game.duel.GameSystem;
+import pama1234.gdx.game.duel.TextUtil;
 import pama1234.gdx.game.duel.util.actor.AbstractPlayerActor;
 import pama1234.gdx.game.duel.util.actor.Actor;
 import pama1234.gdx.game.duel.util.actor.ActorGroup;
@@ -50,8 +51,8 @@ public final class PlayGameState extends GameSystemState{
   public void checkStateTransition() {
     // if(system.myGroup.player.isNull()) system.currentState=new GameResultState(duel,"You lose.");
     // else if(system.otherGroup.player.isNull()) system.currentState=new GameResultState(duel,"You win.");
-    if(system.myGroup.player.isNull()) system.currentState=new GameResultState(duel,system,"你输了");
-    else if(system.otherGroup.player.isNull()) system.currentState=new GameResultState(duel,system,"你赢了");
+    if(system.myGroup.player.isNull()) system.currentState=new GameResultState(duel,system,TextUtil.used.lose);
+    else if(system.otherGroup.player.isNull()) system.currentState=new GameResultState(duel,system,TextUtil.used.win);
   }
   public void checkCollision() {
     final ActorGroup myGroup=duel.system.myGroup;
@@ -82,20 +83,20 @@ public final class PlayGameState extends GameSystemState{
     }
   }
   public void killPlayer(AbstractPlayerActor player) {
-    duel.system.addSquareParticles(player.xPosition,player.yPosition,50,16.0f,2.0f,10.0f,4.0f);
+    duel.system.addSquareParticles(player.xPosition,player.yPosition,50,16,2,10,4);
     player.group.player=new NullPlayerActor();
-    duel.system.screenShakeValue=50.0f;
+    duel.system.screenShakeValue=50;
   }
   public void breakArrow(AbstractArrowActor arrow,ActorGroup group) {
-    duel.system.addSquareParticles(arrow.xPosition,arrow.yPosition,10,7.0f,1.0f,5.0f,1.0f);
+    duel.system.addSquareParticles(arrow.xPosition,arrow.yPosition,10,7,1,5,1);
     group.removingArrowList.add(arrow);
   }
   public void thrustPlayerActor(Actor referenceActor,PlayerActor targetPlayerActor) {
     final float relativeAngle=UtilMath.atan2(targetPlayerActor.yPosition-referenceActor.yPosition,targetPlayerActor.xPosition-referenceActor.xPosition);
     final float thrustAngle=relativeAngle+duel.random(-0.5f*UtilMath.HALF_PI,0.5f*UtilMath.HALF_PI);
-    targetPlayerActor.xVelocity+=20.0f*UtilMath.cos(thrustAngle);
-    targetPlayerActor.yVelocity+=20.0f*UtilMath.sin(thrustAngle);
+    targetPlayerActor.xVelocity+=20*UtilMath.cos(thrustAngle);
+    targetPlayerActor.yVelocity+=20*UtilMath.sin(thrustAngle);
     targetPlayerActor.state=duel.system.damagedState.entryState(targetPlayerActor);
-    duel.system.screenShakeValue+=10.0f;
+    duel.system.screenShakeValue+=10;
   }
 }

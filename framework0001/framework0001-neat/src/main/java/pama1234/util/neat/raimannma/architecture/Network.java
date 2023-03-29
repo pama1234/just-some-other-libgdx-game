@@ -181,11 +181,11 @@ public class Network{
       .filter(connectionData->connectionData[2]<size) // node index must be lower than size
       .forEach(connectionData-> {
         final Connection connection=offspring.connect(
-          offspring.nodes.get((int)(double)connectionData[1]),
-          offspring.nodes.get((int)(double)connectionData[2]));
-        connection.weight=(float)(double)connectionData[0];
-        if(!Double.isNaN(connectionData[3])&&connectionData[3]<size) {
-          offspring.gate(offspring.nodes.get((int)(double)connectionData[3]),connection);
+          offspring.nodes.get((int)connectionData[1].doubleValue()),
+          offspring.nodes.get((int)connectionData[2].doubleValue()));
+        connection.weight=(float)connectionData[0].doubleValue();
+        if(!Float.isNaN((float)connectionData[3].doubleValue())&&connectionData[3]<size) {
+          offspring.gate(offspring.nodes.get((int)connectionData[3].doubleValue()),connection);
         }
       });
     offspring.setNodeIndices();

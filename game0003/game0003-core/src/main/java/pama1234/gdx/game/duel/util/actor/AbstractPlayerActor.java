@@ -6,9 +6,9 @@ import pama1234.gdx.game.duel.util.player.PlayerActorState;
 public abstract class AbstractPlayerActor extends Actor{
   public final PlayerEngine engine;
   public PlayerActorState state;
-  public AbstractPlayerActor(float _collisionRadius,PlayerEngine _engine) {
-    super(_collisionRadius);
-    engine=_engine;
+  public AbstractPlayerActor(float collisionRadius,PlayerEngine engine) {
+    super(collisionRadius);
+    this.engine=engine;
   }
   public boolean isNull() {
     return false;

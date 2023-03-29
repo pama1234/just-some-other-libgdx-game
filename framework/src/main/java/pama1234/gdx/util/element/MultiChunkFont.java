@@ -201,7 +201,7 @@ public class MultiChunkFont extends BitmapFont{
     // return super.getRegions();
     return multiRegions;
   }
-  public float textWidthCam(CharSequence in) {
+  public float textWidthNoScale(CharSequence in) {
     float out=0;
     for(int i=0;i<in.length();i++) {
       char tc=in.charAt(i);
@@ -213,7 +213,7 @@ public class MultiChunkFont extends BitmapFont{
   }
   public float textWidth(CharSequence in) {
     // System.out.println(scale);
-    return textWidthCam(in)*scale;
+    return textWidthNoScale(in)*scale;
   }
   public float f0003(float x,char tc,int pos) {
     BitmapFont font=data[pos];

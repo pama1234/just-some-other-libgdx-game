@@ -15,15 +15,11 @@ public final class ActorGroup{
       arrowList.removeAll(removingArrowList);
       removingArrowList.clear();
     }
-    for(AbstractArrowActor eachArrow:arrowList) {
-      eachArrow.update();
-    }
+    for(AbstractArrowActor eachArrow:arrowList) eachArrow.update();
   }
   public void act() {
     player.act();
-    for(AbstractArrowActor eachArrow:arrowList) {
-      eachArrow.act();
-    }
+    for(AbstractArrowActor eachArrow:arrowList) eachArrow.act();
   }
   public void setPlayer(PlayerActor newPlayer) {
     player=newPlayer;
