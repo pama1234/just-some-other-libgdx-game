@@ -77,9 +77,9 @@ public enum Utils{
     return new ArrayList<>(collection).get(randInt(collection.size()));
   }
   /**
-   * Generates a random double between min and max.
+   * Generates a random float between min and max.
    *
-   * @return the random double between 0 and 1
+   * @return the random float between 0 and 1
    */
   public static float randFloat() {
     return rand.nextFloat();

@@ -368,9 +368,9 @@ public class Network{
     final float growth=options.getGrowth();
     final Loss loss=options.getLoss();
     final int amount=options.getAmount();
-    if(options.getIterations()==-1&&Double.isNaN(options.getError())) {
+    if(options.getIterations()==-1&&Float.isNaN(options.getError())) {
       throw new IllegalArgumentException("At least one of the following options must be specified: error, iterations");
-    }else if(Double.isNaN(options.getError())) {
+    }else if(Float.isNaN(options.getError())) {
       targetError=-1; // run until iterations
     }
     // else if(options.getIterations()<=0) {

@@ -57,7 +57,7 @@ public class Node{
    * Used for dropout. This is either 0 (ignored) or 1 (included) during training and is used to
    * avoid overfit.
    */
-  public double mask;
+  public float mask;
   /**
    * The state of this node.
    */
@@ -101,7 +101,7 @@ public class Node{
     node.bias=jsonObject.get("bias").getAsFloat();
     node.type=NodeType.valueOf(jsonObject.get("type").getAsString());
     node.activationType=Activation.valueOf(jsonObject.get("activationType").getAsString());
-    node.mask=jsonObject.get("mask").getAsDouble();
+    node.mask=jsonObject.get("mask").getAsFloat();
     node.index=jsonObject.get("index").getAsInt();
     return node;
   }
