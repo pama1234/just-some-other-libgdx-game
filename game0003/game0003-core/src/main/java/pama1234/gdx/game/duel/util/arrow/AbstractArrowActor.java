@@ -5,9 +5,9 @@ import pama1234.gdx.game.duel.util.actor.Actor;
 
 public abstract class AbstractArrowActor extends Actor{
   public final float halfLength;
-  public AbstractArrowActor(float _collisionRadius,float _halfLength) {
-    super(_collisionRadius);
-    halfLength=_halfLength;
+  public AbstractArrowActor(float collisionRadius,float halfLength) {
+    super(collisionRadius);
+    this.halfLength=halfLength;
   }
   @Override
   public void update() {

@@ -8,14 +8,14 @@ import pama1234.math.UtilMath;
 
 public final class PlayerActor extends AbstractPlayerActor{
   private final Duel duel;
-  public final float bodySize=32.0f;
+  public final float bodySize=32;
   public final float halfBodySize=bodySize*0.5f;
   public final Color fillColor;
   public float aimAngle;
   public int chargedFrameCount;
   public int damageRemainingFrameCount;
-  public PlayerActor(Duel duel,PlayerEngine _engine,Color color) {
-    super(16.0f,_engine);
+  public PlayerActor(Duel duel,PlayerEngine engine,Color color) {
+    super(16,engine);
     this.duel=duel;
     fillColor=color;
   }

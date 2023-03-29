@@ -3,8 +3,8 @@ package pama1234.gdx.game.duel.util.arrow;
 import pama1234.gdx.game.duel.Duel;
 
 public final class LongbowArrowHead extends LongbowArrowComponent{
-  public final float halfHeadLength=24.0f;
-  public final float halfHeadWidth=24.0f;
+  public final float halfHeadLength=24;
+  public final float halfHeadWidth=24;
   public LongbowArrowHead(Duel duel) {
     super(duel);
   }
@@ -18,7 +18,7 @@ public final class LongbowArrowHead extends LongbowArrowComponent{
     duel.pushMatrix();
     duel.translate(xPosition,yPosition);
     duel.rotate(rotationAngle);
-    duel.line(-halfLength,0.0f,0.0f,0.0f);
+    duel.line(-halfLength,0,0,0);
     duel.quad(
       0,0,
       -halfHeadLength,-halfHeadWidth,

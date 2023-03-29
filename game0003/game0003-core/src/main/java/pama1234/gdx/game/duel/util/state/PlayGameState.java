@@ -39,18 +39,13 @@ public final class PlayGameState extends GameSystemState{
   @Override
   public void displayMessage() {
     if(properFrameCount>=messageDurationFrameCount) return;
-    // duel.doFill();
     duel.setTextColor(0,(int)(255*(1-(float)(properFrameCount)/messageDurationFrameCount)));
     duel.setTextScale(duel.pus);
-    // duel.drawText("Go",-32,-32);
-    String in="Go";
-    duel.drawText(in,(duel.width-duel.textWidth(in))/2f,(duel.height-duel.pu)/2f);
+    duel.drawText(TextUtil.used.go.text,(duel.width-TextUtil.used.go.width*duel.pus)/2f,(duel.height-duel.pu)/2f);
     duel.setTextScale(1);
   }
   @Override
   public void checkStateTransition() {
-    // if(system.myGroup.player.isNull()) system.currentState=new GameResultState(duel,"You lose.");
-    // else if(system.otherGroup.player.isNull()) system.currentState=new GameResultState(duel,"You win.");
     if(system.myGroup.player.isNull()) system.currentState=new GameResultState(duel,system,TextUtil.used.lose);
     else if(system.otherGroup.player.isNull()) system.currentState=new GameResultState(duel,system,TextUtil.used.win);
   }
