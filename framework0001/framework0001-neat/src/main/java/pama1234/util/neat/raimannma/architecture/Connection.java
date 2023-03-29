@@ -87,13 +87,13 @@ public class Connection{
    *
    * @return array containing information about the connection
    */
-  protected Double[] getConnectionData() {
-    final Double[] data=new Double[4];
-    data[0]=(double)this.weight;
-    data[1]=(double)this.from.index;
-    data[2]=(double)this.to.index;
-    data[3]=this.gateNode!=null?this.gateNode.index:Double.NaN;
-    return data;
+  protected ConnectionData getConnectionData() {
+    // final int[] data=new int[4];
+    // data[0]=Float.floatToIntBits(weight);
+    // data[1]=Float.floatToIntBits(gain);
+    // data[2]=to.index;
+    // data[3]=gateNode!=null?gateNode.index:-1;
+    return new ConnectionData(weight,gain,to.index,gateNode!=null?gateNode.index:-1);
   }
   /**
    * Converts the connection to a JsonObject that can later be converted back.
@@ -103,12 +103,12 @@ public class Connection{
   public JsonObject toJSON() {
     //assume node.index been set
     final JsonObject jsonObject=new JsonObject();
-    jsonObject.addProperty("from",this.from.index); // add index of from node
-    jsonObject.addProperty("to",this.to.index); // add index of to index
-    jsonObject.addProperty("weight",this.weight); // add weight
-    if(this.isGated()) {
-      jsonObject.addProperty("gateNode",this.gateNode.index); // add index of gate node
-      jsonObject.addProperty("gain",this.gain); // add gain
+    jsonObject.addProperty("from",from.index); // add index of from node
+    jsonObject.addProperty("to",to.index); // add index of to index
+    jsonObject.addProperty("weight",weight); // add weight
+    if(isGated()) {
+      jsonObject.addProperty("gateNode",gateNode.index); // add index of gate node
+      jsonObject.addProperty("gain",gain); // add gain
     }
     return jsonObject;
   }
