@@ -61,10 +61,10 @@ public abstract class DefaultPlayerPlan extends PlayerPlan{
   }
   public void setMoveDirection(PlayerActor player,AbstractPlayerActor enemy) {
     float targetX,targetY;
-    if(enemy.xPosition>Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f) targetX=rng.random(0,Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f);
-    else targetX=rng.random(Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f,Duel.INTERNAL_CANVAS_SIDE_LENGTH);
-    if(enemy.yPosition>Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f) targetY=rng.random(0,Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f);
-    else targetY=rng.random(Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f,Duel.INTERNAL_CANVAS_SIDE_LENGTH);
+    if(enemy.xPosition>Duel.CANVAS_SIZE*0.5f) targetX=rng.random(0,Duel.CANVAS_SIZE*0.5f);
+    else targetX=rng.random(Duel.CANVAS_SIZE*0.5f,Duel.CANVAS_SIZE);
+    if(enemy.yPosition>Duel.CANVAS_SIZE*0.5f) targetY=rng.random(0,Duel.CANVAS_SIZE*0.5f);
+    else targetY=rng.random(Duel.CANVAS_SIZE*0.5f,Duel.CANVAS_SIZE);
     setMoveDirection(player,targetX,targetY,100);
   }
   public void setMoveDirection(PlayerActor player,float targetX,float targetY,float allowance) {

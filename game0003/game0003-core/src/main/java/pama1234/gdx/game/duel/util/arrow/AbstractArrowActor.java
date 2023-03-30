@@ -15,9 +15,9 @@ public abstract class AbstractArrowActor extends Actor{
   public void update() {
     super.update();
     if(xPosition<-halfLength||
-      xPosition>Duel.INTERNAL_CANVAS_SIDE_LENGTH+halfLength||
+      xPosition>Duel.CANVAS_SIZE+halfLength||
       yPosition<-halfLength||
-      yPosition>Duel.INTERNAL_CANVAS_SIDE_LENGTH+halfLength) {
+      yPosition>Duel.CANVAS_SIZE+halfLength) {
       group.removingArrowList.add(this);
     }
   }

@@ -35,16 +35,16 @@ public final class PlayerActor extends AbstractPlayerActor{
       xPosition=halfBodySize;
       xVelocity=-0.5f*xVelocity;
     }
-    if(xPosition>Duel.INTERNAL_CANVAS_SIDE_LENGTH-halfBodySize) {
-      xPosition=Duel.INTERNAL_CANVAS_SIDE_LENGTH-halfBodySize;
+    if(xPosition>Duel.CANVAS_SIZE-halfBodySize) {
+      xPosition=Duel.CANVAS_SIZE-halfBodySize;
       xVelocity=-0.5f*xVelocity;
     }
     if(yPosition<halfBodySize) {
       yPosition=halfBodySize;
       yVelocity=-0.5f*yVelocity;
     }
-    if(yPosition>Duel.INTERNAL_CANVAS_SIDE_LENGTH-halfBodySize) {
-      yPosition=Duel.INTERNAL_CANVAS_SIDE_LENGTH-halfBodySize;
+    if(yPosition>Duel.CANVAS_SIZE-halfBodySize) {
+      yPosition=Duel.CANVAS_SIZE-halfBodySize;
       yVelocity=-0.5f*yVelocity;
     }
     xVelocity=xVelocity*0.92f;

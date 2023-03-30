@@ -25,7 +25,7 @@ public final class StartGameState extends GameSystemState{
   public void displaySystem() {
     system.myGroup.displayPlayer();
     system.otherGroup.displayPlayer();
-    duel.translate(Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f,Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f);
+    duel.translate(Duel.CANVAS_SIZE*0.5f,Duel.CANVAS_SIZE*0.5f);
     drawRing();
   }
   @Override
@@ -52,7 +52,7 @@ public final class StartGameState extends GameSystemState{
     if(properFrameCount>=frameCountPerNumber*3) {
       final Particle newParticle=system.commonParticleSet.builder
         .type(Particle.ring)
-        .position(Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f,Duel.INTERNAL_CANVAS_SIDE_LENGTH*0.5f)
+        .position(Duel.CANVAS_SIZE*0.5f,Duel.CANVAS_SIZE*0.5f)
         .polarVelocity(0,0)
         .particleSize(ringSize)
         .particleColor(ringColor)

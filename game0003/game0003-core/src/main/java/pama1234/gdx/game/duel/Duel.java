@@ -1,6 +1,8 @@
 package pama1234.gdx.game.duel;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
 import pama1234.gdx.game.duel.util.graphics.DemoInfo;
 import pama1234.gdx.game.duel.util.input.InputData;
@@ -37,12 +39,12 @@ import pama1234.math.UtilMath;
  */
 public class Duel extends ScreenCore2D{
   public static final float IDEAL_FRAME_RATE=60;
-  public static final int INTERNAL_CANVAS_SIDE_LENGTH=640;
+  public static final int CANVAS_SIZE=640;
   public TextButton<?>[] buttons;
   public InputData currentInput;
   public GameSystem system;
   public boolean paused;
-  public int canvasSideLength=INTERNAL_CANVAS_SIDE_LENGTH;
+  public int canvasSideLength=CANVAS_SIZE;
   public TouchInfo moveCtrl;
   //---
   public DemoInfo demoInfo;
@@ -51,7 +53,8 @@ public class Duel extends ScreenCore2D{
   public float dxCache,dyCache;
   public float strokeUnit;
   //---
-  public Graphics graphics;
+  public ShaderProgram shader;
+  public Graphics graphics,fisheye;
   @Override
   public void setup() {
     TextUtil.used=TextUtil.gen_ch(this::textWidthNoScale);
@@ -71,7 +74,12 @@ public class Duel extends ScreenCore2D{
     cam2d.activeDrag=false;
     cam2d.activeScrollZoom=cam2d.activeTouchZoom=false;
     //---
-    graphics=new Graphics(this, 640, 640);
+    shader=new ShaderProgram(
+      Gdx.files.internal("shader/main0005/vision.vert").readString(),
+      Gdx.files.internal("shader/main0005/vision.frag").readString());
+    graphics=new Graphics(this,CANVAS_SIZE,CANVAS_SIZE);
+    // fisheye=new Graphics(this,INTERNAL_CANVAS_SIDE_LENGTH,INTERNAL_CANVAS_SIDE_LENGTH);
+    fisheye=new Graphics(this,256,256);
   }
   @Override
   public void display() {
@@ -80,7 +88,21 @@ public class Duel extends ScreenCore2D{
   @Override
   public void displayWithCam() {
     doStroke();
+    graphics.begin();
+    background(255);
     system.display();
+    graphics.end();
+    fisheye.begin();
+    imageBatch.begin();
+    imageBatch.setShader(shader);
+    // shaderUpdate();
+    imageBatch.draw(graphics.texture,0,0,fisheye.width(),fisheye.height());
+    imageBatch.end();
+    imageBatch.setShader(null);
+    fisheye.end();
+    image(fisheye.texture,0,0,CANVAS_SIZE,CANVAS_SIZE);
+    // image(graphics.texture,0,0);
+    // image(graphics.texture,-graphics.width()/2f,-graphics.height()/2f);
     clearMatrix();
     if(isAndroid) {
       if(moveCtrl!=null) {
@@ -109,6 +131,10 @@ public class Duel extends ScreenCore2D{
         }
       }
       system.update();
+      //---
+      shader.bind();
+      // System.out.println(system.myGroup.player.xPosition);
+      shader.setUniformf("u_dist",system.myGroup.player.xPosition/CANVAS_SIZE,1-system.myGroup.player.yPosition/CANVAS_SIZE);
     }
   }
   public void newGame(boolean demo,boolean instruction) {

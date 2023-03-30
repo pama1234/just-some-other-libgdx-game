@@ -21,16 +21,16 @@ public final class ParticleBuilder{
   public int lifespanFrameCount;
   public ParticleBuilder initialize() {
     particleTypeNumber=0;
-    xPosition=0.0f;
-    yPosition=0.0f;
-    xVelocity=0.0f;
-    yVelocity=0.0f;
-    directionAngle=0.0f;
-    speed=0.0f;
-    rotationAngle=0.0f;
+    xPosition=0;
+    yPosition=0;
+    xVelocity=0;
+    yVelocity=0;
+    directionAngle=0;
+    speed=0;
+    rotationAngle=0;
     displayColor=Duel.color(0);
-    strokeWeightValue=1.0f;
-    displaySize=10.0f;
+    strokeWeightValue=1;
+    displaySize=10;
     lifespanFrameCount=60;
     return this;
   }
