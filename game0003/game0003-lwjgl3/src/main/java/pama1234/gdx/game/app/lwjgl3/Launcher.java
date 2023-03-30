@@ -19,7 +19,7 @@ public class Launcher{
   }
   public static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
     Lwjgl3ApplicationConfiguration configuration=new Lwjgl3ApplicationConfiguration();
-    configuration.setTitle("空想世界：啥也没有");
+    configuration.setTitle("几何决斗");
     configuration.useVsync(true);
     configuration.setForegroundFPS(60);
     // configuration.setForegroundFPS(Lwjgl3ApplicationConfiguration.getDisplayMode().refreshRate);

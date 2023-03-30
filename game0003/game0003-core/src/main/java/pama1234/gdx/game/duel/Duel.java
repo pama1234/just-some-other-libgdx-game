@@ -7,6 +7,7 @@ import pama1234.gdx.game.duel.util.input.InputData;
 import pama1234.gdx.game.duel.util.input.UiGenerator;
 import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.util.app.ScreenCore2D;
+import pama1234.gdx.util.element.Graphics;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.math.UtilMath;
@@ -49,6 +50,8 @@ public class Duel extends ScreenCore2D{
   public float magCache;
   public float dxCache,dyCache;
   public float strokeUnit;
+  //---
+  public Graphics graphics;
   @Override
   public void setup() {
     TextUtil.used=TextUtil.gen_ch(this::textWidthNoScale);
@@ -67,6 +70,8 @@ public class Duel extends ScreenCore2D{
     if(isAndroid) cam2d.scale.pos=cam2d.scale.des=0.25f;
     cam2d.activeDrag=false;
     cam2d.activeScrollZoom=cam2d.activeTouchZoom=false;
+    //---
+    graphics=new Graphics(this, 640, 640);
   }
   @Override
   public void display() {
