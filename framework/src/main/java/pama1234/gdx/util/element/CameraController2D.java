@@ -25,7 +25,7 @@ public class CameraController2D extends CameraController{
   public boolean pixelPerfect;
   public boolean activeDrag=true,activeTouchZoom=true,activeScrollZoom=true;
   public PathVar scale,rotate;
-  public float minScale=1,maxScale=8;
+  public float minScale=1,maxScale=8,scaleUnit=1;
   public CameraController2D(UtilScreen2D p,boolean pixelPerfect,float x,float y,float s,float r,float frameU) {
     super(p,x,y,0);
     camera=ocam=new OrthographicCamera();
@@ -79,8 +79,7 @@ public class CameraController2D extends CameraController{
   @Override
   public void mouseWheel(float x,float y) {
     if(!activeScrollZoom) return;
-    // scale.des+=y/6f;
-    scale.des+=y;
+    scale.des+=y*scaleUnit;
     testScale();
   }
   @Override

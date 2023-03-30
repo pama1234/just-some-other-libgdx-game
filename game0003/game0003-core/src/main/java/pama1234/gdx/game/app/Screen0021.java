@@ -14,6 +14,8 @@ public class Screen0021 extends ScreenCore2D{
   public float[] idata=new float[7];
   @Override
   public void setup() {
+    cam2d.minScale=1/8f;
+    cam2d.scaleUnit=1/8f;
     // noStroke();
     // background=false;
     noFill();
@@ -29,10 +31,14 @@ public class Screen0021 extends ScreenCore2D{
     centerCam.add.add(new EntityListener() {
       @Override
       public void display() {
+        rect(0,0,640,640);
+        image(graphics.texture,0,0);
         imageBatch.begin();
         imageBatch.setShader(shader);
         shaderUpdate();
-        imageBatch.draw(graphics.texture,0,0);
+        imageBatch.draw(graphics.texture,672,0);
+        imageBatch.draw(graphics.texture,672,-640);
+        imageBatch.draw(graphics.texture,672,640);
         imageBatch.end();
         imageBatch.setShader(null);
       }

@@ -13,10 +13,13 @@ uniform sampler2D u_texture;
 
 uniform vec2 u_dist;
 
+const float PI   = 3.141592653589;
+const float PI_2 = 6.283185307179;
+
 vec2 toCartesian(vec2 data) {
-  float x = data.x * cos(data.y);
-  float y = data.x * sin(data.y);
-  return vec2(x, y) - u_dist;
+  float x = data.x * sin(data.y * PI_2);
+  float y = data.x * cos(data.y * PI_2);
+  return vec2(x, y) + u_dist;
 }
 
 vec2 toPolarCoord(vec2 data) {
@@ -25,7 +28,7 @@ vec2 toPolarCoord(vec2 data) {
 }
 
 void main() {
-  vec2 polarCoord = toCartesian(v_texCoords);
-  vec4 color = texture2D(u_texture, polarCoord);
+  vec2 outputCoord = toCartesian(v_texCoords);
+  vec4 color = texture2D(u_texture, outputCoord);
   gl_FragColor = v_color * color;
 }
