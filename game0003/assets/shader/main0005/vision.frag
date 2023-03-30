@@ -1,28 +1,31 @@
 #ifdef GL_ES
-precision mediump float;
+#define LOWP lowp
+#define HIGHP highp
+precision highp float;
+#else
+#define LOWP
+#define HIGHP
 #endif
+
+varying LOWP vec4 v_color;
+varying HIGHP vec2 v_texCoords;
 uniform sampler2D u_texture;
-uniform vec2 u_resolution;
-uniform vec2 u_center;
-varying vec2 v_texCoords;
-vec2 polarToCartesian(vec2 polar) {
-  float x = polar.x * cos(polar.y);
-  float y = polar.x * sin(polar.y);
-  return vec2(x, y);
+
+uniform vec2 u_dist;
+
+vec2 toCartesian(vec2 data) {
+  float x = data.x * cos(data.y);
+  float y = data.x * sin(data.y);
+  return vec2(x, y) - u_dist;
 }
-vec2 cartesianToScreen(vec2 coord) {
-  vec2 zeroToOne = coord / u_resolution;
-  return zeroToOne * 2.0 - 1.0;
+
+vec2 toPolarCoord(vec2 data) {
+  return vec2(length(data - u_dist), 
+    atan(-(data.y - u_dist.y) / (data.x - u_dist.x)));
 }
-vec2 screenToCartesian(vec2 coord) {
-  vec2 zeroToOne = (coord + 1.0) / 2.0;
-    return zeroToOne * u_resolution;
-}
+
 void main() {
-  vec2 polarCoord = vec2(length(v_texCoords - u_center), 
-    atan((v_texCoords.y - u_center.y) / (v_texCoords.x - u_center.x)));
-  vec2 cartesianCoord = polarToCartesian(polarCoord);
-  vec2 screenCoord = cartesianToScreen(cartesianCoord);
-  vec4 color = texture2D(u_texture, v_texCoords);
-  gl_FragColor = color;
+  vec2 polarCoord = toCartesian(v_texCoords);
+  vec4 color = texture2D(u_texture, polarCoord);
+  gl_FragColor = v_color * color;
 }

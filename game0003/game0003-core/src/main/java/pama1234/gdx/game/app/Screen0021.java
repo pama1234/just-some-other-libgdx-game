@@ -20,8 +20,6 @@ public class Screen0021 extends ScreenCore2D{
     createGraphics();
     ShaderProgram.pedantic=false;
     shader=new ShaderProgram(
-      // imageBatch.getShader().getVertexShaderSource(),
-      // Gdx.files.internal("shader/temp.frag").readString());
       Gdx.files.internal("shader/main0005/vision.vert").readString(),
       Gdx.files.internal("shader/main0005/vision.frag").readString());
     // shader.bind();
@@ -34,7 +32,6 @@ public class Screen0021 extends ScreenCore2D{
         imageBatch.begin();
         imageBatch.setShader(shader);
         shaderUpdate();
-        // imageBatch.draw(graphics.texture,0,0,width,height);
         imageBatch.draw(graphics.texture,0,0);
         imageBatch.end();
         imageBatch.setShader(null);
@@ -44,10 +41,7 @@ public class Screen0021 extends ScreenCore2D{
   private void createGraphics() {
     graphics=new Graphics(this,640,640);
     graphics.beginShape();
-    // rect(64,64,512,512);
-    for(int i=0;i<32;i++) {
-      rect(64+i*16,64+i*16,512-i*32,512-i*32);
-    }
+    for(int i=0;i<32;i++) rect(64+i*16,64+i*16,512-i*32,512-i*32);
     graphics.endShape();
   }
   @Override
@@ -55,31 +49,19 @@ public class Screen0021 extends ScreenCore2D{
     shaderUpdate();
   }
   public void shaderUpdate() {
-    shader.setUniformf("u_center",320,320);
-    // shader.setUniformf("iTime",frameCount/30f);
-    // idata[0]=mouse.x;
-    // idata[1]=height-mouse.y;
-    // shader.setUniform4fv("iMouse",idata,0,4);
-    // idata[0]=(cam3d.viewDir.x()-UtilMath.PI);
-    // idata[1]=(cam3d.viewDir.y()+UtilMath.PI);
-    // shader.setUniform2fv("iCam",idata,0,2);
+    // shader.setUniformf("u_resolution",640,640);
+    // shader.setUniformf("u_center",mouse.x,640-mouse.y);
+    shader.setUniformf("u_dist",mouse.x/640f,1-mouse.y/640f);
   }
   @Override
   public void mousePressed(MouseInfo info) {}
   @Override
   public void displayWithCam() {}
   @Override
-  public void display() {}
-  @Override
-  public void frameResized() {
-    // gbackground.dispose();
-    // gbackground=new Graphics(this,width,height);
-    // imageBatch.begin();
-    // imageBatch.setShader(shader);
-    // idata[4]=width;
-    // idata[5]=height;
-    // idata[6]=1;
-    // shader.setUniform3fv("iResolution",idata,4,3);
-    // imageBatch.end();
+  public void display() {
+    strokeWeight(u/64f);
+    cross(mouse.ox,mouse.oy,u,u);
   }
+  @Override
+  public void frameResized() {}
 }
