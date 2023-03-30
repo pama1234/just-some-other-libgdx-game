@@ -3,6 +3,7 @@ package pama1234.gdx.game.duel;
 import pama1234.gdx.game.duel.util.actor.ActorGroup;
 import pama1234.gdx.game.duel.util.actor.PlayerActor;
 import pama1234.gdx.game.duel.util.ai.mech.ComputerPlayerEngine;
+import pama1234.gdx.game.duel.util.ai.nnet.ComputerLifeEngine;
 import pama1234.gdx.game.duel.util.graphics.DemoInfo;
 import pama1234.gdx.game.duel.util.graphics.GameBackground;
 import pama1234.gdx.game.duel.util.graphics.Particle;
@@ -49,7 +50,7 @@ public final class GameSystem{
     damagedState.moveState=moveState;
     // prepare PlayerActor
     PlayerEngine myEngine;
-    if(demo) myEngine=createComputerEngine();
+    if(demo) myEngine=createComputerEngine(true);
     else {
       if(duel.isAndroid) myEngine=new AndroidHumanPlayerEngine(duel.currentInput);
       else myEngine=new HumanPlayerEngine(duel.currentInput);
@@ -59,7 +60,7 @@ public final class GameSystem{
     myPlayer.yPosition=Duel.CANVAS_SIZE-100;
     myPlayer.state=moveState;
     myGroup.setPlayer(myPlayer);
-    PlayerEngine otherEngine=createComputerEngine();
+    PlayerEngine otherEngine=createComputerEngine(false);
     PlayerActor otherPlayer=new PlayerActor(duel,otherEngine,Duel.color(0));
     otherPlayer.xPosition=Duel.CANVAS_SIZE*0.5f;
     otherPlayer.yPosition=100;
@@ -72,9 +73,9 @@ public final class GameSystem{
     demoPlay=demo;
     showsInstructionWindow=instruction;
   }
-  public PlayerEngine createComputerEngine() {
-    return new ComputerPlayerEngine(duel::random);
-    // return new ComputerLifeEngine(new NetworkGroup());
+  public PlayerEngine createComputerEngine(boolean type) {
+    if(duel.mode==Duel.neat) return new ComputerLifeEngine((type?duel.player_a:duel.player_b).graphics,duel.neatCenter.getNext());
+    else return new ComputerPlayerEngine(duel::random);
   }
   public GameSystem(Duel duel) {
     this(duel,false,false);

@@ -74,6 +74,23 @@ public class Duel extends ScreenCore2D{
       for(TextButton<?> e:buttons) centerScreen.add.add(e);
     }
     currentInput=new InputData();
+    //---
+    if(mode==neat) {
+      param=new NetworkGroupParam(256);
+      neatCenter=new NeatCenter(param);
+      //---
+      graphics=new Graphics(this,CANVAS_SIZE,CANVAS_SIZE);
+      visionVert=Gdx.files.internal("shader/main0005/vision.vert").readString();
+      visionFrag=Gdx.files.internal("shader/main0005/vision.frag").readString();
+      int ts=param.canvasSize;
+      player_a=new FisheyeVision(this,
+        new ShaderProgram(visionVert,visionFrag),
+        new Graphics(this,ts,ts));
+      player_b=new FisheyeVision(this,
+        new ShaderProgram(visionVert,visionFrag),
+        new Graphics(this,ts,ts));
+    }
+    //---
     newGame(true,true); // demo play (computer vs computer), shows instruction window
     //---
     setTextColor(0);
@@ -85,25 +102,9 @@ public class Duel extends ScreenCore2D{
     else if(isAndroid) cam2d.scale.pos=cam2d.scale.des=0.25f;
     cam2d.activeDrag=false;
     cam2d.activeScrollZoom=cam2d.activeTouchZoom=false;
-    //---
-    if(mode==neat) {
-      param=new NetworkGroupParam(256);
-      // neatCenter=new NeatCenter(param);
-      //---
-      graphics=new Graphics(this,CANVAS_SIZE,CANVAS_SIZE);
-      // shader=new ShaderProgram(
-      //   visionVert=Gdx.files.internal("shader/main0005/vision.vert").readString(),
-      //   visionFrag=Gdx.files.internal("shader/main0005/vision.frag").readString());
-      visionVert=Gdx.files.internal("shader/main0005/vision.vert").readString();
-      visionFrag=Gdx.files.internal("shader/main0005/vision.frag").readString();
-      int ts=neatCenter.param.canvasSize;
-      player_a=new FisheyeVision(this,
-        new ShaderProgram(visionVert,visionFrag),
-        new Graphics(this,ts,ts));
-      player_b=new FisheyeVision(this,
-        new ShaderProgram(visionVert,visionFrag),
-        new Graphics(this,ts,ts));
-    }
+  }
+  public void newGame(boolean demo,boolean instruction) {
+    system=new GameSystem(this,demo,instruction);
   }
   @Override
   public void display() {
@@ -159,9 +160,6 @@ public class Duel extends ScreenCore2D{
         player_b.update(system.otherGroup.player);
       }
     }
-  }
-  public void newGame(boolean demo,boolean instruction) {
-    system=new GameSystem(this,demo,instruction);
   }
   @Override
   public void mousePressed(MouseInfo info) {
