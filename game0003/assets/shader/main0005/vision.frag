@@ -28,8 +28,18 @@ vec2 toCartesian(vec2 data) {
     atan(-(data.y - u_dist.y) / (data.x - u_dist.x)));
 }
 
+bool inRange(float a, float b, float c) {
+  return a>b&&a<c;
+}
+
 void main() {
   vec2 outputCoord = toPolar(v_texCoords);
+  if(
+      !inRange(outputCoord.x, 0.0, 1.0)||
+      !inRange(outputCoord.y, 0.0, 1.0)) {
+    gl_FragColor = vec4(0.0, 0.0, 0.0, 0.0);
+    return;
+  }
   vec4 color = texture2D(u_texture, outputCoord);
   gl_FragColor = v_color * color;
 }

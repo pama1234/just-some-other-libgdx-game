@@ -79,7 +79,8 @@ public final class PlayGameState extends GameSystemState{
   }
   public void killPlayer(AbstractPlayerActor player) {
     duel.system.addSquareParticles(player.xPosition,player.yPosition,50,16,2,10,4);
-    player.group.player=new NullPlayerActor(player.xPosition,player.yPosition);
+    // player.group.player=new NullPlayerActor(player.xPosition,player.yPosition,player.group);//TODO
+    player.group.player=new NullPlayerActor();
     duel.system.screenShakeValue=50;
   }
   public void breakArrow(AbstractArrowActor arrow,ActorGroup group) {

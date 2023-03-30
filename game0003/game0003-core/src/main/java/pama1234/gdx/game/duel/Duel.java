@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
+import pama1234.gdx.game.duel.util.actor.AbstractPlayerActor;
+import pama1234.gdx.game.duel.util.ai.nnet.FisheyeVision;
 import pama1234.gdx.game.duel.util.graphics.DemoInfo;
 import pama1234.gdx.game.duel.util.input.InputData;
 import pama1234.gdx.game.duel.util.input.UiGenerator;
@@ -53,8 +55,13 @@ public class Duel extends ScreenCore2D{
   public float dxCache,dyCache;
   public float strokeUnit;
   //---
+  public static final int game=0,neat=1;
+  public int mode=neat;
+  public Graphics graphics;
   public ShaderProgram shader;
-  public Graphics graphics,fisheye;
+  // public Graphics fisheye;
+  // public float camX,camY;
+  public FisheyeVision player_a,player_b;
   @Override
   public void setup() {
     TextUtil.used=TextUtil.gen_ch(this::textWidthNoScale);
@@ -70,16 +77,19 @@ public class Duel extends ScreenCore2D{
     //---
     cam.point.des.set(canvasSideLength/2f,canvasSideLength/2f);
     cam.point.pos.set(cam.point.des);
-    if(isAndroid) cam2d.scale.pos=cam2d.scale.des=0.25f;
+    cam2d.scale.pos=cam2d.scale.des=(isAndroid?0.25f:1)*0.8f;
     cam2d.activeDrag=false;
     cam2d.activeScrollZoom=cam2d.activeTouchZoom=false;
     //---
-    shader=new ShaderProgram(
-      Gdx.files.internal("shader/main0005/vision.vert").readString(),
-      Gdx.files.internal("shader/main0005/vision.frag").readString());
-    graphics=new Graphics(this,CANVAS_SIZE,CANVAS_SIZE);
-    // fisheye=new Graphics(this,INTERNAL_CANVAS_SIDE_LENGTH,INTERNAL_CANVAS_SIDE_LENGTH);
-    fisheye=new Graphics(this,256,256);
+    if(mode==neat) {
+      graphics=new Graphics(this,CANVAS_SIZE,CANVAS_SIZE);
+      shader=new ShaderProgram(
+        Gdx.files.internal("shader/main0005/vision.vert").readString(),
+        Gdx.files.internal("shader/main0005/vision.frag").readString());
+      // fisheye=new Graphics(this,INTERNAL_CANVAS_SIDE_LENGTH,INTERNAL_CANVAS_SIDE_LENGTH);
+      // fisheye=new Graphics(this,256,256);
+      player_a=new FisheyeVision(this,new ShaderProgram(shader.getVertexShaderSource(),shader.getFragmentShaderSource()),new Graphics(this,256,256));
+    }
   }
   @Override
   public void display() {
@@ -88,21 +98,18 @@ public class Duel extends ScreenCore2D{
   @Override
   public void displayWithCam() {
     doStroke();
-    graphics.begin();
-    background(255);
-    system.display();
-    graphics.end();
-    fisheye.begin();
-    imageBatch.begin();
-    imageBatch.setShader(shader);
-    // shaderUpdate();
-    imageBatch.draw(graphics.texture,0,0,fisheye.width(),fisheye.height());
-    imageBatch.end();
-    imageBatch.setShader(null);
-    fisheye.end();
-    image(fisheye.texture,0,0,CANVAS_SIZE,CANVAS_SIZE);
-    // image(graphics.texture,0,0);
-    // image(graphics.texture,-graphics.width()/2f,-graphics.height()/2f);
+    if(mode==neat) {
+      graphics.begin();
+      background(255);
+      system.display();
+      graphics.end();
+      player_a.render();
+      image(player_a.graphics.texture,340,0,CANVAS_SIZE,CANVAS_SIZE);
+      image(graphics.texture,-340,0,CANVAS_SIZE,CANVAS_SIZE);
+      // image(graphics.texture,-graphics.width()/2f,-graphics.height()/2f);
+    }else {
+      system.display();
+    }
     clearMatrix();
     if(isAndroid) {
       if(moveCtrl!=null) {
@@ -132,9 +139,19 @@ public class Duel extends ScreenCore2D{
       }
       system.update();
       //---
-      shader.bind();
-      // System.out.println(system.myGroup.player.xPosition);
-      shader.setUniformf("u_dist",system.myGroup.player.xPosition/CANVAS_SIZE,1-system.myGroup.player.yPosition/CANVAS_SIZE);
+      if(mode==neat) {
+        // shader.bind();
+        // System.out.println(system.myGroup.player.xPosition);
+        AbstractPlayerActor player=system.myGroup.player;
+        player_a.update(player);
+        // if(Float.isFinite(player.xPosition)&&
+        //   Float.isFinite(player.yPosition)) {
+        //   camX=player.xPosition;
+        //   camY=player.yPosition;
+        // }
+        // // System.out.println(camX);
+        // shader.setUniformf("u_dist",camX/CANVAS_SIZE,1-camY/CANVAS_SIZE);
+      }
     }
   }
   public void newGame(boolean demo,boolean instruction) {
@@ -162,7 +179,7 @@ public class Duel extends ScreenCore2D{
   }
   @Override
   public void strokeWeight(float in) {
-    super.strokeWeight(in*strokeUnit);
+    super.strokeWeight(mode==neat?in:in*strokeUnit);
   }
   public void strokeWeightOriginal(float in) {
     super.strokeWeight(in);
