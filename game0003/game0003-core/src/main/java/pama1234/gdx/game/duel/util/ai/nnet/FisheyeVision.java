@@ -1,5 +1,6 @@
 package pama1234.gdx.game.duel.util.ai.nnet;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
 import pama1234.gdx.game.duel.Duel;
@@ -11,12 +12,14 @@ public class FisheyeVision{
   public ShaderProgram shader;
   public Graphics graphics;
   public float camX,camY;
+  //---
+  public Color backgroundColor;
   public FisheyeVision(Duel duel,ShaderProgram shader,Graphics graphics) {
     this.duel=duel;
     this.shader=shader;
     this.graphics=graphics;
+    backgroundColor=Duel.color(191);
   }
-  // public void display() {}
   public void update(AbstractPlayerActor player) {
     shader.bind();
     if(Float.isFinite(player.xPosition)&&
@@ -24,20 +27,16 @@ public class FisheyeVision{
       camX=player.xPosition;
       camY=player.yPosition;
     }
-    // System.out.println(camX);
     shader.setUniformf("u_dist",camX/Duel.CANVAS_SIZE,1-camY/Duel.CANVAS_SIZE);
   }
   public void render() {
-    // fisheye.begin();
     graphics.begin();
-    duel.background(0);
+    duel.background(backgroundColor);
     duel.imageBatch.begin();
     duel.imageBatch.setShader(shader);
-    // shaderUpdate();
     duel.imageBatch.draw(duel.graphics.texture,0,0,graphics.width(),graphics.height());
     duel.imageBatch.end();
     duel.imageBatch.setShader(null);
-    // fisheye.end();
     graphics.end();
   }
 }

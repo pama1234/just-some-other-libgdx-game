@@ -31,11 +31,19 @@ public class NeatCenter extends Center<NetworkGroup>{
     }
   }
   public static class NetworkGroupParam{
-    public int inputSize=UtilMath.sq(256)*3,logicSize=64,outputSize=4;
+    public int canvasSize=256;
+    public int inputSize,logicSize,outputSize;
     public EvolveOptions options;
     {
       options=new EvolveOptions();
       options.setError(0.05f);
+      options.setPopulationSize(10);
+    }
+    public NetworkGroupParam(int canvasSize) {
+      this.canvasSize=canvasSize;
+      inputSize=UtilMath.sq(canvasSize)*3;
+      logicSize=64;
+      outputSize=4;
     }
   }
 }

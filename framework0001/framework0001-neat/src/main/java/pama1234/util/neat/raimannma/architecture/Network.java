@@ -72,19 +72,18 @@ public class Network{
     this.gates=new HashSet<>();
     this.selfConnections=new HashSet<>();
     this.dropout=0;
-    for(int i=0;i<this.inputSize;i++) {
-      this.nodes.add(new Node(Node.NodeType.INPUT));
-    }
-    for(int i=0;i<this.outputSize;i++) {
-      this.nodes.add(new Node(Node.NodeType.OUTPUT));
-    }
+    for(int i=0;i<this.inputSize;i++) this.nodes.add(new Node(Node.NodeType.INPUT));
+    for(int i=0;i<this.outputSize;i++) this.nodes.add(new Node(Node.NodeType.OUTPUT));
+    createConnection();
+  }
+  public void createConnection() {
     // Create simplest Network with input and output size matching parameters
     final float initWeight=this.inputSize*UtilMath.sqrt(2f/this.inputSize);
     for(int i=0;i<this.inputSize;i++) { // iterate over the input nodes
       final Node inputNode=this.nodes.get(i);
       for(int j=this.inputSize;j<this.outputSize+this.inputSize;j++) { // iterate over the output nodes
-        // connect input and output node
-        this.connect(inputNode,this.nodes.get(j),randFloat(initWeight));
+        this.connect(inputNode,
+          this.nodes.get(j),randFloat(initWeight));// connect input and output node
       }
     }
   }
@@ -94,52 +93,51 @@ public class Network{
    * Networks are not required to have the same size, however input and output size should be the
    * same!
    *
-   * @param network1 parent network 1
-   * @param network2 parent network 2
+   * @param network_a parent network 1
+   * @param network_b parent network 2
    * @param equal    indicate that networks are equally fit
    * @return new network created from mixing parent networks
    */
-  public static Network crossover(final Network network1,final Network network2,final boolean equal) {
-    if(network1.inputSize!=network2.inputSize||network1.outputSize!=network2.outputSize) {
+  public static Network crossover(final Network network_a,final Network network_b,final boolean equal) {
+    if(network_a.inputSize!=network_b.inputSize||network_a.outputSize!=network_b.outputSize) {
       // Networks must have same input/output sizes
       throw new IllegalStateException("Networks don't have the same input/output size!");
     }
     // create offspring
-    final Network offspring=new Network(network1.inputSize,network1.outputSize);
+    final Network offspring=new Network(network_a.inputSize,network_a.outputSize);
     offspring.connections.clear();
     offspring.nodes.clear();
-    final float score1=Float.isNaN(network1.score)?-Float.MAX_VALUE:network1.score;
-    final float score2=Float.isNaN(network2.score)?-Float.MAX_VALUE:network2.score;
-    final int size1=network1.nodes.size(); // size of parent 1
-    final int size2=network2.nodes.size(); // size of parent 2
+    final float score1=Float.isNaN(network_a.score)?-Float.MAX_VALUE:network_a.score;
+    final float score2=Float.isNaN(network_b.score)?-Float.MAX_VALUE:network_b.score;
+    final int size1=network_a.nodes.size(); // size of parent 1
+    final int size2=network_b.nodes.size(); // size of parent 2
     // size of offspring
     final int size=equal||score1==score2
       ?randInt(Math.min(size1,size2),Math.max(size1,size2))// select random size between min and max
       :score1>score2?size1:size2; // Select size of fittest.
-    network1.setNodeIndices(); // set indices for network 1
-    network2.setNodeIndices(); // set indices for network 2
-    // Create nodes for the offspring
-    for(int i=0;i<size;i++) {
+    network_a.setNodeIndices(); // set indices for network 1
+    network_b.setNodeIndices(); // set indices for network 2
+    for(int i=0;i<size;i++) {// Create nodes for the offspring
       final Node node; // first choice for the new node
-      if(i<size-network1.outputSize) {
+      if(i<size-network_a.outputSize) {
         // creating a input or hidden node
         if(randBoolean()) { // choose random
           // try getting a input or hidden node from network 1, fallback to network 2
-          node=i<size1&&network1.nodes.get(i).type!=Node.NodeType.OUTPUT
-            ?network1.nodes.get(i)
-            :network2.nodes.get(i);
+          node=i<size1&&network_a.nodes.get(i).type!=Node.NodeType.OUTPUT
+            ?network_a.nodes.get(i)
+            :network_b.nodes.get(i);
         }else {
           // try getting a input or hidden node from network 2, fallback to network 1
-          node=i<size2&&network2.nodes.get(i).type!=Node.NodeType.OUTPUT
-            ?network2.nodes.get(i)
-            :network1.nodes.get(i);
+          node=i<size2&&network_b.nodes.get(i).type!=Node.NodeType.OUTPUT
+            ?network_b.nodes.get(i)
+            :network_a.nodes.get(i);
         }
       }else {
         // create a output node
         // pick random output node
         node=randBoolean()
-          ?network1.nodes.get(i+size1-size)
-          :network2.nodes.get(i+size2-size);
+          ?network_a.nodes.get(i+size1-size)
+          :network_b.nodes.get(i+size2-size);
       }
       final Node newNode=new Node();
       newNode.bias=node.bias;
@@ -149,8 +147,8 @@ public class Network{
       offspring.nodes.add(newNode);
     }
     // Maps for offspring connections
-    final Map<Integer,int[]> network1Connections=makeConnections(network1);
-    final Map<Integer,int[]> network2Connections=makeConnections(network2);
+    final Map<Integer,int[]> network1Connections=makeConnections(network_a);
+    final Map<Integer,int[]> network2Connections=makeConnections(network_b);
     final List<int[]> connections=new ArrayList<>();
     // List of innovation IDs from both parents
     final List<Integer> innovationIDs1=new ArrayList<>(network1Connections.keySet());

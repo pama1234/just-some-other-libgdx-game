@@ -118,6 +118,9 @@ public class NEAT{
     this.generation=0;
     // creating the initial population
     this.population=new ArrayList<>();
+    createPopulation();
+  }
+  public void createPopulation() {
     for(int i=0;i<this.populationSize;i++) {
       final Network copy=this.template==null
         ?new Network(this.input,this.output)

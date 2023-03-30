@@ -4,8 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
-import pama1234.gdx.game.duel.util.actor.AbstractPlayerActor;
 import pama1234.gdx.game.duel.util.ai.nnet.FisheyeVision;
+import pama1234.gdx.game.duel.util.ai.nnet.NeatCenter;
+import pama1234.gdx.game.duel.util.ai.nnet.NeatCenter.NetworkGroupParam;
 import pama1234.gdx.game.duel.util.graphics.DemoInfo;
 import pama1234.gdx.game.duel.util.input.InputData;
 import pama1234.gdx.game.duel.util.input.UiGenerator;
@@ -58,9 +59,12 @@ public class Duel extends ScreenCore2D{
   public static final int game=0,neat=1;
   public int mode=neat;
   public Graphics graphics;
+  //---
+  public NeatCenter neatCenter;
+  public NetworkGroupParam param;
+  //---
   public ShaderProgram shader;
-  // public Graphics fisheye;
-  // public float camX,camY;
+  public String visionVert,visionFrag;
   public FisheyeVision player_a,player_b;
   @Override
   public void setup() {
@@ -77,18 +81,28 @@ public class Duel extends ScreenCore2D{
     //---
     cam.point.des.set(canvasSideLength/2f,canvasSideLength/2f);
     cam.point.pos.set(cam.point.des);
-    cam2d.scale.pos=cam2d.scale.des=(isAndroid?0.25f:1)*0.8f;
+    if(mode==neat) cam2d.scale.pos=cam2d.scale.des=(isAndroid?0.25f:1)*0.6f;
+    else if(isAndroid) cam2d.scale.pos=cam2d.scale.des=0.25f;
     cam2d.activeDrag=false;
     cam2d.activeScrollZoom=cam2d.activeTouchZoom=false;
     //---
     if(mode==neat) {
+      param=new NetworkGroupParam(256);
+      // neatCenter=new NeatCenter(param);
+      //---
       graphics=new Graphics(this,CANVAS_SIZE,CANVAS_SIZE);
-      shader=new ShaderProgram(
-        Gdx.files.internal("shader/main0005/vision.vert").readString(),
-        Gdx.files.internal("shader/main0005/vision.frag").readString());
-      // fisheye=new Graphics(this,INTERNAL_CANVAS_SIDE_LENGTH,INTERNAL_CANVAS_SIDE_LENGTH);
-      // fisheye=new Graphics(this,256,256);
-      player_a=new FisheyeVision(this,new ShaderProgram(shader.getVertexShaderSource(),shader.getFragmentShaderSource()),new Graphics(this,256,256));
+      // shader=new ShaderProgram(
+      //   visionVert=Gdx.files.internal("shader/main0005/vision.vert").readString(),
+      //   visionFrag=Gdx.files.internal("shader/main0005/vision.frag").readString());
+      visionVert=Gdx.files.internal("shader/main0005/vision.vert").readString();
+      visionFrag=Gdx.files.internal("shader/main0005/vision.frag").readString();
+      int ts=neatCenter.param.canvasSize;
+      player_a=new FisheyeVision(this,
+        new ShaderProgram(visionVert,visionFrag),
+        new Graphics(this,ts,ts));
+      player_b=new FisheyeVision(this,
+        new ShaderProgram(visionVert,visionFrag),
+        new Graphics(this,ts,ts));
     }
   }
   @Override
@@ -104,9 +118,10 @@ public class Duel extends ScreenCore2D{
       system.display();
       graphics.end();
       player_a.render();
-      image(player_a.graphics.texture,340,0,CANVAS_SIZE,CANVAS_SIZE);
-      image(graphics.texture,-340,0,CANVAS_SIZE,CANVAS_SIZE);
-      // image(graphics.texture,-graphics.width()/2f,-graphics.height()/2f);
+      player_b.render();
+      image(player_a.graphics.texture,-656,0,CANVAS_SIZE,CANVAS_SIZE);
+      image(graphics.texture,0,0,CANVAS_SIZE,CANVAS_SIZE);
+      image(player_b.graphics.texture,656,0,CANVAS_SIZE,CANVAS_SIZE);
     }else {
       system.display();
     }
@@ -140,17 +155,8 @@ public class Duel extends ScreenCore2D{
       system.update();
       //---
       if(mode==neat) {
-        // shader.bind();
-        // System.out.println(system.myGroup.player.xPosition);
-        AbstractPlayerActor player=system.myGroup.player;
-        player_a.update(player);
-        // if(Float.isFinite(player.xPosition)&&
-        //   Float.isFinite(player.yPosition)) {
-        //   camX=player.xPosition;
-        //   camY=player.yPosition;
-        // }
-        // // System.out.println(camX);
-        // shader.setUniformf("u_dist",camX/CANVAS_SIZE,1-camY/CANVAS_SIZE);
+        player_a.update(system.myGroup.player);
+        player_b.update(system.otherGroup.player);
       }
     }
   }

@@ -54,7 +54,7 @@ public final class GameSystem{
       if(duel.isAndroid) myEngine=new AndroidHumanPlayerEngine(duel.currentInput);
       else myEngine=new HumanPlayerEngine(duel.currentInput);
     }
-    PlayerActor myPlayer=new PlayerActor(duel,myEngine,Duel.color(255));
+    PlayerActor myPlayer=new PlayerActor(duel,myEngine,duel.mode==Duel.neat?Duel.color(0):Duel.color(255));
     myPlayer.xPosition=Duel.CANVAS_SIZE*0.5f;
     myPlayer.yPosition=Duel.CANVAS_SIZE-100;
     myPlayer.state=moveState;
