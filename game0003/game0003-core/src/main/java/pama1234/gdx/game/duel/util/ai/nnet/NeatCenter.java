@@ -1,11 +1,10 @@
 package pama1234.gdx.game.duel.util.ai.nnet;
 
 import java.util.ArrayList;
-import java.util.stream.IntStream;
 
-import pama1234.gdx.game.duel.util.ai.nnet.NetworkGroup.NetworkGroupData;
 import pama1234.math.UtilMath;
 import pama1234.util.neat.raimannma.architecture.EvolveOptions;
+import pama1234.util.neat.raimannma.architecture.FloatBlock;
 import pama1234.util.neat.raimannma.architecture.NEAT;
 import pama1234.util.neat.raimannma.architecture.Network;
 import pama1234.util.wrapper.Center;
@@ -25,17 +24,24 @@ public class NeatCenter extends Center<NetworkGroup>{
   public NetworkGroup getNext() {
     refresh();
     if(index==list.size()) {
-      NetworkGroup out=new NetworkGroup(new NetworkGroupData(
-        vision.neat.getFittest(),
-        logic.neat.getFittest(),
-        behavior.neat.getFittest(),
-        world.neat.getFittest()));
+      float[] data=new float[param.memorySize+param.logicSize*2];
+      NetworkGroup out=createNetworkGroup(data);
       add.add(out);
       refresh();
       index++;
       return out;
     }
     return list.get(index++);
+  }
+  public NetworkGroup createNetworkGroup(float[] data) {
+    return new NetworkGroup(
+      new FloatBlock(new float[param.inputSize]),new FloatBlock(new float[param.outputSize]),
+      new FloatBlock(data,param.memorySize,param.logicSize),new FloatBlock(data,param.logicSize,param.logicSize),
+      new FloatBlock(data,0,param.memorySize),
+      vision.neat.getFittest(),
+      logic.neat.getFittest(),
+      behavior.neat.getFittest(),
+      world.neat.getFittest());
   }
   public static class NeatModule{
     public NEAT neat;
@@ -52,7 +58,7 @@ public class NeatCenter extends Center<NetworkGroup>{
   }
   public static class NetworkGroupParam{
     public int canvasSize=256;
-    public int inputSize,logicSize,outputSize;
+    public int inputSize,logicSize,outputSize,memorySize;
     public EvolveOptions visionOptions,logicOptions,behaviorOptions,worldbehavior;
     {
       visionOptions=newEvolveOptions(inputSize,logicSize);
@@ -73,6 +79,7 @@ public class NeatCenter extends Center<NetworkGroup>{
       inputSize=UtilMath.sq(canvasSize)*3;
       logicSize=64;
       outputSize=4;
+      memorySize=1;
     }
   }
 }

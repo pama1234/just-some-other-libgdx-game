@@ -30,25 +30,25 @@ public class NetworkGroup{
   public FloatBlock logicInput,logicOutput;
   public FloatBlock memory;
   public NetworkModule vision,logic,behavior,world;
-  public NetworkGroup(NetworkGroupData in) {
-    vision=new NetworkModule(in.vision,input,logicInput);
-    logic=new NetworkModule(in.logic,logicInput,logicOutput);
-    behavior=new NetworkModule(in.behavior,logicOutput,output);
-    world=new NetworkModule(in.world,output,input);
+  public NetworkGroup() {}
+  public NetworkGroup(
+    FloatBlock input,FloatBlock output,
+    FloatBlock logicInput,FloatBlock logicOutput,
+    FloatBlock memory,
+    Network vision,Network logic,Network behavior,Network world) {
+    this.input=input;
+    this.output=output;
+    this.logicInput=logicInput;
+    this.logicOutput=logicOutput;
+    this.memory=memory;
+    this.vision=new NetworkModule(vision,input,logicInput);
+    this.logic=new NetworkModule(logic,logicInput,logicOutput);
+    this.behavior=new NetworkModule(behavior,logicOutput,output);
+    this.world=new NetworkModule(world,output,input);
   }
   public void execute() {
     vision.execute();
     logic.execute();
     behavior.execute();
-  }
-  public static class NetworkGroupData{
-    public Network vision,logic,behavior,world;
-    public NetworkGroupData() {}
-    public NetworkGroupData(Network vision,Network logic,Network behavior,Network world) {
-      this.vision=vision;
-      this.logic=logic;
-      this.behavior=behavior;
-      this.world=world;
-    }
   }
 }

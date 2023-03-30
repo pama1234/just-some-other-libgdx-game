@@ -8,6 +8,8 @@ public class NetworkModule{
   }
   public NetworkModule(Network network,FloatBlock input,FloatBlock output) {
     this(network);
+    this.input=input;
+    this.output=output;
   }
   public void execute() {
     network.activate(input,output);

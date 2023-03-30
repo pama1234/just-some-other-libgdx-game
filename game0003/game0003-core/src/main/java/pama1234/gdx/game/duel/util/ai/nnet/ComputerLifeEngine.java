@@ -1,5 +1,7 @@
 package pama1234.gdx.game.duel.util.ai.nnet;
 
+import com.badlogic.gdx.graphics.Pixmap;
+
 import pama1234.gdx.game.duel.util.actor.PlayerActor;
 import pama1234.gdx.game.duel.util.player.PlayerEngine;
 import pama1234.gdx.util.element.Graphics;
@@ -52,7 +54,7 @@ public class ComputerLifeEngine extends PlayerEngine{
       cache=new int[graphics.width()*graphics.height()];
     }
     public void execute() {
-      VisionUtil.textureToFloatArray(graphics.texture,cache,data,0);
+      VisionUtil.pixmapToFloatArray(Pixmap.createFromFrameBuffer(0,0,graphics.width(),graphics.height()),cache,data,0);
     }
   }
 }

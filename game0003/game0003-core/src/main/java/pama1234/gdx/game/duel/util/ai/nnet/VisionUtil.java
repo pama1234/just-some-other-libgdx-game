@@ -4,6 +4,7 @@ import java.nio.ByteBuffer;
 
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.TextureData;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class VisionUtil{
@@ -47,16 +48,30 @@ public class VisionUtil{
    * @return
    */
   public static float[] textureToFloatArray(Texture texture,int[] cache,float[] result,int pos) {
-    // int width=texture.getWidth();
-    // int height=texture.getHeight();
-    // int[] pixels=new int[width*height];
     int[] pixels=cache;
-    texture.getTextureData().prepare();
-    Pixmap pixmap=texture.getTextureData().consumePixmap();
+    TextureData textureData=texture.getTextureData();
+    if(!textureData.isPrepared()) textureData.prepare();
+    Pixmap pixmap=textureData.consumePixmap();
     pixmap.getPixels().rewind();
     pixmap.getPixels().asIntBuffer().get(pixels);
     pixmap.dispose();
-    // float[] result=new float[width*height*3];
+    for(int i=0;i<pixels.length;i++) {
+      int pixel=pixels[i];
+      float red=((pixel&0x00ff0000)>>>16)/255f;
+      float green=((pixel&0x0000ff00)>>>8)/255f;
+      float blue=(pixel&0x000000ff)/255f;
+      result[pos+i*3]=red;
+      result[pos+i*3+1]=green;
+      result[pos+i*3+2]=blue;
+    }
+    return result;
+  }
+  public static float[] pixmapToFloatArray(Pixmap pixmap,int[] cache,float[] result,int pos) {
+    int[] pixels=cache;
+    ByteBuffer buffer=pixmap.getPixels();
+    buffer.rewind();
+    buffer.asIntBuffer().get(pixels);
+    pixmap.dispose();
     for(int i=0;i<pixels.length;i++) {
       int pixel=pixels[i];
       float red=((pixel&0x00ff0000)>>>16)/255f;
