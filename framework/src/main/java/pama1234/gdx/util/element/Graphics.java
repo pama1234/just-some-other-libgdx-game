@@ -23,10 +23,10 @@ public class Graphics{
     cam=new OrthographicCamera();
     cam.setToOrtho(true,w,h);
   }
-  public float width() {
+  public int width() {
     return texture.getWidth();
   }
-  public float height() {
+  public int height() {
     return texture.getHeight();
   }
   public void beginShape() {

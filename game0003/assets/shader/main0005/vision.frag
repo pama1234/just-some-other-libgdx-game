@@ -24,5 +24,4 @@ void main() {
     vec2 screenCoord = cartesianToScreen(cartesianCoord);
     vec4 color = texture2D(u_texture, v_texCoord0);
     gl_FragColor = color;
-    gl_FragCoord = vec4(screenCoord, 0.0, 1.0);
 }
