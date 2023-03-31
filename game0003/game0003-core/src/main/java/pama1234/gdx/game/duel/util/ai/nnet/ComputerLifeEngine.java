@@ -39,7 +39,7 @@ public class ComputerLifeEngine extends PlayerEngine{
     int fire=fireType(networks.output.get(firePos));
     // System.out.println(fire);
     if(fire==3) {
-      System.out.println(completeCharge);
+      // System.out.println(completeCharge);
       if(completeCharge) inputDevice.operateLongShotButton(false);
       else inputDevice.operateLongShotButton(true);
     }
@@ -71,7 +71,11 @@ public class ComputerLifeEngine extends PlayerEngine{
     }
   }
   @Override
-  public void setScore(float score) {
-    networks.setScore(score);
+  public void setScore(int scoreType,float score) {
+    networks.setScore(scoreType,score);
+  }
+  @Override
+  public float getScore(int index) {
+    return networks.getScore(index);
   }
 }

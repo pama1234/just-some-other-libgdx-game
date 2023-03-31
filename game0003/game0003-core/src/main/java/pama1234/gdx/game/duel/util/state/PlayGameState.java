@@ -94,10 +94,12 @@ public final class PlayGameState extends GameSystemState{
     targetPlayerActor.xVelocity+=20*UtilMath.cos(thrustAngle);
     targetPlayerActor.yVelocity+=20*UtilMath.sin(thrustAngle);
     targetPlayerActor.state=duel.system.damagedState.entryState(targetPlayerActor);
+    targetPlayerActor.group.damageCount++;//TODO shit
     duel.system.screenShakeValue+=10;
   }
   @Override
   public float getScore(int group) {
-    return 0;
+    if(group==0) return -system.myGroup.damageCount;
+    else return -system.otherGroup.damageCount;
   }
 }

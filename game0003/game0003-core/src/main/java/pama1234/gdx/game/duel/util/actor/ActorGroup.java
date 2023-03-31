@@ -10,6 +10,7 @@ public final class ActorGroup{
   public final ArrayList<AbstractArrowActor> arrowList=new ArrayList<AbstractArrowActor>();
   public final ArrayList<AbstractArrowActor> removingArrowList=new ArrayList<AbstractArrowActor>();
   public int id;
+  public int damageCount;
   public ActorGroup(int id) {
     this.id=id;
   }

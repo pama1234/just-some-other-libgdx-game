@@ -48,7 +48,7 @@ public class NetworkGroup{
   }
   public NetworkModule createNetworkModule(FloatBlock input,FloatBlock logicInput,Network vision) {
     NetworkModule out=new NetworkModule(vision,input,logicInput);
-    out.network.floatData=new float[1];
+    out.network.floatData=new float[2];
     return out;
   }
   public void execute() {
@@ -56,10 +56,13 @@ public class NetworkGroup{
     logic.execute();
     behavior.execute();
   }
-  public void setScore(float score) {
-    vision.network.floatData[0]=score;
-    logic.network.floatData[0]=score;
-    behavior.network.floatData[0]=score;
-    world.network.floatData[0]=score;
+  public void setScore(int scoreType,float score) {
+    vision.network.floatData[scoreType]=score;
+    logic.network.floatData[scoreType]=score;
+    behavior.network.floatData[scoreType]=score;
+    world.network.floatData[scoreType]=score;
+  }
+  public float getScore(int index) {//TODO
+      return logic.network.floatData[index];
   }
 }

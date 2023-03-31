@@ -31,7 +31,11 @@ public final class ComputerPlayerEngine extends PlayerEngine{
     time++;
   }
   @Override
-  public void setScore(float score) {
+  public void setScore(int scoreType,float score) {
     //TODO nop
+  }
+  @Override
+  public float getScore(int index) {
+    return 0; //TODO nop
   }
 }

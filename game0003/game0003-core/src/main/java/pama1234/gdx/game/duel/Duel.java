@@ -2,6 +2,7 @@ package pama1234.gdx.game.duel;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
 import pama1234.gdx.game.duel.util.ai.nnet.FisheyeVision;
@@ -80,11 +81,11 @@ public class Duel extends ScreenCore2D{
     currentInput=new InputData();
     //---
     if(mode==neat) {
-      param=new NetworkGroupParam(8);
+      param=new NetworkGroupParam(32);
       neatCenter=new NeatCenter(param);
       //---
       graphics=new Graphics(this,CANVAS_SIZE,CANVAS_SIZE);
-      // graphics.texture.setFilter(TextureFilter.Linear,TextureFilter.Nearest);
+      // graphics.texture.setFilter(TextureFilter.Linear,TextureFilter.Linear);
       visionVert=Gdx.files.internal("shader/main0005/vision.vert").readString();
       visionFrag=Gdx.files.internal("shader/main0005/vision.frag").readString();
       int ts=param.canvasSize;
@@ -116,6 +117,9 @@ public class Duel extends ScreenCore2D{
     system.displayScreen();
     if(mode==neat) {
       text(Tools.getFloatString(time,5,0)+"ms -> "+Tools.getFloatString(timeLimit,5,0)+"ms",0,0);
+      text("real time score",0,pu);
+      text("a - "+Tools.getFloatString(system.myGroup.player.engine.getScore(1)),0,pu*2);
+      text("b - "+Tools.getFloatString(system.otherGroup.player.engine.getScore(1)),0,pu*3);
     }
   }
   @Override
@@ -167,6 +171,8 @@ public class Duel extends ScreenCore2D{
       if(mode==neat) {
         if(system.stateIndex==GameSystem.play) {
           time++;
+          system.myGroup.player.engine.setScore(1,system.currentState.getScore(system.myGroup.id));
+          system.otherGroup.player.engine.setScore(1,system.currentState.getScore(system.otherGroup.id));
           if(time>timeLimit) {
             timeLimit=timeLimitConst;
             newGame(true,false);
@@ -226,8 +232,8 @@ public class Duel extends ScreenCore2D{
   public void stateChangeEvent(GameSystem system,int stateIndex) {
     if(system.stateIndex==GameSystem.play) time=0;
     else if(system.stateIndex==GameSystem.result) {
-      system.myGroup.player.engine.setScore(system.currentState.getScore(system.myGroup.id));
-      system.otherGroup.player.engine.setScore(system.currentState.getScore(system.otherGroup.id));
+      system.myGroup.player.engine.setScore(0,system.currentState.getScore(system.myGroup.id));
+      system.otherGroup.player.engine.setScore(0,system.currentState.getScore(system.otherGroup.id));
     }
   }
 }

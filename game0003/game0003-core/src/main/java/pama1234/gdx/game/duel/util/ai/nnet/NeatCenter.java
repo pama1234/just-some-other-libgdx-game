@@ -107,10 +107,12 @@ public class NeatCenter extends Center<NetworkGroup>{
         //   (UtilMath.abs(data[ComputerLifeEngine.magPos])>1/16f?0.2f:0)+
         //   (genome.floatData[0]);
         return genome.floatData!=null
-        ?(genome.floatData[0]<0.1f
-        ?ComputerLifeEngine.fireType(data[ComputerLifeEngine.firePos]/4f*0.4f)+(UtilMath.abs(data[ComputerLifeEngine.magPos])>1/16f?0.4f:0)
-        :genome.floatData[0])
-        :genome.score;
+          ?(genome.floatData[0]<0.1f
+            ?ComputerLifeEngine.fireType(data[ComputerLifeEngine.firePos]/4f*0.4f)+
+              (UtilMath.abs(data[ComputerLifeEngine.magPos])>1/16f?0.4f:0)+
+              genome.floatData[1]*0.1f
+            :genome.floatData[0])
+          :genome.score;
       });
       worldbehavior=newEvolveOptions(outputSize,inputSize);
     }
