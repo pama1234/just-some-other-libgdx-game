@@ -41,10 +41,15 @@ public class NetworkGroup{
     this.logicInput=logicInput;
     this.logicOutput=logicOutput;
     this.memory=memory;
-    this.vision=new NetworkModule(vision,input,logicInput);
-    this.logic=new NetworkModule(logic,logicInput,logicOutput);
-    this.behavior=new NetworkModule(behavior,logicOutput,output);
-    this.world=new NetworkModule(world,output,input);
+    this.vision=createNetworkModule(input,logicInput,vision);
+    this.logic=createNetworkModule(logicInput,logicOutput,logic);
+    this.behavior=createNetworkModule(logicOutput,output,behavior);
+    this.world=createNetworkModule(output,input,world);
+  }
+  public NetworkModule createNetworkModule(FloatBlock input,FloatBlock logicInput,Network vision) {
+    NetworkModule out=new NetworkModule(vision,input,logicInput);
+    out.network.floatData=new float[1];
+    return out;
   }
   public void execute() {
     vision.execute();
@@ -52,9 +57,9 @@ public class NetworkGroup{
     behavior.execute();
   }
   public void setScore(float score) {
-    vision.network.score=score;
-    logic.network.score=score;
-    behavior.network.score=score;
-    world.network.score=score;
+    vision.network.floatData[0]=score;
+    logic.network.floatData[0]=score;
+    behavior.network.floatData[0]=score;
+    world.network.floatData[0]=score;
   }
 }

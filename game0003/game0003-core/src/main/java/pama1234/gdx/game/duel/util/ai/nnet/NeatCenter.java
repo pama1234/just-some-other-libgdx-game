@@ -78,13 +78,14 @@ public class NeatCenter extends Center<NetworkGroup>{
     public int inputSize,logicSize,outputSize,memorySize;
     public EvolveOptions visionOptions,logicOptions,behaviorOptions,worldbehavior;
     //---
-    public FloatBlock behaviorTestInput,behaviorTestOutput;
+    // public FloatBlock behaviorTestInput,behaviorTestOutput;
     public EvolveOptions newEvolveOptions(int tempInputSize,int tempOutputSize) {
       EvolveOptions out=new EvolveOptions();
       out.setError(0.05f);
       out.setPopulationSize(10);
       out.setTemplate(new Network(tempInputSize,tempOutputSize));
-      out.setFitnessFunction(genome->genome.score);
+      out.setFitnessFunction(genome->genome.floatData!=null?genome.floatData[0]:genome.score);
+      // out.setFitnessFunction(genome->genome.floatData[0]);
       return out;
     }
     public NetworkGroupParam(int canvasSize) {
@@ -94,16 +95,22 @@ public class NeatCenter extends Center<NetworkGroup>{
       outputSize=3;
       memorySize=1;
       //---
-      behaviorTestInput=new FloatBlock(logicSize);
-      behaviorTestOutput=new FloatBlock(outputSize);
+      // behaviorTestInput=new FloatBlock(logicSize);
+      // behaviorTestOutput=new FloatBlock(outputSize);
       //---
       visionOptions=newEvolveOptions(inputSize,logicSize);
       logicOptions=newEvolveOptions(logicSize,logicSize);
       behaviorOptions=newEvolveOptions(logicSize,outputSize);
       behaviorOptions.setFitnessFunction(genome-> {
-        float[] data=genome.activate(behaviorTestInput,behaviorTestOutput).data();
-        return (data[ComputerLifeEngine.firePos]>1/3f?0.5f:0)+
-          (UtilMath.abs(data[ComputerLifeEngine.magPos])>1/16f?0.5f:0);
+        float[] data=genome.activate(new float[logicSize],new float[outputSize]);
+        // return (data[ComputerLifeEngine.firePos]>1/3f?0.2f:0)+
+        //   (UtilMath.abs(data[ComputerLifeEngine.magPos])>1/16f?0.2f:0)+
+        //   (genome.floatData[0]);
+        return genome.floatData!=null
+        ?(genome.floatData[0]<0.1f
+        ?ComputerLifeEngine.fireType(data[ComputerLifeEngine.firePos]/4f*0.4f)+(UtilMath.abs(data[ComputerLifeEngine.magPos])>1/16f?0.4f:0)
+        :genome.floatData[0])
+        :genome.score;
       });
       worldbehavior=newEvolveOptions(outputSize,inputSize);
     }

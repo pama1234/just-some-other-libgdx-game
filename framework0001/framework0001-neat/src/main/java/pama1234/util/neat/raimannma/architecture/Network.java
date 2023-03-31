@@ -58,6 +58,10 @@ public class Network{
    */
   private float dropout;
   /**
+   * used for misc purpose
+   */
+  public float[] floatData;
+  /**
    * Instantiates a new Network.
    *
    * @param input  the input size

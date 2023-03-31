@@ -13,11 +13,12 @@ uniform sampler2D u_texture;
 
 uniform vec2 u_dist;
 
-const float PI   = 3.141592653589;
-const float PI_2 = 6.283185307179;
+const float HALF_PI      = 1.570796326794;
+const float      PI      = 3.141592653589;
+const float      PI_2    = 6.283185307179;
 
 vec2 toPolar(vec2 data) {
-  float tempx = data.x * PI_2;
+  float tempx = data.x * PI_2 + HALF_PI;
   float x = data.y * sin(tempx);
   float y = data.y * cos(tempx + PI);
   return vec2(x, y) + u_dist;

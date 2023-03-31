@@ -13,6 +13,7 @@ public class ComputerLifeEngine extends PlayerEngine{
   public VisionConverter vision;
   public NetworkGroup networks;
   public int dfire;
+  public boolean completeCharge;
   public ComputerLifeEngine(Graphics graphics,NetworkGroup networks) {
     vision=new VisionConverter(graphics,networks.input.data());
     this.networks=networks;
@@ -21,6 +22,7 @@ public class ComputerLifeEngine extends PlayerEngine{
   public void run(PlayerActor player) {
     prepareInput();
     networks.execute();
+    completeCharge=player.state.hasCompletedLongBowCharge(player);
     operateOutput();
   }
   public void prepareInput() {
@@ -35,17 +37,25 @@ public class ComputerLifeEngine extends PlayerEngine{
     // System.out.println(dx*mag+" "+dy*mag);
     //---
     int fire=fireType(networks.output.get(firePos));
+    // System.out.println(fire);
+    if(fire==3) {
+      System.out.println(completeCharge);
+      if(completeCharge) inputDevice.operateLongShotButton(false);
+      else inputDevice.operateLongShotButton(true);
+    }
     if(fire!=dfire) {
       if(dfire==1) inputDevice.operateShotButton(false);
       else if(dfire==2) inputDevice.operateLongShotButton(false);
+      // eise if(dfire==3) inputDevice.operateLongShotButton(false);
       //---
       if(fire==1) inputDevice.operateShotButton(true);
       else if(fire==2) inputDevice.operateLongShotButton(true);
+      // eise if(fire==3) if(completeCharge) inputDevice.operateLongShotButton(false);
       dfire=fire;
     }
   }
-  public int fireType(float data) {
-    return (int)(data*3);
+  public static int fireType(float data) {
+    return (int)(data*4);
   }
   public static class VisionConverter{
     public Graphics graphics;

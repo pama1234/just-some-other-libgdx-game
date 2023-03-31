@@ -80,7 +80,7 @@ public class Duel extends ScreenCore2D{
     currentInput=new InputData();
     //---
     if(mode==neat) {
-      param=new NetworkGroupParam(256);
+      param=new NetworkGroupParam(8);
       neatCenter=new NeatCenter(param);
       //---
       graphics=new Graphics(this,CANVAS_SIZE,CANVAS_SIZE);
