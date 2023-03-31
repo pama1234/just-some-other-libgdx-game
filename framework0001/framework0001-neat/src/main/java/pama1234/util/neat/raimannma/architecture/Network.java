@@ -471,8 +471,9 @@ public class Network{
     }
     return output;
   }
-  public float[] activate(final FloatBlock input,final FloatBlock output) {
-    return activate(input.offset,input.size,input.data(),output.offset,output.size,output.data());
+  public FloatBlock activate(final FloatBlock input,final FloatBlock output) {
+    activate(input.offset,input.size,input.data(),output.offset,output.size,output.data());
+    return output;
   }
   /**
    * Removes a node from a network. All its connections will be redirected. If it gates a

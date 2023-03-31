@@ -13,6 +13,7 @@ public class MainTest{
     options=new EvolveOptions();
     options.setLog(5);
     options.setError(0.05f);
+    options.setTemplate(new Network(2,1));
     //---
     inputs=new float[][] {
       {0,0},
@@ -28,5 +29,6 @@ public class MainTest{
     };
     network=new Network(inputs[0].length,outputs[0].length);
     System.out.println(network.evolve(inputs,outputs,options));
+    System.out.println(network.toString());
   }
 }

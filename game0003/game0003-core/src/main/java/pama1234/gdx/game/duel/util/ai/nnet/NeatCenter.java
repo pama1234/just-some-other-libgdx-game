@@ -17,6 +17,8 @@ public class NeatCenter extends Center<NetworkGroup>{
   public int index;
   public NeatCenter(NetworkGroupParam param) {
     this.param=param;
+    // System.out.println(param.inputSize);
+    // System.out.println(param.logicOptions.getTemplate().toString());
     vision=new NeatModule(param.inputSize,param.logicSize,param.visionOptions);
     logic=new NeatModule(param.logicSize,param.logicSize,param.logicOptions);
     behavior=new NeatModule(param.logicSize,param.outputSize,param.behaviorOptions);
@@ -35,18 +37,27 @@ public class NeatCenter extends Center<NetworkGroup>{
     return list.get(index++);
   }
   public NetworkGroup createNetworkGroup(float[] data) {
-    return new NetworkGroup(
+    NetworkGroup out=new NetworkGroup(
       new FloatBlock(new float[param.inputSize]),new FloatBlock(new float[param.outputSize]),
       new FloatBlock(data,param.memorySize,param.logicSize),new FloatBlock(data,param.logicSize,param.logicSize),
       new FloatBlock(data,0,param.memorySize),
-      vision.neat.evolve(),
-      logic.neat.evolve(),
-      behavior.neat.evolve(),
-      world.neat.evolve());
-    // vision.neat.getFittest(),
-    // logic.neat.getFittest(),
-    // behavior.neat.getFittest(),
-    // world.neat.getFittest());
+      // vision.neat.evolve(),
+      // logic.neat.evolve(),
+      // behavior.neat.evolve(),
+      // world.neat.evolve());
+      vision.neat.getFittest(),
+      logic.neat.getFittest(),
+      behavior.neat.getFittest(),
+      world.neat.getFittest());
+    evolve();
+    // System.out.println(out.logic.network.toString());
+    return out;
+  }
+  public void evolve() {
+    vision.neat.evolve();
+    logic.neat.evolve();
+    behavior.neat.evolve();
+    world.neat.evolve();
   }
   public static class NeatModule{
     public NEAT neat;
@@ -66,17 +77,13 @@ public class NeatCenter extends Center<NetworkGroup>{
     public int canvasSize=256;
     public int inputSize,logicSize,outputSize,memorySize;
     public EvolveOptions visionOptions,logicOptions,behaviorOptions,worldbehavior;
-    {
-      visionOptions=newEvolveOptions(inputSize,logicSize);
-      logicOptions=newEvolveOptions(logicSize,logicSize);
-      behaviorOptions=newEvolveOptions(logicSize,outputSize);
-      worldbehavior=newEvolveOptions(outputSize,inputSize);
-    }
-    public EvolveOptions newEvolveOptions(int a,int b) {
+    //---
+    public FloatBlock behaviorTestInput,behaviorTestOutput;
+    public EvolveOptions newEvolveOptions(int tempInputSize,int tempOutputSize) {
       EvolveOptions out=new EvolveOptions();
       out.setError(0.05f);
       out.setPopulationSize(10);
-      out.setTemplate(new Network(a,b));
+      out.setTemplate(new Network(tempInputSize,tempOutputSize));
       out.setFitnessFunction(genome->genome.score);
       return out;
     }
@@ -86,6 +93,19 @@ public class NeatCenter extends Center<NetworkGroup>{
       logicSize=64;
       outputSize=3;
       memorySize=1;
+      //---
+      behaviorTestInput=new FloatBlock(logicSize);
+      behaviorTestOutput=new FloatBlock(outputSize);
+      //---
+      visionOptions=newEvolveOptions(inputSize,logicSize);
+      logicOptions=newEvolveOptions(logicSize,logicSize);
+      behaviorOptions=newEvolveOptions(logicSize,outputSize);
+      behaviorOptions.setFitnessFunction(genome-> {
+        float[] data=genome.activate(behaviorTestInput,behaviorTestOutput).data();
+        return (data[ComputerLifeEngine.firePos]>1/3f?0.5f:0)+
+          (UtilMath.abs(data[ComputerLifeEngine.magPos])>1/16f?0.5f:0);
+      });
+      worldbehavior=newEvolveOptions(outputSize,inputSize);
     }
   }
 }

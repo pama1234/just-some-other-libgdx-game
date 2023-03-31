@@ -12,6 +12,9 @@ public class FloatBlock{
     this.data=data;
     size=data.length;
   }
+  public FloatBlock(int size) {
+    this(new float[size]);
+  }
   public float[] data() {
     return data;
   }

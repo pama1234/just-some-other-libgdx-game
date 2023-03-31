@@ -8,6 +8,8 @@ import pama1234.gdx.util.element.Graphics;
 import pama1234.math.UtilMath;
 
 public class ComputerLifeEngine extends PlayerEngine{
+  public static final int dirPos=0,magPos=1,firePos=2;
+  //---
   public VisionConverter vision;
   public NetworkGroup networks;
   public int dfire;
@@ -25,19 +27,19 @@ public class ComputerLifeEngine extends PlayerEngine{
     vision.execute();
   }
   public void operateOutput() {
-    float rad=networks.output.get(0)*UtilMath.PI;
-    float mag=UtilMath.constrain(networks.output.get(1),-1,1);
+    float rad=networks.output.get(dirPos)*UtilMath.PI;
+    float mag=UtilMath.constrain(networks.output.get(magPos),-1,1);
     float dx=UtilMath.sin(rad);
     float dy=UtilMath.cos(rad);
     inputDevice.operateMove(dx*mag,dy*mag);
     // System.out.println(dx*mag+" "+dy*mag);
     //---
-    int fire=fireType(networks.output.get(2));
+    int fire=fireType(networks.output.get(firePos));
     if(fire!=dfire) {
       if(dfire==1) inputDevice.operateShotButton(false);
       else if(dfire==2) inputDevice.operateLongShotButton(false);
       //---
-      if(fire==1) inputDevice.operateLongShotButton(true);
+      if(fire==1) inputDevice.operateShotButton(true);
       else if(fire==2) inputDevice.operateLongShotButton(true);
       dfire=fire;
     }

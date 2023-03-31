@@ -58,7 +58,8 @@ public class Duel extends ScreenCore2D{
   public float strokeUnit;
   //---
   public static final int game=0,neat=1;
-  public int mode=neat;
+  public int mode=isAndroid?game:neat;
+  // public int mode=game;
   public Graphics graphics;
   //---
   public NeatCenter neatCenter;
@@ -67,7 +68,7 @@ public class Duel extends ScreenCore2D{
   public ShaderProgram shader;
   public String visionVert,visionFrag;
   public FisheyeVision player_a,player_b;
-  public int timeLimitConst=60*30;
+  public int timeLimitConst=60*10;
   public int time,timeLimit=timeLimitConst;
   @Override
   public void setup() {
@@ -113,7 +114,9 @@ public class Duel extends ScreenCore2D{
   @Override
   public void display() {
     system.displayScreen();
-    text(Tools.getFloatString(time,5,0)+"ms -> "+Tools.getFloatString(timeLimit,5,0)+"ms",0,0);
+    if(mode==neat) {
+      text(Tools.getFloatString(time,5,0)+"ms -> "+Tools.getFloatString(timeLimit,5,0)+"ms",0,0);
+    }
   }
   @Override
   public void displayWithCam() {
