@@ -14,6 +14,7 @@ import pama1234.math.UtilMath;
 public final class PlayGameState extends GameSystemState{
   public PlayGameState(Duel duel,GameSystem system) {
     super(duel,system);
+    system.stateIndex=GameSystem.play;
   }
   public int messageDurationFrameCount=UtilMath.floor(Duel.IDEAL_FRAME_RATE);
   @Override
@@ -46,8 +47,8 @@ public final class PlayGameState extends GameSystemState{
   }
   @Override
   public void checkStateTransition() {
-    if(system.myGroup.player.isNull()) system.currentState=new GameResultState(duel,system,TextUtil.used.lose);
-    else if(system.otherGroup.player.isNull()) system.currentState=new GameResultState(duel,system,TextUtil.used.win);
+    if(system.myGroup.player.isNull()) system.currentState(new GameResultState(duel,system,TextUtil.used.lose));
+    else if(system.otherGroup.player.isNull()) system.currentState(new GameResultState(duel,system,TextUtil.used.win));
   }
   public void checkCollision() {
     final ActorGroup myGroup=duel.system.myGroup;

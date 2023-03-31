@@ -11,6 +11,7 @@ public final class GameResultState extends GameSystemState{
   public final int durationFrameCount=UtilMath.floor(Duel.IDEAL_FRAME_RATE);
   public GameResultState(Duel duel,GameSystem system,TextWithWidth msg) {
     super(duel,system);
+    system.stateIndex=GameSystem.result;
     resultMessage=msg;
   }
   @Override

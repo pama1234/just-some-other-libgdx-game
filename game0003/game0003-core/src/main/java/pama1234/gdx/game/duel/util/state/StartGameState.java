@@ -10,6 +10,7 @@ import pama1234.math.UtilMath;
 public final class StartGameState extends GameSystemState{
   public StartGameState(Duel duel,GameSystem system) {
     super(duel,system);
+    system.stateIndex=GameSystem.start;
   }
   public final int frameCountPerNumber=UtilMath.floor(Duel.IDEAL_FRAME_RATE);
   public final float ringSize=200;
@@ -60,7 +61,7 @@ public final class StartGameState extends GameSystemState{
         .lifespanSecond(1.0f)
         .build();
       system.commonParticleSet.particleList.add(newParticle);
-      system.currentState=new PlayGameState(duel,system);
+      system.currentState(new PlayGameState(duel,system));
     }
   }
 }

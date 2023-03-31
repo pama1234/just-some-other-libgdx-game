@@ -2,7 +2,6 @@ package pama1234.gdx.game.duel;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
-import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
 import pama1234.gdx.game.duel.util.ai.nnet.FisheyeVision;
@@ -16,6 +15,7 @@ import pama1234.gdx.util.app.ScreenCore2D;
 import pama1234.gdx.util.element.Graphics;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
+import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 
 /**
@@ -67,7 +67,8 @@ public class Duel extends ScreenCore2D{
   public ShaderProgram shader;
   public String visionVert,visionFrag;
   public FisheyeVision player_a,player_b;
-  public int time,timeLimit=60*30;
+  public int timeLimitConst=60*30;
+  public int time,timeLimit=timeLimitConst;
   @Override
   public void setup() {
     TextUtil.used=TextUtil.gen_ch(this::textWidthNoScale);
@@ -126,6 +127,7 @@ public class Duel extends ScreenCore2D{
       image(player_a.graphics.texture,-656,0,CANVAS_SIZE,CANVAS_SIZE);
       image(graphics.texture,0,0,CANVAS_SIZE,CANVAS_SIZE);
       image(player_b.graphics.texture,656,0,CANVAS_SIZE,CANVAS_SIZE);
+      text(Tools.getFloatString(time)+"ms ->"+Tools.getFloatString(timeLimit),matrixStackPointer,key);
     }else {
       system.display();
     }
@@ -159,6 +161,13 @@ public class Duel extends ScreenCore2D{
       system.update();
       //---
       if(mode==neat) {
+        if(system.stateIndex==GameSystem.play) {
+          time++;
+          if(time>timeLimit) {
+            timeLimit=timeLimitConst;
+            newGame(true,false);
+          }
+        }
         player_a.update(system.myGroup.player);
         player_b.update(system.otherGroup.player);
       }
@@ -209,5 +218,8 @@ public class Duel extends ScreenCore2D{
       currentInput.dy=0;
       magCache=0;
     }
+  }
+  public void stateChangeEvent(GameSystem system,int stateIndex) {
+    if(system.stateIndex==GameSystem.play) time=0;
   }
 }

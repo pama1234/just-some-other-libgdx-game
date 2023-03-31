@@ -6,6 +6,7 @@ import pama1234.gdx.game.duel.GameSystem;
 public abstract class GameSystemState{
   public final Duel duel;
   public GameSystem system;
+  //---
   public GameSystemState(Duel duel,GameSystem system) {
     this.duel=duel;
     this.system=system;
