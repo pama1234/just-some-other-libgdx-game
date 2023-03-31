@@ -2,7 +2,6 @@ package pama1234.gdx.game.duel;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
-import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
 import pama1234.gdx.game.duel.util.ai.nnet.FisheyeVision;

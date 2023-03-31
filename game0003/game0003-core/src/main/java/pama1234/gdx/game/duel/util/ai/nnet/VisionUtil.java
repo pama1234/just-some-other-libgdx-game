@@ -70,7 +70,9 @@ public class VisionUtil{
     int[] pixels=cache;
     ByteBuffer buffer=pixmap.getPixels();
     buffer.rewind();
+    // Tools.time();
     buffer.asIntBuffer().get(pixels);
+    // System.out.println(Tools.period());
     pixmap.dispose();
     for(int i=0;i<pixels.length;i++) {
       int pixel=pixels[i];

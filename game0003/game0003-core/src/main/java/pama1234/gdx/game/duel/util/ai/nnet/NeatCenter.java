@@ -17,8 +17,6 @@ public class NeatCenter extends Center<NetworkGroup>{
   public int index;
   public NeatCenter(NetworkGroupParam param) {
     this.param=param;
-    // System.out.println(param.inputSize);
-    // System.out.println(param.logicOptions.getTemplate().toString());
     vision=new NeatModule(param.inputSize,param.logicSize,param.visionOptions);
     logic=new NeatModule(param.logicSize,param.logicSize,param.logicOptions);
     behavior=new NeatModule(param.logicSize,param.outputSize,param.behaviorOptions);
@@ -41,16 +39,11 @@ public class NeatCenter extends Center<NetworkGroup>{
       new FloatBlock(new float[param.inputSize]),new FloatBlock(new float[param.outputSize]),
       new FloatBlock(data,param.memorySize,param.logicSize),new FloatBlock(data,param.logicSize,param.logicSize),
       new FloatBlock(data,0,param.memorySize),
-      // vision.neat.evolve(),
-      // logic.neat.evolve(),
-      // behavior.neat.evolve(),
-      // world.neat.evolve());
       vision.neat.getFittest(),
       logic.neat.getFittest(),
       behavior.neat.getFittest(),
       world.neat.getFittest());
     evolve();
-    // System.out.println(out.logic.network.toString());
     return out;
   }
   public void evolve() {
@@ -78,14 +71,12 @@ public class NeatCenter extends Center<NetworkGroup>{
     public int inputSize,logicSize,outputSize,memorySize;
     public EvolveOptions visionOptions,logicOptions,behaviorOptions,worldbehavior;
     //---
-    // public FloatBlock behaviorTestInput,behaviorTestOutput;
     public EvolveOptions newEvolveOptions(int tempInputSize,int tempOutputSize) {
       EvolveOptions out=new EvolveOptions();
       out.setError(0.05f);
       out.setPopulationSize(10);
       out.setTemplate(new Network(tempInputSize,tempOutputSize));
       out.setFitnessFunction(genome->genome.floatData!=null?genome.floatData[0]:genome.score);
-      // out.setFitnessFunction(genome->genome.floatData[0]);
       return out;
     }
     public NetworkGroupParam(int canvasSize) {
@@ -95,17 +86,11 @@ public class NeatCenter extends Center<NetworkGroup>{
       outputSize=3;
       memorySize=1;
       //---
-      // behaviorTestInput=new FloatBlock(logicSize);
-      // behaviorTestOutput=new FloatBlock(outputSize);
-      //---
       visionOptions=newEvolveOptions(inputSize,logicSize);
       logicOptions=newEvolveOptions(logicSize,logicSize);
       behaviorOptions=newEvolveOptions(logicSize,outputSize);
       behaviorOptions.setFitnessFunction(genome-> {
         float[] data=genome.activate(new float[logicSize],new float[outputSize]);
-        // return (data[ComputerLifeEngine.firePos]>1/3f?0.2f:0)+
-        //   (UtilMath.abs(data[ComputerLifeEngine.magPos])>1/16f?0.2f:0)+
-        //   (genome.floatData[0]);
         return genome.floatData!=null
           ?(genome.floatData[0]<0.1f
             ?ComputerLifeEngine.fireType(data[ComputerLifeEngine.firePos]/4f*0.4f)+

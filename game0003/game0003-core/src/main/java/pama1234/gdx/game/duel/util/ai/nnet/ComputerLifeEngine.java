@@ -34,23 +34,18 @@ public class ComputerLifeEngine extends PlayerEngine{
     float dx=UtilMath.sin(rad);
     float dy=UtilMath.cos(rad);
     inputDevice.operateMove(dx*mag,dy*mag);
-    // System.out.println(dx*mag+" "+dy*mag);
     //---
     int fire=fireType(networks.output.get(firePos));
-    // System.out.println(fire);
-    if(fire==3) {
-      // System.out.println(completeCharge);
+    if(fire==2) {
       if(completeCharge) inputDevice.operateLongShotButton(false);
       else inputDevice.operateLongShotButton(true);
     }
     if(fire!=dfire) {
       if(dfire==1) inputDevice.operateShotButton(false);
-      else if(dfire==2) inputDevice.operateLongShotButton(false);
-      // eise if(dfire==3) inputDevice.operateLongShotButton(false);
+      else if(dfire==3) inputDevice.operateLongShotButton(false);
       //---
       if(fire==1) inputDevice.operateShotButton(true);
-      else if(fire==2) inputDevice.operateLongShotButton(true);
-      // eise if(fire==3) if(completeCharge) inputDevice.operateLongShotButton(false);
+      else if(fire==3) inputDevice.operateLongShotButton(true);
       dfire=fire;
     }
   }
