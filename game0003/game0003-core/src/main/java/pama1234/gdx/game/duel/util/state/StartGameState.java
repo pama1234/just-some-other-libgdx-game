@@ -64,4 +64,8 @@ public final class StartGameState extends GameSystemState{
       system.currentState(new PlayGameState(duel,system));
     }
   }
+  @Override
+  public float getScore(int group) {
+    return 0;
+  }
 }

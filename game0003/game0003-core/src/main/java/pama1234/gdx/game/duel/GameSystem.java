@@ -37,8 +37,8 @@ public final class GameSystem{
   public GameSystem(Duel duel,boolean demo,boolean instruction) {
     this.duel=duel;
     // prepare ActorGroup
-    myGroup=new ActorGroup();
-    otherGroup=new ActorGroup();
+    myGroup=new ActorGroup(0);
+    otherGroup=new ActorGroup(1);
     myGroup.enemyGroup=otherGroup;
     otherGroup.enemyGroup=myGroup;
     // prepare PlayerActorState

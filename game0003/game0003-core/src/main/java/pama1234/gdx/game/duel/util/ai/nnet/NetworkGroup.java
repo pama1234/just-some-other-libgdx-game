@@ -51,4 +51,10 @@ public class NetworkGroup{
     logic.execute();
     behavior.execute();
   }
+  public void setScore(float score) {
+    vision.network.score=score;
+    logic.network.score=score;
+    behavior.network.score=score;
+    world.network.score=score;
+  }
 }

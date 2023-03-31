@@ -10,4 +10,5 @@ public abstract class PlayerEngine{
     inputDevice=new InputDevice();
   }
   public abstract void run(PlayerActor player);
+  public abstract void setScore(float score);
 }

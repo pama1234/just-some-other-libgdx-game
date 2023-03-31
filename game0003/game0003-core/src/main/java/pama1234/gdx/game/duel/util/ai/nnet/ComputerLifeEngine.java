@@ -58,4 +58,8 @@ public class ComputerLifeEngine extends PlayerEngine{
       VisionUtil.pixmapToFloatArray(Pixmap.createFromFrameBuffer(0,0,graphics.width(),graphics.height()),cache,data,0);
     }
   }
+  @Override
+  public void setScore(float score) {
+    networks.setScore(score);
+  }
 }

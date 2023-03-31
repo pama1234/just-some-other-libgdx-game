@@ -10,10 +10,10 @@ import pama1234.gdx.util.element.Graphics;
 public class FisheyeVision{
   public Duel duel;
   public ShaderProgram shader;
+  public Color backgroundColor;
   public Graphics graphics;
   public float camX,camY;
   //---
-  public Color backgroundColor;
   public FisheyeVision(Duel duel,ShaderProgram shader,Graphics graphics) {
     this.duel=duel;
     this.shader=shader;

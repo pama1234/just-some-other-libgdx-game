@@ -113,6 +113,7 @@ public class Duel extends ScreenCore2D{
   @Override
   public void display() {
     system.displayScreen();
+    text(Tools.getFloatString(time,5,0)+"ms -> "+Tools.getFloatString(timeLimit,5,0)+"ms",0,0);
   }
   @Override
   public void displayWithCam() {
@@ -127,7 +128,7 @@ public class Duel extends ScreenCore2D{
       image(player_a.graphics.texture,-656,0,CANVAS_SIZE,CANVAS_SIZE);
       image(graphics.texture,0,0,CANVAS_SIZE,CANVAS_SIZE);
       image(player_b.graphics.texture,656,0,CANVAS_SIZE,CANVAS_SIZE);
-      text(Tools.getFloatString(time)+"ms ->"+Tools.getFloatString(timeLimit),matrixStackPointer,key);
+      clearMatrix();
     }else {
       system.display();
     }
@@ -221,5 +222,9 @@ public class Duel extends ScreenCore2D{
   }
   public void stateChangeEvent(GameSystem system,int stateIndex) {
     if(system.stateIndex==GameSystem.play) time=0;
+    else if(system.stateIndex==GameSystem.result) {
+      system.myGroup.player.engine.setScore(system.currentState.getScore(system.myGroup.id));
+      system.otherGroup.player.engine.setScore(system.currentState.getScore(system.otherGroup.id));
+    }
   }
 }

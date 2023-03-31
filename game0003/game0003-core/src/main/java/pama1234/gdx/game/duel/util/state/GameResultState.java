@@ -9,9 +9,12 @@ import pama1234.math.UtilMath;
 public final class GameResultState extends GameSystemState{
   public final TextWithWidth resultMessage;
   public final int durationFrameCount=UtilMath.floor(Duel.IDEAL_FRAME_RATE);
-  public GameResultState(Duel duel,GameSystem system,TextWithWidth msg) {
+  //---
+  public int winGroupe;
+  public GameResultState(Duel duel,GameSystem system,int winGroupe,TextWithWidth msg) {
     super(duel,system);
     system.stateIndex=GameSystem.result;
+    this.winGroupe=winGroupe;
     resultMessage=msg;
   }
   @Override
@@ -47,5 +50,9 @@ public final class GameResultState extends GameSystemState{
       if(properFrameCount>durationFrameCount&&
         duel.currentInput.isXPressed) duel.newGame(true,true); // back to demoplay with instruction window
     }
+  }
+  @Override
+  public float getScore(int group) {
+    return winGroupe==group?1:0;
   }
 }

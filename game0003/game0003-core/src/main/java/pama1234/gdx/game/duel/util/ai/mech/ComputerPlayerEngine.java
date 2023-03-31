@@ -30,4 +30,8 @@ public final class ComputerPlayerEngine extends PlayerEngine{
     if(time%planUpdateFrameCount==0) currentPlan=currentPlan.nextPlan(player);
     time++;
   }
+  @Override
+  public void setScore(float score) {
+    //TODO nop
+  }
 }

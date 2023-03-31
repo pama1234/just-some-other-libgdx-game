@@ -9,6 +9,10 @@ public final class ActorGroup{
   public AbstractPlayerActor player;
   public final ArrayList<AbstractArrowActor> arrowList=new ArrayList<AbstractArrowActor>();
   public final ArrayList<AbstractArrowActor> removingArrowList=new ArrayList<AbstractArrowActor>();
+  public int id;
+  public ActorGroup(int id) {
+    this.id=id;
+  }
   public void update() {
     player.update();
     if(removingArrowList.size()>=1) {
@@ -21,7 +25,7 @@ public final class ActorGroup{
     player.act();
     for(AbstractArrowActor eachArrow:arrowList) eachArrow.act();
   }
-  public void setPlayer(PlayerActor newPlayer) {
+  public void setPlayer(AbstractPlayerActor newPlayer) {
     player=newPlayer;
     newPlayer.group=this;
   }

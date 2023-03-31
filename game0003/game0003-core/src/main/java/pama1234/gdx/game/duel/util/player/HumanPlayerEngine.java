@@ -18,4 +18,8 @@ public class HumanPlayerEngine extends PlayerEngine{
     inputDevice.operateShotButton(currentInput.isZPressed);
     inputDevice.operateLongShotButton(currentInput.isXPressed);
   }
+  @Override
+  public void setScore(float score) {
+    //TODO nop
+  }
 }

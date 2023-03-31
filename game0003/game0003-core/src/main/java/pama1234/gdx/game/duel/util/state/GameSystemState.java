@@ -27,4 +27,5 @@ public abstract class GameSystemState{
   public abstract void displaySystem();
   public abstract void displayMessage();
   public abstract void checkStateTransition();
+  public abstract float getScore(int group);
 }

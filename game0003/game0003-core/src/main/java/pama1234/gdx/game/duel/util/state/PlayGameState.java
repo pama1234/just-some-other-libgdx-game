@@ -47,8 +47,8 @@ public final class PlayGameState extends GameSystemState{
   }
   @Override
   public void checkStateTransition() {
-    if(system.myGroup.player.isNull()) system.currentState(new GameResultState(duel,system,TextUtil.used.lose));
-    else if(system.otherGroup.player.isNull()) system.currentState(new GameResultState(duel,system,TextUtil.used.win));
+    if(system.myGroup.player.isNull()) system.currentState(new GameResultState(duel,system,system.myGroup.id,TextUtil.used.lose));
+    else if(system.otherGroup.player.isNull()) system.currentState(new GameResultState(duel,system,system.otherGroup.id,TextUtil.used.win));
   }
   public void checkCollision() {
     final ActorGroup myGroup=duel.system.myGroup;
@@ -81,7 +81,7 @@ public final class PlayGameState extends GameSystemState{
   public void killPlayer(AbstractPlayerActor player) {
     duel.system.addSquareParticles(player.xPosition,player.yPosition,50,16,2,10,4);
     // player.group.player=new NullPlayerActor(player.xPosition,player.yPosition,player.group);//TODO
-    player.group.player=new NullPlayerActor();
+    player.group.setPlayer(new NullPlayerActor(player.engine));
     duel.system.screenShakeValue=50;
   }
   public void breakArrow(AbstractArrowActor arrow,ActorGroup group) {
@@ -95,5 +95,9 @@ public final class PlayGameState extends GameSystemState{
     targetPlayerActor.yVelocity+=20*UtilMath.sin(thrustAngle);
     targetPlayerActor.state=duel.system.damagedState.entryState(targetPlayerActor);
     duel.system.screenShakeValue+=10;
+  }
+  @Override
+  public float getScore(int group) {
+    return 0;
   }
 }
