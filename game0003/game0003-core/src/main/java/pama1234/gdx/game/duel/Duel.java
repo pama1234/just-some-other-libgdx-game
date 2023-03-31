@@ -2,6 +2,7 @@ package pama1234.gdx.game.duel;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Buttons;
+import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
 import pama1234.gdx.game.duel.util.ai.nnet.FisheyeVision;
@@ -66,6 +67,7 @@ public class Duel extends ScreenCore2D{
   public ShaderProgram shader;
   public String visionVert,visionFrag;
   public FisheyeVision player_a,player_b;
+  public int time,timeLimit=60*30;
   @Override
   public void setup() {
     TextUtil.used=TextUtil.gen_ch(this::textWidthNoScale);
@@ -80,6 +82,7 @@ public class Duel extends ScreenCore2D{
       neatCenter=new NeatCenter(param);
       //---
       graphics=new Graphics(this,CANVAS_SIZE,CANVAS_SIZE);
+      // graphics.texture.setFilter(TextureFilter.Linear,TextureFilter.Nearest);
       visionVert=Gdx.files.internal("shader/main0005/vision.vert").readString();
       visionFrag=Gdx.files.internal("shader/main0005/vision.frag").readString();
       int ts=param.canvasSize;

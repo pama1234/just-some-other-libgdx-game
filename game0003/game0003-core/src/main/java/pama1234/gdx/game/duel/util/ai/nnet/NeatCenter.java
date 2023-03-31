@@ -2,6 +2,7 @@ package pama1234.gdx.game.duel.util.ai.nnet;
 
 import java.util.ArrayList;
 
+import pama1234.gdx.game.duel.Duel;
 import pama1234.math.UtilMath;
 import pama1234.util.neat.raimannma.architecture.EvolveOptions;
 import pama1234.util.neat.raimannma.architecture.FloatBlock;
@@ -38,10 +39,14 @@ public class NeatCenter extends Center<NetworkGroup>{
       new FloatBlock(new float[param.inputSize]),new FloatBlock(new float[param.outputSize]),
       new FloatBlock(data,param.memorySize,param.logicSize),new FloatBlock(data,param.logicSize,param.logicSize),
       new FloatBlock(data,0,param.memorySize),
-      vision.neat.getFittest(),
-      logic.neat.getFittest(),
-      behavior.neat.getFittest(),
-      world.neat.getFittest());
+      vision.neat.evolve(),
+      logic.neat.evolve(),
+      behavior.neat.evolve(),
+      world.neat.evolve());
+    // vision.neat.getFittest(),
+    // logic.neat.getFittest(),
+    // behavior.neat.getFittest(),
+    // world.neat.getFittest());
   }
   public static class NeatModule{
     public NEAT neat;
@@ -57,6 +62,7 @@ public class NeatCenter extends Center<NetworkGroup>{
     }
   }
   public static class NetworkGroupParam{
+    public Duel duel;
     public int canvasSize=256;
     public int inputSize,logicSize,outputSize,memorySize;
     public EvolveOptions visionOptions,logicOptions,behaviorOptions,worldbehavior;
@@ -78,7 +84,7 @@ public class NeatCenter extends Center<NetworkGroup>{
       this.canvasSize=canvasSize;
       inputSize=UtilMath.sq(canvasSize)*3;
       logicSize=64;
-      outputSize=4;
+      outputSize=3;
       memorySize=1;
     }
   }

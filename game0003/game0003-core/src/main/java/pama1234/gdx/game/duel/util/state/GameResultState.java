@@ -41,13 +41,10 @@ public final class GameResultState extends GameSystemState{
   @Override
   public void checkStateTransition() {
     if(system.demoPlay) {
-      if(properFrameCount>durationFrameCount*3) {
-        duel.newGame(true,system.showsInstructionWindow);
-      }
+      if(properFrameCount>durationFrameCount*3) duel.newGame(true,system.showsInstructionWindow);
     }else {
-      if(properFrameCount>durationFrameCount&&duel.currentInput.isXPressed) {
-        duel.newGame(true,true); // back to demoplay with instruction window
-      }
+      if(properFrameCount>durationFrameCount&&
+        duel.currentInput.isXPressed) duel.newGame(true,true); // back to demoplay with instruction window
     }
   }
 }

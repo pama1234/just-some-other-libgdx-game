@@ -30,6 +30,7 @@ public class ComputerLifeEngine extends PlayerEngine{
     float dx=UtilMath.sin(rad);
     float dy=UtilMath.cos(rad);
     inputDevice.operateMove(dx*mag,dy*mag);
+    // System.out.println(dx*mag+" "+dy*mag);
     //---
     int fire=fireType(networks.output.get(2));
     if(fire!=dfire) {

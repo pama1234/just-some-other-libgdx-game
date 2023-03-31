@@ -15,7 +15,7 @@ public final class StartGameState extends GameSystemState{
   public final float ringSize=200;
   public final Color ringColor=Duel.color(0);
   public final float ringStrokeWeight=5.0f;
-  public int displayNumber=4;
+  public int displayNumber=3;
   @Override
   public void updateSystem() {
     system.myGroup.update();
@@ -32,10 +32,10 @@ public final class StartGameState extends GameSystemState{
   public void displayMessage() {
     final int currentNumberFrameCount=properFrameCount%frameCountPerNumber;
     if(currentNumberFrameCount==0) displayNumber--;
-    if(displayNumber<=0) return;
+    if(displayNumber<0) return;
     duel.setTextColor(ringColor);
     duel.setTextScale(duel.pus);
-    String in=Integer.toString(displayNumber-1);
+    String in=Integer.toString(displayNumber);
     duel.drawText(in,(duel.width-duel.textWidth(in))/2f,(duel.height-duel.pu)/2f);
     duel.setTextScale(1);
   }
