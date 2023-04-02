@@ -1,6 +1,7 @@
 include 'framework','server-framework'
 
-include 'framework0001:framework0001-neat', 'framework0001:framework0001-openxr'
+include 'framework0001:framework0001-neat'
+include 'framework0002:framework0002-lwjgl3', 'framework0002:framework0002-android'
 
 include 'game0001:game0001-android', 'game0001:game0001-lwjgl3', 'game0001:game0001-core', 'game0001:game0001-server', 'game0001:game0001-headless', 'game0001:game0001-pico4', 'game0001:game0001-taptap'
 include 'game0002:game0002-android', 'game0002:game0002-lwjgl3', 'game0002:game0002-core', 'game0002:game0002-server'
