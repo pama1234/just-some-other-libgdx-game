@@ -72,7 +72,7 @@ public class Settings extends StateEntity0001{
   }
   public static void drawLogText(Screen0011 p,String logText,float x,float y) {
     p.font.setColor(p.textColor);
-    p.drawText(logText,x,y);
+    p.fullText(logText,x,y);
   }
   public void text(String in) {
     p.text(in,tx,ty);

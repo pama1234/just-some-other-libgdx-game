@@ -37,7 +37,7 @@ public final class StartGameState extends GameSystemState{
     duel.setTextColor(ringColor);
     duel.setTextScale(duel.pus);
     String in=Integer.toString(displayNumber);
-    duel.drawText(in,(duel.width-duel.textWidth(in))/2f,(duel.height-duel.pu)/2f);
+    duel.fullText(in,(duel.width-duel.textWidth(in))/2f,(duel.height-duel.pu)/2f);
     duel.setTextScale(1);
   }
   public void drawRing() {

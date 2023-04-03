@@ -36,8 +36,8 @@ public final class GameResultState extends GameSystemState{
     if(system.demoPlay) return;
     duel.setTextColor(0);
     duel.setTextScale(duel.pus);
-    duel.drawText(resultMessage.text,(duel.width-resultMessage.width*duel.pus)/2f,(duel.height-duel.pu*2f)/2f);
-    if(properFrameCount>durationFrameCount) duel.drawText(
+    duel.fullText(resultMessage.text,(duel.width-resultMessage.width*duel.pus)/2f,(duel.height-duel.pu*2f)/2f);
+    if(properFrameCount>durationFrameCount) duel.fullText(
       TextUtil.used.restart.text,
       (duel.width-TextUtil.used.restart.width*duel.pus)/2f,
       (duel.height+duel.pu*1f)/2f);

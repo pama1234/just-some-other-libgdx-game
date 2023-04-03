@@ -37,7 +37,7 @@ public class GameDisplayUtil{
     if(p.settings.showLog) {
       p.font.setColor(p.textColor);
       p.setTextScale(p.font.scale);
-      p.drawText(p.logText,debugTextX,debugTextY+debugTextH*debugTextCountY);
+      p.fullText(p.logText,debugTextX,debugTextY+debugTextH*debugTextCountY);
       p.setTextScale(1);
     }
     p.textScale(p.pus);

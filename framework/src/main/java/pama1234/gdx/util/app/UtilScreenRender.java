@@ -71,6 +71,12 @@ public abstract class UtilScreenRender extends UtilScreenColor{
     imageBatch.end();
   }
   //---------------------------------------------------------------------------
+  /**
+   * 全称fastText，比libgdx的text方法更快一些，无法绘制多色或有换行的文字
+   * @param in
+   * @param x
+   * @param y
+   */
   public void text(String in,float x,float y) {
     fontBatch.begin();
     font.text(in==null?"null":in,x,y);
@@ -94,14 +100,13 @@ public abstract class UtilScreenRender extends UtilScreenColor{
   public float textSize() {
     return font.size;
   }
-  public float fontScale(float ts) {
-    if(ts>=1) return MathUtils.floor(ts);
-    else return Math.max(MathUtils.floor(ts*fontGridSize)/fontGridSize,1/fontGridSize);
+  public float fontScale(float in) {
+    if(in>=1) return MathUtils.floor(in);
+    else return Math.max(MathUtils.floor(in*fontGridSize)/fontGridSize,1/fontGridSize);
   }
   //---------------------------------------------------------------------------
-  public void drawText(String in,float x,float y) {
+  public void fullText(String in,float x,float y) {
     fontBatch.begin();
-    // font.setColor(1,1,1,1);
     font.draw(fontBatch,in==null?"null":in,x,y);
     fontBatch.end();
   }

@@ -121,7 +121,7 @@ dependencies {
   natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86"
   natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86_64"
 
-  natives 'org.khronos.openxr:openxr_loader_for_android:1.0.26'
+  natives 'org.khronos.openxr:openxr_loader_for_android:1.0.27'
 
 
   // This follows advice from https://blog.gradle.org/log4j-vulnerability

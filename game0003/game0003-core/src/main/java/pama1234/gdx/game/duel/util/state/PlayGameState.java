@@ -42,7 +42,7 @@ public final class PlayGameState extends GameSystemState{
     if(properFrameCount>=messageDurationFrameCount) return;
     duel.setTextColor(0,(int)(255*(1-(float)(properFrameCount)/messageDurationFrameCount)));
     duel.setTextScale(duel.pus);
-    duel.drawText(TextUtil.used.go.text,(duel.width-TextUtil.used.go.width*duel.pus)/2f,(duel.height-duel.pu)/2f);
+    duel.fullText(TextUtil.used.go.text,(duel.width-TextUtil.used.go.width*duel.pus)/2f,(duel.height-duel.pu)/2f);
     duel.setTextScale(1);
   }
   @Override

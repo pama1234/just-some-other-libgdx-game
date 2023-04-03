@@ -36,9 +36,9 @@ public class Screen0021 extends ScreenCore2D{
         imageBatch.begin();
         imageBatch.setShader(shader);
         shaderUpdate();
-        imageBatch.draw(graphics.texture,672,0);
-        imageBatch.draw(graphics.texture,672,-640);
-        imageBatch.draw(graphics.texture,672,640);
+        imageBatch.draw(graphics.texture,0,656);
+        imageBatch.draw(graphics.texture,-640,656);
+        imageBatch.draw(graphics.texture,640,656);
         imageBatch.end();
         imageBatch.setShader(null);
       }

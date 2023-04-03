@@ -103,10 +103,15 @@ public class Duel extends ScreenCore2D{
     //---
     cam.point.des.set(canvasSideLength/2f,canvasSideLength/2f);
     cam.point.pos.set(cam.point.des);
-    if(mode==neat) cam2d.scale.pos=cam2d.scale.des=(isAndroid?0.25f:1)*0.6f;
-    else if(isAndroid) cam2d.scale.pos=cam2d.scale.des=0.25f;
-    cam2d.activeDrag=false;
-    cam2d.activeScrollZoom=cam2d.activeTouchZoom=false;
+    if(mode==neat) {
+      cam2d.minScale=1/8f;
+      cam2d.scaleUnit=1/8f;
+      cam2d.scale.pos=cam2d.scale.des=(isAndroid?0.25f:1)*0.6f;
+    }else {
+      if(isAndroid) cam2d.scale.pos=cam2d.scale.des=0.25f;
+      cam2d.activeDrag=false;
+      cam2d.activeScrollZoom=cam2d.activeTouchZoom=false;
+    }
   }
   public void newGame(boolean demo,boolean instruction) {
     system=new GameSystem(this,demo,instruction);
@@ -115,13 +120,15 @@ public class Duel extends ScreenCore2D{
   public void display() {
     system.displayScreen();
     if(mode==neat) {
+      textScale(UtilMath.ceil(UtilMath.max(1,pus/3f)));
+      float ts=textScale()*textSize();
       text(Tools.getFloatString(time,5,0)+"ms -> "+Tools.getFloatString(timeLimit,5,0)+"ms",0,0);
-      text("real time score",0,pu);
-      text("a - "+Tools.getFloatString(system.myGroup.player.engine.getScore(1)),0,pu*2);
-      text("b - "+Tools.getFloatString(system.otherGroup.player.engine.getScore(1)),0,pu*3);
-      text("final score",0,pu*4);
-      text("a - "+Tools.getFloatString(system.myGroup.player.engine.getScore(0)),0,pu*5);
-      text("b - "+Tools.getFloatString(system.otherGroup.player.engine.getScore(0)),0,pu*6);
+      text("real time score",0,ts);
+      text("a - "+Tools.getFloatString(system.myGroup.player.engine.getScore(1)),0,ts*2);
+      text("b - "+Tools.getFloatString(system.otherGroup.player.engine.getScore(1)),0,ts*3);
+      text("final score",0,ts*4);
+      text("a - "+Tools.getFloatString(system.myGroup.player.engine.getScore(0)),0,ts*5);
+      text("b - "+Tools.getFloatString(system.otherGroup.player.engine.getScore(0)),0,ts*6);
     }
   }
   @Override

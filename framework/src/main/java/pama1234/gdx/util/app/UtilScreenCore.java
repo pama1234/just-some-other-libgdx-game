@@ -78,7 +78,7 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
   public UtilInputProcesser inputProcessor;
   public Random rng=new Random();
   /**
-   * 不好形容
+   * 按钮和其他UI的基本单位长度
    */
   public float u;
   /**
