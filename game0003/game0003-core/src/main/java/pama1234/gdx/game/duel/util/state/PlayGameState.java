@@ -47,8 +47,8 @@ public final class PlayGameState extends GameSystemState{
   }
   @Override
   public void checkStateTransition() {
-    if(system.myGroup.player.isNull()) system.currentState(new GameResultState(duel,system,system.myGroup.id,TextUtil.used.lose));
-    else if(system.otherGroup.player.isNull()) system.currentState(new GameResultState(duel,system,system.otherGroup.id,TextUtil.used.win));
+    if(system.myGroup.player.isNull()) system.currentState(new GameResultState(duel,system,system.otherGroup.id,TextUtil.used.lose));
+    else if(system.otherGroup.player.isNull()) system.currentState(new GameResultState(duel,system,system.myGroup.id,TextUtil.used.win));
   }
   public void checkCollision() {
     final ActorGroup myGroup=duel.system.myGroup;

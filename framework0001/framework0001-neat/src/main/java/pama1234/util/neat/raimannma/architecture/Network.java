@@ -99,7 +99,7 @@ public class Network{
    *
    * @param network_a parent network 1
    * @param network_b parent network 2
-   * @param equal    indicate that networks are equally fit
+   * @param equal     indicate that networks are equally fit
    * @return new network created from mixing parent networks
    */
   public static Network crossover(final Network network_a,final Network network_b,final boolean equal) {

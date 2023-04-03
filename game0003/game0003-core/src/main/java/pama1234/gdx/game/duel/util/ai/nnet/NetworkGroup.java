@@ -23,7 +23,8 @@ import pama1234.util.neat.raimannma.architecture.NetworkModule;
  * +--> vision -> logic -> behavior -+
  * |                                 |
  * +------------- world <------------+
- * }</pre>
+ * }
+ * </pre>
  */
 public class NetworkGroup{
   public FloatBlock input,output;
@@ -63,6 +64,6 @@ public class NetworkGroup{
     world.network.floatData[scoreType]=score;
   }
   public float getScore(int index) {//TODO
-      return logic.network.floatData[index];
+    return logic.network.floatData[index];
   }
 }

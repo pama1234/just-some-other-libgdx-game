@@ -22,8 +22,10 @@ android {
 }
 
 dependencies {
-  // implementation project(':game0001:game0001-core')
+  implementation project(':framework')
   // compileOnly project(":gdx-vr-core")
   // implementation "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
   // implementation "com.google.vr:sdk-base:1.190.0"
+
+  implementation 'net.java.dev.jna:jna:5.13.0'
 }

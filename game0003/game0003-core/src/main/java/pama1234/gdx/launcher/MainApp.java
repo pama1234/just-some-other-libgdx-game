@@ -20,7 +20,7 @@ public class MainApp extends Game{
     screenList=Arrays.asList(null,
       Duel.class,//几何决斗
       Screen0021.class//着色器测试
-      );
+    );
   }
   @Override
   public void create() {

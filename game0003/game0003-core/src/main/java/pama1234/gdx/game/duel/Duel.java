@@ -119,6 +119,9 @@ public class Duel extends ScreenCore2D{
       text("real time score",0,pu);
       text("a - "+Tools.getFloatString(system.myGroup.player.engine.getScore(1)),0,pu*2);
       text("b - "+Tools.getFloatString(system.otherGroup.player.engine.getScore(1)),0,pu*3);
+      text("final score",0,pu*4);
+      text("a - "+Tools.getFloatString(system.myGroup.player.engine.getScore(0)),0,pu*5);
+      text("b - "+Tools.getFloatString(system.otherGroup.player.engine.getScore(0)),0,pu*6);
     }
   }
   @Override
