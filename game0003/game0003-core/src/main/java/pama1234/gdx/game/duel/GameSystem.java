@@ -76,10 +76,11 @@ public final class GameSystem{
     demoPlay=demo;
     showsInstructionWindow=instruction;
   }
-  public PlayerEngine createComputerEngine(boolean type) {
+  public PlayerEngine createComputerEngine(boolean side) {
     if(duel.mode==Duel.neat) {
-      if(type) return new ComputerPlayerEngine(duel::random);
-      else return new ComputerLifeEngine((type?duel.player_a:duel.player_b).graphics,duel.neatCenter.getNext());
+      // if(type) return new ComputerPlayerEngine(duel::random);
+      // else return new ComputerLifeEngine((type?duel.player_a:duel.player_b).graphics,duel.neatCenter.getNext());
+      return new ComputerLifeEngine((side?duel.player_a:duel.player_b).graphics,duel.neatCenter.getNext(),side);
     }else return new ComputerPlayerEngine(duel::random);
   }
   public GameSystem(Duel duel) {

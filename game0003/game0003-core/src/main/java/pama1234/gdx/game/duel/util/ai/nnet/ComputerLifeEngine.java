@@ -13,10 +13,12 @@ public class ComputerLifeEngine extends PlayerEngine{
   public VisionConverter vision;
   public NetworkGroup networks;
   public int dfire;
+  public boolean side;
   public boolean completeCharge;
-  public ComputerLifeEngine(Graphics graphics,NetworkGroup networks) {
+  public ComputerLifeEngine(Graphics graphics,NetworkGroup networks,boolean side) {
     vision=new VisionConverter(graphics,networks.input.data());
     this.networks=networks;
+    this.side=side;
   }
   @Override
   public void run(PlayerActor player) {
@@ -29,7 +31,8 @@ public class ComputerLifeEngine extends PlayerEngine{
     vision.execute();
   }
   public void operateOutput() {
-    float rad=networks.output.get(dirPos)*UtilMath.PI;
+    float rad=networks.output.get(dirPos)*UtilMath.PI2;
+    if(side) rad+=UtilMath.PI;
     float mag=UtilMath.constrain(networks.output.get(magPos),-1,1);
     float dx=UtilMath.sin(rad);
     float dy=UtilMath.cos(rad);

@@ -24,73 +24,39 @@ import pama1234.util.neat.raimannma.methods.Utils;
  * @author Manuel Raimann
  */
 public class NEAT{
-  /**
-   * The Output.
-   */
+  /** * The Output. */
   private final int output;
-  /**
-   * The Input.
-   */
+  /** * The Input. */
   private final int input;
-  /**
-   * The Fitness function.
-   */
+  /** * The Fitness function. */
   private final GetFloatWith<Network> fitnessFunction;
-  /**
-   * The Equal.
-   */
+  /** * The Equal. */
   private final boolean equal;
-  /**
-   * The Clear.
-   */
+  /** * The Clear. */
   private final boolean clear;
-  /**
-   * The Mutation rate.
-   */
+  /** * The Mutation rate. */
   private final float mutationRate;
-  /**
-   * The Mutation amount.
-   */
+  /** * The Mutation amount. */
   private final int mutationAmount;
-  /**
-   * The Elitism.
-   */
+  /** * The Elitism. */
   private final int elitism;
-  /**
-   * The Max gates.
-   */
+  /** * The Max gates. */
   private final int maxGates;
-  /**
-   * The Max connections.
-   */
+  /** * The Max connections. */
   private final int maxConnections;
-  /**
-   * The Max nodes.
-   */
+  /** * The Max nodes. */
   private final int maxNodes;
-  /**
-   * The Template.
-   */
+  /** * The Template. */
   private final Network template;
-  /**
-   * The Mutation.
-   */
+  /** * The Mutation. */
   private final Mutation[] mutation;
-  /**
-   * The Selection.
-   */
+  /** * The Selection. */
   private final Selection selection;
-  /**
-   * The Generation.
-   */
+  /** * The Generation. */
   public int generation;
-  /**
-   * The Population.
-   */
+  /** * The Population. */
   public List<Network> population;
-  /**
-   * The Population size.
-   */
+  /** * The Population size. */
   private int populationSize;
   /**
    * Instantiates a new Neat.
@@ -145,10 +111,9 @@ public class NEAT{
     final List<Network> elitists=this.population.subList(0,this.elitism);
     // create new population
     final Set<Network> newPopulation=new HashSet<>();
-    while(newPopulation.size()<this.populationSize-this.elitism) {
-      // crossover and add to new population
-      newPopulation.add(Network.crossover(this.getParent(),this.getParent(),this.equal));
-    }
+    while(newPopulation.size()<this.populationSize-this.elitism) newPopulation.add(
+      Network.crossover(this.getParent(),this.getParent(),this.equal,
+        (i,o)->new Network(i,o),t->new Node(t))); // crossover and add to new population
     // convert Set to List
     this.population=new ArrayList<>(newPopulation);
     // mutate the population
@@ -162,9 +127,7 @@ public class NEAT{
     // return the fittest network
     return fittest;
   }
-  /**
-   * Evaluates this population.
-   */
+  /** * Evaluates this population. */
   private void evaluate() {
     if(this.clear) {
       this.population.forEach(Network::clear);
@@ -179,9 +142,7 @@ public class NEAT{
         }
       });
   }
-  /**
-   * Sorts the population by score (descending).
-   */
+  /** * Sorts the population by score (descending). */
   private void sort() {
     // sort from high to low
     this.population.sort((o1,o2)->Float.compare(o2.score,o1.score));
