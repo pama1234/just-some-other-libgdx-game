@@ -11,21 +11,13 @@ import com.google.gson.JsonObject;
  * @author Manuel Raimann
  */
 public class Connection{
-  /**
-   * The output node of this connection.
-   */
+  /** * The output node of this connection. */
   public final Node to;
-  /**
-   * The input node of this connection.
-   */
+  /** * The input node of this connection. */
   public final Node from;
-  /**
-   * The node which gates this connection.
-   */
+  /** * The node which gates this connection. */
   public Node gateNode;
-  /**
-   * The weight of this connection.
-   */
+  /** * The weight of this connection. */
   public float weight;
   /**
    * The connection gain.

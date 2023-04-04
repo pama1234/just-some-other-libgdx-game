@@ -9,11 +9,9 @@ import static pama1234.util.neat.raimannma.methods.Utils.randInt;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
-import java.util.Set;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
@@ -30,37 +28,7 @@ import pama1234.util.neat.raimannma.methods.Mutation;
  *
  * @author Manuel Raimann
  */
-public class Network{
-  public final int inputSize;
-  public final int outputSize;
-  /**
-   * The Nodes of the network.
-   */
-  public List<Node> nodes;
-  /**
-   * The Score. used for NEAT.
-   */
-  public float score;
-  /**
-   * The Connections of the network.
-   */
-  public Set<Connection> connections;
-  /**
-   * The Self connections of the network.
-   */
-  public Set<Connection> selfConnections;
-  /**
-   * The Gates of the network.
-   */
-  public Set<Connection> gates;
-  /**
-   * The Dropout probability.
-   */
-  private float dropout;
-  /**
-   * used for misc purpose
-   */
-  public float[] floatData;
+public class Network extends NetworkCore<Node,Connection>{
   /**
    * Instantiates a new Network.
    *
@@ -68,14 +36,15 @@ public class Network{
    * @param output the output size
    */
   public Network(final int input,final int output) {
-    this.inputSize=input;
-    this.outputSize=output;
-    this.score=Float.NaN;
-    this.nodes=new ArrayList<>();
-    this.connections=new HashSet<>();
-    this.gates=new HashSet<>();
-    this.selfConnections=new HashSet<>();
-    this.dropout=0;
+    super(input,output);
+    // this.inputSize=input;
+    // this.outputSize=output;
+    // this.score=Float.NaN;
+    // this.nodes=new ArrayList<>();
+    // this.connections=new HashSet<>();
+    // this.gates=new HashSet<>();
+    // this.selfConnections=new HashSet<>();
+    // this.dropout=0;
     for(int i=0;i<this.inputSize;i++) this.nodes.add(new Node(Node.NodeType.INPUT));
     for(int i=0;i<this.outputSize;i++) this.nodes.add(new Node(Node.NodeType.OUTPUT));
     createConnection();
@@ -256,12 +225,10 @@ public class Network{
    */
   private Connection connect(final Node from,final Node to,final float weight) {
     final Connection connection=from.connect(to,weight); // connect from with to
-    if(from.equals(to)) {
-      // if from equals to
+    if(from.equals(to)) {// if from equals to
       // add connection to self connections
       this.selfConnections.add(connection);
-    }else {
-      // if from unequals to
+    }else {// if from unequals to
       // add connection to connections
       this.connections.add(connection);
     }
@@ -278,9 +245,7 @@ public class Network{
   public Connection connect(final Node from,final Node to) {
     return this.connect(from,to,0);
   }
-  /**
-   * Sets node indices.
-   */
+  /** * Sets node indices. */
   public void setNodeIndices() {
     // node index equals to position in this.nodes list
     IntStream.range(0,this.nodes.size()).forEach(i->this.nodes.get(i).index=i);
