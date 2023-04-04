@@ -73,13 +73,14 @@ public abstract class UtilScreenRender extends UtilScreenColor{
   //---------------------------------------------------------------------------
   /**
    * 全称fastText，比libgdx的text方法更快一些，无法绘制多色或有换行的文字
-   * @param in
-   * @param x
-   * @param y
+   * 
+   * @param in 文本
+   * @param x  坐标
+   * @param y  坐标
    */
   public void text(String in,float x,float y) {
     fontBatch.begin();
-    font.text(in==null?"null":in,x,y);
+    font.fastText(in==null?"null":in,x,y);
     fontBatch.end();
   }
   public float textWidth(String in) {

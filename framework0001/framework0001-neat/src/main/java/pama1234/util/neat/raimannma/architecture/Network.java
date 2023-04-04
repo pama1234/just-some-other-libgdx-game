@@ -3,7 +3,6 @@ package pama1234.util.neat.raimannma.architecture;
 import static pama1234.util.neat.raimannma.methods.Mutation.SUB_NODE;
 import static pama1234.util.neat.raimannma.methods.Utils.pickRandom;
 import static pama1234.util.neat.raimannma.methods.Utils.randBoolean;
-import static pama1234.util.neat.raimannma.methods.Utils.randFloat;
 import static pama1234.util.neat.raimannma.methods.Utils.randInt;
 
 import java.util.ArrayList;
@@ -19,7 +18,7 @@ import java.util.stream.Stream;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
-import pama1234.math.UtilMath;
+import pama1234.util.neat.raimannma.architecture.Node.NodeType;
 import pama1234.util.neat.raimannma.methods.Loss;
 import pama1234.util.neat.raimannma.methods.Mutation;
 
@@ -37,28 +36,14 @@ public class Network extends NetworkCore<Node,Connection>{
    */
   public Network(final int input,final int output) {
     super(input,output);
-    // this.inputSize=input;
-    // this.outputSize=output;
-    // this.score=Float.NaN;
-    // this.nodes=new ArrayList<>();
-    // this.connections=new HashSet<>();
-    // this.gates=new HashSet<>();
-    // this.selfConnections=new HashSet<>();
-    // this.dropout=0;
-    for(int i=0;i<this.inputSize;i++) this.nodes.add(new Node(Node.NodeType.INPUT));
-    for(int i=0;i<this.outputSize;i++) this.nodes.add(new Node(Node.NodeType.OUTPUT));
-    createConnection();
   }
-  public void createConnection() {
-    // Create simplest Network with input and output size matching parameters
-    final float initWeight=this.inputSize*UtilMath.sqrt(2f/this.inputSize);
-    for(int i=0;i<this.inputSize;i++) { // iterate over the input nodes
-      final Node inputNode=this.nodes.get(i);
-      for(int j=this.inputSize;j<this.outputSize+this.inputSize;j++) { // iterate over the output nodes
-        this.connect(inputNode,
-          this.nodes.get(j),randFloat(initWeight));// connect input and output node
-      }
-    }
+  @Override
+  public Node newNode(NodeType in) {
+    return new Node(in);
+  }
+  @Override
+  public Connection newConnection(Node from,Node to,float weight) {
+    return from.connect(to,weight);
   }
   /**
    * Create an offspring from two parent networks.
@@ -214,36 +199,6 @@ public class Network extends NetworkCore<Node,Connection>{
       }
     });
     return network;
-  }
-  /**
-   * Connect two nodes with given weight.
-   *
-   * @param from   the connection input node
-   * @param to     the connection output node
-   * @param weight the connection weight
-   * @return the created connection
-   */
-  private Connection connect(final Node from,final Node to,final float weight) {
-    final Connection connection=from.connect(to,weight); // connect from with to
-    if(from.equals(to)) {// if from equals to
-      // add connection to self connections
-      this.selfConnections.add(connection);
-    }else {// if from unequals to
-      // add connection to connections
-      this.connections.add(connection);
-    }
-    // return created connection
-    return connection;
-  }
-  /**
-   * Connect two nodes with weight equals 0.
-   *
-   * @param from the connection input node
-   * @param to   the connection output node
-   * @return the created connection
-   */
-  public Connection connect(final Node from,final Node to) {
-    return this.connect(from,to,0);
   }
   /** * Sets node indices. */
   public void setNodeIndices() {

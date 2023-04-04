@@ -18,25 +18,15 @@ import pama1234.util.neat.raimannma.methods.Activation;
  * @author Manuel Raimann
  */
 public class Node{
-  /**
-   * Incoming connections.
-   */
+  /** * Incoming connections. */
   public final Set<Connection> in;
-  /**
-   * Outgoing connections.
-   */
+  /** * Outgoing connections. */
   public final Set<Connection> out;
-  /**
-   * Gated connections.
-   */
+  /** * Gated connections. */
   public final List<Connection> gated;
-  /**
-   * Connection to the node itself.
-   */
+  /** * Connection to the node itself. */
   public Connection self;
-  /**
-   * The Activation type.
-   */
+  /** * The Activation type. */
   public Activation activationType;
   /**
    * Neuron's bias.
@@ -45,13 +35,9 @@ public class Node{
    *      bias</a>
    */
   public float bias;
-  /**
-   * The Index. -used for crossover
-   */
+  /** * The Index. -used for crossover */
   public int index;
-  /**
-   * The NodeType.
-   */
+  /** * The NodeType. */
   public NodeType type;
   /**
    * Used for dropout. This is either 0 (ignored) or 1 (included) during training and is used to
