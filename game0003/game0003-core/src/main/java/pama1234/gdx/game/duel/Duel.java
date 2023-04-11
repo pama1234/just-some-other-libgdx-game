@@ -145,15 +145,13 @@ public class Duel extends ScreenCore2D{
       player_b.render();
       //---
       cartesianShader.bind();
-      // cartesianShader.setUniformf("debug_1",mouse.ox/(width/8f));
-      // cartesianShader.setUniformf("debug_2",mouse.oy/(height/8f)-4f);
-      cartesianShader.setUniformf("u_dist",player_a.camX/Duel.CANVAS_SIZE,1-player_a.camY/Duel.CANVAS_SIZE);
+      cartesianShader.setUniformf("u_dist",player_a.camX/Duel.CANVAS_SIZE,player_a.camY/Duel.CANVAS_SIZE);
       image(player_a.graphics.texture,-656,0,CANVAS_SIZE,CANVAS_SIZE,cartesianShader);
       //---
       image(graphics.texture,0,0,CANVAS_SIZE,CANVAS_SIZE);
       //---
       cartesianShader.bind();
-      cartesianShader.setUniformf("u_dist",player_b.camX/Duel.CANVAS_SIZE,1-player_b.camY/Duel.CANVAS_SIZE);
+      cartesianShader.setUniformf("u_dist",player_b.camX/Duel.CANVAS_SIZE,player_b.camY/Duel.CANVAS_SIZE);
       image(player_b.graphics.texture,656,0,CANVAS_SIZE,CANVAS_SIZE,cartesianShader);
       //---
       image(player_a.graphics.texture,-656,-656,CANVAS_SIZE,CANVAS_SIZE);
