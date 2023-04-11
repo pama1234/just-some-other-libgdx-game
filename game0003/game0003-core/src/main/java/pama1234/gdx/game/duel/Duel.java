@@ -65,8 +65,8 @@ public class Duel extends ScreenCore2D{
   public NeatCenter neatCenter;
   public NetworkGroupParam param;
   //---
-  public ShaderProgram shader;
-  public String visionVert,visionFrag;
+  // public ShaderProgram polarShader;
+  public ShaderProgram cartesianShader;
   public FisheyeVision player_a,player_b;
   public int timeLimitConst=60*10;
   public int time,timeLimit=timeLimitConst;
@@ -84,15 +84,17 @@ public class Duel extends ScreenCore2D{
       neatCenter=new NeatCenter(param);
       //---
       graphics=new Graphics(this,CANVAS_SIZE,CANVAS_SIZE);
-      // graphics.texture.setFilter(TextureFilter.Linear,TextureFilter.Linear);
-      visionVert=Gdx.files.internal("shader/main0005/vision-polar.vert").readString();
-      visionFrag=Gdx.files.internal("shader/main0005/vision-polar.frag").readString();
+      String polarVisionVert=Gdx.files.internal("shader/main0005/vision-polar.vert").readString(),
+        polarVisionFrag=Gdx.files.internal("shader/main0005/vision-polar.frag").readString();
+      String cartesianVisionVert=Gdx.files.internal("shader/main0005/example.vert").readString(),
+        cartesianVisionFrag=Gdx.files.internal("shader/main0005/vision-cartesian.frag").readString();
+      cartesianShader=new ShaderProgram(cartesianVisionVert,cartesianVisionFrag);
       int ts=param.canvasSize;
       player_a=new FisheyeVision(this,
-        new ShaderProgram(visionVert,visionFrag),
+        new ShaderProgram(polarVisionVert,polarVisionFrag),
         new Graphics(this,ts,ts));
       player_b=new FisheyeVision(this,
-        new ShaderProgram(visionVert,visionFrag),
+        new ShaderProgram(polarVisionVert,polarVisionFrag),
         new Graphics(this,ts,ts));
     }
     //---
@@ -141,9 +143,21 @@ public class Duel extends ScreenCore2D{
       graphics.end();
       player_a.render();
       player_b.render();
-      image(player_a.graphics.texture,-656,0,CANVAS_SIZE,CANVAS_SIZE);
+      //---
+      cartesianShader.bind();
+      // cartesianShader.setUniformf("debug_1",mouse.ox/(width/8f));
+      // cartesianShader.setUniformf("debug_2",mouse.oy/(height/8f)-4f);
+      cartesianShader.setUniformf("u_dist",player_a.camX/Duel.CANVAS_SIZE,1-player_a.camY/Duel.CANVAS_SIZE);
+      image(player_a.graphics.texture,-656,0,CANVAS_SIZE,CANVAS_SIZE,cartesianShader);
+      //---
       image(graphics.texture,0,0,CANVAS_SIZE,CANVAS_SIZE);
-      image(player_b.graphics.texture,656,0,CANVAS_SIZE,CANVAS_SIZE);
+      //---
+      cartesianShader.bind();
+      cartesianShader.setUniformf("u_dist",player_b.camX/Duel.CANVAS_SIZE,1-player_b.camY/Duel.CANVAS_SIZE);
+      image(player_b.graphics.texture,656,0,CANVAS_SIZE,CANVAS_SIZE,cartesianShader);
+      //---
+      image(player_a.graphics.texture,-656,-656,CANVAS_SIZE,CANVAS_SIZE);
+      image(player_b.graphics.texture,656,-656,CANVAS_SIZE,CANVAS_SIZE);
       clearMatrix();
     }else {
       system.display();
@@ -198,7 +212,7 @@ public class Duel extends ScreenCore2D{
   }
   @Override
   public void keyPressed(char key,int keyCode) {
-    currentInput.keyPressedEvent(this,key,keyCode);
+    currentInput.keyPressed(this,key,keyCode);
   }
   public void doPause() {
     paused=!paused;

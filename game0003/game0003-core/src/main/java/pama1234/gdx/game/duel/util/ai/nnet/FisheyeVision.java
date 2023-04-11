@@ -32,11 +32,7 @@ public class FisheyeVision{
   public void render() {
     graphics.begin();
     duel.background(backgroundColor);
-    duel.imageBatch.begin();
-    duel.imageBatch.setShader(shader);
-    duel.imageBatch.draw(duel.graphics.texture,0,0,graphics.width(),graphics.height());
-    duel.imageBatch.end();
-    duel.imageBatch.setShader(null);
+    duel.image(duel.graphics.texture,0,0,graphics.width(),graphics.height(),shader);
     graphics.end();
   }
 }

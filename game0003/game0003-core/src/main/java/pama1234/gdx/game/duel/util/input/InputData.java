@@ -25,9 +25,10 @@ public final class InputData{
       dy=dyIn/dist;
     }
   }
-  public void keyPressedEvent(Duel duel,char key,int keyCode) {
-    if(key=='z'||key=='Z') isZPressed=true;
-    else if(key=='x'||key=='X') isXPressed=true;
+  public void keyPressed(Duel duel,char key,int keyCode) {
+    key=Character.toLowerCase(key);
+    if(key=='z') isZPressed=true;
+    else if(key=='x') isXPressed=true;
     else if(key=='p') duel.doPause();
     else switch(keyCode) {
       case UP:
@@ -45,8 +46,9 @@ public final class InputData{
     }
   }
   public void keyReleased(Duel duel,char key,int keyCode) {
-    if(key=='z'||key=='Z') isZPressed=false;
-    else if(key=='x'||key=='X') isXPressed=false;
+    key=Character.toLowerCase(key);
+    if(key=='z') isZPressed=false;
+    else if(key=='x') isXPressed=false;
     else switch(keyCode) {
       case UP:
         isUpPressed=false;

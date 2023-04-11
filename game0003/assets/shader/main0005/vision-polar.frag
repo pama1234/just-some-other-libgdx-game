@@ -24,11 +24,6 @@ vec2 toPolar(vec2 data) {
   return vec2(x, y) + u_dist;
 }
 
-vec2 toCartesian(vec2 data) {
-  return vec2(length(data - u_dist), 
-    atan(-(data.y - u_dist.y) / (data.x - u_dist.x)));
-}
-
 bool inRange(float a, float b, float c) {
   return a>b&&a<c;
 }

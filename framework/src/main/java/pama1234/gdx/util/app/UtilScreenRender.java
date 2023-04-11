@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.ScreenUtils;
 
@@ -31,6 +32,7 @@ public abstract class UtilScreenRender extends UtilScreenColor{
     in.draw(tvgDrawer);
     imageBatch.end();
   }
+  @Deprecated
   public void image(Texture in,float x,float y,float z) {
     imageBatch.begin();
     imageBatch.draw(in,x,y);
@@ -44,6 +46,20 @@ public abstract class UtilScreenRender extends UtilScreenColor{
   public void image(Texture in,float x,float y,float w,float h) {
     imageBatch.begin();
     imageBatch.draw(in,x,y,w,h);
+    imageBatch.end();
+  }
+  public void image(TextureRegion in,float x,float y,ShaderProgram shader) {
+    imageBatch.begin();
+    imageBatch.setShader(shader);
+    imageBatch.draw(in,x,y);
+    imageBatch.setShader(null);
+    imageBatch.end();
+  }
+  public void image(Texture in,float x,float y,float w,float h,ShaderProgram shader) {
+    imageBatch.begin();
+    imageBatch.setShader(shader);
+    imageBatch.draw(in,x,y,w,h);
+    imageBatch.setShader(null);
     imageBatch.end();
   }
   public void imageCenterPos(Texture in,float x,float y,float w,float h) {
