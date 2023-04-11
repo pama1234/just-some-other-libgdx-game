@@ -85,8 +85,8 @@ public class Duel extends ScreenCore2D{
       //---
       graphics=new Graphics(this,CANVAS_SIZE,CANVAS_SIZE);
       // graphics.texture.setFilter(TextureFilter.Linear,TextureFilter.Linear);
-      visionVert=Gdx.files.internal("shader/main0005/vision.vert").readString();
-      visionFrag=Gdx.files.internal("shader/main0005/vision.frag").readString();
+      visionVert=Gdx.files.internal("shader/main0005/vision-polar.vert").readString();
+      visionFrag=Gdx.files.internal("shader/main0005/vision-polar.frag").readString();
       int ts=param.canvasSize;
       player_a=new FisheyeVision(this,
         new ShaderProgram(visionVert,visionFrag),

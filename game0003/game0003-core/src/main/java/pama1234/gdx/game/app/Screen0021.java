@@ -22,8 +22,8 @@ public class Screen0021 extends ScreenCore2D{
     createGraphics();
     ShaderProgram.pedantic=false;
     shader=new ShaderProgram(
-      Gdx.files.internal("shader/main0005/vision.vert").readString(),
-      Gdx.files.internal("shader/main0005/vision.frag").readString());
+      Gdx.files.internal("shader/main0005/vision-polar.vert").readString(),
+      Gdx.files.internal("shader/main0005/vision-polar.frag").readString());
     // shader.bind();
     System.out.println(shader.getLog());
     font.load(0);

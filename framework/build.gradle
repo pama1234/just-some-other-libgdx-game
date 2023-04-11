@@ -1,6 +1,8 @@
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 eclipse.project.name = appName + '-framework'
 
+apply plugin: 'maven-publish'
+
 dependencies {
   compileOnly "com.badlogicgames.gdx:gdx:$gdxVersion"
 
@@ -10,4 +12,24 @@ dependencies {
   api "space.earlygrey:shapedrawer:$gdxShapeDrawerVersion"
 
   api 'org.apache.logging.log4j:log4j-core:2.20.0'
+}
+
+publishing {
+  publications {
+    maven(MavenPublication) {
+      groupId = 'pama1234'
+      artifactId = 'framework'
+      version = "0.0.3"
+      from components.java
+
+      pom {
+        name = 'pama1234-framework'
+        description = 'some framework based on Libgdx and Processing api definition'
+        url = 'https://github.com/pama1234/just-some-other-libgdx-game'
+        scm {
+          url = 'https://github.com/pama1234/just-some-other-libgdx-game'
+        }
+      }
+    }
+  }
 }
