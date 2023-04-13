@@ -112,6 +112,7 @@ configurations { natives }
 
 dependencies {
   coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.2'
+
   implementation "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
   implementation "com.github.simplepeng.SpiderMan:spiderman:$spider_man"  //如果程序异常闪退提供log
   implementation project(':game0001:game0001-core')
