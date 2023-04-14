@@ -31,3 +31,5 @@ task dist(dependsOn: [jar]) {
 }
 
 tasks.getByName('distTar') { duplicatesStrategy = DuplicatesStrategy.EXCLUDE }
+tasks.getByName('distZip') { duplicatesStrategy = DuplicatesStrategy.EXCLUDE }
+tasks.getByName('jar') { duplicatesStrategy = DuplicatesStrategy.EXCLUDE }

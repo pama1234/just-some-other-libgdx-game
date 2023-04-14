@@ -11,10 +11,11 @@ dependencies {
 
   api 'commons-cli:commons-cli:1.5.0'
   api 'ai.djl:api:0.21.0'
+
   api 'ai.djl:basicdataset:0.21.0'
   api 'ai.djl:model-zoo:0.21.0'
 
-  runtimeOnly 'ai.djl.mxnet:mxnet-engine:0.21.0'
+  // runtimeOnly 'ai.djl.mxnet:mxnet-engine:0.21.0'
 }
 
 jar {
@@ -41,3 +42,7 @@ jar {
 // Equivalent to the jar task; here for compatibility with gdx-setup.
 task dist(dependsOn: [jar]) {
 }
+
+tasks.getByName('distTar') { duplicatesStrategy = DuplicatesStrategy.EXCLUDE }
+tasks.getByName('distZip') { duplicatesStrategy = DuplicatesStrategy.EXCLUDE }
+tasks.getByName('jar') { duplicatesStrategy = DuplicatesStrategy.EXCLUDE }

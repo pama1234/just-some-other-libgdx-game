@@ -25,6 +25,25 @@ android {
   packagingOptions {
     // exclude 'assets/image/src/*'
     //无法理解的屎山+1
+    pickFirst 'ai/djl/basicdataset/tabular/ames.json'
+    pickFirst 'ai/djl/engine/api.properties'
+    pickFirst 'mxnet-engine.properties'
+    pickFirst 'imagenet/extract_imagenet.py'
+    pickFirst 'imagenet/classes.json'
+    pickFirst 'META-INF/AL2.0'
+    pickFirst 'META-INF/native-image/ai/djl/api/native-image.properties'
+    pickFirst 'META-INF/native-image/ai/djl/api/reflect-config.json'
+    pickFirst 'META-INF/native-image/ai/djl/api/resource-config.json'
+    pickFirst 'META-INF/native-image/ai/djl/basicmodelzoo/reflect-config.json'
+    pickFirst 'META-INF/native-image/ai/djl/basicmodelzoo/resource-config.json'
+    // pickFirst 'com/sun/jna/darwin-x86-64/libjnidispatch.jnilib'
+    // pickFirst 'com/sun/jna/darwin-aarch64/libjnidispatch.jnilib'
+    // pickFirst 'com/sun/jna/win32-x86/jnidispatch.dll'
+    // pickFirst 'com/sun/jna/aix-ppc/libjnidispatch.a'
+    // pickFirst 'com/sun/jna/win32-aarch64/jnidispatch.dll'
+    // pickFirst 'com/sun/jna/win32-x86-64/jnidispatch.dll'
+    pickFirst 'com/sun/jna/**'
+
     pickFirst "win/libgcc_s_seh_x86_64.dll"
     pickFirst "win/libstdc++-6_x86.dll"
     pickFirst "win/libgcc_s_sjlj_x86.dll"

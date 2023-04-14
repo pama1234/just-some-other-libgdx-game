@@ -42,7 +42,8 @@ public class Screen0017 extends ScreenCore2D{
     // 构造待判断的点对象
     Point point=new GeometryFactory().createPoint(new Coordinate(1,1));
     // 判断点是否在三角形内
-    boolean isInTriangle=triangle.contains(point);
+    // boolean isInTriangle=
+    triangle.contains(point);
     // if(isInTriangle) {
     //   System.out.println("点在三角形内");
     // }else {
@@ -55,11 +56,12 @@ public class Screen0017 extends ScreenCore2D{
     Vector2 p2=new Vector2(3,0);
     Vector2 p3=new Vector2(0,3);
     // 构造三角形对象
-    Polygon triangle=new Polygon(new float[] {p1.x,p1.y,p2.x,p2.y,p3.x,p3.y});
+    // Polygon triangle=new Polygon(new float[] {p1.x,p1.y,p2.x,p2.y,p3.x,p3.y});
     // 构造待判断的点对象
     Vector2 point=new Vector2(1,1);
     // 判断点是否在三角形内
-    boolean isInTriangle=Intersector.isPointInTriangle(point,p1,p2,p3);
+    // boolean isInTriangle=
+    Intersector.isPointInTriangle(point,p1,p2,p3);
     // if(isInTriangle) {
     //   System.out.println("点在三角形内");
     // }else {
@@ -83,19 +85,23 @@ public class Screen0017 extends ScreenCore2D{
     }
     coords[segments+2]=center;
     // 构造扇形对象
-    org.locationtech.jts.geom.Polygon sector=new GeometryFactory().createPolygon(coords);
+    // org.locationtech.jts.geom.Polygon sector=new GeometryFactory().createPolygon(coords);
     // 构造待判断的点对象
     Point point=new GeometryFactory().createPoint(new Coordinate(1,1));
     // 判断点是否在扇形内
     double angle=Angle.angle(center,point.getCoordinate());
-    boolean isInSector=angle>=startAngle&&angle<=endAngle&&
-      point.getCoordinate().distance(center)<=radius;
+    // boolean isInSector=
+    isInSector(center,radius,startAngle,endAngle,point,angle);
     // Distance.pointToSegment(point.getCoordinate(),center,(Coordinate)sector.getExteriorRing().getCoordinateSequence())<=radius;
     // if(isInSector) {
     //   System.out.println("点在扇形内");
     // }else {
     //   System.out.println("点不在扇形内");
     // }
+  }
+  private boolean isInSector(Coordinate center,double radius,double startAngle,double endAngle,Point point,double angle) {
+    return angle>=startAngle&&angle<=endAngle&&
+      point.getCoordinate().distance(center)<=radius;
   }
   public void test_4() {
     // 构造扇形的中心点、半径、起始角度和结束角度
@@ -118,7 +124,8 @@ public class Screen0017 extends ScreenCore2D{
     // 构造待判断的点对象
     Vector2 point=new Vector2(1,1);
     // 判断点是否在扇形内
-    boolean isInSector=Intersector.isPointInPolygon(sector.getTransformedVertices(),0,vertices.length,point.x,point.y);
+    // boolean isInSector=
+    Intersector.isPointInPolygon(sector.getTransformedVertices(),0,vertices.length,point.x,point.y);
     // if(isInSector) {
     //   System.out.println("点在扇形内");
     // }else {
