@@ -93,22 +93,4 @@ subprojects {
   }
 }
 
-// configure(subprojects - [
-//     project('framework') , project('server-framework') ,
-//     project('framework0001') , project('framework0002') ,
-//     project('framework0001:framework0001-neat') , project('framework0002:framework0002-android') , project('framework0002:framework0002-lwjgl3') ,
-//     project('game0001') , project('game0002') , project('game0003') , project('game0004') , project('game0005') ,
-//     project('game0001:game0001-android') , project('game0001:game0001-core')]) {
-//   tasks.getByName('distTar') { duplicatesStrategy = DuplicatesStrategy.EXCLUDE }
-//   tasks.getByName('distZip') { duplicatesStrategy = DuplicatesStrategy.EXCLUDE }
-//   tasks.getByName('jar') { duplicatesStrategy = DuplicatesStrategy.EXCLUDE }
-// }
-
-// configure([
-//     project('game0001:game0001-headless')]) {
-//   tasks.getByName('distTar') { duplicatesStrategy = DuplicatesStrategy.EXCLUDE }
-//   tasks.getByName('distZip') { duplicatesStrategy = DuplicatesStrategy.EXCLUDE }
-//   tasks.getByName('jar') { duplicatesStrategy = DuplicatesStrategy.EXCLUDE }
-// }
-
 eclipse.project.name = 'game' + '-parent'
