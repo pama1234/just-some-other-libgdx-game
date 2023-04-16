@@ -1,4 +1,5 @@
 apply plugin: 'application'
+apply plugin: 'maven-publish'
 
 sourceCompatibility = 17
 mainClassName = 'pama1234.gdx.game.app.server.ServerLauncher'
@@ -32,4 +33,24 @@ jar {
 
 // Equivalent to the jar task; here for compatibility with gdx-setup.
 task dist(dependsOn: [jar]) {
+}
+
+publishing {
+  publications {
+    maven(MavenPublication) {
+      groupId = 'pama1234'
+      artifactId = 'server-framework'
+      version = "0.0.3"
+      from components.java
+
+      pom {
+        name = 'pama1234-server-framework'
+        description = 'some server side framework'
+        url = 'https://github.com/pama1234/just-some-other-libgdx-game'
+        scm {
+          url = 'https://github.com/pama1234/just-some-other-libgdx-game'
+        }
+      }
+    }
+  }
 }

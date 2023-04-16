@@ -1,7 +1,7 @@
+apply plugin: 'maven-publish'
+
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 eclipse.project.name = appName + '-framework'
-
-apply plugin: 'maven-publish'
 
 dependencies {
   compileOnly "com.badlogicgames.gdx:gdx:$gdxVersion"
