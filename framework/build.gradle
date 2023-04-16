@@ -6,9 +6,6 @@ eclipse.project.name = appName + '-framework'
 dependencies {
   compileOnly "com.badlogicgames.gdx:gdx:$gdxVersion"
 
-  implementation "javax.vecmath:vecmath:$VecmathVersion"
-  implementation "com.esotericsoftware:kryo:$KryoVersion"
-
   api project(':server-framework')
 
   api "com.github.lyze237:gdx-TinyVG:$gdxTinyVGVersion"

@@ -6,6 +6,8 @@ eclipse.project.name = appName + '-game0001-server'
 
 dependencies {
   api project(':server-framework')
+
+  api "com.esotericsoftware:kryo:$kryoVersion"
 }
 
 jar {
