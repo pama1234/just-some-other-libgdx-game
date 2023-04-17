@@ -1,12 +1,19 @@
 # just-some-other-libgdx-game
 
+## 如何使用此合集使用的框架
+
+```gradle
+implementation "com.github.pama1234.just-some-other-libgdx-game:server-framework:$pama1234Version"
+implementation "com.github.pama1234.just-some-other-libgdx-game:framework:$pama1234Version"
+```
+
 ## 游戏合集
 
 0001. 空想世界1
 0002. 粒子系统
 0003. 几何决斗
 0004. 高维塔防
-0005. 杂项
+0005. 无
 
 [中文](#空想世界) | [English](#game-with-java)
 
