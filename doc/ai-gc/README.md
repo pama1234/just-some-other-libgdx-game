@@ -54,7 +54,7 @@
 
 ### 8. 设计一种使用多个ChatGPT来全自动生成高稳定性软件应用程序的方案
 
-绝对的终极命题，有望解决所有工程肝帝的痛苦
+已出现：[AutoGPT](https://github.com/Significant-Gravitas/Auto-GPT)
 
 ### 9. 生成HDMI输入转4lane-mipi的Verilog方案
 
