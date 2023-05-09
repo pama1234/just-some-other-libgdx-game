@@ -81,8 +81,10 @@ public class Screen0001 extends ScreenCore3D{
     backgroundColor(0);
     textColor(255);
     CellGroupGenerator3D gen=new CellGroupGenerator3D(0,0);
-    if(random(1)>0.5f) group=gen.randomGenerate(64,isAndroid?1024:8192);
-    group=gen.generateFromMiniCore();
+    if(random(1)>0.5f) group=gen.randomGenerate(64,isAndroid?1024:16384);
+    else group=isAndroid
+      ?gen.generateFromMiniCore(128,128)
+      :gen.generateFromMiniCore(640,1024);
     size=new Vec3f(
       group.updater.x2-group.updater.x1,
       group.updater.y2-group.updater.y1,
