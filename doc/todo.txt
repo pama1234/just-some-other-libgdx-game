@@ -40,3 +40,4 @@ LayeredEntityCenter的泛型可以再修一下
 使得EntityPointer可选择多个生物实体
 使得BlockPointer可选择多个方块
 电脑版：在整个游戏外的异常处理机制
+多语言
