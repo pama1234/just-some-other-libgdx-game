@@ -6,6 +6,8 @@ eclipse.project.name = appName + '-game0001-server'
 
 dependencies {
   api project(':server-framework')
+  
+  api project(':framework0001:framework0001-localization')
 }
 
 jar {

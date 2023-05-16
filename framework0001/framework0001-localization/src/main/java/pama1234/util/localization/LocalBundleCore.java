@@ -5,6 +5,8 @@ import java.util.Map;
 
 import org.yaml.snakeyaml.Yaml;
 
+import com.esotericsoftware.kryo.Kryo;
+import com.esotericsoftware.kryo.io.Input;
 import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
 public class LocalBundleCore{
@@ -18,6 +20,9 @@ public class LocalBundleCore{
     }
     data=new String[name.length];
     for(int i=0;i<name.length;i++) data[i]=cache.get(name[i]);
+  }
+  public void loadFrom(Kryo kryo,Input input) {
+    data=kryo.readObject(input,String[].class);
   }
   public String getYaml(Yaml yaml,String[] name) {
     return getYaml(yaml,name,new HashMap<>(name.length));
