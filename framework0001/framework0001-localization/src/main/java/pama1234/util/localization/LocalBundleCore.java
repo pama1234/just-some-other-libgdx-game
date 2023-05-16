@@ -14,10 +14,6 @@ public class LocalBundleCore{
   public String[] data;
   public void loadFrom(Yaml yaml,String[] name,String yamlData) {
     Map<String,String> cache=yaml.load(yamlData);
-    for(int i=0;i<name.length;i++) {
-      String value=cache.get(name[i]);
-      if(value!=null) cache.put(name[i],value);
-    }
     data=new String[name.length];
     for(int i=0;i<name.length;i++) data[i]=cache.get(name[i]);
   }

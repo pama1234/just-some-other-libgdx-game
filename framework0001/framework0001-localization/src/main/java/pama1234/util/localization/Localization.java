@@ -21,6 +21,12 @@ public class Localization{
     this.yaml=yaml;
     this.kryo=kryo;
   }
+  public LocalBundle readYaml(String yamlString) {
+    return readYaml(new LocalBundle(),yamlString);
+  }
+  public LocalBundle readBytes(Input input) {
+    return readBytes(new LocalBundle(),input);
+  }
   public LocalBundle readYaml(LocalBundle data,String yamlString) {
     data.loadFrom(yaml,yamlString);
     return data;
