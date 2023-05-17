@@ -1,6 +1,7 @@
 package pama1234.gdx.game.state.state0001;
 
 import static com.badlogic.gdx.Input.Keys.ESCAPE;
+import static pama1234.gdx.game.util.LocalizationUtil.*;
 
 import com.badlogic.gdx.Gdx;
 
@@ -12,20 +13,16 @@ import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.ui.util.Slider;
 import pama1234.gdx.game.ui.util.TextButtonCam;
 import pama1234.gdx.game.ui.util.TextField;
-import pama1234.gdx.game.util.LocalizationUtil;
 import pama1234.gdx.launcher.MainApp;
 import pama1234.util.localization.LocalBundle;
 import pama1234.util.localization.LocalBundleCenter;
 import pama1234.util.localization.Localization;
 
 public class Settings extends StateEntity0001{
-  public static String langType="zh_CN";
   public static final Localization localization=new Localization();
-  public static LocalBundleCenter bundleCenter=new LocalBundleCenter(
-    localization.yaml.load(Gdx.files.internal("lang/human/"+langType+".yaml").readString("UTF-8")));
-  public static LocalBundle settingsBundle=bundleCenter.get(localization,"空想世界1/游戏设置");
-  // public static LocalBundle settingsBundle=localization.readYaml(Gdx.files.internal("lang/human/"+langType+".yaml").readString("UTF-8"));
-  public static final String[] typeName=settingsBundle.data;
+  public static LocalBundleCenter bundleCenter;
+  public static LocalBundle bd;
+  public String[] typeName;
   public Button<?>[] buttons;
   public TextButtonCam<?>[] buttonsCam;
   public Slider<?>[] sliders;
@@ -33,13 +30,17 @@ public class Settings extends StateEntity0001{
   public int tx,ty;
   public Settings(Screen0011 p) {
     super(p);
+    bundleCenter=new LocalBundleCenter(localization.yaml.load(
+      Gdx.files.internal("lang/human/"+p.settings.langType+".yaml").readString("UTF-8")));
+    bd=bundleCenter.get(localization,"空想世界1/游戏设置");
+    typeName=bd.data;
+    Gdx.graphics.setTitle(bundleCenter.get(localization,"空想世界1/系统").data[0]);
+    //---
     sliders=new Slider[4];
     buttons=UiGenerator.genButtons_0004(p);
     buttonsCam=SettingsUtil.genButtons_0006(p,this);
     initSliders();
     camTextFields=SettingsUtil.genTextFields_0002(p);
-    //---
-    Gdx.graphics.setTitle(bundleCenter.get(localization,"空想世界1/系统").data[0]);
   }
   public void initSliders() {
     sliders[0].pos=p.settings.volume;
@@ -70,11 +71,17 @@ public class Settings extends StateEntity0001{
   public void displayCam() {
     tx=-128;
     ty=0;
-    text(p.gyroscopeAvailable?settingsBundle.data[LocalizationUtil.canUseGyroscope]:settingsBundle.data[LocalizationUtil.canNotUseGyroscope]);
-    text(p.compassAvailable?"指南针：  可用":"指南针：不可用");
-    text(p.accelerometerAvailable?"加速计：  可用":"加速计：不可用");
-    p.text("重启后生效",192,280);
-    if(p.localHost!=null) p.text("本设备的名称与内网IP地址："+p.localHost.toString(),0,-40);
+    text(p.gyroscopeAvailable
+      ?bd.data[canUseGyroscope]
+      :bd.data[canNotUseGyroscope]);
+    text(p.compassAvailable
+      ?bd.data[canUseCompass]
+      :bd.data[canNotUseCompass]);
+    text(p.accelerometerAvailable
+      ?bd.data[canUseAccelerometer]
+      :bd.data[canNotUseAccelerometer]);
+    p.text(bd.data[needRestart],192,280);
+    if(p.localHost!=null) p.text(bd.data[thisIsIpAddr]+p.localHost.toString(),0,-40);
     p.text("发行版本："+typeName[MainApp.type],0,-60);
     if(p.settings.debugInfo) debugText();
     if(p.settings.showLog) {

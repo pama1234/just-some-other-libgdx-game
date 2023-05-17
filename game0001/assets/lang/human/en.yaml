@@ -1,0 +1,20 @@
+# Translation file
+# Warning: This framework is incomplete, so the order of the following lines must not be changed
+空想世界1:
+  系统:
+    title: '(^·^)~>'
+  游戏设置:
+    main: Main Build
+    taptap: Taptap Version
+    pico: Pico4-VR Version
+
+    陀螺仪-可用: 'Gyroscope: Available'
+    陀螺仪-不可用: 'Gyroscope: Unavailable'
+    指南针-可用: 'Compass: Available'
+    指南针-不可用: 'Compass: Unavailable'
+    加速计-可用: 'Accelerometer: Available'
+    加速计-不可用: 'Accelerometer: Unavailable'
+
+    updateWhenRestart: Effective after restart
+    这是IP地址: 'Name and internal IP address of this device:'
+  游戏设置按钮:

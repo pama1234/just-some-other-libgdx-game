@@ -96,6 +96,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     public boolean showLog;
     public boolean printLog;
     public boolean ctrlButton;
+    public String langType;
   }
   public SettingsData settings;
   public FileHandle settingsFile=Gdx.files.local("data/settings.bin");
@@ -205,6 +206,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   }
   public void initSettings() {
     settings=new SettingsData();
+    settings.langType="zh_CN";
     // settings.serverInfo=new ServerInfo("127.0.0.1",12347);
     settings.isAndroid=Gdx.app.getType()==ApplicationType.Android;
   }
