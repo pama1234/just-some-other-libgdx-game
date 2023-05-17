@@ -1,5 +1,8 @@
-空想世界1:    
-  设置: 
-    t1: 通用版
-    t2: Taptap版
-    t3: Pico4-VR版
+# 翻译文件
+空想世界1:
+  系统:
+    title: 空想世界：啥也没有
+  游戏设置:
+    main: 通用版
+    taptap: Taptap版
+    pico: Pico4-VR版

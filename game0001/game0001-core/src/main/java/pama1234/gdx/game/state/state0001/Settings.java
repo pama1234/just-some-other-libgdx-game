@@ -22,7 +22,7 @@ public class Settings extends StateEntity0001{
   public static final Localization localization=new Localization();
   public static LocalBundleCenter bundleCenter=new LocalBundleCenter(
     localization.yaml.load(Gdx.files.internal("lang/human/"+langType+".yaml").readString("UTF-8")));
-  public static LocalBundle settingsBundle=bundleCenter.get(localization, "空想世界1/设置");
+  public static LocalBundle settingsBundle=bundleCenter.get(localization,"空想世界1/游戏设置");
   // public static LocalBundle settingsBundle=localization.readYaml(Gdx.files.internal("lang/human/"+langType+".yaml").readString("UTF-8"));
   public static final String[] typeName=settingsBundle.data;
   public Button<?>[] buttons;
@@ -37,6 +37,8 @@ public class Settings extends StateEntity0001{
     buttonsCam=SettingsUtil.genButtons_0006(p,this);
     initSliders();
     camTextFields=SettingsUtil.genTextFields_0002(p);
+    //---
+    Gdx.graphics.setTitle(bundleCenter.get(localization,"空想世界1/系统").data[0]);
   }
   public void initSliders() {
     sliders[0].pos=p.settings.volume;
