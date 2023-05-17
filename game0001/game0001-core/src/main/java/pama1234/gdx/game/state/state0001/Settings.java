@@ -12,6 +12,7 @@ import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.ui.util.Slider;
 import pama1234.gdx.game.ui.util.TextButtonCam;
 import pama1234.gdx.game.ui.util.TextField;
+import pama1234.gdx.game.util.LocalizationUtil;
 import pama1234.gdx.launcher.MainApp;
 import pama1234.util.localization.LocalBundle;
 import pama1234.util.localization.LocalBundleCenter;
@@ -69,7 +70,7 @@ public class Settings extends StateEntity0001{
   public void displayCam() {
     tx=-128;
     ty=0;
-    text(p.gyroscopeAvailable?"陀螺仪：  可用":"陀螺仪：不可用");
+    text(p.gyroscopeAvailable?settingsBundle.data[LocalizationUtil.canUseGyroscope]:settingsBundle.data[LocalizationUtil.canNotUseGyroscope]);
     text(p.compassAvailable?"指南针：  可用":"指南针：不可用");
     text(p.accelerometerAvailable?"加速计：  可用":"加速计：不可用");
     p.text("重启后生效",192,280);
