@@ -1,5 +1,7 @@
 package pama1234.util.localization;
 
+import java.util.LinkedHashMap;
+
 import org.yaml.snakeyaml.Yaml;
 
 import com.esotericsoftware.kryo.Kryo;
@@ -20,6 +22,13 @@ public class Localization{
   public Localization(Yaml yaml,Kryo kryo) {
     this.yaml=yaml;
     this.kryo=kryo;
+  }
+  public LocalBundle readMap(LinkedHashMap<String,String> map) {
+    return readMap(new LocalBundle(),map);
+  }
+  public LocalBundle readMap(LocalBundle data,LinkedHashMap<String,String> map) {
+    data.loadFrom(map);
+    return data;
   }
   public LocalBundle readYaml(String yamlString) {
     return readYaml(new LocalBundle(),yamlString);

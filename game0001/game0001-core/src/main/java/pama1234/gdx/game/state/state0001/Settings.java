@@ -13,8 +13,15 @@ import pama1234.gdx.game.ui.util.Slider;
 import pama1234.gdx.game.ui.util.TextButtonCam;
 import pama1234.gdx.game.ui.util.TextField;
 import pama1234.gdx.launcher.MainApp;
+import pama1234.util.localization.LocalBundle;
+import pama1234.util.localization.Localization;
 
 public class Settings extends StateEntity0001{
+  public static String langType="zh_CN";
+  public static final Localization localization=new Localization();
+  public static LocalBundle langBundle=localization.readYaml(Gdx.files.internal("lang/human/"+langType+".yaml").readString("UTF-8"));
+  public static final String[] typeName=langBundle.data;
+  // public static final String[] typeName=localization.readYaml("t1: 通用版\nt2: Taptap版\nt3: Pico4-VR版").data;
   public Button<?>[] buttons;
   public TextButtonCam<?>[] buttonsCam;
   public Slider<?>[] sliders;
@@ -62,7 +69,7 @@ public class Settings extends StateEntity0001{
     text(p.accelerometerAvailable?"加速计：  可用":"加速计：不可用");
     p.text("重启后生效",192,280);
     if(p.localHost!=null) p.text("本设备的名称与内网IP地址："+p.localHost.toString(),0,-40);
-    p.text("发行版本："+MainApp.typeName[MainApp.type],0,-60);
+    p.text("发行版本："+typeName[MainApp.type],0,-60);
     if(p.settings.debugInfo) debugText();
     if(p.settings.showLog) {
       tx=-512;

@@ -2,6 +2,8 @@ package pama1234.util.localization;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
 
 import org.yaml.snakeyaml.Yaml;
 
@@ -13,15 +15,8 @@ public class LocalBundle extends LocalBundleCore{
   @Tag(1)
   public String[] name;
   public void loadFrom(Yaml yaml,String yamlData) {
-    LinkedHashMap<String,String> cache=yaml.load(yamlData);//TODO map不具备稳定顺序
-    name=new String[cache.size()];
-    data=new String[cache.size()];
-    int i=0;
-    for(Map.Entry<String,String> entry:cache.entrySet()) {
-      name[i]=entry.getKey();
-      data[i]=entry.getValue();
-      i++;
-    }
+    LinkedHashMap<String,String> cache=yaml.load(yamlData);
+    loadFrom(cache);
   }
   public String getYaml(Yaml yaml) {
     return getYaml(yaml,name);
@@ -32,5 +27,16 @@ public class LocalBundle extends LocalBundleCore{
   public void loadFrom(Kryo kryo,Input input) {
     name=kryo.readObject(input,String[].class);
     super.loadFrom(kryo,input);
+  }
+  public void loadFrom(LinkedHashMap<String,String> map) {//TODO map不具备稳定顺序
+    name=new String[map.size()];
+    data=new String[map.size()];
+    int i=0;
+    Set<Entry<String,String>> entrySet=map.entrySet();
+    for(Map.Entry<String,String> entry:entrySet) {
+      name[i]=entry.getKey();
+      data[i]=entry.getValue();
+      i++;
+    }
   }
 }
