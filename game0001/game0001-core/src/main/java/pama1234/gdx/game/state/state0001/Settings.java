@@ -14,14 +14,17 @@ import pama1234.gdx.game.ui.util.TextButtonCam;
 import pama1234.gdx.game.ui.util.TextField;
 import pama1234.gdx.launcher.MainApp;
 import pama1234.util.localization.LocalBundle;
+import pama1234.util.localization.LocalBundleCenter;
 import pama1234.util.localization.Localization;
 
 public class Settings extends StateEntity0001{
   public static String langType="zh_CN";
   public static final Localization localization=new Localization();
-  public static LocalBundle langBundle=localization.readYaml(Gdx.files.internal("lang/human/"+langType+".yaml").readString("UTF-8"));
-  public static final String[] typeName=langBundle.data;
-  // public static final String[] typeName=localization.readYaml("t1: 通用版\nt2: Taptap版\nt3: Pico4-VR版").data;
+  public static LocalBundleCenter bundleCenter=new LocalBundleCenter(
+    localization.yaml.load(Gdx.files.internal("lang/human/"+langType+".yaml").readString("UTF-8")));
+  public static LocalBundle settingsBundle=bundleCenter.get(localization, "空想世界1/设置");
+  // public static LocalBundle settingsBundle=localization.readYaml(Gdx.files.internal("lang/human/"+langType+".yaml").readString("UTF-8"));
+  public static final String[] typeName=settingsBundle.data;
   public Button<?>[] buttons;
   public TextButtonCam<?>[] buttonsCam;
   public Slider<?>[] sliders;
