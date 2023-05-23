@@ -12,6 +12,7 @@ buildscript {
   dependencies {
     classpath "com.android.tools.build:gradle:$androidPluginVersion"
     classpath "com.diffplug.spotless:spotless-plugin-gradle:$spotlessPluginVersion"
+    classpath "com.google.protobuf:protobuf-gradle-plugin:$protobufGradleVersion"
 
     // This follows advice from https://blog.gradle.org/log4j-vulnerability
     constraints {

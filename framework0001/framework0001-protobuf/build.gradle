@@ -1,13 +1,11 @@
 apply plugin: 'application'
 apply plugin: 'maven-publish'
 
+apply plugin: 'com.google.protobuf'
+
 sourceCompatibility = 17
 mainClassName = 'pama1234.util.protobuf.TestApp'
 eclipse.project.name = appName + '-protobuf'
-
-sourceSets.main.resources.srcDirs += [
-  './src/main/protobuf'
-]
 
 dependencies {
   api project(':server-framework')
