@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+//生成 proto 文件所在包路径
+package pama1234.util.protobuf;
+
+//生成 proto 文件所在包路径
+option java_package = "pama1234.util.protobuf";
+
+//生成 proto 文件名
+option java_outer_classname="DemoProto";
+
+message Demo{
+  //自身属性
+  int32 id = 1;
+  string code = 2;
+  string name = 3;
+}
