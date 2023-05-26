@@ -7,4 +7,11 @@ public class LocalizationUtil{
     canUseAccelerometer=7,canNotUseAccelerometer=8,
     needRestart=9,
     thisIsIpAddr=10;
+  public class LocalizationData{
+    public String canUseGyroscope,canNotUseGyroscope,
+      canUseCompass,canNotUseCompass,
+      canUseAccelerometer,canNotUseAccelerometer,
+      needRestart,
+      thisIsIpAddr;
+  }
 }

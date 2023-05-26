@@ -50,7 +50,7 @@ public class MetaInfoUtil{
       return list.toArray(new MetaWorld[list.size()]);
     }
   }
-  public static abstract class CachedArrayCenter<T>extends Center<T>{
+  public static abstract class CachedArrayCenter<T> extends Center<T>{
     public boolean cacheClean;
     public T[] arrayCache;
     //---

@@ -1,7 +1,14 @@
 package pama1234.gdx.game.state.state0001;
 
 import static com.badlogic.gdx.Input.Keys.ESCAPE;
-import static pama1234.gdx.game.util.LocalizationUtil.*;
+import static pama1234.gdx.game.util.LocalizationUtil.canNotUseAccelerometer;
+import static pama1234.gdx.game.util.LocalizationUtil.canNotUseCompass;
+import static pama1234.gdx.game.util.LocalizationUtil.canNotUseGyroscope;
+import static pama1234.gdx.game.util.LocalizationUtil.canUseAccelerometer;
+import static pama1234.gdx.game.util.LocalizationUtil.canUseCompass;
+import static pama1234.gdx.game.util.LocalizationUtil.canUseGyroscope;
+import static pama1234.gdx.game.util.LocalizationUtil.needRestart;
+import static pama1234.gdx.game.util.LocalizationUtil.thisIsIpAddr;
 
 import com.badlogic.gdx.Gdx;
 
@@ -13,6 +20,7 @@ import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.ui.util.Slider;
 import pama1234.gdx.game.ui.util.TextButtonCam;
 import pama1234.gdx.game.ui.util.TextField;
+import pama1234.gdx.game.util.LocalizationUtil.LocalizationData;
 import pama1234.gdx.launcher.MainApp;
 import pama1234.util.localization.LocalBundle;
 import pama1234.util.localization.LocalBundleCenter;
@@ -22,6 +30,7 @@ public class Settings extends StateEntity0001{
   public static final Localization localization=new Localization();
   public static LocalBundleCenter bundleCenter;
   public static LocalBundle bd;
+  public static LocalizationData ld;
   public String[] typeName;
   public Button<?>[] buttons;
   public TextButtonCam<?>[] buttonsCam;
