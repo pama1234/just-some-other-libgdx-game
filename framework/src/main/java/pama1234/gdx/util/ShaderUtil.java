@@ -36,6 +36,7 @@ public class ShaderUtil{
         +"  gl_FragColor = v_color * texture2D(u_texture, v_texCoords);\n"//
         +"}";
     ShaderProgram shader=new ShaderProgram(vertexShader,fragmentShader);
+    // if(Gdx.app.getType()!=ApplicationType.HeadlessDesktop&&!shader.isCompiled())
     if(!shader.isCompiled()) throw new IllegalArgumentException("Error compiling shader: "+shader.getLog());
     return shader;
   }

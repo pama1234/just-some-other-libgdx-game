@@ -31,7 +31,9 @@ public abstract class UtilScreen extends UtilScreenRender{
   public int matrixStackPointer=-1;
   //---------------------------------------------------------------------------
   public static SpriteBatch createSpriteBatch() {
+    // if(Gdx.app.getType()!=ApplicationType.HeadlessDesktop) 
     return new SpriteBatch(1000,ShaderUtil.createDefaultShader());
+    // else return new SpriteBatch(1000,new ShaderProgram("",""));
   }
   public void createRenderUtil() {
     fontBatch=createSpriteBatch();
@@ -59,8 +61,15 @@ public abstract class UtilScreen extends UtilScreenRender{
   }
   //---------------------------------------------------------------------------
   public void preInit() {
+    // if(Gdx.app.getType()==ApplicationType.HeadlessDesktop) Gdx.gl20=Gdx.gl=new EmptyGL20();
     screenCam=new OrthographicCamera();
+    // if(Gdx.app.getType()!=ApplicationType.HeadlessDesktop) {
     imageBatch=createSpriteBatch();
+    // tvgDrawer=new TinyVGShapeDrawer(imageBatch);
+    // }else {
+    //   imageBatch=new SpriteBatch();
+    //   // tvgDrawer=new TinyVGShapeDrawer(imageBatch);
+    // }
     tvgDrawer=new TinyVGShapeDrawer(imageBatch);
     Gdx.input.setInputProcessor(inputProcessor=new UtilInputProcesser(this));
     center=new EntityCenter<>(this);
