@@ -8,8 +8,8 @@
     taptap: Taptap Version
     pico: Pico4-VR Version
 
-    陀螺仪-可用: 'Gyroscope: Available'
-    陀螺仪-不可用: 'Gyroscope: Unavailable'
+    canUseGyroscope: 'Gyroscope: Available'
+    canNotUseGyroscope: 'Gyroscope: Unavailable'
     指南针-可用: 'Compass: Available'
     指南针-不可用: 'Compass: Unavailable'
     加速计-可用: 'Accelerometer: Available'

@@ -22,7 +22,7 @@ public class LocalBundle extends LocalBundleCore{
     return getYaml(yaml,name);
   }
   public String getYaml(Yaml yaml,Map<String,String> cache) {
-    return getYaml(yaml,cache);
+    return getYaml(yaml,name,cache);
   }
   public void loadFrom(Kryo kryo,Input input) {
     name=kryo.readObject(input,String[].class);

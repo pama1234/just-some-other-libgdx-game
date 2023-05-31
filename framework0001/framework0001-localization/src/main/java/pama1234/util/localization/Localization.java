@@ -44,4 +44,10 @@ public class Localization{
     data.loadFrom(kryo,input);
     return data;
   }
+  public <T> T load(LocalBundle localBundle,Class<T> class1) {
+    return yaml.loadAs(localBundle.getYaml(yaml),class1);
+  }
+  public <T> T load(LocalBundle localBundle,String[] name,Class<T> class1) {
+    return yaml.loadAs(localBundle.getYaml(yaml,name),class1);
+  }
 }

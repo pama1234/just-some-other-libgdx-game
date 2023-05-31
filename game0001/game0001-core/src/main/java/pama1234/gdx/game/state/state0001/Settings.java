@@ -1,14 +1,6 @@
 package pama1234.gdx.game.state.state0001;
 
 import static com.badlogic.gdx.Input.Keys.ESCAPE;
-import static pama1234.gdx.game.util.LocalizationUtil.canNotUseAccelerometer;
-import static pama1234.gdx.game.util.LocalizationUtil.canNotUseCompass;
-import static pama1234.gdx.game.util.LocalizationUtil.canNotUseGyroscope;
-import static pama1234.gdx.game.util.LocalizationUtil.canUseAccelerometer;
-import static pama1234.gdx.game.util.LocalizationUtil.canUseCompass;
-import static pama1234.gdx.game.util.LocalizationUtil.canUseGyroscope;
-import static pama1234.gdx.game.util.LocalizationUtil.needRestart;
-import static pama1234.gdx.game.util.LocalizationUtil.thisIsIpAddr;
 
 import com.badlogic.gdx.Gdx;
 
@@ -20,7 +12,7 @@ import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.ui.util.Slider;
 import pama1234.gdx.game.ui.util.TextButtonCam;
 import pama1234.gdx.game.ui.util.TextField;
-import pama1234.gdx.game.util.LocalizationUtil.LocalizationData;
+import pama1234.gdx.game.util.LocalizationData;
 import pama1234.gdx.launcher.MainApp;
 import pama1234.util.localization.LocalBundle;
 import pama1234.util.localization.LocalBundleCenter;
@@ -42,6 +34,7 @@ public class Settings extends StateEntity0001{
     bundleCenter=new LocalBundleCenter(localization.yaml.load(
       Gdx.files.internal("lang/human/"+p.settings.langType+".yaml").readString("UTF-8")));
     bd=bundleCenter.get(localization,"空想世界1/游戏设置");
+    ld=localization.load(bundleCenter.get(localization,"空想世界1/游戏设置"),LocalizationData.class);
     typeName=bd.data;
     Gdx.graphics.setTitle(bundleCenter.get(localization,"空想世界1/系统").data[0]);
     //---
@@ -81,16 +74,16 @@ public class Settings extends StateEntity0001{
     tx=-128;
     ty=0;
     text(p.gyroscopeAvailable
-      ?bd.data[canUseGyroscope]
-      :bd.data[canNotUseGyroscope]);
+      ?ld.canUseGyroscope
+      :ld.canNotUseGyroscope);
     text(p.compassAvailable
-      ?bd.data[canUseCompass]
-      :bd.data[canNotUseCompass]);
+      ?ld.canUseCompass
+      :ld.canNotUseCompass);
     text(p.accelerometerAvailable
-      ?bd.data[canUseAccelerometer]
-      :bd.data[canNotUseAccelerometer]);
-    p.text(bd.data[needRestart],192,280);
-    if(p.localHost!=null) p.text(bd.data[thisIsIpAddr]+p.localHost.toString(),0,-40);
+      ?ld.canUseAccelerometer
+      :ld.canNotUseAccelerometer);
+    p.text(ld.needRestart,192,280);
+    if(p.localHost!=null) p.text(ld.thisIsIpAddr+p.localHost.toString(),0,-40);
     p.text("发行版本："+typeName[MainApp.type],0,-60);
     if(p.settings.debugInfo) debugText();
     if(p.settings.showLog) {

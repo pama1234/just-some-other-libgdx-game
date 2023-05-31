@@ -10,9 +10,7 @@ public class LocalBundleCenter{
   public LocalBundle get(Localization p,String path) {
     String[] sa=path.split("/");
     LinkedHashMap<String,Object> cache=data;
-    for(String i:sa) {
-      cache=(LinkedHashMap<String,Object>)cache.get(i);
-    }
+    for(String i:sa) cache=(LinkedHashMap<String,Object>)cache.get(i);
     return p.readMap((LinkedHashMap)cache);
   }
 }

@@ -8,14 +8,14 @@
     taptap: Taptap版
     pico: Pico4-VR版
 
-    陀螺仪-可用: 陀螺仪：  可用
-    陀螺仪-不可用: 陀螺仪：不可用
-    指南针-可用: 指南针：  可用
-    指南针-不可用: 指南针：不可用
-    加速计-可用: 加速计：  可用
-    加速计-不可用: 加速计：不可用
+    canUseGyroscope: 陀螺仪：  可用
+    canNotUseGyroscope: 陀螺仪：不可用
+    canUseCompass: 指南针：  可用
+    canNotUseCompass: 指南针：不可用
+    canUseAccelerometer: 加速计：  可用
+    canNotUseAccelerometer: 加速计：不可用
 
-    updateWhenRestart: 重启后生效
-    这是IP地址: 本设备的名称与内网IP地址：
+    needRestart: 重启后生效
+    thisIsIpAddr: 本设备的名称与内网IP地址：
   游戏设置按钮:
     
