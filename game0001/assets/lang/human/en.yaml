@@ -10,11 +10,11 @@
 
     canUseGyroscope: 'Gyroscope: Available'
     canNotUseGyroscope: 'Gyroscope: Unavailable'
-    指南针-可用: 'Compass: Available'
-    指南针-不可用: 'Compass: Unavailable'
-    加速计-可用: 'Accelerometer: Available'
-    加速计-不可用: 'Accelerometer: Unavailable'
+    canUseCompass: 'Compass: Available'
+    canNotUseCompass: 'Compass: Unavailable'
+    canUseAccelerometer: 'Accelerometer: Available'
+    canNotUseAccelerometer: 'Accelerometer: Unavailable'
 
     updateWhenRestart: Effective after restart
-    这是IP地址: 'Name and internal IP address of this device:'
+    thisIsIpAddr: 'Name and internal IP address of this device:'
   游戏设置按钮:

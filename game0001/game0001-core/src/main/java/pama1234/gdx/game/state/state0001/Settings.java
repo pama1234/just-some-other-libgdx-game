@@ -14,14 +14,12 @@ import pama1234.gdx.game.ui.util.TextButtonCam;
 import pama1234.gdx.game.ui.util.TextField;
 import pama1234.gdx.game.util.LocalizationData;
 import pama1234.gdx.launcher.MainApp;
-import pama1234.util.localization.LocalBundle;
 import pama1234.util.localization.LocalBundleCenter;
 import pama1234.util.localization.Localization;
 
 public class Settings extends StateEntity0001{
   public static final Localization localization=new Localization();
   public static LocalBundleCenter bundleCenter;
-  public static LocalBundle bd;
   public static LocalizationData ld;
   public String[] typeName;
   public Button<?>[] buttons;
@@ -33,9 +31,8 @@ public class Settings extends StateEntity0001{
     super(p);
     bundleCenter=new LocalBundleCenter(localization.yaml.load(
       Gdx.files.internal("lang/human/"+p.settings.langType+".yaml").readString("UTF-8")));
-    bd=bundleCenter.get(localization,"空想世界1/游戏设置");
     ld=localization.load(bundleCenter.get(localization,"空想世界1/游戏设置"),LocalizationData.class);
-    typeName=bd.data;
+    typeName=new String[] {ld.main,ld.taptap,ld.pico};
     Gdx.graphics.setTitle(bundleCenter.get(localization,"空想世界1/系统").data[0]);
     //---
     sliders=new Slider[4];
@@ -111,25 +108,25 @@ public class Settings extends StateEntity0001{
     tx=-256;
     if(p.gyroscopeAvailable) {
       line();
-      text("陀螺仪 X: "+Gdx.input.getGyroscopeX());
-      text("陀螺仪 Y: "+Gdx.input.getGyroscopeY());
-      text("陀螺仪 Z: "+Gdx.input.getGyroscopeZ());
+      text(ld.gyroscopeX+Gdx.input.getGyroscopeX());
+      text(ld.gyroscopeY+Gdx.input.getGyroscopeY());
+      text(ld.gyroscopeZ+Gdx.input.getGyroscopeZ());
     }
     if(p.compassAvailable) {
       line();
-      text("指南针 X: "+Gdx.input.getPitch());
-      text("指南针 Y: "+Gdx.input.getRoll());
-      text("指南针 Z: "+Gdx.input.getAzimuth());
+      text(ld.compassX+Gdx.input.getPitch());
+      text(ld.compassY+Gdx.input.getRoll());
+      text(ld.compassZ+Gdx.input.getAzimuth());
       line();
-      text("重力   X: "+p.gVel.x);
-      text("重力   Y: "+p.gVel.y);
-      text("重力   Z: "+p.gVel.z);
+      text(ld.gravityX+p.gVel.x);
+      text(ld.gravityY+p.gVel.y);
+      text(ld.gravityZ+p.gVel.z);
     }
     if(p.accelerometerAvailable) {
       line();
-      text("加速计 X: "+Gdx.input.getAccelerometerX());
-      text("加速计 Y: "+Gdx.input.getAccelerometerY());
-      text("加速计 Z: "+Gdx.input.getAccelerometerZ());
+      text(ld.accelerometerX+Gdx.input.getAccelerometerX());
+      text(ld.accelerometerY+Gdx.input.getAccelerometerY());
+      text(ld.accelerometerZ+Gdx.input.getAccelerometerZ());
     }
   }
 }

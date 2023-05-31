@@ -17,5 +17,19 @@
 
     needRestart: 重启后生效
     thisIsIpAddr: 本设备的名称与内网IP地址：
+
+    gyroscopeX: 陀螺仪 X：
+    gyroscopeY: 陀螺仪 Y：
+    gyroscopeZ: 陀螺仪 Z：
+    compassX: 指南针 X：
+    compassY: 指南针 Y：
+    compassZ: 指南针 Z：
+    gravityX: 重力   X：
+    gravityY: 重力   Y：
+    gravityZ: 重力   Z：
+    accelerometerX: 加速计 X：
+    accelerometerY: 加速计 Y：
+    accelerometerZ: 加速计 Z：
+    
   游戏设置按钮:
     
