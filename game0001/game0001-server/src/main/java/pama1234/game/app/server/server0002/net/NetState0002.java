@@ -44,7 +44,8 @@ public class NetState0002{
   }
   public static enum SceneState{
     TestWorld,
-    SceneException;
+    SceneException,
+    JustParticleSystem;
     public static SceneState[] netStateArray=SceneState.values();
     public static int stateToInt(SceneState in) {
       return in.ordinal();

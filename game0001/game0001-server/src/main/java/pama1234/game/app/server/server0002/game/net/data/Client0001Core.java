@@ -1,7 +1,4 @@
-package pama1234.game.app.server.server0001.game.net.data;
-
-import pama1234.game.app.server.server0001.game.ServerPlayer3D;
-import pama1234.game.app.server.server0001.game.net.CellData;
+package pama1234.game.app.server.server0002.game.net.data;
 
 public class Client0001Core{
   public volatile CellData[] cellData;

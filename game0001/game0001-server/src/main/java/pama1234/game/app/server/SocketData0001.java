@@ -1,10 +1,10 @@
-package pama1234.game.app.server.server0001.game.net;
+package pama1234.game.app.server;
 
 import java.io.IOException;
 
-import pama1234.game.app.server.server0001.game.net.state.ClientState;
-import pama1234.game.app.server.server0001.game.net.state.SceneState;
-import pama1234.game.app.server.server0001.game.net.state.ServerState;
+import pama1234.game.app.server.server0002.net.NetState0002.ClientState;
+import pama1234.game.app.server.server0002.net.NetState0002.SceneState;
+import pama1234.game.app.server.server0002.net.NetState0002.ServerState;
 import pama1234.util.net.SocketData;
 import pama1234.util.net.SocketInterface;
 

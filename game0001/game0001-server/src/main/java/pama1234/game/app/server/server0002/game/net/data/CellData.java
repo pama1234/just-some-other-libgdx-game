@@ -1,4 +1,4 @@
-package pama1234.game.app.server.server0001.game.net;
+package pama1234.game.app.server.server0002.game.net.data;
 
 // public class CellData{
 public final class CellData{

@@ -1,6 +1,5 @@
 package pama1234.game.app.server;
 
-import pama1234.game.app.server.server0001.game.net.SocketData0001;
 import pama1234.util.UtilServer;
 import pama1234.util.net.NetAddressInfo;
 import pama1234.util.net.ServerSocketData;

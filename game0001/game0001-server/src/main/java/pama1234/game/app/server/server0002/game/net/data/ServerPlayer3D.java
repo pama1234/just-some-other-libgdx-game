@@ -1,6 +1,5 @@
-package pama1234.game.app.server.server0001.game;
+package pama1234.game.app.server.server0002.game.net.data;
 
-import pama1234.game.app.server.server0001.game.net.PlayerInfo3D;
 import pama1234.math.gdx.temp.ServerFrustum;
 import pama1234.math.physics.PathPoint3D;
 import pama1234.util.entity.ServerPoint3DEntity;

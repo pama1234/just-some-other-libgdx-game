@@ -1,4 +1,4 @@
-package pama1234.game.app.server.server0001.game.net;
+package pama1234.game.app.server.server0002.game.net.data;
 
 import static pama1234.math.UtilMath.PI;
 
