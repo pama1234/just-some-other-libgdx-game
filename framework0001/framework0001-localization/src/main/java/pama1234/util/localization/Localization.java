@@ -44,7 +44,7 @@ public class Localization{
     data.loadFrom(kryo,input);
     return data;
   }
-  public <T> T load(LocalBundle localBundle,Class<T> class1) {
+  public <T> T load(LocalBundle localBundle,Class<T> class1) {//TODO 效率较低
     return yaml.loadAs(localBundle.getYaml(yaml),class1);
   }
   public <T> T load(LocalBundle localBundle,String[] name,Class<T> class1) {

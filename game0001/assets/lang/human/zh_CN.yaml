@@ -30,6 +30,10 @@
     accelerometerX: 加速计 X：
     accelerometerY: 加速计 Y：
     accelerometerZ: 加速计 Z：
-    
-  游戏设置按钮:
-    
+  
+  # 按钮
+
+    resetSettings: 重置设置
+    muteYes: 静音：是
+    muteNo: 静音：否
+    volume: '音量 '

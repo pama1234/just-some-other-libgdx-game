@@ -1,5 +1,7 @@
 package pama1234.gdx.game.state.state0001.settings;
 
+import static pama1234.gdx.game.state.state0001.Settings.ld;
+
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.Game;
@@ -27,16 +29,16 @@ public class SettingsUtil{
         p.saveSettings();
         for(TextButtonCam<?> e:ps.buttonsCam) e.updateText();
         self.updateText();
-      },self->self.text="重置设置",()->18,()->-100,()->-20),
+      },self->self.text=ld.resetSettings,()->18,()->-100,()->-20),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.mute=!p.settings.mute;
         self.updateText();
-      },self->self.text=p.settings.mute?"静音：是":"静音：否",()->18,()->0,()->0),
+      },self->self.text=p.settings.mute?ld.muteYes:ld.muteNo,()->18,()->0,()->0),
       ps.sliders[0]=new Slider<T>(p,true,()->true,self-> {
         p.settings.volume=ps.sliders[0].pos;
         self.updateText();
       },self-> {},self-> {},
-        self->self.text="音量 "+String.format("%6.2f",p.settings.volume*100),()->18,()->0,()->20,1),
+        self->self.text=ld.volume+String.format("%6.2f",p.settings.volume*100),()->18,()->0,()->20,1),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.debugInfo=!p.settings.debugInfo;
         p.debugInfoChange();
