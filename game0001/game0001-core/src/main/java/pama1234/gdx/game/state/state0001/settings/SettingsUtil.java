@@ -21,13 +21,16 @@ import pama1234.gdx.launcher.MainApp;
 
 public class SettingsUtil{
   public static TextField[] genTextFields_0002(Screen0011 p) {
-    TextField[] out=new TextField[] {new TextField(p.settings.langType,new CodeTextFieldStyle(p),
-      new RectF(()->0,()->-20,()->256,()->18),
+    TextField[] out=new TextField[] {new TextField(p.settings.langType.indent(1),new CodeTextFieldStyle(p),
+      new RectF(()->0,()->-20,()->80,()->18),
       ()->1)};
-    out[0].setMessageText("语言设置");
+    out[0].setMessageText(ld.languageSettings);
     out[0].addListener(new FocusListener() {
       public void keyboardFocusChanged(FocusEvent event,Actor actor,boolean focused) {
-        if(!focused) p.settings.langType=out[0].getText();
+        if(!focused) {
+          p.settings.langType=out[0].getText().trim();
+          out[0].setText(out[0].getText().trim().indent(1));
+        }
       }
     });
     for(TextField e:out) e.setOnscreenKeyboard(new NormalOnscreenKeyboard());
@@ -60,20 +63,20 @@ public class SettingsUtil{
         p.settings.debugInfo=!p.settings.debugInfo;
         p.debugInfoChange();
         self.updateText();
-      },self->self.text=p.settings.debugInfo?"显示文本调试信息：是":"显示文本调试信息：否",()->18,()->0,()->40),
+      },self->self.text=p.settings.debugInfo?ld.debugInfoYes:ld.debugInfoNo,()->18,()->0,()->40),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.debugGraphics=!p.settings.debugGraphics;
         Game game=(Game)State0001.Game.entity;
         if(p.settings.debugGraphics) game.createDebugDisplay();
         self.updateText();
-      },self->self.text=p.settings.debugGraphics?"显示图形调试信息：是":"显示图形调试信息：否",()->18,()->0,()->60),
+      },self->self.text=p.settings.debugGraphics?ld.debugGraphicsYes:ld.debugGraphicsNo,()->18,()->0,()->60),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         boolean firstInit=((Game)State0001.Game.entity).firstInit;
         if(!firstInit) ((Game)State0001.Game.entity).world().pauseSave();//判断有没有初始化
         p.state(State0001.Loading);
         //由于Loading中会把firstInit修改为true,所以要修改会原来的值，否则就会因为线程再次启动而崩溃
         ((Game)State0001.Game.entity).firstInit=firstInit;
-      },self->self.text="重新加载图片素材",()->18,()->0,()->80),
+      },self->self.text=ld.reloadAssets,()->18,()->0,()->80),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         System.gc();
         Runtime.getRuntime().runFinalization();
@@ -128,7 +131,7 @@ public class SettingsUtil{
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.refreshLocalHost();
         // self.updateText();
-      },self->self.text="刷新本机网络地址",()->18,()->0,()->-20),
+      },self->self.text="刷新本机网络地址",()->18,()->0,()->-40),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.showLog=!p.settings.showLog;
         self.updateText();

@@ -87,8 +87,9 @@ public class Settings extends StateEntity0001{
       ?ld.canUseAccelerometer
       :ld.canNotUseAccelerometer);
     p.text(ld.needRestart,192,280);
-    if(p.localHost!=null) p.text(ld.thisIsIpAddr+p.localHost.toString(),0,-40);
-    p.text("发行版本："+typeName[MainApp.type],0,-60);
+    if(p.localHost!=null) p.text(ld.thisIsIpAddr+p.localHost.toString(),0,-60);
+    p.text(ld.releaseVersion+typeName[MainApp.type],0,-80);
+    p.text(ld.languageSettings,88,-20);
     if(p.settings.debugInfo) debugText();
     if(p.settings.showLog) {
       tx=-512;

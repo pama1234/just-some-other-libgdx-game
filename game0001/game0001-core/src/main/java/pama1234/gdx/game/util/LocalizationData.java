@@ -11,12 +11,16 @@ public class LocalizationData{
   public String canUseGyroscope,canNotUseGyroscope,
     canUseCompass,canNotUseCompass,
     canUseAccelerometer,canNotUseAccelerometer,
-    needRestart,
-    thisIsIpAddr;
+    needRestart,thisIsIpAddr,releaseVersion;
   public String gyroscopeX,gyroscopeY,gyroscopeZ,
     compassX,compassY,compassZ,
     gravityX,gravityY,gravityZ,
     accelerometerX,accelerometerY,accelerometerZ;
-  public String resetSettings,restart,muteYes,muteNo,volume;
+  public String languageSettings,resetSettings,restart,
+    muteYes,muteNo,
+    volume,
+    debugInfoYes,debugInfoNo,
+    debugGraphicsYes,debugGraphicsNo,
+    reloadAssets;
   public String loading,tick;
 }

@@ -1,7 +1,8 @@
 package pama1234.gdx.game.state.state0001;
 
-import com.badlogic.gdx.assets.AssetManager;
 import static pama1234.gdx.game.state.state0001.Settings.ld;
+
+import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 
 import pama1234.gdx.game.app.Screen0011;

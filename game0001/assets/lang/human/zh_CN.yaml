@@ -16,6 +16,7 @@
 
     needRestart: 重启后生效
     thisIsIpAddr: 本设备的名称与内网IP地址：
+    releaseVersion: 发行版本：
 
     gyroscopeX: 陀螺仪 X：
     gyroscopeY: 陀螺仪 Y：
@@ -29,15 +30,21 @@
     accelerometerX: 加速计 X：
     accelerometerY: 加速计 Y：
     accelerometerZ: 加速计 Z：
-  
+
   # 按钮
 
+    languageSettings: 语言设置
     resetSettings: 重置设置
     restart: 重启游戏
     muteYes: 静音：是
     muteNo: 静音：否
     volume: '音量 '
-  
+    debugInfoYes: "显示文本调试信息：是"
+    debugInfoNo: "显示文本调试信息：否"
+    debugGraphicsYes: "显示图形调试信息：是"
+    debugGraphicsNo: "显示图形调试信息：否"
+    reloadAssets: "重新加载图片素材"
+
   # 加载页面
 
     loading: '加载中 '

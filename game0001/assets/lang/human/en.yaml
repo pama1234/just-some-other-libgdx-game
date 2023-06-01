@@ -16,6 +16,7 @@
 
     needRestart: 'Effective after restart'
     thisIsIpAddr: 'Name and internal IP address of this device: '
+    releaseVersion: 'Release version: '
 
     gyroscopeX:     '    Gyroscope X: '
     gyroscopeY:     '    Gyroscope Y: '
@@ -32,13 +33,19 @@
 
     # Buttons
 
+    languageSettings: 'Language settings'
     resetSettings: 'Reset Settings'
     restart: 'Restart game'
     muteYes: 'Mute: Yes'
     muteNo: 'Mute: No'
     volume: 'Volume '
-  
-  # 加载页面
+    debugInfoYes: "Display debug text info: Yes"
+    debugInfoNo: "Display debug text info: No"
+    debugGraphicsYes: "Display debug graphics: Yes"
+    debugGraphicsNo: "Display debug graphics: No"
+    reloadAssets: "Reload assets"
+
+  # loading scene
 
     loading: 'Loading '
     tick: ' tick '
