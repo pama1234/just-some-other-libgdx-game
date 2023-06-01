@@ -1,6 +1,7 @@
 package pama1234.gdx.game.state.state0001;
 
 import com.badlogic.gdx.assets.AssetManager;
+import static pama1234.gdx.game.state.state0001.Settings.ld;
 import com.badlogic.gdx.graphics.Texture;
 
 import pama1234.gdx.game.app.Screen0011;
@@ -16,6 +17,9 @@ public class Loading extends StateEntity0001{
   public int frame;
   public AssetManager manager;
   public ProgressBar<Screen0011> progress;
+  //---
+  public String text;
+  public float textWidth;
   public Loading(Screen0011 p) {
     super(p);
     manager=new AssetManager();
@@ -37,6 +41,15 @@ public class Loading extends StateEntity0001{
     TvgAsset.load_0001(manager);
     MusicAsset.load_0001(manager);
     ImageAsset.load_0001(manager);
+    //---
+    // updateTextAndTextWidth();
+  }
+  public void updateTextAndTextWidth() {
+    updateText();
+    textWidth=p.textWidth(text);
+  }
+  public void updateText() {
+    text=ld.loading+String.format("% 3d",frame)+ld.tick+String.format("%5s",Tools.cutToLastDigit(manager.getProgress()*100))+"%";
   }
   @Override
   public void to(State0001 in) {
@@ -45,8 +58,8 @@ public class Loading extends StateEntity0001{
   }
   @Override
   public void display() {
-    String text="加载中 "+frame+"tick "+Tools.cutToLastDigit(manager.getProgress()*100)+"%";
-    p.text(text,(p.width-p.textWidth(text))/2f,(p.height-p.pu)/2f);
+    textWidth=p.textWidth(text);
+    p.text(text,(p.width-textWidth)/2f,(p.height-p.pu)/2f);
   }
   @Override
   public void update() {
@@ -58,9 +71,14 @@ public class Loading extends StateEntity0001{
       ImageAsset.put_0001(manager);
       p.state(State0001.StartMenu);
     }
+    updateTextAndTextWidth();
   }
   @Override
   public void dispose() {
     manager.dispose();
+  }
+  @Override
+  public void frameResized(int w,int h) {
+    // textWidth=p.textWidth(text);
   }
 }

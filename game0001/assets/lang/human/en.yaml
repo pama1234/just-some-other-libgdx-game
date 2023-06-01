@@ -33,6 +33,12 @@
     # Buttons
 
     resetSettings: 'Reset Settings'
+    restart: 'Restart game'
     muteYes: 'Mute: Yes'
     muteNo: 'Mute: No'
     volume: 'Volume '
+  
+  # 加载页面
+
+    loading: 'Loading '
+    tick: ' tick '

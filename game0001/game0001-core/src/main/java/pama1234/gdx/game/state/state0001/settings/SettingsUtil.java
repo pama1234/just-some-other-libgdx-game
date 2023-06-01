@@ -17,6 +17,7 @@ import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.game.ui.util.TextButtonCam;
 import pama1234.gdx.game.ui.util.TextField;
 import pama1234.gdx.game.util.RectF;
+import pama1234.gdx.launcher.MainApp;
 
 public class SettingsUtil{
   public static TextField[] genTextFields_0002(Screen0011 p) {
@@ -35,6 +36,7 @@ public class SettingsUtil{
   }
   public static <T extends Screen0011> TextButtonCam<?>[] genButtons_0006(T p,Settings ps) {
     float resetSettingsButtonPosX=-p.textWidth(ld.resetSettings)-24;//-100
+    float restartButtonPosX=-p.textWidth(ld.restart)-24;
     return new TextButtonCam[] {
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.initSettings();
@@ -42,6 +44,9 @@ public class SettingsUtil{
         for(TextButtonCam<?> e:ps.buttonsCam) e.updateText();
         self.updateText();
       },self->self.text=ld.resetSettings,()->18,()->resetSettingsButtonPosX,()->-20),
+      new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
+        MainApp.instance.restartScreen();
+      },self->self.text=ld.restart,()->18,()->restartButtonPosX,()->-40),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.mute=!p.settings.mute;
         self.updateText();

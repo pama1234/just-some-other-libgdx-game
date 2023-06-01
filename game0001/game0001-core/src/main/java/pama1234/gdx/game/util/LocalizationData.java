@@ -17,5 +17,6 @@ public class LocalizationData{
     compassX,compassY,compassZ,
     gravityX,gravityY,gravityZ,
     accelerometerX,accelerometerY,accelerometerZ;
-  public String resetSettings,muteYes,muteNo,volume;
+  public String resetSettings,restart,muteYes,muteNo,volume;
+  public String loading,tick;
 }

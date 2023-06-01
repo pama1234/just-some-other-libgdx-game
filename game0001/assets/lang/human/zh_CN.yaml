@@ -33,6 +33,12 @@
   # 按钮
 
     resetSettings: 重置设置
+    restart: 重启游戏
     muteYes: 静音：是
     muteNo: 静音：否
     volume: '音量 '
+  
+  # 加载页面
+
+    loading: '加载中 '
+    tick: ' 帧 '
