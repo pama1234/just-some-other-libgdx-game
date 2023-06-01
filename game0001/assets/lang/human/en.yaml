@@ -50,8 +50,14 @@
     displayEarthInStartMenu: 'Display Earth in start menu: '
     showZoomButton: 'Show Zoom Button: '
     debugView: 'Debug view (DO NOT press this)'
-    UseGyroscope: 'Use gyroscope: '
-    useAccelerometer: 'Use accelerometer (not implemented)'
+    useGyroscope: 'Use gyroscope: '
+    useAccelerometer: 'Use accelerometer (not implemented): '
+    gyroscopeSensitivity: 'Gyroscope sensitivity '
+    accelerometerSensitivity: 'Accelerometer sensitivity '
+    gravitationalConstant: 'Gravitational constant '
+    setDebugPlatformType: 'Set debug platform type: '
+    phone: 'phone'
+    personalComputer: 'personal computer'
 
     # loading scene
 

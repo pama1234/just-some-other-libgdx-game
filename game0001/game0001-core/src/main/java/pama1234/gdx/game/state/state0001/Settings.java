@@ -28,7 +28,7 @@ public class Settings extends StateEntity0001{
   public Slider<?>[] sliders;
   public TextField[] camTextFields;
   public int tx,ty;
-  public int sensorAvailableTextPosX;
+  public int sensorAvailableTextPosX,needRestartTextPosX;
   public Settings(Screen0011 p) {
     super(p);
     FileHandle langYaml=Gdx.files.internal("lang/human/"+p.settings.langType+".yaml");
@@ -40,6 +40,7 @@ public class Settings extends StateEntity0001{
     Gdx.graphics.setTitle(bundleCenter.get(localization,"空想世界1/系统").data[0]);
     //---
     sensorAvailableTextPosX=(int)-p.textWidth(ld.canUseGyroscope)-16;
+    needRestartTextPosX=(int)p.textWidth(ld.setDebugPlatformType+ld.yes)+24;
     // System.out.println(sensorAvailableTextPosX);
     //---
     sliders=new Slider[4];
@@ -86,7 +87,7 @@ public class Settings extends StateEntity0001{
     text(p.accelerometerAvailable
       ?ld.canUseAccelerometer
       :ld.canNotUseAccelerometer);
-    p.text(ld.needRestart,192,280);
+    p.text(ld.needRestart,needRestartTextPosX,280);
     if(p.localHost!=null) p.text(ld.thisIsIpAddr+p.localHost.toString(),0,-60);
     p.text(ld.releaseVersion+typeName[MainApp.type],0,-80);
     p.text(ld.languageSettings,88,-20);

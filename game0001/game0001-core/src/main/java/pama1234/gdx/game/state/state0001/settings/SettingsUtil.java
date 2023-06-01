@@ -113,25 +113,25 @@ public class SettingsUtil{
         p.settings.gyroscopeSensitivity=ps.sliders[1].pos;
         self.updateText();
       },self-> {},self-> {},
-        self->self.text="陀螺仪灵敏度 "+String.format("%5.2f",p.settings.gyroscopeSensitivity),()->18,()->0,()->220,1,-10,10),
+        self->self.text=ld.gyroscopeSensitivity+String.format("%5.2f",p.settings.gyroscopeSensitivity),()->18,()->0,()->220,1,-10,10),
       ps.sliders[2]=new Slider<T>(p,true,()->true,self-> {
         p.settings.accelerometerSensitivity=ps.sliders[2].pos;
         self.updateText();
       },self-> {},self-> {},
-        self->self.text="加速计灵敏度 "+String.format("%5.2f",p.settings.accelerometerSensitivity),()->18,()->0,()->240,1,-10,10),
+        self->self.text=ld.accelerometerSensitivity+String.format("%5.2f",p.settings.accelerometerSensitivity),()->18,()->0,()->240,1,-10,10),
       ps.sliders[3]=new Slider<T>(p,true,()->true,self-> {
         p.settings.gConst=ps.sliders[3].pos;
         self.updateText();
       },self-> {},self-> {},
-        self->self.text="重力常数 "+String.format("%5.2f",p.settings.gConst),()->18,()->0,()->260,1,9.5f,10f),
+        self->self.text=ld.gravitationalConstant+String.format("%5.2f",p.settings.gConst),()->18,()->0,()->260,1,9.5f,10f),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.overridePlatform=!p.settings.overridePlatform;
         self.updateText();
-      },self->self.text="使用覆盖平台类型："+(p.settings.overridePlatform?ld.yes:ld.no),()->18,()->0,()->280),
+      },self->self.text=ld.setDebugPlatformType+(p.settings.overridePlatform?ld.yes:ld.no),()->18,()->0,()->280),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.isAndroid=!p.settings.isAndroid;
         self.updateText();
-      },self->self.text="覆盖平台类型："+(p.settings.isAndroid?"手机":"电脑"),()->18,()->0,()->300),
+      },self->self.text="覆盖平台类型："+(p.settings.isAndroid?ld.phone:ld.personalComputer),()->18,()->0,()->300),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.showLog=!p.settings.showLog;
         self.updateText();

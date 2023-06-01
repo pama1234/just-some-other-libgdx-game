@@ -52,6 +52,12 @@
     debugView: 调试视图（别按这个）
     useGyroscope: 使用陀螺仪：
     useAccelerometer: 使用加速计（未实现）：
+    gyroscopeSensitivity: '陀螺仪灵敏度 '
+    accelerometerSensitivity: '陀螺仪灵敏度 '
+    gravitationalConstant: '重力常数 '
+    setDebugPlatformType: '使用覆盖平台类型：'
+    phone: '手机'
+    personalComputer: '电脑'
 
     # 加载页面
 

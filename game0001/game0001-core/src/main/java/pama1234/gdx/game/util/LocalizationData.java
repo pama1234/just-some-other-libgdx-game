@@ -24,6 +24,9 @@ public class LocalizationData{
     debugGraphicsYes,debugGraphicsNo,
     reloadAssets,systemGc,displayEarthInStartMenu,
     showZoomButton,debugView,
-    useGyroscope,useAccelerometer;
+    useGyroscope,useAccelerometer,
+    gyroscopeSensitivity,accelerometerSensitivity,
+    gravitationalConstant,setDebugPlatformType,
+    phone,personalComputer;
   public String loading,tick;
 }
