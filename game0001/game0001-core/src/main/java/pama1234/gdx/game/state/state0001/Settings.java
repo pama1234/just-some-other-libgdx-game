@@ -3,6 +3,7 @@ package pama1234.gdx.game.state.state0001;
 import static com.badlogic.gdx.Input.Keys.ESCAPE;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
@@ -27,13 +28,19 @@ public class Settings extends StateEntity0001{
   public Slider<?>[] sliders;
   public TextField[] camTextFields;
   public int tx,ty;
+  public int sensorAvailableTextPosX;
   public Settings(Screen0011 p) {
     super(p);
+    FileHandle langYaml=Gdx.files.internal("lang/human/"+p.settings.langType+".yaml");
+    if(!langYaml.exists()) langYaml=Gdx.files.internal("lang/human/"+(p.settings.langType="zh_CN")+".yaml");
     bundleCenter=new LocalBundleCenter(localization.yaml.load(
-      Gdx.files.internal("lang/human/"+p.settings.langType+".yaml").readString("UTF-8")));
+      langYaml.readString("UTF-8")));
     ld=localization.load(bundleCenter.get(localization,"空想世界1/游戏设置"),LocalizationData.class);
     typeName=new String[] {ld.main,ld.taptap,ld.pico};
     Gdx.graphics.setTitle(bundleCenter.get(localization,"空想世界1/系统").data[0]);
+    //---
+    sensorAvailableTextPosX=(int)-p.textWidth(ld.canUseGyroscope)-16;
+    // System.out.println(sensorAvailableTextPosX);
     //---
     sliders=new Slider[4];
     buttons=UiGenerator.genButtons_0004(p);
@@ -68,7 +75,7 @@ public class Settings extends StateEntity0001{
   public void update() {}
   @Override
   public void displayCam() {
-    tx=-128;
+    tx=sensorAvailableTextPosX;
     ty=0;
     text(p.gyroscopeAvailable
       ?ld.canUseGyroscope

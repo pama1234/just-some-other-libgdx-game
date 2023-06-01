@@ -20,7 +20,7 @@ import pama1234.gdx.game.util.RectF;
 
 public class SettingsUtil{
   public static TextField[] genTextFields_0002(Screen0011 p) {
-    TextField[] out=new TextField[] {new TextField("zh_CN",new CodeTextFieldStyle(p),
+    TextField[] out=new TextField[] {new TextField(p.settings.langType,new CodeTextFieldStyle(p),
       new RectF(()->0,()->-20,()->256,()->18),
       ()->1)};
     out[0].setMessageText("语言设置");
@@ -34,13 +34,14 @@ public class SettingsUtil{
     // return new TextField[0];
   }
   public static <T extends Screen0011> TextButtonCam<?>[] genButtons_0006(T p,Settings ps) {
+    float resetSettingsButtonPosX=-p.textWidth(ld.resetSettings)-24;//-100
     return new TextButtonCam[] {
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.initSettings();
         p.saveSettings();
         for(TextButtonCam<?> e:ps.buttonsCam) e.updateText();
         self.updateText();
-      },self->self.text=ld.resetSettings,()->18,()->-100,()->-20),
+      },self->self.text=ld.resetSettings,()->18,()->resetSettingsButtonPosX,()->-20),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.mute=!p.settings.mute;
         self.updateText();
