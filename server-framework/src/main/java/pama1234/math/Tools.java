@@ -1,5 +1,9 @@
 package pama1234.math;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import java.lang.reflect.Array;
 
 import pama1234.math.geometry.Triangle2f;
@@ -360,5 +364,17 @@ public class Tools{
     float vectorLength=UtilMath.sqrt(xIn*xIn+yIn*yIn);
     // check if vector is within sector angle and radius
     return angleBetween<=angle/2&&vectorLength<=r;
+  }
+  @Target(ElementType.TYPE)
+  @Retention(RetentionPolicy.RUNTIME)
+  public @interface ClientOnly{
+  }
+  @Target(ElementType.TYPE)
+  @Retention(RetentionPolicy.RUNTIME)
+  public @interface ServerOnly{
+  }
+  @Target(ElementType.TYPE)
+  @Retention(RetentionPolicy.RUNTIME)
+  public @interface ServerAndClient{
   }
 }
