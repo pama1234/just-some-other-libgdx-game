@@ -2,25 +2,36 @@ package pama1234.gdx.game.state.state0001.settings;
 
 import static pama1234.gdx.game.state.state0001.Settings.ld;
 
+import com.badlogic.gdx.scenes.scene2d.Actor;
+import com.badlogic.gdx.scenes.scene2d.utils.FocusListener;
+
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.Settings;
 import pama1234.gdx.game.state.state0001.State0001;
+import pama1234.gdx.game.ui.CodeTextFieldStyle;
+import pama1234.gdx.game.ui.util.NormalOnscreenKeyboard;
 import pama1234.gdx.game.ui.util.Slider;
 import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.game.ui.util.TextButtonCam;
 import pama1234.gdx.game.ui.util.TextField;
+import pama1234.gdx.game.util.RectF;
 
 public class SettingsUtil{
   public static TextField[] genTextFields_0002(Screen0011 p) {
-    // TextField[] out=new TextField[] {new TextField("联机写好后，这里输入IP地址哦",new CodeTextFieldStyle(p),
-    //   new RectF(()->0,()->-20,()->256,()->18),
-    //   ()->1)};
-    // out[0].setMessageText("联机网络地址");
-    // for(TextField e:out) e.setOnscreenKeyboard(new NormalOnscreenKeyboard());
-    // return out;
-    return new TextField[0];
+    TextField[] out=new TextField[] {new TextField("zh_CN",new CodeTextFieldStyle(p),
+      new RectF(()->0,()->-20,()->256,()->18),
+      ()->1)};
+    out[0].setMessageText("语言设置");
+    out[0].addListener(new FocusListener() {
+      public void keyboardFocusChanged(FocusEvent event,Actor actor,boolean focused) {
+        if(!focused) p.settings.langType=out[0].getText();
+      }
+    });
+    for(TextField e:out) e.setOnscreenKeyboard(new NormalOnscreenKeyboard());
+    return out;
+    // return new TextField[0];
   }
   public static <T extends Screen0011> TextButtonCam<?>[] genButtons_0006(T p,Settings ps) {
     return new TextButtonCam[] {
