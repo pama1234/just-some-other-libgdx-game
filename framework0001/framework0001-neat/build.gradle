@@ -49,7 +49,7 @@ publishing {
       from components.java
 
       pom {
-        name = 'pama1234-server-framework'
+        name = 'pama1234-framework-neat'
         description = 'neat framework forked from NEAT4J by github user raimannma'
         url = 'https://github.com/pama1234/just-some-other-libgdx-game'
         scm {

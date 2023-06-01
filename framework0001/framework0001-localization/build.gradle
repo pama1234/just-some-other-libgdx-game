@@ -50,8 +50,8 @@ publishing {
       from components.java
 
       pom {
-        name = 'pama1234-server-framework'
-        description = 'localization framework forked from localization4J by github user raimannma'
+        name = 'pama1234-framework-localization'
+        description = 'localization framework with kryo and yaml'
         url = 'https://github.com/pama1234/just-some-other-libgdx-game'
         scm {
           url = 'https://github.com/pama1234/just-some-other-libgdx-game'
