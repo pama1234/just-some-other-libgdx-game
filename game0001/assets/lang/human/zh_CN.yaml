@@ -31,21 +31,27 @@
     accelerometerY: 加速计 Y：
     accelerometerZ: 加速计 Z：
 
-  # 按钮
+    # 按钮
 
+    'yes': 是
+    'no': 否
     languageSettings: 语言设置
     resetSettings: 重置设置
     restart: 重启游戏
     muteYes: 静音：是
     muteNo: 静音：否
     volume: '音量 '
-    debugInfoYes: "显示文本调试信息：是"
-    debugInfoNo: "显示文本调试信息：否"
-    debugGraphicsYes: "显示图形调试信息：是"
-    debugGraphicsNo: "显示图形调试信息：否"
-    reloadAssets: "重新加载图片素材"
+    debugInfoYes: '显示文本调试信息：是'
+    debugInfoNo: '显示文本调试信息：否'
+    debugGraphicsYes: '显示图形调试信息：是'
+    debugGraphicsNo: '显示图形调试信息：否'
+    reloadAssets: '重新加载图片素材'
+    systemGc: 清理内存垃圾
+    displayEarthInStartMenu: '开始界面显示地球：'
+    showZoomButton: 显示缩放按钮：
+    debugView: 调试视图（别按这个）
 
-  # 加载页面
+    # 加载页面
 
     loading: '加载中 '
     tick: ' 帧 '

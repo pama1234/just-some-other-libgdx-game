@@ -16,11 +16,14 @@ public class LocalizationData{
     compassX,compassY,compassZ,
     gravityX,gravityY,gravityZ,
     accelerometerX,accelerometerY,accelerometerZ;
-  public String languageSettings,resetSettings,restart,
+  public String yes,no,
+    languageSettings,resetSettings,restart,
     muteYes,muteNo,
     volume,
     debugInfoYes,debugInfoNo,
     debugGraphicsYes,debugGraphicsNo,
-    reloadAssets;
+    reloadAssets,systemGc,
+    displayEarthInStartMenu,showZoomButton,
+    debugView;
   public String loading,tick;
 }

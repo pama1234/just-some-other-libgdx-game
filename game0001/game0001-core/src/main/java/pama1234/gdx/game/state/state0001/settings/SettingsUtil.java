@@ -42,6 +42,10 @@ public class SettingsUtil{
     float restartButtonPosX=-p.textWidth(ld.restart)-24;
     return new TextButtonCam[] {
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
+        p.refreshLocalHost();
+        // self.updateText();
+      },self->self.text="刷新本机网络地址",()->18,()->0,()->-40),
+      new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.initSettings();
         p.saveSettings();
         for(TextButtonCam<?> e:ps.buttonsCam) e.updateText();
@@ -80,31 +84,31 @@ public class SettingsUtil{
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         System.gc();
         Runtime.getRuntime().runFinalization();
-      },self->self.text="清理内存垃圾",()->18,()->0,()->100),
+      },self->self.text=ld.systemGc,()->18,()->0,()->100),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.showEarth=!p.settings.showEarth;
         if(p.settings.showEarth&&ImageAsset.bigEarth==null) ImageAsset.loadEarth();
         self.updateText();
-      },self->self.text="开始界面显示地球："+(p.settings.showEarth?"是":"否"),()->18,()->0,()->120),
+      },self->self.text=ld.displayEarthInStartMenu+(p.settings.showEarth?ld.yes:ld.no),()->18,()->0,()->120),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.zoomButton=!p.settings.zoomButton;
         if(p.settings.zoomButton) for(TextButton<?> e:p.buttons) p.centerScreen.add.add(e);
         else for(TextButton<?> e:p.buttons) p.centerScreen.remove.add(e);
         self.updateText();
-      },self->self.text="显示缩放按钮："+(p.settings.zoomButton?"是":"否"),()->18,()->0,()->140),
+      },self->self.text=ld.showZoomButton+(p.settings.zoomButton?ld.yes:ld.no),()->18,()->0,()->140),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.state(State0001.Debug);
-      },self->self.text="调试视图（别按这个）",()->18,()->0,()->160),
+      },self->self.text=ld.debugView,()->18,()->0,()->160),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         if(!p.gyroscopeAvailable) return;
         p.settings.useGyroscope=!p.settings.useGyroscope;
         self.updateText();
-      },self->self.text="使用陀螺仪："+(p.settings.useGyroscope?"是":"否"),()->18,()->0,()->180),
+      },self->self.text="使用陀螺仪："+(p.settings.useGyroscope?ld.yes:ld.no),()->18,()->0,()->180),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         if(!p.accelerometerAvailable) return;
         p.settings.useAccelerometer=!p.settings.useAccelerometer;
         self.updateText();
-      },self->self.text="使用加速计（未实现）："+(p.settings.useAccelerometer?"是":"否"),()->18,()->0,()->200),
+      },self->self.text="使用加速计（未实现）："+(p.settings.useAccelerometer?ld.yes:ld.no),()->18,()->0,()->200),
       ps.sliders[1]=new Slider<T>(p,true,()->true,self-> {
         p.settings.gyroscopeSensitivity=ps.sliders[1].pos;
         self.updateText();
@@ -123,25 +127,21 @@ public class SettingsUtil{
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.overridePlatform=!p.settings.overridePlatform;
         self.updateText();
-      },self->self.text="使用覆盖平台类型："+(p.settings.overridePlatform?"是":"否"),()->18,()->0,()->280),
+      },self->self.text="使用覆盖平台类型："+(p.settings.overridePlatform?ld.yes:ld.no),()->18,()->0,()->280),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.isAndroid=!p.settings.isAndroid;
         self.updateText();
       },self->self.text="覆盖平台类型："+(p.settings.isAndroid?"手机":"电脑"),()->18,()->0,()->300),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
-        p.refreshLocalHost();
-        // self.updateText();
-      },self->self.text="刷新本机网络地址",()->18,()->0,()->-40),
-      new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.showLog=!p.settings.showLog;
         self.updateText();
         p.checkNeedLog();
-      },self->self.text="显示日志信息："+(p.settings.showLog?"是":"否"),()->18,()->0,()->320),
+      },self->self.text="显示日志信息："+(p.settings.showLog?ld.yes:ld.no),()->18,()->0,()->320),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.printLog=!p.settings.printLog;
         // p.debugInfoChange(p.settings.printLog);
         self.updateText();
-      },self->self.text="打印日志信息："+(p.settings.printLog?"是":"否"),()->18,()->0,()->340),
+      },self->self.text="打印日志信息："+(p.settings.printLog?ld.yes:ld.no),()->18,()->0,()->340),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.ctrlButton=!p.settings.ctrlButton;
         self.updateText();

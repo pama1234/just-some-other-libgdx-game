@@ -1,51 +1,57 @@
 # Translation file
 空想世界1:
   系统:
-    title: '(^·^)~>'
+    title: 'Center 1: 2D Platformer'
   游戏设置:
     main: Main Build
     taptap: Taptap Version
     pico: Pico4-VR Version
 
-    canUseGyroscope:        '    Gyroscope: Available  '
-    canNotUseGyroscope:     '    Gyroscope: Unavailable'
-    canUseCompass:          '      Compass: Available  '
-    canNotUseCompass:       '      Compass: Unavailable'
-    canUseAccelerometer:    'Accelerometer: Available  '
+    canUseGyroscope: '    Gyroscope: Available  '
+    canNotUseGyroscope: '    Gyroscope: Unavailable'
+    canUseCompass: '      Compass: Available  '
+    canNotUseCompass: '      Compass: Unavailable'
+    canUseAccelerometer: 'Accelerometer: Available  '
     canNotUseAccelerometer: 'Accelerometer: Unavailable'
 
     needRestart: 'Effective after restart'
     thisIsIpAddr: 'Name and internal IP address of this device: '
     releaseVersion: 'Release version: '
 
-    gyroscopeX:     '    Gyroscope X: '
-    gyroscopeY:     '    Gyroscope Y: '
-    gyroscopeZ:     '    Gyroscope Z: '
-    compassX:       '      Compass X: '
-    compassY:       '      Compass Y: '
-    compassZ:       '      Compass Z: '
-    gravityX:       '      Gravity X: '
-    gravityY:       '      Gravity Y: '
-    gravityZ:       '      Gravity Z: '
+    gyroscopeX: '    Gyroscope X: '
+    gyroscopeY: '    Gyroscope Y: '
+    gyroscopeZ: '    Gyroscope Z: '
+    compassX: '      Compass X: '
+    compassY: '      Compass Y: '
+    compassZ: '      Compass Z: '
+    gravityX: '      Gravity X: '
+    gravityY: '      Gravity Y: '
+    gravityZ: '      Gravity Z: '
     accelerometerX: 'Accelerometer X: '
     accelerometerY: 'Accelerometer Y: '
     accelerometerZ: 'Accelerometer Z: '
 
     # Buttons
 
+    'yes': 'Yes'
+    'no': 'No'
     languageSettings: 'Language settings'
     resetSettings: 'Reset Settings'
     restart: 'Restart game'
     muteYes: 'Mute: Yes'
     muteNo: 'Mute: No'
     volume: 'Volume '
-    debugInfoYes: "Display debug text info: Yes"
-    debugInfoNo: "Display debug text info: No"
-    debugGraphicsYes: "Display debug graphics: Yes"
-    debugGraphicsNo: "Display debug graphics: No"
-    reloadAssets: "Reload assets"
+    debugInfoYes: 'Display debug text info: Yes'
+    debugInfoNo: 'Display debug text info: No'
+    debugGraphicsYes: 'Display debug graphics: Yes'
+    debugGraphicsNo: 'Display debug graphics: No'
+    reloadAssets: 'Reload assets'
+    systemGc: 'System.gc()'
+    displayEarthInStartMenu: 'Display Earth in start menu'
+    showZoomButton: 'Show Zoom Button'
+    debugView: 'Debug view (DO NOT press this)'
 
-  # loading scene
+    # loading scene
 
     loading: 'Loading '
     tick: ' tick '
