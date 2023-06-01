@@ -22,8 +22,8 @@ public class LocalizationData{
     volume,
     debugInfoYes,debugInfoNo,
     debugGraphicsYes,debugGraphicsNo,
-    reloadAssets,systemGc,
-    displayEarthInStartMenu,showZoomButton,
-    debugView;
+    reloadAssets,systemGc,displayEarthInStartMenu,
+    showZoomButton,debugView,
+    useGyroscope,useAccelerometer;
   public String loading,tick;
 }

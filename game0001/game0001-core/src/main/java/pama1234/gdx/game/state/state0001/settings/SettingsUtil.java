@@ -103,12 +103,12 @@ public class SettingsUtil{
         if(!p.gyroscopeAvailable) return;
         p.settings.useGyroscope=!p.settings.useGyroscope;
         self.updateText();
-      },self->self.text="使用陀螺仪："+(p.settings.useGyroscope?ld.yes:ld.no),()->18,()->0,()->180),
+      },self->self.text=ld.useGyroscope+(p.settings.useGyroscope?ld.yes:ld.no),()->18,()->0,()->180),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         if(!p.accelerometerAvailable) return;
         p.settings.useAccelerometer=!p.settings.useAccelerometer;
         self.updateText();
-      },self->self.text="使用加速计（未实现）："+(p.settings.useAccelerometer?ld.yes:ld.no),()->18,()->0,()->200),
+      },self->self.text=ld.useAccelerometer+(p.settings.useAccelerometer?ld.yes:ld.no),()->18,()->0,()->200),
       ps.sliders[1]=new Slider<T>(p,true,()->true,self-> {
         p.settings.gyroscopeSensitivity=ps.sliders[1].pos;
         self.updateText();

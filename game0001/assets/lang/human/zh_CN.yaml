@@ -50,6 +50,8 @@
     displayEarthInStartMenu: '开始界面显示地球：'
     showZoomButton: 显示缩放按钮：
     debugView: 调试视图（别按这个）
+    useGyroscope: 使用陀螺仪：
+    useAccelerometer: 使用加速计（未实现）：
 
     # 加载页面
 

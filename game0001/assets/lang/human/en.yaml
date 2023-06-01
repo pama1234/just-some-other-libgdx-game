@@ -47,9 +47,11 @@
     debugGraphicsNo: 'Display debug graphics: No'
     reloadAssets: 'Reload assets'
     systemGc: 'System.gc()'
-    displayEarthInStartMenu: 'Display Earth in start menu'
-    showZoomButton: 'Show Zoom Button'
+    displayEarthInStartMenu: 'Display Earth in start menu: '
+    showZoomButton: 'Show Zoom Button: '
     debugView: 'Debug view (DO NOT press this)'
+    UseGyroscope: 'Use gyroscope: '
+    useAccelerometer: 'Use accelerometer (not implemented)'
 
     # loading scene
 
