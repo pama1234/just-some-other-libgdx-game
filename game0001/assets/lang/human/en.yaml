@@ -58,6 +58,12 @@
     setDebugPlatformType: 'Set debug platform type: '
     phone: 'phone'
     personalComputer: 'personal computer'
+    overridePlatform: 'Override platform: '
+    showLog: 'Show log: '
+    printLog: 'Print log: '
+    androidPlayerControlUi: 'Android player control UI:'
+    button: 'Button'
+    joystick: 'Joystick'
 
     # loading scene
 

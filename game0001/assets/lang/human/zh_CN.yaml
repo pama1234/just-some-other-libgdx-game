@@ -58,6 +58,12 @@
     setDebugPlatformType: '使用覆盖平台类型：'
     phone: '手机'
     personalComputer: '电脑'
+    overridePlatform: 覆盖平台类型：
+    showLog: '显示日志信息：'
+    printLog: '打印日志信息：'
+    androidPlayerControlUi: 安卓版玩家控制移动UI：
+    button: '按钮'
+    joystick: '摇杆'
 
     # 加载页面
 

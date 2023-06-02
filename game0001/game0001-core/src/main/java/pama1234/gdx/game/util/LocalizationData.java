@@ -27,9 +27,12 @@ public class LocalizationData{
     useGyroscope,useAccelerometer,
     gyroscopeSensitivity,accelerometerSensitivity,
     gravitationalConstant,setDebugPlatformType,
-    phone,personalComputer;
+    phone,personalComputer,
+    overridePlatform,
+    showLog,printLog,
+    androidPlayerControlUi,button,joystick;
   public String loading,tick;
   public String startGame,announcement,settings;
   public String serverAddress,deviceAddress,userName,
-  singlePlayer,createServer,joinServer,returnTo;
+    singlePlayer,createServer,joinServer,returnTo;
 }

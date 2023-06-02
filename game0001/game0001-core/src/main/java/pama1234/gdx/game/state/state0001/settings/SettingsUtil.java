@@ -136,21 +136,21 @@ public class SettingsUtil{
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.isAndroid=!p.settings.isAndroid;
         self.updateText();
-      },self->self.text="覆盖平台类型："+(p.settings.isAndroid?ld.phone:ld.personalComputer),()->18,()->0,()->300),
+      },self->self.text=ld.overridePlatform+(p.settings.isAndroid?ld.phone:ld.personalComputer),()->18,()->0,()->300),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.showLog=!p.settings.showLog;
         self.updateText();
         p.checkNeedLog();
-      },self->self.text="显示日志信息："+(p.settings.showLog?ld.yes:ld.no),()->18,()->0,()->320),
+      },self->self.text=ld.showLog+(p.settings.showLog?ld.yes:ld.no),()->18,()->0,()->320),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.printLog=!p.settings.printLog;
         // p.debugInfoChange(p.settings.printLog);
         self.updateText();
-      },self->self.text="打印日志信息："+(p.settings.printLog?ld.yes:ld.no),()->18,()->0,()->340),
+      },self->self.text=ld.printLog+(p.settings.printLog?ld.yes:ld.no),()->18,()->0,()->340),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.ctrlButton=!p.settings.ctrlButton;
         self.updateText();
-      },self->self.text="安卓版玩家控制移动UI："+(p.settings.ctrlButton?"按钮":"摇杆"),()->18,()->0,()->360),
+      },self->self.text=ld.androidPlayerControlUi+(p.settings.ctrlButton?ld.button:ld.joystick),()->18,()->0,()->360),
     };
   }
 }
