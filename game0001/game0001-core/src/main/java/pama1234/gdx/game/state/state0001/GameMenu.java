@@ -2,6 +2,7 @@ package pama1234.gdx.game.state.state0001;
 
 import static com.badlogic.gdx.Input.Keys.ESCAPE;
 import static pama1234.gdx.game.app.Screen0011.kryo;
+import static pama1234.gdx.game.state.state0001.Settings.ld;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -119,9 +120,9 @@ public class GameMenu extends StateEntity0001{
       new TextField("",new CodeTextFieldStyle(p),
         new RectF(getX,()->p.height-p.u*4,getW,getH),()->p.pus/2f),
     };
-    out[0].setMessageText("服务器地址");
-    out[1].setMessageText("设备地址");
-    out[2].setMessageText("用户名");
+    out[0].setMessageText(ld.serverAddress);
+    out[1].setMessageText(ld.deviceAddress);
+    out[2].setMessageText(ld.userName);
     if(p.isAndroid) {
       RectF rectF_2=new RectF(getX,()->p.u*2,getW,getH);
       for(TextField e:out) e.addListener(new FocusListener() {

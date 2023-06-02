@@ -19,10 +19,22 @@ import pama1234.util.localization.LocalBundleCenter;
 import pama1234.util.localization.Localization;
 
 public class Settings extends StateEntity0001{
+  public static void initLocalization(Screen0011 p) {
+    FileHandle langYaml=Gdx.files.internal("lang/human/"+p.settings.langType+".yaml");
+    if(!langYaml.exists()) langYaml=Gdx.files.internal("lang/human/"+(p.settings.langType="zh_CN")+".yaml");
+    bundleCenter=new LocalBundleCenter(localization.yaml.load(
+      langYaml.readString("UTF-8")));
+    ld=localization.load(bundleCenter.get(localization,"空想世界1/游戏"),LocalizationData.class);
+    typeName=new String[] {ld.main,ld.taptap,ld.pico};
+    Gdx.graphics.setTitle(bundleCenter.get(localization,"空想世界1/系统").data[0]);
+    if(p.state!=null) {
+      ((Settings)State0001.Settings.entity).refreshText();
+    }
+  }
   public static final Localization localization=new Localization();
   public static LocalBundleCenter bundleCenter;
   public static LocalizationData ld;
-  public String[] typeName;
+  public static String[] typeName;
   public Button<?>[] buttons;
   public TextButtonCam<?>[] buttonsCam;
   public Slider<?>[] sliders;
@@ -31,16 +43,9 @@ public class Settings extends StateEntity0001{
   public int sensorAvailableTextPosX,needRestartTextPosX;
   public Settings(Screen0011 p) {
     super(p);
-    FileHandle langYaml=Gdx.files.internal("lang/human/"+p.settings.langType+".yaml");
-    if(!langYaml.exists()) langYaml=Gdx.files.internal("lang/human/"+(p.settings.langType="zh_CN")+".yaml");
-    bundleCenter=new LocalBundleCenter(localization.yaml.load(
-      langYaml.readString("UTF-8")));
-    ld=localization.load(bundleCenter.get(localization,"空想世界1/游戏设置"),LocalizationData.class);
-    typeName=new String[] {ld.main,ld.taptap,ld.pico};
-    Gdx.graphics.setTitle(bundleCenter.get(localization,"空想世界1/系统").data[0]);
+    // initLocalization(p);
     //---
-    sensorAvailableTextPosX=(int)-p.textWidth(ld.canUseGyroscope)-16;
-    needRestartTextPosX=(int)p.textWidth(ld.setDebugPlatformType+ld.yes)+24;
+    refreshText();
     // System.out.println(sensorAvailableTextPosX);
     //---
     sliders=new Slider[4];
@@ -48,6 +53,10 @@ public class Settings extends StateEntity0001{
     buttonsCam=SettingsUtil.genButtons_0006(p,this);
     initSliders();
     camTextFields=SettingsUtil.genTextFields_0002(p);
+  }
+  public void refreshText() {
+    sensorAvailableTextPosX=(int)-p.textWidthNoScale(ld.canUseGyroscope)-16;
+    needRestartTextPosX=(int)p.textWidthNoScale(ld.setDebugPlatformType+ld.yes)+24;
   }
   public void initSliders() {
     sliders[0].pos=p.settings.volume;

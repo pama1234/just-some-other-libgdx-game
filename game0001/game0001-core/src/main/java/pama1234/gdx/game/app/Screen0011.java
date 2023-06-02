@@ -24,6 +24,7 @@ import com.esotericsoftware.kryo.Kryo;
 import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.GameMenu.GameSettingsData;
+import pama1234.gdx.game.state.state0001.Settings;
 import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.state.state0001.State0001.StateChanger;
 import pama1234.gdx.game.state.state0001.StateGenerator0001;
@@ -167,6 +168,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
   }
   @Override
   public void setup() {
+    Settings.initLocalization(this);
     noStroke();
     buttons=UiGenerator.genButtons_0008(this);
     if(settings.zoomButton) for(TextButton<?> e:buttons) centerScreen.add.add(e);

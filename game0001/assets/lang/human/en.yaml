@@ -2,7 +2,7 @@
 空想世界1:
   系统:
     title: 'Center 1: 2D Platformer'
-  游戏设置:
+  游戏:
     main: Main Build
     taptap: Taptap Version
     pico: Pico4-VR Version
@@ -63,3 +63,15 @@
 
     loading: 'Loading '
     tick: ' tick '
+
+    # start menu
+
+    startGame: '   Start    '
+    announcement: 'Announcement'
+    settings: '  Settings  '
+
+    # game menu
+
+    serverAddress: 'Server address'
+    deviceAddress: 'Device address'
+    userName: 'User name'

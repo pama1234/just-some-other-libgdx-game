@@ -28,8 +28,13 @@ public class SettingsUtil{
     out[0].addListener(new FocusListener() {
       public void keyboardFocusChanged(FocusEvent event,Actor actor,boolean focused) {
         if(!focused) {
-          p.settings.langType=out[0].getText().trim();
-          out[0].setText(out[0].getText().trim().indent(1));
+          String newLangType=out[0].getText().trim();
+          if(!p.settings.langType.equals(newLangType)) {
+            p.settings.langType=newLangType;
+            // out[0].setText(newLangType.indent(1));
+            Settings.initLocalization(p);
+            out[0].setText(p.settings.langType.indent(1));
+          }
         }
       }
     });

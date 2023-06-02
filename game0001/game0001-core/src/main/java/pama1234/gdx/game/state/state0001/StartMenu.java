@@ -1,5 +1,7 @@
 package pama1234.gdx.game.state.state0001;
 
+import static pama1234.gdx.game.state.state0001.Settings.ld;
+
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 import pama1234.gdx.game.app.Screen0011;
@@ -70,13 +72,13 @@ public class StartMenu extends StateEntity0001{
     return new Button[] {
       new TextButton<T>(p,true,()->true,nop,nop,self-> {
         p.state(State0001.GameMenu);
-      },self->self.text="开始游戏",p::getButtonUnitLength,getX,()->p.height/4f-p.bu/2f),
+      },self->self.text=ld.startGame,p::getButtonUnitLength,getX,()->p.height/4f-p.bu/2f),
       new TextButton<T>(p,true,()->true,nop,nop,self-> {
         p.state(State0001.Announcement);
-      },self->self.text="　公告　",p::getButtonUnitLength,getX,()->p.height/2f-p.bu/2f),
+      },self->self.text=ld.announcement,p::getButtonUnitLength,getX,()->p.height/2f-p.bu/2f),
       new TextButton<T>(p,true,()->true,nop,nop,self-> {
         p.state(State0001.Settings);
-      },self->self.text="　设置　",p::getButtonUnitLength,getX,()->p.height/4f*3-p.bu/2f),
+      },self->self.text=ld.settings,p::getButtonUnitLength,getX,()->p.height/4f*3-p.bu/2f),
     };
   }
 }

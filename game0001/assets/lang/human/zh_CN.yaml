@@ -2,7 +2,7 @@
 空想世界1:
   系统:
     title: 空想世界：啥也没有
-  游戏设置:
+  游戏:
     main: 通用版
     taptap: Taptap版
     pico: Pico4-VR版
@@ -63,3 +63,15 @@
 
     loading: '加载中 '
     tick: ' 帧 '
+
+    # start menu
+
+    startGame: '开始游戏'
+    announcement: '　公告　'
+    settings: '　设置　'
+
+    # game menu
+
+    serverAddress: '服务器地址'
+    deviceAddress: 设备地址
+    userName: '用户名'

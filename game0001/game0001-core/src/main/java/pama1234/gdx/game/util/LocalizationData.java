@@ -29,4 +29,6 @@ public class LocalizationData{
     gravitationalConstant,setDebugPlatformType,
     phone,personalComputer;
   public String loading,tick;
+  public String startGame,announcement,settings;
+  public String serverAddress,deviceAddress,userName;
 }
