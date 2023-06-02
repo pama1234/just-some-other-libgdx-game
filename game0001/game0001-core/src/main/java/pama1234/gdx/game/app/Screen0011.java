@@ -33,6 +33,7 @@ import pama1234.gdx.game.ui.generator.InfoUtil.InfoData;
 import pama1234.gdx.game.ui.generator.InfoUtil.InfoSource;
 import pama1234.gdx.game.ui.generator.UiGenerator;
 import pama1234.gdx.game.ui.util.TextButton;
+import pama1234.gdx.game.util.SettingsData;
 import pama1234.gdx.launcher.MainApp;
 import pama1234.gdx.util.app.ScreenCore2D;
 import pama1234.gdx.util.info.MouseInfo;
@@ -81,25 +82,6 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     kryo.register(String[].class);
     kryo.register(GameSettingsData.class);
     kryo.register(int[][].class);
-  }
-  public static class SettingsData{
-    public boolean showEarth=true;
-    public boolean debugInfo,debugGraphics;
-    public boolean mute;
-    public float volume=1;
-    public boolean zoomButton;
-    public boolean useGyroscope,useAccelerometer;
-    public float gyroscopeSensitivity=1,accelerometerSensitivity=1;
-    public float gConst=9.81f;
-    // public boolean useCompass;
-    public boolean overridePlatform;
-    public boolean isAndroid;
-    public boolean showLog;
-    public boolean printLog;
-    public boolean ctrlButton;
-    public String langType;
-    public boolean pixelPerfectGlobal=true;
-    public boolean pixelPerfectIngame;
   }
   public SettingsData settings;
   public FileHandle settingsFile=Gdx.files.local("data/settings.bin");

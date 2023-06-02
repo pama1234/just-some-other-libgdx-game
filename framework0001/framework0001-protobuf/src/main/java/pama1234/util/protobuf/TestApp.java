@@ -19,6 +19,7 @@ public class TestApp{
     //序列化
     DemoProto.Demo build=demoBuilder.build();
     //转换成字节数组
+    // build.toByteString();
     byte[] s=build.toByteArray();
     System.out.println("protobuf数据bytes[]:"+Arrays.toString(s));
     System.out.println("protobuf序列化大小: "+s.length);

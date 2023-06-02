@@ -52,7 +52,7 @@ implementation "com.github.pama1234.just-some-other-libgdx-game:framework:$pama1
 |浮点数|?|1|f|
 |布尔值|?|1|b|
 |父实例|?|1|p|
-|翻译包|?|1|bd|
+|翻译包|?|1|bd,ld|
 
 简写示例:
 
@@ -99,7 +99,7 @@ Naming rules of local variables:
 |Float|?|1|f|
 |Boolean|?|1|b|
 |Parent|?|1|p|
-|Translation package|?|1|bd|
+|Translation package|?|1|bd,ld|
 
 example:
 
