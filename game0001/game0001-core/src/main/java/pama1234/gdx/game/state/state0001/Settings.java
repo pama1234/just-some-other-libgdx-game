@@ -28,7 +28,9 @@ public class Settings extends StateEntity0001{
     typeName=new String[] {ld.main,ld.taptap,ld.pico};
     Gdx.graphics.setTitle(bundleCenter.get(localization,"空想世界1/系统").data[0]);
     if(p.state!=null) {
-      ((Settings)State0001.Settings.entity).refreshText();
+      Settings settings=(Settings)State0001.Settings.entity;
+      settings.refreshText();
+      for(TextButtonCam<?> i:settings.buttonsCam) i.updateText();
     }
   }
   public static final Localization localization=new Localization();

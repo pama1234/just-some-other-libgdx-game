@@ -151,6 +151,14 @@ public class SettingsUtil{
         p.settings.ctrlButton=!p.settings.ctrlButton;
         self.updateText();
       },self->self.text=ld.androidPlayerControlUi+(p.settings.ctrlButton?ld.button:ld.joystick),()->18,()->0,()->360),
+      new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
+        p.settings.pixelPerfectGlobal=!p.settings.pixelPerfectGlobal;
+        self.updateText();
+      },self->self.text="全局精准像素："+(p.settings.pixelPerfectGlobal?ld.yes:ld.no),()->18,()->0,()->380),
+      new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
+        p.settings.pixelPerfectIngame=!p.settings.pixelPerfectIngame;
+        self.updateText();
+      },self->self.text="游戏内精准像素："+(p.settings.pixelPerfectIngame?ld.yes:ld.no),()->18,()->0,()->400),
     };
   }
 }

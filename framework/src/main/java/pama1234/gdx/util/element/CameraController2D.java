@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 import pama1234.gdx.util.app.UtilScreen2D;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.math.Tools;
+import pama1234.math.UtilMath;
 import pama1234.math.physics.PathVar;
 
 /**
@@ -92,9 +93,14 @@ public class CameraController2D extends CameraController{
     ocam.direction.set(0,0,1);
     ocam.rotate(rotate.pos);
     float tScale=frameScale/scale.pos;
+    if(nearEquals(scale.pos,scale.des)) scale.pos=scale.des;
+    float tScaleRec=1/tScale;
+    float ftScale=1f/round(tScaleRec);
+    if(nearEquals(x(),isx(ftScale))) point.pos.x=point.des.x;
+    if(nearEquals(y(),isy(ftScale))) point.pos.y=point.des.y;
     if(pixelPerfect) {
-      float tScaleRec=1/tScale;
-      float ftScale=1f/round(tScaleRec);
+      // float tScaleRec=1/tScale;
+      // float ftScale=1f/round(tScaleRec);
       if(!Float.isFinite(ftScale)) ftScale=1;
       ocam.position.set(isx(ftScale),isy(ftScale),0);
       ocam.zoom=ftScale;
@@ -106,6 +112,9 @@ public class CameraController2D extends CameraController{
     ocam.update();
     //---
     // System.out.println(o.position);
+  }
+  private boolean nearEquals(float a,float b) {
+    return UtilMath.abs((a-b)%1)<0.001f;
   }
   public void updateView() {
     if(coolingCount>0) {

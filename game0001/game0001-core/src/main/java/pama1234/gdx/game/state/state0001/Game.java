@@ -131,6 +131,7 @@ public class Game extends StateEntity0001{
       server=new ServerCore(this,tw,new ServerSocketData(selfAddr));
       server.start();
     }
+    p.enterGame();
   }
   @Override
   public void to(State0001 in) {
@@ -147,6 +148,7 @@ public class Game extends StateEntity0001{
     }else if(netMode==NetMode.integratedServer) {
       server.stop();
     }
+    p.exitGame();
   }
   @Override
   public void displayCam() {

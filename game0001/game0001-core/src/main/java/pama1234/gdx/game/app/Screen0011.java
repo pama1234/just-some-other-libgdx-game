@@ -98,11 +98,14 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     public boolean printLog;
     public boolean ctrlButton;
     public String langType;
+    public boolean pixelPerfectGlobal=true;
+    public boolean pixelPerfectIngame;
   }
   public SettingsData settings;
   public FileHandle settingsFile=Gdx.files.local("data/settings.bin");
   public State0001 state;
   public boolean firstRun;
+  public boolean pixelPerfectCache;
   //---
   public GLProfiler profiler;
   public long renderTime,updateTime;
@@ -188,11 +191,20 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
       Gdx.files.local("data/firstRun.txt").writeString("1234",false);
     }else state(State0001.Loading);
   }
+  public void enterGame() {
+    pixelPerfectCache=cam2d.pixelPerfect;
+    cam2d.pixelPerfect=settings.pixelPerfectIngame;
+  }
+  public void exitGame() {
+    cam2d.pixelPerfect=pixelPerfectCache;
+  }
   public void postSettings() {
     Game game=(Game)State0001.Game.entity;
     if(settings.debugInfo) game.createDebugDisplay();
     refreshLocalHost();
     debugInfoChange(settings.debugInfo);
+    // if(settings.pixelPerfectGlobal)
+    cam2d.pixelPerfect=settings.pixelPerfectGlobal;
   }
   public void refreshLocalHost() {
     try {
