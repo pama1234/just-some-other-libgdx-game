@@ -75,3 +75,8 @@
     serverAddress: '服务器地址'
     deviceAddress: 设备地址
     userName: '用户名'
+
+    singlePlayer: '　单人游戏　'
+    createServer: '开启联机房间'
+    joinServer: '加入联机房间'
+    returnTo: '　　返回　　'

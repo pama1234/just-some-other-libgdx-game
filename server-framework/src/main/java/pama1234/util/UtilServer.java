@@ -16,6 +16,7 @@ public abstract class UtilServer implements Runnable{
   public float frameRateTarget;
   public long frameRatePeriod;
   public long frameRateLastNanos;
+  public int frameCount;
   //---
   public long overSleepTime=0L;
   //---
@@ -75,6 +76,7 @@ public abstract class UtilServer implements Runnable{
           noDelays=0;
         }
       }
+      frameCount++;
       beforeTime=System.nanoTime();
     }
     dispose();

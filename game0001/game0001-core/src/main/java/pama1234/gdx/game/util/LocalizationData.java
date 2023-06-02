@@ -30,5 +30,6 @@ public class LocalizationData{
     phone,personalComputer;
   public String loading,tick;
   public String startGame,announcement,settings;
-  public String serverAddress,deviceAddress,userName;
+  public String serverAddress,deviceAddress,userName,
+  singlePlayer,createServer,joinServer,returnTo;
 }

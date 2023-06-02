@@ -150,18 +150,18 @@ public class GameMenu extends StateEntity0001{
       new TextButton<T>(p,true,()->true,nop,nop,self-> {
         ((Game)State0001.Game.entity).netMode=NetMode.singlePlayer;
         p.state(State0001.Game);
-      },self->self.text="　单人游戏　",p::getButtonUnitLength,getX,()->p.height/5f-p.bu/2f),
+      },self->self.text=ld.singlePlayer,p::getButtonUnitLength,getX,()->p.height/5f-p.bu/2f),
       new TextButton<T>(p,true,()->true,nop,nop,self-> {
         ((Game)State0001.Game.entity).netMode=NetMode.integratedServer;
         p.state(State0001.Game);
-      },self->self.text="开启联机房间",p::getButtonUnitLength,getX,()->p.height/5*2f-p.bu/2f),
+      },self->self.text=ld.createServer,p::getButtonUnitLength,getX,()->p.height/5*2f-p.bu/2f),
       new TextButton<T>(p,true,()->true,nop,nop,self-> {
         ((Game)State0001.Game.entity).netMode=NetMode.client;
         p.state(State0001.Game);
-      },self->self.text="加入联机房间",p::getButtonUnitLength,getX,()->p.height/5f*3-p.bu/2f),
+      },self->self.text=ld.joinServer,p::getButtonUnitLength,getX,()->p.height/5f*3-p.bu/2f),
       new TextButton<T>(p,true,()->true,nop,nop,self-> {
         p.state(State0001.StartMenu);
-      },self->self.text="　　返回　　",p::getButtonUnitLength,getX,()->p.height/5f*4-p.bu/2f),
+      },self->self.text=ld.returnTo,p::getButtonUnitLength,getX,()->p.height/5f*4-p.bu/2f),
     };
   }
 }

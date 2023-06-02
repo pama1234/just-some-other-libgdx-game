@@ -66,12 +66,17 @@
 
     # start menu
 
-    startGame: '   Start    '
+    startGame: 'Start       '
     announcement: 'Announcement'
-    settings: '  Settings  '
+    settings: 'Settings    '
 
     # game menu
 
     serverAddress: 'Server address'
     deviceAddress: 'Device address'
     userName: 'User name'
+
+    singlePlayer: 'Single player'
+    createServer: 'Create server'
+    joinServer: 'Join server  '
+    returnTo: 'Return       '
