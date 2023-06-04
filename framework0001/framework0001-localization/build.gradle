@@ -9,7 +9,7 @@ dependencies {
   api project(':server-framework')
 
   // compileOnlyApi 'org.nuiton.i18n:nuiton-i18n:4.1'
-  compileOnlyApi 'org.yaml:snakeyaml:2.0'
+  api 'org.yaml:snakeyaml:2.0'
 }
 
 jar {
