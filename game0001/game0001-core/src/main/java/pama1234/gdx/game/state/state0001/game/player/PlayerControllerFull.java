@@ -136,7 +136,8 @@ public class PlayerControllerFull extends PlayerControllerCore{
       ty=player.xToBlockCordInt(info.y);
     if(updateAndTestInventorySlot(info.x,info.y,info.button)) return;
     if(updateAndTestWorkStationUi(info)) return;
-    if(p.isAndroid&&inPlayerOuterBox(tx,ty)) {
+    if(p.isAndroid&&inDisplayInventoryRange(info.x,info.y)) {
+      // System.out.println("PlayerControllerFull.touchStarted()");
       player.inventory.displayStateChange();
       return;
     }
@@ -154,6 +155,11 @@ public class PlayerControllerFull extends PlayerControllerCore{
     selectBlock.update(block,tx,ty);
     selectBlock.info(info);
     selectBlock.startTaskButtonInfo(getTouchInfoButton(info.button));
+  }
+  public boolean inDisplayInventoryRange(float tx,float ty) {
+    // p.println(tx,ty,player.cx(),player.cy());
+    return UtilMath.dist(tx,ty,player.cx(),player.cy())<player.circleSize()/2f;
+    // return inPlayerOuterBox(tx,ty);
   }
   public void touchUpdate(TouchInfo info) {
     if(!player.pw.p.isAndroid) return;

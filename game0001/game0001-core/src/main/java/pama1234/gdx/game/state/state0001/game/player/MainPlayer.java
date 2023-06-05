@@ -84,4 +84,7 @@ public class MainPlayer extends Player implements LoadAndSave{
     if(p.settings.printLog) System.out.println("MainPlayer.save() "+point.pos);
     KryoUtil.save(WorldKryoUtil.kryo,dataLocation,this);
   }
+  public float circleSize() {//TODO
+    return type.w;
+  }
 }

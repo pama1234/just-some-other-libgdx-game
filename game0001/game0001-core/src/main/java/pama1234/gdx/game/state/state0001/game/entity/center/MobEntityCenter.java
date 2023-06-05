@@ -9,6 +9,7 @@ import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature.SpawnData;
 import pama1234.gdx.game.state.state0001.game.net.NetMode;
 import pama1234.gdx.game.state.state0001.game.player.Player;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
+import pama1234.gdx.game.state.state0001.game.world.WorldSettings.GameDifficulty;
 import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
 import pama1234.math.UtilMath;
 
@@ -29,8 +30,10 @@ public class MobEntityCenter extends GameEntityCenter<Screen0011,MobEntity>{
       remove.add(e);
     }
     if(pc.pw.netMode()!=NetMode.client) {
-      for(Player player:pc.players.list) testCreatureSpawnWithPlayer(player);
-      if(pc.pw.yourself!=null) testCreatureSpawnWithPlayer(pc.pw.yourself);
+      if(pc.pw.settings.difficulty!=GameDifficulty.Peaceful) {
+        for(Player player:pc.players.list) testCreatureSpawnWithPlayer(player);
+        if(pc.pw.yourself!=null) testCreatureSpawnWithPlayer(pc.pw.yourself);
+      }
     }
     super.refresh();
   }
