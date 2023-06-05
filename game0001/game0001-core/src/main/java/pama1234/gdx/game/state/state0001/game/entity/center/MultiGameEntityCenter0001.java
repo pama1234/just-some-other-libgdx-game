@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.game.entity.GamePointEntity;
+import pama1234.gdx.game.state.state0001.game.entity.GamePointEntity.EntityBasicData;
 import pama1234.gdx.game.state.state0001.game.entity.entity0001.DamageArea;
 import pama1234.gdx.game.state.state0001.game.entity.entity0001.DroppedItem;
 import pama1234.gdx.game.state.state0001.game.entity.entity0001.DroppedItem.DroppedItemCenter;
@@ -23,6 +24,8 @@ public class MultiGameEntityCenter0001 extends MultiGameEntityCenter{
   public DamageAreaCenter damageAreas;
   //---
   public LinkedList<GamePointEntity<?>> cachedEntity=new LinkedList<>();
+  //---
+  public LinkedList<GameEntityCenter<Screen0011,GamePointEntity<?>>> gList=new LinkedList<>();
   public MultiGameEntityCenter0001(Screen0011 p,World0001 pw) {
     super(p,pw);
     this.pw=pw;
@@ -48,8 +51,17 @@ public class MultiGameEntityCenter0001 extends MultiGameEntityCenter{
     // else if(e instanceof GamePointEntity<?> a) pointEntities.add.add(a);
     else pointEntities.add.add(e);
   }
-  public void removeAll(GamePointEntity<?>[] entities) {
-    for(GamePointEntity<?> e:entities) remove(e);
+  public void removeAll(EntityBasicData[] entities) {
+    for(EntityBasicData e:entities) remove(e.x,e.y,e.id);
+  }
+  public void remove(float x,float y,int id) {
+    for(GameEntityCenter<Screen0011,GamePointEntity<?>> eCenter:gList) {
+      for(GamePointEntity<?> e:eCenter.list) {
+        if(e.onlineEquals(x,y,id)) {
+          eCenter.doRemove(e);
+        }
+      }
+    }
   }
   public void remove(GamePointEntity<?> e) {
     // for(EntityCenter<Screen0011,? extends GamePointEntity<?>> eCenter:list) {
@@ -118,6 +130,10 @@ public class MultiGameEntityCenter0001 extends MultiGameEntityCenter{
     public GameEntityCenter(T p,MultiGameEntityCenter0001 pc,E in) {
       super(p,in);
       this.pc=pc;
+    }
+    public void doRemove(GamePointEntity<?> e) {
+      remove.add((E)e);
+      // if(e instanceof E ie) remove.add(ie);
     }
     public GameEntityCenter(T p,MultiGameEntityCenter0001 pc,E[] in) {
       super(p,in);

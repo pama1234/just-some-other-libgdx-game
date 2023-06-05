@@ -121,4 +121,7 @@ public class EntityCenter<T extends UtilScreen,E extends EntityListener>extends 
   public void touchMoved(TouchInfo info) {
     for(E e:list) e.touchMoved(info);
   }
+  // public <O extends E> void doRemove(O e) {//TODO
+  //   if(e instanceof E ie) remove.add(ie);
+  // }
 }

@@ -23,4 +23,7 @@ public class GamePointEntity<T extends Point>extends PointEntity<Screen0011,T>{
   public void initAtServer() {
     id=pw.newEntityId(this);
   }
+  public boolean onlineEquals(float x,float y,int id2) {
+    return x==this.x()&&y==this.y()&&id2==this.id;
+  }
 }
