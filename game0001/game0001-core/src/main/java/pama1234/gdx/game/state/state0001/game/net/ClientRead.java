@@ -26,6 +26,7 @@ public class ClientRead extends Thread{
   public Input input;
   public ExecuteFunction[] executeFs;
   public ClientRead(ClientCore p) {
+    super("ClientRead");
     this.p=p;
     input=new Input(p.socketData.i);
     executeFs=new ExecuteFunction[] {this::readPlayerPos,this::readChunkData,this::readAuthInfo,this::readWorldData,this::readEntityData};
@@ -87,8 +88,6 @@ public class ClientRead extends Thread{
       count--;
       float cx=input.readFloat(),cy=input.readFloat();
       int id=input.readInt();
-      // p.world.regions.removeChunk(cx,cy);
-      // p.world.entities.remove(KryoNetUtil.read(WorldKryoUtil.kryo,input,GamePointEntity.class));
       p.world.entities.remove(cx,cy,id);
     }
     count=input.readInt();

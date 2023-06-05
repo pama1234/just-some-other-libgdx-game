@@ -16,6 +16,7 @@ public class ServerRead extends Thread{
   public Input input;
   public ExecuteFunction[] executeFs;
   public ServerRead(ClientLink link,ServerCore p) {
+    super("ServerRead");
     this.link=link;
     this.p=p;
     input=new Input(link.socketData.i);

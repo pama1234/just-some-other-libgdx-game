@@ -16,6 +16,7 @@ public class ClientWrite extends Thread{
   public boolean writePlayerCtrl;
   public int state=ClientToServer.playerAuth;
   public ClientWrite(ClientCore p) {
+    super("ClientWrite");
     this.p=p;
     output=new Output(p.socketData.o);
     executeFs=new ExecuteFunction[] {this::writePlayerCtrl,this::writePlayerAuth};

@@ -91,7 +91,7 @@ public class MovementLimitBox extends OuterBox{
         if(p.point.vel.x>0) p.point.vel.x=0;
         p.point.pos.x=rightWall;
       }
-    }else System.out.println(p.getName()+" "+p.point.pos+" leftWall>=rightWall");
+    }else if(p.p.settings.printLog) System.out.println(p.getName()+" "+p.point.pos+" leftWall>=rightWall");
   }
   public void bugFix() {
     if(inAir&&p.point.vel.y<0&&h>1) {

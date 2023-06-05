@@ -28,6 +28,7 @@ public class ServerWrite extends Thread{
   public Center<GamePointEntity<?>> entities;
   public int state=ServerToClient.needAuth;
   public ServerWrite(ClientLink link,ServerCore p) {
+    super("ServerWrite");
     this.link=link;
     this.p=p;
     output=new Output(link.socketData.o);
@@ -54,7 +55,7 @@ public class ServerWrite extends Thread{
   }
   public void connect() {
     sleep=50;
-    entities.add.add(p.world.yourself);
+    // entities.add.add(p.world.yourself);
   }
   public void execute() {
     updateChunks();
