@@ -48,6 +48,14 @@ public class MultiGameEntityCenter0001 extends MultiGameEntityCenter{
     // else if(e instanceof GamePointEntity<?> a) pointEntities.add.add(a);
     else pointEntities.add.add(e);
   }
+  public void removeAll(GamePointEntity<?>[] entities) {
+    for(GamePointEntity<?> e:entities) remove(e);
+  }
+  public void remove(GamePointEntity<?> e) {
+    // for(EntityCenter<Screen0011,? extends GamePointEntity<?>> eCenter:list) {
+    //   System.out.println(eCenter.getClass());
+    // }
+  }
   public GamePointEntity<?>[] getAllInRect(float x,float y,float w,float h,boolean doRemove) {
     GamePointEntity<?>[] out;
     if(doRemove) for(EntityCenter<Screen0011,? extends GamePointEntity<?>> l:list) {

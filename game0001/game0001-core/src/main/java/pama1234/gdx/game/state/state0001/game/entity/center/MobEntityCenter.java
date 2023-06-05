@@ -29,7 +29,7 @@ public class MobEntityCenter extends GameEntityCenter<Screen0011,MobEntity>{
       e.dispose();
       remove.add(e);
     }
-    if(pc.pw.netMode()!=NetMode.client) {
+    if(pc.pw.netMode()!=NetMode.Client) {
       if(pc.pw.settings.difficulty!=GameDifficulty.Peaceful) {
         for(Player player:pc.players.list) testCreatureSpawnWithPlayer(player);
         if(pc.pw.yourself!=null) testCreatureSpawnWithPlayer(pc.pw.yourself);

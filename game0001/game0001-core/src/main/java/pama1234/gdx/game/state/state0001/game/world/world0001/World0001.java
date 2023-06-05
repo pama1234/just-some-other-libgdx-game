@@ -31,7 +31,7 @@ public class World0001 extends WorldBase2D<WorldType0001>{
     super(p,pg,3,type);
     //---
     worldDataDir=Gdx.files.local("data/saved/test-world.bin");//TODO
-    if(netMode()!=NetMode.client) {
+    if(netMode()!=NetMode.Client) {
       data=WorldData.load(worldDataDir);
       if(data.dir==null) data.dir="data/saved/test-world/";
     }else data=new WorldData();
@@ -78,7 +78,7 @@ public class World0001 extends WorldBase2D<WorldType0001>{
     for(MetaCreature<?> e:metaEntitys.list) e.init();
     for(int i=0;i<background.background0001.list.size();i++) background.background0001.list.get(i).setTexture(ImageAsset.backgroundList[4-i]);
     // regionGeneratorFix();
-    if(netMode()!=NetMode.client) {
+    if(netMode()!=NetMode.Client) {
       Gdx.files.local(dir()+"regions/").mkdirs();//TODO
       yourself.load();
       regions.load();
@@ -113,7 +113,7 @@ public class World0001 extends WorldBase2D<WorldType0001>{
   }
   @Override
   public void resume() {
-    if(p.isAndroid&&pg.netMode!=NetMode.client) resumeLoad();
+    if(p.isAndroid&&pg.netMode!=NetMode.Client) resumeLoad();
     super.resume();
   }
   @Override
@@ -127,7 +127,7 @@ public class World0001 extends WorldBase2D<WorldType0001>{
   @Override
   public void pause() {
     super.pause();
-    if(p.isAndroid&&pg.netMode!=NetMode.client) {
+    if(p.isAndroid&&pg.netMode!=NetMode.Client) {
       for(LoopThread e:regions.loops) e.doFinished=(self)-> {
         boolean flag=true;
         for(LoopThread i:regions.loops) if(!i.finished) flag=false;
@@ -162,7 +162,7 @@ public class World0001 extends WorldBase2D<WorldType0001>{
   @Override
   public void dispose() {
     super.dispose();
-    if(pg.netMode!=NetMode.client) disposeSave();
+    if(pg.netMode!=NetMode.Client) disposeSave();
   }
   public void disposeSave() {
     if(p.settings.printLog) System.out.println("World0001.disposeSave()");

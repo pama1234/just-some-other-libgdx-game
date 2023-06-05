@@ -52,7 +52,7 @@ public class Game extends StateEntity0001{
   public boolean androidRightMouseButton;
   public EntityListener displayCamTop;
   public boolean firstInit=true;//TODO
-  public NetMode netMode=NetMode.singlePlayer;
+  public NetMode netMode=NetMode.SinglePlayer;
   //---
   public NetAddressInfo serverAddr;
   public NetAddressInfo selfAddr;
@@ -105,7 +105,7 @@ public class Game extends StateEntity0001{
     worldCenter.resume();
     if(p.settings.debugGraphics) p.centerCam.add.add(displayCamTop);
     p.centerCam.add.add(worldCenter);
-    if(netMode==NetMode.client) {
+    if(netMode==NetMode.Client) {
       SocketHints socketHints=new SocketHints();
       socketHints.connectTimeout=5000;
       socketHints.socketTimeout=5000;
@@ -120,14 +120,14 @@ public class Game extends StateEntity0001{
       }catch(GdxRuntimeException e) {
         Throwable cause=e.getCause();
         if(cause instanceof ConnectException ce) if(p.settings.printLog) System.out.println(ce);
-        netMode=NetMode.error;
+        netMode=NetMode.Error;
         p.state(State0001.StartMenu);
       }catch(RuntimeException e) {
         e.printStackTrace();
-        netMode=NetMode.error;
+        netMode=NetMode.Error;
         p.state(State0001.StartMenu);
       }
-    }else if(netMode==NetMode.integratedServer) {
+    }else if(netMode==NetMode.IntegratedServer) {
       server=new ServerCore(this,tw,new ServerSocketData(selfAddr));
       server.start();
     }
@@ -143,9 +143,9 @@ public class Game extends StateEntity0001{
     worldCenter.pause();
     tw.to(in);
     if(p.settings.debugGraphics) p.centerCam.remove.add(displayCamTop);
-    if(netMode==NetMode.client) {
+    if(netMode==NetMode.Client) {
       client.stop();
-    }else if(netMode==NetMode.integratedServer) {
+    }else if(netMode==NetMode.IntegratedServer) {
       server.stop();
     }
     p.exitGame();

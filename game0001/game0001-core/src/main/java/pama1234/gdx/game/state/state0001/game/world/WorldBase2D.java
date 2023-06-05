@@ -4,6 +4,7 @@ import pama1234.data.TreeNode;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntityListener0001;
+import pama1234.gdx.game.state.state0001.game.entity.GamePointEntity;
 import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
 import pama1234.gdx.game.state.state0001.game.entity.center.MultiGameEntityCenter0001;
 import pama1234.gdx.game.state.state0001.game.entity.entity0001.DroppedItem;
@@ -45,6 +46,8 @@ public abstract class WorldBase2D<M extends WorldType0001Base<?>>extends World<S
   //---
   public RegionWrapper r;
   public Mutex saving;
+  //---
+  public int entityIdCount;
   public WorldBase2D(Screen0011 p,Game pg,int size,M type) {
     super(p,pg,size);
     node=new TreeNode<>(this);
@@ -92,5 +95,8 @@ public abstract class WorldBase2D<M extends WorldType0001Base<?>>extends World<S
   }
   public void dropItem(LivingEntity pe,Item item,float x,float y) {
     DroppedItem.dropItem_2(p,pe,x,y,this,2f,item);
+  }
+  public int newEntityId(GamePointEntity<?> gamePointEntity) {//TODO
+    return entityIdCount++;
   }
 }

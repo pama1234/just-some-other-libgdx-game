@@ -85,8 +85,11 @@ public class ClientRead extends Thread{
     int count=input.readInt();
     while(count>0) {
       count--;
-      // int cx=input.readInt(),cy=input.readInt();
+      float cx=input.readFloat(),cy=input.readFloat();
+      int id=input.readInt();
       // p.world.regions.removeChunk(cx,cy);
+      // p.world.entities.remove(KryoNetUtil.read(WorldKryoUtil.kryo,input,GamePointEntity.class));
+      p.world.entities.remove(KryoNetUtil.read(WorldKryoUtil.kryo,input,GamePointEntity.class));
     }
     count=input.readInt();
     while(count>0) {

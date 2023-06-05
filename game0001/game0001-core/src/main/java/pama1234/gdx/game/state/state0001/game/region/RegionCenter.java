@@ -120,7 +120,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
   }
   @Override
   public void refresh() {
-    if(pw.netMode()!=NetMode.client) {
+    if(pw.netMode()!=NetMode.Client) {
       removeRegionAndTestChunkUpdate();
       testAddChunk();
     }
@@ -267,7 +267,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
       // stream.forEach(r->r.update());
       // Iterator<Region> it=list.iterator();
       // while(it.hasNext()) it.next().update();
-      if(pw.netMode()!=NetMode.client) RegionCenter.super.update();
+      if(pw.netMode()!=NetMode.Client) RegionCenter.super.update();
       else netClientUpdate();
       pw.data.tick+=1;
       // refresh();

@@ -48,7 +48,7 @@ public class Player extends TextureLivingEntity{
   @Override
   public void display() {
     super.display();
-    if(pw.netMode()!=NetMode.singlePlayer) {
+    if(pw.netMode()!=NetMode.SinglePlayer) {
       p.textScale(1/2f);
       p.text(name,cx()-nameWidth/2f,y1()-10);
       p.textScale(1);

@@ -148,15 +148,15 @@ public class GameMenu extends StateEntity0001{
     ButtonEvent nop=self-> {};
     return new Button[] {
       new TextButton<T>(p,true,()->true,nop,nop,self-> {
-        ((Game)State0001.Game.entity).netMode=NetMode.singlePlayer;
+        ((Game)State0001.Game.entity).netMode=NetMode.SinglePlayer;
         p.state(State0001.Game);
       },self->self.text=ld.singlePlayer,p::getButtonUnitLength,getX,()->p.height/5f-p.bu/2f),
       new TextButton<T>(p,true,()->true,nop,nop,self-> {
-        ((Game)State0001.Game.entity).netMode=NetMode.integratedServer;
+        ((Game)State0001.Game.entity).netMode=NetMode.IntegratedServer;
         p.state(State0001.Game);
       },self->self.text=ld.createServer,p::getButtonUnitLength,getX,()->p.height/5*2f-p.bu/2f),
       new TextButton<T>(p,true,()->true,nop,nop,self-> {
-        ((Game)State0001.Game.entity).netMode=NetMode.client;
+        ((Game)State0001.Game.entity).netMode=NetMode.Client;
         p.state(State0001.Game);
       },self->self.text=ld.joinServer,p::getButtonUnitLength,getX,()->p.height/5f*3-p.bu/2f),
       new TextButton<T>(p,true,()->true,nop,nop,self-> {

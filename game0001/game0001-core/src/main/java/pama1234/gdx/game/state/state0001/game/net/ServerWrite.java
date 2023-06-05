@@ -65,6 +65,9 @@ public class ServerWrite extends Thread{
     executeFs[state].execute();
     output.flush();
   }
+  /**
+   * 向客户端传递玩家位置
+   */
   public void writePlayerPos() {
     MassPoint point=link.player.point;
     output.writeFloat(point.pos.x);
@@ -86,12 +89,21 @@ public class ServerWrite extends Thread{
       if(UtilMath.dist(e.x(),e.y(),tcx,tcy)>p.world.regions.data.netRemoveDist) entities.remove.add(e);
     }
   }
-  public void writeEntities() {
+  /**
+   * 当有实体诞生或消失时，传递：
+   * </p>
+   * 1. 要删除的实体的坐标
+   * </p>
+   * 2. 要添加的整个实体的数据
+   */
+  public void writeEntities() {//TODO
     output.writeInt(entities.remove.size());
     for(GamePointEntity<?> e:entities.remove) {
-      System.out.println(e.getName()+" "+e.point.pos);
-      // output.writeInt(e.x());
-      // output.writeInt(e.y());
+      // System.out.println(e.getName()+" "+e.point.pos);
+      output.writeFloat(e.x());
+      output.writeFloat(e.y());
+      output.writeInt(e.id);
+      // KryoNetUtil.write(WorldKryoUtil.kryo,output,e);
     }
     output.writeInt(entities.add.size());
     for(GamePointEntity<?> e:entities.add) {
@@ -141,6 +153,13 @@ public class ServerWrite extends Thread{
       if(UtilMath.dist(n.x,n.y,tcx,tcy)>p.world.regions.data.netRemoveDist) chunks.remove.add(n);
     }
   }
+  /**
+   * 当有区块加载或卸载时，传递：
+   * </p>
+   * 1. 要卸载的区块的坐标
+   * </p>
+   * 2. 要加载的整个区块的数据
+   */
   public void writeChunks() {
     output.writeInt(chunks.remove.size());
     for(NetChunkData e:chunks.remove) {
@@ -156,9 +175,15 @@ public class ServerWrite extends Thread{
     chunks.refresh();
     state=ServerToClient.playerPos;
   }
+  /**
+   * 传递表示“需要客户端传递登录信息”的信息
+   */
   public void writeNeedAuth() {
     output.writeString("v0.0.1-testWorld");
   }
+  /**
+   * 传递服务端的世界的时间等
+   */
   public void writeWorldData() {
     KryoNetUtil.write(WorldKryoUtil.kryo,output,p.world.data);
     state=ServerToClient.chunkData;
