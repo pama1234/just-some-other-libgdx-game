@@ -8,7 +8,7 @@ mainClassName = 'pama1234.util.protobuf.TestApp'
 eclipse.project.name = appName + '-protobuf'
 
 dependencies {
-  implementation project(':server-framework')
+  runtimeOnly project(':server-framework')
 
   implementation "com.google.protobuf:protobuf-java-util:$protobufVersion"
   implementation "com.google.protobuf:protobuf-java:$protobufVersion"

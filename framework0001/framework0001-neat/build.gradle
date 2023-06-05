@@ -6,9 +6,9 @@ mainClassName = 'pama1234.util.neat.raimannma.test.MainTest'
 eclipse.project.name = appName + '-neat'
 
 dependencies {
-  implementation project(':server-framework')
+  runtimeOnly project(':server-framework')
 
-  implementation 'com.google.code.gson:gson:2.10.1'
+  api 'com.google.code.gson:gson:2.10.1'
 }
 
 jar {
