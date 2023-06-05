@@ -8,10 +8,10 @@ mainClassName = 'pama1234.util.protobuf.TestApp'
 eclipse.project.name = appName + '-protobuf'
 
 dependencies {
-  api project(':server-framework')
+  compileOnlyApi project(':server-framework')
 
-  compileOnlyApi "com.google.protobuf:protobuf-java-util:$protobufVersion"
-  compileOnlyApi "com.google.protobuf:protobuf-java:$protobufVersion"
+  api "com.google.protobuf:protobuf-java-util:$protobufVersion"
+  api "com.google.protobuf:protobuf-java:$protobufVersion"
 }
 
 jar {

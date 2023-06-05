@@ -6,7 +6,7 @@ mainClassName = 'pama1234.util.localization.MainTest'
 eclipse.project.name = appName + '-localization'
 
 dependencies {
-  api project(':server-framework')
+  compileOnlyApi project(':server-framework')
 
   // compileOnlyApi 'org.nuiton.i18n:nuiton-i18n:4.1'
   api 'org.yaml:snakeyaml:2.0'
