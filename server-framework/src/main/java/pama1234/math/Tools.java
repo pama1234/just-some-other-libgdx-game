@@ -10,6 +10,15 @@ import pama1234.math.geometry.Triangle2f;
 import pama1234.math.vec.Vec2f;
 
 public class Tools{
+  // Android特供修正，因为目前安卓中的String没有indent方法
+  public static String indent(String in,int l) {
+    StringBuilder sb=new StringBuilder();
+    for(int i=0;i<l;i++) {
+      sb.append(' ');
+    }
+    sb.append(in);
+    return sb.toString();
+  }
   public static <T> T[] concat(T[] a,T[] b) {
     int aLen=a.length;
     int bLen=b.length;

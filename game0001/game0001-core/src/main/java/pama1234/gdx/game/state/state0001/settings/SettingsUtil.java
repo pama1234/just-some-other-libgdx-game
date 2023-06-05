@@ -18,10 +18,11 @@ import pama1234.gdx.game.ui.util.TextButtonCam;
 import pama1234.gdx.game.ui.util.TextField;
 import pama1234.gdx.game.util.RectF;
 import pama1234.gdx.launcher.MainApp;
+import pama1234.math.Tools;
 
 public class SettingsUtil{
   public static TextField[] genTextFields_0002(Screen0011 p) {
-    TextField[] out=new TextField[] {new TextField(p.settings.langType.indent(1),new CodeTextFieldStyle(p),
+    TextField[] out=new TextField[] {new TextField(Tools.indent(p.settings.langType,1),new CodeTextFieldStyle(p),
       new RectF(()->0,()->-20,()->80,()->18),
       ()->1)};
     out[0].setMessageText(ld.languageSettings);
@@ -33,7 +34,7 @@ public class SettingsUtil{
             p.settings.langType=newLangType;
             // out[0].setText(newLangType.indent(1));
             Settings.initLocalization(p);
-            out[0].setText(p.settings.langType.indent(1));
+            out[0].setText(Tools.indent(p.settings.langType,1));
           }
         }
       }
