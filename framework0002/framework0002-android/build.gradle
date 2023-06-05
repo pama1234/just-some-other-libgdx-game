@@ -55,7 +55,7 @@ repositories {
 }
 
 dependencies {
-  coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.2'
+  coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:$androidDesugarVersion"
 
   implementation project(':framework')
   // compileOnly project(":gdx-vr-core")
