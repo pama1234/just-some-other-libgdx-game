@@ -39,6 +39,7 @@ public class LivingEntity extends GamePointEntity<MassPoint>{
     outerBox=new OuterBox(this);
     life=new PathVar(type.maxLife);
     light=new PathVarLighting();
+    initAtServer();
   }
   public void deserializationInit(Screen0011 p,WorldBase2D<? extends WorldType0001Base<?>> pw,MetaCreature<?> type) {
     this.p=p;

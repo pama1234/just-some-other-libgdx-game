@@ -54,6 +54,7 @@ public class ServerWrite extends Thread{
   }
   public void connect() {
     sleep=50;
+    entities.add.add(p.world.yourself);
   }
   public void execute() {
     updateChunks();
@@ -99,16 +100,12 @@ public class ServerWrite extends Thread{
   public void writeEntities() {//TODO
     output.writeInt(entities.remove.size());
     for(GamePointEntity<?> e:entities.remove) {
-      // System.out.println(e.getName()+" "+e.point.pos);
       output.writeFloat(e.x());
       output.writeFloat(e.y());
       output.writeInt(e.id);
-      // KryoNetUtil.write(WorldKryoUtil.kryo,output,e);
     }
     output.writeInt(entities.add.size());
     for(GamePointEntity<?> e:entities.add) {
-      // output.writeInt(e.x);
-      // output.writeInt(e.y);
       KryoNetUtil.write(WorldKryoUtil.kryo,output,e);
     }
     entities.refresh();

@@ -39,6 +39,8 @@ public class Player extends TextureLivingEntity{
   @Override
   public void init() {
     if(inventory==null) createInventory();
+    // System.out.println(id);
+    // initAtServer();
   }
   public void createInventory() {
     inventory=new Inventory(this,52,9);
