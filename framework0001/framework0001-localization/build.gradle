@@ -8,8 +8,10 @@ eclipse.project.name = appName + '-localization'
 dependencies {
   implementation project(':server-framework')
 
-  // compileOnlyApi 'org.nuiton.i18n:nuiton-i18n:4.1'
+  // implementation 'org.nuiton.i18n:nuiton-i18n:4.1'
   api 'org.yaml:snakeyaml:2.0'
+
+  implementation "com.esotericsoftware:kryo:$kryoVersion"
 }
 
 jar {

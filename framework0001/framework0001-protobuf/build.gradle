@@ -10,8 +10,8 @@ eclipse.project.name = appName + '-protobuf'
 dependencies {
   implementation project(':server-framework')
 
-  api "com.google.protobuf:protobuf-java-util:$protobufVersion"
-  api "com.google.protobuf:protobuf-java:$protobufVersion"
+  implementation "com.google.protobuf:protobuf-java-util:$protobufVersion"
+  implementation "com.google.protobuf:protobuf-java:$protobufVersion"
 }
 
 jar {
