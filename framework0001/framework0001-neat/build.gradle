@@ -7,7 +7,6 @@ eclipse.project.name = appName + '-neat'
 
 dependencies {
   api project(':server-framework')
-  // api "com.github.pama1234.just-some-other-libgdx-game:server-framework:$pama1234Version"
 
   api 'com.google.code.gson:gson:2.10.1'
 }

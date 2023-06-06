@@ -11,11 +11,11 @@ implementation "com.github.pama1234.just-some-other-libgdx-game:framework:$pama1
 
 0001. 空想世界1
 0002. 粒子系统
-0003. 几何决斗【已迁移】
+0003. 几何决斗【已迁移】【因为Android和菱形依赖的问题又搬回来了】
 0004. 高维塔防
-0005. 杂项【已迁移】
+0005. 杂项【已迁移】【搬回来了】
 
-0003和0005已迁移到另一个github托管：<https://github.com/pama1234/just-some-other-libgdx-game-0001>
+<!-- 0003和0005已迁移到另一个github托管：<https://github.com/pama1234/just-some-other-libgdx-game-0001> -->
 
 [中文](#空想世界) | [English](#game-with-java)
 

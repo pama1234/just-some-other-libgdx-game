@@ -219,6 +219,10 @@ Thumbs.db
 /game*/assets/vector/*.tga
 /game*/assets/vector/*.svg
 
+/assets/vector/*.tvgt
+/assets/vector/*.tga
+/assets/vector/*.svg
+
 /*.jar
 
 .VSCodeCounter/
