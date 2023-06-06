@@ -32,7 +32,7 @@ public class ServerWrite extends Thread{
     this.link=link;
     this.p=p;
     output=new Output(link.socketData.o);
-    executeFs=new ExecuteFunction[] {this::writePlayerPos,this::writeChunks,this::writeNeedAuth,this::writeWorldData,this::writeEntities};
+    executeFs=new ExecuteFunction[] {this::writePlayerPos,this::writeChunks,this::writeNeedAuth,this::writeWorldData,this::writeEntities,this::writeChunksUpdate,this::writeEntitiesUpdate};
     chunks=new Center<>();
     entities=new Center<>();
   }
@@ -61,8 +61,8 @@ public class ServerWrite extends Thread{
     updateChunks();
     updateEntities();
     //---
-    if(chunks.add.size()>0||chunks.remove.size()>0) state=ServerToClient.chunkData;
     if(entities.add.size()>0||entities.remove.size()>0) state=ServerToClient.entityData;
+    else if(chunks.add.size()>0||chunks.remove.size()>0) state=ServerToClient.chunkData;
     output.writeByte(state);
     executeFs[state].execute();
     output.flush();
@@ -173,6 +173,8 @@ public class ServerWrite extends Thread{
     chunks.refresh();
     state=ServerToClient.playerPos;
   }
+  public void writeChunksUpdate() {}
+  public void writeEntitiesUpdate() {}
   /**
    * 传递表示“需要客户端传递登录信息”的信息
    */

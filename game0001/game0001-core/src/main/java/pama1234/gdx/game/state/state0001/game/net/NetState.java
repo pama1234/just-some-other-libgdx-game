@@ -13,7 +13,7 @@ public class NetState{
     public static final int needAuth=2;
     public static final int worldData=3;
     public static final int entityData=3;
-    public static final int entityUpdate=4;
-    public static final int chunkUpdate=5;
+    public static final int chunkUpdate=4;
+    public static final int entityUpdate=5;
   }
 }
