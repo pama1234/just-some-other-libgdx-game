@@ -60,7 +60,7 @@ android {
   }
   compileOptions {
     encoding = 'UTF-8'
-    sourceCompatibility "11"
+    sourceCompatibility "17"
     targetCompatibility "11"
     coreLibraryDesugaringEnabled true
   }
