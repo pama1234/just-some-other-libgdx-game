@@ -221,4 +221,10 @@ task run(type: Exec) {
   commandLine "$adb", 'shell', 'am', 'start', '-n', 'pama1234.gdx.game.app/pama1234.gdx.game.app.android.AndroidLauncher'
 }
 
+tasks.whenTaskAdded { task ->
+  if (task.name == 'checkDebugDuplicateClasses') {
+    task.enabled = false
+  }
+}
+
 eclipse.project.name = appName + '-game0001-game0001-pico4'

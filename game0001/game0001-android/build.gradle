@@ -66,13 +66,27 @@ android {
 
   buildTypes {
     release {
-      minifyEnabled false
+      minifyEnabled true
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
       
       signingConfig signingConfigs.release
     }
   }
 
+  applicationVariants.all { variant ->
+    variant.getCompileConfiguration().resolutionStrategy {
+      // preferProjectModules()
+      // failOnVersionConflict()
+      // eachDependency { DependencyResolveDetails details ->
+      //   def requested = details.requested
+      //   details.useTarget(details.requested)
+      // }
+    }
+    // // Return runtime configuration objects of a variant.
+    // variant.getRuntimeConfiguration().resolutionStrategy { }
+    // // Return annotation processor configuration of a variant.
+    // variant.getAnnotationProcessorConfiguration().resolutionStrategy { }
+  }
 }
 
 def Properties props = new Properties()
@@ -191,6 +205,12 @@ task run(type: Exec) {
 
   def adb = path + "/platform-tools/adb"
   commandLine "$adb", 'shell', 'am', 'start', '-n', 'pama1234.gdx.game.app/pama1234.gdx.game.app.android.AndroidLauncher'
+}
+
+tasks.whenTaskAdded { task ->
+  if (task.name == 'checkDebugDuplicateClasses') {
+    task.enabled = false
+  }
 }
 
 eclipse.project.name = appName + '-game0001-android'

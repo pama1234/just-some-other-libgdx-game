@@ -7,11 +7,20 @@ eclipse.project.name = appName + '-game0001-core'
 // }
 
 dependencies {
-  api "com.badlogicgames.gdx:gdx:$gdxVersion"
+  implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
 
-  api project(':framework')
-  api project(':server-framework')
-  api project(':game0001:game0001-server')
+  implementation project(':framework')
+  implementation project(':server-framework')
+
+  implementation project(':game0001:game0001-server')
+
+  implementation "javax.vecmath:vecmath:$vecmathVersion"
+  implementation "com.esotericsoftware:kryo:$kryoVersion"
+  implementation "org.apache.logging.log4j:log4j-core:$log4jVersion"
+  implementation "com.github.lyze237:gdx-TinyVG:$gdxTinyVGVersion"
+  implementation "space.earlygrey:shapedrawer:$gdxShapeDrawerVersion"
+
+  implementation project(':framework0001:framework0001-localization')
 }
 
 // sourceSets.main.java.each { println it}

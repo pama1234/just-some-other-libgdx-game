@@ -6,10 +6,10 @@ mainClassName = 'pama1234.util.neat.raimannma.test.MainTest'
 eclipse.project.name = appName + '-neat'
 
 dependencies {
-  runtimeOnly project(':server-framework')
-  // runtimeOnly "com.github.pama1234.just-some-other-libgdx-game:server-framework:$pama1234Version"
+  api project(':server-framework')
+  // api "com.github.pama1234.just-some-other-libgdx-game:server-framework:$pama1234Version"
 
-  runtimeOnly 'com.google.code.gson:gson:2.10.1'
+  api 'com.google.code.gson:gson:2.10.1'
 }
 
 jar {
