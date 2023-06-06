@@ -7,7 +7,7 @@ eclipse.project.name = appName + '-game0001-server'
 dependencies {
   implementation project(':server-framework')
 
-  api project(':framework0001:framework0001-localization')
+  api project(':framework-wrapper:framework0001:framework0001-localization')
 
   api "javax.vecmath:vecmath:$vecmathVersion"
   api "com.esotericsoftware:kryo:$kryoVersion"

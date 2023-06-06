@@ -1,18 +1,20 @@
 apply plugin: 'application'
 apply plugin: 'maven-publish'
 
+apply plugin: 'com.google.protobuf'
+
 sourceCompatibility = 17
-mainClassName = 'pama1234.util.localization.MainTest'
-eclipse.project.name = appName + '-localization'
+mainClassName = 'pama1234.util.protobuf.TestApp'
+eclipse.project.name = appName + '-protobuf'
 
 dependencies {
-  runtimeOnly project(':server-framework')
+  api project(':framework0001:framework0001-protobuf')
+
+  api project(':server-framework')
   // runtimeOnly "com.github.pama1234.just-some-other-libgdx-game:server-framework:$pama1234Version"
 
-  // implementation 'org.nuiton.i18n:nuiton-i18n:4.1'
-  runtimeOnly 'org.yaml:snakeyaml:2.0'
-
-  runtimeOnly "com.esotericsoftware:kryo:$kryoVersion"
+  api "com.google.protobuf:protobuf-java-util:$protobufVersion"
+  api "com.google.protobuf:protobuf-java:$protobufVersion"
 }
 
 jar {
@@ -48,18 +50,24 @@ publishing {
   publications {
     maven(MavenPublication) {
       groupId = 'pama1234'
-      artifactId = 'framework-localization'
+      artifactId = 'framework-protobuf'
       version = "0.0.3"
       from components.java
 
       pom {
-        name = 'pama1234-framework-localization'
-        description = 'localization framework with kryo and yaml'
+        name = 'pama1234-server-framework'
+        description = 'protobuf util'
         url = 'https://github.com/pama1234/just-some-other-libgdx-game'
         scm {
           url = 'https://github.com/pama1234/just-some-other-libgdx-game'
         }
       }
     }
+  }
+}
+
+protobuf {
+  protoc {
+    artifact = "com.google.protobuf:protoc:$protobufVersion"
   }
 }

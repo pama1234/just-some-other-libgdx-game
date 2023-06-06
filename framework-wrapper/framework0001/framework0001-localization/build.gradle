@@ -6,13 +6,15 @@ mainClassName = 'pama1234.util.localization.MainTest'
 eclipse.project.name = appName + '-localization'
 
 dependencies {
-  runtimeOnly project(':server-framework')
-  // runtimeOnly "com.github.pama1234.just-some-other-libgdx-game:server-framework:$pama1234Version"
+  api project(':framework0001:framework0001-localization')
+
+  api project(':server-framework')
+  // api "com.github.pama1234.just-some-other-libgdx-game:server-framework:$pama1234Version"
 
   // implementation 'org.nuiton.i18n:nuiton-i18n:4.1'
-  runtimeOnly 'org.yaml:snakeyaml:2.0'
+  api 'org.yaml:snakeyaml:2.0'
 
-  runtimeOnly "com.esotericsoftware:kryo:$kryoVersion"
+  implementation "com.esotericsoftware:kryo:$kryoVersion"
 }
 
 jar {
