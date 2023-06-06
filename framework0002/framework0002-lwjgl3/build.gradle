@@ -5,7 +5,7 @@ mainClassName = 'pama1234.util.openxr.test.TestXR'
 eclipse.project.name = appName + '-openxr'
 
 dependencies {
-  implementation project(':framework')
+  api project(':framework')
 }
 
 jar {

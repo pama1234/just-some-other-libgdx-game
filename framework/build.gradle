@@ -4,17 +4,14 @@ apply plugin: 'maven-publish'
 eclipse.project.name = appName + '-framework'
 
 dependencies {
-  compileOnly "com.badlogicgames.gdx:gdx:$gdxVersion"
+  api "com.badlogicgames.gdx:gdx:$gdxVersion"
 
-  implementation "com.github.pama1234.just-some-other-libgdx-game:server-framework:$pama1234Version"
+  api project(':server-framework')
 
-  implementation "com.github.lyze237:gdx-TinyVG:$gdxTinyVGVersion"
-  implementation "space.earlygrey:shapedrawer:$gdxShapeDrawerVersion"
+  api "com.github.lyze237:gdx-TinyVG:$gdxTinyVGVersion"
+  api "space.earlygrey:shapedrawer:$gdxShapeDrawerVersion"
 
-  implementation 'org.apache.logging.log4j:log4j-core:2.20.0'
-
-  implementation "javax.vecmath:vecmath:$vecmathVersion"
-  implementation "com.esotericsoftware:kryo:$kryoVersion"
+  api 'org.apache.logging.log4j:log4j-core:2.20.0'
 }
 
 publishing {

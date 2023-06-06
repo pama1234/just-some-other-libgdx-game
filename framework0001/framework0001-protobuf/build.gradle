@@ -9,7 +9,6 @@ eclipse.project.name = appName + '-protobuf'
 
 dependencies {
   api project(':server-framework')
-  // api "com.github.pama1234.just-some-other-libgdx-game:server-framework:$pama1234Version"
 
   api "com.google.protobuf:protobuf-java-util:$protobufVersion"
   api "com.google.protobuf:protobuf-java:$protobufVersion"

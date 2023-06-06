@@ -1,26 +1,11 @@
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 eclipse.project.name = appName + '-game0001-core'
 
-// println(sourceSets)
-// sourceSets{
-//   println(runtimeClasspath)
-// }
-
 dependencies {
-  implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+  api "com.badlogicgames.gdx:gdx:$gdxVersion"
 
-  implementation project(':framework')
-  implementation project(':server-framework')
+  api project(':framework')
+  api project(':server-framework')
 
-  implementation project(':game0001:game0001-server')
-
-  implementation "javax.vecmath:vecmath:$vecmathVersion"
-  implementation "com.esotericsoftware:kryo:$kryoVersion"
-  implementation "org.apache.logging.log4j:log4j-core:$log4jVersion"
-  implementation "com.github.lyze237:gdx-TinyVG:$gdxTinyVGVersion"
-  implementation "space.earlygrey:shapedrawer:$gdxShapeDrawerVersion"
-
-  implementation project(':framework0001:framework0001-localization')
+  api project(':game0001:game0001-server')
 }
-
-// sourceSets.main.java.each { println it}
