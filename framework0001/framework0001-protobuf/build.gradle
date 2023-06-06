@@ -8,7 +8,7 @@ mainClassName = 'pama1234.util.protobuf.TestApp'
 eclipse.project.name = appName + '-protobuf'
 
 dependencies {
-  api project(':server-framework')
+  api "com.github.pama1234.just-some-other-libgdx-game:server-framework:$pama1234Version"
 
   implementation "com.google.protobuf:protobuf-java-util:$protobufVersion"
   implementation "com.google.protobuf:protobuf-java:$protobufVersion"

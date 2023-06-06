@@ -6,7 +6,7 @@ mainClassName = 'pama1234.util.localization.MainTest'
 eclipse.project.name = appName + '-localization'
 
 dependencies {
-  api project(':server-framework')
+  api "com.github.pama1234.just-some-other-libgdx-game:server-framework:$pama1234Version"
 
   // implementation 'org.nuiton.i18n:nuiton-i18n:4.1'
   api 'org.yaml:snakeyaml:2.0'
