@@ -23,7 +23,6 @@ import pama1234.gdx.util.app.ScreenCore2D;
 import pama1234.gdx.util.element.Graphics;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
-import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 import pama1234.util.localization.Localization;
 import pama1234.util.net.SocketData;
@@ -126,7 +125,7 @@ public class Duel extends ScreenCore2D{
     //---
     if(config.mode==neat) {
       neatE=new NeatEntity(this);
-      neatSetup();
+      neatE.init();
     }
     //---
     newGame(true,true); // demo play (computer vs computer), shows instruction window
@@ -146,24 +145,6 @@ public class Duel extends ScreenCore2D{
       cam2d.activeScrollZoom=cam2d.activeTouchZoom=false;
     }
     if(config.gameMode==GameMode.OnLine) onlineGameSetup();
-  }
-  public void neatSetup() {
-    param=new NetworkGroupParam(32);
-    neatCenter=new NeatCenter(param);
-    //---
-    graphics=new Graphics(this,CANVAS_SIZE,CANVAS_SIZE);
-    String polarVisionVert=Gdx.files.internal("shader/main0005/vision-polar.vert").readString(),
-      polarVisionFrag=Gdx.files.internal("shader/main0005/vision-polar.frag").readString();
-    String cartesianVisionVert=Gdx.files.internal("shader/main0005/example.vert").readString(),
-      cartesianVisionFrag=Gdx.files.internal("shader/main0005/vision-cartesian.frag").readString();
-    cartesianShader=new ShaderProgram(cartesianVisionVert,cartesianVisionFrag);
-    int ts=param.canvasSize;
-    player_a=new ClientFisheyeVision(this,
-      new ShaderProgram(polarVisionVert,polarVisionFrag),
-      new Graphics(this,ts,ts));
-    player_b=new ClientFisheyeVision(this,
-      new ShaderProgram(polarVisionVert,polarVisionFrag),
-      new Graphics(this,ts,ts));
   }
   public void onlineGameSetup() {
     inputDataBuilder=InputDataProto.InputData.newBuilder();
@@ -188,23 +169,12 @@ public class Duel extends ScreenCore2D{
   @Override
   public void display() {
     system.displayScreen();
-    if(config.mode==neat) neatDisplay();
-  }
-  public void neatDisplay() {
-    textScale(UtilMath.ceil(UtilMath.max(1,pus/3f)));
-    float ts=textScale()*textSize();
-    text(Tools.getFloatString(time,5,0)+"ms -> "+Tools.getFloatString(timeLimit,5,0)+"ms",0,0);
-    text("real time score",0,ts);
-    text("a - "+Tools.getFloatString(system.myGroup.player.engine.getScore(1)),0,ts*2);
-    text("b - "+Tools.getFloatString(system.otherGroup.player.engine.getScore(1)),0,ts*3);
-    text("final score",0,ts*4);
-    text("a - "+Tools.getFloatString(system.myGroup.player.engine.getScore(0)),0,ts*5);
-    text("b - "+Tools.getFloatString(system.otherGroup.player.engine.getScore(0)),0,ts*6);
+    if(config.mode==neat) neatE.display();
   }
   @Override
   public void displayWithCam() {
     doStroke();
-    if(config.mode==neat) neatDisplayCam();
+    if(config.mode==neat) neatE.displayCam();
     else {
       system.display();
     }
@@ -225,28 +195,6 @@ public class Duel extends ScreenCore2D{
     noStroke();
     doFill();
   }
-  public void neatDisplayCam() {
-    graphics.begin();
-    background(255);
-    system.display();
-    graphics.end();
-    player_a.render();
-    player_b.render();
-    //---
-    cartesianShader.bind();
-    cartesianShader.setUniformf("u_dist",player_a.camX/CANVAS_SIZE,player_a.camY/CANVAS_SIZE);
-    image(player_a.graphics.texture,-656,0,CANVAS_SIZE,CANVAS_SIZE,cartesianShader);
-    //---
-    image(graphics.texture,0,0,CANVAS_SIZE,CANVAS_SIZE);
-    //---
-    cartesianShader.bind();
-    cartesianShader.setUniformf("u_dist",player_b.camX/CANVAS_SIZE,player_b.camY/CANVAS_SIZE);
-    image(player_b.graphics.texture,656,0,CANVAS_SIZE,CANVAS_SIZE,cartesianShader);
-    //---
-    image(player_a.graphics.texture,-656,-656,CANVAS_SIZE,CANVAS_SIZE);
-    image(player_b.graphics.texture,656,-656,CANVAS_SIZE,CANVAS_SIZE);
-    clearMatrix();
-  }
   @Override
   public void update() {
     if(!paused) {
@@ -262,21 +210,8 @@ public class Duel extends ScreenCore2D{
       //---
       system.update();
       //---
-      if(config.mode==neat) neatUpdate();
+      if(config.mode==neat) neatE.update();
     }
-  }
-  public void neatUpdate() {
-    if(system.stateIndex==ClientGameSystem.play) {
-      time++;
-      system.myGroup.player.engine.setScore(1,system.currentState.getScore(system.myGroup.id));
-      system.otherGroup.player.engine.setScore(1,system.currentState.getScore(system.otherGroup.id));
-      if(time>timeLimit) {
-        timeLimit=timeLimitConst;
-        newGame(true,false);
-      }
-    }
-    player_a.update(system.myGroup.player);
-    player_b.update(system.otherGroup.player);
   }
   @Override
   public void mousePressed(MouseInfo info) {

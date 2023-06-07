@@ -4,10 +4,35 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 
 import pama1234.gdx.util.app.ScreenCore2D;
+import pama1234.gdx.util.entity.Entity;
+import pama1234.gdx.util.listener.DisplayEntityListener;
 
 public class Screen0019 extends ScreenCore2D{
+  public class TestEntity extends Entity<Screen0019> implements DisplayEntityListener{
+    public TestEntity(Screen0019 p) {
+      super(p);
+    }
+    @Override
+    public void update() {
+      System.out.println("Screen0019.TestEntity.update()");
+    }
+    @Override
+    public void display() {
+      System.out.println("Screen0019.TestEntity.display()");
+    }
+    @Override
+    public void displayCam() {
+      System.out.println("Screen0019.TestEntity.displayCam()");
+    }
+  }
   @Override
   public void setup() {
+    // execute0001();
+    // center.add.add(new TestEntity(this));
+    // centerScreen.add.add(new TestEntity(this));
+    // centerCam.add.add(new TestEntity(this));
+  }
+  public void execute0001() {
     FileHandle unicode=Gdx.files.local("data/all-unicode.txt");
     unicode.writeString("",false);
     StringBuilder sb=new StringBuilder();

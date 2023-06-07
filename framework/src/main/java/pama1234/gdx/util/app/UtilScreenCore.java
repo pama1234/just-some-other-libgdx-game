@@ -74,17 +74,17 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
   public boolean background=true;
   public Color backgroundColor;
   /**
-   * 会执行存放在list中的所有实体的update方法和监听事件
+   * 仅会执行存放在list中的所有实体的update方法和监听事件，不会执行display方法
    */
   public EntityCenter<UtilScreen,EntityListener> center;
   /**
-   * 仅执行display方法，以相机视角为坐标变幻标准
+   * 执行update和display方法，以相机视角为坐标变幻标准
    * </p>
    * TODO 很明显，这东东很丑，应当改为更高效的实现
    */
   public EntityCenter<UtilScreen,EntityListener> centerCam;
   /**
-   * 仅执行display方法，以屏幕为坐标变幻标准
+   * 执行update和display方法，以屏幕为坐标变幻标准
    * </p>
    * TODO 很明显，这东东很丑，应当改为更高效的实现
    */
