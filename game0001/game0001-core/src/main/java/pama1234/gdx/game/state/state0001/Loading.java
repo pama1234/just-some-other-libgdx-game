@@ -10,7 +10,7 @@ import pama1234.gdx.game.asset.GifAsset;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.asset.TvgAsset;
-import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
+import pama1234.gdx.game.state.state0001.State0001Util.StateEntity0001;
 import pama1234.gdx.game.ui.util.ProgressBar;
 import pama1234.math.Tools;
 

@@ -3,7 +3,7 @@ package pama1234.gdx.game.state.state0001.game.world;
 import pama1234.data.TreeNode;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.state.state0001.Game;
-import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntityListener0001;
+import pama1234.gdx.game.state.state0001.State0001Util.StateEntityListener0001;
 import pama1234.gdx.game.state.state0001.game.entity.GamePointEntity;
 import pama1234.gdx.game.state.state0001.game.entity.LivingEntity;
 import pama1234.gdx.game.state.state0001.game.entity.center.MultiGameEntityCenter0001;

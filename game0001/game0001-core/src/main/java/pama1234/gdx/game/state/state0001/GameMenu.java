@@ -10,7 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.FocusListener;
 
 import pama1234.gdx.game.app.Screen0011;
-import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
+import pama1234.gdx.game.state.state0001.State0001Util.StateEntity0001;
 import pama1234.gdx.game.state.state0001.game.KryoUtil;
 import pama1234.gdx.game.state.state0001.game.net.NetMode;
 import pama1234.gdx.game.ui.CodeTextFieldStyle;

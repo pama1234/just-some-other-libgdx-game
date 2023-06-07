@@ -14,7 +14,7 @@ import com.badlogic.gdx.net.SocketHints;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 
 import pama1234.gdx.game.app.Screen0011;
-import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
+import pama1234.gdx.game.state.state0001.State0001Util.StateEntity0001;
 import pama1234.gdx.game.state.state0001.game.GameDisplayUtil;
 import pama1234.gdx.game.state.state0001.game.metainfo.info0001.center.MetaWorldCenter0001;
 import pama1234.gdx.game.state.state0001.game.net.ClientCore;

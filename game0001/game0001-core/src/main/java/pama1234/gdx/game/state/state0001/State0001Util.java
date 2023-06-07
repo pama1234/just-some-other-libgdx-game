@@ -7,7 +7,7 @@ import pama1234.gdx.util.wrapper.DisplayEntity;
 import pama1234.gdx.util.wrapper.StateCenter;
 import pama1234.gdx.util.wrapper.StateEntity;
 
-public class StateGenerator0001{
+public class State0001Util{
   public static void loadState0001(Screen0011 in,StateCenter0001 center) {
     center.list.add(center.FirstRun=new FirstRun(in,0));
     center.list.add(center.Loading=new Loading(in,1));
@@ -18,10 +18,6 @@ public class StateGenerator0001{
     center.list.add(center.Announcement=new Announcement(in,6));
     center.list.add(center.Exception=new ExceptionState(in,7));
     center.list.add(center.Debug=new Debug(in,8));
-  }
-  @Deprecated
-  public static void copyToEnum(StateCenter0001 center) {
-    for(int i=0;i<center.list.size();i++) State0001.stateArray[i].entity=center.list.get(i);
   }
   public static abstract class StateEntity0001 extends StateEntity<Screen0011,StateEntityListener0001> implements StateEntityListener0001{
     public int id;

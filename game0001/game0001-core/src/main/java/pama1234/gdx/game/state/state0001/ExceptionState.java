@@ -3,7 +3,7 @@ package pama1234.gdx.game.state.state0001;
 import java.util.ArrayList;
 
 import pama1234.gdx.game.app.Screen0011;
-import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
+import pama1234.gdx.game.state.state0001.State0001Util.StateEntity0001;
 
 public class ExceptionState extends StateEntity0001{
   public static ArrayList<Exception> data=new ArrayList<>();

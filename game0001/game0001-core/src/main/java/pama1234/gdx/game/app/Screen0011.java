@@ -25,10 +25,10 @@ import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.GameMenu.GameSettingsData;
 import pama1234.gdx.game.state.state0001.Settings;
-import pama1234.gdx.game.state.state0001.StateGenerator0001;
-import pama1234.gdx.game.state.state0001.StateGenerator0001.StateCenter0001;
-import pama1234.gdx.game.state.state0001.StateGenerator0001.StateChanger0001;
-import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
+import pama1234.gdx.game.state.state0001.State0001Util;
+import pama1234.gdx.game.state.state0001.State0001Util.StateCenter0001;
+import pama1234.gdx.game.state.state0001.State0001Util.StateChanger0001;
+import pama1234.gdx.game.state.state0001.State0001Util.StateEntity0001;
 import pama1234.gdx.game.state.state0001.game.KryoUtil;
 import pama1234.gdx.game.ui.generator.InfoUtil.InfoData;
 import pama1234.gdx.game.ui.generator.InfoUtil.InfoSource;
@@ -161,8 +161,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger0001{
     buttons=UiGenerator.genButtons_0008(this);
     if(settings.zoomButton) for(TextButton<?> e:buttons) centerScreen.add.add(e);
     stateCenter=new StateCenter0001(this);
-    StateGenerator0001.loadState0001(this,stateCenter);
-    StateGenerator0001.copyToEnum(stateCenter);
+    State0001Util.loadState0001(this,stateCenter);
     postSettings();
     firstRun=!Gdx.files.local("data/firstRun.txt").exists();
     if(MainApp.type!=MainApp.taptap) {

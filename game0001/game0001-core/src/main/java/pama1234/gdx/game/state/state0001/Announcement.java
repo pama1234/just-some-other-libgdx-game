@@ -4,7 +4,7 @@ import static com.badlogic.gdx.Input.Keys.ESCAPE;
 import static pama1234.gdx.game.ui.generator.InfoUtil.info;
 
 import pama1234.gdx.game.app.Screen0011;
-import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
+import pama1234.gdx.game.state.state0001.State0001Util.StateEntity0001;
 import pama1234.gdx.game.ui.generator.InfoUtil;
 import pama1234.gdx.game.ui.generator.UiGenerator;
 import pama1234.gdx.game.ui.util.Button;
