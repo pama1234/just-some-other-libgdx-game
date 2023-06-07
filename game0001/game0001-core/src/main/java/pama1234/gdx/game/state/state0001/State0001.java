@@ -6,7 +6,6 @@ import pama1234.gdx.util.info.TouchInfo;
 import pama1234.gdx.util.listener.EntityListener;
 
 public enum State0001 implements EntityListener{
-  // public enum State0001 extends EntityWrapper{
   FirstRun,
   Loading,
   StartMenu,

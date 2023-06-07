@@ -1,7 +1,7 @@
 /*
-Writer:hhshaohao
-UpdateTime:2023-1-30
-*/
+ * Writer:hhshaohao
+ * UpdateTime:2023-1-30
+ */
 为贡献代码的人的一些帮助，这个大概是这个项目的文档。
 我也还没完全看懂，我会慢慢写上注释的，将就看吧。
 

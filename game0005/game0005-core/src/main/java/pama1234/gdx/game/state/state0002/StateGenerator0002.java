@@ -1,10 +1,10 @@
 package pama1234.gdx.game.state.state0002;
 
 import pama1234.gdx.game.app.app0004.Screen0012;
-import pama1234.gdx.game.util.DisplayEntity;
-import pama1234.gdx.game.util.DisplayEntity.DisplayWithCam;
 import pama1234.gdx.util.entity.Entity;
 import pama1234.gdx.util.listener.EntityListener;
+import pama1234.gdx.util.wrapper.DisplayEntity;
+import pama1234.gdx.util.wrapper.DisplayEntity.DisplayWithCam;
 
 public class StateGenerator0002{
   public static void loadState0001(Screen0012 in) {
