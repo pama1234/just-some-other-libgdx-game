@@ -4,7 +4,13 @@ import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.gdx.util.listener.DisplayEntityListener;
+import pama1234.gdx.util.listener.StateChanger;
 
+/**
+ * 一种只支持游戏单实例的多场景实现，十分的朴素，十分的低端，没有整设计模式
+ * </p>
+ * TODO 改成更好的支持多实例的框架
+ */
 public enum State0001 implements DisplayEntityListener{
   FirstRun,
   Loading,
@@ -16,17 +22,11 @@ public enum State0001 implements DisplayEntityListener{
   Exception,
   Debug,;
   public StateEntity0001 entity;
-  // public EntityListener displayCam;
   //---------------------------------------------------------------
   public static void disposeAll() {
     for(State0001 e:stateArray) e.dispose();
   }
-  public interface StateChanger{
-    /**
-     * @param in
-     * @return out
-     */
-    public State0001 state(State0001 in);
+  public interface StateChanger0001 extends StateChanger<State0001>{
   }
   //---------------------------------------------------------------
   public static State0001[] stateArray=State0001.values();

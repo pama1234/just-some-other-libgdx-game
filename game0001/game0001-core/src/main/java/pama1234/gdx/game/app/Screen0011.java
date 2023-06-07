@@ -26,7 +26,7 @@ import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.GameMenu.GameSettingsData;
 import pama1234.gdx.game.state.state0001.Settings;
 import pama1234.gdx.game.state.state0001.State0001;
-import pama1234.gdx.game.state.state0001.State0001.StateChanger;
+import pama1234.gdx.game.state.state0001.State0001.StateChanger0001;
 import pama1234.gdx.game.state.state0001.StateGenerator0001;
 import pama1234.gdx.game.state.state0001.game.KryoUtil;
 import pama1234.gdx.game.ui.generator.InfoUtil.InfoData;
@@ -42,7 +42,7 @@ import pama1234.math.UtilMath;
 import pama1234.math.vec.Vec3f;
 import pama1234.util.net.NetAddressInfo;
 
-public class Screen0011 extends ScreenCore2D implements StateChanger{
+public class Screen0011 extends ScreenCore2D implements StateChanger0001{
   public static final PrintStream stderr=System.err;
   public static final PrintStream stdout=System.out;
   public static final Logger logger=LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
