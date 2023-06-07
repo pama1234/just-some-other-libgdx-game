@@ -43,8 +43,8 @@ public class Settings extends StateEntity0001{
   public TextField[] camTextFields;
   public int tx,ty;
   public int sensorAvailableTextPosX,needRestartTextPosX;
-  public Settings(Screen0011 p) {
-    super(p);
+  public Settings(Screen0011 p,int id) {
+    super(p,id);
     // initLocalization(p);
     //---
     refreshText();
@@ -67,7 +67,7 @@ public class Settings extends StateEntity0001{
     sliders[3].pos=p.settings.gConst;
   }
   @Override
-  public void from(State0001 in) {
+  public void from(StateEntity0001 in) {
     p.backgroundColor(0);
     p.cam2d.minScale=p.isAndroid?0.5f:1f;
     p.cam2d.testScale();
@@ -76,7 +76,7 @@ public class Settings extends StateEntity0001{
     for(TextField e:camTextFields) p.camStage.addActor(e);
   }
   @Override
-  public void to(State0001 in) {
+  public void to(StateEntity0001 in) {
     for(Button<?> e:buttons) p.centerScreen.remove.add(e);
     for(Button<?> e:buttonsCam) p.centerCam.remove.add(e);
     for(TextField e:camTextFields) e.remove();
@@ -122,7 +122,7 @@ public class Settings extends StateEntity0001{
   }
   @Override
   public void keyReleased(char key,int keyCode) {
-    if(keyCode==ESCAPE) p.state(State0001.StartMenu);
+    if(keyCode==ESCAPE) p.state(State0001.StartMenu.entity);
   }
   public void debugText() {
     tx=-256;

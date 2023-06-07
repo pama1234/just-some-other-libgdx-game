@@ -21,13 +21,13 @@ public class Loading extends StateEntity0001{
   //---
   public String text;
   public float textWidth;
-  public Loading(Screen0011 p) {
-    super(p);
+  public Loading(Screen0011 p,int id) {
+    super(p,id);
     manager=new AssetManager();
     Texture.setAssetManager(manager);
   }
   @Override
-  public void from(State0001 in) {
+  public void from(StateEntity0001 in) {
     manager.clear();//如果先前有残留的资源，先清除
     p.centerScreen.add.add(progress=new ProgressBar<Screen0011>(p,manager));
     ((Game)State0001.Game.entity).firstInit=true;
@@ -53,7 +53,7 @@ public class Loading extends StateEntity0001{
     text=ld.loading+String.format("% 3d",frame)+ld.tick+String.format("%5s",Tools.cutToLastDigit(manager.getProgress()*100))+"%";
   }
   @Override
-  public void to(State0001 in) {
+  public void to(StateEntity0001 in) {
     frame=0;
     p.centerScreen.remove.add(progress);
   }
@@ -70,7 +70,7 @@ public class Loading extends StateEntity0001{
       TvgAsset.put_0001(manager);
       MusicAsset.put_0001(manager);
       ImageAsset.put_0001(manager);
-      p.state(State0001.StartMenu);
+      p.state(State0001.StartMenu.entity);
     }
     updateTextAndTextWidth();
   }

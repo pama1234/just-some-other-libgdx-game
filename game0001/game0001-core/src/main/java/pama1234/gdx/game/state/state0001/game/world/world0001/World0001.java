@@ -7,7 +7,7 @@ import com.badlogic.gdx.Gdx;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.Game;
-import pama1234.gdx.game.state.state0001.State0001;
+import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
 import pama1234.gdx.game.state.state0001.game.entity.center.MultiGameEntityCenter0001;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaBlock;
 import pama1234.gdx.game.state.state0001.game.metainfo.MetaCreature;
@@ -90,7 +90,7 @@ public class World0001 extends WorldBase2D<WorldType0001>{
     yourself.init();
   }
   @Override
-  public void from(State0001 in) {
+  public void from(StateEntity0001 in) {
     if(p.isAndroid) p.cam2d.activeDrag=p.cam2d.activeScrollZoom=false;
     else p.cam2d.active(false);
     p.cam2d.scale.pos=yourself.ctrl.camScale;
@@ -103,7 +103,7 @@ public class World0001 extends WorldBase2D<WorldType0001>{
     p.centerCam.add.add(yourself);
   }
   @Override
-  public void to(State0001 in) {
+  public void to(StateEntity0001 in) {
     p.cam2d.activeDrag=true;
     p.cam2d.active(true);
     p.cam2d.minScale=1;

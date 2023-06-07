@@ -37,8 +37,8 @@ public class GameMenu extends StateEntity0001{
   public GameSettingsData settings;
   public FileHandle settingsFile=Gdx.files.local("data/gameSettings.bin");
   public Game game;
-  public GameMenu(Screen0011 p) {
-    super(p);
+  public GameMenu(Screen0011 p,int id) {
+    super(p,id);
     buttons=genButtons_0010(p);
     screenTextFields=genTextFields_0001(p);
     loadSettings();
@@ -64,7 +64,7 @@ public class GameMenu extends StateEntity0001{
     KryoUtil.save(kryo,settingsFile,settings);
   }
   @Override
-  public void from(State0001 in) {
+  public void from(StateEntity0001 in) {
     game=(Game)State0001.Game.entity;
     screenTextFields[0].setText(settings.serverAddr.toString());
     screenTextFields[1].setText(settings.selfAddr.toString());
@@ -79,7 +79,7 @@ public class GameMenu extends StateEntity0001{
     frameResized(p.width,p.height);
   }
   @Override
-  public void to(State0001 in) {
+  public void to(StateEntity0001 in) {
     for(Button<?> e:buttons) p.centerScreen.remove.add(e);
     for(TextField e:screenTextFields) e.remove();
     p.cam2d.active(true);
@@ -103,7 +103,7 @@ public class GameMenu extends StateEntity0001{
   public void frameResized(int w,int h) {}
   @Override
   public void keyReleased(char key,int keyCode) {
-    if(keyCode==ESCAPE) p.state(State0001.StartMenu);
+    if(keyCode==ESCAPE) p.state(State0001.StartMenu.entity);
   }
   public static void testHideKeyboard(boolean focused) {
     if(!focused) Gdx.input.setOnscreenKeyboardVisible(false);
@@ -149,18 +149,18 @@ public class GameMenu extends StateEntity0001{
     return new Button[] {
       new TextButton<T>(p,true,()->true,nop,nop,self-> {
         ((Game)State0001.Game.entity).netMode=NetMode.SinglePlayer;
-        p.state(State0001.Game);
+        p.state(State0001.Game.entity);
       },self->self.text=ld.singlePlayer,p::getButtonUnitLength,getX,()->p.height/5f-p.bu/2f),
       new TextButton<T>(p,true,()->true,nop,nop,self-> {
         ((Game)State0001.Game.entity).netMode=NetMode.IntegratedServer;
-        p.state(State0001.Game);
+        p.state(State0001.Game.entity);
       },self->self.text=ld.createServer,p::getButtonUnitLength,getX,()->p.height/5*2f-p.bu/2f),
       new TextButton<T>(p,true,()->true,nop,nop,self-> {
         ((Game)State0001.Game.entity).netMode=NetMode.Client;
-        p.state(State0001.Game);
+        p.state(State0001.Game.entity);
       },self->self.text=ld.joinServer,p::getButtonUnitLength,getX,()->p.height/5f*3-p.bu/2f),
       new TextButton<T>(p,true,()->true,nop,nop,self-> {
-        p.state(State0001.StartMenu);
+        p.state(State0001.StartMenu.entity);
       },self->self.text=ld.returnTo,p::getButtonUnitLength,getX,()->p.height/5f*4-p.bu/2f),
     };
   }

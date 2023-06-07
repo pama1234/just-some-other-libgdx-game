@@ -17,12 +17,12 @@ public class StartMenu extends StateEntity0001{
   public Button<?>[] buttons;
   //---
   public float time;
-  public StartMenu(Screen0011 p) {
-    super(p);
+  public StartMenu(Screen0011 p,int id) {
+    super(p,id);
     buttons=genButtons_0003(p);
   }
   @Override
-  public void from(State0001 in) {
+  public void from(StateEntity0001 in) {
     p.backgroundColor(0);
     for(Button<?> e:buttons) p.centerScreen.add.add(e);
     if(!p.settings.mute) {
@@ -37,7 +37,7 @@ public class StartMenu extends StateEntity0001{
     frameResized(p.width,p.height);
   }
   @Override
-  public void to(State0001 in) {
+  public void to(StateEntity0001 in) {
     MusicAsset.moonlightSonata.pause();
     for(Button<?> e:buttons) p.centerScreen.remove.add(e);
     p.cam2d.active(true);
@@ -71,13 +71,13 @@ public class StartMenu extends StateEntity0001{
     ButtonEvent nop=self-> {};
     return new Button[] {
       new TextButton<T>(p,true,()->true,nop,nop,self-> {
-        p.state(State0001.GameMenu);
+        p.state(State0001.GameMenu.entity);
       },self->self.text=ld.startGame,p::getButtonUnitLength,getX,()->p.height/4f-p.bu/2f),
       new TextButton<T>(p,true,()->true,nop,nop,self-> {
-        p.state(State0001.Announcement);
+        p.state(State0001.Announcement.entity);
       },self->self.text=ld.announcement,p::getButtonUnitLength,getX,()->p.height/2f-p.bu/2f),
       new TextButton<T>(p,true,()->true,nop,nop,self-> {
-        p.state(State0001.Settings);
+        p.state(State0001.Settings.entity);
       },self->self.text=ld.settings,p::getButtonUnitLength,getX,()->p.height/4f*3-p.bu/2f),
     };
   }

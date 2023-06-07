@@ -11,14 +11,14 @@ import pama1234.gdx.game.ui.util.Button;
 
 public class Announcement extends StateEntity0001{
   public Button<?>[] buttons;
-  public Announcement(Screen0011 p) {
-    super(p);
+  public Announcement(Screen0011 p,int id) {
+    super(p,id);
     buttons=UiGenerator.genButtons_0004(p);
     InfoUtil.loadCache();
     InfoUtil.loadOnline();
   }
   @Override
-  public void from(State0001 in) {
+  public void from(StateEntity0001 in) {
     p.backgroundColor(0);
     // p.cam.noGrab();
     p.cam.point.des.set(128,64,0);
@@ -28,7 +28,7 @@ public class Announcement extends StateEntity0001{
     for(Button<?> e:buttons) p.centerScreen.add.add(e);
   }
   @Override
-  public void to(State0001 in) {
+  public void to(StateEntity0001 in) {
     for(Button<?> e:buttons) p.centerScreen.remove.add(e);
     p.cam2d.minScale=1;
     p.cam2d.testScale();
@@ -40,7 +40,7 @@ public class Announcement extends StateEntity0001{
   }
   @Override
   public void keyReleased(char key,int keyCode) {
-    if(keyCode==ESCAPE) p.state(State0001.StartMenu);
+    if(keyCode==ESCAPE) p.state(State0001.StartMenu.entity);
   }
   @Override
   public void dispose() {

@@ -83,7 +83,7 @@ public class SettingsUtil{
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         boolean firstInit=((Game)State0001.Game.entity).firstInit;
         if(!firstInit) ((Game)State0001.Game.entity).world().pauseSave();//判断有没有初始化
-        p.state(State0001.Loading);
+        p.state(State0001.Loading.entity);
         //由于Loading中会把firstInit修改为true,所以要修改会原来的值，否则就会因为线程再次启动而崩溃
         ((Game)State0001.Game.entity).firstInit=firstInit;
       },self->self.text=ld.reloadAssets,()->18,()->0,()->80),
@@ -103,7 +103,7 @@ public class SettingsUtil{
         self.updateText();
       },self->self.text=ld.showZoomButton+(p.settings.zoomButton?ld.yes:ld.no),()->18,()->0,()->140),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
-        p.state(State0001.Debug);
+        p.state(State0001.Debug.entity);
       },self->self.text=ld.debugView,()->18,()->0,()->160),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         if(!p.gyroscopeAvailable) return;

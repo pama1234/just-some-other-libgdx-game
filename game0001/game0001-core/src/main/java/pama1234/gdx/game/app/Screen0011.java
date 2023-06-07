@@ -26,9 +26,10 @@ import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.GameMenu.GameSettingsData;
 import pama1234.gdx.game.state.state0001.Settings;
 import pama1234.gdx.game.state.state0001.State0001;
-import pama1234.gdx.game.state.state0001.State0001.StateChanger0001;
 import pama1234.gdx.game.state.state0001.StateGenerator0001;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateCenter0001;
+import pama1234.gdx.game.state.state0001.StateGenerator0001.StateChanger0001;
+import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
 import pama1234.gdx.game.state.state0001.game.KryoUtil;
 import pama1234.gdx.game.ui.generator.InfoUtil.InfoData;
 import pama1234.gdx.game.ui.generator.InfoUtil.InfoSource;
@@ -88,7 +89,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger0001{
   //---
   public SettingsData settings;
   public FileHandle settingsFile=Gdx.files.local("data/settings.bin");
-  public State0001 state;
+  public StateEntity0001 state;
   public boolean firstRun;
   public boolean pixelPerfectCache;
   //---
@@ -160,9 +161,10 @@ public class Screen0011 extends ScreenCore2D implements StateChanger0001{
     noStroke();
     buttons=UiGenerator.genButtons_0008(this);
     if(settings.zoomButton) for(TextButton<?> e:buttons) centerScreen.add.add(e);
-    StateGenerator0001.loadState0001(this);
-    // stateCenter=new StateCenter0001(this);
-    // StateGenerator0001.loadState0001(this,stateCenter);
+    // StateGenerator0001.loadState0001(this);
+    stateCenter=new StateCenter0001(this);
+    StateGenerator0001.loadState0001(this,stateCenter);
+    StateGenerator0001.copyToEnum(stateCenter);
     postSettings();
     firstRun=!Gdx.files.local("data/firstRun.txt").exists();
     if(MainApp.type!=MainApp.taptap) {
@@ -174,9 +176,9 @@ public class Screen0011 extends ScreenCore2D implements StateChanger0001{
     // firstRun=true;
     if(firstRun) {
       MusicAsset.load_init();
-      state(State0001.FirstRun);
+      state(State0001.FirstRun.entity);
       Gdx.files.local("data/firstRun.txt").writeString("1234",false);
-    }else state(State0001.Loading);
+    }else state(State0001.Loading.entity);
   }
   public void enterGame() {
     pixelPerfectCache=cam2d.pixelPerfect;
@@ -215,12 +217,12 @@ public class Screen0011 extends ScreenCore2D implements StateChanger0001{
     KryoUtil.save(kryo,settingsFile,settings);
   }
   @Override
-  public State0001 state(State0001 in) {
-    State0001 out=state;
+  public StateEntity0001 state(StateEntity0001 in) {
+    StateEntity0001 out=state;
     state=in;
     if(out!=null) {
       centerScreen.remove.add(out);
-      centerCam.remove.add(out.entity.displayCam);
+      centerCam.remove.add(out.displayCam);
       out.to(in);
       out.pause();
     }
@@ -228,16 +230,16 @@ public class Screen0011 extends ScreenCore2D implements StateChanger0001{
       in.resume();
       in.from(state);
       centerScreen.add.add(in);
-      centerCam.add.add(in.entity.displayCam);
+      centerCam.add.add(in.displayCam);
     }
     return out;
   }
-  public State0001 stateNull() {
-    State0001 out=state;
+  public StateEntity0001 stateNull() {
+    StateEntity0001 out=state;
     state=null;
     if(out!=null) {
       centerScreen.list.remove(out);
-      centerCam.list.remove(out.entity.displayCam);
+      centerCam.list.remove(out.displayCam);
       out.to(null);
       out.pause();
     }
@@ -341,7 +343,8 @@ public class Screen0011 extends ScreenCore2D implements StateChanger0001{
   public void dispose() {
     stateNull();
     super.dispose();
-    State0001.disposeAll();
+    // State0001.disposeAll();
+    stateCenter.dispose();
     saveSettings();
   }
   @Override

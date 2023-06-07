@@ -8,6 +8,15 @@ import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.gdx.util.listener.EntityListener;
 
+/**
+ * 一种用于存储以下内容的包装类：
+ * </p>
+ * 1. 目前“状态”
+ * </p>
+ * 2. 所有“状态”
+ * </p>
+ * 注意，状态可以是任何东东，只要是有多个同类同级的东东，每次只用到一个东东，另外几个东东不想扔，那么就应当使用此类·
+ */
 public class StateCenter<T extends UtilScreen,E extends EntityListener>extends Entity<T>{
   public final ArrayList<E> list=new ArrayList<E>();
   public int pointer;

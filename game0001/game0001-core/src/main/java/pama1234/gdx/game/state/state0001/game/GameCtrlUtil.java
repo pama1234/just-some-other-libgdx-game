@@ -14,7 +14,7 @@ public class GameCtrlUtil{
   public static <T extends Screen0011> Button<?>[] genButtons_0005(T p) {
     return new Button[] {
       new TextureButton<T>(p,true,()->true,self-> {},self-> {},self-> {
-        p.state(State0001.StartMenu);
+        p.state(State0001.StartMenu.entity);
       },()->ImageAsset.exit,p::getButtonUnitLength,()->p.bu*0.2f,()->p.bu*0.2f,()->p.bu,()->p.bu),
     };
   }

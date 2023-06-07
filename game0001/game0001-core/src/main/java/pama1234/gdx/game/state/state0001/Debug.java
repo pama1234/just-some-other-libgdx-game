@@ -20,8 +20,8 @@ public class Debug extends StateEntity0001{
   public MainPlayer player;
   public PlayerControllerFull controller;
   public boolean firstInit;
-  public Debug(Screen0011 p) {
-    super(p);
+  public Debug(Screen0011 p,int id) {
+    super(p,id);
   }
   public void innerInit(Screen0011 p) {
     buttons=UiGenerator.genButtons_0004(p);
@@ -35,17 +35,17 @@ public class Debug extends StateEntity0001{
     controller=player.ctrl;
   }
   @Override
-  public void from(State0001 in) {
+  public void from(StateEntity0001 in) {
     for(Button<?> e:buttons) p.centerScreen.add.add(e);
     if(firstInit) innerInit(p);
   }
   @Override
-  public void to(State0001 in) {
+  public void to(StateEntity0001 in) {
     for(Button<?> e:buttons) p.centerScreen.remove.add(e);
   }
   @Override
   public void keyPressed(char key,int keyCode) {
-    if(keyCode==Keys.X) p.state(State0001.Settings);
+    if(keyCode==Keys.X) p.state(State0001.Settings.entity);
     else if(keyCode==Keys.Z) {
       player.update();
       p.cam2d.point.des.set(player.blockX1()*world.blockWidth(),player.blockY1()*world.blockHeight(),0);

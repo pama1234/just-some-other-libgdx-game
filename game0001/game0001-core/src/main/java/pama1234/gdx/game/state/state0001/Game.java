@@ -58,8 +58,8 @@ public class Game extends StateEntity0001{
   public NetAddressInfo selfAddr;
   public ServerCore server;
   public ClientCore client;
-  public Game(Screen0011 p) {
-    super(p);
+  public Game(Screen0011 p,int id) {
+    super(p,id);
     menuButtons=genButtons_0005(p);
     if(p.isAndroid) {
       ctrlButtons=p.settings.ctrlButton?Tools.concat(genButtons_0011(p,this),genButtons_0012(p,this)):genButtons_0011(p,this);
@@ -87,7 +87,7 @@ public class Game extends StateEntity0001{
     if(displayCamTop==null) displayCamTop=GameDisplayUtil.createDebugDisplay(p,this);
   }
   @Override
-  public void from(State0001 in) {
+  public void from(StateEntity0001 in) {
     WorldBase2D<?> tw=world();
     p.backgroundColor(tw.sky.backgroundColor);
     MainPlayer tp=tw.yourself;
@@ -121,11 +121,11 @@ public class Game extends StateEntity0001{
         Throwable cause=e.getCause();
         if(cause instanceof ConnectException ce) if(p.settings.printLog) System.out.println(ce);
         netMode=NetMode.Error;
-        p.state(State0001.StartMenu);
+        p.state(State0001.StartMenu.entity);
       }catch(RuntimeException e) {
         e.printStackTrace();
         netMode=NetMode.Error;
-        p.state(State0001.StartMenu);
+        p.state(State0001.StartMenu.entity);
       }
     }else if(netMode==NetMode.IntegratedServer) {
       server=new ServerCore(this,tw,new ServerSocketData(selfAddr));
@@ -134,7 +134,7 @@ public class Game extends StateEntity0001{
     p.enterGame();
   }
   @Override
-  public void to(State0001 in) {
+  public void to(StateEntity0001 in) {
     WorldBase2D<?> tw=world();
     for(Button<?> e:menuButtons) p.centerScreen.remove.add(e);
     if(ctrlButtons!=null) for(Button<?> e:ctrlButtons) p.centerScreen.remove.add(e);
@@ -173,7 +173,7 @@ public class Game extends StateEntity0001{
   public void frameResized(int w,int h) {}
   @Override
   public void keyReleased(char key,int keyCode) {
-    if(keyCode==ESCAPE) p.state(State0001.StartMenu);
+    if(keyCode==ESCAPE) p.state(State0001.StartMenu.entity);
   }
   @Override
   public void dispose() {

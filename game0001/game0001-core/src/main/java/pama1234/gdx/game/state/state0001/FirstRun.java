@@ -10,15 +10,15 @@ import pama1234.math.Tools;
 public class FirstRun extends StateEntity0001{
   float time;
   boolean moveCam;
-  public FirstRun(Screen0011 p) {
-    super(p);
+  public FirstRun(Screen0011 p,int id) {
+    super(p,id);
     TvgAsset.load_temp();
     TvgAsset.logo0005.centerOrigin();
   }
   @Override
-  public void from(State0001 in) {
-    if(MainApp.type==MainApp.taptap) p.state(State0001.Loading);
-    MusicAsset.alsoSprachZarathustra.setOnCompletionListener(music->p.state(State0001.Loading));
+  public void from(StateEntity0001 in) {
+    if(MainApp.type==MainApp.taptap) p.state(State0001.Loading.entity);
+    MusicAsset.alsoSprachZarathustra.setOnCompletionListener(music->p.state(State0001.Loading.entity));
     MusicAsset.alsoSprachZarathustra.play();
     p.backgroundColor(0);
     p.textColor(255);
@@ -27,7 +27,7 @@ public class FirstRun extends StateEntity0001{
     p.cam2d.point.set(256,256,0);
   }
   @Override
-  public void to(State0001 in) {
+  public void to(StateEntity0001 in) {
     p.textScale(1);
     p.cam2d.active(true);
     p.cam2d.scale.des=1;
