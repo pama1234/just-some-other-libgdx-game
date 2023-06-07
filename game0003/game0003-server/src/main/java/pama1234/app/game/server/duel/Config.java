@@ -10,6 +10,7 @@ public class Config{
   public GameMode gameMode;
   public Config init(boolean isAndroid) {
     mode=isAndroid?game:neat;
+    gameMode=GameMode.OffLine;
     return this;
   }
 }

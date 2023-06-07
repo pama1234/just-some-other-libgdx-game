@@ -32,8 +32,9 @@ public class DuelServer extends UtilServer{
   }
   public static final Localization localization=new Localization();
   public File mainDir=new File(System.getProperty("user.dir")+"/data/server/duel");
+  public File configFile;
   public Config loadConfig() {
-    File configFile=new File(mainDir,"config.yaml");
+    configFile=new File(mainDir,"config.yaml");
     if(configFile.exists()) {
       return localization.yaml.loadAs(loadString(configFile),Config.class);
     }else {

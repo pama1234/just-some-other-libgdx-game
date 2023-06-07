@@ -84,6 +84,7 @@ public class Duel extends ScreenCore2D{
   public float strokeUnit;
   //---
   public Config config;
+  public FileHandle configFile;
   public Graphics graphics;
   //---
   public NeatCenter neatCenter;
@@ -101,11 +102,11 @@ public class Duel extends ScreenCore2D{
   public InputDataProto.InputData.Builder inputDataBuilder;
   @Override
   public void init() {
+    configFile=Gdx.files.local("data/config.yaml");
     config=loadConfig();
     super.init();
   }
   public Config loadConfig() {
-    FileHandle configFile=Gdx.files.local("data/config.yaml");
     if(configFile.exists()) {
       return localization.yaml.loadAs(configFile.readString("UTF-8"),Config.class);
     }else {
@@ -174,7 +175,6 @@ public class Duel extends ScreenCore2D{
   @Override
   public void dispose() {
     super.dispose();
-    FileHandle configFile=Gdx.files.local("data/config.yaml");
     configFile.writeString(localization.yaml.dumpAsMap(config),false);
   }
   public void newGame(boolean demo,boolean instruction) {
