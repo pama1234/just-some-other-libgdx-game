@@ -19,19 +19,9 @@ public class StateGenerator0001{
     center.list.add(center.Exception=new ExceptionState(in,7));
     center.list.add(center.Debug=new Debug(in,8));
   }
+  @Deprecated
   public static void copyToEnum(StateCenter0001 center) {
     for(int i=0;i<center.list.size();i++) State0001.stateArray[i].entity=center.list.get(i);
-  }
-  public static void loadState0001(Screen0011 in) {
-    State0001.FirstRun.entity=new FirstRun(in,0);
-    State0001.Loading.entity=new Loading(in,1);
-    State0001.StartMenu.entity=new StartMenu(in,2);
-    State0001.GameMenu.entity=new GameMenu(in,3);
-    State0001.Game.entity=new Game(in,4);
-    State0001.Settings.entity=new Settings(in,5);
-    State0001.Announcement.entity=new Announcement(in,6);
-    State0001.Exception.entity=new ExceptionState(in,7);
-    State0001.Debug.entity=new Debug(in,8);
   }
   public static abstract class StateEntity0001 extends StateEntity<Screen0011,StateEntityListener0001> implements StateEntityListener0001{
     public int id;
@@ -51,11 +41,15 @@ public class StateGenerator0001{
   }
   public static class StateCenter0001 extends StateCenter<Screen0011,StateEntity0001>{
     //TODO 使用了较为不科学的首字母大写
-    public StateEntity0001 FirstRun,Loading,
-      StartMenu,GameMenu,
-      Game,
-      Settings,Announcement,
-      Exception,Debug;
+    public FirstRun FirstRun;
+    public Loading Loading;
+    public StartMenu StartMenu;
+    public GameMenu GameMenu;
+    public Game Game;
+    public Settings Settings;
+    public Announcement Announcement;
+    public ExceptionState Exception;
+    public Debug Debug;
     public StateCenter0001(Screen0011 p) {
       super(p);
     }

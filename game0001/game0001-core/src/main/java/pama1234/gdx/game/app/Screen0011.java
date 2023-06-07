@@ -25,7 +25,6 @@ import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.GameMenu.GameSettingsData;
 import pama1234.gdx.game.state.state0001.Settings;
-import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.state.state0001.StateGenerator0001;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateCenter0001;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateChanger0001;
@@ -161,7 +160,6 @@ public class Screen0011 extends ScreenCore2D implements StateChanger0001{
     noStroke();
     buttons=UiGenerator.genButtons_0008(this);
     if(settings.zoomButton) for(TextButton<?> e:buttons) centerScreen.add.add(e);
-    // StateGenerator0001.loadState0001(this);
     stateCenter=new StateCenter0001(this);
     StateGenerator0001.loadState0001(this,stateCenter);
     StateGenerator0001.copyToEnum(stateCenter);
@@ -176,9 +174,9 @@ public class Screen0011 extends ScreenCore2D implements StateChanger0001{
     // firstRun=true;
     if(firstRun) {
       MusicAsset.load_init();
-      state(State0001.FirstRun.entity);
+      state(stateCenter.FirstRun);
       Gdx.files.local("data/firstRun.txt").writeString("1234",false);
-    }else state(State0001.Loading.entity);
+    }else state(stateCenter.Loading);
   }
   public void enterGame() {
     pixelPerfectCache=cam2d.pixelPerfect;
@@ -188,7 +186,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger0001{
     cam2d.pixelPerfect=pixelPerfectCache;
   }
   public void postSettings() {
-    Game game=(Game)State0001.Game.entity;
+    Game game=(Game)stateCenter.Game;
     if(settings.debugInfo) game.createDebugDisplay();
     refreshLocalHost();
     debugInfoChange(settings.debugInfo);
@@ -343,7 +341,6 @@ public class Screen0011 extends ScreenCore2D implements StateChanger0001{
   public void dispose() {
     stateNull();
     super.dispose();
-    // State0001.disposeAll();
     stateCenter.dispose();
     saveSettings();
   }

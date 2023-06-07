@@ -5,7 +5,6 @@ import com.badlogic.gdx.Input;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.Game;
-import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.game.ui.util.TextureButton;
@@ -14,7 +13,7 @@ public class GameCtrlUtil{
   public static <T extends Screen0011> Button<?>[] genButtons_0005(T p) {
     return new Button[] {
       new TextureButton<T>(p,true,()->true,self-> {},self-> {},self-> {
-        p.state(State0001.StartMenu.entity);
+        p.state(p.stateCenter.StartMenu);
       },()->ImageAsset.exit,p::getButtonUnitLength,()->p.bu*0.2f,()->p.bu*0.2f,()->p.bu,()->p.bu),
     };
   }

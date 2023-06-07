@@ -3,7 +3,6 @@ package pama1234.gdx.game.ui.generator;
 import com.badlogic.gdx.Input;
 
 import pama1234.gdx.game.app.Screen0011;
-import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.world.WorldBase2D;
 import pama1234.gdx.game.ui.util.Button;
@@ -62,7 +61,7 @@ public class UiGenerator{
   public static <T extends Screen0011> Button<?>[] genButtons_0004(T p) {
     return new Button[] {
       new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {
-        p.state(State0001.StartMenu.entity);
+        p.state(p.stateCenter.StartMenu);
       },self->self.text="返回",p::getButtonUnitLength,()->p.bu*0.5f,()->p.bu*0.5f),
     };
   }

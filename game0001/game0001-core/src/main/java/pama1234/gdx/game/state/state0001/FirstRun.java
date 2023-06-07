@@ -17,8 +17,8 @@ public class FirstRun extends StateEntity0001{
   }
   @Override
   public void from(StateEntity0001 in) {
-    if(MainApp.type==MainApp.taptap) p.state(State0001.Loading.entity);
-    MusicAsset.alsoSprachZarathustra.setOnCompletionListener(music->p.state(State0001.Loading.entity));
+    if(MainApp.type==MainApp.taptap) p.state(p.stateCenter.Loading);
+    MusicAsset.alsoSprachZarathustra.setOnCompletionListener(music->p.state(p.stateCenter.Loading));
     MusicAsset.alsoSprachZarathustra.play();
     p.backgroundColor(0);
     p.textColor(255);

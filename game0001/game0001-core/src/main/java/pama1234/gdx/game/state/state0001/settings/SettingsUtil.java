@@ -9,7 +9,6 @@ import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.Settings;
-import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.ui.CodeTextFieldStyle;
 import pama1234.gdx.game.ui.util.NormalOnscreenKeyboard;
 import pama1234.gdx.game.ui.util.Slider;
@@ -76,16 +75,16 @@ public class SettingsUtil{
       },self->self.text=p.settings.debugInfo?ld.debugInfoYes:ld.debugInfoNo,()->18,()->0,()->40),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.debugGraphics=!p.settings.debugGraphics;
-        Game game=(Game)State0001.Game.entity;
+        Game game=p.stateCenter.Game;
         if(p.settings.debugGraphics) game.createDebugDisplay();
         self.updateText();
       },self->self.text=p.settings.debugGraphics?ld.debugGraphicsYes:ld.debugGraphicsNo,()->18,()->0,()->60),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
-        boolean firstInit=((Game)State0001.Game.entity).firstInit;
-        if(!firstInit) ((Game)State0001.Game.entity).world().pauseSave();//判断有没有初始化
-        p.state(State0001.Loading.entity);
+        boolean firstInit=(p.stateCenter.Game).firstInit;
+        if(!firstInit) (p.stateCenter.Game).world().pauseSave();//判断有没有初始化
+        p.state(p.stateCenter.Loading);
         //由于Loading中会把firstInit修改为true,所以要修改会原来的值，否则就会因为线程再次启动而崩溃
-        ((Game)State0001.Game.entity).firstInit=firstInit;
+        (p.stateCenter.Game).firstInit=firstInit;
       },self->self.text=ld.reloadAssets,()->18,()->0,()->80),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         System.gc();
@@ -103,7 +102,7 @@ public class SettingsUtil{
         self.updateText();
       },self->self.text=ld.showZoomButton+(p.settings.zoomButton?ld.yes:ld.no),()->18,()->0,()->140),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
-        p.state(State0001.Debug.entity);
+        p.state(p.stateCenter.Debug);
       },self->self.text=ld.debugView,()->18,()->0,()->160),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         if(!p.gyroscopeAvailable) return;

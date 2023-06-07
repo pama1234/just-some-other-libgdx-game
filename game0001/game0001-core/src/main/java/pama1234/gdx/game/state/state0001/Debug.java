@@ -45,7 +45,7 @@ public class Debug extends StateEntity0001{
   }
   @Override
   public void keyPressed(char key,int keyCode) {
-    if(keyCode==Keys.X) p.state(State0001.Settings.entity);
+    if(keyCode==Keys.X) p.state(p.stateCenter.Settings);
     else if(keyCode==Keys.Z) {
       player.update();
       p.cam2d.point.des.set(player.blockX1()*world.blockWidth(),player.blockY1()*world.blockHeight(),0);

@@ -65,7 +65,7 @@ public class GameMenu extends StateEntity0001{
   }
   @Override
   public void from(StateEntity0001 in) {
-    game=(Game)State0001.Game.entity;
+    game=p.stateCenter.Game;
     screenTextFields[0].setText(settings.serverAddr.toString());
     screenTextFields[1].setText(settings.selfAddr.toString());
     screenTextFields[2].setText(settings.playerName);
@@ -103,7 +103,7 @@ public class GameMenu extends StateEntity0001{
   public void frameResized(int w,int h) {}
   @Override
   public void keyReleased(char key,int keyCode) {
-    if(keyCode==ESCAPE) p.state(State0001.StartMenu.entity);
+    if(keyCode==ESCAPE) p.state(p.stateCenter.StartMenu);
   }
   public static void testHideKeyboard(boolean focused) {
     if(!focused) Gdx.input.setOnscreenKeyboardVisible(false);
@@ -148,19 +148,19 @@ public class GameMenu extends StateEntity0001{
     ButtonEvent nop=self-> {};
     return new Button[] {
       new TextButton<T>(p,true,()->true,nop,nop,self-> {
-        ((Game)State0001.Game.entity).netMode=NetMode.SinglePlayer;
-        p.state(State0001.Game.entity);
+        p.stateCenter.Game.netMode=NetMode.SinglePlayer;
+        p.state(p.stateCenter.Game);
       },self->self.text=ld.singlePlayer,p::getButtonUnitLength,getX,()->p.height/5f-p.bu/2f),
       new TextButton<T>(p,true,()->true,nop,nop,self-> {
-        ((Game)State0001.Game.entity).netMode=NetMode.IntegratedServer;
-        p.state(State0001.Game.entity);
+        p.stateCenter.Game.netMode=NetMode.IntegratedServer;
+        p.state(p.stateCenter.Game);
       },self->self.text=ld.createServer,p::getButtonUnitLength,getX,()->p.height/5*2f-p.bu/2f),
       new TextButton<T>(p,true,()->true,nop,nop,self-> {
-        ((Game)State0001.Game.entity).netMode=NetMode.Client;
-        p.state(State0001.Game.entity);
+        p.stateCenter.Game.netMode=NetMode.Client;
+        p.state(p.stateCenter.Game);
       },self->self.text=ld.joinServer,p::getButtonUnitLength,getX,()->p.height/5f*3-p.bu/2f),
       new TextButton<T>(p,true,()->true,nop,nop,self-> {
-        p.state(State0001.StartMenu.entity);
+        p.state(p.stateCenter.StartMenu);
       },self->self.text=ld.returnTo,p::getButtonUnitLength,getX,()->p.height/5f*4-p.bu/2f),
     };
   }

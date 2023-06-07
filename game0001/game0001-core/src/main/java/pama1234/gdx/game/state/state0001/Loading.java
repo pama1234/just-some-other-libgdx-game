@@ -30,7 +30,7 @@ public class Loading extends StateEntity0001{
   public void from(StateEntity0001 in) {
     manager.clear();//如果先前有残留的资源，先清除
     p.centerScreen.add.add(progress=new ProgressBar<Screen0011>(p,manager));
-    ((Game)State0001.Game.entity).firstInit=true;
+    p.stateCenter.Game.firstInit=true;
     p.backgroundColor(0);
     p.textColor(255);
     // SVGAssets.init();
@@ -70,7 +70,7 @@ public class Loading extends StateEntity0001{
       TvgAsset.put_0001(manager);
       MusicAsset.put_0001(manager);
       ImageAsset.put_0001(manager);
-      p.state(State0001.StartMenu.entity);
+      p.state(p.stateCenter.StartMenu);
     }
     updateTextAndTextWidth();
   }

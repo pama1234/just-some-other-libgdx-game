@@ -71,13 +71,13 @@ public class StartMenu extends StateEntity0001{
     ButtonEvent nop=self-> {};
     return new Button[] {
       new TextButton<T>(p,true,()->true,nop,nop,self-> {
-        p.state(State0001.GameMenu.entity);
+        p.state(p.stateCenter.GameMenu);
       },self->self.text=ld.startGame,p::getButtonUnitLength,getX,()->p.height/4f-p.bu/2f),
       new TextButton<T>(p,true,()->true,nop,nop,self-> {
-        p.state(State0001.Announcement.entity);
+        p.state(p.stateCenter.Announcement);
       },self->self.text=ld.announcement,p::getButtonUnitLength,getX,()->p.height/2f-p.bu/2f),
       new TextButton<T>(p,true,()->true,nop,nop,self-> {
-        p.state(State0001.Settings.entity);
+        p.state(p.stateCenter.Settings);
       },self->self.text=ld.settings,p::getButtonUnitLength,getX,()->p.height/4f*3-p.bu/2f),
     };
   }

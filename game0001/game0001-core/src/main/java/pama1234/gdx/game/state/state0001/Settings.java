@@ -28,7 +28,7 @@ public class Settings extends StateEntity0001{
     typeName=new String[] {ld.main,ld.taptap,ld.pico};
     Gdx.graphics.setTitle(bundleCenter.get(localization,"空想世界1/系统").data[0]);
     if(p.state!=null) {
-      Settings settings=(Settings)State0001.Settings.entity;
+      Settings settings=p.stateCenter.Settings;
       settings.refreshText();
       for(TextButtonCam<?> i:settings.buttonsCam) i.updateText();
     }
@@ -122,7 +122,7 @@ public class Settings extends StateEntity0001{
   }
   @Override
   public void keyReleased(char key,int keyCode) {
-    if(keyCode==ESCAPE) p.state(State0001.StartMenu.entity);
+    if(keyCode==ESCAPE) p.state(p.stateCenter.StartMenu);
   }
   public void debugText() {
     tx=-256;

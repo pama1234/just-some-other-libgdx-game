@@ -33,6 +33,7 @@ public class TestApp{
     }catch(InvalidProtocolBufferException e) {
       e.printStackTrace();
     }
+    if(jsonObject==null) return;
     System.out.println("Json格式化结果:\n"+jsonObject);
     System.out.println("Json格式化数据大小: "+jsonObject.getBytes().length);
     //---
