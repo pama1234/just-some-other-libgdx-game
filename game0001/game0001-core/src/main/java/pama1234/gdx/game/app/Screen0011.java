@@ -28,6 +28,7 @@ import pama1234.gdx.game.state.state0001.Settings;
 import pama1234.gdx.game.state.state0001.State0001;
 import pama1234.gdx.game.state.state0001.State0001.StateChanger0001;
 import pama1234.gdx.game.state.state0001.StateGenerator0001;
+import pama1234.gdx.game.state.state0001.StateGenerator0001.StateCenter0001;
 import pama1234.gdx.game.state.state0001.game.KryoUtil;
 import pama1234.gdx.game.ui.generator.InfoUtil.InfoData;
 import pama1234.gdx.game.ui.generator.InfoUtil.InfoSource;
@@ -83,6 +84,8 @@ public class Screen0011 extends ScreenCore2D implements StateChanger0001{
     kryo.register(GameSettingsData.class);
     kryo.register(int[][].class);
   }
+  public StateCenter0001 stateCenter;
+  //---
   public SettingsData settings;
   public FileHandle settingsFile=Gdx.files.local("data/settings.bin");
   public State0001 state;
@@ -158,6 +161,8 @@ public class Screen0011 extends ScreenCore2D implements StateChanger0001{
     buttons=UiGenerator.genButtons_0008(this);
     if(settings.zoomButton) for(TextButton<?> e:buttons) centerScreen.add.add(e);
     StateGenerator0001.loadState0001(this);
+    // stateCenter=new StateCenter0001(this);
+    // StateGenerator0001.loadState0001(this,stateCenter);
     postSettings();
     firstRun=!Gdx.files.local("data/firstRun.txt").exists();
     if(MainApp.type!=MainApp.taptap) {
