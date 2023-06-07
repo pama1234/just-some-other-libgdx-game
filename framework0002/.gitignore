@@ -3,7 +3,7 @@
 gradle-app.setting
 /build/
 
-/framework*/framework*-*/build/
+/framework*-*/build/
 
 ## Java:
 *.class
@@ -58,23 +58,21 @@ www-test/
 .externalToolBuilders/
 *.launch
 
-/framework*/framework*-*/bin/
+/framework*-*/bin/
 
 ## NetBeans:
 
 /nbproject/private/
 
-/framework*/framework*-*/nbproject/private/
+/framework*-*/nbproject/private/
 
-/framework*/framework*-*/nbbuild/
+/framework*-*/nbbuild/
 
 /dist/
-
-/framework*/framework*-*/dist/
+/framework*-*/dist/
 
 /nbdist/
-
-/framework*/framework*-*/nbdist/
+/framework*-*/nbdist/
 
 nbactions.xml
 nb-configuration.xml
