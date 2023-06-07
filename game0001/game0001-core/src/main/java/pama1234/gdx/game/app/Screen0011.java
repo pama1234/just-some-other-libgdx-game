@@ -215,7 +215,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     state=in;
     if(out!=null) {
       centerScreen.remove.add(out);
-      centerCam.remove.add(out.displayCam);
+      centerCam.remove.add(out.entity.displayCam);
       out.to(in);
       out.pause();
     }
@@ -223,7 +223,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
       in.resume();
       in.from(state);
       centerScreen.add.add(in);
-      centerCam.add.add(in.displayCam);
+      centerCam.add.add(in.entity.displayCam);
     }
     return out;
   }
@@ -232,7 +232,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger{
     state=null;
     if(out!=null) {
       centerScreen.list.remove(out);
-      centerCam.list.remove(out.displayCam);
+      centerCam.list.remove(out.entity.displayCam);
       out.to(null);
       out.pause();
     }

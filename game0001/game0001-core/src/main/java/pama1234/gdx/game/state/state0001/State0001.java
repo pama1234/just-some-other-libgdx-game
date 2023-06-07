@@ -1,10 +1,9 @@
 package pama1234.gdx.game.state.state0001;
 
-import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntityListener0001;
+import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntity0001;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.gdx.util.listener.DisplayEntityListener;
-import pama1234.gdx.util.listener.EntityListener;
 
 public enum State0001 implements DisplayEntityListener{
   FirstRun,
@@ -16,8 +15,8 @@ public enum State0001 implements DisplayEntityListener{
   Announcement,
   Exception,
   Debug,;
-  public StateEntityListener0001 entity;
-  public EntityListener displayCam;
+  public StateEntity0001 entity;
+  // public EntityListener displayCam;
   //---------------------------------------------------------------
   public static void disposeAll() {
     for(State0001 e:stateArray) e.dispose();
@@ -126,6 +125,6 @@ public enum State0001 implements DisplayEntityListener{
   }
   @Override
   public void displayCam() {
-    displayCam.display();
+    entity.displayCam();
   }
 }
