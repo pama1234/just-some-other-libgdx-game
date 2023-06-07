@@ -2,9 +2,8 @@ package pama1234.gdx.game.state.state0001;
 
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.util.entity.Entity;
-import pama1234.gdx.util.listener.EntityListener;
+import pama1234.gdx.util.listener.StateEntityListener;
 import pama1234.gdx.util.wrapper.DisplayEntity;
-import pama1234.gdx.util.wrapper.DisplayEntity.DisplayWithCam;
 
 public class StateGenerator0001{
   public static void loadState0001(Screen0011 in) {
@@ -27,8 +26,10 @@ public class StateGenerator0001{
       super(p);
     }
   }
-  public interface StateEntityListener0001 extends EntityListener,DisplayWithCam{
+  public interface StateEntityListener0001 extends StateEntityListener<State0001>{
+    @Override
     default public void from(State0001 in) {}
+    @Override
     default public void to(State0001 in) {}
   }
 }

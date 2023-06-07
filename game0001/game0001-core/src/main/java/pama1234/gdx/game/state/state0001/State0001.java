@@ -3,9 +3,10 @@ package pama1234.gdx.game.state.state0001;
 import pama1234.gdx.game.state.state0001.StateGenerator0001.StateEntityListener0001;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
+import pama1234.gdx.util.listener.DisplayEntityListener;
 import pama1234.gdx.util.listener.EntityListener;
 
-public enum State0001 implements EntityListener{
+public enum State0001 implements DisplayEntityListener{
   FirstRun,
   Loading,
   StartMenu,
@@ -122,5 +123,9 @@ public enum State0001 implements EntityListener{
   @Override
   public void touchMoved(TouchInfo info) {
     entity.touchMoved(info);
+  }
+  @Override
+  public void displayCam() {
+    displayCam.display();
   }
 }
