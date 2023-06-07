@@ -121,11 +121,11 @@ public class Game extends StateEntity0001{
         Throwable cause=e.getCause();
         if(cause instanceof ConnectException ce) if(p.settings.printLog) System.out.println(ce);
         netMode=NetMode.Error;
-        p.state(p.stateCenter.StartMenu);
+        p.state(p.stateCenter.startMenu);
       }catch(RuntimeException e) {
         e.printStackTrace();
         netMode=NetMode.Error;
-        p.state(p.stateCenter.StartMenu);
+        p.state(p.stateCenter.startMenu);
       }
     }else if(netMode==NetMode.IntegratedServer) {
       server=new ServerCore(this,tw,new ServerSocketData(selfAddr));
@@ -173,7 +173,7 @@ public class Game extends StateEntity0001{
   public void frameResized(int w,int h) {}
   @Override
   public void keyReleased(char key,int keyCode) {
-    if(keyCode==ESCAPE) p.state(p.stateCenter.StartMenu);
+    if(keyCode==ESCAPE) p.state(p.stateCenter.startMenu);
   }
   @Override
   public void dispose() {

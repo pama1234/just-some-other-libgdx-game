@@ -61,7 +61,7 @@ public class UiGenerator{
   public static <T extends Screen0011> Button<?>[] genButtons_0004(T p) {
     return new Button[] {
       new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {
-        p.state(p.stateCenter.StartMenu);
+        p.state(p.stateCenter.startMenu);
       },self->self.text="返回",p::getButtonUnitLength,()->p.bu*0.5f,()->p.bu*0.5f),
     };
   }

@@ -173,9 +173,9 @@ public class Screen0011 extends ScreenCore2D implements StateChanger0001{
     // firstRun=true;
     if(firstRun) {
       MusicAsset.load_init();
-      state(stateCenter.FirstRun);
+      state(stateCenter.firstRun);
       Gdx.files.local("data/firstRun.txt").writeString("1234",false);
-    }else state(stateCenter.Loading);
+    }else state(stateCenter.loading);
   }
   public void enterGame() {
     pixelPerfectCache=cam2d.pixelPerfect;
@@ -185,7 +185,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger0001{
     cam2d.pixelPerfect=pixelPerfectCache;
   }
   public void postSettings() {
-    Game game=(Game)stateCenter.Game;
+    Game game=(Game)stateCenter.game;
     if(settings.debugInfo) game.createDebugDisplay();
     refreshLocalHost();
     debugInfoChange(settings.debugInfo);

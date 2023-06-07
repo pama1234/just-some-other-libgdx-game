@@ -40,7 +40,7 @@ public class Announcement extends StateEntity0001{
   }
   @Override
   public void keyReleased(char key,int keyCode) {
-    if(keyCode==ESCAPE) p.state(p.stateCenter.StartMenu);
+    if(keyCode==ESCAPE) p.state(p.stateCenter.startMenu);
   }
   @Override
   public void dispose() {

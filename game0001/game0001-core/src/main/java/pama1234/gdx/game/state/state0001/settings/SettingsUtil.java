@@ -75,16 +75,16 @@ public class SettingsUtil{
       },self->self.text=p.settings.debugInfo?ld.debugInfoYes:ld.debugInfoNo,()->18,()->0,()->40),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.settings.debugGraphics=!p.settings.debugGraphics;
-        Game game=p.stateCenter.Game;
+        Game game=p.stateCenter.game;
         if(p.settings.debugGraphics) game.createDebugDisplay();
         self.updateText();
       },self->self.text=p.settings.debugGraphics?ld.debugGraphicsYes:ld.debugGraphicsNo,()->18,()->0,()->60),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
-        boolean firstInit=(p.stateCenter.Game).firstInit;
-        if(!firstInit) (p.stateCenter.Game).world().pauseSave();//判断有没有初始化
-        p.state(p.stateCenter.Loading);
+        boolean firstInit=(p.stateCenter.game).firstInit;
+        if(!firstInit) (p.stateCenter.game).world().pauseSave();//判断有没有初始化
+        p.state(p.stateCenter.loading);
         //由于Loading中会把firstInit修改为true,所以要修改会原来的值，否则就会因为线程再次启动而崩溃
-        (p.stateCenter.Game).firstInit=firstInit;
+        (p.stateCenter.game).firstInit=firstInit;
       },self->self.text=ld.reloadAssets,()->18,()->0,()->80),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         System.gc();
@@ -102,7 +102,7 @@ public class SettingsUtil{
         self.updateText();
       },self->self.text=ld.showZoomButton+(p.settings.zoomButton?ld.yes:ld.no),()->18,()->0,()->140),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
-        p.state(p.stateCenter.Debug);
+        p.state(p.stateCenter.debug);
       },self->self.text=ld.debugView,()->18,()->0,()->160),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
         if(!p.gyroscopeAvailable) return;
