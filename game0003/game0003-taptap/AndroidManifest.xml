@@ -10,9 +10,7 @@
 		android:isGame="true"
 		android:appCategory="game"
 		android:label="@string/app_name"
-		tools:ignore="UnusedAttribute"
-		android:theme="@style/GdxTheme"
-		android:dataExtractionRules="@xml/data_extraction_rules">
+		android:theme="@style/GdxTheme">
 		<activity
 			android:name="pama1234.gdx.game.app.android.AndroidLauncher"
 			android:screenOrientation="landscape"
