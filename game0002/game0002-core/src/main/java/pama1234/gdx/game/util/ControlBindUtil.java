@@ -1,4 +1,4 @@
-package pama1234.gdx.game.state.state0001.game.player;
+package pama1234.gdx.game.util;
 
 import com.badlogic.gdx.Input.Keys;
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">空想世界 1</string>
+    <string name="app_name">几何决斗</string>
     <string name="taptap_inform">
-“空想世界1”游戏隐私政策\n
+“几何决斗1”游戏隐私政策\n
 \n
 因本游戏使用的引擎“libgdx”的软件特性，当您使用我们的游戏服务时，我们会频繁调用设备的传感器列表，陀螺仪、加速度、重力传感器以识别判断您的设备状态。请您理解，单独的设备传感器数据不涉及任何个人位置信息且无法与其他信息结合用于识别特定自然人的身份。\n
 \n
