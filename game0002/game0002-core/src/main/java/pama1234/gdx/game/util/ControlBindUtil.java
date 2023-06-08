@@ -9,7 +9,7 @@ public class ControlBindUtil extends AbstractControlBindUtil{
   public static final int camZoomIn=10,camZoomOut=11;
   {
     keyCodeArray=new int[][] {
-      {Keys.Z},
+      {Keys.Z,Keys.SPACE},
       {Keys.X},
       {Keys.C},
       {Keys.R},

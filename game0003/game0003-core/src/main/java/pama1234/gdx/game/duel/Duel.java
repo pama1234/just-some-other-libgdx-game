@@ -101,7 +101,7 @@ public class Duel extends ScreenCore2D{
       return localization.yaml.loadAs(configFile.readString("UTF-8"),Config.class);
     }else {
       Gdx.files.local("data").mkdirs();
-      return new Config().init(isAndroid);
+      return new Config().init();
     }
   }
   @Override
