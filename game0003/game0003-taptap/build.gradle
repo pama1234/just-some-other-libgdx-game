@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
   namespace 'pama1234'
-  compileSdkVersion 32
+  compileSdk 33
   signingConfigs {
     release {
       // storeFile file('sign.jks')
@@ -23,7 +23,9 @@ android {
     }
   }
   packagingOptions {
-    exclude 'assets/image/src/*'
+//    resources.pickFirsts += "**/*.java"
+    resources.pickFirsts += "**/*.proto"
+    // exclude 'assets/image/src/*'
     //无法理解的屎山+1
     pickFirst "win/libgcc_s_seh_x86_64.dll"
     pickFirst "win/libstdc++-6_x86.dll"
@@ -50,9 +52,9 @@ android {
     exclude 'META-INF/dependencies.txt'
   }
   defaultConfig {
-    applicationId 'pama1234.gdx.game.app.game0001.taptap'
+    applicationId 'pama1234.gdx.game.app.duel'
     minSdkVersion 26
-    targetSdkVersion 32
+    targetSdkVersion 33
     versionCode 1
     versionName "1.0"
     multiDexEnabled true
@@ -109,10 +111,12 @@ configurations { natives }
 
 dependencies {
   coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:$androidDesugarVersion"
+  // implementation "androidx.multidex:multidex:2.0.1"
 
   implementation "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
-  implementation "com.github.simplepeng.SpiderMan:spiderman:$spidermanVersion"  //如果程序异常闪退提供log
-  implementation project(':game0001:game0001-core')
+  implementation "com.github.simplepeng.SpiderMan:spiderman:$spidermanVersion"//如果程序异常闪退提供log
+
+  implementation project(':game0003:game0003-core')
   // implementation "com.github.lyze237:gdx-TinyVG:$gdxTinyVGVersion"
 
   // natives "com.badlogicgames.gdx:gdx-bullet-platform:$gdxVersion:natives-arm64-v8a"
@@ -144,37 +148,37 @@ dependencies {
 // Called every time gradle gets executed, takes the native dependencies of
 // the natives configuration, and extracts them to the proper libs/ folders
 // so they get packed with the APK.
-task copyAndroidNatives() {
+tasks.register('copyAndroidNatives') {
   doFirst {
     file("libs/armeabi-v7a/").mkdirs()
     file("libs/arm64-v8a/").mkdirs()
     file("libs/x86_64/").mkdirs()
     file("libs/x86/").mkdirs()
 
-    configurations.getByName("natives").copy().files.each { jar ->
-          def outputDir = null
-          if(jar.name.endsWith("natives-armeabi-v7a.jar")) outputDir = file("libs/armeabi-v7a")
-          if(jar.name.endsWith("natives-arm64-v8a.jar")) outputDir = file("libs/arm64-v8a")
-          if(jar.name.endsWith("natives-x86_64.jar")) outputDir = file("libs/x86_64")
-          if(jar.name.endsWith("natives-x86.jar")) outputDir = file("libs/x86")
-          if(outputDir != null) {
-              copy {
-                  from zipTree(jar)
-                  into outputDir
-                  include "*.so"
-              }
-          }
+    configurations.natives.copy().files.each { jar ->
+      def outputDir = null
+      if (jar.name.endsWith("natives-armeabi-v7a.jar")) outputDir = file("libs/armeabi-v7a")
+      if (jar.name.endsWith("natives-arm64-v8a.jar")) outputDir = file("libs/arm64-v8a")
+      if (jar.name.endsWith("natives-x86_64.jar")) outputDir = file("libs/x86_64")
+      if (jar.name.endsWith("natives-x86.jar")) outputDir = file("libs/x86")
+      if (outputDir != null) {
+        copy {
+          from zipTree(jar)
+          into outputDir
+          include "*.so"
+        }
       }
+    }
   }
 }
 
-tasks.whenTaskAdded { packageTask ->
+tasks.configureEach { packageTask ->
   if (packageTask.name.contains("package")) {
     packageTask.dependsOn 'copyAndroidNatives'
   }
 }
 
-task run(type: Exec) {
+tasks.register('run', Exec) {
   def path
   def localProperties = project.file("../local.properties")
   if (localProperties.exists()) {
@@ -193,13 +197,15 @@ task run(type: Exec) {
   }
 
   def adb = path + "/platform-tools/adb"
-  commandLine "$adb", 'shell', 'am', 'start', '-n', 'pama1234.gdx.game.app/pama1234.android.activity.inform.taptap.ui.TaptapInformActivity'
+  commandLine "$adb", 'shell', 'am', 'start', '-n', 'pama1234.gdx.game.app/pama1234.gdx.game.app.android.AndroidLauncher'
 }
 
-tasks.whenTaskAdded { task ->
-  if (task.name == 'checkDebugDuplicateClasses') {
-    task.enabled = false
-  }
-}
+//tasks.configureEach { task ->
+//  if (task.name == 'checkDebugDuplicateClasses'|| task.name=='checkReleaseDuplicateClasses') {
+//    task.enabled = false
+//  }
+////  if (task.name == 'mergeDebugJavaResource') {
+////  }
+//}
 
-eclipse.project.name = appName + '-game0001-game0001-taptap'
+eclipse.project.name = appName + "-game0003-taptap"
