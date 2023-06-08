@@ -5,6 +5,7 @@ import static pama1234.math.UtilMath.dist;
 
 import java.util.ArrayList;
 
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
 
@@ -16,6 +17,7 @@ import pama1234.gdx.game.app.app0001.Screen0001;
 import pama1234.gdx.game.app.app0001.Screen0001.DecalData;
 import pama1234.gdx.game.app.app0001.Screen0001.GraphicsData;
 import pama1234.gdx.game.util.ClientPlayerCenter3D;
+import pama1234.gdx.game.util.ControlBindUtil;
 import pama1234.gdx.game.util.ControllerClientPlayer3D;
 import pama1234.gdx.util.element.Graphics;
 import pama1234.gdx.util.entity.Entity;
@@ -72,7 +74,7 @@ public class World0001 extends Entity<Screen0001> implements DisplayEntityListen
     for(int i=0;i<colors.length;i++) colors[i]=group.colors[i];
     graphicsList.add(0,new ArrayList<GraphicsData>(typeSize));
     for(int i=0;i<typeSize;i++) {
-      int tgsize=p.tgsizeF(0);
+      int tgsize=tgsizeF(0);
       Graphics tg=new Graphics(p,tgsize*2,tgsize*2);
       tg.beginShape();
       p.fillHex(colors[i]&0x40ffffff);
@@ -90,7 +92,7 @@ public class World0001 extends Entity<Screen0001> implements DisplayEntityListen
     for(int k=1;k<layerSize;k++) {
       graphicsList.add(k,new ArrayList<GraphicsData>(typeSize));
       for(int i=0;i<typeSize;i++) {
-        int tgsize=p.tgsizeF(k);
+        int tgsize=tgsizeF(k);
         Graphics tg=new Graphics(p,tgsize*2,tgsize*2);
         tg.beginShape();
         p.fillHex(colors[i]&0x40ffffff);
@@ -137,7 +139,7 @@ public class World0001 extends Entity<Screen0001> implements DisplayEntityListen
           final DecalData tdd=decals[j].get(i);
           final Decal td=tdd.decal;
           td.setPosition(tx,ty,tz);
-          if(!p.isVisible(p.cam.camera,td,Var.DIST/2)) continue;
+          if(!isVisible(p.cam.camera,td,Var.DIST/2)) continue;
           // temp layer float
           final int tlf=layerF(tdist);
           if(tlf!=tdd.layer) {
@@ -145,15 +147,32 @@ public class World0001 extends Entity<Screen0001> implements DisplayEntityListen
             td.setTextureRegion(graphicsList.get(tlf).get(group.type[i]).tr);
           }
           td.lookAt(p.cam.camera.position,p.cam.camera.up);
-          td.setColor(1,1,1,p.colorF(tdist));
+          td.setColor(1,1,1,colorF(tdist));
           p.decal(td);
         }
       }
     }
   }
+  public boolean isVisible(Camera cam,Decal in,float r) {
+    return cam.frustum.sphereInFrustum(in.getPosition(),r);
+  }
   public int layerF(float dist) {
     int out=(int)map(dist,0,p.cam3d.viewDist(),layerSize,0);
     if(out>=layerSize) out=layerSize-1;
     return out;
+  }
+  public int tgsizeF(int k) {
+    return 8*(k*2+1);
+  }
+  public float colorF(float in) {
+    in/=p.cam3d.viewDist()/2;
+    in=2-in;
+    if(in>1) in=1;
+    else if(in<0) in=0;
+    return in;
+  }
+  @Override
+  public void keyPressed(char key,int keyCode) {
+    if(p.controlBind.isKey(ControlBindUtil.doUpdate,keyCode)) doUpdate=!doUpdate;
   }
 }

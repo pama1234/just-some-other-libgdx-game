@@ -2,7 +2,6 @@ package pama1234.gdx.game.app.app0001;
 
 import static pama1234.gdx.game.ui.generator.InfoUtil.info0001;
 
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
 
@@ -42,9 +41,6 @@ public class Screen0001 extends ScreenCore3D{
       this.layer=layer;
     }
   }
-  public int tgsizeF(int k) {
-    return 8*(k*2+1);
-  }
   @Override
   public void setup() {
     setupCamera();
@@ -78,16 +74,6 @@ public class Screen0001 extends ScreenCore3D{
   }
   @Override
   public void update() {}
-  public float colorF(float in) {
-    in/=cam3d.viewDist()/2;
-    in=2-in;
-    if(in>1) in=1;
-    else if(in<0) in=0;
-    return in;
-  }
-  public boolean isVisible(Camera cam,Decal in,float r) {
-    return cam.frustum.sphereInFrustum(in.getPosition(),r);
-  }
   @Override
   public void displayWithCam() {
     // Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
@@ -104,7 +90,6 @@ public class Screen0001 extends ScreenCore3D{
   public void frameResized() {}
   @Override
   public void keyPressed(char key,int keyCode) {
-    if(controlBind.isKey(ControlBindUtil.doUpdate,keyCode)) world.doUpdate=!world.doUpdate;
     if(controlBind.isKey(ControlBindUtil.addViewSpeed,keyCode)) {
       cam3d.viewSpeed+=1/4f;
       if(cam3d.viewSpeed>8) cam3d.viewSpeed=8;
