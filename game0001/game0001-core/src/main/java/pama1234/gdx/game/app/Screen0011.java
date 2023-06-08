@@ -30,6 +30,7 @@ import pama1234.gdx.game.state.state0001.State0001Util.StateCenter0001;
 import pama1234.gdx.game.state.state0001.State0001Util.StateChanger0001;
 import pama1234.gdx.game.state.state0001.State0001Util.StateEntity0001;
 import pama1234.gdx.game.state.state0001.game.KryoUtil;
+import pama1234.gdx.game.state.state0001.game.player.ControlBindUtil;
 import pama1234.gdx.game.ui.generator.InfoUtil.InfoData;
 import pama1234.gdx.game.ui.generator.InfoUtil.InfoSource;
 import pama1234.gdx.game.ui.generator.UiGenerator;
@@ -86,6 +87,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger0001{
   }
   public StateCenter0001 stateCenter;
   //---
+  public ControlBindUtil controlBind;
   public SettingsData settings;
   public FileHandle settingsFile=Gdx.files.local("data/settings.bin");
   public StateEntity0001 state;
@@ -156,6 +158,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger0001{
   }
   @Override
   public void setup() {
+    controlBind=new ControlBindUtil();
     Settings.initLocalization(this);
     noStroke();
     buttons=UiGenerator.genButtons_0008(this);

@@ -86,25 +86,25 @@ public class PlayerControllerFull extends PlayerControllerCore{
   }
   public void updateKeyInfo() {
     GetKeyPressedBoolean f=p::isKeyPressed;
-    left=ControlBindUtil.isKeyPressed(ControlBindUtil.moveLeft,f);
-    right=ControlBindUtil.isKeyPressed(ControlBindUtil.moveRight,f);
-    jump=ControlBindUtil.isKeyPressed(ControlBindUtil.jumpUp,f);
-    jumpDown=ControlBindUtil.isKeyPressed(ControlBindUtil.jumpDown,f);
+    left=p.controlBind.isKeyPressed(ControlBindUtil.moveLeft,f);
+    right=p.controlBind.isKeyPressed(ControlBindUtil.moveRight,f);
+    jump=p.controlBind.isKeyPressed(ControlBindUtil.jumpUp,f);
+    jumpDown=p.controlBind.isKeyPressed(ControlBindUtil.jumpDown,f);
   }
   @Override
   public void keyPressed(char key,int keyCode) {
-    if(ControlBindUtil.isKey(ControlBindUtil.shift,keyCode)) shift(true);
-    else if(ControlBindUtil.isKey(ControlBindUtil.openInventory,keyCode)) player.inventory.displayStateChange();
-    else if(ControlBindUtil.isKey(ControlBindUtil.camZoomIn,keyCode)) zoomIn=true;
-    else if(ControlBindUtil.isKey(ControlBindUtil.camZoomOut,keyCode)) zoomOut=true;
+    if(p.controlBind.isKey(ControlBindUtil.shift,keyCode)) shift(true);
+    else if(p.controlBind.isKey(ControlBindUtil.openInventory,keyCode)) player.inventory.displayStateChange();
+    else if(p.controlBind.isKey(ControlBindUtil.camZoomIn,keyCode)) zoomIn=true;
+    else if(p.controlBind.isKey(ControlBindUtil.camZoomOut,keyCode)) zoomOut=true;
     else if(testIsHotSlotKey(keyCode,true)) player.inventory.selectSlotWithKeyEvent();
   }
   @Override
   public void keyReleased(char key,int keyCode) {
-    if(ControlBindUtil.isKey(ControlBindUtil.shift,keyCode)) shift(false);
+    if(p.controlBind.isKey(ControlBindUtil.shift,keyCode)) shift(false);
     else if(testIsHotSlotKey(keyCode,false)) player.inventory.selectSlotWithKeyEvent();
-    else if(ControlBindUtil.isKey(ControlBindUtil.camZoomIn,keyCode)) zoomIn=false;
-    else if(ControlBindUtil.isKey(ControlBindUtil.camZoomOut,keyCode)) zoomOut=false;
+    else if(p.controlBind.isKey(ControlBindUtil.camZoomIn,keyCode)) zoomIn=false;
+    else if(p.controlBind.isKey(ControlBindUtil.camZoomOut,keyCode)) zoomOut=false;
   }
   public boolean testIsHotSlotKey(int keyCode,boolean bIn) {
     boolean[] tba=player.inventory.hotSlotKeyData;
@@ -112,7 +112,7 @@ public class PlayerControllerFull extends PlayerControllerCore{
     boolean flag=false;
     if(!bIn&&!tba[0]) return flag;
     boolean t_tba_0=tba[0];
-    for(int i=0;i<tl;i++) if(ControlBindUtil.isKey(ControlBindUtil.hotSlotStart+i,keyCode)) {
+    for(int i=0;i<tl;i++) if(p.controlBind.isKey(ControlBindUtil.hotSlotStart+i,keyCode)) {
       tba[i]=bIn;
       flag=true;
     }
