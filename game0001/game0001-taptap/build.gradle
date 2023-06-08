@@ -50,7 +50,8 @@ android {
     exclude 'META-INF/dependencies.txt'
   }
   defaultConfig {
-    applicationId 'pama1234.gdx.game.app.game0001.taptap'
+    // pft01 is platform type 01 is taptap
+    applicationId 'pama1234.gdx.game.app.game0001.pft01'
     minSdkVersion 26
     targetSdkVersion 32
     versionCode 2

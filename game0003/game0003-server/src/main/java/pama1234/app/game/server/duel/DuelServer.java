@@ -39,7 +39,7 @@ public class DuelServer extends UtilServer{
       return localization.yaml.loadAs(loadString(configFile),Config.class);
     }else {
       mainDir.mkdirs();
-      return new Config().init(true);
+      return new Config().init();
     }
   }
   public PointUpdate.Builder pointUpdateBuilder;
