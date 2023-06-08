@@ -75,11 +75,10 @@ public class Screen0001 extends ScreenCore3D{
   }
   @Override
   public void setup() {
-    cam.point.f=0.1f;//TODO
-    cam3d.viewDir.f=0.1f;
-    cam.point.set(0,0,-240);
+    setupCamera();
     backgroundColor(0);
     textColor(255);
+    //---
     CellGroupGenerator3D gen=new CellGroupGenerator3D(0,0);
     if(random(1)>0.5f) group=gen.randomGenerate(64,isAndroid?1024:16384);
     else group=isAndroid
@@ -166,6 +165,11 @@ public class Screen0001 extends ScreenCore3D{
     centerScreen.add.add(configInfo=new ConfigInfo(this));
     centerCam.add.add(playerCenter);
     centerCam.add.add(yourself);//TODO
+  }
+  public void setupCamera() {
+    cam.point.f=0.1f;//TODO
+    cam3d.viewDir.f=0.1f;
+    cam.point.set(0,0,-240);
   }
   @Override
   public void update() {}

@@ -32,7 +32,7 @@ public class PlayerControllerFull extends PlayerControllerCore{
   public PlayerControllerFull(Screen0011 p,MainPlayer player) {
     super(p,player,true);
     this.player=player;
-    cullRects=ControlBindUtil.createRectF(p);
+    cullRects=ControlUtil.createRectF(p);
     coreSelectBlock=selectBlock=new ControllerBlockPointer(player.pw,()->player.inventory.selectSlot().data);
   }
   @Override

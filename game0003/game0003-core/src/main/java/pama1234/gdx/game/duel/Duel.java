@@ -12,6 +12,9 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
 import pama1234.app.game.server.duel.Config;
 import pama1234.app.game.server.duel.Config.GameMode;
+import pama1234.gdx.game.duel.NetUtil.ClientConfig;
+import pama1234.gdx.game.duel.NetUtil.GameClient;
+import pama1234.gdx.game.duel.NetUtil.LoginInfo;
 import pama1234.gdx.game.duel.util.ai.nnet.ClientFisheyeVision;
 import pama1234.gdx.game.duel.util.ai.nnet.NeatCenter;
 import pama1234.gdx.game.duel.util.ai.nnet.NeatCenter.NetworkGroupParam;
@@ -25,7 +28,6 @@ import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.math.UtilMath;
 import pama1234.util.localization.Localization;
-import pama1234.util.net.SocketData;
 import pama1234.util.protobuf.InputDataProto;
 import pama1234.util.protobuf.InputDataProto.InputData;
 
@@ -53,18 +55,6 @@ import pama1234.util.protobuf.InputDataProto.InputData;
  * The font "Unifont" https://unifoundry.com/unifont/ is part of the GNU Project.
  */
 public class Duel extends ScreenCore2D{
-  public class GameClient{
-    // public DatagramSocket socket;
-    public SocketData socketData;
-  }
-  public class ClientConfig{
-    public String serverAddr;
-    public int port;
-  }
-  public class LoginInfo{
-    public String userName;
-    public byte[] token;
-  }
   //---
   public static final Localization localization=new Localization();
   // public static LocalBundleCenter bundleCenter;
