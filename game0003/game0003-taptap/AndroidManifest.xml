@@ -11,26 +11,15 @@
 		android:appCategory="game"
 		android:label="@string/app_name"
 		tools:ignore="UnusedAttribute"
-		android:theme="@style/GdxTheme">
-		<!-- <activity
-			android:name="pama1234.android.activity.inform.taptap.ui.TaptapInformActivity"
-			android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
-			android:launchMode="singleTask"
-			android:configChanges="keyboard|keyboardHidden|navigation|orientation|screenSize|screenLayout"
-			android:exported="true">
-			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.LAUNCHER" />
-			</intent-filter>
-		</activity> -->
+		android:theme="@style/GdxTheme"
+		android:dataExtractionRules="@xml/data_extraction_rules">
 		<activity
 			android:name="pama1234.gdx.game.app.android.AndroidLauncher"
-			android:launchMode="singleTask"
-			android:label="@string/app_name"
 			android:screenOrientation="landscape"
 			android:configChanges="keyboard|keyboardHidden|navigation|orientation|screenSize|screenLayout"
 			android:exported="true">
 			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
