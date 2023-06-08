@@ -52,11 +52,11 @@ android {
     exclude 'META-INF/dependencies.txt'
   }
   defaultConfig {
-    applicationId 'pama1234.gdx.game.app.duel'
+    applicationId 'pama1234.gdx.game.app.duel.taptap'
     minSdkVersion 26
     targetSdkVersion 30
-    versionCode 1
-    versionName "1.0"
+    versionCode 2
+    versionName "1.1"
     multiDexEnabled true
   }
   compileOptions {
