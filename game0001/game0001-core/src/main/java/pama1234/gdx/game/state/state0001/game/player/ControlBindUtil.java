@@ -2,7 +2,9 @@ package pama1234.gdx.game.state.state0001.game.player;
 
 import com.badlogic.gdx.Input.Keys;
 
-public class ControlBindUtil{
+import pama1234.gdx.util.AbstractControlBindUtil;
+
+public class ControlBindUtil extends AbstractControlBindUtil{
   public static final int moveLeft=0,moveRight=1,moveUp=2,moveDown=3,jumpUp=4,jumpDown=5;
   public static final int hotSlotStart=6;
   public static final int hotSlot_1=hotSlotStart,hotSlot_2=hotSlotStart+1,hotSlot_3=hotSlotStart+2,hotSlot_4=hotSlotStart+3,hotSlot_5=hotSlotStart+4,
@@ -39,9 +41,5 @@ public class ControlBindUtil{
     final int[] tia=keyCodeArray[type];
     for(final int is:tia) if(keyCode==is) return true;
     return false;
-  }
-  @FunctionalInterface
-  public interface GetKeyPressedBoolean{
-    public boolean get(int keyCode);
   }
 }
