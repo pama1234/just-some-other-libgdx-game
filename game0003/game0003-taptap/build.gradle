@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
   namespace 'pama1234'
-  compileSdk 33
+  compileSdk 30
   signingConfigs {
     release {
       // storeFile file('sign.jks')
@@ -54,7 +54,7 @@ android {
   defaultConfig {
     applicationId 'pama1234.gdx.game.app.duel'
     minSdkVersion 26
-    targetSdkVersion 33
+    targetSdkVersion 30
     versionCode 1
     versionName "1.0"
     multiDexEnabled true
