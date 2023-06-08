@@ -104,7 +104,14 @@ public class World0001 extends Entity<Screen0001> implements DisplayEntityListen
         graphicsList.get(k).add(i,new GraphicsData(tg,tr));
       }
     }
-    updateCell=new Thread() {
+    updateCell=createUpdateThread();
+    updateCell.start();
+    //---
+    p.centerCam.add.add(playerCenter);
+    p.centerCam.add.add(yourself);//TODO
+  }
+  public Thread createUpdateThread() {
+    return new Thread() {
       @Override
       public void run() {
         while(!p.stop) {
@@ -117,10 +124,6 @@ public class World0001 extends Entity<Screen0001> implements DisplayEntityListen
         }
       }
     };
-    updateCell.start();
-    //---
-    p.centerCam.add.add(playerCenter);
-    p.centerCam.add.add(yourself);//TODO
   }
   @Override
   public void displayCam() {

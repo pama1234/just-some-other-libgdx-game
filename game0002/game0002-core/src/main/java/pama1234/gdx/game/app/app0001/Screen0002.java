@@ -9,14 +9,34 @@ import pama1234.gdx.util.app.UtilScreen2D;
  */
 @Deprecated
 public class Screen0002 extends UtilScreen2D{
-  CellGroup2D group;
+  public CellGroup2D group;
+  public boolean doUpdate;
+  public Thread cellUpdate;
   // ServerPlayerCenter<Player2D> playerCenter;
   @Override
   public void setup() {
+    backgroundColor(0);
     CellGroupGenerator2D gen=new CellGroupGenerator2D(0,0);
     group=gen.GenerateFromMiniCore();
     // playerCenter=new ServerPlayerCenter<Player2D>();
     noStroke();
+    cellUpdate=createUpdateThread();
+    cellUpdate.start();
+  }
+  public Thread createUpdateThread() {
+    return new Thread("CellGroupUpdateThread") {
+      @Override
+      public void run() {
+        while(!stop) {
+          if(doUpdate) group.update();
+          else try {
+            sleep(1000);
+          }catch(InterruptedException e) {
+            e.printStackTrace();
+          }
+        }
+      }
+    };
   }
   @Override
   public void update() {

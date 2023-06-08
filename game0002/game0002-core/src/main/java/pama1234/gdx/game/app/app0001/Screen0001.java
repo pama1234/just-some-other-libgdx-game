@@ -13,6 +13,7 @@ import pama1234.gdx.game.world.World0001;
 import pama1234.gdx.util.FileUtil;
 import pama1234.gdx.util.app.ScreenCore3D;
 import pama1234.gdx.util.element.Graphics;
+import pama1234.gdx.util.wrapper.DisplayEntity;
 
 /**
  * 3D 粒子系统 单机模式
@@ -50,13 +51,7 @@ public class Screen0001 extends ScreenCore3D{
     controlBind=new ControlBindUtil();
     world=new World0001(this);
     world.init();
-    //TODO
-    Graphics tg=new Graphics(this,360,16*info0001.length);
-    tg.beginShape();
-    for(int i=0;i<info0001.length;i++) text(info0001[i],0,16*i);
-    tg.endShape();
-    TextureRegion tr=new TextureRegion(tg.texture);
-    infoD=Decal.newDecal(tr,true);
+    infoD=Decal.newDecal(drawInfoImage(),true);
     logo=Decal.newDecal(256,256,new TextureRegion(FileUtil.loadTexture("logo/logo-ingame.png")),true);
     logo.setPosition(0,-512,0);
     //TODO
@@ -66,6 +61,16 @@ public class Screen0001 extends ScreenCore3D{
       for(Button<?> e:buttons) centerScreen.add.add(e);
     }
     centerScreen.add.add(configInfo=new ConfigInfo(this));
+    centerScreen.add.add(world);
+    centerCam.add.add(new DisplayEntity(world::displayCam));
+  }
+  public TextureRegion drawInfoImage() {
+    Graphics tg=new Graphics(this,360,16*info0001.length);
+    tg.beginShape();
+    for(int i=0;i<info0001.length;i++) text(info0001[i],0,16*i);
+    tg.endShape();
+    TextureRegion tr=new TextureRegion(tg.texture);
+    return tr;
   }
   public void setupCamera() {
     cam.point.f=0.1f;//TODO
@@ -78,7 +83,7 @@ public class Screen0001 extends ScreenCore3D{
   public void displayWithCam() {
     // Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
     // Gdx.gl20.glDepthMask(false);
-    world.displayCam();
+    // world.displayCam();
     if(displayHint) decal(infoD);
     logo.lookAt(cam.camera.position,cam.camera.up);
     decal(logo);

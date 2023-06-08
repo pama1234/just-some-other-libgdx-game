@@ -22,7 +22,7 @@ import pama1234.util.wrapper.Center;
  * 服务器调试libgdx窗口 未维护
  */
 @Deprecated
-public class Screen0007 extends UtilScreen3D{
+public class Screen0004 extends UtilScreen3D{
   // public ServerInfo dataServerInfo,stateServerInfo;
   public NetAddressInfo dataServerInfo;
   //---

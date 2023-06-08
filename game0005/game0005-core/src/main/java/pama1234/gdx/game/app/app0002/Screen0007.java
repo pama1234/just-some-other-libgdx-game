@@ -15,7 +15,7 @@ import pama1234.gdx.game.util.RectF;
 import pama1234.gdx.util.app.ScreenCore3D;
 import pama1234.gdx.util.info.MouseInfo;
 
-public class Screen0004 extends ScreenCore3D{
+public class Screen0007 extends ScreenCore3D{
   TextField textField;
   //---
   public Model model;

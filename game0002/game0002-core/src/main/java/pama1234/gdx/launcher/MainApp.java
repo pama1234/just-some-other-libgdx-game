@@ -9,7 +9,7 @@ import com.badlogic.gdx.Game;
 import pama1234.gdx.game.app.app0001.Screen0001;
 import pama1234.gdx.game.app.app0001.Screen0002;
 import pama1234.gdx.game.app.app0001.Screen0003;
-import pama1234.gdx.game.app.app0001.Screen0007;
+import pama1234.gdx.game.app.app0001.Screen0004;
 import pama1234.gdx.util.app.UtilScreen;
 
 @SuppressWarnings("deprecation")
@@ -18,7 +18,7 @@ public class MainApp extends Game{
   public static final int defaultType=0,taptap=1,pico=2;
   public static int type;
   public List<Class<? extends UtilScreen>> screenList;
-  public int screenType=1;
+  public int screenType=2;
   public MainApp() {
     screenList=Arrays.asList(null,
       Screen0001.class,//3D 粒子系统 单机
@@ -27,7 +27,7 @@ public class MainApp extends Game{
       null,
       null,
       null,
-      Screen0007.class//粒子系统libgdx服务器
+      Screen0004.class//粒子系统libgdx服务器
     );
   }
   @Override

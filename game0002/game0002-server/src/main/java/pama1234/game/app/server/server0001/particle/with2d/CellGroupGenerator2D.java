@@ -55,7 +55,7 @@ public class CellGroupGenerator2D{
     CellGroup2D group;
     int[] colors;
     float boxR;
-    boxR=480;
+    boxR=640;
     float[][] miniCore=new float[][] {
       {0,1,-1,-1,0,0,0,0,0,0,0,1},
       {1,0,1,-1,-1,0,0,0,0,0,0,0},
@@ -72,9 +72,9 @@ public class CellGroupGenerator2D{
     float[][][] core=new float[miniCore.length][miniCore[0].length][3];
     for(int i=0;i<core.length;i++) {
       for(int j=0;j<core[i].length;j++) {
-        core[i][j][Var.G]=miniCore[i][j];
-        core[i][j][Var.MIN]=Var.DIST*2;
-        core[i][j][Var.MAX]=Var.DIST*6;
+        core[i][j][Var.G]=miniCore[i][j]/2f;
+        core[i][j][Var.MIN]=Var.DIST*4;
+        core[i][j][Var.MAX]=Var.DIST*12;
       }
     }
     int cellType=core.length;
