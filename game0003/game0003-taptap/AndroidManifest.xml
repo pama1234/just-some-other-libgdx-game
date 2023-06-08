@@ -13,7 +13,7 @@
 		tools:ignore="UnusedAttribute"
 		android:theme="@style/GdxTheme">
 		<activity
-			android:name="pama1234.android.activity.inform.taptap.ui.TaptapInformActivity"
+			android:name="pama1234.gdx.game.app.android.AndroidLauncher"
 			android:theme="@android:style/Theme.Black.NoTitleBar.Fullscreen"
 			android:launchMode="singleTask"
 			android:configChanges="keyboard|keyboardHidden|navigation|orientation|screenSize|screenLayout"
