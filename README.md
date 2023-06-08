@@ -23,6 +23,8 @@ implementation "com.github.pama1234.just-some-other-libgdx-game:framework:$pama1
 
 《空想世界》开源游戏项目系列的托管库
 
+QQ群：589219461
+
 配置环境：
 
 0. 确保自己使用的电脑可以直接访问需要访问的以下网站，推荐[此方案](https://github.com/getlantern/lantern)
