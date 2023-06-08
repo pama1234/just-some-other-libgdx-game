@@ -19,6 +19,7 @@ else {
 
 sourceSets.main.resources.srcDirs += [
   // rootProject.file('game0002/assets').path
+  '../../assets',
   '../assets'
 ]
 mainClassName = 'pama1234.gdx.game.app.lwjgl3.Launcher'
