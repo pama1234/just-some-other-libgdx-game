@@ -19,6 +19,7 @@ import pama1234.gdx.game.ui.ConfigInfo;
 import pama1234.gdx.game.ui.generator.UiGenerator;
 import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.util.ClientPlayerCenter3D;
+import pama1234.gdx.game.util.ControlBindUtil;
 import pama1234.gdx.game.util.ControllerClientPlayer3D;
 import pama1234.gdx.util.FileUtil;
 import pama1234.gdx.util.app.ScreenCore3D;
@@ -30,6 +31,7 @@ import pama1234.math.vec.Vec3f;
  * 3D 粒子系统 单机模式
  */
 public class Screen0001 extends ScreenCore3D{
+  public ControlBindUtil controlBind;
   public CellGroup3D group;
   @Deprecated
   public ClientPlayerCenter3D playerCenter;//TODO
@@ -79,6 +81,7 @@ public class Screen0001 extends ScreenCore3D{
     backgroundColor(0);
     textColor(255);
     //---
+    controlBind=new ControlBindUtil();
     CellGroupGenerator3D gen=new CellGroupGenerator3D(0,0);
     if(random(1)>0.5f) group=gen.randomGenerate(64,isAndroid?1024:16384);
     else group=isAndroid
@@ -193,35 +196,40 @@ public class Screen0001 extends ScreenCore3D{
     // Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
     // Gdx.gl20.glDepthMask(false);
     synchronized(group) {
-      for(int j=0;j<tesselatedMat.length;j++) {
-        float[] tfa=tesselatedMat[j];
-        float lx=(tfa[0]+UtilMath.floor((cam3d.point.pos.x)/size.x))*size.x;//TODO
-        float ly=(tfa[1]+UtilMath.floor((cam3d.point.pos.y)/size.y))*size.y;
-        float lz=(tfa[2]+UtilMath.floor((cam3d.point.pos.z)/size.z))*size.z;
-        for(int i=0;i<group.size;i++) {
-          float tx=group.x(i)*multDist+lx;
-          float ty=group.y(i)*multDist+ly;
-          float tz=group.z(i)*multDist+lz;
-          float tdist=dist(tx,ty,tz,cam.x(),cam.y(),cam.z());
-          final DecalData tdd=decals[j].get(i);
-          final Decal td=tdd.decal;
-          td.setPosition(tx,ty,tz);
-          if(!isVisible(cam.camera,td,Var.DIST/2)) continue;
-          final int tlf=layerF(tdist);
-          if(tlf!=tdd.layer) {
-            tdd.layer=tlf;
-            td.setTextureRegion(graphicsList.get(tlf).get(group.type[i]).tr);
-          }
-          td.lookAt(cam.camera.position,cam.camera.up);
-          td.setColor(1,1,1,colorF(tdist));
-          decal(td);
-        }
-      }
+      displayParticle();
     }
     if(displayHint) decal(infoD);
     logo.lookAt(cam.camera.position,cam.camera.up);
     decal(logo);
     flushDecal();
+  }
+  public void displayParticle() {
+    for(int j=0;j<tesselatedMat.length;j++) {
+      // translate float array
+      float[] tfa=tesselatedMat[j];
+      float lx=(tfa[0]+UtilMath.floor((cam3d.point.pos.x)/size.x))*size.x;//TODO
+      float ly=(tfa[1]+UtilMath.floor((cam3d.point.pos.y)/size.y))*size.y;
+      float lz=(tfa[2]+UtilMath.floor((cam3d.point.pos.z)/size.z))*size.z;
+      for(int i=0;i<group.size;i++) {
+        float tx=(group.x(i)+lx)*multDist;
+        float ty=(group.y(i)+ly)*multDist;
+        float tz=(group.z(i)+lz)*multDist;
+        float tdist=dist(tx,ty,tz,cam.x(),cam.y(),cam.z());
+        final DecalData tdd=decals[j].get(i);
+        final Decal td=tdd.decal;
+        td.setPosition(tx,ty,tz);
+        if(!isVisible(cam.camera,td,Var.DIST/2)) continue;
+        // temp layer float
+        final int tlf=layerF(tdist);
+        if(tlf!=tdd.layer) {
+          tdd.layer=tlf;
+          td.setTextureRegion(graphicsList.get(tlf).get(group.type[i]).tr);
+        }
+        td.lookAt(cam.camera.position,cam.camera.up);
+        td.setColor(1,1,1,colorF(tdist));
+        decal(td);
+      }
+    }
   }
   @Override
   public void display() {}
@@ -229,12 +237,12 @@ public class Screen0001 extends ScreenCore3D{
   public void frameResized() {}
   @Override
   public void keyPressed(char key,int keyCode) {
-    if(key=='Z') doUpdate=!doUpdate;
-    if(key=='X') {
+    if(controlBind.isKey(ControlBindUtil.doUpdate,keyCode)) doUpdate=!doUpdate;
+    if(controlBind.isKey(ControlBindUtil.addViewSpeed,keyCode)) {
       cam3d.viewSpeed+=1/4f;
       if(cam3d.viewSpeed>8) cam3d.viewSpeed=8;
     }
-    if(key=='C') {
+    if(controlBind.isKey(ControlBindUtil.subViewSpeed,keyCode)) {
       cam3d.viewSpeed-=1/4f;
       if(cam3d.viewSpeed<0) cam3d.viewSpeed=0;
     }

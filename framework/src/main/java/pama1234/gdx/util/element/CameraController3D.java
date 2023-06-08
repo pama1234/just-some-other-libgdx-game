@@ -21,8 +21,6 @@ public class CameraController3D extends CameraController{
   public CameraController3D(UtilScreen3D p,float x,float y,float z,float s,float r,float frameU) {
     super(p,x,y,z);
     camera=pcam=new PerspectiveCamera(60,p.width,p.height);
-    // camera=new PerspectiveCamera(60,p.width,p.height);
-    // camera=new PerspectiveCamera(60,p.width,p.height);
     initCamera();
     // scale=new PathVar(s);
     // rotate=new PathVar(r);
