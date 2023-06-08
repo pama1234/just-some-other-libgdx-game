@@ -56,7 +56,8 @@ public class CellGroup3D extends ServerEntity{
       posX,posY,posZ,
       velX,velY,velZ,
       DIST,DIST/3,//TODO
-      size,type,core,boxR/2,boxR/2,boxR/2);
+      size,type,core,
+      boxR/2,boxR/2,boxR/2);
     //---
     try {
       updater.compile(bestDevice);

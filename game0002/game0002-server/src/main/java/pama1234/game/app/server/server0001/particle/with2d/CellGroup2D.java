@@ -52,7 +52,7 @@ public class CellGroup2D extends ServerEntity{
       velX,velY,
       DIST,DIST/4,
       size,type,core,
-      boxR,boxR);
+      boxR/2,boxR/2);
     //---
     try {
       updater.compile(bestDevice);

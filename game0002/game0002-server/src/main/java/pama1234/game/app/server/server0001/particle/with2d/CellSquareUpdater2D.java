@@ -46,9 +46,6 @@ public class CellSquareUpdater2D extends Kernel{
     dy/=r;
     if(r<dist) {
       float f=g/r;
-      // velX[i]+=dx*f;
-      // velY[i]+=dy*f;
-      // return;
       if(a) velX[i]+=dx*f;
       else velX[i]-=dx*f;
       if(b) velY[i]+=dy*f;
@@ -57,8 +54,6 @@ public class CellSquareUpdater2D extends Kernel{
     }
     if(r>forceMatrix[type[i]][type[j]][MAX]||r<forceMatrix[type[i]][type[j]][MIN]) return;
     float f=forceMatrix[type[i]][type[j]][G]/r;
-    // velX[i]+=dx*f;
-    // velY[i]+=dy*f;
     if(a) velX[i]-=dx*f;
     else velX[i]+=dx*f;
     if(b) velY[i]-=dy*f;

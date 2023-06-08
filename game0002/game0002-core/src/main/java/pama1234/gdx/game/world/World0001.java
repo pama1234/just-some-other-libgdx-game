@@ -56,9 +56,9 @@ public class World0001 extends Entity<Screen0001> implements DisplayEntityListen
       ?gen.generateFromMiniCore(128,128)
       :gen.generateFromMiniCore(640,1024);
     size=new Vec3f(
-      group.updater.x2-group.updater.x1,
-      group.updater.y2-group.updater.y1,
-      group.updater.z2-group.updater.z1);
+      group.updater.w,
+      group.updater.h,
+      group.updater.l);
     p.cam3d.viewDist(UtilMath.min(size.x,size.y,size.z)/2f);
     playerCenter=new ClientPlayerCenter3D(p);
     yourself=new ControllerClientPlayer3D(p,new ServerPlayer3D(

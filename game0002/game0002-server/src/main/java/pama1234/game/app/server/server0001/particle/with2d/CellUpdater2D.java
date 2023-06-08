@@ -36,20 +36,6 @@ public class CellUpdater2D extends Kernel{
     velX[i]*=f;
     velY[i]*=f;
     //--- 限制位置到立方体中
-    // if(posX[i]<x1) {
-    //   posX[i]=x1;
-    //   velX[i]*=-1;
-    // }else if(posX[i]>x2) {
-    //   posX[i]=x2;
-    //   velX[i]*=-1;
-    // }
-    // if(posY[i]<y1) {
-    //   posY[i]=y1;
-    //   velY[i]*=-1;
-    // }else if(posY[i]>y2) {
-    //   posY[i]=y2;
-    //   velY[i]*=-1;
-    // }
     if(posX[i]<x1) {
       posX[i]+=w;
     }else if(posX[i]>x2) {
