@@ -54,7 +54,7 @@ public class World0001 extends Entity<Screen0001> implements DisplayEntityListen
     if(p.random(1)>0.5f) group=gen.randomGenerate(64,p.isAndroid?1024:16384);
     else group=p.isAndroid
       ?gen.generateFromMiniCore(128,128)
-      :gen.generateFromMiniCore(640,1024);
+      :gen.generateFromMiniCore(320,1024);
     size=new Vec3f(
       group.updater.w,
       group.updater.h,
