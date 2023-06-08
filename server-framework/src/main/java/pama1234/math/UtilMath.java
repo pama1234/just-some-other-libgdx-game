@@ -177,6 +177,11 @@ public class UtilMath{
   public static float log(float in) {
     return (float)Math.log(in);
   }
+  public static float clamp(float value) {
+    if(value<0) return 0;
+    if(value>1) return 1;
+    return value;
+  }
   public static float clamp(float value,float min,float max) {
     if(value<min) return min;
     if(value>max) return max;
