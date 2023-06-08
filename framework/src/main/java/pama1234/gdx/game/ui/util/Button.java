@@ -6,6 +6,11 @@ import pama1234.gdx.util.info.TouchInfo;
 import pama1234.util.function.GetBoolean;
 import pama1234.util.function.GetFloat;
 
+/**
+ * 按钮组件，风格固定，代码的效率极高
+ * </p>
+ * TODO 将text成员变量和updateText方法移除
+ */
 public abstract class Button<T extends UtilScreen>extends Entity<T>{
   public String text;//TODO
   public GetBoolean active;

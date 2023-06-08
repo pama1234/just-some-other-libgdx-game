@@ -7,6 +7,9 @@ import pama1234.gdx.util.info.MouseInfo;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.assets.AssetManager;
 
+/**
+ * 进度条
+ */
 public class ProgressBar<T extends UtilScreen>extends Entity<T>{
   public Color color=Color.WHITE;
   public float barHeight=1;

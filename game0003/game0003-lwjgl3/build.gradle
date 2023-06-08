@@ -17,7 +17,7 @@ else {
   apply plugin: 'application'
 }
 
-sourceSets.main.resources.srcDirs += [ '../../assets','../assets' ]
+sourceSets.main.resources.srcDirs += ['../../assets', '../assets']
 mainClassName = 'pama1234.gdx.game.app.lwjgl3.Launcher'
 eclipse.project.name = appName + '-game0003-lwjgl3'
 sourceCompatibility = 17
