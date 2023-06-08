@@ -98,9 +98,7 @@ public class CellGroupGenerator3D{
     }
     int cellType=celltypeOut=core.length;
     colors=new int[cellType];
-    // colorMode(HSB);
     for(int i=0;i<colors.length;i++) colors[i]=Tools.hsbColor((float)i/colors.length*255,0xff,0xff);
-    // colorMode(RGB);
     int amount=amountOut=amountIn;//1024 //128
     int arraySize=arraySizeOut=amount*cellType;
     int[] type=new int[arraySize];

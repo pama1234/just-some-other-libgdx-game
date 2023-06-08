@@ -5,7 +5,7 @@ import com.aparapi.Kernel;
 public class CellUpdater2D extends Kernel{
   public final float[] posX,posY,velX,velY;
   public final float f;
-  public final float x1,y1,z1,x2,y2,z2;
+  public final float x1,y1,z1,x2,y2,z2,w,h;
   public CellUpdater2D(
     float[] posX,float[] posY,
     float[] velX,float[] velY,
@@ -23,6 +23,8 @@ public class CellUpdater2D extends Kernel{
     this.x2=x2;
     this.y2=y2;
     this.z2=z2;
+    this.w=x2-x1;
+    this.h=y2-y1;
   }
   @Override
   public void run() {
@@ -34,19 +36,29 @@ public class CellUpdater2D extends Kernel{
     velX[i]*=f;
     velY[i]*=f;
     //--- 限制位置到立方体中
+    // if(posX[i]<x1) {
+    //   posX[i]=x1;
+    //   velX[i]*=-1;
+    // }else if(posX[i]>x2) {
+    //   posX[i]=x2;
+    //   velX[i]*=-1;
+    // }
+    // if(posY[i]<y1) {
+    //   posY[i]=y1;
+    //   velY[i]*=-1;
+    // }else if(posY[i]>y2) {
+    //   posY[i]=y2;
+    //   velY[i]*=-1;
+    // }
     if(posX[i]<x1) {
-      posX[i]=x1;
-      velX[i]*=-1;
+      posX[i]+=w;
     }else if(posX[i]>x2) {
-      posX[i]=x2;
-      velX[i]*=-1;
+      posX[i]-=w;
     }
     if(posY[i]<y1) {
-      posY[i]=y1;
-      velY[i]*=-1;
+      posY[i]+=h;
     }else if(posY[i]>y2) {
-      posY[i]=y2;
-      velY[i]*=-1;
+      posY[i]-=h;
     }
     //--- 位置和速度实数化
     if(!isFinite(posX[i])) posX[i]=(i-getGlobalSize()/2f)/getGlobalSize();

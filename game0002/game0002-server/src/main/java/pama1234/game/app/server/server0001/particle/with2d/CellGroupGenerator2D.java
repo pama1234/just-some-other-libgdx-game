@@ -24,9 +24,7 @@ public class CellGroupGenerator2D{
     boxR=40;
     int cellType=64;
     colors=new int[cellType];
-    // colorMode(HSB);
     for(int i=0;i<colors.length;i++) colors[i]=Tools.hsbColor((float)i/colors.length*255,0xff,0xff);
-    // colorMode(RGB);
     int range=(int)(boxR*16/cellType);
     int arraySize=range*cellType;
     int[] type=new int[arraySize];
@@ -72,16 +70,14 @@ public class CellGroupGenerator2D{
     float[][][] core=new float[miniCore.length][miniCore[0].length][3];
     for(int i=0;i<core.length;i++) {
       for(int j=0;j<core[i].length;j++) {
-        core[i][j][Var.G]=miniCore[i][j]/2f;
-        core[i][j][Var.MIN]=Var.DIST*4;
-        core[i][j][Var.MAX]=Var.DIST*12;
+        core[i][j][Var.G]=miniCore[i][j]/4;
+        core[i][j][Var.MIN]=Var.DIST*3;
+        core[i][j][Var.MAX]=Var.DIST*6;
       }
     }
     int cellType=core.length;
     colors=new int[cellType];
-    // colorMode(HSB);
     for(int i=0;i<colors.length;i++) colors[i]=Tools.hsbColor((float)i/cellType*255,0xff,0xff);
-    // colorMode(RGB);
     int range=1024;
     int arraySize=range*cellType;
     int[] type=new int[arraySize];

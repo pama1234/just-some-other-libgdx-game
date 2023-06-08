@@ -2,6 +2,7 @@ package pama1234.gdx.game.app.app0001;
 
 import pama1234.game.app.server.server0001.particle.with2d.CellGroup2D;
 import pama1234.game.app.server.server0001.particle.with2d.CellGroupGenerator2D;
+import pama1234.gdx.game.util.ControlBindUtil;
 import pama1234.gdx.util.app.UtilScreen2D;
 
 /**
@@ -9,6 +10,7 @@ import pama1234.gdx.util.app.UtilScreen2D;
  */
 @Deprecated
 public class Screen0002 extends UtilScreen2D{
+  public ControlBindUtil controlBind;
   public CellGroup2D group;
   public boolean doUpdate;
   public Thread cellUpdate;
@@ -16,6 +18,7 @@ public class Screen0002 extends UtilScreen2D{
   @Override
   public void setup() {
     backgroundColor(0);
+    controlBind=new ControlBindUtil();
     CellGroupGenerator2D gen=new CellGroupGenerator2D(0,0);
     group=gen.GenerateFromMiniCore();
     // playerCenter=new ServerPlayerCenter<Player2D>();
@@ -40,7 +43,7 @@ public class Screen0002 extends UtilScreen2D{
   }
   @Override
   public void update() {
-    group.update();
+    // group.update();
     // playerCenter.update();
   }
   @Override
@@ -58,4 +61,8 @@ public class Screen0002 extends UtilScreen2D{
   public void display() {}
   @Override
   public void frameResized() {}
+  @Override
+  public void keyPressed(char key,int keyCode) {
+    if(controlBind.isKey(ControlBindUtil.doUpdate,keyCode)) doUpdate=!doUpdate;
+  }
 }
