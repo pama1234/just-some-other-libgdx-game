@@ -14,7 +14,9 @@ public class Screen0005 extends Screen0002{
     super.setup();
     player=new Player(this,new MassPoint(0,0));
     player.input=currentInput;
+    centerCam.add.add(player);
     if(isAndroid) {
+      paused=false;
       actrl=new AndroidCtrl(this);
       centerCam.add.add(actrl);
     }

@@ -10,4 +10,14 @@ public class Player extends PointEntity<Screen0005,MassPoint>{
   public Player(Screen0005 p,MassPoint in) {
     super(p,in);
   }
+  @Override
+  public void display() {
+    p.noFill();
+    p.doStroke();
+    p.stroke(255);
+    p.strokeWeight(2);
+    p.circle(x(),y(),64);
+    p.noStroke();
+    p.doFill();
+  }
 }
