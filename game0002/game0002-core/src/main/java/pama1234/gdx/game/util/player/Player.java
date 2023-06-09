@@ -4,7 +4,6 @@ import pama1234.game.app.server.server0001.particle.with2d.CellGroup2D;
 import pama1234.gdx.game.app.app0002.Screen0005;
 import pama1234.gdx.game.util.input.InputData;
 import pama1234.gdx.util.entity.PointEntity;
-import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 import pama1234.math.physics.MassPoint;
 import pama1234.math.vec.Vec2f;
@@ -12,7 +11,7 @@ import pama1234.math.vec.Vec2f;
 public class Player extends PointEntity<Screen0005,MassPoint>{
   public InputData input;
   public float innerRange=16,outerRange=32;
-  public float pullF=outerRange/4f;
+  public float pullF=outerRange*2f;
   public CellData[] data;
   public float maxAcc;
   public Thread updateThread;
@@ -22,7 +21,7 @@ public class Player extends PointEntity<Screen0005,MassPoint>{
     super(p,in);
     data=new CellData[64];
     for(int i=0;i<data.length;i++) data[i]=new CellData();
-    maxAcc=p.isAndroid?1:4;
+    maxAcc=0.5f;
     // updateThread=new Thread(this::updateWithWorld,"PlayerUpdate");
   }
   public void updateWithWorld() {
@@ -32,16 +31,16 @@ public class Player extends PointEntity<Screen0005,MassPoint>{
       if(e.active) {
         float ex=e.x(group),
           ey=e.y(group);
-        if(!Tools.inRange(ex,ey,outerRange)) e.active=false;
-        else if(Tools.inRange(ex,ey,innerRange)) e.addVel(group,point.vel);
+        if(UtilMath.dist(ex,ey,x(),y())>outerRange) e.active=false;
+        else if(UtilMath.dist(ex,ey,x(),y())<innerRange) e.addVel(group,point.vel);
         else {
           float dx=point.pos.x-ex,
-            dy=point.pos.x-ey;
-          e.addVel(group,-dx/pullF,-dy/pullF);
+            dy=point.pos.y-ey;
+          e.addVel(group,dx/pullF,dy/pullF);
         }
       }else {
         int randomId=p.random(1)<0.8f?(int)p.random(group.size):type*numInType+(int)p.random(numOfType);
-        if(group.type(randomId)==type&&Tools.inRange(group.x(randomId),group.y(randomId),outerRange)) e.set(group,randomId);
+        if(group.type(randomId)==type&&UtilMath.dist(group.x(randomId),group.y(randomId),x(),y())<outerRange) e.set(group,randomId);
       }
     }
     // for(int i=0;i<group.type.length;i++) {
