@@ -19,6 +19,7 @@ import pama1234.gdx.game.duel.util.ai.nnet.ClientFisheyeVision;
 import pama1234.gdx.game.duel.util.ai.nnet.NeatCenter;
 import pama1234.gdx.game.duel.util.ai.nnet.NeatCenter.NetworkGroupParam;
 import pama1234.gdx.game.duel.util.graphics.DemoInfo;
+import pama1234.gdx.game.duel.util.input.AndroidCtrl;
 import pama1234.gdx.game.duel.util.input.ClientInputData;
 import pama1234.gdx.game.duel.util.input.UiGenerator;
 import pama1234.gdx.game.ui.util.TextButton;
@@ -64,6 +65,7 @@ public class Duel extends ScreenCore2D{
   public ClientGameSystem system;
   public boolean paused;
   public int canvasSideLength=CANVAS_SIZE;
+  public AndroidCtrl actrl;
   public TouchInfo moveCtrl;
   //---
   public DemoInfo demoInfo;
@@ -108,8 +110,9 @@ public class Duel extends ScreenCore2D{
   public void setup() {
     TextUtil.used=TextUtil.gen_ch(this::textWidthNoScale);
     if(isAndroid) {
-      buttons=UiGenerator.genButtons_0010(this);
-      for(TextButton<?> e:buttons) centerScreen.add.add(e);
+      actrl=new AndroidCtrl(this);
+      actrl.init();
+      centerCam.add.add(actrl);
     }
     currentInput=new ClientInputData();
     //---
@@ -169,38 +172,40 @@ public class Duel extends ScreenCore2D{
       system.display();
     }
     clearMatrix();
-    if(isAndroid) {
-      if(moveCtrl!=null) {
-        // doStroke();
-        stroke(0);
-        strokeWeight(2);
-        cross(moveCtrl.sx,moveCtrl.sy,32,32);
-        line(moveCtrl.x,moveCtrl.y,moveCtrl.sx,moveCtrl.sy);
-        cross(moveCtrl.x,moveCtrl.y,16,16);
-        float deg=UtilMath.deg(UtilMath.atan2(dxCache,dyCache));
-        arc(moveCtrl.sx,moveCtrl.sy,magCache,45-deg,90);
-        // noStroke();
-      }
-    }
+    if(isAndroid) androidDisplayWithCam();
     noStroke();
     doFill();
+  }
+  public void androidDisplayWithCam() {
+    if(moveCtrl!=null) {
+      // doStroke();
+      stroke(0);
+      strokeWeight(2);
+      cross(moveCtrl.sx,moveCtrl.sy,32,32);
+      line(moveCtrl.x,moveCtrl.y,moveCtrl.sx,moveCtrl.sy);
+      cross(moveCtrl.x,moveCtrl.y,16,16);
+      float deg=UtilMath.deg(UtilMath.atan2(dxCache,dyCache));
+      arc(moveCtrl.sx,moveCtrl.sy,magCache,45-deg,90);
+      // noStroke();
+    }
   }
   @Override
   public void update() {
     if(!paused) {
-      if(isAndroid) {
-        if(moveCtrl!=null) {
-          dxCache=moveCtrl.x-moveCtrl.sx;
-          dyCache=moveCtrl.y-moveCtrl.sy;
-          currentInput.targetTouchMoved(dxCache,dyCache,magCache=UtilMath.min(UtilMath.mag(dxCache,dyCache),maxDist));
-        }
-      }
+      if(isAndroid) androidUpdate();
       //---
       if(config.gameMode==GameMode.OnLine) onlineGameUpdate();
       //---
       system.update();
       //---
       if(config.mode==neat) neatE.update();
+    }
+  }
+  public void androidUpdate() {
+    if(moveCtrl!=null) {
+      dxCache=moveCtrl.x-moveCtrl.sx;
+      dyCache=moveCtrl.y-moveCtrl.sy;
+      currentInput.targetTouchMoved(dxCache,dyCache,magCache=UtilMath.min(UtilMath.mag(dxCache,dyCache),maxDist));
     }
   }
   @Override
