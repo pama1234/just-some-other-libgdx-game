@@ -20,7 +20,6 @@ public class World0002 extends Entity<UtilScreen2D> implements DisplayEntityList
   public CellGroup2D group;
   public boolean doUpdate;
   public Thread cellUpdate;
-  // public int numOfType,numInType;
   // ServerPlayerCenter<Player2D> playerCenter;
   public ExecuteFunction[] plugins=new ExecuteFunction[0];
   public float[][] tesselatedMat= {

@@ -17,7 +17,6 @@ public class Player extends PointEntity<Screen0005,MassPoint>{
   public float maxAcc;
   public Thread updateThread;
   public int type;
-  // public int numOfType,numInType;
   public int pointerCache;
   public CellGroup2D group;
   public Player(Screen0005 p,MassPoint in) {
@@ -43,7 +42,7 @@ public class Player extends PointEntity<Screen0005,MassPoint>{
         }
       }else {
         // int randomId=p.random(1)<0.8f?(int)p.random(group.size):type*group.numInType+(int)p.random(group.numOfType);
-        int randomId=p.random(1)<0.8f?(int)p.random(group.size):type*group.numInType+pointerCache;
+        int randomId=type*group.numInType+pointerCache;
         if(group.type(randomId)==type&&UtilMath.dist(group.x(randomId),group.y(randomId),xclamp(),yclamp())<outerRange) e.set(group,randomId);
         pointerCache++;
         if(pointerCache>=group.numOfType) pointerCache=0;
@@ -59,17 +58,13 @@ public class Player extends PointEntity<Screen0005,MassPoint>{
         tc++;
         mx+=xclamp()-ex;
         my+=yclamp()-ey;
-        // p.println(mx,my);
       }
     }
-    // p.println(mx,tc,mx/tc);
     if(tc>0) {
       mx/=tc;
       my/=tc;
       point.vel.add(mx/pullF,my/pullF);
     }
-    // for(int i=0;i<group.type.length;i++) {
-    // }
   }
   @Override
   public void update() {
@@ -103,7 +98,6 @@ public class Player extends PointEntity<Screen0005,MassPoint>{
     p.circle(x(),y(),outerRange/2);
     p.circle(x(),y(),innerRange/2);
     p.stroke(255,127);
-    // CellGroup2D group=p.world0002.group;
     for(CellData i:data) {
       if(i.active) {
         p.circle(i.x(group),i.y(group),3);

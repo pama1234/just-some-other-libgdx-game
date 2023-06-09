@@ -15,7 +15,6 @@ public class AndroidCtrl extends Entity<Screen0005>{
   public float scale;
   public AndroidCtrl(Screen0005 p) {
     super(p);
-    // scale=p.isAndroid?8:2;
     maxSpeed=1f;
     scale=2;
     updateMaxDist();
