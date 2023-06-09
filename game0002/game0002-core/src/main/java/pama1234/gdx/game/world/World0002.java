@@ -7,6 +7,7 @@ import pama1234.gdx.util.app.UtilScreen2D;
 import pama1234.gdx.util.app.UtilScreenRender;
 import pama1234.gdx.util.entity.Entity;
 import pama1234.gdx.util.listener.DisplayEntityListener;
+import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 import pama1234.math.vec.Vec2f;
 import pama1234.util.function.ExecuteFunction;
@@ -48,13 +49,19 @@ public class World0002 extends Entity<UtilScreen2D> implements DisplayEntityList
       public void run() {
         while(!p.stop) {
           if(doUpdate) {
+            Tools.time();
             group.update();
             for(ExecuteFunction i:plugins) i.execute();
-          }else try {
-            sleep(1000);
-          }catch(InterruptedException e) {
-            e.printStackTrace();
-          }
+            long period=Tools.period();
+            if(period<50) sleepF(50-period);
+          }else sleepF(1000);
+        }
+      }
+      public void sleepF(long in) {
+        try {
+          sleep(in);
+        }catch(InterruptedException e) {
+          e.printStackTrace();
         }
       }
     };

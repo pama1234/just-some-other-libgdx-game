@@ -11,7 +11,8 @@ import pama1234.math.vec.Vec2f;
 
 public class Player extends PointEntity<Screen0005,MassPoint>{
   public InputData input;
-  public float range=16;
+  public float innerRange=16,outerRange=32;
+  public float pullF=outerRange/4f;
   public CellData[] data;
   public float maxAcc;
   public Thread updateThread;
@@ -29,11 +30,18 @@ public class Player extends PointEntity<Screen0005,MassPoint>{
     for(int i=0;i<data.length;i++) {
       CellData e=data[i];
       if(e.active) {
-        if(!Tools.inRange(e.x(group),e.y(group),range)) e.active=false;
-        else e.add(group,point.vel);
+        float ex=e.x(group),
+          ey=e.y(group);
+        if(!Tools.inRange(ex,ey,outerRange)) e.active=false;
+        else if(Tools.inRange(ex,ey,innerRange)) e.addVel(group,point.vel);
+        else {
+          float dx=point.pos.x-ex,
+            dy=point.pos.x-ey;
+          e.addVel(group,-dx/pullF,-dy/pullF);
+        }
       }else {
         int randomId=p.random(1)<0.8f?(int)p.random(group.size):type*numInType+(int)p.random(numOfType);
-        if(group.type(randomId)==type&&Tools.inRange(group.x(randomId),group.y(randomId),range)) e.set(group,randomId);
+        if(group.type(randomId)==type&&Tools.inRange(group.x(randomId),group.y(randomId),outerRange)) e.set(group,randomId);
       }
     }
     // for(int i=0;i<group.type.length;i++) {
@@ -62,7 +70,15 @@ public class Player extends PointEntity<Screen0005,MassPoint>{
     p.doStroke();
     p.stroke(255);
     p.strokeWeight(2);
-    p.circle(x(),y(),range);
+    p.circle(x(),y(),outerRange);
+    p.circle(x(),y(),innerRange);
+    p.stroke(255,127);
+    CellGroup2D group=p.world0002.group;
+    for(CellData i:data) {
+      if(i.active) {
+        p.circle(i.x(group),i.y(group),3);
+      }
+    }
     p.noStroke();
     p.doFill();
   }
@@ -73,7 +89,11 @@ public class Player extends PointEntity<Screen0005,MassPoint>{
     public float x(CellGroup2D group) {
       return group.x(id);
     }
-    public void add(CellGroup2D group,Vec2f vel) {
+    public void addVel(CellGroup2D group,float x,float y) {
+      group.velX[id]+=x;
+      group.velY[id]+=y;
+    }
+    public void addVel(CellGroup2D group,Vec2f vel) {
       group.velX[id]+=vel.x;
       group.velY[id]+=vel.y;
     }
