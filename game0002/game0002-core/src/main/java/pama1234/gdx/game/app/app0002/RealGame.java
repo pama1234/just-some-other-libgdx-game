@@ -1,8 +1,10 @@
 package pama1234.gdx.game.app.app0002;
 
 import pama1234.gdx.game.util.legacy.Cell;
+import pama1234.gdx.game.util.legacy.GamePage;
 import pama1234.gdx.game.util.legacy.Info;
 import pama1234.gdx.game.util.legacy.PageCenter;
+import pama1234.gdx.game.util.legacy.SettingsPage;
 import pama1234.gdx.game.util.legacy.StartPage;
 import pama1234.gdx.util.app.ScreenCore2D;
 import pama1234.gdx.util.element.Graphics;

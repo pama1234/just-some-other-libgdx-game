@@ -54,4 +54,12 @@ public class Graphics{
     buffer.dispose();
     texture.dispose();
   }
+  @Deprecated
+  public void beginDraw() {
+    begin();
+  }
+  @Deprecated
+  public void endDraw() {
+    end();
+  }
 }
