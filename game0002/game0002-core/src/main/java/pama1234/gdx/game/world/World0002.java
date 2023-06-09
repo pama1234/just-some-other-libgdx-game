@@ -20,6 +20,7 @@ public class World0002 extends Entity<UtilScreen2D> implements DisplayEntityList
   public CellGroup2D group;
   public boolean doUpdate;
   public Thread cellUpdate;
+  // public int numOfType,numInType;
   // ServerPlayerCenter<Player2D> playerCenter;
   public ExecuteFunction[] plugins=new ExecuteFunction[0];
   public float[][] tesselatedMat= {
@@ -34,7 +35,7 @@ public class World0002 extends Entity<UtilScreen2D> implements DisplayEntityList
   @Override
   public void init() {
     CellGroupGenerator2D gen=new CellGroupGenerator2D(0,0);
-    group=gen.generateFromMiniCore(p.isAndroid?256:1024);
+    group=gen.generateFromMiniCore(480,p.isAndroid?256:1024);
     maxParticle=UtilMath.floor(group.size*1.1f);
     size=new Vec2f(
       group.updater.w,
@@ -82,7 +83,7 @@ public class World0002 extends Entity<UtilScreen2D> implements DisplayEntityList
           ty=group.y(i)+ly;
         if(!p.cam2d.inbox(tx,ty)) continue;
         p.fillHex(group.color(i));
-        p.circle(tx,ty,CellGroup2D.SIZE,circleSeg);
+        p.circle(tx,ty,CellGroup2D.SIZE*0.8f,circleSeg);
         particleCount++;
       }
     }

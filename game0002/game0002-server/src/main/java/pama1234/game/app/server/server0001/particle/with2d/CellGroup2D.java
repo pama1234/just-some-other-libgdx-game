@@ -9,6 +9,7 @@ import pama1234.util.entity.ServerEntity;
 
 public class CellGroup2D extends ServerEntity{
   public static final int SIZE=2,DIST=SIZE*2;//TODO change to non static
+  public int numOfType,numInType;
   public final int size;
   public final float[] posX,posY,velX,velY;
   public final int[] type;

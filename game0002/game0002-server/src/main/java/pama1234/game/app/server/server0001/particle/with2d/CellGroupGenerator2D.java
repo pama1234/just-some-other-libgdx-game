@@ -49,11 +49,11 @@ public class CellGroupGenerator2D{
     }
     return group;
   }
-  public CellGroup2D generateFromMiniCore(int range) {
+  public CellGroup2D generateFromMiniCore(float boxR,int range) {
     CellGroup2D group;
     int[] colors;
-    float boxR;
-    boxR=640;
+    // float boxR;
+    // boxR=640;
     float[][] miniCore=new float[][] {
       {0,1,-1,-1,0,0,0,0,0,0,0,1},
       {1,0,1,-1,-1,0,0,0,0,0,0,0},
@@ -71,8 +71,8 @@ public class CellGroupGenerator2D{
     for(int i=0;i<core.length;i++) {
       for(int j=0;j<core[i].length;j++) {
         core[i][j][Var.G]=miniCore[i][j];
-        core[i][j][Var.MIN]=Var.DIST*2;
-        core[i][j][Var.MAX]=Var.DIST*6;
+        core[i][j][Var.MIN]=Var.DIST*4;
+        core[i][j][Var.MAX]=Var.DIST*12;
       }
     }
     int cellType=core.length;
@@ -91,6 +91,8 @@ public class CellGroupGenerator2D{
       //      group.velX[i]=random(-32,32);
       //      group.velY[i]=random(-32,32);
     }
+    group.numOfType=cellType;
+    group.numInType=range;
     return group;
   }
 }
