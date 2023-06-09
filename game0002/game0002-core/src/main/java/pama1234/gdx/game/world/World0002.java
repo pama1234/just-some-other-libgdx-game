@@ -1,0 +1,81 @@
+package pama1234.gdx.game.world;
+
+import pama1234.game.app.server.server0001.particle.with2d.CellGroup2D;
+import pama1234.game.app.server.server0001.particle.with2d.CellGroupGenerator2D;
+import pama1234.gdx.game.app.app0001.Screen0002;
+import pama1234.gdx.game.util.ControlBindUtil;
+import pama1234.gdx.util.app.UtilScreenRender;
+import pama1234.gdx.util.entity.Entity;
+import pama1234.gdx.util.listener.DisplayEntityListener;
+import pama1234.math.UtilMath;
+import pama1234.math.vec.Vec2f;
+
+public class World0002 extends Entity<Screen0002> implements DisplayEntityListener{
+  public int maxParticle;
+  public int particleCount;
+  public CellGroup2D group;
+  public boolean doUpdate;
+  public Thread cellUpdate;
+  // ServerPlayerCenter<Player2D> playerCenter;
+  public float[][] tesselatedMat= {
+    {0,0},{1,0},
+    {0,1},{1,1},
+  };
+  public Vec2f size;
+  public World0002(Screen0002 p) {
+    super(p);
+  }
+  @Override
+  public void init() {
+    CellGroupGenerator2D gen=new CellGroupGenerator2D(0,0);
+    group=gen.GenerateFromMiniCore();
+    maxParticle=UtilMath.floor(group.size*1.1f);
+    size=new Vec2f(
+      group.updater.w,
+      group.updater.h);
+    // playerCenter=new ServerPlayerCenter<Player2D>();
+    cellUpdate=createUpdateThread();
+    cellUpdate.start();
+  }
+  public Thread createUpdateThread() {
+    return new Thread("CellGroupUpdateThread") {
+      @Override
+      public void run() {
+        while(!p.stop) {
+          if(doUpdate) group.update();
+          else try {
+            sleep(1000);
+          }catch(InterruptedException e) {
+            e.printStackTrace();
+          }
+        }
+      }
+    };
+  }
+  @Override
+  public void displayCam() {
+    int circleSeg=UtilScreenRender.circleSeg(CellGroup2D.SIZE*p.cam2d.scale.pos*(1/p.cam.frameScale));
+    particleCount=0;
+    outerLoop:
+    for(int j=0;j<tesselatedMat.length;j++) {
+      float[] tfa=tesselatedMat[j];
+      float lx=(tfa[0]+UtilMath.floor((p.cam2d.point.pos.x)/size.x))*size.x;//TODO
+      float ly=(tfa[1]+UtilMath.floor((p.cam2d.point.pos.y)/size.y))*size.y;
+      for(int i=0;i<group.size;i++) {
+        if(particleCount>maxParticle) break outerLoop;
+        float tx=group.x(i)+lx,
+          ty=group.y(i)+ly;
+        if(!p.cam2d.inbox(tx,ty)) continue;
+        p.fillHex(group.color(i));
+        p.circle(tx,ty,CellGroup2D.SIZE,circleSeg);
+        particleCount++;
+      }
+    }
+  }
+  @Override
+  public void keyPressed(char key,int keyCode) {
+    if(p.controlBind.isKey(ControlBindUtil.doUpdate,keyCode)) doUpdate=!doUpdate;
+  }
+  @Override
+  public void keyReleased(char key,int keyCode) {}
+}
