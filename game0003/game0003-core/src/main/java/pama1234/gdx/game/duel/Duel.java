@@ -21,13 +21,11 @@ import pama1234.gdx.game.duel.util.ai.nnet.NeatCenter.NetworkGroupParam;
 import pama1234.gdx.game.duel.util.graphics.DemoInfo;
 import pama1234.gdx.game.duel.util.input.AndroidCtrl;
 import pama1234.gdx.game.duel.util.input.ClientInputData;
-import pama1234.gdx.game.duel.util.input.UiGenerator;
 import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.util.app.ScreenCore2D;
 import pama1234.gdx.util.element.Graphics;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
-import pama1234.math.UtilMath;
 import pama1234.util.localization.Localization;
 import pama1234.util.protobuf.InputDataProto;
 import pama1234.util.protobuf.InputDataProto.InputData;
@@ -66,7 +64,6 @@ public class Duel extends ScreenCore2D{
   public boolean paused;
   public int canvasSideLength=CANVAS_SIZE;
   public AndroidCtrl actrl;
-  public TouchInfo moveCtrl;
   //---
   public DemoInfo demoInfo;
   public float maxDist;
@@ -109,6 +106,7 @@ public class Duel extends ScreenCore2D{
   @Override
   public void setup() {
     TextUtil.used=TextUtil.gen_ch(this::textWidthNoScale);
+    isAndroid=true;
     if(isAndroid) {
       actrl=new AndroidCtrl(this);
       actrl.init();
@@ -172,40 +170,18 @@ public class Duel extends ScreenCore2D{
       system.display();
     }
     clearMatrix();
-    if(isAndroid) androidDisplayWithCam();
     noStroke();
     doFill();
-  }
-  public void androidDisplayWithCam() {
-    if(moveCtrl!=null) {
-      // doStroke();
-      stroke(0);
-      strokeWeight(2);
-      cross(moveCtrl.sx,moveCtrl.sy,32,32);
-      line(moveCtrl.x,moveCtrl.y,moveCtrl.sx,moveCtrl.sy);
-      cross(moveCtrl.x,moveCtrl.y,16,16);
-      float deg=UtilMath.deg(UtilMath.atan2(dxCache,dyCache));
-      arc(moveCtrl.sx,moveCtrl.sy,magCache,45-deg,90);
-      // noStroke();
-    }
   }
   @Override
   public void update() {
     if(!paused) {
-      if(isAndroid) androidUpdate();
       //---
       if(config.gameMode==GameMode.OnLine) onlineGameUpdate();
       //---
       system.update();
       //---
       if(config.mode==neat) neatE.update();
-    }
-  }
-  public void androidUpdate() {
-    if(moveCtrl!=null) {
-      dxCache=moveCtrl.x-moveCtrl.sx;
-      dyCache=moveCtrl.y-moveCtrl.sy;
-      currentInput.targetTouchMoved(dxCache,dyCache,magCache=UtilMath.min(UtilMath.mag(dxCache,dyCache),maxDist));
     }
   }
   @Override
@@ -236,24 +212,11 @@ public class Duel extends ScreenCore2D{
     super.strokeWeight(in);
   }
   @Override
-  public void touchStarted(TouchInfo info) {
-    if(isAndroid) {
-      if(info.osx<width/2f) {
-        if(moveCtrl==null) moveCtrl=info;
-      }
-    }
-  }
+  public void touchStarted(TouchInfo info) {}
   @Override
   public void touchMoved(TouchInfo info) {}
   @Override
-  public void touchEnded(TouchInfo info) {
-    if(moveCtrl==info) {
-      moveCtrl=null;
-      currentInput.dx=0;
-      currentInput.dy=0;
-      magCache=0;
-    }
-  }
+  public void touchEnded(TouchInfo info) {}
   public void stateChangeEvent(ClientGameSystem system,int stateIndex) {
     if(system.stateIndex==ClientGameSystem.play) time=0;
     else if(system.stateIndex==ClientGameSystem.result) {
