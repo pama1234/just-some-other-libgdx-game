@@ -27,7 +27,7 @@ public class AndroidCtrl extends Entity<Screen0005>{
   public void display() {
     if(moveCtrl!=null) {
       p.doStroke();
-      p.stroke(0);
+      p.stroke(255);
       p.strokeWeight(2);
       p.cross(moveCtrl.sx,moveCtrl.sy,32,32);
       p.line(moveCtrl.x,moveCtrl.y,moveCtrl.sx,moveCtrl.sy);

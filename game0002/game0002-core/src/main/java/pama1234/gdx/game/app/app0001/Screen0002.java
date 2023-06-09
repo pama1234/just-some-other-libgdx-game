@@ -3,13 +3,13 @@ package pama1234.gdx.game.app.app0001;
 import pama1234.gdx.game.util.ControlBindUtil;
 import pama1234.gdx.game.util.input.InputData;
 import pama1234.gdx.game.world.World0002;
-import pama1234.gdx.util.app.UtilScreen2D;
+import pama1234.gdx.util.app.ScreenCore2D;
 import pama1234.gdx.util.wrapper.DisplayEntity;
 
 /**
  * 2D 粒子系统
  */
-public class Screen0002 extends UtilScreen2D{
+public class Screen0002 extends ScreenCore2D{
   public ControlBindUtil controlBind;
   public float zoomSpeed=0.0625f;
   public boolean zoomIn,zoomOut;
@@ -24,6 +24,7 @@ public class Screen0002 extends UtilScreen2D{
     noStroke();
     backgroundColor(0);
     controlBind=new ControlBindUtil();
+    currentInput=new InputData();
     world0002=new World0002(this,controlBind);
     world0002.init();
     centerScreen.add.add(world0002);
@@ -31,8 +32,6 @@ public class Screen0002 extends UtilScreen2D{
   }
   @Override
   public void update() {
-    // group.update();
-    // playerCenter.update();
     if(zoomIn!=zoomOut) {
       if(zoomIn) cam2d.scale.des+=zoomSpeed;
       else cam2d.scale.des-=zoomSpeed;
