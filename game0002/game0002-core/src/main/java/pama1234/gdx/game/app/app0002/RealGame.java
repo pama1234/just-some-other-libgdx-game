@@ -1,5 +1,9 @@
 package pama1234.gdx.game.app.app0002;
 
+import pama1234.gdx.game.util.legacy.Cell;
+import pama1234.gdx.game.util.legacy.Info;
+import pama1234.gdx.game.util.legacy.PageCenter;
+import pama1234.gdx.game.util.legacy.StartPage;
 import pama1234.gdx.util.app.ScreenCore2D;
 import pama1234.gdx.util.element.Graphics;
 
@@ -7,12 +11,25 @@ import pama1234.gdx.util.element.Graphics;
  * A REAL GAME that is not "app in Application category"
  */
 public class RealGame extends ScreenCore2D{
-  MainMenu mainMenu;
+  public static final int cam_box_r=720;
+  public Info info;
+  public PageCenter pageCenter;
+  public MainMenu mainMenu;
   public RealGame(MainMenu mainMenu) {
     this.mainMenu=mainMenu;
   }
   @Override
-  public void setup() {}
+  public void setup() {
+    strokeWeight(Cell.size/4);
+    noStroke();
+    backgroundColor(0);
+    center.add.add(pageCenter=new PageCenter(this,new StartPage(this),-640,0));
+    pageCenter.list.add(new GamePage(this));
+    pageCenter.list.add(new SettingsPage(this));
+    pageCenter.refresh();
+    pageCenter.postSetDes();
+    center.add.add(info=new Info(this,520,-320));
+  }
   @Override
   public void update() {}
   @Override
@@ -23,6 +40,7 @@ public class RealGame extends ScreenCore2D{
   public void frameResized() {}
   /**
    * use new Graphics(p,
+   * 
    * @param w
    * @param h
    * @return

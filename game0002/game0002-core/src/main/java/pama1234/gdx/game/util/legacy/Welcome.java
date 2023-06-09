@@ -1,0 +1,82 @@
+package pama1234.gdx.game.util.legacy;
+
+import pama1234.gdx.game.app.app0002.RealGame;
+import pama1234.gdx.util.element.Graphics;
+import pama1234.gdx.util.entity.Entity;
+import pama1234.gdx.util.info.MouseInfo;
+import pama1234.math.physics.PathPoint;
+
+public class Welcome extends Entity<RealGame>{
+  private static final String[] slogan= {"————魔道中人专用","————玩虫子！","————加我微信！lizerun2017","————加我QQ！1507585905","————粒子系统！"};
+  private static final String title="炼蛊模拟器";
+  public final PathPoint point;
+  public Graphics g;
+  public int textSize=128;
+  public static int sloganPos;
+  public Welcome(RealGame p,float x,float y) {
+    super(p);
+    point=new PathPoint(0,0,x,y);
+  }
+  public void refresh() {
+    sloganPos=(int)p.random(slogan.length);
+    if(g==null) g=p.createGraphics(1,1);
+    g.begin();
+    // p.textFont(p.font);
+    // p.textAlign(PConstants.LEFT,PConstants.TOP);
+    p.textSize(textSize);
+    // p.textLeading(textSize);
+    g.end();
+    g=p.createGraphics((int)Math.ceil(p.textWidth(title)),textSize*2);
+    g.begin();
+    // p.textFont(p.font);
+    // p.textAlign(PConstants.LEFT,PConstants.TOP);
+    // p.textSize(textSize);
+    // p.textLeading(textSize);
+    g.end();
+    drawp();
+  }
+  public void drawp() {
+    g.begin();
+    // p.textSize(textSize);
+    // p.text(title,0,0);
+    // p.textSize(textSize/3);
+    p.text(slogan[sloganPos],g.width()-p.textWidth(slogan[sloganPos]),textSize*1.33f);
+    g.end();
+  }
+  @Override
+  public void init() {}
+  @Override
+  public void update() {
+    point.update();
+  }
+  @Override
+  public void display() {
+    p.image(g.texture,point.pos.x-p.width/2,point.pos.y-p.height/2);
+  }
+  @Override
+  public void pause() {}
+  @Override
+  public void resume() {}
+  @Override
+  public void dispose() {}
+  @Override
+  public void mousePressed(MouseInfo info) {}
+  @Override
+  public void mouseReleased(MouseInfo info) {}
+  @Override
+  public void mouseMoved() {}
+  @Override
+  public void mouseDragged() {}
+  @Override
+  public void mouseWheel(float x,float y) {}
+  @Override
+  public void keyPressed(char key,int keyCode) {}
+  @Override
+  public void keyReleased(char key,int keyCode) {}
+  @Override
+  public void keyTyped(char key) {}
+  @Override
+  public void frameResized(int w,int h) {}
+  @Override
+  public void frameMoved(int x,int y) {}
+}
