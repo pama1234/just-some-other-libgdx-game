@@ -2,6 +2,7 @@ package pama1234.gdx.game.ui.generator;
 
 import com.badlogic.gdx.Input;
 
+import pama1234.gdx.game.app.app0002.MainMenu;
 import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.util.app.ScreenCore3D;
@@ -98,6 +99,30 @@ public class UiGenerator{
       },self-> {
         p.inputProcessor.keyUp(Input.Keys.SHIFT_LEFT);
       },self->self.text="↓",p::getButtonUnitLength,()->p.bu*0.5f,()->p.height-p.bu*1.5f)
+    };
+  }
+  public static TextButton<?>[] genButtons_0002(MainMenu p) {
+    return new TextButton[] {
+      new TextButton<>(p,true,()->true,self-> {},self-> {},self-> {
+        p.state(p.realGame);
+      },self->self.text="开始游戏",p::getButtonUnitLength,()->p.bu*0.5f,()->p.bu*0.5f),
+      new TextButton<>(p,true,()->true,self-> {},self-> {},self-> {
+        p.inputProcessor.keyDown(Input.Keys.Z);
+        p.inputProcessor.keyUp(Input.Keys.Z);
+      },self->self.text="2D沙盒",p::getButtonUnitLength,()->p.bu*1.5f,()->p.bu*0.5f),
+      new TextButton<>(p,true,()->true,self-> {},self-> {},self-> {
+        p.inputProcessor.keyDown(Input.Keys.Z);
+        p.inputProcessor.keyUp(Input.Keys.Z);
+      },self->self.text="3D沙盒",p::getButtonUnitLength,()->p.bu*1.5f,()->p.bu*0.5f),
+      new TextButton<>(p,true,()->true,self-> {},self-> {},self-> {
+        p.inputProcessor.keyDown(Input.Keys.Z);
+        p.inputProcessor.keyUp(Input.Keys.Z);
+      },self->self.text="开启服务器",p::getButtonUnitLength,()->p.bu*1.5f,()->p.bu*0.5f),
+      new TextButton<>(p,true,()->true,self-> {},self-> {},self-> {
+        p.inputProcessor.keyDown(Input.Keys.Z);
+        p.inputProcessor.keyUp(Input.Keys.Z);
+      },self->self.text="加入服务器",p::getButtonUnitLength,()->p.bu*1.5f,()->p.bu*0.5f),
+      //--------------------------------------------------------------------
     };
   }
 }

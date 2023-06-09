@@ -5,6 +5,7 @@ import static pama1234.gdx.game.ui.generator.InfoUtil.info0001;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
 
+import pama1234.gdx.game.app.app0002.MainMenu;
 import pama1234.gdx.game.ui.ConfigInfo;
 import pama1234.gdx.game.ui.generator.UiGenerator;
 import pama1234.gdx.game.ui.util.Button;
@@ -19,6 +20,7 @@ import pama1234.gdx.util.wrapper.DisplayEntity;
  * 3D 粒子系统 单机模式
  */
 public class Screen0001 extends ScreenCore3D{
+  public MainMenu mainMenu;
   public ControlBindUtil controlBind;
   public World0001 world;
   public boolean displayHint;
@@ -41,6 +43,9 @@ public class Screen0001 extends ScreenCore3D{
       this.decal=g;
       this.layer=layer;
     }
+  }
+  public Screen0001(MainMenu mainMenu) {
+    this.mainMenu=mainMenu;
   }
   @Override
   public void setup() {

@@ -1,5 +1,6 @@
 package pama1234.gdx.launcher;
 
+import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
@@ -10,6 +11,8 @@ import pama1234.gdx.game.app.app0001.Screen0001;
 import pama1234.gdx.game.app.app0001.Screen0002;
 import pama1234.gdx.game.app.app0001.Screen0003;
 import pama1234.gdx.game.app.app0001.Screen0004;
+import pama1234.gdx.game.app.app0002.MainMenu;
+import pama1234.gdx.game.app.app0002.RealGame;
 import pama1234.gdx.util.app.UtilScreen;
 
 @SuppressWarnings("deprecation")
@@ -24,17 +27,35 @@ public class MainApp extends Game{
       Screen0001.class,//3D 粒子系统 单机
       Screen0002.class,//2D 粒子系统
       Screen0003.class,//3D 粒子系统 联机 客户端
-      null,
-      null,
-      null,
-      Screen0004.class//粒子系统libgdx服务器
+      Screen0004.class,//粒子系统libgdx服务器
+      MainMenu.class,//菜单
+      RealGame.class//贪吃蛇游戏本体
     );
   }
   @Override
   public void create() {
     try {
-      setScreen(screenList.get(screenType).getDeclaredConstructor().newInstance());
-    }catch(InstantiationException|IllegalAccessException|IllegalArgumentException|InvocationTargetException|NoSuchMethodException|SecurityException e) {
+      Class<? extends UtilScreen> data=screenList.get(screenType);
+      Constructor<?>[] constructors=data.getConstructors();
+      UtilScreen out=null;
+      for(Constructor<?> i:constructors) if(i.getParameterTypes().length==0) out=(UtilScreen)i.newInstance();
+      if(out!=null) {
+        setScreen(out);
+        return;
+      }
+      for(Constructor<?> i:constructors) {
+        Class<?>[] parameterTypes=i.getParameterTypes();
+        // System.out.println(parameterTypes[0].getName());
+        if(parameterTypes.length==1) {
+          if(parameterTypes[0].getName().equals(getClass().getName())) out=(UtilScreen)i.newInstance(this);
+          else out=(UtilScreen)i.newInstance(new Object[] {null});
+        }
+      }
+      if(out!=null) {
+        setScreen(out);
+        return;
+      }
+    }catch(InstantiationException|IllegalAccessException|IllegalArgumentException|InvocationTargetException|SecurityException e) {
       e.printStackTrace();
     }
   }
