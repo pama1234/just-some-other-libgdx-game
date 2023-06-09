@@ -13,6 +13,7 @@ import pama1234.gdx.game.app.app0001.Screen0003;
 import pama1234.gdx.game.app.app0001.Screen0004;
 import pama1234.gdx.game.app.app0002.MainMenu;
 import pama1234.gdx.game.app.app0002.RealGame;
+import pama1234.gdx.game.app.app0002.Screen0005;
 import pama1234.gdx.util.app.UtilScreen;
 
 @SuppressWarnings("deprecation")
@@ -28,8 +29,9 @@ public class MainApp extends Game{
       Screen0002.class,//2D 粒子系统
       Screen0003.class,//3D 粒子系统 联机 客户端
       Screen0004.class,//粒子系统libgdx服务器
+      Screen0005.class,//贪吃蛇游戏本体 重制版
       MainMenu.class,//菜单
-      RealGame.class//贪吃蛇游戏本体
+      RealGame.class//贪吃蛇游戏本体 从Processing那边移植的
     );
   }
   @Override
