@@ -7,6 +7,9 @@ import pama1234.gdx.util.info.TouchInfo;
 import pama1234.math.UtilMath;
 
 public class AndroidCtrl extends Entity<Duel>{
+  public float maxDist;
+  public float magCache;
+  public float dxCache,dyCache;
   public TouchInfo moveCtrl;
   public AndroidCtrl(Duel p) {
     super(p);
@@ -28,8 +31,8 @@ public class AndroidCtrl extends Entity<Duel>{
       p.cross(moveCtrl.sx,moveCtrl.sy,32,32);
       p.line(moveCtrl.x,moveCtrl.y,moveCtrl.sx,moveCtrl.sy);
       p.cross(moveCtrl.x,moveCtrl.y,16,16);
-      float deg=UtilMath.deg(UtilMath.atan2(p.dxCache,p.dyCache));
-      p.arc(moveCtrl.sx,moveCtrl.sy,p.magCache,45-deg,90);
+      float deg=UtilMath.deg(UtilMath.atan2(dxCache,dyCache));
+      p.arc(moveCtrl.sx,moveCtrl.sy,magCache,45-deg,90);
       p.noStroke();
     }
   }
@@ -37,9 +40,9 @@ public class AndroidCtrl extends Entity<Duel>{
   public void update() {
     if(!p.paused) {
       if(moveCtrl!=null) {
-        p.dxCache=moveCtrl.x-moveCtrl.sx;
-        p.dyCache=moveCtrl.y-moveCtrl.sy;
-        p.currentInput.targetTouchMoved(p.dxCache,p.dyCache,p.magCache=UtilMath.min(UtilMath.mag(p.dxCache,p.dyCache),p.maxDist));
+        dxCache=moveCtrl.x-moveCtrl.sx;
+        dyCache=moveCtrl.y-moveCtrl.sy;
+        p.currentInput.targetTouchMoved(dxCache,dyCache,magCache=UtilMath.min(UtilMath.mag(dxCache,dyCache),maxDist));
       }
     }
   }
@@ -55,7 +58,11 @@ public class AndroidCtrl extends Entity<Duel>{
       moveCtrl=null;
       p.currentInput.dx=0;
       p.currentInput.dy=0;
-      p.magCache=0;
+      magCache=0;
     }
+  }
+  @Override
+  public void frameResized(int w,int h) {
+    maxDist=p.u;
   }
 }

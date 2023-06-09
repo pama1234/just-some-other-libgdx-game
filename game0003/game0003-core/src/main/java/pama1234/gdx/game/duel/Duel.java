@@ -66,9 +66,6 @@ public class Duel extends ScreenCore2D{
   public AndroidCtrl actrl;
   //---
   public DemoInfo demoInfo;
-  public float maxDist;
-  public float magCache;
-  public float dxCache,dyCache;
   public float strokeUnit;
   //---
   public Config config;
@@ -106,7 +103,7 @@ public class Duel extends ScreenCore2D{
   @Override
   public void setup() {
     TextUtil.used=TextUtil.gen_ch(this::textWidthNoScale);
-    isAndroid=true;
+    // isAndroid=true;
     if(isAndroid) {
       actrl=new AndroidCtrl(this);
       actrl.init();
@@ -201,7 +198,6 @@ public class Duel extends ScreenCore2D{
   }
   @Override
   public void frameResized() {
-    maxDist=u;
     strokeUnit=isAndroid?u/128f:u/64f;
   }
   @Override
