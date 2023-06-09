@@ -9,16 +9,21 @@ public class Screen0005 extends Screen0002{
   public Player player;
   public AndroidCtrl actrl;
   // public TextButton<?>[] textButtons;
+  {
+    isAndroid=true;
+  }
   @Override
   public void setup() {
     super.setup();
     player=new Player(this,new MassPoint(0,0));
     player.input=currentInput;
     centerCam.add.add(player);
+    cam2d.activeDrag=false;
     if(isAndroid) {
       paused=false;
+      world0002.doUpdate=true;
       actrl=new AndroidCtrl(this);
-      centerCam.add.add(actrl);
+      centerScreen.add.add(actrl);
     }
   }
   @Override

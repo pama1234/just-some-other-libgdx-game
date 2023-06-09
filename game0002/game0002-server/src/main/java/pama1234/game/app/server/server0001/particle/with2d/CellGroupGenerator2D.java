@@ -49,7 +49,7 @@ public class CellGroupGenerator2D{
     }
     return group;
   }
-  public CellGroup2D GenerateFromMiniCore() {
+  public CellGroup2D generateFromMiniCore(int range) {
     CellGroup2D group;
     int[] colors;
     float boxR;
@@ -78,7 +78,7 @@ public class CellGroupGenerator2D{
     int cellType=core.length;
     colors=new int[cellType];
     for(int i=0;i<colors.length;i++) colors[i]=Tools.hsbColor((float)i/cellType*255,0xff,0xff);
-    int range=1024;
+    // int range=1024;
     int arraySize=range*cellType;
     int[] type=new int[arraySize];
     for(int i=0;i<type.length;i++) type[i]=i/range;

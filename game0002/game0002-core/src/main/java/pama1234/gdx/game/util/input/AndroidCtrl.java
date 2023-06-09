@@ -12,6 +12,7 @@ public class AndroidCtrl extends Entity<Screen0005>{
   public float magCache;
   public float dxCache,dyCache;
   public TouchInfo moveCtrl;
+  public float scale=2;
   public AndroidCtrl(Screen0005 p) {
     super(p);
   }
@@ -28,12 +29,12 @@ public class AndroidCtrl extends Entity<Screen0005>{
     if(moveCtrl!=null) {
       p.doStroke();
       p.stroke(255);
-      p.strokeWeight(2);
-      p.cross(moveCtrl.sx,moveCtrl.sy,32,32);
-      p.line(moveCtrl.x,moveCtrl.y,moveCtrl.sx,moveCtrl.sy);
-      p.cross(moveCtrl.x,moveCtrl.y,16,16);
+      p.strokeWeight(2*scale);
+      p.cross(moveCtrl.osx,moveCtrl.osy,32*scale,32*scale);
+      p.line(moveCtrl.ox,moveCtrl.oy,moveCtrl.osx,moveCtrl.osy);
+      p.cross(moveCtrl.ox,moveCtrl.oy,16*scale,16*scale);
       float deg=UtilMath.deg(UtilMath.atan2(dxCache,dyCache));
-      p.arc(moveCtrl.sx,moveCtrl.sy,magCache,45-deg,90);
+      p.arc(moveCtrl.osx,moveCtrl.osy,magCache,45-deg,90);
       p.noStroke();
     }
   }
@@ -41,8 +42,8 @@ public class AndroidCtrl extends Entity<Screen0005>{
   public void update() {
     if(!p.paused) {
       if(moveCtrl!=null) {
-        dxCache=moveCtrl.x-moveCtrl.sx;
-        dyCache=moveCtrl.y-moveCtrl.sy;
+        dxCache=moveCtrl.ox-moveCtrl.osx;
+        dyCache=moveCtrl.oy-moveCtrl.osy;
         p.currentInput.targetTouchMoved(dxCache,dyCache,magCache=UtilMath.min(UtilMath.mag(dxCache,dyCache),maxDist));
       }
     }
@@ -64,6 +65,6 @@ public class AndroidCtrl extends Entity<Screen0005>{
   }
   @Override
   public void frameResized(int w,int h) {
-    maxDist=p.u;
+    maxDist=p.u*scale;
   }
 }

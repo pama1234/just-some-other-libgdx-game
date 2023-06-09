@@ -16,7 +16,7 @@ public class Screen0002 extends ScreenCore2D{
   public boolean paused;
   public InputData currentInput;
   //---
-  World0002 world0002;
+  public World0002 world0002;
   @Override
   public void setup() {
     cam.point.f=0.1f;//TODO
