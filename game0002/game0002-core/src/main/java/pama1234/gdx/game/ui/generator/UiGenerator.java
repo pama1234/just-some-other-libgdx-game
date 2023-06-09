@@ -5,6 +5,7 @@ import com.badlogic.gdx.Input;
 import pama1234.gdx.game.app.app0002.MainMenu;
 import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.ui.util.TextButton;
+import pama1234.gdx.util.app.ScreenCore2D;
 import pama1234.gdx.util.app.ScreenCore3D;
 
 public class UiGenerator{
@@ -123,6 +124,20 @@ public class UiGenerator{
         p.inputProcessor.keyUp(Input.Keys.Z);
       },self->self.text="加入服务器",p::getButtonUnitLength,()->p.bu*0.5f,()->p.bu*4.5f),
       //--------------------------------------------------------------------
+    };
+  }
+  public static TextButton<?>[] genButtons_0003(ScreenCore2D p) {
+    return new TextButton[] {
+      new TextButton<>(p,true,()->true,self-> {},self-> {
+        p.inputProcessor.keyDown(Input.Keys.Z);
+      },self-> {
+        p.inputProcessor.keyUp(Input.Keys.Z);
+      },self->self.text="Z ",p::getButtonUnitLength,()->p.width-p.bu*4f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,false),
+      new TextButton<>(p,true,()->true,self-> {},self-> {
+        p.inputProcessor.keyDown(Input.Keys.X);
+      },self-> {
+        p.inputProcessor.keyUp(Input.Keys.X);
+      },self->self.text=" X",p::getButtonUnitLength,()->p.width-p.bu*2.5f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,false),
     };
   }
 }

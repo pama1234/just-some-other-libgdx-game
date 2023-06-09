@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.viewport.ScalingViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import pama1234.gdx.game.ui.util.Button;
+import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.listener.EntityListener;
 
@@ -20,6 +21,7 @@ public abstract class ScreenCore2D extends UtilScreen2D{
   //---
   public float multDist=1;
   public Button<?>[] buttons;
+  public TextButton<?>[] textButtons;
   public int bu;
   public boolean fullSettings;
   @Override
