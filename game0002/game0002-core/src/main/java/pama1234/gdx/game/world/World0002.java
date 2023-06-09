@@ -31,7 +31,7 @@ public class World0002 extends Entity<UtilScreen2D> implements DisplayEntityList
   @Override
   public void init() {
     CellGroupGenerator2D gen=new CellGroupGenerator2D(0,0);
-    group=gen.generateFromMiniCore(p.isAndroid?512:1024);
+    group=gen.generateFromMiniCore(p.isAndroid?256:1024);
     maxParticle=UtilMath.floor(group.size*1.1f);
     size=new Vec2f(
       group.updater.w,

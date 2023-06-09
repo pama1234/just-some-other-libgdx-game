@@ -13,7 +13,7 @@ public class Player extends PointEntity<Screen0005,MassPoint>{
   public Player(Screen0005 p,MassPoint in) {
     super(p,in);
     data=new CellData[64];
-    data[0].x(p.world0002.group);
+    // data[0].x(p.world0002.group);
   }
   @Override
   public void update() {

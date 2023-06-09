@@ -16,13 +16,12 @@ public class InputData{
   public boolean isZPressed=false;
   public boolean isXPressed=false;
   public void targetTouchMoved(float dxIn,float dyIn,float mag) {
-    float dist=mag;
-    if(dist<0.01f) {
+    if(mag<0.01f) {
       dx=0;
       dy=0;
     }else {
-      dx=dxIn/dist;
-      dy=dyIn/dist;
+      dx=dxIn/mag;
+      dy=dyIn/mag;
     }
   }
   public void keyPressed(Screen0005 duel,char key,int keyCode) {

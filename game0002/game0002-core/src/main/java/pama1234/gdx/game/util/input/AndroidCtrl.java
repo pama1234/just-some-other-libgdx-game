@@ -8,22 +8,23 @@ import pama1234.gdx.util.info.TouchInfo;
 import pama1234.math.UtilMath;
 
 public class AndroidCtrl extends Entity<Screen0005>{
-  public float maxDist;
+  public float maxDist,maxSpeed;
   public float magCache;
   public float dxCache,dyCache;
   public TouchInfo moveCtrl;
-  public float scale=2;
+  public float scale;
   public AndroidCtrl(Screen0005 p) {
     super(p);
+    // scale=p.isAndroid?8:2;
+    maxSpeed=1f;
+    scale=2;
+    updateMaxDist();
   }
   @Override
   public void init() {
     p.textButtons=UiGenerator.genButtons_0003(p);
     for(TextButton<?> e:p.textButtons) p.centerScreen.add.add(e);
   }
-  /**
-   * cam only
-   */
   @Override
   public void display() {
     if(moveCtrl!=null) {
@@ -65,6 +66,9 @@ public class AndroidCtrl extends Entity<Screen0005>{
   }
   @Override
   public void frameResized(int w,int h) {
+    updateMaxDist();
+  }
+  public void updateMaxDist() {
     maxDist=p.u*scale;
   }
 }

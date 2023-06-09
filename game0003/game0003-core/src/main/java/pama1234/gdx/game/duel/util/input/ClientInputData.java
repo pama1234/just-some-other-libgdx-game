@@ -10,13 +10,12 @@ import pama1234.gdx.game.duel.Duel;
 
 public class ClientInputData extends ServerInputData{
   public void targetTouchMoved(float dxIn,float dyIn,float mag) {
-    float dist=mag;
-    if(dist<0.01f) {
+    if(mag<0.01f) {
       dx=0;
       dy=0;
     }else {
-      dx=dxIn/dist;
-      dy=dyIn/dist;
+      dx=dxIn/mag;
+      dy=dyIn/mag;
     }
   }
   public void keyPressed(Duel duel,char key,int keyCode) {
