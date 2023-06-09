@@ -7,6 +7,7 @@ import pama1234.gdx.util.entity.PointEntity;
 import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 import pama1234.math.physics.MassPoint;
+import pama1234.math.vec.Vec2f;
 
 public class Player extends PointEntity<Screen0005,MassPoint>{
   public InputData input;
@@ -20,7 +21,7 @@ public class Player extends PointEntity<Screen0005,MassPoint>{
     super(p,in);
     data=new CellData[64];
     for(int i=0;i<data.length;i++) data[i]=new CellData();
-    maxAcc=4;
+    maxAcc=p.isAndroid?1:4;
     // updateThread=new Thread(this::updateWithWorld,"PlayerUpdate");
   }
   public void updateWithWorld() {
@@ -29,6 +30,7 @@ public class Player extends PointEntity<Screen0005,MassPoint>{
       CellData e=data[i];
       if(e.active) {
         if(!Tools.inRange(e.x(group),e.y(group),range)) e.active=false;
+        else e.add(group,point.vel);
       }else {
         int randomId=p.random(1)<0.8f?(int)p.random(group.size):type*numInType+(int)p.random(numOfType);
         if(group.type(randomId)==type&&Tools.inRange(group.x(randomId),group.y(randomId),range)) e.set(group,randomId);
@@ -70,6 +72,10 @@ public class Player extends PointEntity<Screen0005,MassPoint>{
     // float x,y;
     public float x(CellGroup2D group) {
       return group.x(id);
+    }
+    public void add(CellGroup2D group,Vec2f vel) {
+      group.velX[id]+=vel.x;
+      group.velY[id]+=vel.y;
     }
     public void set(CellGroup2D group,int id) {
       active=true;
