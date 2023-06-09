@@ -88,4 +88,7 @@ public class CellGroup2D extends ServerEntity{
   public int color(int p) {
     return colors[type[p]];
   }
+  public int type(int p) {
+    return type[p];
+  }
 }

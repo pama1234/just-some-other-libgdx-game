@@ -9,6 +9,7 @@ import pama1234.gdx.util.entity.Entity;
 import pama1234.gdx.util.listener.DisplayEntityListener;
 import pama1234.math.UtilMath;
 import pama1234.math.vec.Vec2f;
+import pama1234.util.function.ExecuteFunction;
 
 public class World0002 extends Entity<UtilScreen2D> implements DisplayEntityListener{
   ControlBindUtil controlBind;
@@ -19,6 +20,7 @@ public class World0002 extends Entity<UtilScreen2D> implements DisplayEntityList
   public boolean doUpdate;
   public Thread cellUpdate;
   // ServerPlayerCenter<Player2D> playerCenter;
+  public ExecuteFunction[] plugins=new ExecuteFunction[0];
   public float[][] tesselatedMat= {
     {0,0},{1,0},
     {0,1},{1,1},
@@ -45,8 +47,10 @@ public class World0002 extends Entity<UtilScreen2D> implements DisplayEntityList
       @Override
       public void run() {
         while(!p.stop) {
-          if(doUpdate) group.update();
-          else try {
+          if(doUpdate) {
+            group.update();
+            for(ExecuteFunction i:plugins) i.execute();
+          }else try {
             sleep(1000);
           }catch(InterruptedException e) {
             e.printStackTrace();

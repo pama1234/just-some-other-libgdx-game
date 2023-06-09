@@ -4,6 +4,7 @@ import pama1234.game.app.server.server0001.particle.with2d.CellGroup2D;
 import pama1234.gdx.game.app.app0002.Screen0005;
 import pama1234.gdx.game.util.input.InputData;
 import pama1234.gdx.util.entity.PointEntity;
+import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 import pama1234.math.physics.MassPoint;
 
@@ -13,11 +14,28 @@ public class Player extends PointEntity<Screen0005,MassPoint>{
   public CellData[] data;
   public float maxAcc;
   public Thread updateThread;
+  public int type;
+  public int numOfType,numInType;
   public Player(Screen0005 p,MassPoint in) {
     super(p,in);
     data=new CellData[64];
+    for(int i=0;i<data.length;i++) data[i]=new CellData();
     maxAcc=4;
-    // data[0].x(p.world0002.group);
+    // updateThread=new Thread(this::updateWithWorld,"PlayerUpdate");
+  }
+  public void updateWithWorld() {
+    CellGroup2D group=p.world0002.group;
+    for(int i=0;i<data.length;i++) {
+      CellData e=data[i];
+      if(e.active) {
+        if(!Tools.inRange(e.x(group),e.y(group),range)) e.active=false;
+      }else {
+        int randomId=p.random(1)<0.8f?(int)p.random(group.size):type*numInType+(int)p.random(numOfType);
+        if(group.type(randomId)==type&&Tools.inRange(group.x(randomId),group.y(randomId),range)) e.set(group,randomId);
+      }
+    }
+    // for(int i=0;i<group.type.length;i++) {
+    // }
   }
   @Override
   public void update() {
@@ -46,14 +64,22 @@ public class Player extends PointEntity<Screen0005,MassPoint>{
     p.noStroke();
     p.doFill();
   }
-  public class CellData{
-    int id;
+  public static class CellData{
+    public boolean active;
+    public int id;
     // float x,y;
     public float x(CellGroup2D group) {
       return group.x(id);
     }
+    public void set(CellGroup2D group,int id) {
+      active=true;
+      this.id=id;
+    }
     public float y(CellGroup2D group) {
       return group.y(id);
+    }
+    public float type(CellGroup2D group) {
+      return group.color(id);
     }
   }
 }
