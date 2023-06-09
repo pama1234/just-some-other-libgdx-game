@@ -86,6 +86,9 @@ public class Duel extends ScreenCore2D{
   public ClientConfig clientConfig;
   public LoginInfo loginInfo;
   public InputDataProto.InputData.Builder inputDataBuilder;
+  {
+    // isAndroid=true;
+  }
   @Override
   public void init() {
     configFile=Gdx.files.local("data/config.yaml");
@@ -103,7 +106,6 @@ public class Duel extends ScreenCore2D{
   @Override
   public void setup() {
     TextUtil.used=TextUtil.gen_ch(this::textWidthNoScale);
-    // isAndroid=true;
     if(isAndroid) {
       actrl=new AndroidCtrl(this);
       actrl.init();

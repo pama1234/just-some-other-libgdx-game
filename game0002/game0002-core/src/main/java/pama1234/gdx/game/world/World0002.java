@@ -57,6 +57,7 @@ public class World0002 extends Entity<UtilScreen2D> implements DisplayEntityList
   }
   @Override
   public void displayCam() {
+    // System.out.println("World0002.displayCam()");
     int circleSeg=UtilScreenRender.circleSeg(CellGroup2D.SIZE*p.cam2d.scale.pos*(1/p.cam.frameScale));
     particleCount=0;
     outerLoop:
