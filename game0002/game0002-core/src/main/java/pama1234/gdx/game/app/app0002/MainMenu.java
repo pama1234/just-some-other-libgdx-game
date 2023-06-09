@@ -20,10 +20,13 @@ public class MainMenu extends ScreenCore2D implements StateChanger<UtilScreen>{
   }
   @Override
   public void setup() {
+    noStroke();
     sCenter=new ScreenCenter();
-    sCenter.add.add(realGame=new RealGame(this));
-    sCenter.add.add(screen0001=new Screen0001(this));
+    sCenter.list.add(realGame=new RealGame(this));
+    sCenter.list.add(screen0001=new Screen0001(this));
+    for(UtilScreen e:sCenter.list) e.show();
     buttons=UiGenerator.genButtons_0002(this);
+    for(TextButton<?> e:buttons) centerScreen.add.add(e);
   }
   @Override
   public void update() {}

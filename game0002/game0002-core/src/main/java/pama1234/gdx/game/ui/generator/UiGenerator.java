@@ -109,19 +109,19 @@ public class UiGenerator{
       new TextButton<>(p,true,()->true,self-> {},self-> {},self-> {
         p.inputProcessor.keyDown(Input.Keys.Z);
         p.inputProcessor.keyUp(Input.Keys.Z);
-      },self->self.text="2D沙盒",p::getButtonUnitLength,()->p.bu*1.5f,()->p.bu*0.5f),
+      },self->self.text="2D沙盒",p::getButtonUnitLength,()->p.bu*0.5f,()->p.bu*1.5f),
       new TextButton<>(p,true,()->true,self-> {},self-> {},self-> {
         p.inputProcessor.keyDown(Input.Keys.Z);
         p.inputProcessor.keyUp(Input.Keys.Z);
-      },self->self.text="3D沙盒",p::getButtonUnitLength,()->p.bu*1.5f,()->p.bu*0.5f),
+      },self->self.text="3D沙盒",p::getButtonUnitLength,()->p.bu*0.5f,()->p.bu*2.5f),
       new TextButton<>(p,true,()->true,self-> {},self-> {},self-> {
         p.inputProcessor.keyDown(Input.Keys.Z);
         p.inputProcessor.keyUp(Input.Keys.Z);
-      },self->self.text="开启服务器",p::getButtonUnitLength,()->p.bu*1.5f,()->p.bu*0.5f),
+      },self->self.text="开启服务器",p::getButtonUnitLength,()->p.bu*0.5f,()->p.bu*3.5f),
       new TextButton<>(p,true,()->true,self-> {},self-> {},self-> {
         p.inputProcessor.keyDown(Input.Keys.Z);
         p.inputProcessor.keyUp(Input.Keys.Z);
-      },self->self.text="加入服务器",p::getButtonUnitLength,()->p.bu*1.5f,()->p.bu*0.5f),
+      },self->self.text="加入服务器",p::getButtonUnitLength,()->p.bu*0.5f,()->p.bu*4.5f),
       //--------------------------------------------------------------------
     };
   }
