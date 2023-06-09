@@ -2,15 +2,17 @@ package pama1234.gdx.game.world;
 
 import pama1234.game.app.server.server0001.particle.with2d.CellGroup2D;
 import pama1234.game.app.server.server0001.particle.with2d.CellGroupGenerator2D;
-import pama1234.gdx.game.app.app0001.Screen0002;
 import pama1234.gdx.game.util.ControlBindUtil;
+import pama1234.gdx.util.app.UtilScreen2D;
 import pama1234.gdx.util.app.UtilScreenRender;
 import pama1234.gdx.util.entity.Entity;
 import pama1234.gdx.util.listener.DisplayEntityListener;
 import pama1234.math.UtilMath;
 import pama1234.math.vec.Vec2f;
 
-public class World0002 extends Entity<Screen0002> implements DisplayEntityListener{
+public class World0002 extends Entity<UtilScreen2D> implements DisplayEntityListener{
+  ControlBindUtil controlBind;
+  //---
   public int maxParticle;
   public int particleCount;
   public CellGroup2D group;
@@ -22,8 +24,9 @@ public class World0002 extends Entity<Screen0002> implements DisplayEntityListen
     {0,1},{1,1},
   };
   public Vec2f size;
-  public World0002(Screen0002 p) {
+  public World0002(UtilScreen2D p,ControlBindUtil controlBind) {
     super(p);
+    this.controlBind=controlBind;
   }
   @Override
   public void init() {
@@ -74,7 +77,7 @@ public class World0002 extends Entity<Screen0002> implements DisplayEntityListen
   }
   @Override
   public void keyPressed(char key,int keyCode) {
-    if(p.controlBind.isKey(ControlBindUtil.doUpdate,keyCode)) doUpdate=!doUpdate;
+    if(controlBind.isKey(ControlBindUtil.doUpdate,keyCode)) doUpdate=!doUpdate;
   }
   @Override
   public void keyReleased(char key,int keyCode) {}

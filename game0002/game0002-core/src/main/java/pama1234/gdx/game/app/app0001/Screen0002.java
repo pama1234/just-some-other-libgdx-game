@@ -1,6 +1,7 @@
 package pama1234.gdx.game.app.app0001;
 
 import pama1234.gdx.game.util.ControlBindUtil;
+import pama1234.gdx.game.util.input.InputData;
 import pama1234.gdx.game.world.World0002;
 import pama1234.gdx.util.app.UtilScreen2D;
 import pama1234.gdx.util.wrapper.DisplayEntity;
@@ -12,6 +13,8 @@ public class Screen0002 extends UtilScreen2D{
   public ControlBindUtil controlBind;
   public float zoomSpeed=0.0625f;
   public boolean zoomIn,zoomOut;
+  public boolean paused;
+  public InputData currentInput;
   //---
   World0002 world0002;
   @Override
@@ -21,7 +24,7 @@ public class Screen0002 extends UtilScreen2D{
     noStroke();
     backgroundColor(0);
     controlBind=new ControlBindUtil();
-    world0002=new World0002(this);
+    world0002=new World0002(this,controlBind);
     world0002.init();
     centerScreen.add.add(world0002);
     centerCam.add.add(new DisplayEntity(world0002::displayCam));
@@ -51,5 +54,8 @@ public class Screen0002 extends UtilScreen2D{
   public void keyReleased(char key,int keyCode) {
     if(controlBind.isKey(ControlBindUtil.camZoomIn,keyCode)) zoomIn=false;
     else if(controlBind.isKey(ControlBindUtil.camZoomOut,keyCode)) zoomOut=false;
+  }
+  public void doPause() {
+    paused=!paused;
   }
 }
