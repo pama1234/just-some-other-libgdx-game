@@ -149,6 +149,19 @@ public abstract class UtilScreenColor extends UtilScreenCore{
   public static Color color(float r,float g,float b,float a) {
     return new Color(r/255f,g/255f,b/255f,a/255f);
   }
+  // TODO 移动到Tools
+  @Deprecated
+  public static Color lerpColor(int a,int b,float pos) {
+    Color out=new Color();
+    lerpColor(new Color(a),new Color(b),out,pos);
+    return out;
+  }
+  @Deprecated
+  public static Color lerpColor(Color a,Color b,float pos) {
+    Color out=new Color();
+    lerpColor(a,b,out,pos);
+    return out;
+  }
   public static void lerpColor(Color a,Color b,Color out,float pos) {
     if(pos==0) out.set(a);
     else if(pos==1) out.set(b);

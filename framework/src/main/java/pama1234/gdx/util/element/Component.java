@@ -2,7 +2,6 @@ package pama1234.gdx.util.element;
 
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Pixmap.Format;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
@@ -14,29 +13,34 @@ import pama1234.gdx.util.info.TouchInfo;
 import pama1234.math.physics.PathPoint;
 
 public abstract class Component<T extends UtilScreen>extends PointEntity<T,PathPoint>{
-  public FrameBuffer buffer;
+  public Graphics g;
+  // public FrameBuffer buffer;
   public OrthographicCamera cam;
   // public TextureRegion texture;
   public Texture texture;
   public boolean loop=true;
   public Component(T p,float x,float y,int w,int h) {
     super(p,new PathPoint(0,0,x,y));
-    buffer=new FrameBuffer(Format.RGBA4444,w,h,false);
+    g=new Graphics(p,w,h);
+    // buffer=new FrameBuffer(Format.RGBA4444,w,h,false);
     // texture=new TextureRegion(buffer.getColorBufferTexture());
-    texture=buffer.getColorBufferTexture();
+    texture=buffer().getColorBufferTexture();
     texture.setFilter(TextureFilter.Linear,TextureFilter.Nearest);
     // texture.getTexture().setFilter(TextureFilter.Linear,TextureFilter.Nearest);
     cam=new OrthographicCamera();
     cam.setToOrtho(true,w,h);
   }
   public abstract void draw();
+  public FrameBuffer buffer() {
+    return g.buffer;
+  }
   @Deprecated
   public int w() {
-    return buffer.getWidth();
+    return buffer().getWidth();
   }
   @Deprecated
   public int h() {
-    return buffer.getHeight();
+    return buffer().getHeight();
   }
   public float width() {
     return texture.getWidth();
@@ -45,13 +49,13 @@ public abstract class Component<T extends UtilScreen>extends PointEntity<T,PathP
     return texture.getHeight();
   }
   public void beginDraw() {
-    buffer.begin();
+    buffer().begin();
     p.setCamera(cam);
     p.beginShape();
   }
   public void endDraw() {
     p.endShape();
-    buffer.end();
+    buffer().end();
   }
   @Override
   public void init() {}
@@ -61,7 +65,7 @@ public abstract class Component<T extends UtilScreen>extends PointEntity<T,PathP
   public void resume() {}
   @Override
   public void dispose() {
-    buffer.dispose();
+    buffer().dispose();
   }
   @Override
   public void update() {
