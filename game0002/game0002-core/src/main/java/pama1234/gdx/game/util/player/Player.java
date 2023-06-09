@@ -11,11 +11,12 @@ public class Player extends PointEntity<Screen0005,MassPoint>{
   public InputData input;
   public float range=16;
   public CellData[] data;
-  public float maxSpeed;
+  public float maxAcc;
+  public Thread updateThread;
   public Player(Screen0005 p,MassPoint in) {
     super(p,in);
     data=new CellData[64];
-    maxSpeed=4;
+    maxAcc=4;
     // data[0].x(p.world0002.group);
   }
   @Override
@@ -25,12 +26,14 @@ public class Player extends PointEntity<Screen0005,MassPoint>{
     final int intDown=input.isDownPressed?1:0;
     final int intLeft=input.isLeftPressed?-1:0;
     final int intRight=input.isRightPressed?1:0;
-    operateMoveButton(intLeft+intRight+input.dx,intUp+intDown+input.dy);
+    float dx=intLeft+intRight+input.dx,
+      dy=intUp+intDown+input.dy;
+    if(UtilMath.abs(dx)>0.01f||UtilMath.abs(dy)>0.01f) operateMoveButton(dx,dy);
     // operateShotButton(input.isZPressed);
     // operateLongShotButton(input.isXPressed);
   }
   public void operateMoveButton(float dx,float dy) {
-    float tf=maxSpeed/UtilMath.mag(dx,dy);
+    float tf=maxAcc/UtilMath.mag(dx,dy);
     point.vel.add(dx*tf,dy*tf);
   }
   @Override

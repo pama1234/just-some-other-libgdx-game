@@ -98,7 +98,7 @@ public class Screen0003 extends ScreenCore3D{
     tsh.performancePrefBandwidth=1;
     //---
     clientSocket=new SocketData0001(new Token(yourself.data.name()),new SocketWrapperGDX(Gdx.net.newClientSocket(Protocol.TCP,dataServerInfo.addr,dataServerInfo.port,tsh)));
-    new Thread() {
+    new Thread("SocketConnect") {
       public void run() {
         while(!clientSocket.s.isConnected()) {
           try {

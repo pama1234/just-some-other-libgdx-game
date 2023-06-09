@@ -111,7 +111,7 @@ public class World0001 extends Entity<Screen0001> implements DisplayEntityListen
     p.centerCam.add.add(yourself);//TODO
   }
   public Thread createUpdateThread() {
-    return new Thread() {
+    return new Thread("UpdateThread") {
       @Override
       public void run() {
         while(!p.stop) {
