@@ -1,6 +1,7 @@
 package pama1234.gdx.game.duel;
 
 import pama1234.gdx.game.state.state0002.Game;
+import pama1234.gdx.game.state.state0002.Settings;
 import pama1234.gdx.util.listener.StateChanger;
 import pama1234.gdx.util.listener.StateEntityListener;
 import pama1234.gdx.util.wrapper.DisplayEntity;
@@ -10,6 +11,7 @@ import pama1234.gdx.util.wrapper.StateEntity;
 public class State0002Util{
   public static void loadState0002(Duel in,StateCenter0002 center) {
     center.list.add(center.game=new Game(in,0));
+    center.list.add(center.settings=new Settings(in,0));
   }
   public static abstract class StateEntity0002 extends StateEntity<Duel,StateEntityListener0001> implements StateEntityListener0001{
     public int id;
@@ -29,6 +31,7 @@ public class State0002Util{
   }
   public static class StateCenter0002 extends StateCenter<Duel,StateEntity0002>{
     public Game game;
+    public Settings settings;
     public StateCenter0002(Duel p) {
       super(p);
     }
