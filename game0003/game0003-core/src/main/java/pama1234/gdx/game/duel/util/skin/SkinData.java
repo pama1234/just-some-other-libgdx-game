@@ -22,18 +22,12 @@ public class SkinData{
     SkinData out=new SkinData();
     Yaml yaml=Duel.localization.yaml;
     String string=yaml.dumpAsMap(out);
-    // System.out.println(string);
     LinkedHashMap<String,Object> map=yaml.load(string);
     Set<Entry<String,Object>> entrySet=map.entrySet();
     for(Entry<String,Object> e:entrySet) {
-      // System.out.println(e.getKey());
       String inValue=in.data.get(e.getKey());
-      // System.out.println(in.data.get(e.getKey()));
-      // System.out.println(fromStringColor(inValue).r);
       e.setValue(yaml.dumpAsMap(fromStringColor(inValue)));
-      // System.out.println(e.getValue());
     }
-    // System.out.println(yaml.dump(map));
     out=yaml.loadAs(yaml.dump(map).replace("|",""),SkinData.class);
     return out;
   }
@@ -68,7 +62,6 @@ public class SkinData{
     Set<Entry<String,Object>> entrySet=map.entrySet();
     for(Entry<String,Object> e:entrySet) {
       LinkedHashMap<String,Object> value=(LinkedHashMap<String,Object>)e.getValue();
-      // System.out.println(value);
       ColorData tc=new ColorData();
       tc.load(value);
       e.setValue(tc.toString());
