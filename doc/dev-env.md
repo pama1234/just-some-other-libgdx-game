@@ -26,7 +26,12 @@
 - IDEA 用户按照文档自行配置环境
 - 如果你没有安装过 IDEA，则建议直接安装 Android Studio 全家桶
 - 需要安装 2022.2.1 Beta 1 版本以后的 Android Studio 才支持 gradle 8.0+。  
-    不然你只能使用命令行编译
+    （不然你只能使用命令行编译）
+
+- vscode用户依然建议先安装Android Studio的preview版本<https://developer.android.com/studio/preview>
+- 推荐使用以下vscode扩展：
+  - <https://marketplace.visualstudio.com/items?itemName=pama1234.processing-pama1234-theme>
+  - <https://marketplace.visualstudio.com/items?itemName=pama1234.eclipse-pama1234-keymap>
 
 ### Java (JDK)
 
