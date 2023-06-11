@@ -27,6 +27,12 @@ public final class Particle extends Body implements Poolable<Particle>{
   public int lifespanFrameCount;
   public int properFrameCount;
   public int particleTypeNumber;
+  public Color displayColor() {
+    return displayColor;
+  }
+  public void displayColor(Color displayColor) {
+    this.displayColor=displayColor;
+  }
   // override methods of Poolable
   @Override
   public boolean isAllocated() {
