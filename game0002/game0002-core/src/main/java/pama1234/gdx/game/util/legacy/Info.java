@@ -58,7 +58,7 @@ public class Info extends TextBoard implements ClipboardOwner{
   }
   @Override
   public void drawLayer() {
-    g.begin();
+    g.beginShape();
     p.background(0xff4D3C94);
     UITools.border(g,0,0,g.width(),g.height());
     p.fill(0xff006799);
@@ -79,7 +79,7 @@ public class Info extends TextBoard implements ClipboardOwner{
     p.fill(255);
     p.text("Ctrl-C",g.width()-cw,ty);
     UITools.border(g,g.width()-cw,0,cw,TEXT_SIZE);
-    g.end();
+    g.endShape();
   }
   public void refresh() {
     initLayer();

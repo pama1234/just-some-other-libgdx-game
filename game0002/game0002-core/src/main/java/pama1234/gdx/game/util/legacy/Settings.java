@@ -16,11 +16,11 @@ public class Settings extends TextBoard{
   @Override
   public void drawLayer() {
     initLayer();
-    g.begin();
+    g.beginShape();
     p.background(UITools.background);
     UITools.border(g,0,0,w,h);
     draw();
-    g.endDraw();
+    g.endShape();
   }
   // @Override
   // public void initLayer() {

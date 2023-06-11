@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.util.LinkedList;
 
 import pama1234.gdx.game.app.app0002.RealGame;
+import pama1234.gdx.util.element.Graphics;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.math.UtilMath;
 
@@ -40,14 +41,14 @@ public class Scoreboard extends TextBoard{
       final int th=h;
       h=(int)(textSize*(1.25f));
       if(tw!=w||th!=h) {
-        g=p.createGraphics(w,h);
+        g=new Graphics(p,w,h);
         initLayer();
       }
       drawLayer();
     }
   }
   public void drawLayer() {
-    g.begin();
+    g.beginShape();
     p.background(0xff00317A);
     UITools.border(g,0,0,g.width(),g.height());
     float ty=0;
@@ -58,7 +59,7 @@ public class Scoreboard extends TextBoard{
     UITools.border(g,textSize/2,tby,w-textSize,textSize);
     p.fill(0xffF9CC31);
     p.text(text,ts_d2,ty);
-    g.end();
+    g.endShape();
   }
   @Override
   public void update() {

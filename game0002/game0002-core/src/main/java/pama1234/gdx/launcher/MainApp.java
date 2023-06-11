@@ -22,7 +22,7 @@ public class MainApp extends Game{
   public static final int defaultType=0,taptap=1,pico=2;
   public static int type;
   public List<Class<? extends UtilScreen>> screenList;
-  public int screenType=5;
+  public int screenType=7;
   public MainApp() {
     screenList=Arrays.asList(null,
       Screen0001.class,//3D 粒子系统 单机
@@ -30,8 +30,8 @@ public class MainApp extends Game{
       Screen0003.class,//3D 粒子系统 联机 客户端
       Screen0004.class,//粒子系统libgdx服务器
       Screen0005.class,//贪吃蛇游戏本体 重制版
-      MainMenu.class,//菜单
-      RealGame.class//贪吃蛇游戏本体 从Processing那边移植的
+      MainMenu.class,//6 菜单
+      RealGame.class//7 贪吃蛇游戏本体 从Processing那边移植的
     );
   }
   @Override

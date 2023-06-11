@@ -25,12 +25,12 @@ public class RealGame extends ScreenCore2D{
     strokeWeight(Cell.size/4);
     noStroke();
     backgroundColor(0);
-    center.add.add(pageCenter=new PageCenter(this,new StartPage(this),-640,0));
+    centerCam.add.add(pageCenter=new PageCenter(this,new StartPage(this),-640,0));
     pageCenter.list.add(new GamePage(this));
     pageCenter.list.add(new SettingsPage(this));
     pageCenter.refresh();
     pageCenter.postSetDes();
-    center.add.add(info=new Info(this,520,-320));
+    centerCam.add.add(info=new Info(this,520,-320));
   }
   @Override
   public void update() {}

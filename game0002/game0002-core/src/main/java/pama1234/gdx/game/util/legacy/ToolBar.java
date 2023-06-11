@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import com.badlogic.gdx.Input.Buttons;
 
 import pama1234.gdx.game.app.app0002.RealGame;
+import pama1234.gdx.util.element.Graphics;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.math.Tools;
 import pama1234.math.UtilMath;
@@ -52,13 +53,13 @@ public class ToolBar extends TextBoard{
     h=(int)(textSize*(tsa.length+0.25f));
     // h=(int)(textSize*(tsa.length+0.25f)+p.textDescent());
     if(tw!=w||th!=h) {
-      g=p.createGraphics(w,h);
+      g=new Graphics(p,w,h);
       initLayer();
     }
     drawLayer();
   }
   public void drawLayer() {
-    g.begin();
+    g.beginShape();
     p.background(0xffF66104);
     UITools.border(g,0,0,g.width(),g.height());
     float ty=0;
@@ -75,7 +76,7 @@ public class ToolBar extends TextBoard{
       p.text(ts,ts_d2,ty);
       ty+=textSize;
     }
-    g.end();
+    g.endShape();
   }
   @SuppressWarnings("static-access")
   @Override
