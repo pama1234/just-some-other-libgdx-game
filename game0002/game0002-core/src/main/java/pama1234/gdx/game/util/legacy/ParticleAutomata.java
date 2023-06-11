@@ -7,7 +7,7 @@ import pama1234.gdx.util.entity.Entity;
 import pama1234.gdx.util.wrapper.EntityCenter;
 import pama1234.math.Tools;
 
-public class ParticleAutomata extends EntityCenter<RealGame,Entity>{
+public class ParticleAutomata extends EntityCenter<RealGame,Entity<?>>{
   public final TabCenter tabs;
   public final ToolBar toolBar;
   public final LoadAndSave lsHelper;
@@ -19,8 +19,8 @@ public class ParticleAutomata extends EntityCenter<RealGame,Entity>{
     super(p);
     MetaCell[] array;
     add.add(tabs=new TabCenter(p,-640,-320));
-    tabs.list.add(new Tab<RealGame,Entity>(p,"元信息",tabs.metaCenter=metaList=new MetaCellCenter(p,-480,-480,480,480)));
-    Tab<RealGame,Entity> tab=new Tab<RealGame,Entity>(p,"地图",tabs.cellCenter=cellList=new CellCenter(p,metaList));
+    tabs.list.add(new Tab<RealGame,Entity<?>>(p,"元信息",tabs.metaCenter=metaList=new MetaCellCenter(p,-480,-480,480,480)));
+    Tab<RealGame,Entity<?>> tab=new Tab<RealGame,Entity<?>>(p,"地图",tabs.cellCenter=cellList=new CellCenter(p,metaList));
     tabs.list.add(tab);
     //---
     // componentCenter=new EntityCenter<>(p) {

@@ -17,29 +17,17 @@ public class Welcome extends Entity<RealGame>{
     super(p);
     point=new PathPoint(0,0,x,y);
   }
+  // @Override
   public void refresh() {
     sloganPos=(int)p.random(slogan.length);
-    if(g==null) g=p.createGraphics(1,1);
-    g.begin();
-    // p.textFont(p.font);
-    // p.textAlign(PConstants.LEFT,PConstants.TOP);
-    p.textSize(textSize);
-    // p.textLeading(textSize);
-    g.end();
-    g=p.createGraphics((int)Math.ceil(p.textWidth(title)),textSize*2);
-    g.begin();
-    // p.textFont(p.font);
-    // p.textAlign(PConstants.LEFT,PConstants.TOP);
-    // p.textSize(textSize);
-    // p.textLeading(textSize);
-    g.end();
+    // if(g==null) g=new Graphics(p,1,1);
+    g=new Graphics(p,(int)Math.ceil(p.textWidth(title)),textSize*2);
     drawp();
   }
   public void drawp() {
     g.begin();
-    // p.textSize(textSize);
-    // p.text(title,0,0);
-    // p.textSize(textSize/3);
+    // p.textColor(0);
+    p.text(title,0,0);
     p.text(slogan[sloganPos],g.width()-p.textWidth(slogan[sloganPos]),textSize*1.33f);
     g.end();
   }

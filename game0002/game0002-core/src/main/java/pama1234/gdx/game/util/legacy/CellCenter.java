@@ -124,6 +124,10 @@ public class CellCenter extends EntityCenter<RealGame,Cell>{
     //   layer.pixels[i]=a|(layer.pixels[i]&0xffffff);
     // }
     // layer.updatePixels();
+    layer.begin();
+    // p.background(0, fadeStep);
+    p.background(0,fadeStep);
+    layer.end();
   }
   public void dispose() {
     // if(videoExport) temp.endMovie();

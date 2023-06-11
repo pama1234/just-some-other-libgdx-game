@@ -22,22 +22,27 @@ public class RealGame extends ScreenCore2D{
   }
   @Override
   public void setup() {
+    backgroundColor(255);
+    // backgroundColor(0);
     strokeWeight(Cell.size/4);
     noStroke();
-    backgroundColor(0);
     centerCam.add.add(pageCenter=new PageCenter(this,new StartPage(this),-640,0));
     pageCenter.list.add(new GamePage(this));
     pageCenter.list.add(new SettingsPage(this));
-    pageCenter.refreshDepc();
+    pageCenter.refresh();
     pageCenter.postSetDes();
     centerCam.add.add(info=new Info(this,520,-320));
   }
   @Override
   public void update() {}
   @Override
-  public void display() {}
+  public void display() {
+    // rect(0,0,u,u);
+  }
   @Override
-  public void displayWithCam() {}
+  public void displayWithCam() {
+    // rect(0,0,16,16);
+  }
   @Override
   public void frameResized() {}
   /**

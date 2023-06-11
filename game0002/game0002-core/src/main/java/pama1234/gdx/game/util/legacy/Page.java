@@ -6,6 +6,9 @@ import pama1234.gdx.util.wrapper.EntityWrapper;
 
 public abstract class Page<T extends RealGame,E extends Entity<?>>extends EntityWrapper<T,E>{
   public String name;
+  /**
+   * use content
+   */
   @Deprecated
   public final E e;
   public Page(T p,String name,E e) {

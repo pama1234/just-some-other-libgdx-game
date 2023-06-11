@@ -84,27 +84,10 @@ public class Info extends TextBoard implements ClipboardOwner{
     // g.endShape();
   }
   @Override
-  public void display() {
-    // System.out.println("Info.display()");
-    super.display();
-  }
-  @Override
   public void refreshDepc() {
     initLayer();
     drawLayer();
   }
-  @Override
-  public void init() {}
-  @Override
-  public void update() {
-    point.update();
-  }
-  @Override
-  public void pause() {}
-  @Override
-  public void resume() {}
-  @Override
-  public void dispose() {}
   @Override
   public void mousePressed(MouseInfo info) {
     final Vec2f pos=point.pos;

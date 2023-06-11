@@ -35,7 +35,7 @@ public class PageCenter extends TextBoard{
     select.init();
   }
   public void refreshDepc() {
-    if(g==null) g=new Graphics(p,1,1);
+    // if(g==null) g=new Graphics(p,1,1);
     initLayer();
     int tw=w;
     w=1;
@@ -62,7 +62,7 @@ public class PageCenter extends TextBoard{
     //    for(Page<?,?> i:list) i.update();
   }
   public void drawLayer() {
-    g.beginShape();
+    // g.beginShape();
     p.background(0xffF66104);
     UITools.border(g,0,0,g.width(),g.height());
     float ty=0;
@@ -77,7 +77,7 @@ public class PageCenter extends TextBoard{
       p.text(i.name,ts_d2,ty);
       ty+=textSize;
     }
-    g.endShape();
+    // g.endShape();
   }
   @Override
   public void display() {
