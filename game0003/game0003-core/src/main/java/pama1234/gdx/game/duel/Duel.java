@@ -163,7 +163,7 @@ public class Duel extends ScreenCore2D implements StateChanger0002{
   public void touchEnded(TouchInfo info) {}
   public void stateChangeEvent(ClientGameSystem system,int stateIndex) {
     if(system.stateIndex==ClientGameSystem.play) {
-      // neatE.time=0;
+     if(config.mode==neat) neatE.time=0;
     }else if(system.stateIndex==ClientGameSystem.result) {
       system.myGroup.player.engine.setScore(0,system.currentState.getScore(system.myGroup.id));
       system.otherGroup.player.engine.setScore(0,system.currentState.getScore(system.otherGroup.id));

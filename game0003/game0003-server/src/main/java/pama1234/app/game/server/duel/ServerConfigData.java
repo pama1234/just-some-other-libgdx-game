@@ -14,7 +14,5 @@ public class ServerConfigData{
   public void init() {
     mode=game;
     gameMode=GameMode.OffLine;
-    // skin=new ServerSkinData();
-    // skin.init();
   }
 }

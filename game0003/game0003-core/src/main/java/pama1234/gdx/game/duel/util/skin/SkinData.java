@@ -11,6 +11,9 @@ import com.badlogic.gdx.graphics.Color;
 import pama1234.app.game.server.duel.util.skin.ServerSkinData;
 import pama1234.gdx.game.duel.Duel;
 
+/**
+ * 很丑，得改
+ */
 public class SkinData{
   public Color shortbowArrow,longbowArrow,
     squareParticles,

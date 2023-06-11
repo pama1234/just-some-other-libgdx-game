@@ -9,6 +9,7 @@ import pama1234.math.UtilMath;
 
 public class AndroidCtrl extends Entity<Duel>{
   public Game pg;
+  public TextButton<?>[] buttons;
   public float maxDist;
   public float magCache;
   public float dxCache,dyCache;
@@ -19,8 +20,8 @@ public class AndroidCtrl extends Entity<Duel>{
   }
   @Override
   public void init() {
-    p.buttons=UiGenerator.genButtons_0010(p);
-    for(TextButton<?> e:pg.buttons) p.centerScreen.add.add(e);
+    buttons=UiGenerator.genButtons_0010(p);
+    for(TextButton<?> e:buttons) p.centerScreen.add.add(e);
     updateMaxDist();
   }
   /**
