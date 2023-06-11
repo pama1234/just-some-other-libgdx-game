@@ -20,7 +20,7 @@ public class AndroidCtrl extends Entity<Duel>{
   }
   @Override
   public void init() {
-    buttons=UiGenerator.genButtons_0010(p);
+    buttons=UiGenerator.genButtons_0001(p);
     for(TextButton<?> e:buttons) p.centerScreen.add.add(e);
     updateMaxDist();
   }

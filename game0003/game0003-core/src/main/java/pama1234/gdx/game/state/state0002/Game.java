@@ -12,6 +12,7 @@ import pama1234.gdx.game.duel.Duel;
 import pama1234.gdx.game.duel.State0002Util.StateEntity0002;
 import pama1234.gdx.game.duel.util.input.AndroidCtrl;
 import pama1234.gdx.game.duel.util.input.ClientInputData;
+import pama1234.gdx.game.duel.util.input.UiGenerator;
 import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.util.protobuf.InputDataProto;
@@ -40,6 +41,8 @@ public class Game extends StateEntity0002{
     newGame(true,true); // demo play (computer vs computer), shows instruction window
     //---
     if(p.config.gameMode==GameMode.OnLine) onlineGameSetup();
+    buttons=UiGenerator.genButtons_0002(p);
+    for(TextButton<?> e:buttons) p.centerScreen.add.add(e);
   }
   @Override
   public void display() {
@@ -96,5 +99,13 @@ public class Game extends StateEntity0002{
   @Override
   public void keyReleased(char key,int keyCode) {
     currentInput.keyReleased(p,key,keyCode);
+  }
+  @Override
+  public void from(StateEntity0002 in) {
+    paused=false;
+  }
+  @Override
+  public void to(StateEntity0002 in) {
+    paused=true;
   }
 }
