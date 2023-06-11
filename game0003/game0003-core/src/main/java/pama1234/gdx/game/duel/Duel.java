@@ -21,6 +21,7 @@ import pama1234.gdx.game.duel.util.ai.nnet.NeatCenter.NetworkGroupParam;
 import pama1234.gdx.game.duel.util.graphics.DemoInfo;
 import pama1234.gdx.game.duel.util.input.AndroidCtrl;
 import pama1234.gdx.game.duel.util.input.ClientInputData;
+import pama1234.gdx.game.duel.util.skin.SkinData;
 import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.util.app.ScreenCore2D;
 import pama1234.gdx.util.element.Graphics;
@@ -67,6 +68,7 @@ public class Duel extends ScreenCore2D{
   //---
   public DemoInfo demoInfo;
   public float strokeUnit;
+  public SkinData skin;
   //---
   public Config config;
   public FileHandle configFile;
@@ -93,6 +95,7 @@ public class Duel extends ScreenCore2D{
   public void init() {
     configFile=Gdx.files.local("data/config.yaml");
     config=loadConfig();
+    skin=new SkinData();
     super.init();
   }
   public Config loadConfig() {
