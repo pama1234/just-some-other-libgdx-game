@@ -21,9 +21,9 @@ public class TabCenter extends TextBoard{
   public void setSelect(Tab<?,?> select) {
     this.select=select;
     index=list.indexOf(select);
-    toolBar.refreshDepc();
-    lsHelper.refreshDepc();
-    scoreboard.refreshDepc();
+    toolBar.refresh();
+    lsHelper.refresh();
+    scoreboard.refresh();
   }
   public TabCenter(RealGame p,float x,float y) {
     super(p,x,y,1,1);

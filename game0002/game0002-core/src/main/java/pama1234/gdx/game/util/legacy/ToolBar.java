@@ -53,7 +53,7 @@ public class ToolBar extends TextBoard{
     drawLayer();
   }
   public void drawLayer() {
-    g.beginShape();
+    // g.beginShape();
     p.background(0xffF66104);
     UITools.border(g,0,0,g.width(),g.height());
     float ty=0;
@@ -70,9 +70,8 @@ public class ToolBar extends TextBoard{
       p.text(ts,ts_d2,ty);
       ty+=textSize;
     }
-    g.endShape();
+    // g.endShape();
   }
-  @SuppressWarnings("static-access")
   @Override
   public void update() {
     point.update();
