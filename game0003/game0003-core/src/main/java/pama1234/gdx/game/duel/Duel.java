@@ -95,17 +95,26 @@ public class Duel extends ScreenCore2D{
   public void init() {
     configFile=Gdx.files.local("data/config.yaml");
     config=loadConfig();
-    skin=new SkinData();
-    skin.init();
+    skin=new SkinData().fromServerSkinData(config.skin);
     super.init();
   }
   public Config loadConfig() {
+    Config out;
     if(configFile.exists()) {
-      return localization.yaml.loadAs(configFile.readString("UTF-8"),Config.class);
+      out=localization.yaml.loadAs(configFile.readString("UTF-8"),Config.class);
+      if(out.skin==null) {
+        SkinData skinData=new SkinData();
+        skinData.init();
+        out.skin=skinData.toServerSkinData();
+      }
     }else {
       Gdx.files.local("data").mkdirs();
-      return new Config().init();
+      out=new Config().init();
+      SkinData skinData=new SkinData();
+      skinData.init();
+      out.skin=skinData.toServerSkinData();
     }
+    return out;
   }
   @Override
   public void setup() {
