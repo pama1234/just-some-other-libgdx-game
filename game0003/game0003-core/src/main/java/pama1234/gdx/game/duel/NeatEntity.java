@@ -18,22 +18,24 @@ import pama1234.math.UtilMath;
 public class NeatEntity extends Entity<Duel> implements DisplayEntityListener{
   public Game pg;
   //---
+  public Graphics graphics;
   // public ShaderProgram polarShader;
   public ShaderProgram cartesianShader;
   public ClientFisheyeVision player_a,player_b;
   //---
   public int timeLimitConst=60*10;
   public int time,timeLimit=timeLimitConst;
-  public NeatEntity(Duel p,Game pg) {
+  public NeatEntity(Duel p,Game pg,boolean init) {
     super(p);
     this.pg=pg;
+    if(init) init();
   }
   @Override
   public void init() {
     p.param=new NetworkGroupParam(32);
     p.neatCenter=new NeatCenter(p.param);
     //---
-    p.graphics=new Graphics(p,CANVAS_SIZE,CANVAS_SIZE);
+    graphics=new Graphics(p,CANVAS_SIZE,CANVAS_SIZE);
     String polarVisionVert=Gdx.files.internal("shader/main0005/vision-polar.vert").readString(),
       polarVisionFrag=Gdx.files.internal("shader/main0005/vision-polar.frag").readString();
     String cartesianVisionVert=Gdx.files.internal("shader/main0005/example.vert").readString(),
@@ -75,10 +77,10 @@ public class NeatEntity extends Entity<Duel> implements DisplayEntityListener{
   }
   @Override
   public void displayCam() {
-    p.graphics.begin();
+    graphics.begin();
     p.background(255);
     pg.system.display();
-    p.graphics.end();
+    graphics.end();
     player_a.render();
     player_b.render();
     //---
@@ -86,7 +88,7 @@ public class NeatEntity extends Entity<Duel> implements DisplayEntityListener{
     cartesianShader.setUniformf("u_dist",player_a.camX/CANVAS_SIZE,player_a.camY/CANVAS_SIZE);
     p.image(player_a.graphics.texture,-656,0,CANVAS_SIZE,CANVAS_SIZE,cartesianShader);
     //---
-    p.image(p.graphics.texture,0,0,CANVAS_SIZE,CANVAS_SIZE);
+    p.image(graphics.texture,0,0,CANVAS_SIZE,CANVAS_SIZE);
     //---
     cartesianShader.bind();
     cartesianShader.setUniformf("u_dist",player_b.camX/CANVAS_SIZE,player_b.camY/CANVAS_SIZE);

@@ -31,7 +31,7 @@ public class ClientFisheyeVision extends AbstractFisheyeVision{
   public void render() {
     graphics.begin();
     p.background(backgroundColor);
-    p.image(p.graphics.texture,0,0,graphics.width(),graphics.height(),shader);
+    p.image(graphics.texture,0,0,graphics.width(),graphics.height(),shader);
     graphics.end();
   }
 }

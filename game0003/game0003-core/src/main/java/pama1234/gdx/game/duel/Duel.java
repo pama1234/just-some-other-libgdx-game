@@ -6,7 +6,6 @@ import static pama1234.app.game.server.duel.util.Const.CANVAS_SIZE;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
 
-import pama1234.app.game.server.duel.ServerConfigData;
 import pama1234.gdx.game.duel.NetUtil.ClientConfig;
 import pama1234.gdx.game.duel.NetUtil.GameClient;
 import pama1234.gdx.game.duel.NetUtil.LoginInfo;
@@ -18,7 +17,6 @@ import pama1234.gdx.game.duel.util.ai.nnet.NeatCenter.NetworkGroupParam;
 import pama1234.gdx.game.duel.util.graphics.DemoInfo;
 import pama1234.gdx.game.duel.util.skin.SkinData;
 import pama1234.gdx.util.app.ScreenCore2D;
-import pama1234.gdx.util.element.Graphics;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.util.localization.Localization;
@@ -58,9 +56,8 @@ public class Duel extends ScreenCore2D implements StateChanger0002{
   public float strokeUnit;
   public SkinData skin;
   //---
-  public ServerConfigData config;
+  public Config config;
   public FileHandle configFile;
-  public Graphics graphics;
   //---
   public NeatEntity neatE;
   public NeatCenter neatCenter;
@@ -87,8 +84,8 @@ public class Duel extends ScreenCore2D implements StateChanger0002{
     }
     super.init();
   }
-  public ServerConfigData loadConfig() {
-    ServerConfigData out;
+  public Config loadConfig() {
+    Config out;
     if(configFile.exists()) {
       out=localization.yaml.loadAs(configFile.readString("UTF-8"),Config.class);
     }else {
@@ -106,15 +103,15 @@ public class Duel extends ScreenCore2D implements StateChanger0002{
     //---
     TextUtil.used=TextUtil.gen_ch(this::textWidthNoScale);
     //---
-    if(config.mode==neat) {
-      neatE=new NeatEntity(this,stateCenter.game);
-      neatE.init();
-    }
+    if(config.mode==neat) neatE=new NeatEntity(this,stateCenter.game,true);
     //---
     backgroundColor(skin.background);
     setTextColor(skin.text);
     demoInfo=new DemoInfo(this);
     //---
+    setupCamera();
+  }
+  public void setupCamera() {
     cam.point.des.set(canvasSideLength/2f,canvasSideLength/2f);
     cam.point.pos.set(cam.point.des);
     if(config.mode==neat) {
