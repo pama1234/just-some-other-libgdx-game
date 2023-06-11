@@ -5,7 +5,6 @@ import static pama1234.app.game.server.duel.util.Const.CANVAS_SIZE;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
 import pama1234.app.game.server.duel.ServerConfigData;
 import pama1234.gdx.game.duel.NetUtil.ClientConfig;
@@ -14,7 +13,6 @@ import pama1234.gdx.game.duel.NetUtil.LoginInfo;
 import pama1234.gdx.game.duel.State0002Util.StateCenter0002;
 import pama1234.gdx.game.duel.State0002Util.StateChanger0002;
 import pama1234.gdx.game.duel.State0002Util.StateEntity0002;
-import pama1234.gdx.game.duel.util.ai.nnet.ClientFisheyeVision;
 import pama1234.gdx.game.duel.util.ai.nnet.NeatCenter;
 import pama1234.gdx.game.duel.util.ai.nnet.NeatCenter.NetworkGroupParam;
 import pama1234.gdx.game.duel.util.graphics.DemoInfo;
@@ -67,12 +65,6 @@ public class Duel extends ScreenCore2D implements StateChanger0002{
   public NeatEntity neatE;
   public NeatCenter neatCenter;
   public NetworkGroupParam param;
-  //---
-  // public ShaderProgram polarShader;
-  public ShaderProgram cartesianShader;
-  public ClientFisheyeVision player_a,player_b;
-  public int timeLimitConst=60*10;
-  public int time,timeLimit=timeLimitConst;
   //---
   public GameClient gameClient;
   public ClientConfig clientConfig;
@@ -173,8 +165,9 @@ public class Duel extends ScreenCore2D implements StateChanger0002{
   @Override
   public void touchEnded(TouchInfo info) {}
   public void stateChangeEvent(ClientGameSystem system,int stateIndex) {
-    if(system.stateIndex==ClientGameSystem.play) time=0;
-    else if(system.stateIndex==ClientGameSystem.result) {
+    if(system.stateIndex==ClientGameSystem.play) {
+      // neatE.time=0;
+    }else if(system.stateIndex==ClientGameSystem.result) {
       system.myGroup.player.engine.setScore(0,system.currentState.getScore(system.myGroup.id));
       system.otherGroup.player.engine.setScore(0,system.currentState.getScore(system.otherGroup.id));
     }

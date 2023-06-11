@@ -79,7 +79,7 @@ public final class ClientGameSystem extends ServerGameSystem{
     if(duel.config.mode==ServerConfigData.neat) {
       // if(type) return new ComputerPlayerEngine(duel::random);
       // else return new ComputerLifeEngine((type?duel.player_a:duel.player_b).graphics,duel.neatCenter.getNext());
-      return new ComputerLifeEngine((side?duel.player_a:duel.player_b).graphics,duel.neatCenter.getNext(),side);
+      return new ComputerLifeEngine((side?duel.neatE.player_a:duel.neatE.player_b).graphics,duel.neatCenter.getNext(),side);
     }else return new ComputerPlayerEngine(duel::random);
   }
   public void update() {
