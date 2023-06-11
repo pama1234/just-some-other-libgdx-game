@@ -95,6 +95,8 @@ public class Duel extends ScreenCore2D{
     configFile=Gdx.files.local("data/config.yaml");
     config=loadConfig();
     skin=config.skin;
+    // System.out.println(localization.yaml.dumpAsMap(skin));
+    // skin.toData();
     // skin=new SkinData().fromServerSkinData(config.skin);
     super.init();
   }

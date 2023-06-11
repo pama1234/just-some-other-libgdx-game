@@ -8,7 +8,7 @@ public class ServerConfigData{
   public static final int game=0,neat=1;
   public int mode;
   public GameMode gameMode;
-  // public SkinData skin;
+  // public ServerSkinData skin;
   public void init() {
     mode=game;
     gameMode=GameMode.OffLine;
