@@ -1,8 +1,6 @@
 package pama1234.app.game.server.duel;
 
-import pama1234.app.game.server.duel.util.skin.ServerSkinData;
-
-public class Config{
+public class ServerConfigData{
   public enum GameMode{
     OnLine,
     OffLine
@@ -10,12 +8,11 @@ public class Config{
   public static final int game=0,neat=1;
   public int mode;
   public GameMode gameMode;
-  public ServerSkinData skin;
-  public Config init() {
+  // public SkinData skin;
+  public void init() {
     mode=game;
     gameMode=GameMode.OffLine;
     // skin=new ServerSkinData();
     // skin.init();
-    return this;
   }
 }

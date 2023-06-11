@@ -33,20 +33,22 @@ public class DuelServer extends UtilServer{
   public static final Localization localization=new Localization();
   public File mainDir=new File(System.getProperty("user.dir")+"/data/server/duel");
   public File configFile;
-  public Config loadConfig() {
+  public ServerConfigData loadConfig() {
     configFile=new File(mainDir,"config.yaml");
     if(configFile.exists()) {
-      return localization.yaml.loadAs(loadString(configFile),Config.class);
+      return localization.yaml.loadAs(loadString(configFile),ServerConfigData.class);
     }else {
       mainDir.mkdirs();
-      return new Config().init();
+      var out=new ServerConfigData();
+      out.init();
+      return out;
     }
   }
   public PointUpdate.Builder pointUpdateBuilder;
   public PointUpdateList.Builder pointUpdateListBuilder;
   public boolean paused;
   public ServerInputData input_a,input_b;
-  public Config config;
+  public ServerConfigData config;
   public ServerGameSystem system;
   public ServerFisheyeVision player_a,player_b;
   public int timeLimitConst=60*10;
@@ -64,7 +66,7 @@ public class DuelServer extends UtilServer{
       //---
       system.update();
       //---
-      if(config.mode==Config.neat) {
+      if(config.mode==ServerConfigData.neat) {
         if(system.stateIndex==ServerGameSystem.play) {
           time++;
           system.myGroup.player.engine.setScore(1,system.currentState.getScore(system.myGroup.id));

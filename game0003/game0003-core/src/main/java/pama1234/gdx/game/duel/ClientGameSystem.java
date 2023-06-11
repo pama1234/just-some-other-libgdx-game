@@ -1,6 +1,6 @@
 package pama1234.gdx.game.duel;
 
-import pama1234.app.game.server.duel.Config;
+import pama1234.app.game.server.duel.ServerConfigData;
 import pama1234.app.game.server.duel.ServerGameSystem;
 import pama1234.app.game.server.duel.util.Const;
 import pama1234.app.game.server.duel.util.ai.mesh.ComputerPlayerEngine;
@@ -54,7 +54,7 @@ public final class ClientGameSystem extends ServerGameSystem{
       if(duel.isAndroid) myEngine=new ClientAndroidHumanPlayerEngine(duel.currentInput);
       else myEngine=new ClientHumanPlayerEngine(duel.currentInput);
     }
-    ClientPlayerActor myPlayer=new ClientPlayerActor(duel,myEngine,duel.config.mode==Config.neat?duel.skin.player_b:duel.skin.player_a);
+    ClientPlayerActor myPlayer=new ClientPlayerActor(duel,myEngine,duel.config.mode==ServerConfigData.neat?duel.skin.player_b:duel.skin.player_a);
     myPlayer.xPosition=Const.CANVAS_SIZE*0.5f;
     myPlayer.yPosition=Const.CANVAS_SIZE-100;
     myPlayer.state=moveState;
@@ -73,7 +73,7 @@ public final class ClientGameSystem extends ServerGameSystem{
     showsInstructionWindow=instruction;
   }
   public PlayerEngine createComputerEngine(boolean side) {
-    if(duel.config.mode==Config.neat) {
+    if(duel.config.mode==ServerConfigData.neat) {
       // if(type) return new ComputerPlayerEngine(duel::random);
       // else return new ComputerLifeEngine((type?duel.player_a:duel.player_b).graphics,duel.neatCenter.getNext());
       return new ComputerLifeEngine((side?duel.player_a:duel.player_b).graphics,duel.neatCenter.getNext(),side);

@@ -1,6 +1,6 @@
 package pama1234.gdx.game.duel;
 
-import static pama1234.app.game.server.duel.Config.neat;
+import static pama1234.app.game.server.duel.ServerConfigData.neat;
 import static pama1234.app.game.server.duel.util.Const.CANVAS_SIZE;
 
 import java.io.IOException;
@@ -10,8 +10,7 @@ import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
-import pama1234.app.game.server.duel.Config;
-import pama1234.app.game.server.duel.Config.GameMode;
+import pama1234.app.game.server.duel.ServerConfigData.GameMode;
 import pama1234.gdx.game.duel.NetUtil.ClientConfig;
 import pama1234.gdx.game.duel.NetUtil.GameClient;
 import pama1234.gdx.game.duel.NetUtil.LoginInfo;
@@ -95,7 +94,8 @@ public class Duel extends ScreenCore2D{
   public void init() {
     configFile=Gdx.files.local("data/config.yaml");
     config=loadConfig();
-    skin=new SkinData().fromServerSkinData(config.skin);
+    skin=config.skin;
+    // skin=new SkinData().fromServerSkinData(config.skin);
     super.init();
   }
   public Config loadConfig() {
@@ -105,14 +105,15 @@ public class Duel extends ScreenCore2D{
       if(out.skin==null) {
         SkinData skinData=new SkinData();
         skinData.init();
-        out.skin=skinData.toServerSkinData();
+        out.skin=skinData;
       }
     }else {
       Gdx.files.local("data").mkdirs();
-      out=new Config().init();
+      out=new Config();
+      out.init();
       SkinData skinData=new SkinData();
       skinData.init();
-      out.skin=skinData.toServerSkinData();
+      out.skin=skinData;
     }
     return out;
   }

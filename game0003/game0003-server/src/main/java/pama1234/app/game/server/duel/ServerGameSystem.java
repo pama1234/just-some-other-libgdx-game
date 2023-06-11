@@ -77,7 +77,7 @@ public class ServerGameSystem{
     // showsInstructionWindow=instruction;
   }
   public PlayerEngine createComputerEngine(boolean side) {
-    if(duelServer.config.mode==Config.neat) {
+    if(duelServer.config.mode==ServerConfigData.neat) {
       // if(type) return new ComputerPlayerEngine(duel::random);
       // else return new ComputerLifeEngine((type?duel.player_a:duel.player_b).graphics,duel.neatCenter.getNext());
       // return new ComputerLifeEngine((side?duelServer.player_a:duelServer.player_b).graphics,duelServer.neatCenter.getNext(),side);
