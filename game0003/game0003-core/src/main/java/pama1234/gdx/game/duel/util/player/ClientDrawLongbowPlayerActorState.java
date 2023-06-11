@@ -17,12 +17,13 @@ public final class ClientDrawLongbowPlayerActorState extends ServerDrawLongbowPl
   private final Duel duel;
   public final float unitAngleSpeed=0.1f*UtilMath.PI2/Const.IDEAL_FRAME_RATE;
   public final int chargeRequiredFrameCount=UtilMath.floor(0.5f*Const.IDEAL_FRAME_RATE);
-  public final Color effectColor=Duel.color(192,64,64);
+  public final Color effectColor;
   public final float ringSize=80;
   public final float ringStrokeWeight=8;
   public ClientDrawLongbowPlayerActorState(Duel duel) {
     super(null);
     this.duel=duel;
+    effectColor=duel.skin.longbowEffect;
   }
   @Override
   public PlayerActorState entryState(ServerPlayerActor parentActor) {
@@ -55,7 +56,7 @@ public final class ClientDrawLongbowPlayerActorState extends ServerDrawLongbowPl
       .position(parentActor.xPosition,parentActor.yPosition)
       .polarVelocity(0,0)
       .rotation(parentActor.aimAngle)
-      .particleColor(Duel.color(192,64,64))
+      .particleColor(duel.skin.longbowLine)
       .lifespanSecond(2)
       .weight(16)
       .build();

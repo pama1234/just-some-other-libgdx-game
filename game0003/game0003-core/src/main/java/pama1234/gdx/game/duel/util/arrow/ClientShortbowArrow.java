@@ -22,7 +22,7 @@ public class ClientShortbowArrow extends ServerShortbowArrow{
         .position(this.xPosition,this.yPosition)
         .polarVelocity(particleDirectionAngle,particleSpeed)
         .particleSize(2)
-        .particleColor(Duel.color(192))
+        .particleColor(duel.skin.shortbowArrow)
         .lifespanSecond(0.5f)
         .build();
       duel.system.commonParticleSet.particleList.add(newParticle);

@@ -21,7 +21,7 @@ public abstract class ClientLongbowArrowComponent extends AbstractArrowActor{
         .position(this.xPosition,this.yPosition)
         .polarVelocity(particleDirectionAngle,particleSpeed)
         .particleSize(4)
-        .particleColor(Duel.color(64))
+        .particleColor(duel.skin.longbowArrow)
         .lifespanSecond(1)
         .build();
       duel.system.commonParticleSet.particleList.add(newParticle);

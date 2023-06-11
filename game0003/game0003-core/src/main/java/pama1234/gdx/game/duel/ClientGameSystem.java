@@ -108,7 +108,7 @@ public final class ClientGameSystem extends ServerGameSystem{
       .type(Particle.square)
       .position(x,y)
       .particleSize(particleSize)
-      .particleColor(Duel.color(0))
+      .particleColor(duel.skin.squareParticles)
       .lifespanSecond(lifespanSecondValue);
     for(int i=0;i<particleCount;i++) {
       final Particle newParticle=builder
