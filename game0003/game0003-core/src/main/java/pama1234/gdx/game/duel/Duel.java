@@ -15,6 +15,9 @@ import pama1234.app.game.server.duel.ServerConfigData.GameMode;
 import pama1234.gdx.game.duel.NetUtil.ClientConfig;
 import pama1234.gdx.game.duel.NetUtil.GameClient;
 import pama1234.gdx.game.duel.NetUtil.LoginInfo;
+import pama1234.gdx.game.duel.State0002Util.StateCenter0002;
+import pama1234.gdx.game.duel.State0002Util.StateChanger0002;
+import pama1234.gdx.game.duel.State0002Util.StateEntity0002;
 import pama1234.gdx.game.duel.util.ai.nnet.ClientFisheyeVision;
 import pama1234.gdx.game.duel.util.ai.nnet.NeatCenter;
 import pama1234.gdx.game.duel.util.ai.nnet.NeatCenter.NetworkGroupParam;
@@ -54,7 +57,7 @@ import pama1234.util.protobuf.InputDataProto.InputData;
  *
  * The font "Unifont" https://unifoundry.com/unifont/ is part of the GNU Project.
  */
-public class Duel extends ScreenCore2D{
+public class Duel extends ScreenCore2D implements StateChanger0002{
   //---
   public static final Localization localization=new Localization();
   // public static LocalBundleCenter bundleCenter;
@@ -88,6 +91,9 @@ public class Duel extends ScreenCore2D{
   public ClientConfig clientConfig;
   public LoginInfo loginInfo;
   public InputDataProto.InputData.Builder inputDataBuilder;
+  //---
+  public StateCenter0002 stateCenter;
+  public StateEntity0002 state;
   {
     // isAndroid=true;
   }
@@ -115,6 +121,9 @@ public class Duel extends ScreenCore2D{
   }
   @Override
   public void setup() {
+    stateCenter=new StateCenter0002(this);
+    State0002Util.loadState0002(this,stateCenter);
+    //---
     TextUtil.used=TextUtil.gen_ch(this::textWidthNoScale);
     if(isAndroid) {
       actrl=new AndroidCtrl(this);
@@ -232,5 +241,23 @@ public class Duel extends ScreenCore2D{
       system.myGroup.player.engine.setScore(0,system.currentState.getScore(system.myGroup.id));
       system.otherGroup.player.engine.setScore(0,system.currentState.getScore(system.otherGroup.id));
     }
+  }
+  @Override
+  public StateEntity0002 state(StateEntity0002 in) {
+    StateEntity0002 out=state;
+    state=in;
+    if(out!=null) {
+      centerScreen.remove.add(out);
+      centerCam.remove.add(out.displayCam);
+      out.to(in);
+      out.pause();
+    }
+    if(in!=null) {
+      in.resume();
+      in.from(state);
+      centerScreen.add.add(in);
+      centerCam.add.add(in.displayCam);
+    }
+    return out;
   }
 }
