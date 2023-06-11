@@ -54,13 +54,13 @@ public final class ClientGameSystem extends ServerGameSystem{
       if(duel.isAndroid) myEngine=new ClientAndroidHumanPlayerEngine(duel.currentInput);
       else myEngine=new ClientHumanPlayerEngine(duel.currentInput);
     }
-    ClientPlayerActor myPlayer=new ClientPlayerActor(duel,myEngine,duel.config.mode==Config.neat?Duel.color(0):Duel.color(255));
+    ClientPlayerActor myPlayer=new ClientPlayerActor(duel,myEngine,duel.config.mode==Config.neat?duel.skin.player_b:duel.skin.player_a);
     myPlayer.xPosition=Const.CANVAS_SIZE*0.5f;
     myPlayer.yPosition=Const.CANVAS_SIZE-100;
     myPlayer.state=moveState;
     myGroup.setPlayer(myPlayer);
     PlayerEngine otherEngine=createComputerEngine(false);
-    ClientPlayerActor otherPlayer=new ClientPlayerActor(duel,otherEngine,Duel.color(0));
+    ClientPlayerActor otherPlayer=new ClientPlayerActor(duel,otherEngine,duel.skin.player_b);
     otherPlayer.xPosition=Const.CANVAS_SIZE*0.5f;
     otherPlayer.yPosition=100;
     otherPlayer.state=moveState;
@@ -68,7 +68,7 @@ public final class ClientGameSystem extends ServerGameSystem{
     // other
     commonParticleSet=new ParticleSet(duel,2048);
     currentState(new ClientStartGameState(duel,this));
-    currentBackground=new GameBackground(duel,Duel.color(224),0.1f);
+    currentBackground=new GameBackground(duel,duel.skin.background,0.1f);
     // demoPlay=demo;
     showsInstructionWindow=instruction;
   }

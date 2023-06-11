@@ -9,15 +9,16 @@ import pama1234.gdx.game.duel.util.graphics.Particle;
 import pama1234.math.UtilMath;
 
 public final class ClientStartGameState extends ClientGameSystemState{
+  public final int frameCountPerNumber=UtilMath.floor(Const.IDEAL_FRAME_RATE);
+  public final float ringSize=200;
+  public final Color ringColor;
+  public final float ringStrokeWeight=5.0f;
+  public int displayNumber=3;
   public ClientStartGameState(Duel duel,ClientGameSystem system) {
     super(duel,system);
     system.stateIndex=ClientGameSystem.start;
+    ringColor=duel.skin.ring;
   }
-  public final int frameCountPerNumber=UtilMath.floor(Const.IDEAL_FRAME_RATE);
-  public final float ringSize=200;
-  public final Color ringColor=Duel.color(0);
-  public final float ringStrokeWeight=5.0f;
-  public int displayNumber=3;
   @Override
   public void updateSystem() {
     system.myGroup.update();

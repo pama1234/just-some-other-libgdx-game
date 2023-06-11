@@ -19,7 +19,7 @@ public class ClientFisheyeVision extends AbstractFisheyeVision{
     this.duel=duel;
     this.shader=shader;
     this.graphics=graphics;
-    backgroundColor=Duel.color(191);
+    backgroundColor=duel.skin.neatVoidBackground;
   }
   @Override
   public void update(AbstractPlayerActor player) {

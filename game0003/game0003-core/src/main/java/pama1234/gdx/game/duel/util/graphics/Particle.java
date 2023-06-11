@@ -67,7 +67,7 @@ public final class Particle extends Body implements Poolable<Particle>{
     directionAngle=0;
     speed=0;
     rotationAngle=0;
-    displayColor=Duel.color(0);
+    displayColor=duel.skin.particleDefault;
     strokeWeightValue=1;
     displaySize=10;
     lifespanFrameCount=0;
