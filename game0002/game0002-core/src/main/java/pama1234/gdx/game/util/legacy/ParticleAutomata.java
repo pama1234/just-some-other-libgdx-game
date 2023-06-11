@@ -88,7 +88,7 @@ public class ParticleAutomata extends EntityCenter<RealGame,Entity<?>>{
     add.add(scoreboard);
     //---
     tabs.setSelect(tab);
-    tabs.refreshDepc();
+    tabs.refresh();
     final float[][] rules=new float[][] {
       {0,1,-1,-1,0,0,0,0,0,0,0,1},
       {1,0,1,-1,-1,0,0,0,0,0,0,0},
@@ -121,7 +121,7 @@ public class ParticleAutomata extends EntityCenter<RealGame,Entity<?>>{
     }
     for(int i=0;i<array.length;i++) array[i].refresh(array.length);
     // p.colorMode(PConstants.HSB);
-    for(int i=0;i<array.length;i++) array[i].color=Tools.hsbColor(255f/array.length*i,255,255);
+    for(int i=0;i<array.length;i++) array[i].color(Tools.hsbColor(255f/array.length*i,255,255));
     // p.colorMode(PConstants.RGB);
     final int size=1<<6;
     for(int i=0;i<array.length;i++) for(int j=0;j<size;j++) cellList.add.add(new Cell(p,cellList,i,p.random(-320,320),p.random(-320,320)));

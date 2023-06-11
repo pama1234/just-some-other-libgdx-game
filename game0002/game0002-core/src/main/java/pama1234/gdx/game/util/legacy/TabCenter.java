@@ -55,7 +55,7 @@ public class TabCenter extends TextBoard{
     for(Tab<?,?> i:list) i.update();
   }
   public void drawLayer() {
-    beginDraw();
+    // beginDraw();
     p.background(0xffF66104);
     UITools.border(g,0,0,g.width(),g.height());
     float ty=0;
@@ -73,7 +73,7 @@ public class TabCenter extends TextBoard{
       p.text(i.name,ts_d2,ty);
       ty+=textSize;
     }
-    endDraw();
+    // endDraw();
   }
   @Override
   public void display() {

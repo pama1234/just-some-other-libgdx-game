@@ -3,7 +3,6 @@ package pama1234.gdx.game.util.legacy;
 import pama1234.gdx.game.app.app0002.RealGame;
 import pama1234.gdx.util.element.Graphics;
 import pama1234.gdx.util.entity.Entity;
-import pama1234.gdx.util.info.MouseInfo;
 import pama1234.math.physics.PathPoint;
 
 public class Welcome extends Entity<RealGame>{
@@ -32,8 +31,6 @@ public class Welcome extends Entity<RealGame>{
     g.end();
   }
   @Override
-  public void init() {}
-  @Override
   public void update() {
     point.update();
   }
@@ -41,30 +38,4 @@ public class Welcome extends Entity<RealGame>{
   public void display() {
     p.image(g.texture,point.pos.x-p.width/2,point.pos.y-p.height/2);
   }
-  @Override
-  public void pause() {}
-  @Override
-  public void resume() {}
-  @Override
-  public void dispose() {}
-  @Override
-  public void mousePressed(MouseInfo info) {}
-  @Override
-  public void mouseReleased(MouseInfo info) {}
-  @Override
-  public void mouseMoved() {}
-  @Override
-  public void mouseDragged() {}
-  @Override
-  public void mouseWheel(float x,float y) {}
-  @Override
-  public void keyPressed(char key,int keyCode) {}
-  @Override
-  public void keyReleased(char key,int keyCode) {}
-  @Override
-  public void keyTyped(char key) {}
-  @Override
-  public void frameResized(int w,int h) {}
-  @Override
-  public void frameMoved(int x,int y) {}
 }

@@ -39,7 +39,7 @@ public class Cell extends Entity<RealGame>{
   @SuppressWarnings("static-access")
   @Override
   public void display() {
-    p.fill(parent.meta.list.get(meta).color);
+    p.fill(parent.meta.list.get(meta).colorCache);
     if(parent.boxed) {
       p.circle(
         point.pos.x-parent.x1+layer_cell_size,

@@ -66,7 +66,7 @@ public class Scoreboard extends TextBoard{
     if(parent.toolBar.select!=null) {
       score=parent.toolBar.select.score.pos;
     }
-    refreshDepc();
+    refresh();
   }
   @Override
   public void display() {

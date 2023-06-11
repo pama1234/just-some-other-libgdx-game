@@ -9,7 +9,7 @@ public class CellCenter extends EntityCenter<RealGame,Cell>{
   private static final float r_const=Cell.dist/4;
   private static final int boxR=320;
   public static final int layer_cell_size=(int)Cell.size;
-  private static final int fadeStep=16;
+  // private static final int fadeStep=16;
   public final MetaCellCenter meta;
   public static final boolean boxed=true;
   public static final int x1=-boxR,y1=-boxR,x2=boxR,y2=boxR;
@@ -77,20 +77,26 @@ public class CellCenter extends EntityCenter<RealGame,Cell>{
       }
     }
     //---
-    fade();
-    layer.beginShape();
-    super.display();
-    layer.endShape();
-    box();
+    // drawCanvas();
   }
-  private void box() {
+  public void drawCanvas() {
+    p.endShape();
     layer.begin();
+    fade();
+    // layer.beginShape();
+    p.beginShape();
+    super.display();
+    box();
+    layer.endShape();
+  }
+  public void box() {
+    // layer.begin();
     p.noFill();
     p.stroke(255);
     if(boxed) p.rect(0,0,layer.width()-1,layer.height()-1);
     else p.rect(w/4f-layer_cell_size/2,h/4f-layer_cell_size/2,w-1+layer_cell_size,h-1+layer_cell_size);
     p.noStroke();
-    layer.end();
+    // layer.end();
   }
   public float f(final float r,final float g) {
     return g/r;
@@ -100,6 +106,7 @@ public class CellCenter extends EntityCenter<RealGame,Cell>{
   }
   @Override
   public void display() {
+    drawCanvas();
     // if(videoExport) {
     //   tg.begin();
     //   tg.background(0);
@@ -112,7 +119,7 @@ public class CellCenter extends EntityCenter<RealGame,Cell>{
     else p.image(layer.texture,x1-w/4f,y1-h/4f);
     // }
   }
-  private void fade() {
+  public void fade() {
     // layer.loadPixels();
     // for(int i=0;i<layer.pixels.length;i++) {
     //   int a=(layer.pixels[i]&0xff000000)>>>24;
@@ -124,10 +131,11 @@ public class CellCenter extends EntityCenter<RealGame,Cell>{
     //   layer.pixels[i]=a|(layer.pixels[i]&0xffffff);
     // }
     // layer.updatePixels();
-    layer.begin();
+    // layer.begin();
     // p.background(0, fadeStep);
-    p.background(0,fadeStep);
-    layer.end();
+    p.background(0);
+    // p.background(0,fadeStep);
+    // layer.end();
   }
   public void dispose() {
     // if(videoExport) temp.endMovie();

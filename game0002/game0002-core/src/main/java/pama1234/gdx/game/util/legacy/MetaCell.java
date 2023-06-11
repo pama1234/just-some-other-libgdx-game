@@ -22,7 +22,15 @@ public class MetaCell extends Entity<RealGame>{
   public final String name;
   public final int id;
   public int color=hashCode();
+  public void color(int color) {
+    this.color=color;
+    colorCache=new Color(color);
+  }
+  public Color colorCache;
   public final ArrayList<MetaInfo> list;
+  {
+    color(hashCode());
+  }
   public MetaCell(RealGame p,MetaCellCenter parent,String name) {
     this(p,parent,name,new ArrayList<MetaInfo>(parent.list.size()));
   }

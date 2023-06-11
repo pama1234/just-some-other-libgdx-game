@@ -243,7 +243,7 @@ public class ToolBar extends TextBoard{
   public void keyPressed(char key,int keyCode) {
     if(key==' ') {
       parent.select.update=!parent.select.update;
-      parent.refreshDepc();
+      parent.refresh();
     }
     final int ti=parent.index;
     if(ti==1) {
