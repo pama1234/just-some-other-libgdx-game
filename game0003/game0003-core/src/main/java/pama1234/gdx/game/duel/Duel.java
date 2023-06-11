@@ -100,6 +100,8 @@ public class Duel extends ScreenCore2D{
       skin=new SkinData();
       skin.init();
     }
+    // System.out.println(skin.longbowArrow);
+    // System.out.println(localization.yaml.dumpAsMap(skin));
     // skin.toData();
     super.init();
   }
@@ -107,22 +109,22 @@ public class Duel extends ScreenCore2D{
     ServerConfigData out;
     if(configFile.exists()) {
       out=localization.yaml.loadAs(configFile.readString("UTF-8"),Config.class);
-      if(out.skin==null) {
-        initSkin(out);
-      }
+      // if(out.skin==null) {
+      //   initSkin(out);
+      // }
     }else {
       Gdx.files.local("data").mkdirs();
       out=new Config();
       out.init();
-      initSkin(out);
+      // initSkin(out);
     }
     return out;
   }
-  public void initSkin(ServerConfigData out) {
-    SkinData skinData=new SkinData();
-    skinData.init();
-    // out.skin=skinData.toData();
-  }
+  // public void initSkin(ServerConfigData out) {
+  //   SkinData skinData=new SkinData();
+  //   skinData.init();
+  //   // out.skin=skinData.toData();
+  // }
   @Override
   public void setup() {
     TextUtil.used=TextUtil.gen_ch(this::textWidthNoScale);

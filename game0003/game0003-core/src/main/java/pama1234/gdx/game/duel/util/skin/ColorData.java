@@ -4,12 +4,12 @@ import java.util.LinkedHashMap;
 
 import com.badlogic.gdx.graphics.Color;
 
-public class ColorTemp{
+public class ColorData{
   public float a,r,g,b;
-  public ColorTemp() {}
+  public ColorData() {}
   @Override
   public String toString() {
-    return "0x"+Integer.toHexString(Color.argb8888(a,r,g,b));
+    return "0x"+Integer.toHexString(Color.rgba8888(r,g,b,a));
   }
   public void load(LinkedHashMap<String,Object> in) {
     a=Float.parseFloat(in.get("a").toString());

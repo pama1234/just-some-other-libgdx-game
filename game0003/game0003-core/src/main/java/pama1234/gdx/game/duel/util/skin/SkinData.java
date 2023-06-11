@@ -26,13 +26,21 @@ public class SkinData{
     LinkedHashMap<String,Object> map=yaml.load(string);
     Set<Entry<String,Object>> entrySet=map.entrySet();
     for(Entry<String,Object> e:entrySet) {
+      // System.out.println(e.getKey());
       String inValue=in.data.get(e.getKey());
-      e.setValue(fromStringColor(inValue));
+      // System.out.println(in.data.get(e.getKey()));
+      // System.out.println(fromStringColor(inValue).r);
+      e.setValue(yaml.dumpAsMap(fromStringColor(inValue)));
+      // System.out.println(e.getValue());
     }
+    // System.out.println(yaml.dump(map));
+    out=yaml.loadAs(yaml.dump(map).replace("|",""),SkinData.class);
     return out;
   }
   public static Color fromStringColor(String in) {
-    return new Color(Long.decode(in).intValue());
+    Long decode=Long.decode(in);
+    int intValue=(int)(decode.longValue()&0xffffffff);
+    return new Color(intValue);
   }
   public void init() {
     shortbowArrow=Duel.color(192);
@@ -61,7 +69,7 @@ public class SkinData{
     for(Entry<String,Object> e:entrySet) {
       LinkedHashMap<String,Object> value=(LinkedHashMap<String,Object>)e.getValue();
       // System.out.println(value);
-      ColorTemp tc=new ColorTemp();
+      ColorData tc=new ColorData();
       tc.load(value);
       e.setValue(tc.toString());
     }
