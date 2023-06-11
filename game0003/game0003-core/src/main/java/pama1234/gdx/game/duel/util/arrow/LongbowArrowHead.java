@@ -10,20 +10,20 @@ public final class LongbowArrowHead extends ClientLongbowArrowComponent{
   }
   @Override
   public void display() {
-    duel.strokeWeight(5);
-    duel.doStroke();
-    duel.stroke(0);
-    duel.doFill();
-    duel.fill(0);
-    duel.pushMatrix();
-    duel.translate(xPosition,yPosition);
-    duel.rotate(rotationAngle);
-    duel.line(-halfLength,0,0,0);
-    duel.quad(
+    p.strokeWeight(5);
+    p.doStroke();
+    p.stroke(p.skin.stroke);
+    p.doFill();
+    p.fill(0);
+    p.pushMatrix();
+    p.translate(xPosition,yPosition);
+    p.rotate(rotationAngle);
+    p.line(-halfLength,0,0,0);
+    p.quad(
       0,0,
       -halfHeadLength,-halfHeadWidth,
       halfHeadLength,0,
       -halfHeadLength,halfHeadWidth);
-    duel.popMatrix();
+    p.popMatrix();
   }
 }

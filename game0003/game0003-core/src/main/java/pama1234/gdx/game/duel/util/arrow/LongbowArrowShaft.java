@@ -8,15 +8,15 @@ public final class LongbowArrowShaft extends ClientLongbowArrowComponent{
   }
   @Override
   public void display() {
-    duel.strokeWeight(5);
-    duel.doStroke();
-    duel.stroke(0);
-    duel.doFill();
-    duel.fill(0);
-    duel.pushMatrix();
-    duel.translate(xPosition,yPosition);
-    duel.rotate(rotationAngle);
-    duel.line(-halfLength,0,halfLength,0);
-    duel.popMatrix();
+    p.strokeWeight(5);
+    p.doStroke();
+    p.stroke(0);
+    p.doFill();
+    p.fill(0);
+    p.pushMatrix();
+    p.translate(xPosition,yPosition);
+    p.rotate(rotationAngle);
+    p.line(-halfLength,0,halfLength,0);
+    p.popMatrix();
   }
 }

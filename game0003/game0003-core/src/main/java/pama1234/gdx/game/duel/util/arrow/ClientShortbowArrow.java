@@ -6,49 +6,49 @@ import pama1234.gdx.game.duel.util.graphics.Particle;
 import pama1234.math.UtilMath;
 
 public class ClientShortbowArrow extends ServerShortbowArrow{
-  public final Duel duel;
+  public final Duel p;
   public ClientShortbowArrow(Duel duel) {
     super();
-    this.duel=duel;
+    this.p=duel;
   }
   @Override
   public void act() {
-    if((duel.random(1)>=0.5f)) return;
-    final float particleDirectionAngle=this.directionAngle+UtilMath.PI+duel.random(-UtilMath.QUARTER_PI,UtilMath.QUARTER_PI);
+    if((p.random(1)>=0.5f)) return;
+    final float particleDirectionAngle=this.directionAngle+UtilMath.PI+p.random(-UtilMath.QUARTER_PI,UtilMath.QUARTER_PI);
     for(int i=0;i<3;i++) {
-      final float particleSpeed=duel.random(0.5f,2);
-      final Particle newParticle=duel.stateCenter.game.system.commonParticleSet.builder
+      final float particleSpeed=p.random(0.5f,2);
+      final Particle newParticle=p.stateCenter.game.system.commonParticleSet.builder
         .type(Particle.square)
         .position(this.xPosition,this.yPosition)
         .polarVelocity(particleDirectionAngle,particleSpeed)
         .particleSize(2)
-        .particleColor(duel.skin.shortbowArrow)
+        .particleColor(p.skin.shortbowArrow)
         .lifespanSecond(0.5f)
         .build();
-      duel.stateCenter.game.system.commonParticleSet.particleList.add(newParticle);
+      p.stateCenter.game.system.commonParticleSet.particleList.add(newParticle);
     }
   }
   @Override
   public void display() {
-    duel.strokeWeight(3);
-    duel.stroke(0);
-    duel.doFill();
-    duel.fill(0);
-    duel.pushMatrix();
-    duel.translate(xPosition,yPosition);
-    duel.rotate(rotationAngle);
-    duel.line(-halfLength,0,halfLength,0);
-    duel.quad(
+    p.strokeWeight(3);
+    p.stroke(p.skin.stroke);
+    p.doFill();
+    p.fill(0);
+    p.pushMatrix();
+    p.translate(xPosition,yPosition);
+    p.rotate(rotationAngle);
+    p.line(-halfLength,0,halfLength,0);
+    p.quad(
       halfLength,0,
       halfLength-halfHeadLength,-halfHeadWidth,
       halfLength+halfHeadLength,0,
       halfLength-halfHeadLength,+halfHeadWidth);
-    duel.line(-halfLength,0,-halfLength-featherLength,-halfFeatherWidth);
-    duel.line(-halfLength,0,-halfLength-featherLength,+halfFeatherWidth);
-    duel.line(-halfLength+4,0,-halfLength-featherLength+4,-halfFeatherWidth);
-    duel.line(-halfLength+4,0,-halfLength-featherLength+4,+halfFeatherWidth);
-    duel.line(-halfLength+8,0,-halfLength-featherLength+8,-halfFeatherWidth);
-    duel.line(-halfLength+8,0,-halfLength-featherLength+8,+halfFeatherWidth);
-    duel.popMatrix();
+    p.line(-halfLength,0,-halfLength-featherLength,-halfFeatherWidth);
+    p.line(-halfLength,0,-halfLength-featherLength,+halfFeatherWidth);
+    p.line(-halfLength+4,0,-halfLength-featherLength+4,-halfFeatherWidth);
+    p.line(-halfLength+4,0,-halfLength-featherLength+4,+halfFeatherWidth);
+    p.line(-halfLength+8,0,-halfLength-featherLength+8,-halfFeatherWidth);
+    p.line(-halfLength+8,0,-halfLength-featherLength+8,+halfFeatherWidth);
+    p.popMatrix();
   }
 }

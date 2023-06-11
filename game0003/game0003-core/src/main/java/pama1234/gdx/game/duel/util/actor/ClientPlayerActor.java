@@ -16,7 +16,7 @@ public final class ClientPlayerActor extends ServerPlayerActor{
   }
   @Override
   public void display() {
-    duel.stroke(0);
+    duel.stroke(duel.skin.stroke);
     duel.strokeWeight(3);
     duel.doFill();
     duel.fill(fillColor);
