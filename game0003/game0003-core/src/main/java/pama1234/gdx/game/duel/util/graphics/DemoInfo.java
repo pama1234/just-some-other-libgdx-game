@@ -25,7 +25,8 @@ public class DemoInfo extends Entity<Duel>{
     p.endShape();
     p.setTextScale(1);
     p.strokeWeightOriginal(1);
-    drawText_ch(p,UtilMath.min(p.width,p.height));
+    if(p.isAndroid) drawText_ch_android(p,UtilMath.min(p.width,p.height));
+    else drawText_ch(p,UtilMath.min(p.width,p.height));
     text.end();
   }
   public static void displayDemo(Duel p) {
@@ -62,5 +63,25 @@ public class DemoInfo extends Entity<Duel>{
     duel.fullText("由FAL制作！( https://www.fal-works.com/ )",20,400);
     duel.fullText("由Pama1234移植到安卓版！( https://space.bilibili.com/646050693 )",20,420);
     duel.fullText("原型版本，视觉BUG很多，敬请关注此开源项目！会更新联机版！",20,440);
+  }
+  public static void drawText_ch_android(Duel duel,int fu) {
+    duel.setTextScale(3);
+    duel.fullText("几何决斗！",180,20);
+    duel.setTextScale(2);
+    duel.fullText("      Z 按键:",60,100);
+    duel.fullText("      X 按键:",60,140);
+    duel.fullText("左手触摸屏幕:",60,190);
+    //---
+    duel.fullText("普通攻击",300,100);
+    duel.fullText("致命大招",300,140);
+    duel.fullText("移动或瞄准",300,190);
+    //---
+    duel.fullText("- 按 Z 键开始游戏 -",160,300);
+    duel.fullText("(轻触显示或隐藏此界面)",160,340);
+    duel.setTextColor(80);
+    duel.setTextScale(1);
+    duel.fullText("由FAL制作！( https://www.fal-works.com/ )",20,380);
+    duel.fullText("由Pama1234移植到安卓版！( https://space.bilibili.com/646050693 )",20,400);
+    duel.fullText("敬请关注此开源项目！会更新联机版！",20,420);
   }
 }

@@ -18,6 +18,7 @@ public class AndroidCtrl extends Entity<Duel>{
   public void init() {
     p.buttons=UiGenerator.genButtons_0010(p);
     for(TextButton<?> e:p.buttons) p.centerScreen.add.add(e);
+    updateMaxDist();
   }
   /**
    * cam only
@@ -63,6 +64,9 @@ public class AndroidCtrl extends Entity<Duel>{
   }
   @Override
   public void frameResized(int w,int h) {
+    updateMaxDist();
+  }
+  public void updateMaxDist() {
     maxDist=p.u;
   }
 }

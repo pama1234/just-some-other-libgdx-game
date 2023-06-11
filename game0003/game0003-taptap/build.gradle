@@ -52,7 +52,8 @@ android {
     exclude 'META-INF/dependencies.txt'
   }
   defaultConfig {
-    applicationId 'pama1234.gdx.game.app.duel.taptap'
+    // pft01 is platform type 01 is taptap
+    applicationId 'pama1234.gdx.game.app.duel.pft01'
     minSdkVersion 26
     targetSdkVersion 30
     versionCode 2
