@@ -49,26 +49,4 @@ public class Settings extends TextBoard{
   public void refresh() {
     drawLayer();
   }
-  @Override
-  public void pause() {}
-  @Override
-  public void resume() {}
-  @Override
-  public void dispose() {}
-  @Override
-  public void mouseMoved() {}
-  @Override
-  public void mouseDragged() {}
-  @Override
-  public void keyPressed(char key,int keyCode) {}
-  @Override
-  public void keyReleased(char key,int keyCode) {}
-  @Override
-  public void keyTyped(char key) {}
-  @Override
-  public void frameResized(int w,int h) {}
-  @Override
-  public void frameMoved(int x,int y) {}
-  @Override
-  public void beforeDraw() {}
 }

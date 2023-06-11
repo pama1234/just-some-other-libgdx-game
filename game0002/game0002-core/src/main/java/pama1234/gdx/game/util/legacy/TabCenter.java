@@ -155,8 +155,4 @@ public class TabCenter extends TextBoard{
   public void frameMoved(final int x,final int y) {
     select.frameMoved(x,y);
   }
-  @Override
-  public void draw() {}
-  @Override
-  public void beforeDraw() {}
 }

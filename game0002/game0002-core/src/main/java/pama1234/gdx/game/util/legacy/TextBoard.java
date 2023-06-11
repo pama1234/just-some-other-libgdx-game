@@ -17,6 +17,14 @@ public abstract class TextBoard extends Component<RealGame>{
     this.w=w;
     this.h=h;
   }
+  @Override
+  public void draw() {
+    drawLayer();
+  }
+  @Override
+  public void beforeDraw() {
+    initLayer();
+  }
   public abstract void drawLayer();
   public abstract void refresh();
   public void initLayer() {

@@ -116,12 +116,6 @@ public class LoadAndSave extends TextBoard{
     }
   }
   @Override
-  public void pause() {}
-  @Override
-  public void resume() {}
-  @Override
-  public void dispose() {}
-  @Override
   public void mousePressed(MouseInfo info) {
     final Vec2f pos=point.pos;
     final int ti=parent.index;
@@ -138,26 +132,4 @@ public class LoadAndSave extends TextBoard{
       }
     }
   }
-  @Override
-  public void mouseReleased(MouseInfo info) {}
-  @Override
-  public void mouseMoved() {}
-  @Override
-  public void mouseDragged() {}
-  @Override
-  public void mouseWheel(float x,float y) {}
-  @Override
-  public void keyPressed(char key,int keyCode) {}
-  @Override
-  public void keyReleased(char key,int keyCode) {}
-  @Override
-  public void keyTyped(char key) {}
-  @Override
-  public void frameResized(int w,int h) {}
-  @Override
-  public void frameMoved(int x,int y) {}
-  @Override
-  public void draw() {}
-  @Override
-  public void beforeDraw() {}
 }

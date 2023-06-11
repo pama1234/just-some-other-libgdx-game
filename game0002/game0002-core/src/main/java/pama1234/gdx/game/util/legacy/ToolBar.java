@@ -34,12 +34,6 @@ public class ToolBar extends TextBoard{
     cellCenter=parent.cellCenter;
     metaCenter=parent.metaCenter;
   }
-  @Override
-  public void init() {}
-  @Override
-  public void draw() {}
-  @Override
-  public void beforeDraw() {}
   public void refresh() {
     initLayer();
     int tw=w;

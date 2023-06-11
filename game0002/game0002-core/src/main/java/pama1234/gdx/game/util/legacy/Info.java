@@ -119,8 +119,4 @@ public class Info extends TextBoard implements ClipboardOwner{
   public void lostOwnership(Clipboard clipboard,Transferable contents) {
     System.out.println(clipboard+" "+contents);
   }
-  @Override
-  public void draw() {}
-  @Override
-  public void beforeDraw() {}
 }

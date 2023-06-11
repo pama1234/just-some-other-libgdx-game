@@ -73,34 +73,4 @@ public class Scoreboard extends TextBoard{
   public void display() {
     if(parent.index==1) p.image(g.texture,point.pos.x-g.width()/2,point.pos.y-g.height()/2);
   }
-  @Override
-  public void pause() {}
-  @Override
-  public void resume() {}
-  @Override
-  public void dispose() {}
-  @Override
-  public void mousePressed(MouseInfo info) {}
-  @Override
-  public void mouseReleased(MouseInfo info) {}
-  @Override
-  public void mouseMoved() {}
-  @Override
-  public void mouseDragged() {}
-  @Override
-  public void mouseWheel(float x,float y) {}
-  @Override
-  public void keyPressed(char key,int keyCode) {}
-  @Override
-  public void keyReleased(char key,int keyCode) {}
-  @Override
-  public void keyTyped(char key) {}
-  @Override
-  public void frameResized(int w,int h) {}
-  @Override
-  public void frameMoved(int x,int y) {}
-  @Override
-  public void draw() {}
-  @Override
-  public void beforeDraw() {}
 }

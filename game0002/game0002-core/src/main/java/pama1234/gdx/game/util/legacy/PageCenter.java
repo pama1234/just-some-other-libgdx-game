@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import com.badlogic.gdx.Input.Buttons;
 
 import pama1234.gdx.game.app.app0002.RealGame;
+import pama1234.gdx.util.element.Graphics;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.math.Tools;
 import pama1234.math.vec.Vec2f;
@@ -34,7 +35,7 @@ public class PageCenter extends TextBoard{
     select.init();
   }
   public void refresh() {
-    if(g==null) g=p.createGraphics(1,1);
+    if(g==null) g=new Graphics(p,1,1);
     initLayer();
     int tw=w;
     w=1;
@@ -46,7 +47,7 @@ public class PageCenter extends TextBoard{
     h=(int)(textSize*(list.size()+0.25f));
     // h=(int)(textSize*(list.size()+0.25f)+p.textDescent());
     if(tw!=w||th!=h) {
-      g=p.createGraphics(w,h);
+      g=new Graphics(p,w,h);
       initLayer();
     }
     drawLayer();
@@ -159,8 +160,4 @@ public class PageCenter extends TextBoard{
   public void frameMoved(final int x,final int y) {
     select.frameMoved(x,y);
   }
-  @Override
-  public void draw() {}
-  @Override
-  public void beforeDraw() {}
 }
