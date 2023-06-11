@@ -10,6 +10,7 @@ import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
+import pama1234.app.game.server.duel.ServerConfigData;
 import pama1234.app.game.server.duel.ServerConfigData.GameMode;
 import pama1234.gdx.game.duel.NetUtil.ClientConfig;
 import pama1234.gdx.game.duel.NetUtil.GameClient;
@@ -69,7 +70,7 @@ public class Duel extends ScreenCore2D{
   public float strokeUnit;
   public SkinData skin;
   //---
-  public Config config;
+  public ServerConfigData config;
   public FileHandle configFile;
   public Graphics graphics;
   //---
@@ -94,30 +95,33 @@ public class Duel extends ScreenCore2D{
   public void init() {
     configFile=Gdx.files.local("data/config.yaml");
     config=loadConfig();
-    skin=config.skin;
-    // System.out.println(localization.yaml.dumpAsMap(skin));
+    if(config.skin!=null) skin=SkinData.fromData(config.skin);
+    else {
+      skin=new SkinData();
+      skin.init();
+    }
     // skin.toData();
-    // skin=new SkinData().fromServerSkinData(config.skin);
     super.init();
   }
-  public Config loadConfig() {
-    Config out;
+  public ServerConfigData loadConfig() {
+    ServerConfigData out;
     if(configFile.exists()) {
       out=localization.yaml.loadAs(configFile.readString("UTF-8"),Config.class);
       if(out.skin==null) {
-        SkinData skinData=new SkinData();
-        skinData.init();
-        out.skin=skinData;
+        initSkin(out);
       }
     }else {
       Gdx.files.local("data").mkdirs();
       out=new Config();
       out.init();
-      SkinData skinData=new SkinData();
-      skinData.init();
-      out.skin=skinData;
+      initSkin(out);
     }
     return out;
+  }
+  public void initSkin(ServerConfigData out) {
+    SkinData skinData=new SkinData();
+    skinData.init();
+    // out.skin=skinData.toData();
   }
   @Override
   public void setup() {
@@ -167,6 +171,7 @@ public class Duel extends ScreenCore2D{
   @Override
   public void dispose() {
     super.dispose();
+    config.skin=skin.toData();
     configFile.writeString(localization.yaml.dumpAsMap(config),false);
   }
   public void newGame(boolean demo,boolean instruction) {

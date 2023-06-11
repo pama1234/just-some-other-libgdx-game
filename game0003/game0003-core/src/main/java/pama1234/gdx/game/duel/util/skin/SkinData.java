@@ -1,6 +1,10 @@
 package pama1234.gdx.game.duel.util.skin;
 
 import java.util.LinkedHashMap;
+import java.util.Map.Entry;
+import java.util.Set;
+
+import org.yaml.snakeyaml.Yaml;
 
 import com.badlogic.gdx.graphics.Color;
 
@@ -13,6 +17,23 @@ public class SkinData{
     longbowLine,longbowEffect,
     ring,particleDefault,background,
     player_a,player_b,neatVoidBackground;
+  public SkinData() {}
+  public static SkinData fromData(ServerSkinData in) {
+    SkinData out=new SkinData();
+    Yaml yaml=Duel.localization.yaml;
+    String string=yaml.dumpAsMap(out);
+    // System.out.println(string);
+    LinkedHashMap<String,Object> map=yaml.load(string);
+    Set<Entry<String,Object>> entrySet=map.entrySet();
+    for(Entry<String,Object> e:entrySet) {
+      String inValue=in.data.get(e.getKey());
+      e.setValue(fromStringColor(inValue));
+    }
+    return out;
+  }
+  public static Color fromStringColor(String in) {
+    return new Color(Long.decode(in).intValue());
+  }
   public void init() {
     shortbowArrow=Duel.color(192);
     longbowArrow=Duel.color(64);
@@ -26,23 +47,27 @@ public class SkinData{
     player_b=Duel.color(0);
     neatVoidBackground=Duel.color(191);
   }
+  /**
+   * 强制转换之恶魔
+   * 
+   * @return
+   */
   public ServerSkinData toData() {
-    var out=new ServerSkinData();
-    var yaml=Duel.localization.yaml;
-    out.data=new LinkedHashMap<>();
-    // out.data=yaml.load(yaml.dumpAsMap(this));
-    LinkedHashMap<String,Object> cache=yaml.load(yaml.dumpAsMap(this));
-    // System.out.println(out.data);
-    for(var i:cache.entrySet()) {
-      // String e=i.getKey();
-      // System.out.println(e);
-      // String ts=i.getValue().toString();
-      // ColorTemp tc=yaml.loadAs(ts.substring(1,ts.length()-1),ColorTemp.class);
-      ColorTemp tc=yaml.loadAs(i.getValue().toString(),ColorTemp.class);
-      i.setValue(tc.toString());
-      out.data.put(i.getKey(),i.getValue().toString());
+    ServerSkinData out=new ServerSkinData();
+    Yaml yaml=Duel.localization.yaml;
+    String string=yaml.dumpAsMap(this);
+    LinkedHashMap<String,Object> map=yaml.load(string);
+    Set<Entry<String,Object>> entrySet=map.entrySet();
+    for(Entry<String,Object> e:entrySet) {
+      LinkedHashMap<String,Object> value=(LinkedHashMap<String,Object>)e.getValue();
+      // System.out.println(value);
+      ColorTemp tc=new ColorTemp();
+      tc.load(value);
+      e.setValue(tc.toString());
     }
-    System.out.println(out.data);
+    System.out.println(map);
+    out.data=(LinkedHashMap<String,String>)(Object)map;
+    System.out.println(out.data.toString());
     return out;
   }
 }
