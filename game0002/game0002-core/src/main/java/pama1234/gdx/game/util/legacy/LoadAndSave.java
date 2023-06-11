@@ -71,7 +71,7 @@ public class LoadAndSave extends TextBoard{
         cooling--;
         if(cooling==0&&names[1][0].charAt(0)=='*') {
           names[1][0]=names[1][0].substring(1);
-          refreshDepc();
+          refresh();
         }
       }else {
         switch(state[parent.index]) {
@@ -110,7 +110,7 @@ public class LoadAndSave extends TextBoard{
         }
         if(state[parent.index]!=0) {
           state[parent.index]=0;
-          refreshDepc();
+          refresh();
         }
       }
     }
@@ -126,7 +126,7 @@ public class LoadAndSave extends TextBoard{
         if(index>=0&&index<names[ti].length) {
           if(p.mouse.x>pos.x+textSize*0.5) {
             state[ti]=index;
-            refreshDepc();
+            refresh();
           }
         }
       }

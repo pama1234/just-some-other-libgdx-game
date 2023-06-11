@@ -34,9 +34,10 @@ public class PageCenter extends TextBoard{
   public void init() {
     select.init();
   }
-  public void refreshDepc() {
+  @Override
+  public void initLayer() {
     // if(g==null) g=new Graphics(p,1,1);
-    initLayer();
+    // initLayer();
     int tw=w;
     w=1;
     for(Page<?,?> tab:list) {
@@ -48,9 +49,11 @@ public class PageCenter extends TextBoard{
     // h=(int)(textSize*(list.size()+0.25f)+p.textDescent());
     if(tw!=w||th!=h) {
       g=new Graphics(p,w,h);
-      initLayer();
+      // initLayer();
     }
-    drawLayer();
+    // drawLayer();
+  }
+  public void refreshDepc() {
   }
   public void postSetDes() {
     point.des.set(-w/2,-h/2);

@@ -78,9 +78,9 @@ public class CellCenter extends EntityCenter<RealGame,Cell>{
     }
     //---
     fade();
-    layer.begin();
+    layer.beginShape();
     super.display();
-    layer.end();
+    layer.endShape();
     box();
   }
   private void box() {
