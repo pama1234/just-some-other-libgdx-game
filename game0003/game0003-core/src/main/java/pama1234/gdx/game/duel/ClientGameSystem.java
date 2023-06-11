@@ -21,22 +21,25 @@ import pama1234.gdx.game.duel.util.player.ClientDrawShortbowPlayerActorState;
 import pama1234.gdx.game.duel.util.player.ClientHumanPlayerEngine;
 import pama1234.gdx.game.duel.util.state.ClientGameSystemState;
 import pama1234.gdx.game.duel.util.state.ClientStartGameState;
+import pama1234.gdx.game.state.state0002.Game;
 import pama1234.math.UtilMath;
 
 public final class ClientGameSystem extends ServerGameSystem{
   public final Duel duel;
+  public final Game pg;
   public final ParticleSet commonParticleSet;
   public float screenShakeValue;
   public ClientGameSystemState currentState;
   public boolean showsInstructionWindow;
   public final ClientDamagedPlayerActorState damagedState;
   public final GameBackground currentBackground;
-  public ClientGameSystem(Duel duel) {
-    this(duel,false,false);
+  public ClientGameSystem(Duel duel,Game pg) {
+    this(duel,pg,false,false);
   }
-  public ClientGameSystem(Duel duel,boolean demo,boolean instruction) {
+  public ClientGameSystem(Duel duel,Game pg,boolean demo,boolean instruction) {
     super(null,demo,false);
     this.duel=duel;
+    this.pg=pg;
     // prepare PlayerActorState
     final MovePlayerActorState moveState=new MovePlayerActorState();
     final DrawBowPlayerActorState drawShortbowState=new ClientDrawShortbowPlayerActorState(duel);
@@ -51,8 +54,8 @@ public final class ClientGameSystem extends ServerGameSystem{
     PlayerEngine myEngine;
     if(demo) myEngine=createComputerEngine(true);
     else {
-      if(duel.isAndroid) myEngine=new ClientAndroidHumanPlayerEngine(duel.currentInput);
-      else myEngine=new ClientHumanPlayerEngine(duel.currentInput);
+      if(duel.isAndroid) myEngine=new ClientAndroidHumanPlayerEngine(pg.currentInput);
+      else myEngine=new ClientHumanPlayerEngine(pg.currentInput);
     }
     ClientPlayerActor myPlayer=new ClientPlayerActor(duel,myEngine,duel.config.mode==ServerConfigData.neat?duel.skin.player_b:duel.skin.player_a);
     myPlayer.xPosition=Const.CANVAS_SIZE*0.5f;
@@ -81,8 +84,8 @@ public final class ClientGameSystem extends ServerGameSystem{
   }
   public void update() {
     if(demoPlay) {
-      if(duel.currentInput.isZPressed) {
-        duel.system=new ClientGameSystem(duel); // stop demo and start game
+      if(pg.currentInput.isZPressed) {
+        pg.system=new ClientGameSystem(duel,pg); // stop demo and start game
         return;
       }
     }
@@ -104,7 +107,7 @@ public final class ClientGameSystem extends ServerGameSystem{
     if(demoPlay&&showsInstructionWindow) DemoInfo.displayDemo(duel);
   }
   public void addSquareParticles(float x,float y,int particleCount,float particleSize,float minSpeed,float maxSpeed,float lifespanSecondValue) {
-    final ParticleBuilder builder=duel.system.commonParticleSet.builder
+    final ParticleBuilder builder=pg.system.commonParticleSet.builder
       .type(Particle.square)
       .position(x,y)
       .particleSize(particleSize)
@@ -114,7 +117,7 @@ public final class ClientGameSystem extends ServerGameSystem{
       final Particle newParticle=builder
         .polarVelocity(duel.random(UtilMath.PI2),duel.random(minSpeed,maxSpeed))
         .build();
-      duel.system.commonParticleSet.particleList.add(newParticle);
+      pg.system.commonParticleSet.particleList.add(newParticle);
     }
   }
   public void currentState(ClientGameSystemState currentState) {

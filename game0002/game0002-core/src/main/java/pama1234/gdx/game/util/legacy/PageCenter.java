@@ -53,8 +53,7 @@ public class PageCenter extends TextBoard{
     }
     // drawLayer();
   }
-  public void refreshDepc() {
-  }
+  public void refreshDepc() {}
   public void postSetDes() {
     point.des.set(-w/2,-h/2);
   }

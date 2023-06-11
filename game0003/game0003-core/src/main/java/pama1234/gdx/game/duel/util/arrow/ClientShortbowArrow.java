@@ -17,7 +17,7 @@ public class ClientShortbowArrow extends ServerShortbowArrow{
     final float particleDirectionAngle=this.directionAngle+UtilMath.PI+duel.random(-UtilMath.QUARTER_PI,UtilMath.QUARTER_PI);
     for(int i=0;i<3;i++) {
       final float particleSpeed=duel.random(0.5f,2);
-      final Particle newParticle=duel.system.commonParticleSet.builder
+      final Particle newParticle=duel.stateCenter.game.system.commonParticleSet.builder
         .type(Particle.square)
         .position(this.xPosition,this.yPosition)
         .polarVelocity(particleDirectionAngle,particleSpeed)
@@ -25,7 +25,7 @@ public class ClientShortbowArrow extends ServerShortbowArrow{
         .particleColor(duel.skin.shortbowArrow)
         .lifespanSecond(0.5f)
         .build();
-      duel.system.commonParticleSet.particleList.add(newParticle);
+      duel.stateCenter.game.system.commonParticleSet.particleList.add(newParticle);
     }
   }
   @Override

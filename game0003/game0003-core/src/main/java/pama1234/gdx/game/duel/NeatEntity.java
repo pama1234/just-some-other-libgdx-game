@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import pama1234.gdx.game.duel.util.ai.nnet.ClientFisheyeVision;
 import pama1234.gdx.game.duel.util.ai.nnet.NeatCenter;
 import pama1234.gdx.game.duel.util.ai.nnet.NeatCenter.NetworkGroupParam;
+import pama1234.gdx.game.state.state0002.Game;
 import pama1234.gdx.util.element.Graphics;
 import pama1234.gdx.util.entity.Entity;
 import pama1234.gdx.util.listener.DisplayEntityListener;
@@ -15,8 +16,10 @@ import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 
 public class NeatEntity extends Entity<Duel> implements DisplayEntityListener{
-  public NeatEntity(Duel p) {
+  public Game pg;
+  public NeatEntity(Duel p,Game pg) {
     super(p);
+    this.pg=pg;
   }
   @Override
   public void init() {
@@ -39,17 +42,17 @@ public class NeatEntity extends Entity<Duel> implements DisplayEntityListener{
   }
   @Override
   public void update() {
-    if(p.system.stateIndex==ClientGameSystem.play) {
+    if(pg.system.stateIndex==ClientGameSystem.play) {
       p.time++;
-      p.system.myGroup.player.engine.setScore(1,p.system.currentState.getScore(p.system.myGroup.id));
-      p.system.otherGroup.player.engine.setScore(1,p.system.currentState.getScore(p.system.otherGroup.id));
+      pg.system.myGroup.player.engine.setScore(1,pg.system.currentState.getScore(pg.system.myGroup.id));
+      pg.system.otherGroup.player.engine.setScore(1,pg.system.currentState.getScore(pg.system.otherGroup.id));
       if(p.time>p.timeLimit) {
         p.timeLimit=p.timeLimitConst;
-        p.newGame(true,false);
+        pg.newGame(true,false);
       }
     }
-    p.player_a.update(p.system.myGroup.player);
-    p.player_b.update(p.system.otherGroup.player);
+    p.player_a.update(pg.system.myGroup.player);
+    p.player_b.update(pg.system.otherGroup.player);
   }
   @Override
   public void display() {
@@ -57,17 +60,17 @@ public class NeatEntity extends Entity<Duel> implements DisplayEntityListener{
     float ts=p.textScale()*p.textSize();
     p.text(Tools.getFloatString(p.time,5,0)+"ms -> "+Tools.getFloatString(p.timeLimit,5,0)+"ms",0,0);
     p.text("real time score",0,ts);
-    p.text("a - "+Tools.getFloatString(p.system.myGroup.player.engine.getScore(1)),0,ts*2);
-    p.text("b - "+Tools.getFloatString(p.system.otherGroup.player.engine.getScore(1)),0,ts*3);
+    p.text("a - "+Tools.getFloatString(pg.system.myGroup.player.engine.getScore(1)),0,ts*2);
+    p.text("b - "+Tools.getFloatString(pg.system.otherGroup.player.engine.getScore(1)),0,ts*3);
     p.text("final score",0,ts*4);
-    p.text("a - "+Tools.getFloatString(p.system.myGroup.player.engine.getScore(0)),0,ts*5);
-    p.text("b - "+Tools.getFloatString(p.system.otherGroup.player.engine.getScore(0)),0,ts*6);
+    p.text("a - "+Tools.getFloatString(pg.system.myGroup.player.engine.getScore(0)),0,ts*5);
+    p.text("b - "+Tools.getFloatString(pg.system.otherGroup.player.engine.getScore(0)),0,ts*6);
   }
   @Override
   public void displayCam() {
     p.graphics.begin();
     p.background(255);
-    p.system.display();
+    pg.system.display();
     p.graphics.end();
     p.player_a.render();
     p.player_b.render();

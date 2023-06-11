@@ -51,7 +51,7 @@ public final class ClientDrawLongbowPlayerActorState extends ServerDrawLongbowPl
     newArrow.yPosition=parentActor.yPosition+arrowShaftNumber*arrowComponentInterval*UtilMath.sin(parentActor.aimAngle);
     newArrow.rotationAngle=parentActor.aimAngle;
     newArrow.setVelocity(parentActor.aimAngle,64);
-    final Particle newParticle=duel.system.commonParticleSet.builder
+    final Particle newParticle=duel.stateCenter.game.system.commonParticleSet.builder
       .type(Particle.line)
       .position(parentActor.xPosition,parentActor.yPosition)
       .polarVelocity(0,0)
@@ -60,9 +60,9 @@ public final class ClientDrawLongbowPlayerActorState extends ServerDrawLongbowPl
       .lifespanSecond(2)
       .weight(16)
       .build();
-    duel.system.commonParticleSet.particleList.add(newParticle);
+    duel.stateCenter.game.system.commonParticleSet.particleList.add(newParticle);
     parentActor.group.addArrow(newArrow);
-    duel.system.screenShakeValue+=10;
+    duel.stateCenter.game.system.screenShakeValue+=10;
     parentActor.chargedFrameCount=0;
     parentActor.state=moveState.entryState(parentActor);
   }
@@ -86,7 +86,7 @@ public final class ClientDrawLongbowPlayerActorState extends ServerDrawLongbowPl
   public void act(ServerPlayerActor parentActor) {
     super.act(parentActor);
     if(parentActor.chargedFrameCount!=chargeRequiredFrameCount) return;
-    final Particle newParticle=duel.system.commonParticleSet.builder
+    final Particle newParticle=duel.stateCenter.game.system.commonParticleSet.builder
       .type(Particle.ring)
       .position(parentActor.xPosition,parentActor.yPosition)
       .polarVelocity(0,0)
@@ -95,6 +95,6 @@ public final class ClientDrawLongbowPlayerActorState extends ServerDrawLongbowPl
       .weight(ringStrokeWeight)
       .lifespanSecond(0.5f)
       .build();
-    duel.system.commonParticleSet.particleList.add(newParticle);
+    duel.stateCenter.game.system.commonParticleSet.particleList.add(newParticle);
   }
 }

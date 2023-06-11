@@ -52,8 +52,8 @@ public final class ClientPlayGameState extends ClientGameSystemState{
     else if(system.otherGroup.player.isNull()) system.currentState(new ClientGameResultState(duel,system,system.myGroup.id,TextUtil.used.win));
   }
   public void checkCollision() {
-    final ActorGroup myGroup=duel.system.myGroup;
-    final ActorGroup otherGroup=duel.system.otherGroup;
+    final ActorGroup myGroup=duel.stateCenter.game.system.myGroup;
+    final ActorGroup otherGroup=duel.stateCenter.game.system.otherGroup;
     for(AbstractArrowActor eachMyArrow:myGroup.arrowList) {
       for(AbstractArrowActor eachEnemyArrow:otherGroup.arrowList) {
         if(!eachMyArrow.isCollided(eachEnemyArrow)) continue;
@@ -80,13 +80,13 @@ public final class ClientPlayGameState extends ClientGameSystemState{
     }
   }
   public void killPlayer(AbstractPlayerActor player) {
-    duel.system.addSquareParticles(player.xPosition,player.yPosition,50,16,2,10,4);
+    duel.stateCenter.game.system.addSquareParticles(player.xPosition,player.yPosition,50,16,2,10,4);
     // player.group.player=new NullPlayerActor(player.xPosition,player.yPosition,player.group);//TODO
     player.group.setPlayer(new NullPlayerActor(player.engine));
-    duel.system.screenShakeValue=50;
+    duel.stateCenter.game.system.screenShakeValue=50;
   }
   public void breakArrow(AbstractArrowActor arrow,ActorGroup group) {
-    duel.system.addSquareParticles(arrow.xPosition,arrow.yPosition,10,7,1,5,1);
+    duel.stateCenter.game.system.addSquareParticles(arrow.xPosition,arrow.yPosition,10,7,1,5,1);
     group.removingArrowList.add(arrow);
   }
   public void thrustPlayerActor(Actor referenceActor,ClientPlayerActor targetPlayerActor) {
@@ -94,9 +94,9 @@ public final class ClientPlayGameState extends ClientGameSystemState{
     final float thrustAngle=relativeAngle+duel.random(-0.5f*UtilMath.HALF_PI,0.5f*UtilMath.HALF_PI);
     targetPlayerActor.xVelocity+=20*UtilMath.cos(thrustAngle);
     targetPlayerActor.yVelocity+=20*UtilMath.sin(thrustAngle);
-    targetPlayerActor.state=duel.system.damagedState.entryState(targetPlayerActor);
+    targetPlayerActor.state=duel.stateCenter.game.system.damagedState.entryState(targetPlayerActor);
     targetPlayerActor.group.damageCount++;//TODO shit
-    duel.system.screenShakeValue+=10;
+    duel.stateCenter.game.system.screenShakeValue+=10;
   }
   @Override
   public float getScore(int group) {

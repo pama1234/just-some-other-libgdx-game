@@ -1,23 +1,26 @@
 package pama1234.gdx.game.duel.util.input;
 
 import pama1234.gdx.game.duel.Duel;
+import pama1234.gdx.game.state.state0002.Game;
 import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.util.entity.Entity;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.math.UtilMath;
 
 public class AndroidCtrl extends Entity<Duel>{
+  public Game pg;
   public float maxDist;
   public float magCache;
   public float dxCache,dyCache;
   public TouchInfo moveCtrl;
-  public AndroidCtrl(Duel p) {
+  public AndroidCtrl(Duel p,Game pg) {
     super(p);
+    this.pg=pg;
   }
   @Override
   public void init() {
     p.buttons=UiGenerator.genButtons_0010(p);
-    for(TextButton<?> e:p.buttons) p.centerScreen.add.add(e);
+    for(TextButton<?> e:pg.buttons) p.centerScreen.add.add(e);
     updateMaxDist();
   }
   /**
@@ -39,11 +42,11 @@ public class AndroidCtrl extends Entity<Duel>{
   }
   @Override
   public void update() {
-    if(!p.paused) {
+    if(!pg.paused) {
       if(moveCtrl!=null) {
         dxCache=moveCtrl.x-moveCtrl.sx;
         dyCache=moveCtrl.y-moveCtrl.sy;
-        p.currentInput.targetTouchMoved(dxCache,dyCache,magCache=UtilMath.min(UtilMath.mag(dxCache,dyCache),maxDist));
+        pg.currentInput.targetTouchMoved(dxCache,dyCache,magCache=UtilMath.min(UtilMath.mag(dxCache,dyCache),maxDist));
       }
     }
   }
@@ -57,8 +60,8 @@ public class AndroidCtrl extends Entity<Duel>{
   public void touchEnded(TouchInfo info) {
     if(moveCtrl==info) {
       moveCtrl=null;
-      p.currentInput.dx=0;
-      p.currentInput.dy=0;
+      pg.currentInput.dx=0;
+      pg.currentInput.dy=0;
       magCache=0;
     }
   }

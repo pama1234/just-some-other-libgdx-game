@@ -22,7 +22,7 @@ public class ClientInputData extends ServerInputData{
     key=Character.toLowerCase(key);
     if(key=='z') isZPressed=true;
     else if(key=='x') isXPressed=true;
-    else if(key=='p') duel.doPause();
+    else if(key=='p') duel.stateCenter.game.doPause();
     else switch(keyCode) {
       case UP:
         isUpPressed=true;

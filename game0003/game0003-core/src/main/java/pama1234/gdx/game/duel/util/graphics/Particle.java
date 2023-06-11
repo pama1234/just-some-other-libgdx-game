@@ -80,7 +80,7 @@ public final class Particle extends Body implements Poolable<Particle>{
     xVelocity=xVelocity*0.98f;
     yVelocity=yVelocity*0.98f;
     properFrameCount++;
-    if(properFrameCount>lifespanFrameCount) duel.system.commonParticleSet.removingParticleList.add(this);
+    if(properFrameCount>lifespanFrameCount) duel.stateCenter.game.system.commonParticleSet.removingParticleList.add(this);
     switch(particleTypeNumber) {
       case square:
         rotationAngle+=1.5f*UtilMath.PI2/Const.IDEAL_FRAME_RATE;

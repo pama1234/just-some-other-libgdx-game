@@ -3,15 +3,11 @@ package pama1234.gdx.game.duel;
 import static pama1234.app.game.server.duel.ServerConfigData.neat;
 import static pama1234.app.game.server.duel.util.Const.CANVAS_SIZE;
 
-import java.io.IOException;
-
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input.Buttons;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
 import pama1234.app.game.server.duel.ServerConfigData;
-import pama1234.app.game.server.duel.ServerConfigData.GameMode;
 import pama1234.gdx.game.duel.NetUtil.ClientConfig;
 import pama1234.gdx.game.duel.NetUtil.GameClient;
 import pama1234.gdx.game.duel.NetUtil.LoginInfo;
@@ -22,17 +18,13 @@ import pama1234.gdx.game.duel.util.ai.nnet.ClientFisheyeVision;
 import pama1234.gdx.game.duel.util.ai.nnet.NeatCenter;
 import pama1234.gdx.game.duel.util.ai.nnet.NeatCenter.NetworkGroupParam;
 import pama1234.gdx.game.duel.util.graphics.DemoInfo;
-import pama1234.gdx.game.duel.util.input.AndroidCtrl;
-import pama1234.gdx.game.duel.util.input.ClientInputData;
 import pama1234.gdx.game.duel.util.skin.SkinData;
-import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.util.app.ScreenCore2D;
 import pama1234.gdx.util.element.Graphics;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.util.localization.Localization;
 import pama1234.util.protobuf.InputDataProto;
-import pama1234.util.protobuf.InputDataProto.InputData;
 
 /**
  * Title: Duel
@@ -62,12 +54,7 @@ public class Duel extends ScreenCore2D implements StateChanger0002{
   public static final Localization localization=new Localization();
   // public static LocalBundleCenter bundleCenter;
   //---
-  public TextButton<?>[] buttons;
-  public ClientInputData currentInput;
-  public ClientGameSystem system;
-  public boolean paused;
   public int canvasSideLength=CANVAS_SIZE;
-  public AndroidCtrl actrl;
   //---
   public DemoInfo demoInfo;
   public float strokeUnit;
@@ -123,21 +110,15 @@ public class Duel extends ScreenCore2D implements StateChanger0002{
   public void setup() {
     stateCenter=new StateCenter0002(this);
     State0002Util.loadState0002(this,stateCenter);
+    state(stateCenter.game);
     //---
     TextUtil.used=TextUtil.gen_ch(this::textWidthNoScale);
-    if(isAndroid) {
-      actrl=new AndroidCtrl(this);
-      actrl.init();
-      centerCam.add.add(actrl);
-    }
-    currentInput=new ClientInputData();
     //---
     if(config.mode==neat) {
-      neatE=new NeatEntity(this);
+      neatE=new NeatEntity(this,stateCenter.game);
       neatE.init();
     }
     //---
-    newGame(true,true); // demo play (computer vs computer), shows instruction window
     //---
     setTextColor(0);
     demoInfo=new DemoInfo(this);
@@ -153,19 +134,6 @@ public class Duel extends ScreenCore2D implements StateChanger0002{
       cam2d.activeDrag=false;
       cam2d.activeScrollZoom=cam2d.activeTouchZoom=false;
     }
-    if(config.gameMode==GameMode.OnLine) onlineGameSetup();
-  }
-  public void onlineGameSetup() {
-    inputDataBuilder=InputDataProto.InputData.newBuilder();
-  }
-  public void onlineGameUpdate() {
-    currentInput.copyToProto(inputDataBuilder);
-    InputData inputData=inputDataBuilder.build();
-    try {
-      inputData.writeTo(gameClient.socketData.o);
-    }catch(IOException e) {
-      e.printStackTrace();
-    }
   }
   @Override
   public void dispose() {
@@ -173,51 +141,20 @@ public class Duel extends ScreenCore2D implements StateChanger0002{
     config.skin=skin.toData();
     configFile.writeString(localization.yaml.dumpAsMap(config),false);
   }
-  public void newGame(boolean demo,boolean instruction) {
-    system=new ClientGameSystem(this,demo,instruction);
-  }
   @Override
   public void display() {
-    system.displayScreen();
     if(config.mode==neat) neatE.display();
   }
   @Override
-  public void displayWithCam() {
-    doStroke();
-    if(config.mode==neat) neatE.displayCam();
-    else {
-      system.display();
-    }
-    clearMatrix();
-    noStroke();
-    doFill();
-  }
+  public void displayWithCam() {}
   @Override
-  public void update() {
-    if(!paused) {
-      //---
-      if(config.gameMode==GameMode.OnLine) onlineGameUpdate();
-      //---
-      system.update();
-      //---
-      if(config.mode==neat) neatE.update();
-    }
-  }
+  public void update() {}
   @Override
-  public void mousePressed(MouseInfo info) {
-    if(info.button==Buttons.LEFT) system.showsInstructionWindow=!system.showsInstructionWindow;
-  }
+  public void mousePressed(MouseInfo info) {}
   @Override
-  public void keyPressed(char key,int keyCode) {
-    currentInput.keyPressed(this,key,keyCode);
-  }
-  public void doPause() {
-    paused=!paused;
-  }
+  public void keyPressed(char key,int keyCode) {}
   @Override
-  public void keyReleased(char key,int keyCode) {
-    currentInput.keyReleased(this,key,keyCode);
-  }
+  public void keyReleased(char key,int keyCode) {}
   @Override
   public void frameResized() {
     strokeUnit=isAndroid?u/128f:u/64f;

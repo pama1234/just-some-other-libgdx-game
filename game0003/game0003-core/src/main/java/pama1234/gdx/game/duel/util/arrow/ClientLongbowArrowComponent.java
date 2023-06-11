@@ -16,7 +16,7 @@ public abstract class ClientLongbowArrowComponent extends AbstractArrowActor{
     final float particleDirectionAngle=this.directionAngle+UtilMath.PI+duel.random(-UtilMath.HALF_PI,UtilMath.HALF_PI);
     for(int i=0;i<5;i++) {
       final float particleSpeed=duel.random(2,4);
-      final Particle newParticle=duel.system.commonParticleSet.builder
+      final Particle newParticle=duel.stateCenter.game.system.commonParticleSet.builder
         .type(Particle.square)
         .position(this.xPosition,this.yPosition)
         .polarVelocity(particleDirectionAngle,particleSpeed)
@@ -24,7 +24,7 @@ public abstract class ClientLongbowArrowComponent extends AbstractArrowActor{
         .particleColor(duel.skin.longbowArrow)
         .lifespanSecond(1)
         .build();
-      duel.system.commonParticleSet.particleList.add(newParticle);
+      duel.stateCenter.game.system.commonParticleSet.particleList.add(newParticle);
     }
   }
   @Override
