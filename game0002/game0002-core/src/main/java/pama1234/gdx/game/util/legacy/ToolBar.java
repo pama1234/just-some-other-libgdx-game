@@ -34,7 +34,7 @@ public class ToolBar extends TextBoard{
     cellCenter=parent.cellCenter;
     metaCenter=parent.metaCenter;
   }
-  public void refresh() {
+  public void refreshDepc() {
     initLayer();
     int tw=w;
     w=1;
@@ -205,7 +205,7 @@ public class ToolBar extends TextBoard{
         if(index>=0&&index<names[ti].length) {
           if(p.mouse.x>pos.x+textSize*0.5) {
             state[ti]=index;
-            refresh();
+            refreshDepc();
           }
         }
       }
@@ -244,7 +244,7 @@ public class ToolBar extends TextBoard{
   public void keyPressed(char key,int keyCode) {
     if(key==' ') {
       parent.select.update=!parent.select.update;
-      parent.refresh();
+      parent.refreshDepc();
     }
     final int ti=parent.index;
     if(ti==1) {

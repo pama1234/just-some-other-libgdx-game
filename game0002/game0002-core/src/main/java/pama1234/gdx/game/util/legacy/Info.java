@@ -54,11 +54,13 @@ public class Info extends TextBoard implements ClipboardOwner{
     super(p,x,y,TEXT_SIZE*20,TEXT_SIZE*40,TEXT_SIZE);
     this.data=data;
     initLayer();
+    // refreshDepc();
     refresh();
   }
   @Override
   public void drawLayer() {
-    g.beginShape();
+    // System.out.println("Info.drawLayer()");
+    // g.beginShape();
     p.background(0xff4D3C94);
     UITools.border(g,0,0,g.width(),g.height());
     p.fill(0xff006799);
@@ -79,9 +81,15 @@ public class Info extends TextBoard implements ClipboardOwner{
     p.fill(255);
     p.text("Ctrl-C",g.width()-cw,ty);
     UITools.border(g,g.width()-cw,0,cw,TEXT_SIZE);
-    g.endShape();
+    // g.endShape();
   }
-  public void refresh() {
+  @Override
+  public void display() {
+    // System.out.println("Info.display()");
+    super.display();
+  }
+  @Override
+  public void refreshDepc() {
     initLayer();
     drawLayer();
   }

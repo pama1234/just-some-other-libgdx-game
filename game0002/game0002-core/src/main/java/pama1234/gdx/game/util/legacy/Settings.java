@@ -11,7 +11,7 @@ public class Settings extends TextBoard{
     names=new String[][] {{"界面:","跟随视角","定于桌面"}};
     data=new int[names.length];
     // data[0]=1;
-    refresh();
+    refreshDepc();
   }
   @Override
   public void drawLayer() {
@@ -46,7 +46,7 @@ public class Settings extends TextBoard{
     //  p.text(data[i],0,i*textSize);
   }
   @Override
-  public void refresh() {
+  public void refreshDepc() {
     drawLayer();
   }
 }

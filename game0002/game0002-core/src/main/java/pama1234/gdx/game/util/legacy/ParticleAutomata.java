@@ -88,7 +88,7 @@ public class ParticleAutomata extends EntityCenter<RealGame,Entity>{
     add.add(scoreboard);
     //---
     tabs.setSelect(tab);
-    tabs.refresh();
+    tabs.refreshDepc();
     final float[][] rules=new float[][] {
       {0,1,-1,-1,0,0,0,0,0,0,0,1},
       {1,0,1,-1,-1,0,0,0,0,0,0,0},

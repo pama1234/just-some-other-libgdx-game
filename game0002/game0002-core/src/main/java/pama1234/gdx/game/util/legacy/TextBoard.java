@@ -26,7 +26,7 @@ public abstract class TextBoard extends Component<RealGame>{
     initLayer();
   }
   public abstract void drawLayer();
-  public abstract void refresh();
+  public abstract void refreshDepc();
   public void initLayer() {
     // buffer.begin();
     // p.beginDraw();

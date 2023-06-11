@@ -34,7 +34,7 @@ public class PageCenter extends TextBoard{
   public void init() {
     select.init();
   }
-  public void refresh() {
+  public void refreshDepc() {
     if(g==null) g=new Graphics(p,1,1);
     initLayer();
     int tw=w;
@@ -112,7 +112,7 @@ public class PageCenter extends TextBoard{
         final int index=(int)Math.floor((p.mouse.y-pos.y)/textSize);
         if(index>=0&&index<list.size()) {
           setSelect(list.get(index));
-          refresh();
+          refreshDepc();
           if(select==main) point.des.set(-w/2,-h/2);
           else point.des.set(x,y);
           //          drawLayer();

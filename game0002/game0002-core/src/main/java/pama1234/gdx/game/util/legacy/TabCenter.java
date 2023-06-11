@@ -21,9 +21,9 @@ public class TabCenter extends TextBoard{
   public void setSelect(Tab<?,?> select) {
     this.select=select;
     index=list.indexOf(select);
-    toolBar.refresh();
-    lsHelper.refresh();
-    scoreboard.refresh();
+    toolBar.refreshDepc();
+    lsHelper.refreshDepc();
+    scoreboard.refreshDepc();
   }
   public TabCenter(RealGame p,float x,float y) {
     super(p,x,y,1,1);
@@ -32,7 +32,7 @@ public class TabCenter extends TextBoard{
   public void init() {
     select.init();
   }
-  public void refresh() {
+  public void refreshDepc() {
     initLayer();
     int tw=w;
     w=1;
@@ -110,7 +110,7 @@ public class TabCenter extends TextBoard{
           }else {
             list.get(index).update=!list.get(index).update;
           }
-          refresh();
+          refreshDepc();
         }
       }
     }else select.mouseReleased(info);

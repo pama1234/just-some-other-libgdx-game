@@ -25,7 +25,7 @@ public class LoadAndSave extends TextBoard{
   }
   @Override
   public void init() {}
-  public void refresh() {
+  public void refreshDepc() {
     initLayer();
     int tw=w;
     w=1;
@@ -71,7 +71,7 @@ public class LoadAndSave extends TextBoard{
         cooling--;
         if(cooling==0&&names[1][0].charAt(0)=='*') {
           names[1][0]=names[1][0].substring(1);
-          refresh();
+          refreshDepc();
         }
       }else {
         switch(state[parent.index]) {
@@ -110,7 +110,7 @@ public class LoadAndSave extends TextBoard{
         }
         if(state[parent.index]!=0) {
           state[parent.index]=0;
-          refresh();
+          refreshDepc();
         }
       }
     }
@@ -126,7 +126,7 @@ public class LoadAndSave extends TextBoard{
         if(index>=0&&index<names[ti].length) {
           if(p.mouse.x>pos.x+textSize*0.5) {
             state[ti]=index;
-            refresh();
+            refreshDepc();
           }
         }
       }

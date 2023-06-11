@@ -5,7 +5,6 @@ import java.util.LinkedList;
 
 import pama1234.gdx.game.app.app0002.RealGame;
 import pama1234.gdx.util.element.Graphics;
-import pama1234.gdx.util.info.MouseInfo;
 import pama1234.math.UtilMath;
 
 public class Scoreboard extends TextBoard{
@@ -31,7 +30,7 @@ public class Scoreboard extends TextBoard{
   }
   @Override
   public void init() {}
-  public void refresh() {
+  public void refreshDepc() {
     initLayer();
     final String tt=text;
     text=format.format(UtilMath.sqrt(score));
@@ -67,7 +66,7 @@ public class Scoreboard extends TextBoard{
     if(parent.toolBar.select!=null) {
       score=parent.toolBar.select.score.pos;
     }
-    refresh();
+    refreshDepc();
   }
   @Override
   public void display() {

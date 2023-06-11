@@ -28,7 +28,7 @@ public class RealGame extends ScreenCore2D{
     centerCam.add.add(pageCenter=new PageCenter(this,new StartPage(this),-640,0));
     pageCenter.list.add(new GamePage(this));
     pageCenter.list.add(new SettingsPage(this));
-    pageCenter.refresh();
+    pageCenter.refreshDepc();
     pageCenter.postSetDes();
     centerCam.add.add(info=new Info(this,520,-320));
   }
