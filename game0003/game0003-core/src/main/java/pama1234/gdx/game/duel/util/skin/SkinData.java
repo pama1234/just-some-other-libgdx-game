@@ -15,8 +15,9 @@ public class SkinData{
   public Color shortbowArrow,longbowArrow,
     squareParticles,
     longbowLine,longbowEffect,
-    ring,particleDefault,background,
-    player_a,player_b,neatVoidBackground;
+    ring,particleDefault,backgroundLine,
+    player_a,player_b,neatVoidBackground,
+    text,background;
   public SkinData() {}
   public static SkinData fromData(ServerSkinData in) {
     SkinData out=new SkinData();
@@ -44,10 +45,12 @@ public class SkinData{
     longbowEffect=Duel.color(192,64,64);
     ring=Duel.color(0);
     particleDefault=Duel.color(0);
-    background=Duel.color(224);
+    backgroundLine=Duel.color(224);
     player_a=Duel.color(255);
     player_b=Duel.color(0);
     neatVoidBackground=Duel.color(191);
+    text=Duel.color(0);
+    background=Duel.color(255);
   }
   /**
    * 强制转换之恶魔

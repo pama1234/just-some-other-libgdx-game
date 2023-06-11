@@ -111,8 +111,8 @@ public class Duel extends ScreenCore2D implements StateChanger0002{
       neatE.init();
     }
     //---
-    //---
-    setTextColor(0);
+    backgroundColor(skin.background);
+    setTextColor(skin.text);
     demoInfo=new DemoInfo(this);
     //---
     cam.point.des.set(canvasSideLength/2f,canvasSideLength/2f);

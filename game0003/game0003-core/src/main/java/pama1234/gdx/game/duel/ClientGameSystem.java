@@ -71,7 +71,7 @@ public final class ClientGameSystem extends ServerGameSystem{
     // other
     commonParticleSet=new ParticleSet(duel,2048);
     currentState(new ClientStartGameState(duel,this));
-    currentBackground=new GameBackground(duel,duel.skin.background,0.1f);
+    currentBackground=new GameBackground(duel,duel.skin.backgroundLine,0.1f);
     // demoPlay=demo;
     showsInstructionWindow=instruction;
   }
