@@ -7,26 +7,26 @@ import pama1234.app.game.server.duel.util.player.ServerPlayerActor;
 import pama1234.gdx.game.duel.Duel;
 
 public final class ClientPlayerActor extends ServerPlayerActor{
-  public final Duel duel;
+  public final Duel p;
   public final Color fillColor;
   public ClientPlayerActor(Duel duel,PlayerEngine engine,Color color) {
     super(engine);
-    this.duel=duel;
+    this.p=duel;
     fillColor=color;
   }
   @Override
   public void display() {
-    duel.stroke(duel.skin.stroke);
-    duel.strokeWeight(3);
-    duel.doFill();
-    duel.fill(fillColor);
-    duel.pushMatrix();
-    duel.translate(xPosition,yPosition);
-    duel.pushMatrix();
-    duel.rotate(rotationAngle);
-    duel.rect(-16,-16,32,32);
-    duel.popMatrix();
+    p.stroke(p.skin.stroke);
+    p.strokeWeight(3);
+    p.doFill();
+    p.fill(fillColor);
+    p.pushMatrix();
+    p.translate(xPosition,yPosition);
+    p.pushMatrix();
+    p.rotate(rotationAngle);
+    p.rect(-16,-16,32,32);
+    p.popMatrix();
     state.displayEffect(this);
-    duel.popMatrix();
+    p.popMatrix();
   }
 }

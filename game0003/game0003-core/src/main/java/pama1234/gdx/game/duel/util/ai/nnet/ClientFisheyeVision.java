@@ -10,13 +10,13 @@ import pama1234.gdx.game.duel.Duel;
 import pama1234.gdx.util.element.Graphics;
 
 public class ClientFisheyeVision extends AbstractFisheyeVision{
-  public Duel duel;
+  public Duel p;
   public ShaderProgram shader;
   public Color backgroundColor;
   public Graphics graphics;
   //---
   public ClientFisheyeVision(Duel duel,ShaderProgram shader,Graphics graphics) {
-    this.duel=duel;
+    this.p=duel;
     this.shader=shader;
     this.graphics=graphics;
     backgroundColor=duel.skin.neatVoidBackground;
@@ -30,8 +30,8 @@ public class ClientFisheyeVision extends AbstractFisheyeVision{
   @Override
   public void render() {
     graphics.begin();
-    duel.background(backgroundColor);
-    duel.image(duel.graphics.texture,0,0,graphics.width(),graphics.height(),shader);
+    p.background(backgroundColor);
+    p.image(p.graphics.texture,0,0,graphics.width(),graphics.height(),shader);
     graphics.end();
   }
 }

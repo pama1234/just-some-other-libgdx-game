@@ -7,9 +7,9 @@ import pama1234.gdx.game.duel.Duel;
 import pama1234.math.UtilMath;
 
 public final class ParticleBuilder{
-  private final Duel duel;
+  private final Duel p;
   public ParticleBuilder(Duel duel) {
-    this.duel=duel;
+    this.p=duel;
   }
   public int particleTypeNumber;
   public float xPosition,yPosition;
@@ -29,7 +29,7 @@ public final class ParticleBuilder{
     directionAngle=0;
     speed=0;
     rotationAngle=0;
-    displayColor=Duel.color(0);
+    displayColor=p.skin.stroke;
     strokeWeightValue=1;
     displaySize=10;
     lifespanFrameCount=60;
@@ -76,7 +76,7 @@ public final class ParticleBuilder{
     return this;
   }
   public Particle build() {
-    final Particle newParticle=duel.stateCenter.game.system.commonParticleSet.allocate();
+    final Particle newParticle=p.stateCenter.game.system.commonParticleSet.allocate();
     newParticle.particleTypeNumber=this.particleTypeNumber;
     newParticle.xPosition=this.xPosition;
     newParticle.yPosition=this.yPosition;

@@ -14,7 +14,7 @@ import pama1234.gdx.game.duel.Duel;
 public class SkinData{
   public Color shortbowArrow,longbowArrow,
     squareParticles,
-    longbowLine,longbowEffect,
+    longbowLine,longbowEffect,playerDamaged,
     ring,particleDefault,backgroundLine,
     player_a,player_b,neatVoidBackground,
     text,background,
@@ -44,6 +44,7 @@ public class SkinData{
     squareParticles=Duel.color(0);
     longbowLine=Duel.color(192,64,64);
     longbowEffect=Duel.color(192,64,64);
+    playerDamaged=Duel.color(192,64,64);
     ring=Duel.color(0);
     particleDefault=Duel.color(0);
     backgroundLine=Duel.color(224);

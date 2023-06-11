@@ -25,7 +25,7 @@ import pama1234.gdx.game.state.state0002.Game;
 import pama1234.math.UtilMath;
 
 public final class ClientGameSystem extends ServerGameSystem{
-  public final Duel duel;
+  public final Duel p;
   public final Game pg;
   public final ParticleSet commonParticleSet;
   public float screenShakeValue;
@@ -38,7 +38,7 @@ public final class ClientGameSystem extends ServerGameSystem{
   }
   public ClientGameSystem(Duel duel,Game pg,boolean demo,boolean instruction) {
     super(null,demo,false);
-    this.duel=duel;
+    this.p=duel;
     this.pg=pg;
     // prepare PlayerActorState
     final MovePlayerActorState moveState=new MovePlayerActorState();
@@ -76,16 +76,16 @@ public final class ClientGameSystem extends ServerGameSystem{
     showsInstructionWindow=instruction;
   }
   public PlayerEngine createComputerEngine(boolean side) {
-    if(duel.config.mode==ServerConfigData.neat) {
+    if(p.config.mode==ServerConfigData.neat) {
       // if(type) return new ComputerPlayerEngine(duel::random);
       // else return new ComputerLifeEngine((type?duel.player_a:duel.player_b).graphics,duel.neatCenter.getNext());
-      return new ComputerLifeEngine((side?duel.neatE.player_a:duel.neatE.player_b).graphics,duel.neatCenter.getNext(),side);
-    }else return new ComputerPlayerEngine(duel::random);
+      return new ComputerLifeEngine((side?p.neatE.player_a:p.neatE.player_b).graphics,p.neatCenter.getNext(),side);
+    }else return new ComputerPlayerEngine(p::random);
   }
   public void update() {
     if(demoPlay) {
       if(pg.currentInput.isZPressed) {
-        pg.system=new ClientGameSystem(duel,pg); // stop demo and start game
+        pg.system=new ClientGameSystem(p,pg); // stop demo and start game
         return;
       }
     }
@@ -93,35 +93,35 @@ public final class ClientGameSystem extends ServerGameSystem{
     currentState.update();
   }
   public void display() {
-    duel.pushMatrix();
+    p.pushMatrix();
     if(screenShakeValue>0) {
-      duel.translate(duel.random(screenShakeValue,screenShakeValue),duel.random(-screenShakeValue,screenShakeValue));
+      p.translate(p.random(screenShakeValue,screenShakeValue),p.random(-screenShakeValue,screenShakeValue));
       screenShakeValue-=50f/Const.IDEAL_FRAME_RATE;
     }
     currentBackground.display();
     currentState.display();
-    duel.popMatrix();
+    p.popMatrix();
   }
   public void displayScreen() {
     currentState.displayScreen();
-    if(demoPlay&&showsInstructionWindow) DemoInfo.displayDemo(duel);
+    if(demoPlay&&showsInstructionWindow) DemoInfo.displayDemo(p);
   }
   public void addSquareParticles(float x,float y,int particleCount,float particleSize,float minSpeed,float maxSpeed,float lifespanSecondValue) {
     final ParticleBuilder builder=pg.system.commonParticleSet.builder
       .type(Particle.square)
       .position(x,y)
       .particleSize(particleSize)
-      .particleColor(duel.skin.squareParticles)
+      .particleColor(p.skin.squareParticles)
       .lifespanSecond(lifespanSecondValue);
     for(int i=0;i<particleCount;i++) {
       final Particle newParticle=builder
-        .polarVelocity(duel.random(UtilMath.PI2),duel.random(minSpeed,maxSpeed))
+        .polarVelocity(p.random(UtilMath.PI2),p.random(minSpeed,maxSpeed))
         .build();
       pg.system.commonParticleSet.particleList.add(newParticle);
     }
   }
   public void currentState(ClientGameSystemState currentState) {
     this.currentState=currentState;
-    duel.stateChangeEvent(this,stateIndex);
+    p.stateChangeEvent(this,stateIndex);
   }
 }

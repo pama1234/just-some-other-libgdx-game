@@ -66,7 +66,7 @@ public class NeatCenter extends Center<NetworkGroup>{
     }
   }
   public static class NetworkGroupParam{
-    public Duel duel;
+    public Duel p;
     public int canvasSize=256;
     public int inputSize,logicSize,outputSize,memorySize;
     public EvolveOptions visionOptions,logicOptions,behaviorOptions,worldbehavior;
