@@ -3,6 +3,7 @@ package pama1234.gdx.game.util.legacy;
 import com.badlogic.gdx.Input.Buttons;
 
 import pama1234.gdx.game.app.app0002.RealGame;
+import pama1234.gdx.util.app.UtilScreenColor;
 import pama1234.gdx.util.element.Graphics;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.math.Tools;
@@ -32,12 +33,12 @@ public class LoadAndSave extends TextBoard{
     w=1;
     final String[] tsa=names[parent.index];
     for(String i:tsa) {
-      final int t=(int)Math.ceil(p.textWidthNoScale(i)+textSize);
+      final int t=(int)Math.ceil(p.textWidthNoScale(i)+textConst);
       if(t>w) w=t;
     }
     int th=h;
     // h=(int)(textSize*(tsa.length+0.25f)+g.textDescent());
-    h=(int)(textSize*(tsa.length+0.25f));
+    h=(int)(textConst*(tsa.length+0.25f));
     if(tw!=w||th!=h) {
       graphics(new Graphics(p,w,h));
       // initLayer();
@@ -45,21 +46,21 @@ public class LoadAndSave extends TextBoard{
   }
   public void draw() {
     // g.beginShape();
-    p.background(0xffF66104);
+    p.background(UtilScreenColor.colorFromInt(0xffF66104));
     UITools.border(g,0,0,g.width(),g.height());
     float ty=0;
-    final int ts_d2=textSize/2;
+    final int ts_d2=textConst/2;
     final String[] tsa=names[parent.index];
     for(int i=0;i<tsa.length;i++) {
       String ts=tsa[i];
       final float tby=ty;
       // final float tby=ty+g.textDescent()-1;
-      p.fill(i==state[parent.index]?0xff6FEDFB:0xffDDF4C4);
-      p.rect(textSize/2,tby,w-textSize/2,textSize);
-      UITools.border(g,textSize/2,tby,w-textSize/2,textSize);
+      p.fill(UtilScreenColor.colorFromInt(i==state[parent.index]?0xff6FEDFB:0xffDDF4C4));
+      p.rect(textConst/2,tby,w-textConst/2,textConst);
+      UITools.border(g,textConst/2,tby,w-textConst/2,textConst);
       p.fill(0);
       p.text(ts,ts_d2,ty);
-      ty+=textSize;
+      ty+=textConst;
     }
     // g.endShape();
   }
@@ -121,10 +122,10 @@ public class LoadAndSave extends TextBoard{
     final int ti=parent.index;
     if(Tools.inBox(p.mouse.x,p.mouse.y,pos.x,pos.y,w,h)) {
       if(info.button==Buttons.LEFT) {
-        final int index=(int)Math.floor((p.mouse.y-pos.y)/textSize);
+        final int index=(int)Math.floor((p.mouse.y-pos.y)/textConst);
         // final int index=(int)Math.floor((p.mouse.y-pos.y-layer.textDescent()+1)/textSize);
         if(index>=0&&index<names[ti].length) {
-          if(p.mouse.x>pos.x+textSize*0.5) {
+          if(p.mouse.x>pos.x+textConst*0.5) {
             state[ti]=index;
             refresh();
           }

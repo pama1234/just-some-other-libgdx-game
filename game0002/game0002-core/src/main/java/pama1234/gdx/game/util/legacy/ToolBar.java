@@ -43,11 +43,11 @@ public class ToolBar extends TextBoard{
     w=1;
     final String[] tsa=names[parent.index];
     for(String i:tsa) {
-      final int t=(int)Math.ceil(p.textWidthNoScale(i)+textSize);
+      final int t=(int)Math.ceil(p.textWidthNoScale(i)+textConst);
       if(t>w) w=t;
     }
     int th=h;
-    h=(int)(textSize*(tsa.length+0.25f));
+    h=(int)(textConst*(tsa.length+0.25f));
     if(tw!=w||th!=h) graphics(new Graphics(p,w,h));
   }
   public void draw() {
@@ -55,17 +55,17 @@ public class ToolBar extends TextBoard{
     // p.doFill();
     UITools.border(g,0,0,g.width(),g.height());
     float ty=0;
-    final int ts_d2=textSize/2;
+    final int ts_d2=textConst/2;
     final String[] tsa=names[parent.index];
     for(int i=0;i<tsa.length;i++) {
       String ts=tsa[i];
       final float tby=ty;
       p.fill(p.colorFromInt(i==state[parent.index]?0xff6FEDFB:0xffDDF4C4));
-      p.rect(textSize/2,tby,w-textSize/2,textSize);
-      UITools.border(g,textSize/2,tby,w-textSize/2,textSize);
+      p.rect(textConst/2,tby,w-textConst/2,textConst);
+      UITools.border(g,textConst/2,tby,w-textConst/2,textConst);
       p.fill(0);
       p.text(ts,ts_d2,ty);
-      ty+=textSize;
+      ty+=textConst;
     }
   }
   @Override
@@ -193,10 +193,10 @@ public class ToolBar extends TextBoard{
     final int ti=parent.index;
     if(Tools.inBox(p.mouse.x,p.mouse.y,pos.x,pos.y,w,h)) {
       if(info.button==Buttons.LEFT) {
-        final int index=(int)Math.floor((p.mouse.y-pos.y)/textSize);
+        final int index=(int)Math.floor((p.mouse.y-pos.y)/textConst);
         // final int index=(int)Math.floor((p.mouse.y-pos.y-g.textDescent()+1)/textSize);
         if(index>=0&&index<names[ti].length) {
-          if(p.mouse.x>pos.x+textSize*0.5) {
+          if(p.mouse.x>pos.x+textConst*0.5) {
             state[ti]=index;
             refresh();
           }

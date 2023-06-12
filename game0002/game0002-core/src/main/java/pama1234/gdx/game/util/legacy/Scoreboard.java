@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.util.LinkedList;
 
 import pama1234.gdx.game.app.app0002.RealGame;
+import pama1234.gdx.util.app.UtilScreenColor;
 import pama1234.gdx.util.element.Graphics;
 import pama1234.math.UtilMath;
 
@@ -37,9 +38,9 @@ public class Scoreboard extends TextBoard{
     text=format.format(UtilMath.sqrt(score));
     if(!text.equals(tt)) {
       final int tw=w;
-      w=(int)Math.ceil(p.textWidth(text))+textSize*2;
+      w=(int)Math.ceil(p.textWidth(text))+textConst*2;
       final int th=h;
-      h=(int)(textSize*(1.25f));
+      h=(int)(textConst*(1.25f));
       if(tw!=w||th!=h) {
         graphics(new Graphics(p,w,h));
         // initLayer();
@@ -49,15 +50,15 @@ public class Scoreboard extends TextBoard{
   }
   public void draw() {
     // g.beginShape();
-    p.background(0xff00317A);
+    p.background(UtilScreenColor.colorFromInt(0xff00317A));
     UITools.border(g,0,0,g.width(),g.height());
     float ty=0;
     final int ts_d2=g.width()/2;
     final float tby=ty;
-    p.fill(0xff005984);
-    p.rect(textSize/2,tby,w-textSize,textSize);
-    UITools.border(g,textSize/2,tby,w-textSize,textSize);
-    p.fill(0xffF9CC31);
+    p.fill(UtilScreenColor.colorFromInt(0xff005984));
+    p.rect(textConst/2,tby,w-textConst,textConst);
+    UITools.border(g,textConst/2,tby,w-textConst,textConst);
+    p.fill(UtilScreenColor.colorFromInt(0xffF9CC31));
     p.text(text,ts_d2,ty);
     // g.endShape();
   }

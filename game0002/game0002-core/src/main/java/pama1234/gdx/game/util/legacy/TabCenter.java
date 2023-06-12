@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import com.badlogic.gdx.Input.Buttons;
 
 import pama1234.gdx.game.app.app0002.RealGame;
+import pama1234.gdx.util.app.UtilScreenColor;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.math.Tools;
 import pama1234.math.vec.Vec2f;
@@ -38,12 +39,12 @@ public class TabCenter extends TextBoard{
     int tw=w;
     w=1;
     for(Tab<?,?> tab:list) {
-      final int t=(int)Math.ceil(p.textWidthNoScale(tab.name)+textSize);
+      final int t=(int)Math.ceil(p.textWidthNoScale(tab.name)+textConst);
       if(t>w) w=t;
     }
     int th=h;
     // h=(int)(textSize*(list.size()+0.25f)+p.textDescent());
-    h=(int)(textSize*(list.size()+0.25f));
+    h=(int)(textConst*(list.size()+0.25f));
     if(tw!=w||th!=h) {
       graphics(p.createGraphics(w,h));
       // initLayer();
@@ -57,22 +58,22 @@ public class TabCenter extends TextBoard{
   }
   public void draw() {
     // beginDraw();
-    p.background(0xffF66104);
+    p.background(UtilScreenColor.colorFromInt(0xffF66104));
     UITools.border(g,0,0,g.width(),g.height());
     float ty=0;
-    final int ts_d2=textSize/2;
+    final int ts_d2=textConst/2;
     for(Tab<?,?> i:list) {
-      p.fill(i.update?0xff00ff00:0xffff0000);
+      p.fill(UtilScreenColor.colorFromInt(i.update?0xff00ff00:0xffff0000));
       // final float tby=ty+p.textDescent()-1;
       final float tby=ty;
-      p.rect(0,tby,textSize/2,textSize);
-      UITools.border(g,0,tby,textSize/2,textSize);
-      p.fill(i==select?0xff6FEDFB:0xffDDF4C4);
-      p.rect(textSize/2,tby,w-textSize/2,textSize);
-      UITools.border(g,textSize/2,tby,w-textSize/2,textSize);
+      p.rect(0,tby,textConst/2,textConst);
+      UITools.border(g,0,tby,textConst/2,textConst);
+      p.fill(UtilScreenColor.colorFromInt(i==select?0xff6FEDFB:0xffDDF4C4));
+      p.rect(textConst/2,tby,w-textConst/2,textConst);
+      UITools.border(g,textConst/2,tby,w-textConst/2,textConst);
       p.fill(0);
       p.text(i.name,ts_d2,ty);
-      ty+=textSize;
+      ty+=textConst;
     }
     // endDraw();
   }
@@ -103,10 +104,10 @@ public class TabCenter extends TextBoard{
     final Vec2f pos=point.pos;
     if(Tools.inBox(p.mouse.x,p.mouse.y,pos.x,pos.y,w,h)) {
       if(info.button==Buttons.LEFT) {
-        final int index=(int)Math.floor((p.mouse.y-pos.y)/textSize);
+        final int index=(int)Math.floor((p.mouse.y-pos.y)/textConst);
         // final int index=(int)Math.floor((p.mouse.y-pos.y-layer.textDescent()+1)/textSize);
         if(index>=0&&index<list.size()) {
-          if(p.mouse.x>pos.x+textSize*0.5) {
+          if(p.mouse.x>pos.x+textConst*0.5) {
             setSelect(list.get(index));
           }else {
             list.get(index).update=!list.get(index).update;

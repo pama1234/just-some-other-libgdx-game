@@ -39,11 +39,11 @@ public class PageCenter extends TextBoard{
     int tw=w;
     w=1;
     for(Page<?,?> tab:list) {
-      final int t=(int)Math.ceil(p.textWidthNoScale(tab.name)+textSize);
+      final int t=(int)Math.ceil(p.textWidthNoScale(tab.name)+textConst);
       if(t>w) w=t;
     }
     int th=h;
-    h=(int)(textSize*(list.size()+0.25f));
+    h=(int)(textConst*(list.size()+0.25f));
     if(tw!=w||th!=h) {
       graphics(new Graphics(p,w,h));
     }
@@ -62,15 +62,15 @@ public class PageCenter extends TextBoard{
     p.background(UtilScreenColor.colorFromInt(0xffF66104));
     UITools.border(g,0,0,g.width(),g.height());
     float ty=0;
-    final int ts_d2=g.width()/2;
+    final int ts_d2=textConst/2;
     for(Page<?,?> i:list) {
       final float tby=ty;
       p.fill(UtilScreenColor.colorFromInt(i==select?0xff6FEDFB:0xffDDF4C4));
-      p.rect(0,tby,w,textSize);
-      UITools.border(g,0,tby,w,textSize);
+      p.rect(0,tby,w,textConst);
+      UITools.border(g,0,tby,w,textConst);
       p.fill(0);
       p.text(i.name,ts_d2,ty);
-      ty+=textSize;
+      ty+=textConst;
     }
   }
   @Override
@@ -100,7 +100,7 @@ public class PageCenter extends TextBoard{
     final Vec2f pos=point.pos;
     if(Tools.inBox(p.mouse.x,p.mouse.y,pos.x,pos.y,w,h)) {
       if(info.button==Buttons.LEFT) {
-        final int index=(int)Math.floor((p.mouse.y-pos.y)/textSize);
+        final int index=(int)Math.floor((p.mouse.y-pos.y)/textConst);
         if(index>=0&&index<list.size()) {
           setSelect(list.get(index));
           refresh();

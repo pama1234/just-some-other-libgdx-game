@@ -7,7 +7,7 @@ import pama1234.gdx.util.element.Graphics;
 import pama1234.math.UtilMath;
 
 public class UITools{
-  public static final int selectLine=0xff6FEDFB,background=0xffDDF4C4;
+  public static final Color selectLine=UtilScreenColor.colorFromInt(0xff6FEDFB),background=UtilScreenColor.colorFromInt(0xffDDF4C4);
   public static int weight=1;
   public static void reversedBorder(final Graphics l,final float x,final float y,float w,float h) {
     border(l,x,y,w,h,UtilScreenColor.colorFromInt(0x80000000),UtilScreenColor.colorFromInt(0x80ffffff));
