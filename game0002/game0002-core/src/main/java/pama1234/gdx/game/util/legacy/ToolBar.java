@@ -48,14 +48,11 @@ public class ToolBar extends TextBoard{
     }
     int th=h;
     h=(int)(textSize*(tsa.length+0.25f));
-    if(tw!=w||th!=h) {
-      graphics(new Graphics(p,w,h));
-      texture=g.texture;
-      // initLayer();
-    }
+    if(tw!=w||th!=h) graphics(new Graphics(p,w,h));
   }
   public void draw() {
     p.background(p.colorFromInt(0xffF66104));
+    // p.doFill();
     UITools.border(g,0,0,g.width(),g.height());
     float ty=0;
     final int ts_d2=textSize/2;

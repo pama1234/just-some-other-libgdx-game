@@ -19,4 +19,9 @@ public abstract class TextBoard extends Component<RealGame>{
     this.h=h;
     loop=false;
   }
+  @Override
+  public void refresh() {
+    // p.withScreen();
+    super.refresh();
+  }
 }
