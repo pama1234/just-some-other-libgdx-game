@@ -10,6 +10,10 @@ import com.badlogic.gdx.graphics.Color;
  * @see UtilScreen3D
  */
 public abstract class UtilScreenColor extends UtilScreenCore{
+  public void textColor(Color in) {
+    textColor.set(in);
+    font.color(textColor);
+  }
   public void textColor(int r,int g,int b,int a) {
     textColor.set(r/255f,g/255f,b/255f,a/255f);
     font.color(textColor);

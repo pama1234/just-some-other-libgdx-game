@@ -85,107 +85,116 @@ public class ToolBar extends TextBoard{
           }
           p.cam.point.des.set(select.point.pos);
         }
-      }else if(state[ti]==1) {
-        if(select!=null) {
-          float tdx=0,tdy=0;
-          if(keys[left]!=keys[right]) {
-            if(keys[left]) tdx=-cellViewSpeed;
-            else tdx=cellViewSpeed;
+      }else if(state[ti]==1) moveInCircle();
+    }
+  }
+  public void moveInCircle() {
+    if(select!=null) {
+      float tdx=0,tdy=0;
+      if(p.isAndroid) {
+        tdx+=p.currentInput.dx;
+        tdy+=p.currentInput.dy;
+      }
+      if(keys[left]!=keys[right]) {
+        if(keys[left]) tdx=-cellViewSpeed;
+        else tdx=cellViewSpeed;
+      }
+      if(keys[up]!=keys[down]) {
+        if(keys[up]) tdy=-cellViewSpeed;
+        else tdy=cellViewSpeed;
+      }
+      select.point.vel.add(tdx,tdy);
+      final Vec2f pos2=select.point.pos;
+      near.clear();
+      for(Cell i:cellCenter.list) {
+        if(i==select||i.meta!=select.meta) continue;
+        final Vec2f pos1=i.point.pos;
+        final float td;
+        if(!parent.cellCenter.boxed) {
+          float dx=pos1.x-pos2.x;
+          float dy=pos1.y-pos2.y;
+          if(dx>parent.cellCenter.w/2) dx=parent.cellCenter.w-dx;
+          if(dy>parent.cellCenter.h/2) dy=parent.cellCenter.h-dy;
+          td=UtilMath.mag(dx,dy);
+        }else {
+          td=UtilMath.dist(
+            pos1.x,
+            pos1.y,
+            pos2.x,
+            pos2.y);
+        }
+        if(td<dist) {
+          near.add(i);
+          i.point.vel.add(tdx,tdy);
+          float tdx2=pos2.x-pos1.x,
+            tdy2=pos2.y-pos1.y;
+          if(tdx2>0) {
+            tdx2-=dist/2;
+            if(tdx2<0) tdx2=0;
+          }else {
+            tdx2+=dist/2;
+            if(tdx2>0) tdx2=0;
           }
-          if(keys[up]!=keys[down]) {
-            if(keys[up]) tdy=-cellViewSpeed;
-            else tdy=cellViewSpeed;
+          if(tdy2>0) {
+            tdy2-=dist/2;
+            if(tdy2<0) tdy2=0;
+          }else {
+            tdy2+=dist/2;
+            if(tdy2>0) tdy2=0;
           }
-          select.point.vel.add(tdx,tdy);
-          final Vec2f pos2=select.point.pos;
-          near.clear();
-          for(Cell i:cellCenter.list) {
-            if(i==select||i.meta!=select.meta) continue;
-            final Vec2f pos1=i.point.pos;
-            final float td;
-            if(!parent.cellCenter.boxed) {
-              float dx=pos1.x-pos2.x;
-              float dy=pos1.y-pos2.y;
-              if(dx>parent.cellCenter.w/2) dx=parent.cellCenter.w-dx;
-              if(dy>parent.cellCenter.h/2) dy=parent.cellCenter.h-dy;
-              td=UtilMath.mag(dx,dy);
-            }else {
-              td=UtilMath.dist(
-                pos1.x,
-                pos1.y,
-                pos2.x,
-                pos2.y);
-            }
-            if(td<dist) {
-              near.add(i);
-              i.point.vel.add(tdx,tdy);
-              float tdx2=pos2.x-pos1.x,
-                tdy2=pos2.y-pos1.y;
-              if(tdx2>0) {
-                tdx2-=dist/2;
-                if(tdx2<0) tdx2=0;
-              }else {
-                tdx2+=dist/2;
-                if(tdx2>0) tdx2=0;
-              }
-              if(tdy2>0) {
-                tdy2-=dist/2;
-                if(tdy2<0) tdy2=0;
-              }else {
-                tdy2+=dist/2;
-                if(tdy2>0) tdy2=0;
-              }
-              i.point.vel.add(tdx2*0.2f,tdy2*0.2f);
-            }
-          }
-          p.cam.point.des.set(select.point.pos);
+          i.point.vel.add(tdx2*0.2f,tdy2*0.2f);
         }
       }
+      p.cam.point.des.set(select.point.pos);
     }
   }
   @Override
   public void display() {
     p.image(g.texture,point.pos.x,point.pos.y);
-    if(select!=null) {
-      p.noFill();
-      p.doStroke();
-      p.stroke(p.colorFromInt(0x80ffffff));
-      final float tx=select.point.pos.x,
-        ty=select.point.pos.y,
-        ts_m2=Cell.size*2,
-        ts_d2=Cell.size/2;
-      // ts_d2m3=ts_d2*3;
-      final boolean flag=parent.index==1&&state[parent.index]==1;
-      final float ts_m2_2=flag?ts_m2+dist:ts_m2,
-        ts_d2m3=flag?ts_d2*2+dist:ts_d2*3,
-        ts_d2m4=flag?ts_d2*2:ts_d2;
-      p.circle(tx,ty,ts_m2/2);
-      if(flag) {
-        p.circle(tx,ty,dist);
-        for(Cell i:near) {
-          Vec2f pos=i.point.pos;
-          p.circle(pos.x,pos.y,ts_m2/2);
-        }
+    if(select!=null) drawSelect();
+  }
+  public void drawSelect() {
+    p.strokeWeight(0.5f/p.cam2d.ocam.zoom);
+    p.noFill();
+    p.doStroke();
+    p.beginBlend();
+    p.stroke(p.colorFromInt(0x80ffffff));
+    final float tx=select.point.pos.x,
+      ty=select.point.pos.y,
+      ts_m2=Cell.size*2,
+      ts_d2=Cell.size/2;
+    // ts_d2m3=ts_d2*3;
+    final boolean flag=parent.index==1&&state[parent.index]==1;
+    final float ts_m2_2=flag?ts_m2+dist:ts_m2,
+      ts_d2m3=flag?ts_d2*2+dist:ts_d2*3,
+      ts_d2m4=flag?ts_d2*2:ts_d2;
+    p.circle(tx,ty,ts_m2/2);
+    if(flag) {
+      p.circle(tx,ty,dist);
+      for(Cell i:near) {
+        Vec2f pos=i.point.pos;
+        p.circle(pos.x,pos.y,ts_m2/2);
       }
-      if(keys[up]) {
-        p.line(tx,ty-ts_m2_2,tx-ts_d2m4,ty-ts_d2m3);
-        p.line(tx,ty-ts_m2_2,tx+ts_d2m4,ty-ts_d2m3);
-      }
-      if(keys[down]) {
-        p.line(tx,ty+ts_m2_2,tx-ts_d2m4,ty+ts_d2m3);
-        p.line(tx,ty+ts_m2_2,tx+ts_d2m4,ty+ts_d2m3);
-      }
-      if(keys[left]) {
-        p.line(tx-ts_m2_2,ty,tx-ts_d2m3,ty-ts_d2m4);
-        p.line(tx-ts_m2_2,ty,tx-ts_d2m3,ty+ts_d2m4);
-      }
-      if(keys[right]) {
-        p.line(tx+ts_m2_2,ty,tx+ts_d2m3,ty-ts_d2m4);
-        p.line(tx+ts_m2_2,ty,tx+ts_d2m3,ty+ts_d2m4);
-      }
-      p.noStroke();
-      p.doFill();
     }
+    if(keys[up]) {
+      p.line(tx,ty-ts_m2_2,tx-ts_d2m4,ty-ts_d2m3);
+      p.line(tx,ty-ts_m2_2,tx+ts_d2m4,ty-ts_d2m3);
+    }
+    if(keys[down]) {
+      p.line(tx,ty+ts_m2_2,tx-ts_d2m4,ty+ts_d2m3);
+      p.line(tx,ty+ts_m2_2,tx+ts_d2m4,ty+ts_d2m3);
+    }
+    if(keys[left]) {
+      p.line(tx-ts_m2_2,ty,tx-ts_d2m3,ty-ts_d2m4);
+      p.line(tx-ts_m2_2,ty,tx-ts_d2m3,ty+ts_d2m4);
+    }
+    if(keys[right]) {
+      p.line(tx+ts_m2_2,ty,tx+ts_d2m3,ty-ts_d2m4);
+      p.line(tx+ts_m2_2,ty,tx+ts_d2m3,ty+ts_d2m4);
+    }
+    p.noStroke();
+    p.doFill();
+    p.endBlend();
   }
   @Override
   public void mousePressed(MouseInfo info) {

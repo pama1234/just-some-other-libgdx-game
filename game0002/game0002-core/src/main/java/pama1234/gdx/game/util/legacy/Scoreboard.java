@@ -33,7 +33,6 @@ public class Scoreboard extends TextBoard{
   public void init() {}
   @Override
   public void beforeDraw() {
-    // initLayer();
     final String tt=text;
     text=format.format(UtilMath.sqrt(score));
     if(!text.equals(tt)) {
@@ -41,26 +40,21 @@ public class Scoreboard extends TextBoard{
       w=(int)Math.ceil(p.textWidth(text))+textConst*2;
       final int th=h;
       h=(int)(textConst*(1.25f));
-      if(tw!=w||th!=h) {
-        graphics(new Graphics(p,w,h));
-        // initLayer();
-      }
-      // drawLayer();
+      if(tw!=w||th!=h) graphics(new Graphics(p,w,h));
     }
   }
   public void draw() {
-    // g.beginShape();
     p.background(UtilScreenColor.colorFromInt(0xff00317A));
     UITools.border(g,0,0,g.width(),g.height());
     float ty=0;
-    final int ts_d2=g.width()/2;
+    final int ts_d2=textConst/2;
     final float tby=ty;
     p.fill(UtilScreenColor.colorFromInt(0xff005984));
     p.rect(textConst/2,tby,w-textConst,textConst);
     UITools.border(g,textConst/2,tby,w-textConst,textConst);
-    p.fill(UtilScreenColor.colorFromInt(0xffF9CC31));
+    p.textColor(UtilScreenColor.colorFromInt(0xffF9CC31));
     p.text(text,ts_d2,ty);
-    // g.endShape();
+    p.textColor(0);
   }
   @Override
   public void update() {

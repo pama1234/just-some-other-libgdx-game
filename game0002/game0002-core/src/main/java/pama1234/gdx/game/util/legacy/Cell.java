@@ -44,7 +44,7 @@ public class Cell extends Entity<RealGame>{
       p.circle(
         point.pos.x-parent.x1+layer_cell_size,
         point.pos.y-parent.y1+layer_cell_size,
-        size);
+        size/2f);
     }else {
       float tx=point.pos.x,
         ty=point.pos.y;

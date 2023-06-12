@@ -2,6 +2,7 @@ package pama1234.gdx.game.util.legacy;
 
 import com.badlogic.gdx.graphics.Color;
 
+import pama1234.gdx.util.app.UtilScreen;
 import pama1234.gdx.util.app.UtilScreenColor;
 import pama1234.gdx.util.element.Graphics;
 import pama1234.math.UtilMath;
@@ -13,18 +14,21 @@ public class UITools{
     border(l,x,y,w,h,UtilScreenColor.colorFromInt(0x80000000),UtilScreenColor.colorFromInt(0x80ffffff));
   }
   public static void border(final Graphics l,final float x,final float y,float w,float h,Color a,Color b) {
-    final Color tc=l.p.fillColor.cpy();
-    final boolean ts=l.p.stroke;
-    l.p.noStroke();
-    l.p.doFill();
-    l.p.fill(a);
-    l.p.rect(x,y,w,weight);
-    l.p.rect(x,y,weight,h);
-    l.p.fill(b);
-    l.p.rect(x,y+h-weight,w,weight);
-    l.p.rect(x+w-weight,y,weight,h);
-    l.p.fill(tc);
-    l.p.stroke=ts;
+    UtilScreen p=l.p;
+    final Color tc=p.fillColor.cpy();
+    final boolean ts=p.stroke;
+    p.beginBlend();
+    p.noStroke();
+    p.doFill();
+    p.fill(a);
+    p.rect(x,y,w,weight);
+    p.rect(x,y,weight,h);
+    p.fill(b);
+    p.rect(x,y+h-weight,w,weight);
+    p.rect(x+w-weight,y,weight,h);
+    p.fill(tc);
+    p.stroke=ts;
+    p.endBlend();
     // l.p.noFill();
   }
   public static void border(final Graphics l,final float x,final float y,float w,float h) {
