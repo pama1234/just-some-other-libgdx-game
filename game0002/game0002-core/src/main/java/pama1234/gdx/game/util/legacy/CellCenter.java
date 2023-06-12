@@ -107,6 +107,7 @@ public class CellCenter extends EntityCenter<RealGame,Cell>{
   }
   @Override
   public void display() {
+    // System.out.println("CellCenter.display()");
     drawCanvas();
     if(boxed) p.image(layer.texture,x1-layer_cell_size,y1-layer_cell_size);
     else p.image(layer.texture,x1-w/4f,y1-h/4f);

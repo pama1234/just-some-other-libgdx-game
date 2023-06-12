@@ -152,7 +152,7 @@ public class ToolBar extends TextBoard{
     if(select!=null) {
       p.noFill();
       p.doStroke();
-      p.stroke(0x80ffffff);
+      p.stroke(p.colorFromInt(0x80ffffff));
       final float tx=select.point.pos.x,
         ty=select.point.pos.y,
         ts_m2=Cell.size*2,

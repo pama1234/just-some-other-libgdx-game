@@ -77,17 +77,17 @@ public class MetaCellCenter extends EntityCenter<RealGame,MetaCell>{
     }
     MetaCell txc=list.get(select.x),
       tyc=list.get(select.y);
-    p.fill(0xff6D5CB7);
+    p.fill(p.colorFromInt(0xff6D5CB7));
     final float tx1=tyc.point.pos.x,
       ty1=tyc.point.pos.y;
     p.circle(tx1,ty1,MetaCell.size*2);
-    p.fill(0xffFB6104);
+    p.fill(p.colorFromInt(0xffFB6104));
     final float tx2=txc.point.pos.x,
       ty2=txc.point.pos.y;
     p.circle(tx2,ty2,MetaCell.size*2);
     if(txc!=tyc) {
       p.doStroke();
-      p.stroke(0x80D53569);
+      p.stroke(p.colorFromInt(0x80D53569));
       p.strokeWeight(MetaCell.size*2);
       p.line(tx1,ty1,tx2,ty2);
       p.strokeWeight(3);
@@ -95,7 +95,7 @@ public class MetaCellCenter extends EntityCenter<RealGame,MetaCell>{
     super.display();
     MetaInfo txi=txc.list.get(select.y),
       tyi=tyc.list.get(select.x);
-    p.fill(0xff00ff00);
+    p.fill(p.colorFromInt(0xff00ff00));
     StringBuilder sb=new StringBuilder();
     sb.append(select.toString());
     sb.append("\n\"");

@@ -25,6 +25,7 @@ public class RealGame extends ScreenCore2D{
     // backgroundColor(255);
     backgroundColor(0);
     strokeWeight(Cell.size/4);
+    stroke(255);
     noStroke();
     centerCam.add.add(pageCenter=new PageCenter(this,new StartPage(this),-640,0));
     pageCenter.list.add(new GamePage(this));
@@ -44,7 +45,9 @@ public class RealGame extends ScreenCore2D{
     // rect(0,0,16,16);
   }
   @Override
-  public void frameResized() {}
+  public void frameResized() {
+    strokeWeight((Cell.size/8)/pu);
+  }
   /**
    * use new Graphics(p,
    * 

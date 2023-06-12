@@ -25,7 +25,7 @@ public class UITools{
     l.p.rect(x+w-weight,y,weight,h);
     l.p.fill(tc);
     l.p.stroke=ts;
-    l.p.noFill();
+    // l.p.noFill();
   }
   public static void border(final Graphics l,final float x,final float y,float w,float h) {
     border(l,x,y,w,h,UtilScreenColor.colorFromInt(0x80ffffff),UtilScreenColor.colorFromInt(0x80000000));
