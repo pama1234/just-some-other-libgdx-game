@@ -34,7 +34,7 @@ public class CellCenter extends EntityCenter<RealGame,Cell>{
     fade.setUniformf("fadeStepSlow",p.isAndroid?1f/256:4f/256);
     fade.setUniformf("fadeStep",16f/256);
     fade.setUniformf("fadeThreshold",128f/256);
-    fadeTickCount=p.isAndroid?8:2;
+    fadeTickCount=p.isAndroid?4:2;
   }
   @Override
   public void update() {
@@ -131,7 +131,9 @@ public class CellCenter extends EntityCenter<RealGame,Cell>{
   }
   public void fade() {
     if(fadeTick==0) p.imageBatch.setShader(fade);
+    p.beginBlend();
     p.image(layerCache().texture,0,0);
-    p.imageBatch.setShader(null);
+    p.endBlend();
+    if(fadeTick==0) p.imageBatch.setShader(null);
   }
 }
