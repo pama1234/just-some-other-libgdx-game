@@ -110,16 +110,11 @@ public class TabCenter extends TextBoard{
           }else {
             list.get(index).update=!list.get(index).update;
           }
-          refreshDepc();
+          refresh();
         }
       }
     }else select.mouseReleased(info);
   }
-  // @Override
-  // public void mouseClicked(MouseInfo info) {
-  //   final Vec2f pos=point.pos;
-  //   if(!Tools.inBox(p.mouse.x,p.mouse.y,pos.x,pos.y,w,h)) select.mouseClicked(info);
-  // }
   @Override
   public void mouseMoved() {
     final Vec2f pos=point.pos;

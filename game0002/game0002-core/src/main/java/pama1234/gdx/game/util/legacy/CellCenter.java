@@ -1,5 +1,8 @@
 package pama1234.gdx.game.util.legacy;
 
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.glutils.ShaderProgram;
+
 import pama1234.gdx.game.app.app0002.RealGame;
 import pama1234.gdx.util.element.Graphics;
 import pama1234.gdx.util.wrapper.EntityCenter;
@@ -14,6 +17,7 @@ public class CellCenter extends EntityCenter<RealGame,Cell>{
   public static final boolean boxed=true;
   public static final int x1=-boxR,y1=-boxR,x2=boxR,y2=boxR;
   public static final int w=x2-x1,h=y2-y1;
+  public ShaderProgram fade;
   public Graphics layer;
   @SuppressWarnings("unused")
   public CellCenter(final RealGame p,final MetaCellCenter parent) {
@@ -21,9 +25,12 @@ public class CellCenter extends EntityCenter<RealGame,Cell>{
     this.meta=parent;
     if(boxed) layer=new Graphics(p,w+layer_cell_size*2+1,h+layer_cell_size*2+1);
     else layer=new Graphics(p,w+w/2,h+h/2);
-    layer.begin();
-    p.noStroke();
-    layer.end();
+    // layer.begin();
+    // p.noStroke();
+    // layer.end();
+    fade=new ShaderProgram(
+      Gdx.files.internal("shader/main0006/fade.vert").readString(),
+      Gdx.files.internal("shader/main0006/fade.frag").readString());
   }
   @Override
   public void update() {
@@ -70,6 +77,7 @@ public class CellCenter extends EntityCenter<RealGame,Cell>{
     // drawCanvas();
   }
   public void drawCanvas() {
+    // System.out.println("CellCenter.drawCanvas()");
     p.endShape();
     // layer.begin();
     // fade();
@@ -87,6 +95,7 @@ public class CellCenter extends EntityCenter<RealGame,Cell>{
     if(boxed) p.rect(0,0,layer.width()-1,layer.height()-1);
     else p.rect(w/4f-layer_cell_size/2,h/4f-layer_cell_size/2,w-1+layer_cell_size,h-1+layer_cell_size);
     p.noStroke();
+    p.doFill();
     // layer.end();
   }
   public float f(final float r,final float g) {
@@ -102,6 +111,10 @@ public class CellCenter extends EntityCenter<RealGame,Cell>{
     else p.image(layer.texture,x1-w/4f,y1-h/4f);
   }
   public void fade() {
+    // fade.bind();
+    p.imageBatch.setShader(fade);
+    p.image(layer.texture,0,0);
+    p.imageBatch.setShader(null);
     // p.background(0);
   }
   public void dispose() {

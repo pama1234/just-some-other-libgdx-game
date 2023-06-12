@@ -185,6 +185,7 @@ public class ToolBar extends TextBoard{
         p.line(tx+ts_m2_2,ty,tx+ts_d2m3,ty+ts_d2);
       }
       p.noStroke();
+      p.doFill();
     }
   }
   @Override
