@@ -57,9 +57,8 @@ public class PageCenter extends TextBoard{
     select.update();
   }
   public void draw() {
-    // System.out.println(p.usedCamera.viewportWidth);
-    // System.out.println(p.usedCamera);
     p.background(UtilScreenColor.colorFromInt(0xffF66104));
+    p.textColor(0);
     UITools.border(g,0,0,g.width(),g.height());
     float ty=0;
     final int ts_d2=textConst/2;

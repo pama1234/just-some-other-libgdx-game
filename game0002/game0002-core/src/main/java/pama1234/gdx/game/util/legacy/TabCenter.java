@@ -59,6 +59,7 @@ public class TabCenter extends TextBoard{
   public void draw() {
     // beginDraw();
     p.background(UtilScreenColor.colorFromInt(0xffF66104));
+    p.textColor(0);
     UITools.border(g,0,0,g.width(),g.height());
     float ty=0;
     final int ts_d2=textConst/2;

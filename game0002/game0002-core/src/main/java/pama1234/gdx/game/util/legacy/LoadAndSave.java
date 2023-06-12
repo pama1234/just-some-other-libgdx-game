@@ -47,6 +47,7 @@ public class LoadAndSave extends TextBoard{
   public void draw() {
     // g.beginShape();
     p.background(UtilScreenColor.colorFromInt(0xffF66104));
+    p.textColor(0);
     UITools.border(g,0,0,g.width(),g.height());
     float ty=0;
     final int ts_d2=textConst/2;
@@ -80,7 +81,8 @@ public class LoadAndSave extends TextBoard{
             // p.saveBytes(System.getProperty("user.dir")+
             //   "/data/saved/data.bytes",
             //   cellCenter.toData().array());
-            names[1][0]="*已保存";
+            // names[1][0]="*已保存";
+            names[1][0]="功能未实现";
             cooling=coolingTime;
           }
             break;
@@ -95,7 +97,8 @@ public class LoadAndSave extends TextBoard{
             //   names[1][0]="*已加载";
             //   cooling=coolingTime;
             // }else {
-            names[1][0]="*无此文件";
+            // names[1][0]="*无此文件";
+            names[1][0]="功能未实现";
             cooling=coolingTime;
             // }
           }

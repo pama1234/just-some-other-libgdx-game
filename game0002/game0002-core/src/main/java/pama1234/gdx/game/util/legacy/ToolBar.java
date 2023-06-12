@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import com.badlogic.gdx.Input.Buttons;
 
 import pama1234.gdx.game.app.app0002.RealGame;
+import pama1234.gdx.util.app.UtilScreenColor;
 import pama1234.gdx.util.element.Graphics;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.math.Tools;
@@ -51,7 +52,8 @@ public class ToolBar extends TextBoard{
     if(tw!=w||th!=h) graphics(new Graphics(p,w,h));
   }
   public void draw() {
-    p.background(p.colorFromInt(0xffF66104));
+    p.background(UtilScreenColor.colorFromInt(0xffF66104));
+    p.textColor(0);
     // p.doFill();
     UITools.border(g,0,0,g.width(),g.height());
     float ty=0;
@@ -60,7 +62,7 @@ public class ToolBar extends TextBoard{
     for(int i=0;i<tsa.length;i++) {
       String ts=tsa[i];
       final float tby=ty;
-      p.fill(p.colorFromInt(i==state[parent.index]?0xff6FEDFB:0xffDDF4C4));
+      p.fill(UtilScreenColor.colorFromInt(i==state[parent.index]?0xff6FEDFB:0xffDDF4C4));
       p.rect(textConst/2,tby,w-textConst/2,textConst);
       UITools.border(g,textConst/2,tby,w-textConst/2,textConst);
       p.fill(0);
@@ -203,7 +205,6 @@ public class ToolBar extends TextBoard{
     if(Tools.inBox(p.mouse.x,p.mouse.y,pos.x,pos.y,w,h)) {
       if(info.button==Buttons.LEFT) {
         final int index=(int)Math.floor((p.mouse.y-pos.y)/textConst);
-        // final int index=(int)Math.floor((p.mouse.y-pos.y-g.textDescent()+1)/textSize);
         if(index>=0&&index<names[ti].length) {
           if(p.mouse.x>pos.x+textConst*0.5) {
             state[ti]=index;
@@ -214,7 +215,8 @@ public class ToolBar extends TextBoard{
     }else {
       if(ti==1) {
         if(state[ti]==0||state[ti]==1) {
-          if(info.button==Buttons.LEFT) {
+          // System.out.println(info.state);
+          if(info.button==Buttons.LEFT&&info.state==0) {
             if(select!=null) {
               select.meta=originalId;
               select=null;

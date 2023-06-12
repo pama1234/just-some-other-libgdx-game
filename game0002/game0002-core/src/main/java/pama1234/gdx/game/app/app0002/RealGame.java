@@ -35,6 +35,11 @@ public class RealGame extends ScreenCore2D{
   }
   @Override
   public void setup() {
+    if(isAndroid) {
+      currentInput=new InputData();
+      actrl=new AndroidCtrl(this);
+      centerScreen.add.add(actrl);
+    }
     // backgroundColor(255);
     backgroundColor(0);
     strokeWeight(Cell.size/4);
@@ -46,11 +51,6 @@ public class RealGame extends ScreenCore2D{
     pageCenter.refresh();
     pageCenter.postSetDes();
     centerCam.add.add(info=new Info(this,520,-320));
-    if(isAndroid) {
-      currentInput=new InputData();
-      actrl=new AndroidCtrl(this);
-      centerScreen.add.add(actrl);
-    }
   }
   @Override
   public void update() {}
