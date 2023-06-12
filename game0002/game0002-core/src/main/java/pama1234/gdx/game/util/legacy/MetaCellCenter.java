@@ -29,10 +29,6 @@ public class MetaCellCenter extends EntityCenter<RealGame,MetaCell>{
       Graphics layer=new Graphics(p,w-x,h-y);
       layers[i]=layer;
       layer.begin();
-      // p.textFont(p.font);
-      // p.textSize(textSize);
-      // p.textLeading(textSize);
-      // p.textAlign(Keys.CENTER,Keys.CENTER);
       p.strokeWeight(3);
       layer.end();
     }

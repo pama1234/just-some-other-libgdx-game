@@ -43,7 +43,7 @@ public class LoadAndSave extends TextBoard{
       // initLayer();
     }
   }
-  public void drawLayer() {
+  public void draw() {
     // g.beginShape();
     p.background(0xffF66104);
     UITools.border(g,0,0,g.width(),g.height());

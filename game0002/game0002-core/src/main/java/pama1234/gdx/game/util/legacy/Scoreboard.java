@@ -47,7 +47,7 @@ public class Scoreboard extends TextBoard{
       // drawLayer();
     }
   }
-  public void drawLayer() {
+  public void draw() {
     // g.beginShape();
     p.background(0xff00317A);
     UITools.border(g,0,0,g.width(),g.height());

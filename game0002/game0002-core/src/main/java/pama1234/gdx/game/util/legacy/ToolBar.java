@@ -54,8 +54,8 @@ public class ToolBar extends TextBoard{
       // initLayer();
     }
   }
-  public void drawLayer() {
-    p.background(0xffF66104);
+  public void draw() {
+    p.background(p.colorFromInt(0xffF66104));
     UITools.border(g,0,0,g.width(),g.height());
     float ty=0;
     final int ts_d2=textSize/2;
@@ -63,7 +63,7 @@ public class ToolBar extends TextBoard{
     for(int i=0;i<tsa.length;i++) {
       String ts=tsa[i];
       final float tby=ty;
-      p.fill(i==state[parent.index]?0xff6FEDFB:0xffDDF4C4);
+      p.fill(p.colorFromInt(i==state[parent.index]?0xff6FEDFB:0xffDDF4C4));
       p.rect(textSize/2,tby,w-textSize/2,textSize);
       UITools.border(g,textSize/2,tby,w-textSize/2,textSize);
       p.fill(0);

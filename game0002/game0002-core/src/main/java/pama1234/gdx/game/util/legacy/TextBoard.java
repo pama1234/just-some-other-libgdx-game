@@ -11,20 +11,17 @@ public abstract class TextBoard extends Component<RealGame>{
     this.textSize=textSize;
     this.w=w;
     this.h=h;
+    loop=false;
   }
   public TextBoard(RealGame p,float x,float y,int w,int h) {
     super(p,x,y,w,h);
     this.w=w;
     this.h=h;
-  }
-  @Override
-  public void draw() {
-    drawLayer();
+    loop=false;
   }
   @Override
   public void beforeDraw() {
     initLayer();
   }
-  public abstract void drawLayer();
   public void initLayer() {}
 }

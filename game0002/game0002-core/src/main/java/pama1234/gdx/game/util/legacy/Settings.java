@@ -14,15 +14,11 @@ public class Settings extends TextBoard{
     refresh();
   }
   @Override
-  public void drawLayer() {
+  public void draw() {
     initLayer();
     g.beginShape();
     p.background(UITools.background);
     UITools.border(g,0,0,w,h);
-    draw();
-    g.endShape();
-  }
-  public void draw() {
     for(int i=0;i<names.length;i++) {
       float pos=textSize,ty=textSize*(i+1);
       for(int j=0;j<names[i].length;j++) {
@@ -34,5 +30,6 @@ public class Settings extends TextBoard{
         }
       }
     }
+    g.endShape();
   }
 }

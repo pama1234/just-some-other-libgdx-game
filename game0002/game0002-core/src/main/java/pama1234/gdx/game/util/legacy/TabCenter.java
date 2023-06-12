@@ -55,7 +55,7 @@ public class TabCenter extends TextBoard{
     point.update();
     for(Tab<?,?> i:list) i.update();
   }
-  public void drawLayer() {
+  public void draw() {
     // beginDraw();
     p.background(0xffF66104);
     UITools.border(g,0,0,g.width(),g.height());

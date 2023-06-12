@@ -9,7 +9,7 @@ import pama1234.math.vec.Vec2f;
 
 public class Info extends TextBoard{
   public static int TEXT_SIZE=16;
-  String[] data;
+  String[][] data;
   int state;
   float cw;
   public Info(RealGame p,float x,float y) {
@@ -44,16 +44,19 @@ public class Info extends TextBoard{
       "抄自百度百科：\n\n格式塔作为心理学术语，具有两种含义：一指事物的一般属性，即形式；一指事物的个别实体，即分离的整体，形式仅为其属性之一。也就是说，“假使有一种经验的现象，它的每一成分都牵连到其他成分；而且每一成分之所以有其特性，即因为它和其他部分具有关系，这种现象便称为格式塔。”总之，格式塔不是孤立不变的现象，而是指通体相关的完整的现象。完整的现象具有它本身完整的特性，它既不能割裂成简单的元素，同时它的特性又不包含于任何元素之内。\n\n"+
         "这里的粒子元胞自动机，如果非得分类一下，则可以分为格式塔人工生命流派，别问我为什么，我也不知道，你当成我瞎猜的即可"});
   }
-  public Info(RealGame p,float x,float y,String[] data) {
+  public Info(RealGame p,float x,float y,String[] dataIn) {
     super(p,x,y,TEXT_SIZE*20,TEXT_SIZE*40,TEXT_SIZE);
-    this.data=data;
+    data=new String[dataIn.length][];
+    for(int i=0;i<data.length;i++) {
+      data[i]=dataIn[i].split("\n");
+    }
     initLayer();
     refresh();
   }
   @Override
-  public void drawLayer() {
+  public void draw() {
+    // p.textSize(16);
     // System.out.println("Info.drawLayer()");
-    // g.beginShape();
     p.background(p.colorFromInt(0xff4D3C94));
     UITools.border(g,0,0,g.width(),g.height());
     p.fill(p.colorFromInt(0xff006799));
@@ -62,19 +65,16 @@ public class Info extends TextBoard{
     p.rect(state*TEXT_SIZE,0,TEXT_SIZE,TEXT_SIZE);
     p.fill(255);
     float ty=0;
-    // float ty=-p.textDescent()/2;
     for(int i=0;i<data.length;i++) {
       p.text(String.valueOf(i),i*TEXT_SIZE,ty);
       UITools.border(g,i*TEXT_SIZE,0,TEXT_SIZE,TEXT_SIZE);
     }
-    p.text(String.valueOf(data[state]),TEXT_SIZE/2,TEXT_SIZE*2);
-    // p.text(String.valueOf(data[state]),TEXT_SIZE/2,TEXT_SIZE*2,g.width()-TEXT_SIZE/2,g.height());
+    for(int i=0;i<data[state].length;i++) p.text(String.valueOf(data[state][i]),TEXT_SIZE/2,i*20+TEXT_SIZE*2);
     p.fill(p.colorFromInt(0xffFB612E));
     p.rect(g.width()-(cw=p.textWidth("Ctrl-C")),0,cw,TEXT_SIZE);
     p.fill(255);
     p.text("Ctrl-C",g.width()-cw,ty);
     UITools.border(g,g.width()-cw,0,cw,TEXT_SIZE);
-    // g.endShape();
   }
   @Override
   public void mousePressed(MouseInfo info) {
