@@ -37,13 +37,9 @@ public class RealGame extends ScreenCore2D{
   @Override
   public void update() {}
   @Override
-  public void display() {
-    // rect(0,0,u,u);
-  }
+  public void display() {}
   @Override
-  public void displayWithCam() {
-    // rect(0,0,16,16);
-  }
+  public void displayWithCam() {}
   @Override
   public void frameResized() {
     strokeWeight((Cell.size/8)/pu);

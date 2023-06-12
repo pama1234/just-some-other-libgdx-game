@@ -1,11 +1,5 @@
 package pama1234.gdx.game.util.legacy;
 
-import java.awt.Toolkit;
-import java.awt.datatransfer.Clipboard;
-import java.awt.datatransfer.ClipboardOwner;
-import java.awt.datatransfer.StringSelection;
-import java.awt.datatransfer.Transferable;
-
 import com.badlogic.gdx.Input.Buttons;
 
 import pama1234.gdx.game.app.app0002.RealGame;
@@ -13,7 +7,7 @@ import pama1234.gdx.util.info.MouseInfo;
 import pama1234.math.Tools;
 import pama1234.math.vec.Vec2f;
 
-public class Info extends TextBoard implements ClipboardOwner{
+public class Info extends TextBoard{
   public static int TEXT_SIZE=16;
   String[] data;
   int state;
@@ -96,12 +90,12 @@ public class Info extends TextBoard implements ClipboardOwner{
         p.mouse.x,p.mouse.y,
         pos.x+g.width()-cw,pos.y,
         cw,TEXT_SIZE)) {
-          Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(data[state]),this);
+          // Toolkit.getDefaultToolkit().getSystemClipboard().setContents(new StringSelection(data[state]),this);
         }
     }
   }
-  @Override
-  public void lostOwnership(Clipboard clipboard,Transferable contents) {
-    System.out.println(clipboard+" "+contents);
-  }
+  // @Override
+  // public void lostOwnership(Clipboard clipboard,Transferable contents) {
+  //   System.out.println(clipboard+" "+contents);
+  // }
 }

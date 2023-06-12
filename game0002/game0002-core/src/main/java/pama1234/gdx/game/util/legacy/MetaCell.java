@@ -125,12 +125,14 @@ public class MetaCell extends Entity<RealGame>{
       p.noStroke();
       p.fill(color);
       p.circle(pos.x,pos.y,size);
+      float tf=p.textSize();
       p.textSize(MetaCellCenter.textSize*2);
       p.fill(127);
       p.text("\""+name+"\"",pos.x-1,pos.y);
       p.fill(p.colorFromInt(0xff000000|(~color)));
       p.text("\""+name+"\"",pos.x,pos.y);
-      p.textSize(MetaCellCenter.textSize);
+      // p.textSize(MetaCellCenter.textSize);
+      p.textSize(tf);
     }
   }
   @Override
