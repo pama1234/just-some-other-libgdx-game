@@ -49,8 +49,9 @@ public class ToolBar extends TextBoard{
     int th=h;
     h=(int)(textSize*(tsa.length+0.25f));
     if(tw!=w||th!=h) {
-      g=new Graphics(p,w,h);
-      initLayer();
+      graphics(new Graphics(p,w,h));
+      texture=g.texture;
+      // initLayer();
     }
   }
   public void refreshDepc() {}

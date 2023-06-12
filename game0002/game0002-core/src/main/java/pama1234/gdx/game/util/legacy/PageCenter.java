@@ -29,6 +29,7 @@ public class PageCenter extends TextBoard{
     this.main=main;
     list.add(main);
     setSelect(main);
+    // refresh();
   }
   @Override
   public void init() {
@@ -45,7 +46,7 @@ public class PageCenter extends TextBoard{
     int th=h;
     h=(int)(textSize*(list.size()+0.25f));
     if(tw!=w||th!=h) {
-      g=new Graphics(p,w,h);
+      graphics(new Graphics(p,w,h));
     }
   }
   public void refreshDepc() {}
@@ -58,7 +59,9 @@ public class PageCenter extends TextBoard{
     select.update();
   }
   public void drawLayer() {
+    // System.out.println("PageCenter.drawLayer()");
     p.background(UtilScreenColor.colorFromInt(0xffF66104));
+    // p.background(127);
     // p.endShape();
     // p.beginShape();
     UITools.border(g,0,0,g.width(),g.height());
@@ -104,7 +107,7 @@ public class PageCenter extends TextBoard{
         final int index=(int)Math.floor((p.mouse.y-pos.y)/textSize);
         if(index>=0&&index<list.size()) {
           setSelect(list.get(index));
-          refreshDepc();
+          refresh();
           if(select==main) point.des.set(-w/2,-h/2);
           else point.des.set(x,y);
         }

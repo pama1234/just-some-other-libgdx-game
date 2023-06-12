@@ -30,8 +30,10 @@ public class Scoreboard extends TextBoard{
   }
   @Override
   public void init() {}
-  public void refreshDepc() {
-    initLayer();
+  public void refreshDepc() {}
+  @Override
+  public void initLayer() {
+    // initLayer();
     final String tt=text;
     text=format.format(UtilMath.sqrt(score));
     if(!text.equals(tt)) {
@@ -40,10 +42,10 @@ public class Scoreboard extends TextBoard{
       final int th=h;
       h=(int)(textSize*(1.25f));
       if(tw!=w||th!=h) {
-        g=new Graphics(p,w,h);
-        initLayer();
+        graphics(new Graphics(p,w,h));
+        // initLayer();
       }
-      drawLayer();
+      // drawLayer();
     }
   }
   public void drawLayer() {

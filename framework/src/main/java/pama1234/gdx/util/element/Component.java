@@ -3,7 +3,6 @@ package pama1234.gdx.util.element;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.Texture.TextureFilter;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 
 import pama1234.gdx.util.app.UtilScreen;
@@ -14,6 +13,10 @@ import pama1234.math.physics.PathPoint;
 
 public abstract class Component<T extends UtilScreen>extends PointEntity<T,PathPoint>{
   public Graphics g;
+  public void graphics(Graphics g) {
+    this.g=g;
+    texture=g.texture;
+  }
   // public FrameBuffer buffer;
   public OrthographicCamera cam;
   // public TextureRegion texture;
@@ -22,11 +25,9 @@ public abstract class Component<T extends UtilScreen>extends PointEntity<T,PathP
   public Component(T p,float x,float y,int w,int h) {
     super(p,new PathPoint(0,0,x,y));
     g=new Graphics(p,w,h);
-    // buffer=new FrameBuffer(Format.RGBA4444,w,h,false);
-    // texture=new TextureRegion(buffer.getColorBufferTexture());
-    texture=buffer().getColorBufferTexture();
-    texture.setFilter(TextureFilter.Linear,TextureFilter.Nearest);
-    // texture.getTexture().setFilter(TextureFilter.Linear,TextureFilter.Nearest);
+    texture=g.texture;
+    // texture=buffer().getColorBufferTexture();
+    // texture.setFilter(TextureFilter.Linear,TextureFilter.Nearest);
     cam=new OrthographicCamera();
     cam.setToOrtho(true,w,h);
   }

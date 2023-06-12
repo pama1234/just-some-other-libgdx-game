@@ -39,7 +39,7 @@ public class LoadAndSave extends TextBoard{
     // h=(int)(textSize*(tsa.length+0.25f)+g.textDescent());
     h=(int)(textSize*(tsa.length+0.25f));
     if(tw!=w||th!=h) {
-      g=new Graphics(p,w,h);
+      graphics(new Graphics(p,w,h));
       // initLayer();
     }
   }
