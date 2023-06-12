@@ -7,7 +7,10 @@ public class GamePage extends Page<RealGame,ParticleAutomata>{
     super(p,"开始",new ParticleAutomata(p));
   }
   @Override
-  public void show() {}
+  public void show() {
+    System.out.println("GamePage.show()");
+    content.toolBar.startGame();
+  }
   @Override
   public void hide() {}
 }

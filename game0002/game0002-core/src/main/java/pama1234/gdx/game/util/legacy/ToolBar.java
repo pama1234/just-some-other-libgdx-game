@@ -27,6 +27,7 @@ public class ToolBar extends TextBoard{
   public float dist=Cell.dist*6;
   public int originalId;
   public RectF excludeRect;
+  public boolean firstInit;
   public ToolBar(RealGame p,TabCenter parent,float x,float y) {
     super(p,x,y,1,1);
     this.parent=parent;
@@ -40,9 +41,14 @@ public class ToolBar extends TextBoard{
     cellCenter=parent.cellCenter;
     metaCenter=parent.metaCenter;
     //---
+    // startGame();
+  }
+  public void startGame() {
+    if(!firstInit) return;
     select=cellCenter.add.getFirst();
     p.activeActrl(true);
     originalId=select.meta;
+    firstInit=true;
   }
   @Override
   public void beforeDraw() {
