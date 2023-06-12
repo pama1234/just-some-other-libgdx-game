@@ -43,9 +43,9 @@ public class Scoreboard extends TextBoard{
       h=(int)(textConst*(1.25f));
       if(tw!=w||th!=h) {
         graphics(new Graphics(p,w,h));
-        updateSizeValue();
       }
     }
+    updateSizeValue();
   }
   public void draw() {
     p.background(UtilScreenColor.colorFromInt(0xff00317A));
