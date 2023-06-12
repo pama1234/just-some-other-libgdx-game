@@ -26,8 +26,10 @@ public class Welcome extends Entity<RealGame>{
   public void drawp() {
     g.begin();
     // p.textColor(0);
+    p.textScale(3);
     p.text(title,0,0);
     p.text(slogan[sloganPos],g.width()-p.textWidth(slogan[sloganPos]),textSize*1.33f);
+    p.textScale(1);
     g.end();
   }
   @Override

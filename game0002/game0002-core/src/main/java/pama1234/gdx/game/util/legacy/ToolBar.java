@@ -41,8 +41,8 @@ public class ToolBar extends TextBoard{
     metaCenter=parent.metaCenter;
     //---
     select=cellCenter.add.getFirst();
-    p.activeActrl(false);
-    originalId=-1;
+    p.activeActrl(true);
+    originalId=select.meta;
   }
   @Override
   public void beforeDraw() {
@@ -231,7 +231,7 @@ public class ToolBar extends TextBoard{
         if(state[ti]==0||state[ti]==1) {
           // p.println(info.button==Buttons.LEFT,p.actrl.moveCtrl!=info,info.state==0);
           // p.println(!Tools.inBox(info.ox,info.oy,excludeRect),p.actrl.active?info.ox>p.width/3f:true);
-          if(!Tools.inBox(info.ox,info.oy,excludeRect)&&(p.actrl.active?info.ox>p.width/3f:true)) {//TODO
+          if(!p.isAndroid||!Tools.inBox(info.ox,info.oy,excludeRect)&&(p.actrl.active?info.ox>p.width/3f:true)) {//TODO
             if(info.button==Buttons.LEFT) {
               if(select!=null) {
                 select.meta=originalId;
