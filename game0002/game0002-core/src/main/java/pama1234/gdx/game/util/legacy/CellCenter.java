@@ -36,10 +36,12 @@ public class CellCenter extends EntityCenter<RealGame,Cell>{
     //   Gdx.files.internal("shader/main0006/highColor.frag").readString());
     fade.bind();
     // fade.setUniformf("fadeStepSlow",1f/256);
-    fade.setUniformf("fadeStepSlow",p.isAndroid?16f/256:8f/256);
-    fade.setUniformf("fadeStep",p.isAndroid?32f/256:16f/256);
+    fade.setUniformf("fadeStepSlow",p.isAndroid?16f/256:4f/256);
+    fade.setUniformf("fadeStepFast",p.isAndroid?32f/256:8f/256);
     fade.setUniformf("fadeThreshold",p.isAndroid?240f/256:128f/256);
-    fade.setUniformf("voidThreshold",p.isAndroid?224f/256:0);
+    // fade.setUniformf("voidThreshold",p.isAndroid?224f/256:224f/256);
+    // System.out.println(224f/256);
+    fade.setUniformf("voidThreshold",p.isAndroid?224f/256:92f/256);
     // throw new RuntimeException(fade.getLog());
     // fade.setUniformf("fadeThreshold",0);
     // fadeTickConst=p.isAndroid?4:0;
