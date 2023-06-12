@@ -42,7 +42,7 @@ public class UiGenerator{
   }
   public static TextArea[] genUi_0001(Duel p) {
     TextArea[] out=new TextArea[] {new TextArea(getSkinText(p),new CodeTextFieldStyle(p),
-      new RectF(()->20,()->20,()->600,()->300),
+      new RectF(()->20,()->20,()->300,()->300),
       ()->1)};
     // ()->p.pus)};
     out[0].setMessageText("皮肤配置文件");
@@ -51,7 +51,7 @@ public class UiGenerator{
       @Override
       public void keyboardFocusChanged(FocusEvent event,Actor actor,boolean focused) {
         long timeD=Tools.timeM();
-        if(timeD-time<10) {
+        if(timeD-time>10) {
           testHideKeyboard(p,focused);
           if(!focused) {
             try {
@@ -62,7 +62,7 @@ public class UiGenerator{
             }
           }
         }
-        time=Tools.timeM();
+        time=timeD;
       }
     });
     for(TextField e:out) e.setOnscreenKeyboard(new NormalOnscreenKeyboard());
