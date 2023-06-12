@@ -37,8 +37,8 @@ public class ToolBar extends TextBoard{
     cellCenter=parent.cellCenter;
     metaCenter=parent.metaCenter;
   }
-  public void refreshDepc() {
-    initLayer();
+  @Override
+  public void initLayer() {
     int tw=w;
     w=1;
     final String[] tsa=names[parent.index];
@@ -48,15 +48,13 @@ public class ToolBar extends TextBoard{
     }
     int th=h;
     h=(int)(textSize*(tsa.length+0.25f));
-    // h=(int)(textSize*(tsa.length+0.25f)+p.textDescent());
     if(tw!=w||th!=h) {
       g=new Graphics(p,w,h);
       initLayer();
     }
-    drawLayer();
   }
+  public void refreshDepc() {}
   public void drawLayer() {
-    // g.beginShape();
     p.background(0xffF66104);
     UITools.border(g,0,0,g.width(),g.height());
     float ty=0;
@@ -65,7 +63,6 @@ public class ToolBar extends TextBoard{
     for(int i=0;i<tsa.length;i++) {
       String ts=tsa[i];
       final float tby=ty;
-      // final float tby=ty+g.textDescent()-1;
       p.fill(i==state[parent.index]?0xff6FEDFB:0xffDDF4C4);
       p.rect(textSize/2,tby,w-textSize/2,textSize);
       UITools.border(g,textSize/2,tby,w-textSize/2,textSize);
@@ -73,7 +70,6 @@ public class ToolBar extends TextBoard{
       p.text(ts,ts_d2,ty);
       ty+=textSize;
     }
-    // g.endShape();
   }
   @Override
   public void update() {
@@ -195,12 +191,6 @@ public class ToolBar extends TextBoard{
     }
   }
   @Override
-  public void pause() {}
-  @Override
-  public void resume() {}
-  @Override
-  public void dispose() {}
-  @Override
   public void mousePressed(MouseInfo info) {
     final Vec2f pos=point.pos;
     final int ti=parent.index;
@@ -211,7 +201,7 @@ public class ToolBar extends TextBoard{
         if(index>=0&&index<names[ti].length) {
           if(p.mouse.x>pos.x+textSize*0.5) {
             state[ti]=index;
-            refreshDepc();
+            refresh();
           }
         }
       }
@@ -238,14 +228,6 @@ public class ToolBar extends TextBoard{
       }
     }
   }
-  @Override
-  public void mouseReleased(MouseInfo info) {}
-  @Override
-  public void mouseMoved() {}
-  @Override
-  public void mouseDragged() {}
-  @Override
-  public void mouseWheel(float x,float y) {}
   @Override
   public void keyPressed(char key,int keyCode) {
     if(key==' ') {
@@ -311,10 +293,4 @@ public class ToolBar extends TextBoard{
       }
     }
   }
-  @Override
-  public void keyTyped(char key) {}
-  @Override
-  public void frameResized(int w,int h) {}
-  @Override
-  public void frameMoved(int x,int y) {}
 }

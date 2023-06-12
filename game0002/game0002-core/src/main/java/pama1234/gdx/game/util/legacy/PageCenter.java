@@ -59,6 +59,8 @@ public class PageCenter extends TextBoard{
   }
   public void drawLayer() {
     p.background(UtilScreenColor.colorFromInt(0xffF66104));
+    // p.endShape();
+    // p.beginShape();
     UITools.border(g,0,0,g.width(),g.height());
     float ty=0;
     final int ts_d2=g.width()/2;

@@ -25,8 +25,9 @@ public class LoadAndSave extends TextBoard{
   }
   @Override
   public void init() {}
-  public void refreshDepc() {
-    initLayer();
+  @Override
+  public void initLayer() {
+    // initLayer();
     int tw=w;
     w=1;
     final String[] tsa=names[parent.index];
@@ -39,10 +40,10 @@ public class LoadAndSave extends TextBoard{
     h=(int)(textSize*(tsa.length+0.25f));
     if(tw!=w||th!=h) {
       g=new Graphics(p,w,h);
-      initLayer();
+      // initLayer();
     }
-    drawLayer();
   }
+  public void refreshDepc() {}
   public void drawLayer() {
     // g.beginShape();
     p.background(0xffF66104);
