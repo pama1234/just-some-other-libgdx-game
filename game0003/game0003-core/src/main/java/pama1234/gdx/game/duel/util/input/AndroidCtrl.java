@@ -21,8 +21,15 @@ public class AndroidCtrl extends Entity<Duel>{
   @Override
   public void init() {
     buttons=UiGenerator.genButtons_0001(p);
-    for(TextButton<?> e:buttons) p.centerScreen.add.add(e);
     updateMaxDist();
+  }
+  @Override
+  public void resume() {
+    for(TextButton<?> e:buttons) p.centerScreen.add.add(e);
+  }
+  @Override
+  public void pause() {
+    for(TextButton<?> e:buttons) p.centerScreen.remove.add(e);
   }
   /**
    * cam only

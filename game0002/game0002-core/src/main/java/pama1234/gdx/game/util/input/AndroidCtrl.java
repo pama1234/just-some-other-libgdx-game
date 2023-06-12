@@ -24,6 +24,14 @@ public class AndroidCtrl extends Entity<Screen0005>{
     p.textButtons=UiGenerator.genButtons_0003(p);
     for(TextButton<?> e:p.textButtons) p.centerScreen.add.add(e);
   }
+  // @Override
+  // public void pause() {
+  //   for(TextButton<?> e:p.textButtons) p.centerScreen.remove.add(e);
+  // }
+  // @Override
+  // public void resume() {
+  //   for(TextButton<?> e:p.textButtons) p.centerScreen.add.add(e);
+  // }
   @Override
   public void display() {
     if(moveCtrl!=null) {

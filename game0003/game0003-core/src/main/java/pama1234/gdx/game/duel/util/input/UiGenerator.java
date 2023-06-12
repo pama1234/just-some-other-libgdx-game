@@ -34,7 +34,7 @@ public class UiGenerator{
         if(p.state==p.stateCenter.game) p.state(p.stateCenter.settings);
         else p.state(p.stateCenter.game);
         self.updateText();
-      },self-> {},self->self.text=p.state==p.stateCenter.game?"设置":"游戏",p::getButtonUnitLength,()->p.width-p.bu*3f,()->p.bu*0.5f,()->p.bu-p.pus,false),
+      },self-> {},self->self.text=p.state==p.stateCenter.game?"设置":"游戏",p::getButtonUnitLength,()->p.width-p.bu*2.5f,()->p.bu*0.5f,()->p.bu-p.pus,false),
     };
   }
   public static TextArea[] genUi_0001(Duel p) {
@@ -47,7 +47,6 @@ public class UiGenerator{
       @Override
       public void keyboardFocusChanged(FocusEvent event,Actor actor,boolean focused) {
         if(!focused) {
-          // String newLangType=out[0].getText().trim();
           try {
             p.config.skin.data=Duel.localization.yaml.load(out[0].getText());
             p.skin=SkinData.fromData(p.config.skin);
@@ -57,7 +56,6 @@ public class UiGenerator{
         }
       }
     });
-    // System.out.println(out[0].getListeners().size);
     for(TextField e:out) e.setOnscreenKeyboard(new NormalOnscreenKeyboard());
     return out;
   }

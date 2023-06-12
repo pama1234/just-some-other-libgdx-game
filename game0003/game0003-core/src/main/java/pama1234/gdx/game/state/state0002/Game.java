@@ -34,7 +34,7 @@ public class Game extends StateEntity0002{
     if(p.isAndroid) {
       actrl=new AndroidCtrl(p,this);
       actrl.init();
-      p.centerCam.add.add(actrl);
+      // p.centerCam.add.add(actrl);
     }
     currentInput=new ClientInputData();
     //---
@@ -103,9 +103,17 @@ public class Game extends StateEntity0002{
   @Override
   public void from(StateEntity0002 in) {
     paused=false;
+    if(actrl!=null) {
+      actrl.resume();
+      p.centerCam.add.add(actrl);
+    }
   }
   @Override
   public void to(StateEntity0002 in) {
     paused=true;
+    if(actrl!=null) {
+      actrl.pause();
+      p.centerCam.remove.add(actrl);
+    }
   }
 }

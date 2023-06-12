@@ -2,7 +2,6 @@ package pama1234.gdx.game.util.legacy;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
-import com.badlogic.gdx.utils.ScreenUtils;
 
 import pama1234.gdx.game.app.app0002.RealGame;
 import pama1234.gdx.util.element.Graphics;
