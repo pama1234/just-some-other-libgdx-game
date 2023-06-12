@@ -28,7 +28,7 @@ public class RealGame extends ScreenCore2D{
   public InputData currentInput;
   public AndroidCtrl actrl;
   {
-    isAndroid=true;
+    // isAndroid=true;
   }
   public RealGame(MainMenu mainMenu) {
     this.mainMenu=mainMenu;
@@ -60,7 +60,7 @@ public class RealGame extends ScreenCore2D{
     // cam2d.activeScrollZoom=cam2d.activeTouchZoom=false;
   }
   public void activeActrl(boolean in) {
-    actrl.active=in;
+    if(isAndroid) actrl.active=in;
     cam2d.activeDrag=!in;
   }
   @Override
@@ -127,7 +127,7 @@ public class RealGame extends ScreenCore2D{
     }
     @Override
     public void touchStarted(TouchInfo info) {
-      if(active&&info.osx<p.width/2f) {
+      if(active&&info.osx<p.width/3f) {
         if(moveCtrl==null) moveCtrl=info;
       }
     }

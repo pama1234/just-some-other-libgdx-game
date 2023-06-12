@@ -26,7 +26,6 @@ public class ParticleAutomata extends EntityCenter<RealGame,Entity<?>>{
     tabs.list.add(new Tab<RealGame,Entity<?>>(p,"数据",tabs.metaCenter=metaList=new MetaCellCenter(p,-480,-480,480,480)));
     Tab<RealGame,Entity<?>> tab=new Tab<RealGame,Entity<?>>(p,"地图",tabs.cellCenter=cellList=new CellCenter(p,metaList));
     tabs.list.add(tab);
-    toolBar.init();
     //---
     lsHelper=new LoadAndSave(p,tabs,-640,160);
     tabs.lsHelper=lsHelper;
@@ -74,6 +73,8 @@ public class ParticleAutomata extends EntityCenter<RealGame,Entity<?>>{
     for(int i=0;i<array.length;i++) for(int j=0;j<size;j++) cellList.add.add(new Cell(p,cellList,i,
       p.random(-CellCenter.boxR,CellCenter.boxR),
       p.random(-CellCenter.boxR,CellCenter.boxR)));
+    //---
+    toolBar.init();
   }
   private ArrayList<MetaInfo> createMetaInfo(float... in) {
     ArrayList<MetaInfo> out=new ArrayList<MetaInfo>(in.length);
