@@ -61,11 +61,11 @@ public class Info extends TextBoard implements ClipboardOwner{
   public void drawLayer() {
     // System.out.println("Info.drawLayer()");
     // g.beginShape();
-    p.background(0xff4D3C94);
+    p.background(p.colorFromInt(0xff4D3C94));
     UITools.border(g,0,0,g.width(),g.height());
-    p.fill(0xff006799);
+    p.fill(p.colorFromInt(0xff006799));
     p.rect(0,0,data.length*TEXT_SIZE,TEXT_SIZE);
-    p.fill(0xff2A00FF);
+    p.fill(p.colorFromInt(0xff2A00FF));
     p.rect(state*TEXT_SIZE,0,TEXT_SIZE,TEXT_SIZE);
     p.fill(255);
     float ty=0;
@@ -76,7 +76,7 @@ public class Info extends TextBoard implements ClipboardOwner{
     }
     p.text(String.valueOf(data[state]),TEXT_SIZE/2,TEXT_SIZE*2);
     // p.text(String.valueOf(data[state]),TEXT_SIZE/2,TEXT_SIZE*2,g.width()-TEXT_SIZE/2,g.height());
-    p.fill(0xffFB612E);
+    p.fill(p.colorFromInt(0xffFB612E));
     p.rect(g.width()-(cw=p.textWidth("Ctrl-C")),0,cw,TEXT_SIZE);
     p.fill(255);
     p.text("Ctrl-C",g.width()-cw,ty);

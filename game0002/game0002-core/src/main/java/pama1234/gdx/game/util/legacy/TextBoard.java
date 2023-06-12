@@ -27,15 +27,5 @@ public abstract class TextBoard extends Component<RealGame>{
   }
   public abstract void drawLayer();
   public abstract void refreshDepc();
-  public void initLayer() {
-    // buffer.begin();
-    // p.beginDraw();
-    // p.textFont(p.font);
-    // p.textAlign(textAlignX,textAlignY);
-    // p.textSize(textSize);
-    // p.textLeading(textSize);
-    // p.noStroke();
-    // p.endDraw();
-    // buffer.end();
-  }
+  public void initLayer() {}
 }

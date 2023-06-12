@@ -128,7 +128,7 @@ public class MetaCell extends Entity<RealGame>{
       p.textSize(MetaCellCenter.textSize*2);
       p.fill(127);
       p.text("\""+name+"\"",pos.x-1,pos.y);
-      p.fill(0xff000000|(~color));
+      p.fill(p.colorFromInt(0xff000000|(~color)));
       p.text("\""+name+"\"",pos.x,pos.y);
       p.textSize(MetaCellCenter.textSize);
     }
