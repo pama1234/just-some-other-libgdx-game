@@ -31,6 +31,9 @@ public class ToolBar extends TextBoard{
     names=new String[][] {{"暂无操作",},{"移动粒子","批量移动"},};
     state=new int[2];
     state[1]=1;
+  }
+  @Override
+  public void init() {
     cellCenter=parent.cellCenter;
     metaCenter=parent.metaCenter;
   }
@@ -152,37 +155,40 @@ public class ToolBar extends TextBoard{
     p.image(g.texture,point.pos.x,point.pos.y);
     if(select!=null) {
       p.noFill();
+      p.doStroke();
       p.stroke(0x80ffffff);
       final float tx=select.point.pos.x,
         ty=select.point.pos.y,
         ts_m2=Cell.size*2,
-        ts_d2=Cell.size/2,
-        ts_d2m3=ts_d2*3;
+        ts_d2=Cell.size/2;
+      // ts_d2m3=ts_d2*3;
       final boolean flag=parent.index==1&&state[parent.index]==1;
-      final float ts_m2_2=flag?ts_m2+dist:ts_m2;
-      p.circle(tx,ty,ts_m2);
+      final float ts_m2_2=flag?ts_m2+dist:ts_m2,
+        ts_d2m3=flag?ts_d2*2+dist:ts_d2*3,
+        ts_d2m4=flag?ts_d2*2:ts_d2;
+      p.circle(tx,ty,ts_m2/2);
       if(flag) {
-        p.circle(tx,ty,dist*2);
+        p.circle(tx,ty,dist);
         for(Cell i:near) {
           Vec2f pos=i.point.pos;
-          p.circle(pos.x,pos.y,ts_m2);
+          p.circle(pos.x,pos.y,ts_m2/2);
         }
       }
       if(keys[up]) {
-        p.line(tx,ty-ts_m2_2,tx-ts_d2,ty-ts_d2m3);
-        p.line(tx,ty-ts_m2_2,tx+ts_d2,ty-ts_d2m3);
+        p.line(tx,ty-ts_m2_2,tx-ts_d2m4,ty-ts_d2m3);
+        p.line(tx,ty-ts_m2_2,tx+ts_d2m4,ty-ts_d2m3);
       }
       if(keys[down]) {
-        p.line(tx,ty+ts_m2_2,tx-ts_d2,ty+ts_d2m3);
-        p.line(tx,ty+ts_m2_2,tx+ts_d2,ty+ts_d2m3);
+        p.line(tx,ty+ts_m2_2,tx-ts_d2m4,ty+ts_d2m3);
+        p.line(tx,ty+ts_m2_2,tx+ts_d2m4,ty+ts_d2m3);
       }
       if(keys[left]) {
-        p.line(tx-ts_m2_2,ty,tx-ts_d2m3,ty-ts_d2);
-        p.line(tx-ts_m2_2,ty,tx-ts_d2m3,ty+ts_d2);
+        p.line(tx-ts_m2_2,ty,tx-ts_d2m3,ty-ts_d2m4);
+        p.line(tx-ts_m2_2,ty,tx-ts_d2m3,ty+ts_d2m4);
       }
       if(keys[right]) {
-        p.line(tx+ts_m2_2,ty,tx+ts_d2m3,ty-ts_d2);
-        p.line(tx+ts_m2_2,ty,tx+ts_d2m3,ty+ts_d2);
+        p.line(tx+ts_m2_2,ty,tx+ts_d2m3,ty-ts_d2m4);
+        p.line(tx+ts_m2_2,ty,tx+ts_d2m3,ty+ts_d2m4);
       }
       p.noStroke();
       p.doFill();

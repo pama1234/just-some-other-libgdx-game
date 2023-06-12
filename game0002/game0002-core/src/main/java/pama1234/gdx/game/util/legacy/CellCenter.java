@@ -91,6 +91,7 @@ public class CellCenter extends EntityCenter<RealGame,Cell>{
   public void box() {
     // layer.begin();
     p.noFill();
+    p.doStroke();
     p.stroke(255);
     if(boxed) p.rect(0,0,layer.width()-1,layer.height()-1);
     else p.rect(w/4f-layer_cell_size/2,h/4f-layer_cell_size/2,w-1+layer_cell_size,h-1+layer_cell_size);

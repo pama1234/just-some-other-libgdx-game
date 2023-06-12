@@ -86,6 +86,7 @@ public class MetaCellCenter extends EntityCenter<RealGame,MetaCell>{
       ty2=txc.point.pos.y;
     p.circle(tx2,ty2,MetaCell.size*2);
     if(txc!=tyc) {
+      p.doStroke();
       p.stroke(0x80D53569);
       p.strokeWeight(MetaCell.size*2);
       p.line(tx1,ty1,tx2,ty2);

@@ -89,6 +89,7 @@ public class MetaCell extends Entity<RealGame>{
           ty2=midY+cellY;
         Color lerpColor=UtilScreen.lerpColor(color,i.color,0.5f);
         lerpColor.a=256f/0x80;
+        p.doStroke();
         p.stroke(lerpColor);
         p.line(ox1,oy1,tx2,ty2);
         tInfoX=(ox1+tx2)/2;

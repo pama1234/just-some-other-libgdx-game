@@ -18,13 +18,15 @@ public class ParticleAutomata extends EntityCenter<RealGame,Entity<?>>{
     super(p);
     MetaCell[] array;
     add.add(tabs=new TabCenter(p,-640,-320));
-    tabs.list.add(new Tab<RealGame,Entity<?>>(p,"元信息",tabs.metaCenter=metaList=new MetaCellCenter(p,-480,-480,480,480)));
-    Tab<RealGame,Entity<?>> tab=new Tab<RealGame,Entity<?>>(p,"地图",tabs.cellCenter=cellList=new CellCenter(p,metaList));
-    tabs.list.add(tab);
     //---
     toolBar=new ToolBar(p,tabs,-640,-160);
     tabs.toolBar=toolBar;
     add.add(toolBar);
+    //---
+    tabs.list.add(new Tab<RealGame,Entity<?>>(p,"元信息",tabs.metaCenter=metaList=new MetaCellCenter(p,-480,-480,480,480)));
+    Tab<RealGame,Entity<?>> tab=new Tab<RealGame,Entity<?>>(p,"地图",tabs.cellCenter=cellList=new CellCenter(p,metaList));
+    tabs.list.add(tab);
+    toolBar.init();
     //---
     lsHelper=new LoadAndSave(p,tabs,-640,160);
     tabs.lsHelper=lsHelper;
