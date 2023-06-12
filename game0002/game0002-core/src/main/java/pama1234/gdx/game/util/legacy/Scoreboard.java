@@ -31,7 +31,7 @@ public class Scoreboard extends TextBoard{
   @Override
   public void init() {}
   @Override
-  public void initLayer() {
+  public void beforeDraw() {
     // initLayer();
     final String tt=text;
     text=format.format(UtilMath.sqrt(score));

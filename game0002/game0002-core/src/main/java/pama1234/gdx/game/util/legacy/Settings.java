@@ -15,8 +15,8 @@ public class Settings extends TextBoard{
   }
   @Override
   public void draw() {
-    initLayer();
-    g.beginShape();
+    // beforeDraw();
+    // g.beginShape();
     p.background(UITools.background);
     UITools.border(g,0,0,w,h);
     for(int i=0;i<names.length;i++) {
@@ -30,6 +30,8 @@ public class Settings extends TextBoard{
         }
       }
     }
-    g.endShape();
+    // g.endShape();
   }
+  @Override
+  public void beforeDraw() {}
 }

@@ -38,7 +38,7 @@ public class ToolBar extends TextBoard{
     metaCenter=parent.metaCenter;
   }
   @Override
-  public void initLayer() {
+  public void beforeDraw() {
     int tw=w;
     w=1;
     final String[] tsa=names[parent.index];

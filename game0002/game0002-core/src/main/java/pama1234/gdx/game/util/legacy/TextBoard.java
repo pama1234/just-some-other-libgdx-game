@@ -19,9 +19,4 @@ public abstract class TextBoard extends Component<RealGame>{
     this.h=h;
     loop=false;
   }
-  @Override
-  public void beforeDraw() {
-    initLayer();
-  }
-  public void initLayer() {}
 }

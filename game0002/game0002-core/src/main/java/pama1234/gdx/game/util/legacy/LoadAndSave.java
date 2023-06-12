@@ -26,7 +26,7 @@ public class LoadAndSave extends TextBoard{
   @Override
   public void init() {}
   @Override
-  public void initLayer() {
+  public void beforeDraw() {
     // initLayer();
     int tw=w;
     w=1;

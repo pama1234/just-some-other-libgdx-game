@@ -50,11 +50,12 @@ public class Info extends TextBoard{
     for(int i=0;i<data.length;i++) {
       data[i]=dataIn[i].split("\n");
     }
-    initLayer();
+    // beforeDraw();
     refresh();
   }
   @Override
   public void draw() {
+    // p.fontScale(p.pus);
     // p.textSize(16);
     // System.out.println("Info.drawLayer()");
     p.background(p.colorFromInt(0xff4D3C94));
@@ -98,4 +99,6 @@ public class Info extends TextBoard{
   // public void lostOwnership(Clipboard clipboard,Transferable contents) {
   //   System.out.println(clipboard+" "+contents);
   // }
+  @Override
+  public void beforeDraw() {}
 }

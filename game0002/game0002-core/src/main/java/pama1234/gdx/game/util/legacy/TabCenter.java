@@ -33,7 +33,7 @@ public class TabCenter extends TextBoard{
     select.init();
   }
   @Override
-  public void initLayer() {
+  public void beforeDraw() {
     // initLayer();
     int tw=w;
     w=1;

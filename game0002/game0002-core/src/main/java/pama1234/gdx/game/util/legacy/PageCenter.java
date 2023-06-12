@@ -36,7 +36,7 @@ public class PageCenter extends TextBoard{
     select.init();
   }
   @Override
-  public void initLayer() {
+  public void beforeDraw() {
     int tw=w;
     w=1;
     for(Page<?,?> tab:list) {
