@@ -6,8 +6,8 @@ import pama1234.gdx.util.entity.Entity;
 import pama1234.math.physics.PathPoint;
 
 public class Welcome extends Entity<RealGame>{
-  private static final String[] slogan= {"————魔道中人专用","————玩虫子！","————加我微信！lizerun2017","————加我QQ！1507585905","————粒子系统！"};
-  private static final String title="炼蛊模拟器";
+  private static final String[] slogan= {"————人工生命爱好者专用","————玩虫子！","————加我微信！lizerun2017","————加我QQ！1507585905","————粒子系统！"};
+  private static final String title="粒子生命";
   public final PathPoint point;
   public Graphics g;
   public int textSize=128;

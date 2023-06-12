@@ -14,12 +14,12 @@ public class Info extends TextBoard{
   float cw;
   public Info(RealGame p,float x,float y) {
     this(p,x,y,new String[] {
-      "(炼蛊模拟器)粒子生命v1.3\n\n"+
+      "粒子生命v1.3\n\n"+
         "目录：\n\n"+
         "1. 更新日志\n"+
         "2. 操作说明\n"+
         "3. 相关链接\n"+
-      "pama_1234: \n"+
+        "pama_1234: \n"+
         "//--- [v1.2更新]\n"+
         "1. 打分机制 √\n"+
         "2. 保存游戏 √\n"+
@@ -28,8 +28,8 @@ public class Info extends TextBoard{
         "5. 联机版\n"+
         "(以及更新日志 √)\n"+
         "//--- [v1.3更新]\n"+
-        "1. 更好的美工\n"+
-        "2. 完善设置界面\n"+
+        "1. 移植到了Libgdx\n"+
+        "2. 发布到了Taptap\n"+
         "    a. 固定按钮位置",
       "操作说明：右键拖拽相机位置，滚轮调整相机距离，左键选择菜单或单个粒子，“wasd键”微调相机或粒子位置,“↑↓←→”键用于浏览粒子数据\n\n"+
         "v1.1添加特性：空格用于暂停当前游戏，e键和q键可以暂时的改变选中的粒子的颜色（在取消选择时会变回原来的颜色，以避免粒子系统失衡）\n\n"+
@@ -54,6 +54,7 @@ public class Info extends TextBoard{
     // p.textSize(16);
     // System.out.println("Info.drawLayer()");
     p.background(p.colorFromInt(0xff4D3C94));
+    p.textColor(255);
     UITools.border(g,0,0,g.width(),g.height());
     p.fill(p.colorFromInt(0xff006799));
     p.rect(0,0,data.length*TEXT_SIZE,TEXT_SIZE);

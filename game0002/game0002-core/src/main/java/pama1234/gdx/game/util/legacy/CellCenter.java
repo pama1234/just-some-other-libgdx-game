@@ -10,7 +10,7 @@ import pama1234.math.UtilMath;
 
 public class CellCenter extends EntityCenter<RealGame,Cell>{
   public static final float r_const=Cell.dist/4;
-  public static final int boxR=320;
+  public static final int boxR=240;
   public static final int layer_cell_size=(int)Cell.size;
   public static final int fadeStep=16;
   public final MetaCellCenter meta;
@@ -20,16 +20,21 @@ public class CellCenter extends EntityCenter<RealGame,Cell>{
   public ShaderProgram fade;
   public Graphics layer,layer_b;
   public boolean cacheTick;
-  public int fadeTick,fadeTickCount=2;
+  public int fadeTick,fadeTickCount;
   public CellCenter(final RealGame p,final MetaCellCenter parent) {
     super(p);
     this.meta=parent;
-    if(boxed) layer=new Graphics(p,w+layer_cell_size*2+1,h+layer_cell_size*2+1);
+    if(boxed) layer=new Graphics(p,w+layer_cell_size*2,h+layer_cell_size*2);
     else layer=new Graphics(p,w+w/2,h+h/2);
     layer_b=new Graphics(p,layer.width(),layer.height());
     fade=new ShaderProgram(
       Gdx.files.internal("shader/main0006/fade.vert").readString(),
       Gdx.files.internal("shader/main0006/fade.frag").readString());
+    fade.bind();
+    fade.setUniformf("fadeStepSlow",p.isAndroid?1f/256:4f/256);
+    fade.setUniformf("fadeStep",16f/256);
+    fade.setUniformf("fadeThreshold",128f/256);
+    fadeTickCount=p.isAndroid?8:2;
   }
   @Override
   public void update() {
@@ -102,9 +107,9 @@ public class CellCenter extends EntityCenter<RealGame,Cell>{
     if(boxed) p.image(layer().texture,x1-layer_cell_size,y1-layer_cell_size);
     else p.image(layer().texture,x1-w/4f,y1-h/4f);
     //---
-    if(fadeTick==0) {
-      cacheTick=!cacheTick;
-    }
+    // if(fadeTick==0) {
+    cacheTick=!cacheTick;
+    // }
     fadeTick++;
     if(fadeTick>fadeTickCount) fadeTick=0;
   }
@@ -116,16 +121,16 @@ public class CellCenter extends EntityCenter<RealGame,Cell>{
   }
   public void box() {
     p.noFill();
-    p.strokeWeight(1);
+    p.strokeWeight(2);
     p.doStroke();
     p.stroke(255);
-    if(boxed) p.rect(0,0,layer.width()-1,layer.height()-1);
+    if(boxed) p.rect(0,0,layer.width(),layer.height());
     else p.rect(w/4f-layer_cell_size/2,h/4f-layer_cell_size/2,w-1+layer_cell_size,h-1+layer_cell_size);
     p.noStroke();
     p.doFill();
   }
   public void fade() {
-    p.imageBatch.setShader(fade);
+    if(fadeTick==0) p.imageBatch.setShader(fade);
     p.image(layerCache().texture,0,0);
     p.imageBatch.setShader(null);
   }
