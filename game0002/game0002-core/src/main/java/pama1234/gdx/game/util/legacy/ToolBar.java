@@ -44,11 +44,22 @@ public class ToolBar extends TextBoard{
     // startGame();
   }
   public void startGame() {
-    if(!firstInit) return;
+    if(firstInit) return;
     select=cellCenter.add.getFirst();
     p.activeActrl(true);
     originalId=select.meta;
     firstInit=true;
+    // p.cam2d.point.des.y=0;
+  }
+  public void endGame() {
+    // if(firstInit) return;
+    if(select!=null) {
+      select.meta=originalId;
+      select=null;
+    }
+    p.activeActrl(false);
+    // firstInit=true;
+    // p.cam2d.point.des.y=0;
   }
   @Override
   public void beforeDraw() {

@@ -1,7 +1,5 @@
 package pama1234.gdx.util.element;
 
-import com.badlogic.gdx.graphics.Camera;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 
@@ -71,17 +69,10 @@ public abstract class Component<T extends UtilScreen>extends PointEntity<T,PathP
   }
   public void refresh() {
     beforeDraw();
-    // Camera tc=p.usedCamera;
     beginDraw();
-    // float tf=p.textScale(),ts=p.u;
     p.textScale(1);
     p.strokeWeight(1);
-    // p.textScale(p.pus);
-    // p.strokeWeight(p.defaultStrokeWeight=p.u);
     draw();
-    // p.setCamera(tc);
-    // p.textScale(tf);
-    // p.strokeWeight(ts);
     endDraw();
   }
   public abstract void beforeDraw();

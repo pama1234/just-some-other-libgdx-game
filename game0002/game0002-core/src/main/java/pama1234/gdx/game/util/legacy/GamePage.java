@@ -12,5 +12,6 @@ public class GamePage extends Page<RealGame,ParticleAutomata>{
     content.toolBar.startGame();
   }
   @Override
-  public void hide() {}
+  public void hide() {
+    content.toolBar.endGame();}
 }

@@ -55,7 +55,11 @@ public class RealGame extends ScreenCore2D{
     setupCamera();
   }
   public void setupCamera() {
-    if(isAndroid) cam2d.minScale=1/8f;
+    if(isAndroid) {
+      cam2d.minScale=1/8f;
+      cam2d.scale.des=0.5f;
+    }
+    cam2d.point.des.y=-60;
     // cam2d.activeDrag=false;
     // cam2d.activeScrollZoom=cam2d.activeTouchZoom=false;
   }
