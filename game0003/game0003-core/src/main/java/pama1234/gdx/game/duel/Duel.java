@@ -77,8 +77,9 @@ public class Duel extends ScreenCore2D implements StateChanger0002{
   public void init() {
     configFile=Gdx.files.local("data/config.yaml");
     config=loadConfig();
-    if(config.skin!=null) skin=SkinData.fromData(config.skin);
-    else {
+    if(config.skin!=null) {
+      skin=SkinData.fromData(config.skin);
+    }else {
       skin=new SkinData();
       skin.init();
     }
@@ -94,6 +95,10 @@ public class Duel extends ScreenCore2D implements StateChanger0002{
       out.init();
     }
     return out;
+  }
+  public void saveConfig() {
+    config.skin=skin.toData();
+    configFile.writeString(localization.yaml.dumpAsMap(config),false);
   }
   @Override
   public void setup() {
@@ -125,10 +130,14 @@ public class Duel extends ScreenCore2D implements StateChanger0002{
     }
   }
   @Override
+  public void pause() {
+    super.pause();
+    if(isAndroid) saveConfig();
+  }
+  @Override
   public void dispose() {
     super.dispose();
-    config.skin=skin.toData();
-    configFile.writeString(localization.yaml.dumpAsMap(config),false);
+    saveConfig();
   }
   @Override
   public void display() {

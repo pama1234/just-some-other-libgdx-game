@@ -38,7 +38,7 @@ public class UiGenerator{
     };
   }
   public static TextArea[] genUi_0001(Duel p) {
-    TextArea[] out=new TextArea[] {new TextArea(Duel.localization.yaml.dumpAsMap(p.config.skin.data),new CodeTextFieldStyle(p),
+    TextArea[] out=new TextArea[] {new TextArea(getSkinText(p),new CodeTextFieldStyle(p),
       new RectF(()->20,()->20,()->600,()->300),
       ()->1)};
     // ()->p.pus)};
@@ -52,7 +52,7 @@ public class UiGenerator{
             p.config.skin.data=Duel.localization.yaml.load(out[0].getText());
             p.skin=SkinData.fromData(p.config.skin);
           }catch(RuntimeException e) {
-            out[0].setText(Duel.localization.yaml.dumpAsMap(p.config.skin.data));
+            out[0].setText(getSkinText(p));
           }
         }
       }
@@ -60,5 +60,8 @@ public class UiGenerator{
     // System.out.println(out[0].getListeners().size);
     for(TextField e:out) e.setOnscreenKeyboard(new NormalOnscreenKeyboard());
     return out;
+  }
+  public static String getSkinText(Duel p) {
+    return p.config.skin==null?"无可加载的皮肤配置，重启游戏试试":Duel.localization.yaml.dumpAsMap(p.config.skin.data);
   }
 }
