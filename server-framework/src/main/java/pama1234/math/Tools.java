@@ -6,6 +6,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.Array;
 
+import pama1234.math.geometry.RectF;
 import pama1234.math.geometry.Triangle2f;
 import pama1234.math.vec.Vec2f;
 
@@ -154,6 +155,9 @@ public class Tools{
     float w2=w/=2;
     float h2=h/=2;
     return a>x-w2&&a<x+w2&&b>y-h2&&b<y+h2;
+  }
+  public static boolean inRect(float xIn,float yIn,RectF rect) {
+    return inBox(xIn,yIn,rect.x.get(),rect.y.get(),rect.w.get(),rect.h.get());
   }
   public static boolean inRect(float a,float b,float x1,float y1,float x2,float y2) {
     return a>x1&&a<x2&&b>y1&&b<y2;

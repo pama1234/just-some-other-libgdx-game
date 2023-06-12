@@ -16,10 +16,10 @@ import pama1234.gdx.game.state.state0001.game.net.NetMode;
 import pama1234.gdx.game.ui.CodeTextFieldStyle;
 import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.ui.util.Button.ButtonEvent;
+import pama1234.math.geometry.RectF;
 import pama1234.gdx.game.ui.util.NormalOnscreenKeyboard;
 import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.game.ui.util.TextField;
-import pama1234.gdx.game.util.RectF;
 import pama1234.util.function.GetFloat;
 import pama1234.util.net.NetAddressInfo;
 

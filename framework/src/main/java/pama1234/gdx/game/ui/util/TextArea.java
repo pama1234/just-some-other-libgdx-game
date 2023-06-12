@@ -16,7 +16,7 @@ import com.badlogic.gdx.utils.Null;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 
-import pama1234.gdx.game.util.RectF;
+import pama1234.math.geometry.RectF;
 import pama1234.util.function.GetFloat;
 
 public class TextArea extends TextField{

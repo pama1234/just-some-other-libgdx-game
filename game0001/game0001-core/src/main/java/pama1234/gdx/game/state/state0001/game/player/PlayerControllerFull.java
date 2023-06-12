@@ -15,12 +15,12 @@ import pama1234.gdx.game.state.state0001.game.region.block.Block;
 import pama1234.gdx.game.state.state0001.game.region.block.Block.BlockUi;
 import pama1234.gdx.game.state.state0001.game.world.WorldSettings;
 import pama1234.gdx.game.ui.util.TextButtonCam;
-import pama1234.gdx.game.util.RectF;
 import pama1234.gdx.util.AbstractControlBindUtil.GetKeyPressedBoolean;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.gdx.util.wrapper.EntityCenter;
 import pama1234.math.Tools;
 import pama1234.math.UtilMath;
+import pama1234.math.geometry.RectF;
 
 public class PlayerControllerFull extends PlayerControllerCore{
   public MainPlayer player;

@@ -1,4 +1,4 @@
-package pama1234.gdx.game.util;
+package pama1234.math.geometry;
 
 import pama1234.util.function.GetFloat;
 

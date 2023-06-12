@@ -31,7 +31,7 @@ import com.badlogic.gdx.utils.Pools;
 import com.badlogic.gdx.utils.Timer;
 import com.badlogic.gdx.utils.Timer.Task;
 
-import pama1234.gdx.game.util.RectF;
+import pama1234.math.geometry.RectF;
 import pama1234.util.function.GetFloat;
 
 public class TextField extends Widget implements Disableable{

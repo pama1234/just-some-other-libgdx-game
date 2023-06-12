@@ -15,9 +15,9 @@ import pama1234.gdx.game.ui.util.Slider;
 import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.game.ui.util.TextButtonCam;
 import pama1234.gdx.game.ui.util.TextField;
-import pama1234.gdx.game.util.RectF;
 import pama1234.gdx.launcher.MainApp;
 import pama1234.math.Tools;
+import pama1234.math.geometry.RectF;
 
 public class SettingsUtil{
   public static TextField[] genTextFields_0002(Screen0011 p) {

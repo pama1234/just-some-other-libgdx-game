@@ -8,16 +8,16 @@ public class ScreenCamInfo{
    */
   public UtilScreenCore p;
   /**
-   * sx是start-x的简写，含义是鼠标被按下或手指触碰时所处的位置
+   * sx和sy是start-x的简写，含义是鼠标被按下或手指触碰时所处的位置
    * </p>
    */
   public float sx,sy;
   /**
-   * dx是distance-x的简写，表示这一帧和上一帧的鼠标位置的数值差，可为负数
+   * dx和pdy是distance-x的简写，表示这一帧和上一帧的鼠标位置的数值差，可为负数
    */
   public float dx,dy;
   /**
-   * px是previous-x的简写，表示上一帧时鼠标的位置
+   * px和py是previous-x的简写，表示上一帧时鼠标的位置
    */
   public float px,py;
   /**
@@ -25,7 +25,7 @@ public class ScreenCamInfo{
    */
   public float x,y;
   /**
-   * ox是未经过相机视角变化的当前鼠标位置
+   * ox和oy是未经过相机视角变化的当前鼠标位置
    * 
    * @see pama1234.gdx.util.app.UtilScreen2D#unproject(float,float)
    */

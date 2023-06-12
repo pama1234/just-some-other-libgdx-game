@@ -7,9 +7,10 @@ import com.badlogic.gdx.Input.Buttons;
 import pama1234.gdx.game.app.app0002.RealGame;
 import pama1234.gdx.util.app.UtilScreenColor;
 import pama1234.gdx.util.element.Graphics;
-import pama1234.gdx.util.info.MouseInfo;
+import pama1234.gdx.util.info.TouchInfo;
 import pama1234.math.Tools;
 import pama1234.math.UtilMath;
+import pama1234.math.geometry.RectF;
 import pama1234.math.vec.Vec2f;
 
 public class ToolBar extends TextBoard{
@@ -25,13 +26,14 @@ public class ToolBar extends TextBoard{
   public LinkedList<Cell> near=new LinkedList<Cell>();
   public float dist=Cell.dist*6;
   public int originalId;
+  public RectF excludeRect;
   public ToolBar(RealGame p,TabCenter parent,float x,float y) {
     super(p,x,y,1,1);
-    //    layerInit();
     this.parent=parent;
     names=new String[][] {{"暂无操作",},{"移动粒子","批量移动"},};
     state=new int[2];
     state[1]=1;
+    excludeRect=new RectF(()->p.width-p.bu*4f,()->p.height-p.bu*1.5f,()->p.bu*4,()->p.bu);
   }
   @Override
   public void init() {
@@ -94,8 +96,15 @@ public class ToolBar extends TextBoard{
     if(select!=null) {
       float tdx=0,tdy=0;
       if(p.isAndroid) {
-        tdx+=p.currentInput.dx;
-        tdy+=p.currentInput.dy;
+        float dx=p.currentInput.dx,
+          dy=p.currentInput.dy;
+        if(UtilMath.abs(dx)>0.01f||UtilMath.abs(dy)>0.01f) {
+          float tf=cellViewSpeed/UtilMath.mag(dx,dy);
+          tdx+=dx*tf;
+          tdy+=dy*tf;
+        }
+        // operateShotButton(input.isZPressed);
+        // operateLongShotButton(input.isXPressed);
       }
       if(keys[left]!=keys[right]) {
         if(keys[left]) tdx=-cellViewSpeed;
@@ -160,7 +169,7 @@ public class ToolBar extends TextBoard{
     p.noFill();
     p.doStroke();
     p.beginBlend();
-    p.stroke(p.colorFromInt(0x80ffffff));
+    p.stroke(UtilScreenColor.colorFromInt(0x80ffffff));
     final float tx=select.point.pos.x,
       ty=select.point.pos.y,
       ts_m2=Cell.size*2,
@@ -199,14 +208,15 @@ public class ToolBar extends TextBoard{
     p.endBlend();
   }
   @Override
-  public void mousePressed(MouseInfo info) {
+  public void touchStarted(TouchInfo info) {
     final Vec2f pos=point.pos;
     final int ti=parent.index;
-    if(Tools.inBox(p.mouse.x,p.mouse.y,pos.x,pos.y,w,h)) {
+    System.out.println("ToolBar.touchStarted()");
+    if(Tools.inBox(info.x,info.y,pos.x,pos.y,w,h)) {
       if(info.button==Buttons.LEFT) {
-        final int index=(int)Math.floor((p.mouse.y-pos.y)/textConst);
+        final int index=(int)Math.floor((info.y-pos.y)/textConst);
         if(index>=0&&index<names[ti].length) {
-          if(p.mouse.x>pos.x+textConst*0.5) {
+          if(info.x>pos.x+textConst*0.5) {
             state[ti]=index;
             refresh();
           }
@@ -215,22 +225,29 @@ public class ToolBar extends TextBoard{
     }else {
       if(ti==1) {
         if(state[ti]==0||state[ti]==1) {
-          // System.out.println(info.state);
-          if(info.button==Buttons.LEFT&&info.state==0) {
-            if(select!=null) {
-              select.meta=originalId;
-              select=null;
-            }
-            float minDist=Cell.size;
-            for(Cell i:cellCenter.list) {
-              final float td=UtilMath.dist(i.point.pos.x,i.point.pos.y,p.mouse.x,p.mouse.y);
-              if(td<minDist) {
-                select=i;
-                minDist=td;
+          // p.println(info.button==Buttons.LEFT,p.actrl.moveCtrl!=info,info.state==0);
+          if(!Tools.inRect(info.ox,info.oy,excludeRect)&&p.actrl.active?info.ox>p.width/2f:true) {//TODO
+            if(info.button==Buttons.LEFT) {
+              if(select!=null) {
+                select.meta=originalId;
+                select=null;
+              }
+              float minDist=Cell.size;
+              for(Cell i:cellCenter.list) {
+                final float td=UtilMath.dist(i.point.pos.x,i.point.pos.y,info.x,info.y);
+                if(td<minDist) {
+                  select=i;
+                  minDist=td;
+                }
+              }
+              if(select!=null) {
+                p.activeActrl(true);
+                originalId=select.meta;
+              }else {
+                p.activeActrl(false);
+                originalId=-1;
               }
             }
-            if(select!=null) originalId=select.meta;
-            else originalId=-1;
           }
         }
       }

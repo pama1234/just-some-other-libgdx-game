@@ -1,7 +1,7 @@
 package pama1234.gdx.game.state.state0001.game.player;
 
 import pama1234.gdx.game.app.Screen0011;
-import pama1234.gdx.game.util.RectF;
+import pama1234.math.geometry.RectF;
 
 public class ControlUtil{
   public static RectF[] createRectF(Screen0011 p) {

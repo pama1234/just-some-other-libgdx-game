@@ -8,6 +8,7 @@ import pama1234.gdx.game.app.app0002.RealGame;
 import pama1234.gdx.util.app.UtilScreenColor;
 import pama1234.gdx.util.element.Graphics;
 import pama1234.gdx.util.info.MouseInfo;
+import pama1234.gdx.util.info.TouchInfo;
 import pama1234.math.Tools;
 import pama1234.math.vec.Vec2f;
 
@@ -143,5 +144,17 @@ public class PageCenter extends TextBoard{
   @Override
   public void frameMoved(final int x,final int y) {
     select.frameMoved(x,y);
+  }
+  @Override
+  public void touchStarted(TouchInfo info) {
+    select.touchStarted(info);
+  }
+  @Override
+  public void touchEnded(TouchInfo info) {
+    select.touchEnded(info);
+  }
+  @Override
+  public void touchMoved(TouchInfo info) {
+    select.touchMoved(info);
   }
 }

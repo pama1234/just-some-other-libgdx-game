@@ -37,7 +37,7 @@ public class Scoreboard extends TextBoard{
     text=format.format(UtilMath.sqrt(score));
     if(!text.equals(tt)) {
       final int tw=w;
-      w=(int)Math.ceil(p.textWidth(text))+textConst*2;
+      w=(int)Math.ceil(p.textWidthNoScale(text))+textConst*2;
       final int th=h;
       h=(int)(textConst*(1.25f));
       if(tw!=w||th!=h) graphics(new Graphics(p,w,h));

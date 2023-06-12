@@ -11,9 +11,9 @@ import pama1234.gdx.game.ui.CodeTextFieldStyle;
 import pama1234.gdx.game.ui.ConfigInfo;
 import pama1234.gdx.game.ui.util.NormalOnscreenKeyboard;
 import pama1234.gdx.game.ui.util.TextField;
-import pama1234.gdx.game.util.RectF;
 import pama1234.gdx.util.app.ScreenCore3D;
 import pama1234.gdx.util.info.MouseInfo;
+import pama1234.math.geometry.RectF;
 
 public class Screen0007 extends ScreenCore3D{
   TextField textField;

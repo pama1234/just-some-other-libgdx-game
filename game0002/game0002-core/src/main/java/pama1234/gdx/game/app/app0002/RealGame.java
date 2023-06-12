@@ -38,6 +38,7 @@ public class RealGame extends ScreenCore2D{
     if(isAndroid) {
       currentInput=new InputData();
       actrl=new AndroidCtrl(this);
+      actrl.active=false;
       centerScreen.add.add(actrl);
     }
     // backgroundColor(255);
@@ -51,6 +52,16 @@ public class RealGame extends ScreenCore2D{
     pageCenter.refresh();
     pageCenter.postSetDes();
     centerCam.add.add(info=new Info(this,520,-320));
+    setupCamera();
+  }
+  public void setupCamera() {
+    if(isAndroid) cam2d.minScale=1/8f;
+    // cam2d.activeDrag=false;
+    // cam2d.activeScrollZoom=cam2d.activeTouchZoom=false;
+  }
+  public void activeActrl(boolean in) {
+    actrl.active=in;
+    cam2d.activeDrag=!in;
   }
   @Override
   public void update() {}
@@ -77,6 +88,7 @@ public class RealGame extends ScreenCore2D{
     public float dxCache,dyCache;
     public TouchInfo moveCtrl;
     public float scale;
+    public boolean active=true;
     public AndroidCtrl(RealGame p) {
       super(p);
       maxSpeed=1f;
@@ -115,7 +127,7 @@ public class RealGame extends ScreenCore2D{
     }
     @Override
     public void touchStarted(TouchInfo info) {
-      if(info.osx<p.width/2f) {
+      if(active&&info.osx<p.width/2f) {
         if(moveCtrl==null) moveCtrl=info;
       }
     }

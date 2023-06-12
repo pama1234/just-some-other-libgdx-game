@@ -4,9 +4,9 @@ import pama1234.gdx.game.ui.CodeTextFieldStyle;
 import pama1234.gdx.game.ui.util.NormalOnscreenKeyboard;
 import pama1234.gdx.game.ui.util.TextArea;
 import pama1234.gdx.game.ui.util.TextField;
-import pama1234.gdx.game.util.RectF;
 import pama1234.gdx.util.app.ScreenCore2D;
 import pama1234.gdx.util.info.MouseInfo;
+import pama1234.math.geometry.RectF;
 
 public class Screen0008 extends ScreenCore2D{
   public TextField textField;
