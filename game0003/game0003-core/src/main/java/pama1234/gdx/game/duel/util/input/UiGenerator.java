@@ -1,5 +1,6 @@
 package pama1234.gdx.game.duel.util.input;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.FocusListener;
@@ -11,6 +12,8 @@ import pama1234.gdx.game.ui.util.NormalOnscreenKeyboard;
 import pama1234.gdx.game.ui.util.TextArea;
 import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.game.ui.util.TextField;
+import pama1234.gdx.util.app.UtilScreen2D;
+import pama1234.math.Tools;
 import pama1234.math.geometry.RectF;
 
 public class UiGenerator{
@@ -44,16 +47,22 @@ public class UiGenerator{
     // ()->p.pus)};
     out[0].setMessageText("皮肤配置文件");
     out[0].addListener(new FocusListener() {
+      public long time;
       @Override
       public void keyboardFocusChanged(FocusEvent event,Actor actor,boolean focused) {
-        if(!focused) {
-          try {
-            p.config.skin.data=Duel.localization.yaml.load(out[0].getText());
-            p.skin=SkinData.fromData(p.config.skin);
-          }catch(RuntimeException e) {
-            out[0].setText(getSkinText(p));
+        long timeD=Tools.timeM();
+        if(timeD-time<10) {
+          testHideKeyboard(p,focused);
+          if(!focused) {
+            try {
+              p.config.skin.data=Duel.localization.yaml.load(out[0].getText());
+              p.skin=SkinData.fromData(p.config.skin);
+            }catch(RuntimeException e) {
+              out[0].setText(getSkinText(p));
+            }
           }
         }
+        time=Tools.timeM();
       }
     });
     for(TextField e:out) e.setOnscreenKeyboard(new NormalOnscreenKeyboard());
@@ -61,5 +70,11 @@ public class UiGenerator{
   }
   public static String getSkinText(Duel p) {
     return p.config.skin==null?"无可加载的皮肤配置，重启游戏试试":Duel.localization.yaml.dumpAsMap(p.config.skin.data);
+  }
+  public static void testHideKeyboard(UtilScreen2D p,boolean focused) {
+    p.cam2d.activeDrag=!focused;
+    if(!focused) {
+      Gdx.input.setOnscreenKeyboardVisible(false);
+    }
   }
 }

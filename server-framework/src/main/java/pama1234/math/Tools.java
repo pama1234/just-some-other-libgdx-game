@@ -277,6 +277,9 @@ public class Tools{
     return hsbColor((int)a,(int)b,(int)c);
   }
   public static long timeData;
+  public static long timeM() {
+    return System.currentTimeMillis();
+  }
   public static long time() {
     return timeData=System.currentTimeMillis();
   }

@@ -1,5 +1,6 @@
 package pama1234.gdx.game.state.state0002;
 
+import static pama1234.app.game.server.duel.ServerConfigData.game;
 import static pama1234.app.game.server.duel.ServerConfigData.neat;
 
 import java.io.IOException;
@@ -103,6 +104,10 @@ public class Game extends StateEntity0002{
   @Override
   public void from(StateEntity0002 in) {
     paused=false;
+    if(p.config.mode==game) {
+      p.cam2d.activeDrag=false;
+      p.cam2d.activeScrollZoom=p.cam2d.activeTouchZoom=false;
+    }
     if(actrl!=null) {
       actrl.resume();
       p.centerCam.add.add(actrl);
@@ -111,6 +116,10 @@ public class Game extends StateEntity0002{
   @Override
   public void to(StateEntity0002 in) {
     paused=true;
+    if(p.config.mode==game) {
+      p.cam2d.activeDrag=true;
+      p.cam2d.activeScrollZoom=p.cam2d.activeTouchZoom=true;
+    }
     if(actrl!=null) {
       actrl.pause();
       p.centerCam.remove.add(actrl);

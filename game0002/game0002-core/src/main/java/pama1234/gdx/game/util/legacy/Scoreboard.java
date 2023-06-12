@@ -66,6 +66,11 @@ public class Scoreboard extends TextBoard{
   }
   @Override
   public void display() {
-    if(parent.index==1) p.image(g.texture,point.pos.x-g.width()/2,point.pos.y-g.height()/2);
+    if(parent.index==1) {
+      p.withScreen();
+      p.image(g.texture,(point.pos.x-g.width())/2,p.pu/4f);
+      // p.image(g.texture,point.pos.x-g.width()/2,point.pos.y-g.height()/2);
+      p.withCam();
+    }
   }
 }

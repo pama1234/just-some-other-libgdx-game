@@ -124,9 +124,10 @@ public class Duel extends ScreenCore2D implements StateChanger0002{
       cam2d.scaleUnit=1/8f;
       cam2d.scale.pos=cam2d.scale.des=(isAndroid?0.25f:1)*0.6f;
     }else {
-      if(isAndroid) cam2d.scale.pos=cam2d.scale.des=0.25f;
-      cam2d.activeDrag=false;
-      cam2d.activeScrollZoom=cam2d.activeTouchZoom=false;
+      if(isAndroid) {
+        cam2d.minScale=1/4f;
+        cam2d.scale.pos=cam2d.scale.des=0.25f;
+      }
     }
   }
   @Override
