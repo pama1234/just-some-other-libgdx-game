@@ -22,8 +22,8 @@ public class RealGame extends ScreenCore2D{
   }
   @Override
   public void setup() {
-    backgroundColor(255);
-    // backgroundColor(0);
+    // backgroundColor(255);
+    backgroundColor(0);
     strokeWeight(Cell.size/4);
     noStroke();
     centerCam.add.add(pageCenter=new PageCenter(this,new StartPage(this),-640,0));

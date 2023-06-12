@@ -32,8 +32,9 @@ public class TabCenter extends TextBoard{
   public void init() {
     select.init();
   }
-  public void refreshDepc() {
-    initLayer();
+  @Override
+  public void initLayer() {
+    // initLayer();
     int tw=w;
     w=1;
     for(Tab<?,?> tab:list) {
@@ -44,10 +45,10 @@ public class TabCenter extends TextBoard{
     // h=(int)(textSize*(list.size()+0.25f)+p.textDescent());
     h=(int)(textSize*(list.size()+0.25f));
     if(tw!=w||th!=h) {
-      // layer=p.createGraphics(w,h);
-      initLayer();
+      graphics(p.createGraphics(w,h));
+      // initLayer();
     }
-    drawLayer();
+    // drawLayer();
   }
   @Override
   public void update() {

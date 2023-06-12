@@ -43,7 +43,6 @@ public class LoadAndSave extends TextBoard{
       // initLayer();
     }
   }
-  public void refreshDepc() {}
   public void drawLayer() {
     // g.beginShape();
     p.background(0xffF66104);

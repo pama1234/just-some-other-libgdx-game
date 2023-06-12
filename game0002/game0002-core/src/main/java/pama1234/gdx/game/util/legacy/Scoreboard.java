@@ -30,7 +30,6 @@ public class Scoreboard extends TextBoard{
   }
   @Override
   public void init() {}
-  public void refreshDepc() {}
   @Override
   public void initLayer() {
     // initLayer();

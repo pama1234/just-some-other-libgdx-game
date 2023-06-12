@@ -13,23 +13,18 @@ import pama1234.math.physics.PathPoint;
 
 public abstract class Component<T extends UtilScreen>extends PointEntity<T,PathPoint>{
   public Graphics g;
-  public void graphics(Graphics g) {
-    this.g=g;
-    texture=g.texture;
-  }
-  // public FrameBuffer buffer;
   public OrthographicCamera cam;
-  // public TextureRegion texture;
   public Texture texture;
   public boolean loop=true;
   public Component(T p,float x,float y,int w,int h) {
     super(p,new PathPoint(0,0,x,y));
-    g=new Graphics(p,w,h);
-    texture=g.texture;
-    // texture=buffer().getColorBufferTexture();
-    // texture.setFilter(TextureFilter.Linear,TextureFilter.Nearest);
+    graphics(new Graphics(p,w,h));
     cam=new OrthographicCamera();
     cam.setToOrtho(true,w,h);
+  }
+  public void graphics(Graphics g) {
+    this.g=g;
+    texture=g.texture;
   }
   public abstract void draw();
   public FrameBuffer buffer() {

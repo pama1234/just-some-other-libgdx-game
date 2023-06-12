@@ -54,7 +54,6 @@ public class Info extends TextBoard implements ClipboardOwner{
     super(p,x,y,TEXT_SIZE*20,TEXT_SIZE*40,TEXT_SIZE);
     this.data=data;
     initLayer();
-    // refreshDepc();
     refresh();
   }
   @Override
@@ -82,11 +81,6 @@ public class Info extends TextBoard implements ClipboardOwner{
     p.text("Ctrl-C",g.width()-cw,ty);
     UITools.border(g,g.width()-cw,0,cw,TEXT_SIZE);
     // g.endShape();
-  }
-  @Override
-  public void refreshDepc() {
-    // initLayer();
-    // drawLayer();
   }
   @Override
   public void mousePressed(MouseInfo info) {

@@ -49,7 +49,6 @@ public class PageCenter extends TextBoard{
       graphics(new Graphics(p,w,h));
     }
   }
-  public void refreshDepc() {}
   public void postSetDes() {
     point.des.set(-w/2,-h/2);
   }
@@ -59,11 +58,7 @@ public class PageCenter extends TextBoard{
     select.update();
   }
   public void drawLayer() {
-    // System.out.println("PageCenter.drawLayer()");
     p.background(UtilScreenColor.colorFromInt(0xffF66104));
-    // p.background(127);
-    // p.endShape();
-    // p.beginShape();
     UITools.border(g,0,0,g.width(),g.height());
     float ty=0;
     final int ts_d2=g.width()/2;

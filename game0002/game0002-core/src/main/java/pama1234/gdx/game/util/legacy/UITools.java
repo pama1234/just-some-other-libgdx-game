@@ -2,6 +2,7 @@ package pama1234.gdx.game.util.legacy;
 
 import com.badlogic.gdx.graphics.Color;
 
+import pama1234.gdx.util.app.UtilScreenColor;
 import pama1234.gdx.util.element.Graphics;
 import pama1234.math.UtilMath;
 
@@ -9,12 +10,13 @@ public class UITools{
   public static final int selectLine=0xff6FEDFB,background=0xffDDF4C4;
   public static int weight=1;
   public static void reversedBorder(final Graphics l,final float x,final float y,float w,float h) {
-    border(l,x,y,w,h,0x80000000,0x80ffffff);
+    border(l,x,y,w,h,UtilScreenColor.colorFromInt(0x80000000),UtilScreenColor.colorFromInt(0x80ffffff));
   }
-  public static void border(final Graphics l,final float x,final float y,float w,float h,int a,int b) {
+  public static void border(final Graphics l,final float x,final float y,float w,float h,Color a,Color b) {
     final Color tc=l.p.fillColor.cpy();
     final boolean ts=l.p.stroke;
     l.p.noStroke();
+    l.p.doFill();
     l.p.fill(a);
     l.p.rect(x,y,w,weight);
     l.p.rect(x,y,weight,h);
@@ -23,9 +25,10 @@ public class UITools{
     l.p.rect(x+w-weight,y,weight,h);
     l.p.fill(tc);
     l.p.stroke=ts;
+    l.p.noFill();
   }
   public static void border(final Graphics l,final float x,final float y,float w,float h) {
-    border(l,x,y,w,h,0x80ffffff,0x80000000);
+    border(l,x,y,w,h,UtilScreenColor.colorFromInt(0x80ffffff),UtilScreenColor.colorFromInt(0x80000000));
   }
   public static void rectBorder(final Graphics l) {
     border(l,0,0,l.width(),l.height());

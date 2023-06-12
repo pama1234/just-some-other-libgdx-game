@@ -54,7 +54,6 @@ public class ToolBar extends TextBoard{
       // initLayer();
     }
   }
-  public void refreshDepc() {}
   public void drawLayer() {
     p.background(0xffF66104);
     UITools.border(g,0,0,g.width(),g.height());
