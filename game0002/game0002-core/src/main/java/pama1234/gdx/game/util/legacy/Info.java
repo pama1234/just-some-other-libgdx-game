@@ -85,8 +85,8 @@ public class Info extends TextBoard implements ClipboardOwner{
   }
   @Override
   public void refreshDepc() {
-    initLayer();
-    drawLayer();
+    // initLayer();
+    // drawLayer();
   }
   @Override
   public void mousePressed(MouseInfo info) {

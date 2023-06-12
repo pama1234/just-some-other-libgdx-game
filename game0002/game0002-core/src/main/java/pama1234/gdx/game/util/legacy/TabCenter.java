@@ -37,7 +37,7 @@ public class TabCenter extends TextBoard{
     int tw=w;
     w=1;
     for(Tab<?,?> tab:list) {
-      final int t=(int)Math.ceil(p.textWidth(tab.name)+textSize);
+      final int t=(int)Math.ceil(p.textWidthNoScale(tab.name)+textSize);
       if(t>w) w=t;
     }
     int th=h;

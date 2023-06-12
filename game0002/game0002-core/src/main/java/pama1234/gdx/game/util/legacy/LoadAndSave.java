@@ -31,7 +31,7 @@ public class LoadAndSave extends TextBoard{
     w=1;
     final String[] tsa=names[parent.index];
     for(String i:tsa) {
-      final int t=(int)Math.ceil(p.textWidth(i)+textSize);
+      final int t=(int)Math.ceil(p.textWidthNoScale(i)+textSize);
       if(t>w) w=t;
     }
     int th=h;
