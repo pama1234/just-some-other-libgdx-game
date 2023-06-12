@@ -13,18 +13,18 @@ import pama1234.math.physics.PathPoint;
 
 public abstract class Component<T extends UtilScreen>extends PointEntity<T,PathPoint>{
   public Graphics g;
-  public OrthographicCamera cam;
+  // public OrthographicCamera cam;
   public Texture texture;
   public boolean loop=true;
   public Component(T p,float x,float y,int w,int h) {
     super(p,new PathPoint(0,0,x,y));
     graphics(new Graphics(p,w,h));
-    cam=new OrthographicCamera();
-    cam.setToOrtho(true,w,h);
   }
   public void graphics(Graphics g) {
     this.g=g;
     texture=g.texture;
+    // cam=new OrthographicCamera();
+    // cam.setToOrtho(true,w,h);
   }
   public abstract void draw();
   public FrameBuffer buffer() {
@@ -45,8 +45,9 @@ public abstract class Component<T extends UtilScreen>extends PointEntity<T,PathP
     return texture.getHeight();
   }
   public void beginDraw() {
-    buffer().begin();
-    p.setCamera(cam);
+    // buffer().begin();
+    // p.setCamera(cam);
+    g.begin();
     p.beginShape();
   }
   public void endDraw() {
@@ -73,8 +74,8 @@ public abstract class Component<T extends UtilScreen>extends PointEntity<T,PathP
     // Camera tc=p.usedCamera;
     beginDraw();
     // float tf=p.textScale(),ts=p.u;
-    // p.textScale(1);
-    // p.strokeWeight(1);
+    p.textScale(1);
+    p.strokeWeight(1);
     // p.textScale(p.pus);
     // p.strokeWeight(p.defaultStrokeWeight=p.u);
     draw();

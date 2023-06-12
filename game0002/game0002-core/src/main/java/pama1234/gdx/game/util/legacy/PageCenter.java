@@ -57,6 +57,7 @@ public class PageCenter extends TextBoard{
     select.update();
   }
   public void draw() {
+    // System.out.println(p.usedCamera.viewportWidth);
     // System.out.println(p.usedCamera);
     p.background(UtilScreenColor.colorFromInt(0xffF66104));
     UITools.border(g,0,0,g.width(),g.height());

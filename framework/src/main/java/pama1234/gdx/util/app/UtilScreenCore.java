@@ -145,6 +145,8 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
     if(usedCamera!=in) usedCamera=in;
     else return;
     setMatrix(in.combined);
+    // textScale(1);
+    // strokeWeight(1);
   }
   public void setMatrix(Matrix4 combined) {
     fontBatch.setProjectionMatrix(combined);
