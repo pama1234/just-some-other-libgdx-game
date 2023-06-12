@@ -139,6 +139,7 @@ public class PageCenter extends TextBoard{
   }
   @Override
   public void frameResized(final int w,final int h) {
+    // for(Page<?,?> e:list) e.frameResized(w,h);
     select.frameResized(w,h);
   }
   @Override

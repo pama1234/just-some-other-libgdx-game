@@ -15,4 +15,8 @@ public class GamePage extends Page<RealGame,ParticleAutomata>{
   public void hide() {
     content.toolBar.endGame();
   }
+  // @Override
+  // public void frameResized(int w,int h) {
+  //   System.out.println("GamePage.frameResized()");
+  // }
 }

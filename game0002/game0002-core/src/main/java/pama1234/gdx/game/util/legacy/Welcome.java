@@ -18,7 +18,7 @@ public class Welcome extends Entity<RealGame>{
   }
   // @Override
   public void refresh() {
-    System.out.println(p.usedCamera);
+    // System.out.println(p.usedCamera);
     sloganPos=(int)p.random(slogan.length);
     // if(g==null) g=new Graphics(p,1,1);
     if(g==null) g=new Graphics(p,(int)Math.ceil(p.textWidthNoScale(title)*9),textSize*2);

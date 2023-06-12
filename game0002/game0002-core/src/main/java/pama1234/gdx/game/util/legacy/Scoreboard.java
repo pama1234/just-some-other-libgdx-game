@@ -21,6 +21,7 @@ public class Scoreboard extends TextBoard{
       "00000."+
       "00000G");
   public final LinkedList<Cell> sons=new LinkedList<Cell>();
+  public int pus,width_2,hight_2;
   public Scoreboard(RealGame p,TabCenter parent,float x,float y) {
     super(p,x,y,1,1);
     // textAlignX=PConstants.CENTER;
@@ -37,10 +38,13 @@ public class Scoreboard extends TextBoard{
     text=format.format(UtilMath.sqrt(score));
     if(!text.equals(tt)) {
       final int tw=w;
-      w=(int)Math.ceil(p.textWidthNoScale(text))+textConst*2;
+      w=(int)Math.ceil(p.textWidthNoScale(text))+24;
       final int th=h;
       h=(int)(textConst*(1.25f));
-      if(tw!=w||th!=h) graphics(new Graphics(p,w,h));
+      if(tw!=w||th!=h) {
+        graphics(new Graphics(p,w,h));
+        updateSizeValue();
+      }
     }
   }
   public void draw() {
@@ -68,9 +72,23 @@ public class Scoreboard extends TextBoard{
   public void display() {
     if(parent.index==1) {
       p.withScreen();
-      p.image(g.texture,(p.width-g.width()*p.pus)/2,p.pu/4f,g.width()*p.pus,g.height()*p.pus);
+      // width_2=g.width()*pus;
+      // hight_2=g.height()*pus;
+      p.image(g.texture,(p.width-width_2)/2,p.pu/4f,width_2,hight_2);
       // p.image(g.texture,point.pos.x-g.width()/2,point.pos.y-g.height()/2);
       p.withCam();
     }
+  }
+  @Override
+  public void frameResized(int w,int h) {
+    updateSizeValue();
+  }
+  public void updateSizeValue() {
+    if((p.width-g.width()*p.pus)/2<0) {
+      pus=p.pus-1;
+    }else pus=p.pus;
+    width_2=g.width()*pus;
+    hight_2=g.height()*pus;
+    // p.println(p.pus,pus);
   }
 }

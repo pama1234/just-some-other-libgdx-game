@@ -85,4 +85,9 @@ public class ParticleAutomata extends EntityCenter<RealGame,Entity<?>>{
     }
     return out;
   }
+  // @Override
+  // public void frameResized(int w,int h) {
+  //   // System.out.println("ParticleAutomata.frameResized()");
+  //   scoreboard.refresh();
+  // }
 }
