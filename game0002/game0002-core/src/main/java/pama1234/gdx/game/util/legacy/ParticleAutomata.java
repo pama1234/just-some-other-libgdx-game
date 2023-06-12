@@ -14,7 +14,6 @@ public class ParticleAutomata extends EntityCenter<RealGame,Entity<?>>{
   public final Scoreboard scoreboard;
   public final MetaCellCenter metaList;
   public final CellCenter cellList;
-  // public final EntityCenter<TextBoard> componentCenter;
   public ParticleAutomata(RealGame p) {
     super(p);
     MetaCell[] array;
@@ -23,68 +22,16 @@ public class ParticleAutomata extends EntityCenter<RealGame,Entity<?>>{
     Tab<RealGame,Entity<?>> tab=new Tab<RealGame,Entity<?>>(p,"地图",tabs.cellCenter=cellList=new CellCenter(p,metaList));
     tabs.list.add(tab);
     //---
-    // componentCenter=new EntityCenter<>(p) {
-    // @Override
-    // public void display() {
-    //   if(Settings.data[0]==0) {
-    //     p.resetMatrix();
-    //     p.translate(p.width/2,p.height/2);
-    //   }
-    //   super.display();
-    // }
-    // @Override
-    // public void update() {
-    //   if(Settings.data[0]==0) {
-    //     float tx=p.cam.mouseX,
-    //       ty=p.cam.mouseX;
-    //     p.cam.mouseX=p.mouseX-p.width/2;
-    //     p.cam.mouseY=p.mouseY-p.height/2;
-    //     super.update();
-    //     p.cam.mouseX=tx;
-    //     p.cam.mouseY=ty;
-    //   }else super.update();
-    // }
-    // @Override
-    // public void mousePressed(int button) {
-    //   if(Settings.data[0]==0) {
-    //     float tx=p.cam.mouseX,
-    //       ty=p.cam.mouseX;
-    //     p.cam.mouseX=p.mouseX-p.width/2;
-    //     p.cam.mouseY=p.mouseY-p.height/2;
-    //     super.mousePressed(button);
-    //     p.cam.mouseX=tx;
-    //     p.cam.mouseY=ty;
-    //   }else super.mousePressed(button);
-    // }
-    // @Override
-    // public void mouseReleased(int button) {
-    //   if(Settings.data[0]==0) {
-    //     float tx=p.cam.mouseX,
-    //       ty=p.cam.mouseX;
-    //     p.cam.mouseX=p.mouseX-p.width/2;
-    //     p.cam.mouseY=p.mouseY-p.height/2;
-    //     super.mouseReleased(button);
-    //     p.cam.mouseX=tx;
-    //     p.cam.mouseY=ty;
-    //   }else super.update();
-    //   super.mouseReleased(button);
-    // }
-    // };
-    // add.add(componentCenter);
-    //---
     toolBar=new ToolBar(p,tabs,-640,-160);
     tabs.toolBar=toolBar;
-    // componentCenter.
     add.add(toolBar);
     //---
     lsHelper=new LoadAndSave(p,tabs,-640,160);
     tabs.lsHelper=lsHelper;
-    // componentCenter.
     add.add(lsHelper);
     //---
     scoreboard=new Scoreboard(p,tabs,0,-360);
     tabs.scoreboard=scoreboard;
-    // componentCenter.
     add.add(scoreboard);
     //---
     tabs.setSelect(tab);
@@ -120,9 +67,7 @@ public class ParticleAutomata extends EntityCenter<RealGame,Entity<?>>{
         tn,metaInfoList));
     }
     for(int i=0;i<array.length;i++) array[i].refresh(array.length);
-    // p.colorMode(PConstants.HSB);
     for(int i=0;i<array.length;i++) array[i].color(Tools.hsbColor(255f/array.length*i,255,255));
-    // p.colorMode(PConstants.RGB);
     final int size=1<<6;
     for(int i=0;i<array.length;i++) for(int j=0;j<size;j++) cellList.add.add(new Cell(p,cellList,i,p.random(-320,320),p.random(-320,320)));
   }

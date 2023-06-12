@@ -6,34 +6,24 @@ import pama1234.gdx.util.wrapper.EntityCenter;
 import pama1234.math.UtilMath;
 
 public class CellCenter extends EntityCenter<RealGame,Cell>{
-  private static final float r_const=Cell.dist/4;
-  private static final int boxR=320;
+  public static final float r_const=Cell.dist/4;
+  public static final int boxR=320;
   public static final int layer_cell_size=(int)Cell.size;
-  // private static final int fadeStep=16;
+  public static final int fadeStep=16;
   public final MetaCellCenter meta;
   public static final boolean boxed=true;
   public static final int x1=-boxR,y1=-boxR,x2=boxR,y2=boxR;
   public static final int w=x2-x1,h=y2-y1;
   public Graphics layer;
-  // public static final boolean videoExport=false;
-  // VideoExport temp;
-  // PGraphics tg;
   @SuppressWarnings("unused")
   public CellCenter(final RealGame p,final MetaCellCenter parent) {
     super(p);
     this.meta=parent;
     if(boxed) layer=new Graphics(p,w+layer_cell_size*2+1,h+layer_cell_size*2+1);
     else layer=new Graphics(p,w+w/2,h+h/2);
-    // if(Cell.size<2) layer.smooth();
     layer.begin();
     p.noStroke();
     layer.end();
-    // if(videoExport) {
-    //   tg=p.createGraphics(layer.width,layer.height);
-    //   temp=new VideoExport(p);
-    //   temp.setGraphics(tg);
-    //   temp.startMovie();
-    // }
   }
   @Override
   public void update() {
@@ -81,10 +71,11 @@ public class CellCenter extends EntityCenter<RealGame,Cell>{
   }
   public void drawCanvas() {
     p.endShape();
-    layer.begin();
+    // layer.begin();
+    // fade();
+    layer.beginShape();
+    // p.beginShape();
     fade();
-    // layer.beginShape();
-    p.beginShape();
     super.display();
     box();
     layer.endShape();
@@ -107,38 +98,13 @@ public class CellCenter extends EntityCenter<RealGame,Cell>{
   @Override
   public void display() {
     drawCanvas();
-    // if(videoExport) {
-    //   tg.begin();
-    //   tg.background(0);
-    //   tg.image(layer,0,0);
-    //   tg.end();
-    //   temp.saveFrame();
-    //   p.image(tg,x1-layer_cell_size,y1-layer_cell_size);
-    // }else {
     if(boxed) p.image(layer.texture,x1-layer_cell_size,y1-layer_cell_size);
     else p.image(layer.texture,x1-w/4f,y1-h/4f);
-    // }
   }
   public void fade() {
-    // layer.loadPixels();
-    // for(int i=0;i<layer.pixels.length;i++) {
-    //   int a=(layer.pixels[i]&0xff000000)>>>24;
-    //   if(a==0) continue;
-    //   if(a<128) a--;
-    //   else a-=fadeStep;
-    //   if(a<0) a=0;
-    //   a<<=24;
-    //   layer.pixels[i]=a|(layer.pixels[i]&0xffffff);
-    // }
-    // layer.updatePixels();
-    // layer.begin();
-    // p.background(0, fadeStep);
-    p.background(0);
-    // p.background(0,fadeStep);
-    // layer.end();
+    // p.background(0);
   }
   public void dispose() {
-    // if(videoExport) temp.endMovie();
     super.dispose();
   }
 }

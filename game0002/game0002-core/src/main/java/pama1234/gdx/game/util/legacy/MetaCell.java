@@ -24,7 +24,8 @@ public class MetaCell extends Entity<RealGame>{
   public int color=hashCode();
   public void color(int color) {
     this.color=color;
-    colorCache=new Color(color);
+    colorCache=new Color();
+    Color.argb8888ToColor(colorCache,color);
   }
   public Color colorCache;
   public final ArrayList<MetaInfo> list;
