@@ -33,7 +33,7 @@ public class ToolBar extends TextBoard{
     names=new String[][] {{"暂无操作",},{"移动粒子","批量移动"},};
     state=new int[2];
     state[1]=1;
-    excludeRect=new RectF(()->p.width-p.bu*4f,()->p.height-p.bu*1.5f,()->p.bu*4,()->p.bu);
+    excludeRect=new RectF(()->p.width-p.bu*4f,()->p.height-p.bu*1.5f,()->p.bu*4f,()->p.bu*1.5f);
   }
   @Override
   public void init() {
@@ -226,7 +226,8 @@ public class ToolBar extends TextBoard{
       if(ti==1) {
         if(state[ti]==0||state[ti]==1) {
           // p.println(info.button==Buttons.LEFT,p.actrl.moveCtrl!=info,info.state==0);
-          if(!Tools.inRect(info.ox,info.oy,excludeRect)&&p.actrl.active?info.ox>p.width/2f:true) {//TODO
+          p.println(!Tools.inBox(info.ox,info.oy,excludeRect),p.actrl.active?info.ox>p.width/2f:true);
+          if(!Tools.inBox(info.ox,info.oy,excludeRect)&&(p.actrl.active?info.ox>p.width/2f:true)) {//TODO
             if(info.button==Buttons.LEFT) {
               if(select!=null) {
                 select.meta=originalId;

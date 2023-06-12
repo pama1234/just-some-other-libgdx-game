@@ -87,15 +87,16 @@ public class CellCenter extends EntityCenter<RealGame,Cell>{
     p.endShape();
     layer().beginShape();
     // p.clear();
-    if(fadeTick==0) fade();
+    // if(fadeTick==0) 
+    fade();
     super.display();
     box();
     layer().endShape();
-    if(fadeTick==0) {
-      layerCache().beginShape();
-      p.clear();
-      layerCache().endShape();
-    }
+    // if(fadeTick==0) {
+    layerCache().beginShape();
+    p.clear();
+    layerCache().endShape();
+    // }
     p.beginShape();
     //---
     if(boxed) p.image(layer().texture,x1-layer_cell_size,y1-layer_cell_size);
