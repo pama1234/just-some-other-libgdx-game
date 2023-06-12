@@ -80,6 +80,7 @@ public class CellCenter extends EntityCenter<RealGame,Cell>{
     super.display();
     box();
     layer.endShape();
+    p.beginShape();
   }
   public void box() {
     p.noFill();

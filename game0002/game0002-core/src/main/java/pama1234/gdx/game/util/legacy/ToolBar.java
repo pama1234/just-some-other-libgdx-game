@@ -259,12 +259,14 @@ public class ToolBar extends TextBoard{
             break;
         }
         if(select!=null) switch(key) {
+          case 'z':
           case 'e': {
             int index=select.meta-1;
             if(index<0) index+=select.parent.meta.list.size();
             select.meta=index;
           }
             break;
+          case 'x':
           case 'q': {
             int index=select.meta+1;
             final int ts=select.parent.meta.list.size();
