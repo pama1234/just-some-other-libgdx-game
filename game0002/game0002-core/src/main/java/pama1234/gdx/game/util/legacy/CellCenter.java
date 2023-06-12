@@ -18,12 +18,15 @@ public class CellCenter extends EntityCenter<RealGame,Cell>{
   public static final int x1=-boxR,y1=-boxR,x2=boxR,y2=boxR;
   public static final int w=x2-x1,h=y2-y1;
   public ShaderProgram fade;
-  public Graphics layer;
+  public Graphics layer,layer_b;
+  public boolean cacheTick;
+  public int fadeTick,fadeTickCount=2;
   public CellCenter(final RealGame p,final MetaCellCenter parent) {
     super(p);
     this.meta=parent;
     if(boxed) layer=new Graphics(p,w+layer_cell_size*2+1,h+layer_cell_size*2+1);
     else layer=new Graphics(p,w+w/2,h+h/2);
+    layer_b=new Graphics(p,layer.width(),layer.height());
     fade=new ShaderProgram(
       Gdx.files.internal("shader/main0006/fade.vert").readString(),
       Gdx.files.internal("shader/main0006/fade.frag").readString());
@@ -73,24 +76,6 @@ public class CellCenter extends EntityCenter<RealGame,Cell>{
       }
     }
   }
-  public void drawCanvas() {
-    p.endShape();
-    layer.beginShape();
-    fade();
-    super.display();
-    box();
-    layer.endShape();
-    p.beginShape();
-  }
-  public void box() {
-    p.noFill();
-    p.doStroke();
-    p.stroke(255);
-    if(boxed) p.rect(0,0,layer.width()-1,layer.height()-1);
-    else p.rect(w/4f-layer_cell_size/2,h/4f-layer_cell_size/2,w-1+layer_cell_size,h-1+layer_cell_size);
-    p.noStroke();
-    p.doFill();
-  }
   public float f(final float r,final float g) {
     return g/r;
   }
@@ -99,13 +84,48 @@ public class CellCenter extends EntityCenter<RealGame,Cell>{
   }
   @Override
   public void display() {
-    drawCanvas();
-    if(boxed) p.image(layer.texture,x1-layer_cell_size,y1-layer_cell_size);
-    else p.image(layer.texture,x1-w/4f,y1-h/4f);
+    p.endShape();
+    layer().beginShape();
+    // p.clear();
+    if(fadeTick==0) fade();
+    super.display();
+    box();
+    layer().endShape();
+    if(fadeTick==0) {
+      layerCache().beginShape();
+      p.clear();
+      layerCache().endShape();
+    }
+    p.beginShape();
+    //---
+    if(boxed) p.image(layer().texture,x1-layer_cell_size,y1-layer_cell_size);
+    else p.image(layer().texture,x1-w/4f,y1-h/4f);
+    //---
+    if(fadeTick==0) {
+      cacheTick=!cacheTick;
+    }
+    fadeTick++;
+    if(fadeTick>fadeTickCount) fadeTick=0;
+  }
+  public Graphics layer() {
+    return cacheTick?layer:layer_b;
+  }
+  public Graphics layerCache() {
+    return cacheTick?layer_b:layer;
+  }
+  public void box() {
+    p.noFill();
+    p.strokeWeight(1);
+    p.doStroke();
+    p.stroke(255);
+    if(boxed) p.rect(0,0,layer.width()-1,layer.height()-1);
+    else p.rect(w/4f-layer_cell_size/2,h/4f-layer_cell_size/2,w-1+layer_cell_size,h-1+layer_cell_size);
+    p.noStroke();
+    p.doFill();
   }
   public void fade() {
     p.imageBatch.setShader(fade);
-    p.image(layer.texture,0,0);
+    p.image(layerCache().texture,0,0);
     p.imageBatch.setShader(null);
   }
 }
