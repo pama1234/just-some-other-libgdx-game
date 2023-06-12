@@ -20,7 +20,7 @@ public class CellCenter extends EntityCenter<RealGame,Cell>{
   public ShaderProgram fade;
   public Graphics layer,layer_b;
   public boolean cacheTick;
-  public int fadeTick,fadeTickCount;
+  // public int fadeTick,fadeTickConst;
   public CellCenter(final RealGame p,final MetaCellCenter parent) {
     super(p);
     this.meta=parent;
@@ -31,10 +31,14 @@ public class CellCenter extends EntityCenter<RealGame,Cell>{
       Gdx.files.internal("shader/main0006/fade.vert").readString(),
       Gdx.files.internal("shader/main0006/fade.frag").readString());
     fade.bind();
-    fade.setUniformf("fadeStepSlow",p.isAndroid?1f/256:4f/256);
-    fade.setUniformf("fadeStep",16f/256);
+    // fade.setUniformf("fadeStepSlow",1f/256);
+    fade.setUniformf("fadeStepSlow",p.isAndroid?32f/256:8f/256);
+    fade.setUniformf("fadeStep",32f/256);
     fade.setUniformf("fadeThreshold",128f/256);
-    fadeTickCount=p.isAndroid?4:2;
+    // fade.setUniformf("fadeThreshold",0);
+    // fadeTickCount=p.isAndroid?4:2;
+    // fadeTickConst=1;
+    // fadeTickCount=2;
   }
   @Override
   public void update() {
@@ -90,28 +94,24 @@ public class CellCenter extends EntityCenter<RealGame,Cell>{
   @Override
   public void display() {
     p.endShape();
+    //---
     layer().beginShape();
-    // p.clear();
-    // if(fadeTick==0) 
     fade();
     super.display();
     box();
     layer().endShape();
-    // if(fadeTick==0) {
-    layerCache().beginShape();
-    p.clear();
-    layerCache().endShape();
-    // }
-    p.beginShape();
     //---
+    // layerCache().beginShape();
+    // p.clear();
+    // layerCache().endShape();
+    //---
+    p.beginShape();
     if(boxed) p.image(layer().texture,x1-layer_cell_size,y1-layer_cell_size);
     else p.image(layer().texture,x1-w/4f,y1-h/4f);
     //---
-    // if(fadeTick==0) {
     cacheTick=!cacheTick;
-    // }
-    fadeTick++;
-    if(fadeTick>fadeTickCount) fadeTick=0;
+    // fadeTick++;
+    // if(fadeTick>fadeTickConst) fadeTick=0;
   }
   public Graphics layer() {
     return cacheTick?layer:layer_b;
@@ -130,10 +130,12 @@ public class CellCenter extends EntityCenter<RealGame,Cell>{
     p.doFill();
   }
   public void fade() {
-    if(fadeTick==0) p.imageBatch.setShader(fade);
+    // if(fadeTick==0) p.imageBatch.setShader(fade);
     p.beginBlend();
+    p.imageBatch.setShader(fade);
     p.image(layerCache().texture,0,0);
     p.endBlend();
-    if(fadeTick==0) p.imageBatch.setShader(null);
+    p.imageBatch.setShader(null);
+    // if(fadeTick==0) p.imageBatch.setShader(null);
   }
 }

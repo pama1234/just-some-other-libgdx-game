@@ -8,10 +8,11 @@ public class GamePage extends Page<RealGame,ParticleAutomata>{
   }
   @Override
   public void show() {
-    System.out.println("GamePage.show()");
+    // System.out.println("GamePage.show()");
     content.toolBar.startGame();
   }
   @Override
   public void hide() {
-    content.toolBar.endGame();}
+    content.toolBar.endGame();
+  }
 }

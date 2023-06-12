@@ -50,6 +50,7 @@ public class ToolBar extends TextBoard{
     originalId=select.meta;
     firstInit=true;
     // p.cam2d.point.des.y=0;
+    p.cam2d.scale.des=2;
   }
   public void endGame() {
     // if(firstInit) return;
