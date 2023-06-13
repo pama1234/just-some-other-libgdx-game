@@ -41,7 +41,6 @@ public class RealGame extends ScreenCore2D{
       actrl.active=false;
       centerScreen.add.add(actrl);
     }
-    // backgroundColor(255);
     backgroundColor(0);
     strokeWeight(Cell.size/4);
     stroke(255);
@@ -49,7 +48,6 @@ public class RealGame extends ScreenCore2D{
     centerCam.add.add(pageCenter=new PageCenter(this,new StartPage(this),-640,0));
     pageCenter.list.add(new GamePage(this));
     pageCenter.list.add(new SettingsPage(this));
-    // for(var e:pageCenter.list) e.frameResized(width,height);
     pageCenter.refresh();
     pageCenter.postSetDes();
     centerCam.add.add(info=new Info(this,520,-320));
@@ -60,9 +58,8 @@ public class RealGame extends ScreenCore2D{
       cam2d.minScale=1/8f;
       cam2d.scale.des=0.5f;
     }
+    if(isAndroid) cam2d.point.f=0.1f;
     cam2d.point.des.y=-60;
-    // cam2d.activeDrag=false;
-    // cam2d.activeScrollZoom=cam2d.activeTouchZoom=false;
   }
   public void activeActrl(boolean in) {
     if(isAndroid) actrl.active=in;

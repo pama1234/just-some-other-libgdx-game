@@ -18,35 +18,24 @@ public class CellCenter extends EntityCenter<RealGame,Cell>{
   public static final int x1=-boxR,y1=-boxR,x2=boxR,y2=boxR;
   public static final int w=x2-x1,h=y2-y1;
   public ShaderProgram fade;
-  // public ShaderProgram highColor;
-  public Graphics layer,layer_b;
+  public Graphics layer,layer_b,layer_c;
   public boolean cacheTick;
-  // public int fadeTick,fadeTickConst;
+  public int fadeTick,fadeTickConst=4;
   public CellCenter(final RealGame p,final MetaCellCenter parent) {
     super(p);
     this.meta=parent;
     if(boxed) layer=new Graphics(p,w+layer_cell_size*2,h+layer_cell_size*2);
     else layer=new Graphics(p,w+w/2,h+h/2);
     layer_b=new Graphics(p,layer.width(),layer.height());
+    layer_c=new Graphics(p,layer.width(),layer.height());
     fade=new ShaderProgram(
       Gdx.files.internal("shader/main0006/fade.vert").readString(),
       Gdx.files.internal("shader/main0006/fade.frag").readString());
-    // highColor=new ShaderProgram(
-    //   Gdx.files.internal("shader/main0006/highColor.vert").readString(),
-    //   Gdx.files.internal("shader/main0006/highColor.frag").readString());
     fade.bind();
-    // fade.setUniformf("fadeStepSlow",1f/256);
-    fade.setUniformf("fadeStepSlow",p.isAndroid?16f/256:4f/256);
-    fade.setUniformf("fadeStepFast",p.isAndroid?32f/256:8f/256);
-    fade.setUniformf("fadeThreshold",p.isAndroid?240f/256:128f/256);
-    // fade.setUniformf("voidThreshold",p.isAndroid?224f/256:224f/256);
-    // System.out.println(224f/256);
-    fade.setUniformf("voidThreshold",p.isAndroid?224f/256:92f/256);
-    // throw new RuntimeException(fade.getLog());
-    // fade.setUniformf("fadeThreshold",0);
-    // fadeTickConst=p.isAndroid?4:0;
-    // fadeTickConst=1;
-    // fadeTickConst=2;
+    fade.setUniformf("fadeStepSlow",1f/256);
+    fade.setUniformf("fadeStepFast",2f/256);
+    fade.setUniformf("fadeThreshold",128f/256);
+    fade.setUniformf("voidThreshold",8f/256);
   }
   @Override
   public void update() {
@@ -104,29 +93,29 @@ public class CellCenter extends EntityCenter<RealGame,Cell>{
     p.endShape();
     //---
     layer().beginShape();
-    // layer().begin();
-    // p.clear();
-    // p.beginShape();
+    // 清理之前一帧的缓存
+    p.clear();
     drawFadeBackground();
+    // 绘制物体
     super.display();
     box();
     layer().endShape();
     //---
-    if(p.isAndroid) {
-      layerCache().beginShape();
-      p.clear();
-      layerCache().endShape();
-    }
+    // if(p.isAndroid) {
+    // layerCache().beginShape();
+    // p.clear();
+    // 将现在的地图转移到缓存上
+    // p.image(layer().texture,0,0);
+    // layerCache().endShape();
+    // }
     //---
     p.beginShape();
-    // p.imageBatch.setShader(highColor);
     if(boxed) p.image(layer().texture,x1-layer_cell_size,y1-layer_cell_size);
     else p.image(layer().texture,x1-w/4f,y1-h/4f);
-    // p.imageBatch.setShader(null);
     //---
     cacheTick=!cacheTick;
-    // fadeTick++;
-    // if(fadeTick>fadeTickConst) fadeTick=0;
+    fadeTick++;
+    if(fadeTick>fadeTickConst) fadeTick=0;
   }
   public Graphics layer() {
     return cacheTick?layer:layer_b;
@@ -144,13 +133,14 @@ public class CellCenter extends EntityCenter<RealGame,Cell>{
     p.noStroke();
     p.doFill();
   }
+  /**
+   * layerCache经过fade着色器，透明度降低
+   */
   public void drawFadeBackground() {
     p.beginBlend();
-    // if(fadeTick==0) p.imageBatch.setShader(fade);
-    p.imageBatch.setShader(fade);
+    if(fadeTick==0) p.imageBatch.setShader(fade); 
     p.image(layerCache().texture,0,0);
     p.endBlend();
     p.imageBatch.setShader(null);
-    // if(fadeTick==0) p.imageBatch.setShader(null);
   }
 }

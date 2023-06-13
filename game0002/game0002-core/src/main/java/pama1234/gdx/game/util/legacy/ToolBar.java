@@ -233,7 +233,7 @@ public class ToolBar extends TextBoard{
   public void touchStarted(TouchInfo info) {
     final Vec2f pos=point.pos;
     final int ti=parent.index;
-    System.out.println("ToolBar.touchStarted()");
+    // System.out.println("ToolBar.touchStarted()");
     if(Tools.inBox(info.x,info.y,pos.x,pos.y,w,h)) {
       if(info.button==Buttons.LEFT) {
         final int index=(int)Math.floor((info.y-pos.y)/textConst);

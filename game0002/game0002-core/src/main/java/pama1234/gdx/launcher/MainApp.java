@@ -7,13 +7,7 @@ import java.util.List;
 
 import com.badlogic.gdx.Game;
 
-import pama1234.gdx.game.app.app0001.Screen0001;
-import pama1234.gdx.game.app.app0001.Screen0002;
-import pama1234.gdx.game.app.app0001.Screen0003;
-import pama1234.gdx.game.app.app0001.Screen0004;
-import pama1234.gdx.game.app.app0002.MainMenu;
 import pama1234.gdx.game.app.app0002.RealGame;
-import pama1234.gdx.game.app.app0002.Screen0005;
 import pama1234.gdx.util.app.UtilScreen;
 
 @SuppressWarnings("deprecation")
@@ -22,15 +16,15 @@ public class MainApp extends Game{
   public static final int defaultType=0,taptap=1,pico=2;
   public static int type;
   public List<Class<? extends UtilScreen>> screenList;
-  public int screenType=7;
+  public int screenType=1;
   public MainApp() {
     screenList=Arrays.asList(null,
-      Screen0001.class,//3D 粒子系统 单机
-      Screen0002.class,//2D 粒子系统
-      Screen0003.class,//3D 粒子系统 联机 客户端
-      Screen0004.class,//粒子系统libgdx服务器
-      Screen0005.class,//贪吃蛇游戏本体 重制版
-      MainMenu.class,//6 菜单
+      // Screen0001.class,//3D 粒子系统 单机
+      // Screen0002.class,//2D 粒子系统
+      // Screen0003.class,//3D 粒子系统 联机 客户端
+      // Screen0004.class,//粒子系统libgdx服务器
+      // Screen0005.class,//贪吃蛇游戏本体 重制版
+      // MainMenu.class,//6 菜单
       RealGame.class//7 贪吃蛇游戏本体 从Processing那边移植的
     );
   }
