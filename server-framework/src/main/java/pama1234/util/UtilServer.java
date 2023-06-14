@@ -1,6 +1,14 @@
 package pama1234.util;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 import pama1234.math.Tools;
 import pama1234.util.listener.ServerEntityListener;
@@ -84,6 +92,19 @@ public abstract class UtilServer implements Runnable{
   public void frameRate(float fps) {
     frameRateTarget=fps;
     frameRatePeriod=(long)(1000000000.0/frameRateTarget);
+  }
+  public static String loadString(File path) {
+    try {
+      InputStream inputStream=new FileInputStream(path);
+      String text=new BufferedReader(new InputStreamReader(inputStream,StandardCharsets.UTF_8))
+        .lines()
+        .collect(Collectors.joining("\n"));
+      inputStream.close();
+      return text;
+    }catch(IOException e) {
+      e.printStackTrace();
+    }
+    return null;
   }
   public static void main(String[] args) {
     new UtilServer() {

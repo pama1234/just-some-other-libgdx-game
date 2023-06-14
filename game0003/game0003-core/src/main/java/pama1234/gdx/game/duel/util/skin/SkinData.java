@@ -75,9 +75,9 @@ public class SkinData{
       tc.load(value);
       e.setValue(tc.toString());
     }
-    System.out.println(map);
+    // System.out.println(map);
     out.data=(LinkedHashMap<String,String>)(Object)map;
-    System.out.println(out.data.toString());
+    // System.out.println(out.data.toString());
     return out;
   }
 }

@@ -1,13 +1,6 @@
 package pama1234.app.game.server.duel;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
-import java.util.stream.Collectors;
 
 import pama1234.app.game.server.duel.util.ai.neat.ServerFisheyeVision;
 import pama1234.app.game.server.duel.util.input.ServerInputData;
@@ -17,19 +10,6 @@ import pama1234.util.protobuf.PointUpdateProto.PointUpdate;
 import pama1234.util.protobuf.PointUpdateProto.PointUpdateList;
 
 public class DuelServer extends UtilServer{
-  public static String loadString(File path) {
-    try {
-      InputStream inputStream=new FileInputStream(path);
-      String text=new BufferedReader(new InputStreamReader(inputStream,StandardCharsets.UTF_8))
-        .lines()
-        .collect(Collectors.joining("\n"));
-      inputStream.close();
-      return text;
-    }catch(IOException e) {
-      e.printStackTrace();
-    }
-    return null;
-  }
   public static final Localization localization=new Localization();
   public File mainDir=new File(System.getProperty("user.dir")+"/data/server/duel");
   public File configFile;
