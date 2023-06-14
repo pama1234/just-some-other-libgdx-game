@@ -107,6 +107,10 @@ public class Game extends StateEntity0002{
     if(p.config.mode==game) {
       p.cam2d.activeDrag=false;
       p.cam2d.activeScrollZoom=p.cam2d.activeTouchZoom=false;
+      //---
+      p.cam.point.des.set(p.canvasSideLength/2f,p.canvasSideLength/2f);
+      p.cam.point.pos.set(p.cam.point.des);
+      p.cam2d.scale.pos=p.cam2d.scale.des=p.isAndroid?0.25f:1;
     }
     if(actrl!=null) {
       actrl.resume();
