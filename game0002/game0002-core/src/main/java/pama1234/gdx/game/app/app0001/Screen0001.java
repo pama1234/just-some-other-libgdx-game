@@ -28,6 +28,9 @@ public class Screen0001 extends ScreenCore3D{
   public Decal logo;
   public boolean tempTest;//TODO
   public ConfigInfo configInfo;
+  {
+    isAndroid=true;
+  }
   public static class GraphicsData{
     public Graphics g;
     public TextureRegion tr;
@@ -61,7 +64,6 @@ public class Screen0001 extends ScreenCore3D{
     logo.setPosition(0,-512,0);
     //TODO
     if(isAndroid) {
-      // if(true) {
       buttons=UiGenerator.genButtons_0001(this);
       for(Button<?> e:buttons) centerScreen.add.add(e);
     }
