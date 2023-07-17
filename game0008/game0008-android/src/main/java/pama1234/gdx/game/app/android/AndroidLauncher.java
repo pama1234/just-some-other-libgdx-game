@@ -17,6 +17,7 @@ public class AndroidLauncher extends AndroidApplication{
     config.g=8;
     config.b=8;
     config.a=8;
+    config.useImmersiveMode=false;
     // config.depth=32;
     // config.useGyroscope=true;
     // config.useAccelerometer=true;

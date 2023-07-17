@@ -115,6 +115,11 @@ public class UtilInputProcesser implements EssentialListener,InputProcessor{
   }
   @Override
   public boolean touchUp(int screenX,int screenY,int pointer,int button) {
+    touchUpInner(screenX,screenY,pointer,button);
+    for(InputProcessor i:sub.list) if(i.touchUp(screenX,screenY,pointer,button)) return true;
+    return false;
+  }
+  public void touchUpInner(int screenX,int screenY,int pointer,int button) {
     TouchInfo info=p.touches[pointer];
     info.putRaw(screenX,screenY);
     // info.flip();
@@ -147,8 +152,6 @@ public class UtilInputProcesser implements EssentialListener,InputProcessor{
       p.mouseReleased(mouse);
     }
     p.touchCount--;
-    for(InputProcessor i:sub.list) if(i.touchUp(screenX,screenY,pointer,button)) return true;
-    return false;
   }
   @Override
   public boolean touchDragged(int screenX,int screenY,int pointer) {
@@ -180,6 +183,12 @@ public class UtilInputProcesser implements EssentialListener,InputProcessor{
     p.center.mouseWheel(amountX,amountY);
     p.mouseWheel(amountX,amountY);
     for(InputProcessor i:sub.list) if(i.scrolled(amountX,amountY)) return true;
+    return false;
+  }
+  @Override
+  public boolean touchCancelled(int screenX,int screenY,int pointer,int button) {
+    touchUpInner(screenX,screenY,pointer,button);
+    for(InputProcessor i:sub.list) if(i.touchCancelled(screenX,screenY,pointer,button)) return true;
     return false;
   }
 }

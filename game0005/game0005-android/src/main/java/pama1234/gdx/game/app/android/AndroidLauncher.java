@@ -13,6 +13,7 @@ public class AndroidLauncher extends AndroidApplication{
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     AndroidApplicationConfiguration configuration=new AndroidApplicationConfiguration();
+    configuration.useImmersiveMode=false;
     initialize(new MainApp(),configuration);
   }
 }

@@ -19,6 +19,7 @@ public class AndroidLauncher extends AndroidApplication{
     AndroidApplicationConfiguration config=new AndroidApplicationConfiguration();
     config.useAccelerometer=false;
     config.useCompass=false;
+    config.useImmersiveMode=false;
     MainApp.type=MainApp.taptap;
     initialize(new MainApp(),config);
   }
