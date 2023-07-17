@@ -55,7 +55,9 @@ implementation 'com.github.pama1234.just-some-other-libgdx-game:framework:bf0a35
 0003. 几何决斗【从FAL的学生作品移植过来，已火】
 0004. 高维塔防
 0005. 杂项
-0006. 中心编辑器
+0006. 中心IDE
+0007. 填满正方形
+0008. 粒子生命：升天（魔改版2D processing粒子系统）
 
 [中文](#空想世界) | [English](#game-with-java)
 

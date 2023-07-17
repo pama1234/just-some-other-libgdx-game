@@ -12,9 +12,6 @@ import pama1234.gdx.util.info.TouchInfo;
 import pama1234.math.physics.PathPoint;
 
 public class CameraController3D extends CameraController{
-  // public PerspectiveCamera pcam;
-  // public OrthographicCamera ocam;
-  // public PathVar h=new PathVar(PI/2*3,0.5f),v=new PathVar(-PI/2f,0.5f);
   public PathPoint viewDir=new PathPoint(PI/2*3,-PI/2f,0.5f);
   public float moveSpeed=1;
   public float viewSpeed=1.5f;
@@ -22,8 +19,6 @@ public class CameraController3D extends CameraController{
     super(p,x,y,z);
     camera=pcam=new PerspectiveCamera(60,p.width,p.height);
     initCamera();
-    // scale=new PathVar(s);
-    // rotate=new PathVar(r);
     this.frameU=frameU;
   }
   public void initCamera() {
@@ -42,8 +37,6 @@ public class CameraController3D extends CameraController{
   @Override
   public void update() {
     point.update();
-    // h.update();
-    // v.update();
     viewDir.update();
     final float sinV=sin(viewDir.pos.y),
       cosV=cos(viewDir.pos.y),
@@ -103,7 +96,6 @@ public class CameraController3D extends CameraController{
   }
   @Override
   public void touchMoved(TouchInfo info) {
-    // if(coolingCount>0) coolingCount--; else 
     if(!grabCursor&&p.isAndroid&&info.x>p.width/2) moveView(info.dx,info.dy);
   }
   @Override
