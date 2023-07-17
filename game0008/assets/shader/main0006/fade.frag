@@ -24,7 +24,7 @@ void main() {
   else outColor.a-=fadeStepFast;
 
   if(outColor.a<voidThresholdF) {
-    gl_FragColor = voidColor;
+    gl_FragColor = vec4(voidColor);
     // gl_FragColor = vec4(0.0,0.0,0.0,0.0);
     return;
   }else gl_FragColor = v_color * outColor;
