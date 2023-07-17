@@ -14,7 +14,7 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class FileUtil{
   public static Texture loadTexture(String in) {
-    Texture out=new Texture(Gdx.files.internal(in),Format.RGBA4444,false);
+    Texture out=new Texture(Gdx.files.internal(in),Format.RGBA8888,false);
     out.setFilter(TextureFilter.Linear,TextureFilter.Nearest);
     // out.setFilter(TextureFilter.Nearest,TextureFilter.Nearest);
     return out;

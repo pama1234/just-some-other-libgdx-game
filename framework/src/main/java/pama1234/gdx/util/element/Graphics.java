@@ -17,7 +17,7 @@ public class Graphics{
   public Texture texture;
   public Graphics(UtilScreen p,int w,int h) {
     this.p=p;
-    buffer=new FrameBuffer(Format.RGBA4444,w,h,false);
+    buffer=new FrameBuffer(Format.RGBA8888,w,h,false);
     texture=buffer.getColorBufferTexture();
     texture.setFilter(TextureFilter.Linear,TextureFilter.Nearest);
     cam=new OrthographicCamera();

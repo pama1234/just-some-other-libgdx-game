@@ -71,7 +71,7 @@ public class MultiChunkFont extends BitmapFont{
     cacheV=new Vec2f();
     inPos=new Vec2f();
     posI=new Vec3i();
-    Pixmap tPixmap=new Pixmap(1,1,Format.RGBA4444);
+    Pixmap tPixmap=new Pixmap(1,1,Format.RGBA8888);
     tPixmap.setColor(0xffffffff);
     tPixmap.fill();
     backgroundAlt=new TextureRegion(new Texture(tPixmap),0,0,1,1);

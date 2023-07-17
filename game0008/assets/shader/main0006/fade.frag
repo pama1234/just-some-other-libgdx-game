@@ -11,7 +11,7 @@ uniform float fadeStepSlow;
 uniform float fadeStepFast;
 uniform float fadeThreshold;
 uniform float voidThresholdF;
-uniform float voidColor;
+uniform vec4 voidColor;
 
 varying LOWP vec4 v_color;
 varying HIGHP vec2 v_texCoords;
