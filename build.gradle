@@ -1,0 +1,126 @@
+buildscript {
+  repositories {
+    mavenCentral()
+    google()
+    maven { url 'https://s01.oss.sonatype.org' }
+    maven { url 'https://maven.scijava.org/content/repositories/public/' }
+    maven { url 'https://jitpack.io' }
+    mavenLocal()
+    gradlePluginPortal()
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+    maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
+  }
+  dependencies {
+    classpath "com.android.tools.build:gradle:$androidPluginVersion"
+    classpath "com.diffplug.spotless:spotless-plugin-gradle:$spotlessPluginVersion"
+    classpath "com.google.protobuf:protobuf-gradle-plugin:$protobufGradleVersion"
+
+    // This follows advice from https://blog.gradle.org/log4j-vulnerability
+    constraints {
+      classpath("org.apache.logging.log4j:log4j-core") {
+        version {
+          strictly("[2.17, 3[")
+          prefer("2.17.0")
+        }
+        because("CVE-2021-44228, CVE-2021-45046, CVE-2021-45105: Log4j vulnerable to remote code execution and other critical security vulnerabilities")
+      }
+    }
+  }
+}
+
+allprojects{
+  // apply plugin: 'idea'
+  // apply plugin: 'eclipse'
+}
+
+configure(subprojects.findAll {
+  !(
+    it.name == 'android-framework' ||
+    it.name == 'framework0001' || it.name == 'framework0002' || it.name == 'framework0003' ||
+    it.name == 'framework0002-android' ||
+    it.name == 'framework0003-androidDex' ||
+    it.name == 'game0001' ||
+    it.name == 'game0002' ||
+    it.name == 'game0003' ||
+    it.name == 'game0004' ||
+    it.name == 'game0005' ||
+    it.name == 'game0006' ||
+    it.name == 'game0007' ||
+    it.name == 'game0008' ||
+    it.name == 'game0001-android' ||
+    it.name == 'game0001-pico4' || it.name == 'game0001-taptap' ||
+    it.name == 'game0002-android' || it.name == 'game0002-taptap' ||
+    it.name == 'game0002-android-cgj' ||
+    it.name == 'game0003-android' || it.name == 'game0003-taptap' ||
+    it.name == 'game0004-android' ||
+    it.name == 'game0005-android' ||
+    it.name == 'game0006-android' ||
+    it.name == 'game0007-android' || it.name == 'game0007-taptap' ||
+    it.name == 'game0008-android' || it.name == 'game0008-taptap'
+  )
+}) {
+
+  apply plugin: "java"
+  apply plugin: 'java-library'
+  sourceCompatibility = 17
+  compileJava {
+    options.incremental = true
+    options.encoding = 'UTF-8'
+  }
+
+  dependencies {
+    // This follows advice from https://blog.gradle.org/log4j-vulnerability
+    constraints {
+      implementation("org.apache.logging.log4j:log4j-core") {
+        version {
+          strictly("[2.17, 3[")
+          prefer("2.17.0")
+        }
+        because("CVE-2021-44228, CVE-2021-45046, CVE-2021-45105: Log4j vulnerable to remote code execution and other critical security vulnerabilities")
+      }
+    }
+  }
+  
+  apply plugin: "com.diffplug.spotless"
+
+  spotless {
+    lineEndings 'UNIX'
+
+    java {
+      target '**/*.java'
+      removeUnusedImports()
+      eclipse().configFile new File(rootProject.projectDir.absolutePath, 'doc/eclipse.formatter.xml')
+    }
+    groovyGradle {
+      target '*.gradle'
+      greclipse().configFile new File(rootProject.projectDir.absolutePath, 'doc/eclipse.formatter.xml')
+    }
+  }
+}
+
+subprojects {
+  apply plugin: 'idea'
+  apply plugin: 'eclipse'
+
+  version = '0.0.1'
+  ext.appName = 'game'
+  repositories {
+    mavenCentral()
+    maven { url 'https://s01.oss.sonatype.org' }
+    mavenLocal()
+    gradlePluginPortal()
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+    maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
+    maven { url 'https://maven.scijava.org/content/repositories/public/' }
+    maven {
+      url 'https://jitpack.io' 
+    
+      content {//Jit可用后取消排除
+        excludeGroupByRegex "com\\.github.ThexXTURBOXx.dex2jar.*"
+      }
+    }
+    // maven { url 'maven6(http://dist.wso2.org/maven2/)' }
+  }
+}
+
+// eclipse.project.name = 'game' + '-parent'

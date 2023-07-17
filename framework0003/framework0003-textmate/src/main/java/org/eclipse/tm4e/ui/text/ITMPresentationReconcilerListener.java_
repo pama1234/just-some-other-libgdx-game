@@ -1,0 +1,15 @@
+package org.eclipse.tm4e.ui.text;
+
+import org.eclipse.jdt.annotation.Nullable;
+import org.eclipse.jface.text.IDocument;
+import org.eclipse.jface.text.ITextViewer;
+import org.eclipse.jface.text.TextPresentation;
+
+import pama1234.gdx.textmate.DeprecatedJface;
+
+@DeprecatedJface
+public interface ITMPresentationReconcilerListener{
+  void onInstalled(ITextViewer viewer,IDocument document);
+  void onUninstalled();
+  void onColorized(TextPresentation presentation,@Nullable Throwable error);
+}

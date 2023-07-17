@@ -1,0 +1,88 @@
+# 翻译文件
+空想世界1:
+  系统:
+    title: 空想世界：啥也没有
+  游戏:
+    main: 通用版
+    taptap: Taptap版
+    pico: Pico4-VR版
+
+    canUseGyroscope: 陀螺仪：  可用
+    canNotUseGyroscope: 陀螺仪：不可用
+    canUseCompass: 指南针：  可用
+    canNotUseCompass: 指南针：不可用
+    canUseAccelerometer: 加速计：  可用
+    canNotUseAccelerometer: 加速计：不可用
+
+    needRestart: 重启后生效
+    thisIsIpAddr: 本设备的名称与内网IP地址：
+    releaseVersion: 发行版本：
+
+    gyroscopeX: 陀螺仪 X：
+    gyroscopeY: 陀螺仪 Y：
+    gyroscopeZ: 陀螺仪 Z：
+    compassX: 指南针 X：
+    compassY: 指南针 Y：
+    compassZ: 指南针 Z：
+    gravityX: 重力   X：
+    gravityY: 重力   Y：
+    gravityZ: 重力   Z：
+    accelerometerX: 加速计 X：
+    accelerometerY: 加速计 Y：
+    accelerometerZ: 加速计 Z：
+
+    # 按钮
+
+    'yes': 是
+    'no': 否
+    languageSettings: 语言设置
+    resetSettings: 重置设置
+    restart: 重启游戏
+    muteYes: 静音：是
+    muteNo: 静音：否
+    volume: '音量 '
+    debugInfoYes: '显示文本调试信息：是'
+    debugInfoNo: '显示文本调试信息：否'
+    debugGraphicsYes: '显示图形调试信息：是'
+    debugGraphicsNo: '显示图形调试信息：否'
+    reloadAssets: '重新加载图片素材'
+    systemGc: 清理内存垃圾
+    displayEarthInStartMenu: '开始界面显示地球：'
+    showZoomButton: 显示缩放按钮：
+    debugView: 调试视图（别按这个）
+    useGyroscope: 使用陀螺仪：
+    useAccelerometer: 使用加速计（未实现）：
+    gyroscopeSensitivity: '陀螺仪灵敏度 '
+    accelerometerSensitivity: '陀螺仪灵敏度 '
+    gravitationalConstant: '重力常数 '
+    setDebugPlatformType: '使用覆盖平台类型：'
+    phone: '手机'
+    personalComputer: '电脑'
+    overridePlatform: 覆盖平台类型：
+    showLog: '显示日志信息：'
+    printLog: '打印日志信息：'
+    androidPlayerControlUi: 安卓版玩家控制移动UI：
+    button: '按钮'
+    joystick: '摇杆'
+
+    # 加载页面
+
+    loading: '加载中 '
+    tick: ' 帧 '
+
+    # start menu
+
+    startGame: '开始游戏'
+    announcement: '　公告　'
+    settings: '　设置　'
+
+    # game menu
+
+    serverAddress: '服务器地址'
+    deviceAddress: 设备地址
+    userName: '用户名'
+
+    singlePlayer: '　单人游戏　'
+    createServer: '开启联机房间'
+    joinServer: '加入联机房间'
+    returnTo: '　　返回　　'

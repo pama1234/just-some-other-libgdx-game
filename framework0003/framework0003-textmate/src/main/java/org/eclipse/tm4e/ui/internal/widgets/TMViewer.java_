@@ -1,0 +1,58 @@
+package org.eclipse.tm4e.ui.internal.widgets;
+
+import org.eclipse.jdt.annotation.Nullable;
+import org.eclipse.jface.resource.JFaceResources;
+import org.eclipse.jface.text.Document;
+import org.eclipse.jface.text.presentation.IPresentationReconciler;
+import org.eclipse.jface.text.source.IOverviewRuler;
+import org.eclipse.jface.text.source.ISourceViewer;
+import org.eclipse.jface.text.source.IVerticalRuler;
+import org.eclipse.jface.text.source.SourceViewer;
+import org.eclipse.jface.text.source.SourceViewerConfiguration;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.tm4e.core.grammar.IGrammar;
+import org.eclipse.tm4e.ui.text.TMPresentationReconciler;
+import org.eclipse.tm4e.ui.themes.ITheme;
+
+import pama1234.gdx.textmate.EclipseTools;
+import pama1234.gdx.textmate.StyledText;
+
+@Deprecated
+public final class TMViewer extends SourceViewer{
+  private final TMPresentationReconciler reconciler=new TMPresentationReconciler();
+  public TMViewer(final Composite parent,final IVerticalRuler ruler,final int styles) {
+    this(parent,ruler,null,false,styles);
+  }
+  public TMViewer(final Composite parent,@Nullable final IVerticalRuler verticalRuler,
+    @Nullable final IOverviewRuler overviewRuler,
+    final boolean showAnnotationsOverview,final int styles) {
+    super(parent,verticalRuler,overviewRuler,showAnnotationsOverview,styles);
+    configure(new TMSourceViewerConfiguration());
+  }
+  private final class TMSourceViewerConfiguration extends SourceViewerConfiguration{
+    @Override
+    public IPresentationReconciler getPresentationReconciler(@Nullable final ISourceViewer sourceViewer) {
+      return reconciler;
+    }
+  }
+  public void setGrammar(@Nullable final IGrammar grammar) {
+    reconciler.setGrammar(grammar);
+    if(getDocument()==null) {
+      super.setDocument(new Document());
+    }
+  }
+  public void setTheme(final ITheme theme) {
+    reconciler.setTheme(theme);
+    final StyledText styledText=EclipseTools.newStyledText(getTextWidget());
+    styledText.setForeground(null);
+    styledText.setBackground(null);
+    theme.initializeViewerColors(styledText);
+    getTextWidget().setFont(JFaceResources.getTextFont());
+  }
+  public void setText(final String text) {
+    if(getDocument()==null) {
+      super.setDocument(new Document());
+    }
+    getDocument().set(text);
+  }
+}

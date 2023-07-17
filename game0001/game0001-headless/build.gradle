@@ -1,0 +1,35 @@
+apply plugin: 'application'
+
+sourceCompatibility = 17
+mainClassName = 'pama1234.gdx.game.app.headless.HeadlessLauncher'
+eclipse.project.name = appName + '-game0001-headless'
+
+dependencies {
+  implementation "com.badlogicgames.gdx:gdx-backend-headless:$gdxVersion"
+  implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+  implementation project(':game0001:game0001-core')
+}
+
+jar {
+  archiveBaseName.set(appName)
+  dependsOn configurations.runtimeClasspath
+  from {
+    configurations.runtimeClasspath.collect {
+      it.isDirectory() ? it : zipTree(it)
+    }
+  }
+  manifest {
+    attributes 'Main-Class': project.mainClassName
+  }
+  doLast {
+    file(archiveFile).setExecutable(true, false)
+  }
+}
+
+// Equivalent to the jar task; here for compatibility with gdx-setup.
+task dist(dependsOn: [jar]) {
+}
+
+tasks.getByName('distTar') { duplicatesStrategy = DuplicatesStrategy.EXCLUDE }
+tasks.getByName('distZip') { duplicatesStrategy = DuplicatesStrategy.EXCLUDE }
+tasks.getByName('jar') { duplicatesStrategy = DuplicatesStrategy.EXCLUDE }

@@ -1,0 +1,28 @@
+syntax = "proto3";
+
+package pama1234.util.protobuf;
+
+option java_package = "pama1234.util.protobuf";
+option java_outer_classname="OutputDataProto";
+
+option csharp_namespace = "Pama1234.Util.Protobuf";
+
+option optimize_for = LITE_RUNTIME;
+
+message OutputData {
+  repeated GroupData elements = 1;
+}
+
+message GroupData {
+  repeated OutputDataElement player = 1;
+  repeated OutputDataElement shortArrow = 2;
+  repeated OutputDataElement longArrow = 3;
+}
+
+message OutputDataElement {
+  float x = 1;
+  float y = 2;
+  float angle = 3;
+  int32 id = 4;
+  int32 type = 5;
+}
