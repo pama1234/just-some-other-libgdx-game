@@ -1,12 +1,10 @@
 package pama1234.gdx.game.cgj.util.legacy;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
 import pama1234.gdx.game.cgj.app.app0002.RealGame0002;
-import pama1234.gdx.util.app.UtilScreenColor;
 import pama1234.gdx.util.element.Graphics;
 
 public class CellCenterDisplay extends CellCenter{
@@ -38,8 +36,8 @@ public class CellCenterDisplay extends CellCenter{
     fade.setUniformf("voidThresholdF",voidThreshold=2f/colorRange);
     // Color c=p.backgroundColor;
     // fade.setUniformf("voidColor",UtilScreenColor.color(c.r,c.g,c.b,0));
-    // fade.setUniformf("voidColor",p.backgroundColor);
-    fade.setUniformf("voidColor",UtilScreenColor.color(200));
+    fade.setUniformf("voidColor",p.backgroundColor);
+    // fade.setUniformf("voidColor",UtilScreenColor.color(200));
   }
   @Override
   public void display() {
@@ -48,6 +46,7 @@ public class CellCenterDisplay extends CellCenter{
     Graphics l=layer();
     Graphics lc=layerCache();
     l.beginShape();
+    p.clear();
     drawFadeBackground(lc.texture);
     super.display();
     box();
