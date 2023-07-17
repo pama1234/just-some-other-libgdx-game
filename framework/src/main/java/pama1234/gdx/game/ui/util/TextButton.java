@@ -9,9 +9,10 @@ import pama1234.math.geometry.RectI;
 import pama1234.util.function.GetBoolean;
 import pama1234.util.function.GetFloat;
 import pama1234.util.function.GetInt;
-
+// TODO 构造方法太乱了
 public class TextButton<T extends UtilScreen>extends Button<T>{
   public static Color fillColor=UtilScreen.color(127,191);
+  public static Color pressedFillColor=UtilScreen.color(94,203,234,200);
   public boolean textOffset=true;//TODO
   @Deprecated
   public GetInt bu;
@@ -36,6 +37,11 @@ public class TextButton<T extends UtilScreen>extends Button<T>{
     GetInt bu,GetFloat x,GetFloat y) {
     this(p,textOffset,active,press,clickStart,clickEnd,updateText,bu,x,y,null,bu::get);//()->bu.get()*2);
     this.rect.w(()->p.textWidthNoScale(this.text)*p.pus+(this.textOffset?p.pu:0));//TODO
+  }
+  public TextButton(T p,boolean textOffset,GetBoolean active,
+    ButtonEvent press,ButtonEvent clickStart,ButtonEvent clickEnd,ButtonEvent updateText,
+    GetInt bu,GetFloat x,GetFloat y,GetFloat w) {
+    this(p,textOffset,active,press,clickStart,clickEnd,updateText,bu,x,y,w,bu::get);//()->bu.get()*2);
   }
   public TextButton(T p,boolean textOffset,GetBoolean active,
     ButtonEvent press,ButtonEvent clickStart,ButtonEvent clickEnd,ButtonEvent updateText,
@@ -78,7 +84,7 @@ public class TextButton<T extends UtilScreen>extends Button<T>{
     // p.noStroke();
     if(touch!=null) {
       // if(inButton(p.mouse.x,p.mouse.y)) p.fill(0,90,130,200); else 
-      p.fill(94,203,234,200);
+      p.fill(pressedFillColor);
       p.textColor(255,220);
     }else {
       p.fill(fillColor);
