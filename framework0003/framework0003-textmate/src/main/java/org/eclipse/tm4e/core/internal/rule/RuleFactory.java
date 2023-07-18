@@ -164,11 +164,7 @@ public final class RuleFactory{
                 ruleId=getCompiledRuleId(externalGrammarRepo.getSelf(),helper,externalGrammarRepo);
               }
             }else {
-              System.out.println("CANNOT find grammar for scopeName [{0}]. I am [{1}]"+
-                " "+
-                patternInclude+
-                " "+
-                repository.getBase().getName());
+              System.out.println("CANNOT find grammar for scopeName ["+patternInclude+"]. I am ["+repository.getBase().getName()+"]");
             }
             break;
         }
