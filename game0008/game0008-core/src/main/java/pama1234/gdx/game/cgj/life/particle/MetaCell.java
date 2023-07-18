@@ -16,7 +16,7 @@ public class MetaCell extends Entity<RealGame0002>{
   public final MetaCellCenter parent;
   public final String name;
   public final int id;
-  public int color=hashCode();
+  public int color;
   public void color(int color) {
     this.color=color;
     colorCache=new Color();
@@ -48,7 +48,6 @@ public class MetaCell extends Entity<RealGame0002>{
   }
   public void createIdEvent(final int in) {}
   public void refresh(final int in) {
-    // final Graphics l=parent.layers[0];
     int l=640;
     final float ang=(id/(float)in)*UtilMath.PI2,
       tl=l*0.5f-size*4;

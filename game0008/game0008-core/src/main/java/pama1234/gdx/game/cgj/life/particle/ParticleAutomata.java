@@ -7,6 +7,7 @@ import pama1234.gdx.game.cgj.util.legacy.Tab;
 import pama1234.gdx.game.cgj.util.legacy.TabCenter;
 import pama1234.gdx.util.entity.Entity;
 import pama1234.gdx.util.wrapper.EntityCenter;
+import pama1234.math.Tools;
 
 public class ParticleAutomata extends EntityCenter<RealGame0002,Entity<RealGame0002>>{
   public final TabCenter tabs;
@@ -33,20 +34,30 @@ public class ParticleAutomata extends EntityCenter<RealGame0002,Entity<RealGame0
     add.add(tabs);
     //---
     tabs.setSelect(gameMap);
-    // tabs.refresh();
-    final float[][] rules=new float[][] {
-      {0,1,-1,-1,0,0,0,0,0,0,0,1},
-      {1,0,1,-1,-1,0,0,0,0,0,0,0},
-      {0,1,0,1,-1,-1,0,0,0,0,0,0},
-      {0,0,1,0,1,-1,-1,0,0,0,0,0},
-      {0,0,0,1,0,1,-1,-1,0,0,0,0},
-      {0,0,0,0,1,0,1,-1,-1,0,0,0},
-      {0,0,0,0,0,1,0,1,-1,-1,0,0},
-      {0,0,0,0,0,0,1,0,1,-1,-1,0},
-      {0,0,0,0,0,0,0,1,0,1,-1,-1},
-      {-1,0,0,0,0,0,0,0,1,0,1,-1},
-      {-1,-1,0,0,0,0,0,0,0,1,0,1},
-      {1,-1,-1,0,0,0,0,0,0,0,1,0},};
+    int codeSize=12;
+    // final float[][] rules=new float[][] {
+    //   {0,1,-1,-1,0,0,0,0,0,0,0,1},
+    //   {1,0,1,-1,-1,0,0,0,0,0,0,0},
+    //   {0,1,0,1,-1,-1,0,0,0,0,0,0},
+    //   {0,0,1,0,1,-1,-1,0,0,0,0,0},
+    //   {0,0,0,1,0,1,-1,-1,0,0,0,0},
+    //   {0,0,0,0,1,0,1,-1,-1,0,0,0},
+    //   {0,0,0,0,0,1,0,1,-1,-1,0,0},
+    //   {0,0,0,0,0,0,1,0,1,-1,-1,0},
+    //   {0,0,0,0,0,0,0,1,0,1,-1,-1},
+    //   {-1,0,0,0,0,0,0,0,1,0,1,-1},
+    //   {-1,-1,0,0,0,0,0,0,0,1,0,1},
+    //   {1,-1,-1,0,0,0,0,0,0,0,1,0},
+    // };
+    final float[][] rules=new float[codeSize][codeSize];
+    for(int i=0;i<rules.length;i++) {
+      // for(int j=0;j<rules[i].length;j++);
+      float[] fs=rules[i];
+      fs[Tools.moveInRange(i-1,0,fs.length)]=1;
+      fs[Tools.moveInRange(i+1,0,fs.length)]=1;
+      fs[Tools.moveInRange(i+2,0,fs.length)]=-1;
+      fs[Tools.moveInRange(i+3,0,fs.length)]=-1;
+    }
     for(float[] fs:rules) {
       for(int i=0;i<fs.length;i++) {
         fs[i]*=0.5f;
@@ -65,8 +76,6 @@ public class ParticleAutomata extends EntityCenter<RealGame0002,Entity<RealGame0
         tn,metaInfoList));
     }
     for(int i=0;i<array.length;i++) array[i].refresh(array.length);
-    // int[] colorArray=new int[array.length];
-    // for(int i=0;i<colorArray.length;i++) colorArray[i]=Tools.hsbColor(255f/array.length*i,255,255);
     for(int i=0;i<array.length;i++) array[i].color(colorArray[i]);
     final int size=1<<6;
     for(int i=0;i<array.length;i++) for(int j=0;j<size;j++) cellList.add.add(new Cell(p,cellList,i,
