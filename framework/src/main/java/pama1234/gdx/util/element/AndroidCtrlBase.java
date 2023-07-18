@@ -96,14 +96,14 @@ public abstract class AndroidCtrlBase<T extends UtilScreen>extends Entity<T>{
   public void updateMaxDist() {
     maxDist=p.u*scale;
   }
-  public static <T extends UtilScreen> TextButton<?>[] genButtons_0001(T p) {
+  public <X extends UtilScreen> TextButton<?>[] genButtons_0001(X p) {
     return new TextButton[] {
-      new TextButton<T>(p,true,()->true,self-> {},self-> {
+      new TextButton<X>(p,true,()->true,self-> {},self-> {
         p.inputProcessor.keyDown(Input.Keys.Z);
       },self-> {
         p.inputProcessor.keyUp(Input.Keys.Z);
       },self->self.text="Z ",p::getButtonUnitLength,()->p.width-p.bu*4f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,false),
-      new TextButton<T>(p,true,()->true,self-> {},self-> {
+      new TextButton<X>(p,true,()->true,self-> {},self-> {
         p.inputProcessor.keyDown(Input.Keys.X);
       },self-> {
         p.inputProcessor.keyUp(Input.Keys.X);

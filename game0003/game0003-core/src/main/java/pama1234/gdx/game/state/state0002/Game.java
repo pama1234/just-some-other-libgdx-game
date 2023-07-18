@@ -16,7 +16,7 @@ import pama1234.gdx.game.duel.Duel;
 import pama1234.gdx.game.duel.State0002Util.StateEntity0002;
 import pama1234.gdx.game.duel.util.arrow.ClientLongbowArrowHead;
 import pama1234.gdx.game.duel.util.arrow.ClientShortbowArrow;
-import pama1234.gdx.game.duel.util.input.AndroidCtrl;
+import pama1234.gdx.game.duel.util.input.DuelAndroidCtrl;
 import pama1234.gdx.game.duel.util.input.ClientInputData;
 import pama1234.gdx.game.duel.util.input.UiGenerator;
 import pama1234.gdx.game.ui.util.TextButton;
@@ -34,7 +34,7 @@ public class Game extends StateEntity0002{
   public ClientInputData currentInput;
   public ClientGameSystem core;
   public boolean paused;
-  public AndroidCtrl actrl;
+  public DuelAndroidCtrl actrl;
   //---
   public InputDataProto.InputData.Builder inputDataBuilder;
   public Game(Duel p,int id,boolean doInit) {
@@ -48,7 +48,7 @@ public class Game extends StateEntity0002{
   @Override
   public void init() {
     if(p.isAndroid) {
-      actrl=new AndroidCtrl(p,this);
+      actrl=new DuelAndroidCtrl(p,this);
       if(p.config.orientation==1) actrl.activeCondition=AndroidCtrlBase.portraitCondition;
       else actrl.activeCondition=AndroidCtrlBase.landscapeCondition;
       actrl.init();

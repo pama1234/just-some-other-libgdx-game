@@ -123,9 +123,9 @@ public class UiGenerator{
   }
   public static TextButton<?>[] genButtons_0005(Duel p) {
     return new TextButton[] {
-      new TextButton<Duel>(p,true,()->true,self-> {},self-> {
+      new TextButton<Duel>(p,true,()->true,self-> {},self-> {},self-> {
         p.state(p.stateCenter.startMenu);
-      },self-> {},self->self.text="返回",p::getButtonUnitLength,()->(int)(p.width-p.bu*2.5f),()->(int)(p.bu*0.5f),()->p.bu-p.pus,false),
+      },self->self.text="返回",p::getButtonUnitLength,()->(int)(p.width-p.bu*2.5f),()->(int)(p.bu*0.5f),()->p.bu-p.pus,true),
     };
   }
 }

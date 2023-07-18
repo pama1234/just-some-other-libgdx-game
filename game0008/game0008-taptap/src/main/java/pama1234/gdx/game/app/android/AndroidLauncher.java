@@ -10,7 +10,7 @@ import com.badlogic.gdx.backends.android.AndroidInput;
 import com.badlogic.gdx.backends.android.DefaultAndroidInput;
 
 import pama1234.gdx.launcher.MainApp;
-
+import pama1234.gdx.game.cgj.util.legacy.Welcome;
 /** Launches the Android application. */
 public class AndroidLauncher extends AndroidApplication{
   @Override
@@ -21,6 +21,7 @@ public class AndroidLauncher extends AndroidApplication{
     config.useCompass=false;
     config.useImmersiveMode=false;
     MainApp.type=MainApp.taptap;
+    Welcome.title="粒子生命";
     initialize(new MainApp(),config);
   }
   @Override

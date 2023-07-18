@@ -145,7 +145,7 @@ public class UiGenerator{
     return new TextButton[] {
       new TextButton<RealGame0002>(p,true,()->true,self-> {},self-> {},self-> {
         p.state(p.stateCenter.startMenu);
-      },self->self.text="返回",p::getButtonUnitLength,()->(int)(p.width-p.bu*2.5f),()->(int)(p.bu*0.5f),()->p.bu-p.pus,false),
+      },self->self.text="返回",p::getButtonUnitLength,()->(int)(p.width-p.bu*2.5f),()->(int)(p.bu*1.5f),()->p.bu-p.pus,true),
     };
   }
 }

@@ -13,7 +13,7 @@ public class Welcome extends Entity<RealGame0002>{
     "————人生，在无聊和焦虑之间来回切换",
     "————Pama1234制作！"
   };
-  private static final String title="粒子生命：升天";
+  public static String title="粒子生命：升天";
   public final PathPoint point;
   public Graphics g;
   public int textSize=64;

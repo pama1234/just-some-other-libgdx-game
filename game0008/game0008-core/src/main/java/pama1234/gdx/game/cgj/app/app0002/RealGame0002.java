@@ -60,11 +60,11 @@ public class RealGame0002 extends ScreenCoreState2D<StateCenter0004,StateEntity0
       cam2d.minScale=1/8f;
       cam2d.scale.des=0.75f;
       cam2d.point.f=0.1f;
-      cam2d.point.des.y=-100;
+      cam2d.point.des.set(0,-100);
     }else {
       cam2d.minScale=1f;
       cam2d.scale.des=2f;
-      cam2d.point.des.y=-60;
+      cam2d.point.des.set(0,-60);
     }
     cam2d.active(true);
   }
