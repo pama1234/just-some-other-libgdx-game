@@ -143,10 +143,9 @@ public class UiGenerator{
   }
   public static TextButton<?>[] genButtons_0005(RealGame0002 p) {
     return new TextButton[] {
-      new TextButton<RealGame0002>(p,true,()->true,self-> {},self-> {
+      new TextButton<RealGame0002>(p,true,()->true,self-> {},self-> {},self-> {
         p.state(p.stateCenter.startMenu);
-        // p.setupCamera();
-      },self-> {},self->self.text="返回",p::getButtonUnitLength,()->(int)(p.width-p.bu*2.5f),()->(int)(p.bu*0.5f),()->p.bu-p.pus,false),
+      },self->self.text="返回",p::getButtonUnitLength,()->(int)(p.width-p.bu*2.5f),()->(int)(p.bu*0.5f),()->p.bu-p.pus,false),
     };
   }
 }
