@@ -72,10 +72,11 @@ public class ParticleAutomata extends EntityCenter<RealGame0002,Entity<RealGame0
     //   0xffE8A549,0xff164561,0xff3C4E53,
     //   0xffE1ECE3,0xffE0F9DC,0xff457578,
     // };
-    for(int i=0;i<array.length;i++) {
-      array[i].color(Tools.hsbColor(255f/array.length*i,255,255));
-      // array[i].color(colorArray[i]);
-    }
+    int[] colorArray=new int[array.length];
+    for(int i=0;i<colorArray.length;i++) colorArray[i]=Tools.hsbColor(255f/array.length*i,255,255);
+    for(int i=0;i<array.length;i++)
+      // array[i].color(Tools.hsbColor(255f/array.length*i,255,255));
+      array[i].color(colorArray[i]);
     final int size=1<<6;
     for(int i=0;i<array.length;i++) for(int j=0;j<size;j++) cellList.add.add(new Cell(p,cellList,i,
       p.random(-CellCenter.boxR,CellCenter.boxR),
