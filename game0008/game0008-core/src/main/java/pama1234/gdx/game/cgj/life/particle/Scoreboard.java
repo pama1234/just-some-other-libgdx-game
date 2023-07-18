@@ -88,9 +88,9 @@ public class Scoreboard extends TextBoard{
   @Override
   public void display() {
     // if(parent.index==1) {
-      p.withScreen();
-      p.image(g.texture,(p.width-width_2)/2,p.pu/4f,width_2,hight_2);
-      p.withCam();
+    p.withScreen();
+    p.image(g.texture,(p.width-width_2)/2,p.pu/4f,width_2,hight_2);
+    p.withCam();
     // }
   }
   @Override

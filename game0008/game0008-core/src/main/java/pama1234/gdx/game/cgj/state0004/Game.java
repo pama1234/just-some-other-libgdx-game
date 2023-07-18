@@ -12,7 +12,7 @@ public class Game extends StateEntity0004{
     int arrayLength=12;
     int[] colorArray=new int[arrayLength];
     for(int i=0;i<colorArray.length;i++) colorArray[i]=Tools.hsbColor(255f/arrayLength*i,255,255);
-    content=new ParticleAutomata(p,colorArray);
+    content=new ParticleAutomata(p,arrayLength,colorArray);
   }
   @Override
   public void from(StateEntity0004 in) {

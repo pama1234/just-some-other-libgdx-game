@@ -1,12 +1,10 @@
 package pama1234.game.app.server.server0001.game.net.io;
 
-import static pama1234.game.app.server.server0001.game.net.NetUtil.catchException;
 import static pama1234.game.app.server.server0001.game.net.NetUtil.debug;
 import static pama1234.game.app.server.server0001.game.net.NetUtil.protocolVersion;
 import static pama1234.game.app.server.server0001.game.net.NetUtil.writeServerHeader;
 
 import java.io.IOException;
-import java.net.SocketException;
 
 import pama1234.data.ByteUtil;
 import pama1234.game.app.server.server0001.game.net.SocketData0001;

@@ -9,7 +9,7 @@ public class Tutorial extends StateEntity0004{
   public ParticleAutomata content;
   public Tutorial(RealGame0002 p,int id) {
     super(p,id);
-    int arrayLength=12;
+    int arrayLength=4;
     int[] colorArray=new int[arrayLength];
     for(int i=0;i<colorArray.length;i++) colorArray[i]=Tools.hsbColor(255f/arrayLength*i,255,255);
     // int[] colorArray=new int[] {
@@ -18,7 +18,7 @@ public class Tutorial extends StateEntity0004{
     //   0xffE8A549,0xff164561,0xff3C4E53,
     //   0xffE1ECE3,0xffE0F9DC,0xff457578,
     // };
-    content=new ParticleAutomata(p,colorArray);
+    content=new ParticleAutomata(p,arrayLength,colorArray);
   }
   @Override
   public void from(StateEntity0004 in) {

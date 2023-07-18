@@ -15,7 +15,7 @@ public class ParticleAutomata extends EntityCenter<RealGame0002,Entity<RealGame0
   public final Scoreboard scoreboard;
   public final MetaCellCenter metaList;
   public final CellCenter cellList;
-  public ParticleAutomata(RealGame0002 p,int[] colorArray) {
+  public ParticleAutomata(RealGame0002 p,int codeSize,int[] colorArray) {
     super(p);
     MetaCell[] array;
     tabs=new TabCenter(p,-640,-320);
@@ -34,7 +34,7 @@ public class ParticleAutomata extends EntityCenter<RealGame0002,Entity<RealGame0
     add.add(tabs);
     //---
     tabs.setSelect(gameMap);
-    int codeSize=12;
+    // int codeSize=12;
     // final float[][] rules=new float[][] {
     //   {0,1,-1,-1,0,0,0,0,0,0,0,1},
     //   {1,0,1,-1,-1,0,0,0,0,0,0,0},
