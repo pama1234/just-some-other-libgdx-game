@@ -33,7 +33,7 @@ public class ParticleAutomata extends EntityCenter<RealGame0002,Entity<?>>{
     add.add(tabs);
     //---
     tabs.setSelect(tab);
-    tabs.refresh();
+    // tabs.refresh();
     final float[][] rules=new float[][] {
       {0,1,-1,-1,0,0,0,0,0,0,0,1},
       {1,0,1,-1,-1,0,0,0,0,0,0,0},

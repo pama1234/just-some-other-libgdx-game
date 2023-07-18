@@ -272,7 +272,7 @@ public class GameManager extends TextBoard{
   public void keyPressed(char key,int keyCode) {
     if(key==' ') {
       parent.select.update=!parent.select.update;
-      parent.refresh();
+      // parent.refresh();
     }
     final int ti=parent.index;
     if(ti==1) {
