@@ -130,14 +130,14 @@ public class UiGenerator{
   public static TextButton<?>[] genButtons_0003(ScreenCore2D p) {
     return new TextButton[] {
       new TextButton<>(p,true,()->true,self-> {},self-> {
-        p.inputProcessor.keyDown(Input.Keys.X);
-      },self-> {
-        p.inputProcessor.keyUp(Input.Keys.X);
-      },self->self.text="前",p::getButtonUnitLength,()->p.width-p.bu*4f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,false),
-      new TextButton<>(p,true,()->true,self-> {},self-> {
         p.inputProcessor.keyDown(Input.Keys.Z);
       },self-> {
         p.inputProcessor.keyUp(Input.Keys.Z);
+      },self->self.text="前",p::getButtonUnitLength,()->p.width-p.bu*4f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,false),
+      new TextButton<>(p,true,()->true,self-> {},self-> {
+        p.inputProcessor.keyDown(Input.Keys.X);
+      },self-> {
+        p.inputProcessor.keyUp(Input.Keys.X);
       },self->self.text="后",p::getButtonUnitLength,()->p.width-p.bu*2.5f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,false),
     };
   }

@@ -228,31 +228,41 @@ public class GameManager extends Entity<RealGame0002>{
         key=Character.toLowerCase(key);
         switch(key) {
           case 'w':
-          case Keys.UP:
             keys[up]=true;
             break;
           case 's':
-          case Keys.DOWN:
             keys[down]=true;
             break;
           case 'a':
-          case Keys.LEFT:
             keys[left]=true;
             break;
           case 'd':
+            keys[right]=true;
+            break;
+        }
+        switch(keyCode) {
+          case Keys.UP:
+            keys[up]=true;
+            break;
+          case Keys.DOWN:
+            keys[down]=true;
+            break;
+          case Keys.LEFT:
+            keys[left]=true;
+            break;
           case Keys.RIGHT:
             keys[right]=true;
             break;
         }
         if(select!=null) switch(key) {
-          case 'x':
+          case 'z':
           case 'e': {
             int index=select.meta-1;
             if(index<0) index+=select.parent.meta.list.size();
             select.meta=index;
           }
             break;
-          case 'z':
+          case 'x':
           case 'q': {
             int index=select.meta+1;
             final int ts=select.parent.meta.list.size();
@@ -272,18 +282,28 @@ public class GameManager extends Entity<RealGame0002>{
         key=Character.toLowerCase(key);
         switch(key) {
           case 'w':
-          case Keys.UP:
             keys[up]=false;
             break;
           case 's':
-          case Keys.DOWN:
             keys[down]=false;
             break;
           case 'a':
-          case Keys.LEFT:
             keys[left]=false;
             break;
           case 'd':
+            keys[right]=false;
+            break;
+        }
+        switch(keyCode) {
+          case Keys.UP:
+            keys[up]=false;
+            break;
+          case Keys.DOWN:
+            keys[down]=false;
+            break;
+          case Keys.LEFT:
+            keys[left]=false;
+            break;
           case Keys.RIGHT:
             keys[right]=false;
             break;
