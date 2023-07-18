@@ -20,7 +20,6 @@ public class GameManager extends Entity<RealGame0002>{
   public CellCenter cellCenter;
   public MetaCellCenter metaCenter;
   public TabCenter parent;
-  // public String[][] names;
   public int[] state;
   public static final int up=0,down=1,left=2,right=3;
   public final boolean[] keys=new boolean[4];
@@ -38,7 +37,6 @@ public class GameManager extends Entity<RealGame0002>{
   public GameManager(RealGame0002 p,TabCenter parent,float x,float y) {
     super(p);
     this.parent=parent;
-    // names=new String[][] {{"暂无操作",},{"移动粒子","批量移动"},};
     state=new int[2];
     state[1]=1;
     excludeRect=new RectF(()->p.width-p.bu*4f,()->p.height-p.bu*1.5f,()->p.bu*4f,()->p.bu*1.5f);
@@ -68,44 +66,8 @@ public class GameManager extends Entity<RealGame0002>{
       select=null;
     }
   }
-  // @Override
-  // public void beforeDraw() {
-  //   if(p.gameMode==GameMode.Survival) return;
-  //   int tw=w;
-  //   w=1;
-  //   // final String[] tsa=names[parent.index];
-  //   // for(String i:tsa) {
-  //   //   final int t=(int)Math.ceil(p.textWidthNoScale(i)+textConst);
-  //   //   if(t>w) w=t;
-  //   // }
-  //   // int th=h;
-  //   // h=(int)(textConst*(tsa.length+0.25f));
-  //   // if(tw!=w||th!=h) graphics(new Graphics(p,w,h));
-  // }
-  // public void draw() {
-  //   if(p.gameMode==GameMode.Survival) return;
-  //   p.background(background);
-  //   p.textColor(0);
-  //   // p.doFill();
-  //   UITools.border(g,0,0,g.width(),g.height());
-  //   float ty=0;
-  //   final int ts_d2=textConst/2;
-  //   // final String[] tsa=names[parent.index];
-  //   // for(int i=0;i<tsa.length;i++) {
-  //   //   String ts=tsa[i];
-  //   //   final float tby=ty;
-  //   //   // 绘制按钮
-  //   //   p.fill(i==state[parent.index]?buttonColor_1:buttonColor_2);
-  //   //   p.rect(textConst/2,tby,w-textConst/2,textConst);
-  //   //   UITools.border(g,textConst/2,tby,w-textConst/2,textConst);
-  //   //   p.fill(0);
-  //   //   p.text(ts,ts_d2,ty);
-  //   //   ty+=textConst;
-  //   // }
-  // }
   @Override
   public void update() {
-    // point.update();
     final int ti=parent.index;
     if(ti==1) {
       if(state[ti]==0) {
@@ -190,7 +152,6 @@ public class GameManager extends Entity<RealGame0002>{
   }
   @Override
   public void display() {
-    // p.image(g.texture,point.pos.x,point.pos.y);
     if(select!=null) drawSelect();
   }
   /**
@@ -224,20 +185,7 @@ public class GameManager extends Entity<RealGame0002>{
   @Override
   public void touchStarted(TouchInfo info) {
     if(p.gameMode==GameMode.God) {
-      // final Vec2f pos=point.pos;
       final int ti=parent.index;
-      // System.out.println("ToolBar.touchStarted()");
-      // if(Tools.inBox(info.x,info.y,pos.x,pos.y,w,h)) {
-      //   if(info.button==Buttons.LEFT) {
-      //     final int index=(int)Math.floor((info.y-pos.y)/textConst);
-      //     // if(index>=0&&index<names[ti].length) {
-      //     // if(info.x>pos.x+textConst*0.5) {
-      //     //   state[ti]=index;
-      //     //   refresh();
-      //     // }
-      //     // }
-      //   }
-      // }else {
       if(ti==1) {
         if(state[ti]==0||state[ti]==1) {
           if(!p.isAndroid||!Tools.inBox(info.ox,info.oy,excludeRect)&&(p.actrl.active?info.ox>p.width/3f:true)) {//TODO
@@ -264,7 +212,6 @@ public class GameManager extends Entity<RealGame0002>{
             }
           }
         }
-        // }
       }
     }
   }
@@ -272,7 +219,6 @@ public class GameManager extends Entity<RealGame0002>{
   public void keyPressed(char key,int keyCode) {
     if(key==' ') {
       parent.select.update=!parent.select.update;
-      // parent.refresh();
     }
     final int ti=parent.index;
     if(ti==1) {

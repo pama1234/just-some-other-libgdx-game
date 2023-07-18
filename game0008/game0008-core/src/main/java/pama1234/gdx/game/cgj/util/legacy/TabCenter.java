@@ -22,7 +22,6 @@ public class TabCenter extends Entity<RealGame0002>{
   public void setSelect(Tab<?,?> select) {
     this.select=select;
     index=list.indexOf(select);
-    // gameManager.refresh();
     scoreboard.refresh();
   }
   public TabCenter(RealGame0002 p,float x,float y) {
