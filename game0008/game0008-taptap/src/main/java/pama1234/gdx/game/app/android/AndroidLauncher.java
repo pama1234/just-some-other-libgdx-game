@@ -9,8 +9,9 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.badlogic.gdx.backends.android.AndroidInput;
 import com.badlogic.gdx.backends.android.DefaultAndroidInput;
 
+import pama1234.gdx.game.cgj.life.particle.Welcome;
 import pama1234.gdx.launcher.MainApp;
-import pama1234.gdx.game.cgj.util.legacy.Welcome;
+
 /** Launches the Android application. */
 public class AndroidLauncher extends AndroidApplication{
   @Override

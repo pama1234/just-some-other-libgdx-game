@@ -18,6 +18,7 @@ public class CellCenter extends EntityCenter<RealGame0002,Cell>{
   public Center<Box> boxCenter;
   public int maxBoxCount=16;
   public int boxSize=32;
+  public int boxLifeTime=60*10;
   public CellCenter(final RealGame0002 p,final MetaCellCenter parent) {
     this(p,240,parent);
   }
@@ -104,7 +105,7 @@ public class CellCenter extends EntityCenter<RealGame0002,Cell>{
     for(Box i:boxCenter.list) {
       i.time++;
       i.displayAlpha=255-(int)UtilMath.clamp(GameManager.select.point.pos.dist(i.rect.cx(),i.rect.cy())*2.5f,0,255);
-      if(i.time>60*10) boxCenter.remove.add(i);
+      if(i.time>boxLifeTime) boxCenter.remove.add(i);
     }
   }
   public float f(final float r,final float g) {

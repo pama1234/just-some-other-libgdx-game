@@ -13,7 +13,7 @@ public class ParticleAutomata extends EntityCenter<RealGame0002,Entity<RealGame0
   public final GameManager gameManager;
   public final Scoreboard scoreboard;
   public final MetaCellCenter metaList;
-  public final CellCenter cellList;
+  public final CellCenter cellCenter;
   public ParticleAutomata(RealGame0002 p,int areaSize,int coreSize,float[][] rules,int[] colorArray) {
     super(p);
     MetaCell[] array;
@@ -23,7 +23,7 @@ public class ParticleAutomata extends EntityCenter<RealGame0002,Entity<RealGame0
     tabs.gameManager=gameManager;
     //---
     tabs.list.add(new Tab<RealGame0002,Entity<?>>(p,"数据",tabs.metaCenter=metaList=new MetaCellCenter(p,-480,-480,480,480),0));
-    Tab<RealGame0002,Entity<?>> gameMap=new Tab<RealGame0002,Entity<?>>(p,"地图",tabs.cellCenter=cellList=new CellCenterDisplay(p,areaSize,metaList),1);
+    Tab<RealGame0002,Entity<?>> gameMap=new Tab<RealGame0002,Entity<?>>(p,"地图",tabs.cellCenter=cellCenter=new CellCenterDisplay(p,areaSize,metaList),1);
     tabs.list.add(gameMap);
     //---
     scoreboard=new Scoreboard(p,tabs,0,-360);
@@ -53,7 +53,7 @@ public class ParticleAutomata extends EntityCenter<RealGame0002,Entity<RealGame0
     for(int i=0;i<array.length;i++) array[i].refresh(array.length);
     for(int i=0;i<array.length;i++) array[i].color(colorArray[i]);
     final int size=1<<6;
-    for(int i=0;i<array.length;i++) for(int j=0;j<size;j++) cellList.add.add(new Cell(p,cellList,i,
+    for(int i=0;i<array.length;i++) for(int j=0;j<size;j++) cellCenter.add.add(new Cell(p,cellCenter,i,
       p.random(-tabs.cellCenter.boxR,tabs.cellCenter.boxR),
       p.random(-tabs.cellCenter.boxR,tabs.cellCenter.boxR)));
     //---

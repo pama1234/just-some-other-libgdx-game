@@ -27,6 +27,8 @@ public class Tutorial extends StateEntity0004{
       fs[Tools.moveInRange(i+3,0,fs.length)]=-1;
     }
     content=new ParticleAutomata(p,120,coreSize,rules,colorArray);
+    content.cellCenter.maxBoxCount=1;
+    content.cellCenter.boxLifeTime=20*60;
   }
   @Override
   public void from(StateEntity0004 in) {
