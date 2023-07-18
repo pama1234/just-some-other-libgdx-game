@@ -162,7 +162,7 @@ public class Game extends StateEntity0002{
       p.cam2d.scale.pos=p.cam2d.scale.des=p.isAndroid?0.25f:1;
     }
     if(actrl!=null) {
-      actrl.resume();
+      actrl.addAll();
       p.centerCam.add.add(actrl);
     }
     for(TextButton<?> e:buttons) p.centerScreen.add.add(e);
@@ -175,7 +175,7 @@ public class Game extends StateEntity0002{
       p.cam2d.activeScrollZoom=p.cam2d.activeTouchZoom=true;
     }
     if(actrl!=null) {
-      actrl.pause();
+      actrl.removeAll();
       p.centerCam.remove.add(actrl);
     }
     for(TextButton<?> e:buttons) p.centerScreen.remove.add(e);

@@ -40,12 +40,12 @@ public abstract class AndroidCtrlBase<T extends UtilScreen>extends Entity<T>{
     buttons=genButtons_0001(p);
     updateMaxDist();
   }
-  @Override
-  public void resume() {
+  // @Override
+  public void addAll() {
     for(TextButton<?> e:buttons) p.centerScreen.add.add(e);
   }
-  @Override
-  public void pause() {
+  // @Override
+  public void removeAll() {
     for(TextButton<?> e:buttons) p.centerScreen.remove.add(e);
   }
   /**
