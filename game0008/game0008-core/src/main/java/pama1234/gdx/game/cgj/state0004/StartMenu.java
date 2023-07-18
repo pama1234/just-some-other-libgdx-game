@@ -23,6 +23,7 @@ public class StartMenu extends StateEntity0004{
   }
   @Override
   public void from(StateEntity0004 in) {
+    // if(0<1) return;
     p.centerCam.add.add(welcome);
     p.centerCamAddAll(textButtonCams);
     //---
@@ -33,6 +34,7 @@ public class StartMenu extends StateEntity0004{
   }
   @Override
   public void to(StateEntity0004 in) {
+    // if(0<1) return;
     p.centerCam.remove.add(welcome);
     p.centerCamRemoveAll(textButtonCams);
   }
