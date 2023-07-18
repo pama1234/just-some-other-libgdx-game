@@ -74,15 +74,6 @@ public class RealGame0002 extends ScreenCoreState2D<StateCenter0004,StateEntity0
   }
   @Override
   public void update() {}
-  // @Override
-  // public void mousePressed(MouseInfo info) {
-  //   System.out.println("centerCam");
-  //   for(var i:centerCam.list) System.out.println(i);
-  //   System.out.println();
-  //   System.out.println("centerScreen");
-  //   for(var i:centerScreen.list) System.out.println(i);
-  //   System.out.println();
-  // }
   @Override
   public void display() {}
   @Override

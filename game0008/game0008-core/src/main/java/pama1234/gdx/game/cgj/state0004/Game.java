@@ -30,6 +30,5 @@ public class Game extends StateEntity0004{
     p.activeActrl(false);
     //---
     p.setupCamera();
-    p.cam2d.activeDrag=true;
   }
 }

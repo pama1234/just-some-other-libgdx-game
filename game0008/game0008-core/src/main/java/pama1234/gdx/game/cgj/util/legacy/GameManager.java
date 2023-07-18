@@ -35,8 +35,6 @@ public class GameManager extends TextBoard{
   public Color background;
   public Color strokeColor;
   public Color buttonColor_1,buttonColor_2;
-  //---
-  // public boolean active;
   public GameManager(RealGame0002 p,TabCenter parent,float x,float y) {
     super(p,x,y,1,1);
     this.parent=parent;
@@ -56,7 +54,6 @@ public class GameManager extends TextBoard{
     metaCenter=parent.metaCenter;
   }
   public void show() {
-    // active=true;
     if(!firstInit) {
       if(p.gameMode==GameMode.Survival) select=cellCenter.list.getFirst();
       return;
@@ -66,7 +63,6 @@ public class GameManager extends TextBoard{
     firstInit=false;
   }
   public void hide() {
-    // active=false;
     if(select!=null) {
       select.meta=originalId;
       select=null;
@@ -109,8 +105,6 @@ public class GameManager extends TextBoard{
   }
   @Override
   public void update() {
-    // System.out.println("GameManager.update() "+active);
-    // if(!active) return;
     point.update();
     final int ti=parent.index;
     if(ti==1) {
