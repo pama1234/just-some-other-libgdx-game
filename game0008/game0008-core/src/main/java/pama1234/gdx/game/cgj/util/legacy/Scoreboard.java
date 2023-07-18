@@ -14,7 +14,7 @@ import pama1234.math.UtilMath;
 public class Scoreboard extends TextBoard{
   public CellCenter cellCenter;
   public MetaCellCenter metaCenter;
-  public TabCenter parent;
+  // public TabCenter parent;
   public static float score;
   public String text;
   public final DecimalFormat format=new DecimalFormat(
@@ -32,14 +32,11 @@ public class Scoreboard extends TextBoard{
   public Color rectColor=UtilScreenColor.newColorFromInt(0xff005984);
   public Color tempColor=UtilScreenColor.newColorFromInt(0xff000000);
   public float scoreSqrt;
-  // public int eci=0;
-  // public float levelD=0.1f;
   public int eci=100;
   public int levelD=1000;
   public static float gameLevel;
   public Scoreboard(RealGame0002 p,TabCenter parent,float x,float y) {
     super(p,x,y,1,1);
-    this.parent=parent;
     cellCenter=parent.cellCenter;
     metaCenter=parent.metaCenter;
   }
@@ -82,18 +79,18 @@ public class Scoreboard extends TextBoard{
   @Override
   public void update() {
     point.update();
-    if(parent.gameManager.select!=null) {
-      score=parent.gameManager.select.score.pos;
+    if(GameManager.select!=null) {
+      score=GameManager.select.score.pos;
     }
     refresh();
   }
   @Override
   public void display() {
-    if(parent.index==1) {
+    // if(parent.index==1) {
       p.withScreen();
       p.image(g.texture,(p.width-width_2)/2,p.pu/4f,width_2,hight_2);
       p.withCam();
-    }
+    // }
   }
   @Override
   public void frameResized(int w,int h) {

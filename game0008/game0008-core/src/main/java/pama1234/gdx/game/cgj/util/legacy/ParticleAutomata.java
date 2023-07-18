@@ -10,7 +10,6 @@ import pama1234.math.Tools;
 public class ParticleAutomata extends EntityCenter<RealGame0002,Entity<?>>{
   public final TabCenter tabs;
   public final GameManager gameManager;
-  // public final LoadAndSave lsHelper;
   public final Scoreboard scoreboard;
   public final MetaCellCenter metaList;
   public final CellCenter cellList;
@@ -23,8 +22,8 @@ public class ParticleAutomata extends EntityCenter<RealGame0002,Entity<?>>{
     tabs.gameManager=gameManager;
     //---
     tabs.list.add(new Tab<RealGame0002,Entity<?>>(p,"数据",tabs.metaCenter=metaList=new MetaCellCenter(p,-480,-480,480,480)));
-    Tab<RealGame0002,Entity<?>> tab=new Tab<RealGame0002,Entity<?>>(p,"地图",tabs.cellCenter=cellList=new CellCenterDisplay(p,metaList));
-    tabs.list.add(tab);
+    Tab<RealGame0002,Entity<?>> gameMap=new Tab<RealGame0002,Entity<?>>(p,"地图",tabs.cellCenter=cellList=new CellCenterDisplay(p,metaList));
+    tabs.list.add(gameMap);
     //---
     scoreboard=new Scoreboard(p,tabs,0,-360);
     tabs.scoreboard=scoreboard;
@@ -32,7 +31,7 @@ public class ParticleAutomata extends EntityCenter<RealGame0002,Entity<?>>{
     add.add(gameManager);
     add.add(tabs);
     //---
-    tabs.setSelect(tab);
+    tabs.setSelect(gameMap);
     // tabs.refresh();
     final float[][] rules=new float[][] {
       {0,1,-1,-1,0,0,0,0,0,0,0,1},
