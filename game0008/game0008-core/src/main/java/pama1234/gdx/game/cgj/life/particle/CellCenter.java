@@ -8,9 +8,9 @@ import pama1234.util.wrapper.Center;
 
 public class CellCenter extends EntityCenter<RealGame0002,Cell>{
   public static final float r_const=Cell.dist/4;
-  public final int boxR;
   public static final int layer_cell_size=(int)Cell.size;
   public static final int fadeStep=16;
+  public final int boxR;
   public final boolean boxed=true;
   public final int x1,y1,x2,y2;
   public final int w,h;
