@@ -7,7 +7,6 @@ import pama1234.gdx.game.cgj.util.legacy.Tab;
 import pama1234.gdx.game.cgj.util.legacy.TabCenter;
 import pama1234.gdx.util.entity.Entity;
 import pama1234.gdx.util.wrapper.EntityCenter;
-import pama1234.math.Tools;
 
 public class ParticleAutomata extends EntityCenter<RealGame0002,Entity<RealGame0002>>{
   public final TabCenter tabs;
@@ -15,7 +14,7 @@ public class ParticleAutomata extends EntityCenter<RealGame0002,Entity<RealGame0
   public final Scoreboard scoreboard;
   public final MetaCellCenter metaList;
   public final CellCenter cellList;
-  public ParticleAutomata(RealGame0002 p) {
+  public ParticleAutomata(RealGame0002 p,int[] colorArray) {
     super(p);
     MetaCell[] array;
     tabs=new TabCenter(p,-640,-320);
@@ -66,17 +65,9 @@ public class ParticleAutomata extends EntityCenter<RealGame0002,Entity<RealGame0
         tn,metaInfoList));
     }
     for(int i=0;i<array.length;i++) array[i].refresh(array.length);
-    // int[] colorArray=new int[] {
-    //   0xff4894BD,0xffB9DB7B,0xffE75031,
-    //   0xff685F5A,0xffC2AC84,0xff53AAA0,
-    //   0xffE8A549,0xff164561,0xff3C4E53,
-    //   0xffE1ECE3,0xffE0F9DC,0xff457578,
-    // };
-    int[] colorArray=new int[array.length];
-    for(int i=0;i<colorArray.length;i++) colorArray[i]=Tools.hsbColor(255f/array.length*i,255,255);
-    for(int i=0;i<array.length;i++)
-      // array[i].color(Tools.hsbColor(255f/array.length*i,255,255));
-      array[i].color(colorArray[i]);
+    // int[] colorArray=new int[array.length];
+    // for(int i=0;i<colorArray.length;i++) colorArray[i]=Tools.hsbColor(255f/array.length*i,255,255);
+    for(int i=0;i<array.length;i++) array[i].color(colorArray[i]);
     final int size=1<<6;
     for(int i=0;i<array.length;i++) for(int j=0;j<size;j++) cellList.add.add(new Cell(p,cellList,i,
       p.random(-CellCenter.boxR,CellCenter.boxR),
