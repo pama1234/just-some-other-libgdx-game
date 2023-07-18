@@ -6,7 +6,8 @@ import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 
 public class GamePrototype extends Game{
-  public float level=1.22f;
+  // public float level=1.22f;
+  public float level=0.22f;
   public int shortbowConst=16;
   public int longbowConst=3;
   public int shortbowCount;

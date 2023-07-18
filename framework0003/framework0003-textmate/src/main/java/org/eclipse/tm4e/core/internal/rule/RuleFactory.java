@@ -25,7 +25,7 @@ public final class RuleFactory{
     if(desc.getId()==null) {
       helper.registerRule(ruleId-> {
         desc.setId(ruleId);
-        final var ruleMatch=desc.getMatch();
+        final String ruleMatch=desc.getMatch();
         if(ruleMatch!=null) {
           return new MatchRule(
             ruleId,
@@ -33,12 +33,12 @@ public final class RuleFactory{
             ruleMatch,
             _compileCaptures(desc.getCaptures(),helper,repository));
         }
-        final var begin=desc.getBegin();
+        final String begin=desc.getBegin();
         if(begin==null) {
-          final var repository1=desc.getRepository()==null
+          final IRawRepository repository1=desc.getRepository()==null
             ?repository
             :IRawRepository.merge(repository,desc.getRepository());
-          var patterns=desc.getPatterns();
+          Collection<IRawRule> patterns=desc.getPatterns();
           if(patterns==null&&desc.getInclude()!=null) {
             patterns=List.of(new RawRule().setInclude(desc.getInclude()));
           }

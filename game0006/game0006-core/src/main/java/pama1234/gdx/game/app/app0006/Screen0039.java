@@ -1,6 +1,5 @@
 package pama1234.gdx.game.app.app0006;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
@@ -31,7 +30,6 @@ import pama1234.gdx.game.textmate.test.ThemeManagerTest;
 import pama1234.gdx.game.textmate.test.ThemeParsingTest;
 import pama1234.gdx.game.textmate.test.TokenizeLineTest;
 import pama1234.gdx.textmate.GdxTheme;
-import pama1234.gdx.util.FileUtil;
 import pama1234.gdx.util.app.ScreenCore2D;
 import pama1234.gdx.util.cam.CameraController2D;
 import pama1234.gdx.util.font.TextStyleBase;
@@ -45,8 +43,8 @@ public class Screen0039 extends ScreenCore2D{
   public IThemeManager manager;
   public TextMateTheme textMateTheme;
   public Theme theme;
-  public FileHandle fileHandle;
-  public File file;
+  public FileHandle cssFileHandle;
+  // public File cssFile;
   public int fileAvailable;
   public Registry registry;
   public IGrammar grammarJava;
@@ -59,9 +57,10 @@ public class Screen0039 extends ScreenCore2D{
     test_1();
     String textMateSrc=Gdx.files.internal("themes/theme-light-tm4e.json").readString();
     textMateTheme=loadTextMateTheme(textMateSrc);
-    fileHandle=Gdx.files.internal("themes/pama1234-light.css");
-    file=FileUtil.assetToFile(fileHandle);
-    fileHandle.read();
+    // cssFileHandle=Gdx.files.internal("themes/pama1234-light.css");
+    cssFileHandle=Gdx.files.internal("themes/EclipseLight.css");
+    // cssFile=FileUtil.assetToFile(cssFileHandle);
+    cssFileHandle.read();
     test_4();
     textStyle=new TextMateTextStyle(grammarJava,theme,textMateTheme);
     System.out.println(textMateTheme.match(ScopeStack.from("comment")).backgroundId);
@@ -69,7 +68,7 @@ public class Screen0039 extends ScreenCore2D{
   public void test_4() {
     manager=new MockThemeManager();
     theme=new GdxTheme(
-      "pama1234.themes.ProcessingLight",fileHandle,
+      "pama1234.themes.ProcessingLight",cssFileHandle,
       "ProcessingLight",false,true);
     manager.registerTheme(theme);
     if(theme.getEditorBackground()!=null) {
@@ -77,7 +76,7 @@ public class Screen0039 extends ScreenCore2D{
       textColor(theme.getEditorForeground());
     }
     try {
-      fileAvailable=fileHandle.read().available();
+      fileAvailable=cssFileHandle.read().available();
     }catch(IOException e) {
       e.printStackTrace();
     }
@@ -114,7 +113,7 @@ public class Screen0039 extends ScreenCore2D{
     textStyle(textStyle);
     text(javaText,0,-20);
     textStyle(null);
-    if(file!=null) text(file+" "+file.exists()+" "+fileHandle.exists()+" "+fileAvailable);
+    // if(cssFile!=null) text(cssFile+" "+cssFile.exists()+" "+cssFileHandle.exists()+" "+fileAvailable);
     if(theme!=null) text(theme.getName()+" "+theme.getClass().getName()+" "+theme.getEditorBackground(),0,20);
   }
   @Override
@@ -167,6 +166,8 @@ public class Screen0039 extends ScreenCore2D{
     }
     @Override
     public Color foreground(int x,int y,int i) {
+      Color color=fromTextMateForeground(i);
+      if(color!=null) return color;
       return defaultForeground;
     }
     public Color fromThemeBackground(int i) {
@@ -205,7 +206,8 @@ public class Screen0039 extends ScreenCore2D{
       super.text(in);
       current=result.get(in);
       if(current==null) {
-        result.put(in,current=grammar.tokenizeLine(in));
+        current=grammar.tokenizeLine(in);
+        result.put(in,current);
         for(IToken i:current.getTokens()) {
           System.out.println(i.getScopes());
         }

@@ -21,4 +21,7 @@ public abstract class PlayerActorState{
   public boolean hasCompletedLongBowCharge(ServerPlayerActor parentActor) {
     return false;
   }
+  public boolean hasCompletedTeleportCharge(ServerPlayerActor parentActor) {
+    return false;
+  }
 }

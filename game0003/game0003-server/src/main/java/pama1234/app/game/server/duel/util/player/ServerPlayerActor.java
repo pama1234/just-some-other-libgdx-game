@@ -10,6 +10,8 @@ public class ServerPlayerActor extends AbstractPlayerActor{
   public float aimAngle;
   public int chargedFrameCount;
   public int damageRemainingFrameCount;
+  //---
+  public int teleportChargedFrameCount;
   public ServerPlayerActor(PlayerEngine engine) {
     super(16,engine);
   }
@@ -19,13 +21,11 @@ public class ServerPlayerActor extends AbstractPlayerActor{
   }
   @Override
   public void act() {
-    // System.out.println("ServerPlayerActor.act()");
     engine.run(this);
     state.act(this);
   }
   @Override
   public void update() {
-    // System.out.println("ServerPlayerActor.update()");
     super.update();
     if(pos.x<halfBodySize) {
       pos.x=halfBodySize;

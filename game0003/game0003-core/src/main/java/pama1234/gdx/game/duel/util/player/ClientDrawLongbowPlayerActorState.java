@@ -10,11 +10,9 @@ import pama1234.math.UtilMath;
 
 public final class ClientDrawLongbowPlayerActorState extends ServerDrawLongbowPlayerActorState{
   public final Duel p;
-  // public final Color effectColor;
   public ClientDrawLongbowPlayerActorState(Duel p) {
     super(null);
     this.p=p;
-    // effectColor=duel.theme.longbowEffect;
   }
   @Override
   public void fire(ServerPlayerActor parentActor) {
@@ -62,7 +60,6 @@ public final class ClientDrawLongbowPlayerActorState extends ServerDrawLongbowPl
     p.strokeWeight(ringStrokeWeight);
     p.arc(0,0,ringSize/2f,0,360*UtilMath.min(1,(float)(parentActor.chargedFrameCount)/chargeRequiredFrameCount));
     p.rotate(+UtilMath.HALF_PI);
-    super.displayEffect(parentActor);
   }
   @Override
   public void act(ServerPlayerActor parentActor) {

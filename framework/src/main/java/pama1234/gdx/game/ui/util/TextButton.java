@@ -9,6 +9,7 @@ import pama1234.math.geometry.RectI;
 import pama1234.util.function.GetBoolean;
 import pama1234.util.function.GetFloat;
 import pama1234.util.function.GetInt;
+
 // TODO 构造方法太乱了
 public class TextButton<T extends UtilScreen>extends Button<T>{
   public static Color fillColor=UtilScreen.color(127,191);

@@ -18,6 +18,7 @@ public class ThemeData{
   public Color shortbowArrow,longbowArrow,
     squareParticles,
     longbowLine,longbowEffect,longbowStroke,
+    teleportEffect,teleportStroke,
     playerDamaged,
     ring,particleDefault,backgroundLine,
     player_a,player_b,neatVoidBackground,
@@ -48,6 +49,8 @@ public class ThemeData{
     squareParticles=Duel.color(0);
     longbowLine=Duel.color(192,64,64);
     longbowEffect=Duel.color(192,64,64);
+    teleportStroke=Duel.color(0,89,132);
+    teleportEffect=Duel.color(0,132,196);
     longbowStroke=Duel.color(0,128);
     playerDamaged=Duel.color(192,64,64);
     ring=Duel.color(0);

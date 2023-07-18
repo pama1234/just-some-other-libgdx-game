@@ -70,7 +70,7 @@ public final class RawGrammar extends HashMap<String,@Nullable Object> implement
   }
   @Override
   public IRawRepository getRepository() {
-    var repo=(IRawRepository)get(RawRule.REPOSITORY);
+    IRawRepository repo=(IRawRepository)get(RawRule.REPOSITORY);
     if(repo==null) {
       repo=new RawRepository();
       setRepository(repo);
@@ -78,8 +78,8 @@ public final class RawGrammar extends HashMap<String,@Nullable Object> implement
     return repo;
   }
   private Object getSafe(@Nullable final Object key) {
-    @SuppressWarnings("unlikely-arg-type")
-    final var obj=get(key);
+    // @SuppressWarnings("unlikely-arg-type")
+    final Object obj=get(key);
     if(obj==null) {
       throw new NoSuchElementException("Key '"+key+"' does not exit for grammar '"+getName()+'"');
     }

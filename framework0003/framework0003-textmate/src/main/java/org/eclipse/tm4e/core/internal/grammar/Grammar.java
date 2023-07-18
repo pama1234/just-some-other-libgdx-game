@@ -21,6 +21,7 @@ import org.eclipse.tm4e.core.internal.grammar.raw.IRawRule;
 import org.eclipse.tm4e.core.internal.grammar.raw.RawRule;
 import org.eclipse.tm4e.core.internal.grammar.tokenattrs.EncodedTokenAttributes;
 import org.eclipse.tm4e.core.internal.matcher.Matcher;
+import org.eclipse.tm4e.core.internal.matcher.MatcherWithPriority;
 import org.eclipse.tm4e.core.internal.oniguruma.OnigString;
 import org.eclipse.tm4e.core.internal.registry.IGrammarRepository;
 import org.eclipse.tm4e.core.internal.registry.IThemeProvider;
@@ -79,9 +80,9 @@ public final class Grammar implements IGrammar,IRuleFactoryHelper{
   }
   private void collectInjections(final List<Injection> result,final String selector,final IRawRule rule,
     final IRuleFactoryHelper ruleFactoryHelper,final IRawGrammar grammar) {
-    final var matchers=Matcher.createMatchers(selector);
-    final var ruleId=RuleFactory.getCompiledRuleId(rule,ruleFactoryHelper,this._grammar.getRepository());
-    for(final var matcher:matchers) {
+    final List<MatcherWithPriority<List<String>>> matchers=Matcher.createMatchers(selector);
+    final RuleId ruleId=RuleFactory.getCompiledRuleId(rule,ruleFactoryHelper,this._grammar.getRepository());
+    for(final MatcherWithPriority<List<String>> matcher:matchers) {
       result.add(new Injection(
         selector,
         matcher.matcher,
@@ -221,12 +222,13 @@ public final class Grammar implements IGrammar,IRuleFactoryHelper{
     @Nullable StateStack prevState,
     final boolean emitBinaryTokens,
     @Nullable final Duration timeLimit) {
-    var rootId=this._rootId;
+    RuleId rootId=this._rootId;
     if(rootId==null) {
+      IRawRepository repository=this._grammar.getRepository();
       rootId=this._rootId=RuleFactory.getCompiledRuleId(
-        this._grammar.getRepository().getSelf(),
+        repository.getSelf(),
         this,
-        this._grammar.getRepository());
+        repository);
       // This ensures ids are deterministic, and thus equal in renderer and webworker.
       this.getInjections();
     }

@@ -9,11 +9,8 @@ public abstract class DrawBowPlayerActorState extends PlayerActorState{
     final AbstractInputDevice input=parentActor.engine.inputDevice;
     aim(parentActor,input);
     parentActor.addVelocity(0.25f*input.horizontalMove,0.25f*input.verticalMove);
-    // System.out.println(triggerPulled(parentActor));
     if(triggerPulled(parentActor)) fire(parentActor);
-    if(!buttonPressed(input)) {
-      parentActor.state=moveState.entryState(parentActor);
-    }
+    if(!buttonPressed(input)) parentActor.state=moveState.entryState(parentActor);
   }
   public abstract void aim(ServerPlayerActor parentActor,AbstractInputDevice input);
   public abstract void fire(ServerPlayerActor parentActor);

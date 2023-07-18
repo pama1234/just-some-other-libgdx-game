@@ -87,7 +87,12 @@ public class Duel extends ScreenCoreState2D<StateCenter0002,StateEntity0002>{
     configFile=Gdx.files.local("data/duel/config.yaml");
     config=loadConfig();
     if(config.theme!=null) {
-      theme=ThemeData.fromData(config.theme);
+      try {
+        theme=ThemeData.fromData(config.theme);
+      }catch(RuntimeException ex) {
+        theme=new ThemeData();
+        theme.init();
+      }
     }else {
       theme=new ThemeData();
       theme.init();
