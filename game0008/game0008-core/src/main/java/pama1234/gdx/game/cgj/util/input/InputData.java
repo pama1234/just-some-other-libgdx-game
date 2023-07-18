@@ -5,7 +5,7 @@ import static com.badlogic.gdx.Input.Keys.LEFT;
 import static com.badlogic.gdx.Input.Keys.RIGHT;
 import static com.badlogic.gdx.Input.Keys.UP;
 
-import pama1234.gdx.game.cgj.app.app0002.Screen0036;
+import pama1234.gdx.util.app.ScreenCore2D;
 
 public class InputData{
   public float dx,dy;
@@ -24,11 +24,11 @@ public class InputData{
       dy=dyIn/mag;
     }
   }
-  public void keyPressed(Screen0036 duel,char key,int keyCode) {
+  public void keyPressed(ScreenCore2D p,char key,int keyCode) {
     key=Character.toLowerCase(key);
     if(key=='z') isZPressed=true;
     else if(key=='x') isXPressed=true;
-    else if(key=='p') duel.doPause();
+    // else if(key=='p') duel.doPause();
     else switch(keyCode) {
       case UP:
         isUpPressed=true;
@@ -44,7 +44,7 @@ public class InputData{
         return;
     }
   }
-  public void keyReleased(Screen0036 duel,char key,int keyCode) {
+  public void keyReleased(ScreenCore2D p,char key,int keyCode) {
     key=Character.toLowerCase(key);
     if(key=='z') isZPressed=false;
     else if(key=='x') isXPressed=false;

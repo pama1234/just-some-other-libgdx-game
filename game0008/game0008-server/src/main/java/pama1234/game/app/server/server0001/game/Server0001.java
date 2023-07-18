@@ -6,8 +6,6 @@ import pama1234.game.app.server.server0001.game.net.SocketData0001;
 import pama1234.game.app.server.server0001.game.net.data.Server0001Core;
 import pama1234.game.app.server.server0001.game.net.io.ServerRead;
 import pama1234.game.app.server.server0001.game.net.io.ServerWrite;
-import pama1234.game.app.server.server0001.game.particle.CellGroup3D;
-import pama1234.game.app.server.server0001.game.particle.CellGroupGenerator3D;
 import pama1234.util.UtilServer;
 import pama1234.util.net.NetAddressInfo;
 import pama1234.util.net.ServerSocketData;
@@ -15,7 +13,7 @@ import pama1234.util.net.SocketWrapper;
 import pama1234.util.wrapper.Center;
 
 public class Server0001 extends UtilServer{//particle server 3d
-  public CellGroup3D group;
+  // public CellGroup3D group;
   public boolean doUpdate=true;
   public Thread updateCell;
   //---
@@ -33,24 +31,24 @@ public class Server0001 extends UtilServer{//particle server 3d
   public ScannerThread scannerThread;
   @Override
   public void init() {
-    CellGroupGenerator3D gen=new CellGroupGenerator3D(0,0);
+    // CellGroupGenerator3D gen=new CellGroupGenerator3D(0,0);
     // group=gen.randomGenerate();
-    group=gen.generateFromMiniCore();
+    // group=gen.generateFromMiniCore();
     //---
     updateCell=new Thread("UpdateCell") {
       @Override
       public void run() {
         while(!stop) {
-          if(doUpdate) group.update();
-          else try {
-            sleep(1000);
-          }catch(InterruptedException e) {
-            e.printStackTrace();
-          }
+          // if(doUpdate) group.update();
+          // else try {
+          //   sleep(1000);
+          // }catch(InterruptedException e) {
+          //   e.printStackTrace();
+          // }
         }
       }
     };
-    updateCell.start();
+    // updateCell.start();
     //---
     playerCenter=new ServerPlayerCenter3D();
     //---
@@ -59,7 +57,7 @@ public class Server0001 extends UtilServer{//particle server 3d
     socketCenter=new Center<>();
     serverReadPool=new Center<>();
     serverWritePool=new Center<>();
-    serverCore=new Server0001Core(socketCenter,serverReadPool,serverWritePool,group,playerCenter);
+    // serverCore=new Server0001Core(socketCenter,serverReadPool,serverWritePool,group,playerCenter);
     acceptSocket=new Thread(()-> {
       while(!stop) {
         // synchronized(centerSocket.add) {
@@ -96,7 +94,7 @@ public class Server0001 extends UtilServer{//particle server 3d
   }
   @Override
   public void dispose() {
-    group.dispose();
+    // group.dispose();
     playerCenter.dispose();
   }
   public static void main(String[] args) {

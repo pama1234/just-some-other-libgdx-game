@@ -4,28 +4,23 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 
-import pama1234.gdx.game.cgj.app.app0001.Screen0033;
-import pama1234.gdx.game.cgj.app.app0001.Screen0034;
-import pama1234.gdx.game.cgj.app.app0001.Screen0035;
-import pama1234.gdx.game.cgj.app.app0002.MainMenu;
 import pama1234.gdx.game.cgj.app.app0002.RealGame0002;
-import pama1234.gdx.game.cgj.app.app0002.Screen0036;
 import pama1234.gdx.util.app.UtilScreen;
 import pama1234.gdx.util.launcher.MainAppBase;
 
 public class MainApp extends MainAppBase{
   {
-    screenType=6;
+    screenType=1;
   }
   public MainApp() {
     // CGJ48小时游戏比赛特供！
     screenList=Arrays.asList(null,
-      Screen0033.class,//1 3D 粒子系统 单机
-      Screen0034.class,//2 2D 粒子系统
-      Screen0035.class,//3 3D 粒子系统 联机 客户端
-      Screen0036.class,//4 贪吃蛇游戏本体 重制版
-      MainMenu.class,//  5 菜单
-      RealGame0002.class//   6 贪吃蛇游戏本体 从Processing那边移植的
+      // Screen0033.class,//1 3D 粒子系统 单机
+      // Screen0034.class,//2 2D 粒子系统
+      // Screen0035.class,//3 3D 粒子系统 联机 客户端
+      // Screen0036.class,//4 贪吃蛇游戏本体 重制版
+      // MainMenu.class,//  5 菜单
+      RealGame0002.class//  1 贪吃蛇游戏本体 从Processing那边移植的
     );
   }
   @Override

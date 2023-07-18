@@ -1,6 +1,5 @@
 package pama1234.gdx.game.cgj.app.app0002;
 
-import pama1234.gdx.game.cgj.app.app0001.Screen0033;
 import pama1234.gdx.game.cgj.ui.generator.UiGenerator;
 import pama1234.gdx.game.cgj.util.ScreenCenter;
 import pama1234.gdx.game.ui.util.TextButton;
@@ -23,7 +22,7 @@ public class MainMenu extends ScreenCore2D implements StateChanger<UtilScreen>{
     noStroke();
     sCenter=new ScreenCenter();
     sCenter.list.add(realGame=new RealGame0002(this));
-    sCenter.list.add(screen0001=new Screen0033(this));
+    // sCenter.list.add(screen0001=new Screen0033(this));
     for(UtilScreen e:sCenter.list) e.show();
     buttons=UiGenerator.genButtons_0002(this);
     for(TextButton<?> e:buttons) centerScreen.add.add(e);

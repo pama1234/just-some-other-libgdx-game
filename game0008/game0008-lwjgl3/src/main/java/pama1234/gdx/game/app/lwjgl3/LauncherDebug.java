@@ -3,15 +3,13 @@ package pama1234.gdx.game.app.lwjgl3;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 
-import pama1234.gdx.launcher.DebugApp0002;
-
 /** Launches the desktop (LWJGL3) application. */
 public class LauncherDebug{
   public static void main(String[] args) {
     createApplication();
   }
   public static Lwjgl3Application createApplication() {
-    return new Lwjgl3Application(new DebugApp0002(),getDefaultConfiguration());
+    return new Lwjgl3Application(null,getDefaultConfiguration());
     // return new Lwjgl3Application(new MainApp(),getDefaultConfiguration());
   }
   public static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
