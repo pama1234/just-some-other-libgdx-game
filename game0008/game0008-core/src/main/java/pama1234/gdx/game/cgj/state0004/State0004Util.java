@@ -11,6 +11,7 @@ public class State0004Util{
     center.list.add(center.startMenu=new StartMenu(in,0));
     center.list.add(center.game=new Game(in,1));
     center.list.add(center.settings=new Settings(in,2));
+    center.list.add(center.tutorial=new Tutorial(in,3));
   }
   public static void loadState0004Test(RealGame0002 in,DebugStateEntitys debug) {
     // debug.list.add(debug.editorTest=new EditorTest(in,-1));
@@ -29,6 +30,7 @@ public class State0004Util{
     public StartMenu startMenu;
     public Game game;
     public Settings settings;
+    public Tutorial tutorial;
     public StateCenter0004(RealGame0002 p) {
       super(p);
     }

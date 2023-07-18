@@ -19,6 +19,9 @@ public class StartMenu extends StateEntity0004{
       new TextButtonCam<RealGame0002>(p,true,()->true,self-> {},self-> {},self-> {
         p.state(p.stateCenter.settings);
       },self->self.text="  设置  ",()->18,()->-40,()->-40),
+      new TextButtonCam<RealGame0002>(p,true,()->true,self-> {},self-> {},self-> {
+        p.state(p.stateCenter.tutorial);
+      },self->self.text="新手教程",()->18,()->-40,()->-20),
     };
   }
   @Override
