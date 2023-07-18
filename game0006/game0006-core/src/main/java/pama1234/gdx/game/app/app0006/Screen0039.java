@@ -57,8 +57,8 @@ public class Screen0039 extends ScreenCore2D{
     test_1();
     String textMateSrc=Gdx.files.internal("themes/theme-light-tm4e.json").readString();
     textMateTheme=loadTextMateTheme(textMateSrc);
-    // cssFileHandle=Gdx.files.internal("themes/pama1234-light.css");
-    cssFileHandle=Gdx.files.internal("themes/EclipseLight.css");
+    cssFileHandle=Gdx.files.internal("themes/pama1234-light.css");
+    // cssFileHandle=Gdx.files.internal("themes/EclipseLight.css");
     // cssFile=FileUtil.assetToFile(cssFileHandle);
     cssFileHandle.read();
     test_4();

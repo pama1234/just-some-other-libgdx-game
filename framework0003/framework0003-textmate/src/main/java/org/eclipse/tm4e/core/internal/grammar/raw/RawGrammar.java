@@ -96,7 +96,7 @@ public final class RawGrammar extends HashMap<String,@Nullable Object> implement
     return super.put(key,value);
   }
   @Override
-  @SuppressWarnings("unlikely-arg-type")
+  // @SuppressWarnings("unlikely-arg-type")
   public void putAll(@Nullable final Map<? extends String,? extends @Nullable Object> m) {
     if(m!=null&&m.containsKey(FILE_TYPES)) fileTypes=null;
     super.putAll(m);

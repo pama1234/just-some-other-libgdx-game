@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import pama1234.gdx.game.cgj.app.app0002.RealGame0002;
 import pama1234.gdx.util.entity.Entity;
 import pama1234.gdx.util.wrapper.EntityCenter;
+import pama1234.math.Tools;
 
 public class ParticleAutomata extends EntityCenter<RealGame0002,Entity<?>>{
   public final TabCenter tabs;
@@ -30,10 +31,6 @@ public class ParticleAutomata extends EntityCenter<RealGame0002,Entity<?>>{
     add.add(scoreboard);
     add.add(gameManager);
     add.add(tabs);
-    //---
-    // lsHelper=new LoadAndSave(p,tabs,-640,160);
-    // tabs.lsHelper=lsHelper;
-    // add.add(lsHelper);
     //---
     tabs.setSelect(tab);
     tabs.refresh();
@@ -68,15 +65,15 @@ public class ParticleAutomata extends EntityCenter<RealGame0002,Entity<?>>{
         tn,metaInfoList));
     }
     for(int i=0;i<array.length;i++) array[i].refresh(array.length);
-    int[] colorArray=new int[] {
-      0xff4894BD,0xffB9DB7B,0xffE75031,
-      0xff685F5A,0xffC2AC84,0xff53AAA0,
-      0xffE8A549,0xff164561,0xff3C4E53,
-      0xffE1ECE3,0xffE0F9DC,0xff457578,
-    };
+    // int[] colorArray=new int[] {
+    //   0xff4894BD,0xffB9DB7B,0xffE75031,
+    //   0xff685F5A,0xffC2AC84,0xff53AAA0,
+    //   0xffE8A549,0xff164561,0xff3C4E53,
+    //   0xffE1ECE3,0xffE0F9DC,0xff457578,
+    // };
     for(int i=0;i<array.length;i++) {
-      // array[i].color(Tools.hsbColor(255f/array.length*i,255,255));
-      array[i].color(colorArray[i]);
+      array[i].color(Tools.hsbColor(255f/array.length*i,255,255));
+      // array[i].color(colorArray[i]);
     }
     final int size=1<<6;
     for(int i=0;i<array.length;i++) for(int j=0;j<size;j++) cellList.add.add(new Cell(p,cellList,i,

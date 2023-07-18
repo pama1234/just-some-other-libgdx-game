@@ -3,6 +3,7 @@ package pama1234.gdx.game.cgj.ui.generator;
 import com.badlogic.gdx.Input;
 
 import pama1234.gdx.game.cgj.app.app0002.MainMenu;
+import pama1234.gdx.game.cgj.app.app0002.RealGame0002;
 import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.util.app.ScreenCore2D;
@@ -138,6 +139,14 @@ public class UiGenerator{
       },self-> {
         p.inputProcessor.keyUp(Input.Keys.Z);
       },self->self.text="后",p::getButtonUnitLength,()->p.width-p.bu*2.5f,()->p.height-p.bu*1.5f,()->p.bu-p.pus,false),
+    };
+  }
+  public static TextButton<?>[] genButtons_0005(RealGame0002 p) {
+    return new TextButton[] {
+      new TextButton<RealGame0002>(p,true,()->true,self-> {},self-> {
+        p.state(p.stateCenter.startMenu);
+        // p.setupCamera();
+      },self-> {},self->self.text="返回",p::getButtonUnitLength,()->(int)(p.width-p.bu*2.5f),()->(int)(p.bu*0.5f),()->p.bu-p.pus,false),
     };
   }
 }

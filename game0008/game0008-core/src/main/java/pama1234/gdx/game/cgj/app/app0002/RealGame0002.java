@@ -1,25 +1,23 @@
 package pama1234.gdx.game.cgj.app.app0002;
 
+import pama1234.gdx.game.cgj.state0004.State0004Util;
+import pama1234.gdx.game.cgj.state0004.State0004Util.StateCenter0004;
+import pama1234.gdx.game.cgj.state0004.State0004Util.StateEntity0004;
+import pama1234.gdx.game.cgj.ui.generator.UiGenerator;
 import pama1234.gdx.game.cgj.util.input.InputData;
 import pama1234.gdx.game.cgj.util.input.RealGameAndroidCtrl;
 import pama1234.gdx.game.cgj.util.legacy.Cell;
-import pama1234.gdx.game.cgj.util.legacy.GamePage;
-import pama1234.gdx.game.cgj.util.legacy.PageCenter;
-import pama1234.gdx.game.cgj.util.legacy.SettingsPage;
-import pama1234.gdx.game.cgj.util.legacy.StartPage;
-import pama1234.gdx.game.ui.util.TextButtonCam;
-import pama1234.gdx.util.app.ScreenCore2D;
+import pama1234.gdx.game.ui.util.TextButton;
+import pama1234.gdx.util.app.ScreenCoreState2D;
 import pama1234.gdx.util.element.Graphics;
 
 /**
  * A REAL GAME that is not "app in Application category"
  */
-public class RealGame0002 extends ScreenCore2D{
+public class RealGame0002 extends ScreenCoreState2D<StateCenter0004,StateEntity0004>{
   public enum GameMode{
     God,Survival;
   }
-  public static final int cam_box_r=720;
-  public PageCenter pageCenter;
   public MainMenu mainMenu;
   //---
   public boolean paused;
@@ -29,11 +27,7 @@ public class RealGame0002 extends ScreenCore2D{
   public GameMode gameMode=GameMode.Survival;
   // public boolean debug=true;
   public boolean debug;
-  public GamePage gamePage;
-  public StartPage startPage;
-  public SettingsPage settingsPage;
-  // public TextButtonCam<RealGame0002> startGame;
-  public TextButtonCam<?>[] textButtonCams;
+  public TextButton<?>[] returnButton;
   {
     // isAndroid=true;
   }
@@ -42,32 +36,24 @@ public class RealGame0002 extends ScreenCore2D{
   }
   @Override
   public void setup() {
+    backgroundColor(0);
+    // backgroundColor(255);
+    strokeWeight(Cell.size/4);
+    stroke(255);
+    noStroke();
+    setupCamera();
+    //---
     if(isAndroid) {
       currentInput=new InputData();
       actrl=new RealGameAndroidCtrl(this);
       actrl.active=false;
       centerScreen.add.add(actrl);
     }
-    // backgroundColor(0);
-    backgroundColor(255);
-    strokeWeight(Cell.size/4);
-    stroke(255);
-    noStroke();
-    centerCam.add.add(pageCenter=new PageCenter(this,startPage=new StartPage(this),-640,0));
-    pageCenter.list.add(gamePage=new GamePage(this));
-    pageCenter.list.add(settingsPage=new SettingsPage(this));
-    setupCamera();
-    textButtonCams=new TextButtonCam[] {
-      new TextButtonCam<RealGame0002>(this,true,()->true,self-> {},self-> {},self-> {
-        pageCenter.setSelect(gamePage);
-        centerCamRemoveAll(textButtonCams);
-      },self->self.text="开始游戏",()->18,()->-40,()->-60),
-      new TextButtonCam<RealGame0002>(this,true,()->true,self-> {},self-> {},self-> {
-        pageCenter.setSelect(settingsPage);
-        centerCamRemoveAll(textButtonCams);
-      },self->self.text="  设置  ",()->18,()->-40,()->-40),
-    };
-    centerCamAddAll(textButtonCams);
+    //---
+    returnButton=UiGenerator.genButtons_0005(this);
+    stateCenter=new StateCenter0004(this);
+    State0004Util.loadState0004(this,stateCenter);
+    state(stateCenter.startMenu);
   }
   public void setupCamera() {
     if(isAndroid) {
@@ -80,13 +66,16 @@ public class RealGame0002 extends ScreenCore2D{
       cam2d.scale.des=2f;
       cam2d.point.des.y=-60;
     }
+    cam2d.active(true);
   }
   public void activeActrl(boolean in) {
     if(isAndroid) actrl.active=in;
     cam2d.activeDrag=!in;
   }
   @Override
-  public void update() {}
+  public void update() {
+    // System.out.println("RealGame0002.update() "+cam2d.activeDrag);
+  }
   @Override
   public void display() {}
   @Override

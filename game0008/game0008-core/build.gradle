@@ -5,6 +5,7 @@ dependencies {
   api "com.badlogicgames.gdx:gdx:$gdxVersion"
 
   api project(':framework')
+  api project(':server-framework')
 
   api project(':game0008:game0008-server')
 }

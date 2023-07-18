@@ -26,14 +26,10 @@ public class CellCenterDisplay extends CellCenter{
       Gdx.files.internal("shader/main0006/fade.vert").readString(),
       Gdx.files.internal("shader/main0006/fade.frag").readString());
     fade.bind();
-    int colorRange=16;
-    // int colorRange=256;
-    // int colorRange=p.isAndroid?16:256;
-    // int colorRange=p.isAndroid?16:32;
-    fade.setUniformf("fadeStepSlow",fadeStepSlow=1f/colorRange);
-    fade.setUniformf("fadeStepFast",fadeStepFast=2f/colorRange);
-    fade.setUniformf("fadeThreshold",fadeThreshold=6f/colorRange);
-    fade.setUniformf("voidThresholdF",voidThreshold=2f/colorRange);
+    fade.setUniformf("fadeStepSlow",fadeStepSlow=32f/255);
+    fade.setUniformf("fadeStepFast",fadeStepFast=16f/255);
+    fade.setUniformf("fadeThreshold",fadeThreshold=128f/255);
+    fade.setUniformf("voidThresholdF",voidThreshold=16f/255);
     // Color c=p.backgroundColor;
     // fade.setUniformf("voidColor",UtilScreenColor.color(c.r,c.g,c.b,0));
     fade.setUniformf("voidColor",p.backgroundColor);
@@ -46,7 +42,7 @@ public class CellCenterDisplay extends CellCenter{
     Graphics l=layer();
     Graphics lc=layerCache();
     l.beginShape();
-    p.clear();
+    // p.clear();
     drawFadeBackground(lc.texture);
     super.display();
     box();

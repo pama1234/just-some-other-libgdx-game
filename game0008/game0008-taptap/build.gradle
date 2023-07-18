@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
   namespace 'pama1234'
-  compileSdk 30
+  compileSdk 32
   signingConfigs {
     release {
       // storeFile file('sign.jks')
@@ -55,9 +55,9 @@ android {
     // pft01 is platform type 01 is taptap
     applicationId 'pama1234.gdx.game.app.particle.pft01'
     minSdkVersion 26
-    targetSdkVersion 30
-    versionCode 1
-    versionName "1.0"
+    targetSdkVersion 32
+    versionCode 2
+    versionName "1.0.1"
     multiDexEnabled true
   }
   compileOptions {
@@ -69,7 +69,7 @@ android {
   
   buildTypes {
     release {
-      minifyEnabled true
+      minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
       
       signingConfig signingConfigs.release

@@ -15,8 +15,8 @@ public class RealGameAndroidCtrl extends AndroidCtrlScreenBase<RealGame0002>{
   }
   @Override
   public void init() {
-    p.textButtons=UiGenerator.genButtons_0003(p);
-    for(TextButton<?> e:p.textButtons) p.centerScreen.add.add(e);
+    p.returnButton=UiGenerator.genButtons_0003(p);
+    for(TextButton<?> e:p.returnButton) p.centerScreen.add.add(e);
   }
   @Override
   public void targetTouchMoved(float dx,float dy,float mag) {

@@ -9,7 +9,6 @@ public abstract class ScreenCoreState2D<C extends StateCenter<?,?>,E extends Sta
   public E state;
   @Override
   public E state(E in) {
-    //TODO merge all 0001 0002 and 0003 state change method code together
     E out=state;
     state=in;
     if(out!=null) {

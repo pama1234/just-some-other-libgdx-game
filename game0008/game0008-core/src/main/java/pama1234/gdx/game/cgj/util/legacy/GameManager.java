@@ -52,28 +52,21 @@ public class GameManager extends TextBoard{
   public void init() {
     cellCenter=parent.cellCenter;
     metaCenter=parent.metaCenter;
-    //---
-    // startGame();
   }
   public void show() {
-    p.cam.point.f=0.1f;
     if(!firstInit) {
       if(p.gameMode==GameMode.Survival) select=cellCenter.list.getFirst();
       return;
     }
     select=cellCenter.add.getFirst();
-    p.activeActrl(true);
     originalId=select.meta;
     firstInit=false;
-    p.cam2d.scale.des=2;
   }
   public void hide() {
-    p.cam.point.f=0.2f;
     if(select!=null) {
       select.meta=originalId;
       select=null;
     }
-    p.activeActrl(false);
   }
   @Override
   public void beforeDraw() {
