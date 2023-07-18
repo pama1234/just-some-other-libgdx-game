@@ -7,7 +7,6 @@ import pama1234.gdx.game.cgj.util.legacy.Tab;
 import pama1234.gdx.game.cgj.util.legacy.TabCenter;
 import pama1234.gdx.util.entity.Entity;
 import pama1234.gdx.util.wrapper.EntityCenter;
-import pama1234.math.Tools;
 
 public class ParticleAutomata extends EntityCenter<RealGame0002,Entity<RealGame0002>>{
   public final TabCenter tabs;
@@ -15,12 +14,12 @@ public class ParticleAutomata extends EntityCenter<RealGame0002,Entity<RealGame0
   public final Scoreboard scoreboard;
   public final MetaCellCenter metaList;
   public final CellCenter cellList;
-  public ParticleAutomata(RealGame0002 p,int codeSize,int[] colorArray) {
+  public ParticleAutomata(RealGame0002 p,int codeSize,float[][] rules,int[] colorArray) {
     super(p);
     MetaCell[] array;
     tabs=new TabCenter(p,-640,-320);
     //---
-    gameManager=new GameManager(p,tabs,-640,-160);
+    gameManager=new GameManager(p,tabs);
     tabs.gameManager=gameManager;
     //---
     tabs.list.add(new Tab<RealGame0002,Entity<?>>(p,"数据",tabs.metaCenter=metaList=new MetaCellCenter(p,-480,-480,480,480),0));
@@ -34,30 +33,15 @@ public class ParticleAutomata extends EntityCenter<RealGame0002,Entity<RealGame0
     add.add(tabs);
     //---
     tabs.setSelect(gameMap);
-    // int codeSize=12;
-    // final float[][] rules=new float[][] {
-    //   {0,1,-1,-1,0,0,0,0,0,0,0,1},
-    //   {1,0,1,-1,-1,0,0,0,0,0,0,0},
-    //   {0,1,0,1,-1,-1,0,0,0,0,0,0},
-    //   {0,0,1,0,1,-1,-1,0,0,0,0,0},
-    //   {0,0,0,1,0,1,-1,-1,0,0,0,0},
-    //   {0,0,0,0,1,0,1,-1,-1,0,0,0},
-    //   {0,0,0,0,0,1,0,1,-1,-1,0,0},
-    //   {0,0,0,0,0,0,1,0,1,-1,-1,0},
-    //   {0,0,0,0,0,0,0,1,0,1,-1,-1},
-    //   {-1,0,0,0,0,0,0,0,1,0,1,-1},
-    //   {-1,-1,0,0,0,0,0,0,0,1,0,1},
-    //   {1,-1,-1,0,0,0,0,0,0,0,1,0},
-    // };
-    final float[][] rules=new float[codeSize][codeSize];
-    for(int i=0;i<rules.length;i++) {
-      // for(int j=0;j<rules[i].length;j++);
-      float[] fs=rules[i];
-      fs[Tools.moveInRange(i-1,0,fs.length)]=1;
-      fs[Tools.moveInRange(i+1,0,fs.length)]=1;
-      fs[Tools.moveInRange(i+2,0,fs.length)]=-1;
-      fs[Tools.moveInRange(i+3,0,fs.length)]=-1;
-    }
+    // final float[][] rules=new float[codeSize][codeSize];
+    // for(int i=0;i<rules.length;i++) {
+    //   // for(int j=0;j<rules[i].length;j++);
+    //   float[] fs=rules[i];
+    //   fs[Tools.moveInRange(i-1,0,fs.length)]=1;
+    //   fs[Tools.moveInRange(i+1,0,fs.length)]=1;
+    //   fs[Tools.moveInRange(i+2,0,fs.length)]=-1;
+    //   fs[Tools.moveInRange(i+3,0,fs.length)]=-1;
+    // }
     for(float[] fs:rules) {
       for(int i=0;i<fs.length;i++) {
         fs[i]*=0.5f;

@@ -36,7 +36,7 @@ public class GameManager extends Entity<RealGame0002>{
   public Color background;
   public Color strokeColor;
   public Color buttonColor_1,buttonColor_2;
-  public GameManager(RealGame0002 p,TabCenter parent,float x,float y) {
+  public GameManager(RealGame0002 p,TabCenter parent) {
     super(p);
     this.parent=parent;
     state=new int[2];
