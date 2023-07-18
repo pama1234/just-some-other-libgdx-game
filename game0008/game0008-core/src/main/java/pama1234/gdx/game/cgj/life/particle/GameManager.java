@@ -70,7 +70,7 @@ public class GameManager extends Entity<RealGame0002>{
   }
   @Override
   public void update() {
-    final int ti=parent.index;
+    final int ti=parent.pointer;
     if(ti==1) {
       if(state[ti]==0) {
         if(select!=null) {
@@ -168,7 +168,7 @@ public class GameManager extends Entity<RealGame0002>{
     final float tx=select.point.pos.x,
       ty=select.point.pos.y;
     final float ts_m2=Cell.size*2;
-    final boolean flag=parent.index==1&&state[parent.index]==1;
+    final boolean flag=parent.pointer==1&&state[parent.pointer]==1;
     UITools.cross(p,tx,ty,ts_m2/4);
     p.circle(tx,ty,ts_m2/2);
     if(flag) {
@@ -187,7 +187,7 @@ public class GameManager extends Entity<RealGame0002>{
   @Override
   public void touchStarted(TouchInfo info) {
     if(p.gameMode==GameMode.God) {
-      final int ti=parent.index;
+      final int ti=parent.pointer;
       if(ti==1) {
         if(state[ti]==0||state[ti]==1) {
           if(!p.isAndroid||!Tools.inBox(info.ox,info.oy,excludeRect)&&(p.actrl.active?info.ox>p.width/3f:true)) {//TODO
@@ -220,9 +220,9 @@ public class GameManager extends Entity<RealGame0002>{
   @Override
   public void keyPressed(char key,int keyCode) {
     if(key==' ') {
-      parent.select.update=!parent.select.update;
+      parent.get().update=!parent.get().update;
     }
-    final int ti=parent.index;
+    final int ti=parent.pointer;
     if(ti==1) {
       if(state[ti]==0||state[ti]==1) {
         key=Character.toLowerCase(key);
@@ -276,7 +276,7 @@ public class GameManager extends Entity<RealGame0002>{
   }
   @Override
   public void keyReleased(char key,int keyCode) {
-    final int ti=parent.index;
+    final int ti=parent.pointer;
     if(ti==1) {
       if(state[ti]==0||state[ti]==1) {
         key=Character.toLowerCase(key);

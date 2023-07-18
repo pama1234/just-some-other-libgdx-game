@@ -6,9 +6,11 @@ import pama1234.gdx.util.wrapper.EntityWrapper;
 
 public class Tab<T extends RealGame0002,E extends Entity<?>>extends EntityWrapper<T,E>{
   public String name;
+  public int id;
   public boolean update=true;
-  public Tab(T p,String name,E e) {
+  public Tab(T p,String name,E e,int id) {
     super(p,e);
     this.name=name;
+    this.id=id;
   }
 }

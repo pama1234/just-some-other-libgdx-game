@@ -23,8 +23,8 @@ public class ParticleAutomata extends EntityCenter<RealGame0002,Entity<RealGame0
     gameManager=new GameManager(p,tabs,-640,-160);
     tabs.gameManager=gameManager;
     //---
-    tabs.list.add(new Tab<RealGame0002,Entity<?>>(p,"数据",tabs.metaCenter=metaList=new MetaCellCenter(p,-480,-480,480,480)));
-    Tab<RealGame0002,Entity<?>> gameMap=new Tab<RealGame0002,Entity<?>>(p,"地图",tabs.cellCenter=cellList=new CellCenterDisplay(p,metaList));
+    tabs.list.add(new Tab<RealGame0002,Entity<?>>(p,"数据",tabs.metaCenter=metaList=new MetaCellCenter(p,-480,-480,480,480),0));
+    Tab<RealGame0002,Entity<?>> gameMap=new Tab<RealGame0002,Entity<?>>(p,"地图",tabs.cellCenter=cellList=new CellCenterDisplay(p,metaList),1);
     tabs.list.add(gameMap);
     //---
     scoreboard=new Scoreboard(p,tabs,0,-360);
