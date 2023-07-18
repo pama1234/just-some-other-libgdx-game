@@ -9,11 +9,12 @@ public class Settings extends StateEntity0004{
   }
   @Override
   public void displayCam() {
-    p.text("设置功能未实现");
+    p.text("设置功能未实现",-64,-8);
   }
   @Override
   public void from(StateEntity0004 in) {
     p.centerScreenAddAll(p.returnButton);
+    p.cam2d.point.des.set(0,0);
   }
   @Override
   public void to(StateEntity0004 in) {

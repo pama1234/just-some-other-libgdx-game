@@ -36,7 +36,7 @@ public class DuelAndroidCtrl extends AndroidCtrlBase<Duel>{
         p.inputProcessor.keyDown(Input.Keys.C);
       },self-> {
         p.inputProcessor.keyUp(Input.Keys.C);
-      },self->self.text="C ",p::getButtonUnitLength,()->p.width-p.bu*2.5f,()->p.height-p.bu*2.5f,()->p.bu-p.pus,false),
+      },self->self.text=" C",p::getButtonUnitLength,()->p.width-p.bu*2.5f,()->p.height-p.bu*2.5f,()->p.bu-p.pus,false),
     });
   }
 }
