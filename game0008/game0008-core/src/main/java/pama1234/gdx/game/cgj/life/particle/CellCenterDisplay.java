@@ -17,8 +17,8 @@ public class CellCenterDisplay extends CellCenter{
     fadeStepFast,
     fadeThreshold,
     voidThreshold;
-  public CellCenterDisplay(RealGame0002 p,MetaCellCenter parent) {
-    super(p,parent);
+  public CellCenterDisplay(RealGame0002 p,int size,MetaCellCenter parent) {
+    super(p,size,parent);
     if(boxed) layer=new Graphics(p,w+layer_cell_size*2,h+layer_cell_size*2);
     else layer=new Graphics(p,w+w/2,h+h/2);
     layer_b=new Graphics(p,layer.width(),layer.height());

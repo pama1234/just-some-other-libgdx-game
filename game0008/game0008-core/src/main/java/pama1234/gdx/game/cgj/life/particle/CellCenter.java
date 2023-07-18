@@ -8,18 +8,28 @@ import pama1234.util.wrapper.Center;
 
 public class CellCenter extends EntityCenter<RealGame0002,Cell>{
   public static final float r_const=Cell.dist/4;
-  public static final int boxR=240;
+  public final int boxR;
   public static final int layer_cell_size=(int)Cell.size;
   public static final int fadeStep=16;
   public final boolean boxed=true;
-  public final int x1=-boxR,y1=-boxR,x2=boxR,y2=boxR;
-  public final int w=x2-x1,h=y2-y1;
+  public final int x1,y1,x2,y2;
+  public final int w,h;
   public final MetaCellCenter meta;
   public Center<Box> boxCenter;
   public int maxBoxCount=16;
   public int boxSize=32;
   public CellCenter(final RealGame0002 p,final MetaCellCenter parent) {
+    this(p,240,parent);
+  }
+  public CellCenter(final RealGame0002 p,int size,final MetaCellCenter parent) {
     super(p);
+    boxR=size;
+    x1=-boxR;
+    y1=-boxR;
+    x2=boxR;
+    y2=boxR;
+    w=x2-x1;
+    h=y2-y1;
     this.meta=parent;
     boxCenter=new Center<Box>();
     // boxCenter.add.add(new Box(new RectD(-32,-32,64,64)));

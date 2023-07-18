@@ -16,7 +16,7 @@ public class TabCenter extends StateCenter<RealGame0002,Tab<RealGame0002,?>>{
     pointer=in.id;
     scoreboard.refresh();
   }
-  public TabCenter(RealGame0002 p,float x,float y) {
+  public TabCenter(RealGame0002 p) {
     super(p);
   }
   @Override

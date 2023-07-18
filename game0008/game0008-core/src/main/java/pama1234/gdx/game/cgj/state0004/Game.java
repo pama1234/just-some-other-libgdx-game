@@ -21,7 +21,7 @@ public class Game extends StateEntity0004{
       fs[Tools.moveInRange(i+2,0,fs.length)]=-1;
       fs[Tools.moveInRange(i+3,0,fs.length)]=-1;
     }
-    content=new ParticleAutomata(p,coreSize,rules,colorArray);
+    content=new ParticleAutomata(p,240,coreSize,rules,colorArray);
   }
   @Override
   public void from(StateEntity0004 in) {
