@@ -69,7 +69,11 @@ public class RealGame0002 extends ScreenCoreState2D<StateCenter0004,StateEntity0
     cam2d.active(true);
   }
   public void activeActrl(boolean in) {
-    if(isAndroid) actrl.active=in;
+    if(isAndroid) {
+      actrl.active=in;
+      if(in) actrl.addAll();
+      else actrl.removeAll();
+    }
     cam2d.activeDrag=!in;
   }
   @Override
