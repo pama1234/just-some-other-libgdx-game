@@ -1,6 +1,6 @@
-package pama1234.gdx.game.cgj.util.legacy;
+package pama1234.gdx.game.cgj.life.particle;
 
-import static pama1234.gdx.game.cgj.util.legacy.CellCenter.layer_cell_size;
+import static pama1234.gdx.game.cgj.life.particle.CellCenter.layer_cell_size;
 
 import java.util.LinkedList;
 

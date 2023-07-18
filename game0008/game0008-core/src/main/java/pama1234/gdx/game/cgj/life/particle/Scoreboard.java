@@ -1,4 +1,4 @@
-package pama1234.gdx.game.cgj.util.legacy;
+package pama1234.gdx.game.cgj.life.particle;
 
 import java.text.DecimalFormat;
 import java.util.LinkedList;
@@ -6,6 +6,7 @@ import java.util.LinkedList;
 import com.badlogic.gdx.graphics.Color;
 
 import pama1234.gdx.game.cgj.app.app0002.RealGame0002;
+import pama1234.gdx.game.cgj.util.legacy.TabCenter;
 import pama1234.gdx.util.UITools;
 import pama1234.gdx.util.app.UtilScreenColor;
 import pama1234.gdx.util.element.Graphics;

@@ -1,12 +1,12 @@
 package pama1234.gdx.game.cgj.app.app0002;
 
+import pama1234.gdx.game.cgj.life.particle.Cell;
 import pama1234.gdx.game.cgj.state0004.State0004Util;
 import pama1234.gdx.game.cgj.state0004.State0004Util.StateCenter0004;
 import pama1234.gdx.game.cgj.state0004.State0004Util.StateEntity0004;
 import pama1234.gdx.game.cgj.ui.generator.UiGenerator;
 import pama1234.gdx.game.cgj.util.input.InputData;
 import pama1234.gdx.game.cgj.util.input.RealGameAndroidCtrl;
-import pama1234.gdx.game.cgj.util.legacy.Cell;
 import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.util.app.ScreenCoreState2D;
 import pama1234.gdx.util.element.Graphics;

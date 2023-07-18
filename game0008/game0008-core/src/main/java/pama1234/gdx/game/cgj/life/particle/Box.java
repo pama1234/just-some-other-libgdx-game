@@ -1,4 +1,4 @@
-package pama1234.gdx.game.cgj.util.legacy;
+package pama1234.gdx.game.cgj.life.particle;
 
 import pama1234.math.UtilMath;
 import pama1234.math.geometry.RectD;

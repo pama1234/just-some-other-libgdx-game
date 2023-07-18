@@ -1,4 +1,4 @@
-package pama1234.gdx.game.cgj.util.legacy;
+package pama1234.gdx.game.cgj.life.particle;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;

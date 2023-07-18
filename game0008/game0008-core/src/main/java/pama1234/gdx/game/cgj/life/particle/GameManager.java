@@ -1,12 +1,14 @@
-package pama1234.gdx.game.cgj.util.legacy;
+package pama1234.gdx.game.cgj.life.particle;
 
 import java.util.LinkedList;
 
 import com.badlogic.gdx.Input.Buttons;
+import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.graphics.Color;
 
 import pama1234.gdx.game.cgj.app.app0002.RealGame0002;
 import pama1234.gdx.game.cgj.app.app0002.RealGame0002.GameMode;
+import pama1234.gdx.game.cgj.util.legacy.TabCenter;
 import pama1234.gdx.util.UITools;
 import pama1234.gdx.util.app.UtilScreenColor;
 import pama1234.gdx.util.entity.Entity;
@@ -226,15 +228,19 @@ public class GameManager extends Entity<RealGame0002>{
         key=Character.toLowerCase(key);
         switch(key) {
           case 'w':
+          case Keys.UP:
             keys[up]=true;
             break;
           case 's':
+          case Keys.DOWN:
             keys[down]=true;
             break;
           case 'a':
+          case Keys.LEFT:
             keys[left]=true;
             break;
           case 'd':
+          case Keys.RIGHT:
             keys[right]=true;
             break;
         }
@@ -266,15 +272,19 @@ public class GameManager extends Entity<RealGame0002>{
         key=Character.toLowerCase(key);
         switch(key) {
           case 'w':
+          case Keys.UP:
             keys[up]=false;
             break;
           case 's':
+          case Keys.DOWN:
             keys[down]=false;
             break;
           case 'a':
+          case Keys.LEFT:
             keys[left]=false;
             break;
           case 'd':
+          case Keys.RIGHT:
             keys[right]=false;
             break;
         }

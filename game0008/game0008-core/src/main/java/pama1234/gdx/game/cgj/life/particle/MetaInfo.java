@@ -1,4 +1,4 @@
-package pama1234.gdx.game.cgj.util.legacy;
+package pama1234.gdx.game.cgj.life.particle;
 
 public class MetaInfo{
   public float g;

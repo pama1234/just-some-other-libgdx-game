@@ -1,8 +1,8 @@
 package pama1234.gdx.game.cgj.state0004;
 
 import pama1234.gdx.game.cgj.app.app0002.RealGame0002;
+import pama1234.gdx.game.cgj.life.particle.Welcome;
 import pama1234.gdx.game.cgj.state0004.State0004Util.StateEntity0004;
-import pama1234.gdx.game.cgj.util.legacy.Welcome;
 import pama1234.gdx.game.ui.util.TextButtonCam;
 
 public class StartMenu extends StateEntity0004{

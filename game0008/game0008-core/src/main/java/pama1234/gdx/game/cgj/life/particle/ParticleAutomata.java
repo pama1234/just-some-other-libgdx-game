@@ -1,13 +1,15 @@
-package pama1234.gdx.game.cgj.util.legacy;
+package pama1234.gdx.game.cgj.life.particle;
 
 import java.util.ArrayList;
 
 import pama1234.gdx.game.cgj.app.app0002.RealGame0002;
+import pama1234.gdx.game.cgj.util.legacy.Tab;
+import pama1234.gdx.game.cgj.util.legacy.TabCenter;
 import pama1234.gdx.util.entity.Entity;
 import pama1234.gdx.util.wrapper.EntityCenter;
 import pama1234.math.Tools;
 
-public class ParticleAutomata extends EntityCenter<RealGame0002,Entity<?>>{
+public class ParticleAutomata extends EntityCenter<RealGame0002,Entity<RealGame0002>>{
   public final TabCenter tabs;
   public final GameManager gameManager;
   public final Scoreboard scoreboard;

@@ -2,11 +2,12 @@ package pama1234.gdx.game.cgj.util.legacy;
 
 import java.util.LinkedList;
 
-import com.badlogic.gdx.graphics.Color;
-
 import pama1234.gdx.game.cgj.app.app0002.RealGame0002;
 import pama1234.gdx.game.cgj.app.app0002.RealGame0002.GameMode;
-import pama1234.gdx.util.app.UtilScreenColor;
+import pama1234.gdx.game.cgj.life.particle.CellCenter;
+import pama1234.gdx.game.cgj.life.particle.GameManager;
+import pama1234.gdx.game.cgj.life.particle.MetaCellCenter;
+import pama1234.gdx.game.cgj.life.particle.Scoreboard;
 import pama1234.gdx.util.entity.Entity;
 import pama1234.gdx.util.info.MouseInfo;
 
@@ -18,7 +19,7 @@ public class TabCenter extends Entity<RealGame0002>{
   public MetaCellCenter metaCenter;
   public GameManager gameManager;
   public Scoreboard scoreboard;
-  public Color backgroundColor=UtilScreenColor.newColorFromInt(0xffF66104);
+  // public Color backgroundColor=UtilScreenColor.newColorFromInt(0xffF66104);
   public void setSelect(Tab<?,?> select) {
     this.select=select;
     index=list.indexOf(select);

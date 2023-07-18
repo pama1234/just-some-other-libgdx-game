@@ -1,4 +1,4 @@
-package pama1234.gdx.game.cgj.util.legacy;
+package pama1234.gdx.game.cgj.life.particle;
 
 import pama1234.gdx.game.cgj.app.app0002.RealGame0002;
 import pama1234.gdx.util.element.Graphics;
