@@ -26,3 +26,6 @@ include 'game0006:game0006-android', 'game0006:game0006-lwjgl3', 'game0006:game0
 
 include 'game0007:game0007-android', 'game0007:game0007-lwjgl3', 'game0007:game0007-core', 'game0007:game0007-server', 'game0007:game0007-taptap'
 include 'game0008:game0008-android', 'game0008:game0008-lwjgl3', 'game0008:game0008-core', 'game0008:game0008-server', 'game0008:game0008-taptap'
+
+include 'game0009:game0009-android', 'game0009:game0009-lwjgl3', 'game0009:game0009-core'
+// , 'game0009:game0009-server', 'game0009:game0009-taptap'
