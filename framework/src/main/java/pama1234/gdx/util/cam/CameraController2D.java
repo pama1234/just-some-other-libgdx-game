@@ -106,6 +106,10 @@ public class CameraController2D extends CameraController{
         smoothScale.des=1f/UtilMath.max(UtilMath.round(scale.des),1);
         if(nearEquals(smoothScale.pos,smoothScale.des)) smoothScale.pos=smoothScale.des;
         ocam.zoom=smoothScale.pos;
+        scale.pos=frameScale/smoothScale.pos;
+        // float sdes=1f/UtilMath.max(UtilMath.round(scale.des),1);
+        // if(nearEquals(scale.pos,sdes)) scale.pos=sdes;
+        // ocam.zoom=scale.pos;
       }
         break;
       case ACCURATE: {
