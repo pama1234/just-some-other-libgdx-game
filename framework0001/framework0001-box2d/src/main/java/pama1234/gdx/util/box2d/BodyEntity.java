@@ -1,4 +1,4 @@
-package pama1234.gdx.box2d;
+package pama1234.gdx.util.box2d;
 
 import java.util.ArrayList;
 

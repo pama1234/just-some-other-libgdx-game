@@ -16,7 +16,7 @@ dependencies {
   api "javax.vecmath:vecmath:$vecmathVersion"
   api "com.esotericsoftware:kryo:$kryoVersion"
 
-  api "org.jbox2d:jbox2d-library:$jbox2dVersion"
+  // api "org.jbox2d:jbox2d-library:$jbox2dVersion"
 }
 
 jar {

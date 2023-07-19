@@ -9,7 +9,6 @@ public class MainMenu extends StateEntity0003{
   }
   @Override
   public void from(StateEntity0003 in) {
-    // System.out.println("MainMenu.from()");
     if(p.laodDebugState) p.state(p.stateCenter.debug.editorTest);
   }
   @Override

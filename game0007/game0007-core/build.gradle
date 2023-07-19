@@ -6,5 +6,7 @@ dependencies {
 
   api project(":framework")
 
+  api project(":framework0001:framework0001-box2d")
+
   api project(':game0007:game0007-server')
 }

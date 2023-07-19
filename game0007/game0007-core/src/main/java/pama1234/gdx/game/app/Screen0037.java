@@ -14,12 +14,12 @@ import org.jbox2d.dynamics.World;
 
 import com.badlogic.gdx.Input.Buttons;
 
-import pama1234.gdx.box2d.BodyEntity;
 import pama1234.gdx.game.ui.UiGenerator;
 import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.util.UITools;
 import pama1234.gdx.util.app.ScreenCore2D;
 import pama1234.gdx.util.app.UtilScreen;
+import pama1234.gdx.util.box2d.BodyEntity;
 import pama1234.gdx.util.cam.CameraController2D;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.wrapper.EntityCenter;

@@ -16,7 +16,7 @@ public class Screen0031 extends ScreenCide2D{
   {
     // androidTouchHoldToRightButton=true;
     // isAndroid=true;
-    laodDebugState=true;
+    // laodDebugState=true;
   }
   @Override
   public void setup() {
