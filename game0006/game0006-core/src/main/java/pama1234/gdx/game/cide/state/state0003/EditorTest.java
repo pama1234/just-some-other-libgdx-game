@@ -20,12 +20,12 @@ public class EditorTest extends StateEntity0003{
     textEditor=new TextEditor<>(p,UtilScreen.color(0),0,0);
     textEditor.textArea.setText("晚安，玛卡巴卡");
     //---
-    FileHandle testFile=Gdx.files.internal("java/test0002/EditorTest.javad");
+    // FileHandle testFile=Gdx.files.internal("java/test0002/EditorTest.javad");
     FileHandle testFileData=Gdx.files.local("data/cide/test/EditorTest.javad");
     fileTextEditor=new FileTextEditor<>(p,UtilScreen.color(0),660,0,"EditorTest.javad",testFileData);
     // fileTextEditor.nameField.setText("EditorTest.javad");
-    textExample=testFile.readString("UTF-8");
-    fileTextEditor.textArea.setText(textExample);
+    // textExample=testFile.readString("UTF-8");
+    // fileTextEditor.textArea.setText(textExample);
     fileTextEditor.file=testFileData;
     //---
     list=new TextEditor[] {textEditor,fileTextEditor};

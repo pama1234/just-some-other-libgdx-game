@@ -12,6 +12,7 @@ import pama1234.gdx.util.app.UtilScreen;
 import pama1234.math.geometry.RectF;
 
 public class FileTextEditor<T extends ScreenCore2D>extends TextEditor<T>{
+  public static String charset="UTF-8";
   public FileHandle file;
   public String fileName;
   public TextField fileField;
@@ -25,14 +26,13 @@ public class FileTextEditor<T extends ScreenCore2D>extends TextEditor<T>{
     nameField=new TextField(name,new ColorTextFieldStyle(p,null,null,UtilScreen.color(216)),new RectF(()->rect.x(),()->rect.y()-26,()->rect.w()-60,()->18),()->1);
     addAndroidKeyboardUtil(fileField);
     addAndroidKeyboardUtil(nameField);
+    if(file.exists()) textArea.setText(file.readString(charset));
     textButtons=new TextButtonCam<?>[] {
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
-        // file.writeString(textArea.getText(),false,"UTF-8");
-        textArea.setText(file.readString("UTF-8"));
+        textArea.setText(file.readString(charset));
       },self->self.text="读取",()->18,()->rect.xnw()-50,()->rect.y()-26),
       new TextButtonCam<T>(p,true,()->true,self-> {},self-> {},self-> {
-        file.writeString(textArea.getText(),false,"UTF-8");
-        // System.out.println("FileTextEditor.FileTextEditor()");
+        file.writeString(textArea.getText(),false,charset);
       },self->self.text="保存",()->18,()->rect.xnw()-50,()->rect.y()-26*2),
     };
     // file.lastModified();
