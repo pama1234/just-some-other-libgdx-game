@@ -75,4 +75,4 @@ dependencies {
   }
 }
 
-eclipse.project.name = appName + '-android-xr'
+eclipse.project.name = appName + '-android-framework'
