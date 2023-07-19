@@ -30,33 +30,34 @@ public class FirstRunDisplay0002 extends FirstRunDisplayBase{
     boxBodyDef.type=BodyType.DYNAMIC;
     boxFixtureDef=new FixtureDef();
     boxFixtureDef.density=1;
-    // boxFixtureDef.restitution=0.3f;
-    // boxFixtureDef.restitution=0f;
+    boxFixtureDef.restitution=0.8f;
     boxFixtureDef.friction=0.1f;
     //---
     bodyCenter=new TextBodyEntityCenter(p);
     world=new World(new Vec2(0,FirstRunDisplay0001.G));
-    createTextBox(0,0,"Hello World!!");
-    createTextBox(-4,0,"Java");
+    createTextBox(-30,-90,"NEAT");
+    createTextBox(0,-90,"Center-IDE");
+    createTextBox(0,-70,"Processing");
+    createTextBox(-30,-60,"Yaml");
+    createTextBox(30,-60,"OpenXR");
+    createTextBox(0,-50,"LibGDX");
+    createTextBox(-30,-30,"Dalvik");
+    createTextBox(0,-30,"Java");
     //---
     edgeBodyDef=new BodyDef();
     edgeBodyDef.type=BodyType.KINEMATIC;
-    // edgeBodyDef.angularVelocity=1/4f;
     edgeFixtureDef=new FixtureDef();
     edgeFixtureDef.friction=0.1f;
-    // edgeFixtureDef.restitution=0.3f;
     Body tb=world.createBody(edgeBodyDef);
     createEdge(tb,0,0,-512,64,512,64);
-    // createEdge(tb,0,0,edgeBoxSize,-edgeBoxSize,edgeBoxSize,edgeBoxSize);
-    // createEdge(tb,0,0,edgeBoxSize,-edgeBoxSize,-edgeBoxSize,-edgeBoxSize);
-    // createEdge(tb,0,0,-edgeBoxSize,edgeBoxSize,-edgeBoxSize,-edgeBoxSize);
     edgeBody=new BodyEntity<ScreenCide2D>(p,tb);
-    // bodyCenter.add.add(edgeBody);
   }
   public TextBodyEntity<ScreenCide2D> createTextBox(float x,float y,String text) {
-    return createBox(x,y,p.textWidthNoScale(text)/2f,p.textSize()/2f,text);
+    return createBox(x,y,p.textWidthNoScale(text),p.textSize(),text);
   }
   public TextBodyEntity<ScreenCide2D> createBox(float x,float y,float w,float h,String text) {
+    w/=2;
+    h/=2;
     boxBodyDef.position.set(x,y);
     Body body=world.createBody(boxBodyDef);
     PolygonShape dynamicBox=new PolygonShape();
@@ -66,7 +67,6 @@ public class FirstRunDisplay0002 extends FirstRunDisplayBase{
     TextBodyEntity<ScreenCide2D> out=new TextBodyEntity<ScreenCide2D>(p,body,text);
     out.dx=-w;
     out.dy=-h;
-    // bodyCenter.addBox(out);
     bodyCenter.add.add(out);
     return out;
   }
@@ -79,7 +79,7 @@ public class FirstRunDisplay0002 extends FirstRunDisplayBase{
   }
   @Override
   public void update() {
-    world.step(1/60f,6,2);
+    world.step(1/30f,6,2);
   }
   @Override
   public void display() {
@@ -96,10 +96,16 @@ public class FirstRunDisplay0002 extends FirstRunDisplayBase{
   public void to(StateEntity0003 in) {
     super.to(in);
     p.centerCam.remove.add(bodyCenter);
+    p.fill(255);
   }
   public static class TextBodyEntityCenter extends EntityCenter<ScreenCide2D,TextBodyEntity<ScreenCide2D>>{
     public TextBodyEntityCenter(ScreenCide2D p) {
       super(p);
+    }
+    @Override
+    public void display() {
+      p.fill(255,127);
+      super.display();
     }
   }
 }
