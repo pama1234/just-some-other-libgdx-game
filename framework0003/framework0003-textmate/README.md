@@ -1,4 +1,6 @@
-# libgdx-pama1234-textmate
+# tm4c
+
+英文全名：libgdx-pama1234-textmate
 
 基于[tm4e](https://github.com/eclipse/tm4e)的[0.8.0](https://github.com/eclipse/tm4e/releases/tag/0.8.0)版本
 
