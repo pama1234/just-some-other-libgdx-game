@@ -36,7 +36,8 @@ allprojects{
 configure(subprojects.findAll {
   !(
     it.name == 'android-framework' ||
-    it.name == 'framework0001' || it.name == 'framework0002' || it.name == 'framework0003' ||
+    it.name == 'framework0001' || it.name == 'framework0002' || 
+    it.name == 'framework0003' || it.name == 'framework0004' ||
     it.name == 'framework0002-android' ||
     it.name == 'framework0003-androidDex' ||
     it.name == 'game0001' ||
