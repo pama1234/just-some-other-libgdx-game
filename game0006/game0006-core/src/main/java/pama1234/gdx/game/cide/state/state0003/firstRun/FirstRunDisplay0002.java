@@ -16,6 +16,8 @@ import pama1234.gdx.game.cide.util.graphics.TextBodyEntity;
 import pama1234.gdx.game.ui.util.TextButtonCam;
 import pama1234.gdx.util.box2d.BodyEntity;
 import pama1234.gdx.util.wrapper.EntityCenter;
+import pama1234.gdx.util.info.TouchInfo;
+import com.badlogic.gdx.math.Rectangle;
 
 public class FirstRunDisplay0002 extends FirstRunDisplayBase{
   public World world;
@@ -76,6 +78,8 @@ public class FirstRunDisplay0002 extends FirstRunDisplayBase{
     boxFixtureDef.shape=dynamicBox;
     body.createFixture(boxFixtureDef);
     TextBodyEntity<ScreenCide2D> out=new TextBodyEntity<ScreenCide2D>(p,body,text);
+    out.rect=new Rectangle(x,y,w*2,h*2);
+    out.rect.setCenter(w,h);
     out.dx=-w;
     out.dy=-h;
     bodyCenter.add.add(out);
@@ -91,6 +95,13 @@ public class FirstRunDisplay0002 extends FirstRunDisplayBase{
   @Override
   public void update() {
     world.step(1/30f,6,2);
+  }
+  @Override
+  public void touchMoved(TouchInfo info) {
+    Vec2 v=new Vec2(info.x,info.y);
+    for(var i:bodyCenter.list) {
+      if(i.rect.contains(v.x,v.y)) i.body.setTransform(v,i.body.getAngle());
+    }
   }
   @Override
   public void display() {
