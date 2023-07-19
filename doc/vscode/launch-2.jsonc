@@ -57,6 +57,20 @@
     },
     {
       "type": "java",
+      "name": "08-Launcher",
+      "request": "launch",
+      "mainClass": "pama1234.gdx.game.app.lwjgl3.Launcher",
+      "projectName": "game-game0008-lwjgl3"
+    },
+    {
+      "type": "java",
+      "name": "09-Launcher",
+      "request": "launch",
+      "mainClass": "pama1234.gdx.game.app.lwjgl3.Launcher",
+      "projectName": "game-game0009-lwjgl3"
+    },
+    {
+      "type": "java",
       "name": "02-Launcher-cgj",
       "request": "launch",
       "mainClass": "pama1234.gdx.game.app.lwjgl3.Launcher",
