@@ -20,6 +20,7 @@ import pama1234.gdx.game.ui.util.TextButtonCam;
 import pama1234.gdx.util.box2d.BodyEntity;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.wrapper.EntityCenter;
+import pama1234.math.UtilMath;
 import pama1234.math.vec.Vec2f;
 
 public class FirstRunDisplay0002 extends FirstRunDisplayBase{
@@ -66,6 +67,8 @@ public class FirstRunDisplay0002 extends FirstRunDisplayBase{
     edgeFixtureDef.friction=0.6f;
     Body tb=world.createBody(edgeBodyDef);
     createEdge(tb,0,0,-512,64,512,64);
+    createEdge(tb,0,0,512,40,512,64);
+    createEdge(tb,0,0,-512,40,-512,64);
     edgeBody=new BodyEntity<ScreenCide2D>(p,tb);
     //---
     exitButton=new TextButtonCam<ScreenCide2D>(p,true,()->true,self-> {},self-> {},self-> {
@@ -102,15 +105,16 @@ public class FirstRunDisplay0002 extends FirstRunDisplayBase{
     world.step(1/30f,6,2);
     if(select!=null&&p.mouse.left) {
       Vec2 pos=select.body.getPosition();
-      cache.set((p.mouse.x-pos.x)*16,(p.mouse.y-pos.y)*16);
+      // cache.set((p.mouse.x-pos.x)*64,(p.mouse.y-pos.y)*64);
+      float dx=p.mouse.x-pos.x;
+      float dy=p.mouse.y-pos.y;
+      cache.set(UtilMath.sqsign(dx),UtilMath.sqsign(dy));
       select.body.applyForceToCenter(cache);
     }
   }
   @Override
   public void mousePressed(MouseInfo info) {
-    if(info.button==Buttons.LEFT) {
-      doSelect(info);
-    }
+    if(info.button==Buttons.LEFT) doSelect(info);
   }
   public boolean doSelect(MouseInfo info) {
     cache.set(info.x,info.y);
@@ -146,7 +150,10 @@ public class FirstRunDisplay0002 extends FirstRunDisplayBase{
     p.noStroke();
     Vec2 pos=centerIDE.body.getPosition();
     p.text("↓ 我们的IDE",pos.x-30,pos.y-30);
-    if(select!=null) select.display();
+    if(select!=null) {
+      p.fill(255,191);
+      select.display();
+    }
   }
   @Override
   public void from(StateEntity0003 in) {

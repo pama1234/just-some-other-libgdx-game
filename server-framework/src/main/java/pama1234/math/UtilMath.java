@@ -129,6 +129,9 @@ public class UtilMath{
   public static float map(float in,float s1,float e1,float s2,float e2) {
     return s2+(e2-s2)*((in-s1)/(e1-s1));
   }
+  public static float sqsign(float a) {
+    return a>0?a*a:-a*a;
+  }
   public static float sq(float a) {
     return a*a;
   }
