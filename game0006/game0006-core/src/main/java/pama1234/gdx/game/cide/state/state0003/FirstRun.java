@@ -19,10 +19,6 @@ public class FirstRun extends StateEntity0003{
     super(p,id);
     MusicAsset.load_init();
     boxCenter=new BoxCenter(p);
-    // boxCenter.add.add(new TextBox(p,"Java",0,-80,randomRotate()));
-    // boxCenter.add.add(new TextBox(p,"Libgdx",0,-120,randomRotate()));
-    // boxCenter.add.add(new TextBox(p,"Processing-Pama1234",0,-160,randomRotate()));
-    // boxCenter.add.add(new TextBox(p,"Center-IDE",0,-200,randomRotate()));
     boxCenter.add.add(boxCenter.java=new TextBox(p,"Java",0,4));
     boxCenter.add.add(boxCenter.libgdx=new TextBox(p,"Libgdx",0,3));
     boxCenter.add.add(boxCenter.processingPama1234=new TextBox(p,"Processing-Pama1234",0,2));
@@ -37,17 +33,7 @@ public class FirstRun extends StateEntity0003{
     time++;
     if(time==30) boxCenter.active=true;
     else if(time==60) state=1;
-    for(TextBox i:boxCenter.list) {
-      //   // for(TextBox j:boxCenter.list) if(i!=j) i.updateBox(j);
-      //   for(TextBox j:boxCenter.list) if(i!=j) i.updateNode(j);
-      for(TextBox j:boxCenter.list) if(i!=j) i.updateNodeGlobal(j);
-      //   // if(i.point.pos.y>10) {
-      //   //   i.point.pos.y=10;
-      //   //   i.point.vel.y=0;
-      //   // }else {
-      //   //   i.point.vel.y+=(G-i.point.vel.y)/i.mass;
-      //   // }
-    }
+    for(TextBox i:boxCenter.list) for(TextBox j:boxCenter.list) if(i!=j) i.updateNodeGlobal(j);
     if(state==1) {
       firstRunFile.writeString("1234",false);
       p.state(p.stateCenter.loading);
