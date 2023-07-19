@@ -209,7 +209,7 @@ public class Screen0039 extends ScreenCore2D{
         current=grammar.tokenizeLine(in);
         result.put(in,current);
         for(IToken i:current.getTokens()) {
-          System.out.println(i.getScopes());
+          System.out.println(i.getScopes()+" "+in.substring(i.getStartIndex(),i.getEndIndex()));
         }
       }
       tokens=current.getTokens();

@@ -46,7 +46,10 @@
 			}
 		},
 		{
-			"scope": "entity.name.function",
+			"scope": [
+				"entity.name.function",
+				"meta.method.java"
+			],
 			"settings": {
 				"foreground": "#005984"
 			}
