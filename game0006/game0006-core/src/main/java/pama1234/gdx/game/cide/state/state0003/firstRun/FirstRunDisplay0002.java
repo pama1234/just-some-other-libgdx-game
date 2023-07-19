@@ -25,6 +25,7 @@ public class FirstRunDisplay0002 extends FirstRunDisplayBase{
   public BodyDef edgeBodyDef;
   public FixtureDef edgeFixtureDef;
   public BodyEntity<ScreenCide2D> edgeBody;
+  public BodyEntity<ScreenCide2D> centerIDE;
   //---
   public TextButtonCam<ScreenCide2D> exitButton;
   public FirstRunDisplay0002(ScreenCide2D p,FirstRun pf) {
@@ -39,7 +40,7 @@ public class FirstRunDisplay0002 extends FirstRunDisplayBase{
     bodyCenter=new TextBodyEntityCenter(p);
     world=new World(new Vec2(0,FirstRunDisplay0001.G));
     createTextBox(-30,-90,"NEAT");
-    createTextBox(0,-90,"Center-IDE");
+    centerIDE=createTextBox(0,-90,"Center-IDE");
     createTextBox(0,-70,"Processing");
     createTextBox(-60,-60,"Json");
     createTextBox(-30,-60,"Yaml");
@@ -60,7 +61,7 @@ public class FirstRunDisplay0002 extends FirstRunDisplayBase{
     //---
     exitButton=new TextButtonCam<ScreenCide2D>(p,true,()->true,self-> {},self-> {},self-> {
       pf.state=1;
-    },self->self.text="进入开始界面",()->18,()->-60,()->-90);
+    },self->self.text="进入开始界面",()->18,()->-60,()->-80);
   }
   public TextBodyEntity<ScreenCide2D> createTextBox(float x,float y,String text) {
     return createBox(x,y,p.textWidthNoScale(text),p.textSize(),text);
@@ -96,6 +97,8 @@ public class FirstRunDisplay0002 extends FirstRunDisplayBase{
     p.doStroke();
     edgeBody.display();
     p.noStroke();
+    Vec2 pos=centerIDE.body.getPosition();
+    p.text("↓ 我们的IDE",pos.x-30,pos.y-30);
   }
   @Override
   public void from(StateEntity0003 in) {
