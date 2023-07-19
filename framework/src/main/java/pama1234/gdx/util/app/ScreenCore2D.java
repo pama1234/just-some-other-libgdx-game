@@ -56,16 +56,4 @@ public abstract class ScreenCore2D extends UtilScreen2D{
   }
   public void keyboardHidden(TextField textField) {}
   public void touchButtonToRight(TouchInfo info) {}
-  public void centerCamAddAll(EntityListener... in) {
-    for(EntityListener i:in) centerCam.add.add(i);
-  }
-  public void centerCamRemoveAll(EntityListener... in) {
-    for(EntityListener i:in) centerCam.remove.add(i);
-  }
-  public void centerScreenAddAll(EntityListener... in) {
-    for(EntityListener i:in) centerScreen.add.add(i);
-  }
-  public void centerScreenRemoveAll(EntityListener... in) {
-    for(EntityListener i:in) centerScreen.remove.add(i);
-  }
 }

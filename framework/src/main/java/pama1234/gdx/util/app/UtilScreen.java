@@ -171,4 +171,17 @@ public abstract class UtilScreen extends UtilScreenRender{
     strokeWeight(defaultStrokeWeight=u);
   }
   public abstract void withCam();
+  //---------------------------------------------------------------------------
+  public void centerCamAddAll(EntityListener... in) {
+    for(EntityListener i:in) centerCam.add.add(i);
+  }
+  public void centerCamRemoveAll(EntityListener... in) {
+    for(EntityListener i:in) centerCam.remove.add(i);
+  }
+  public void centerScreenAddAll(EntityListener... in) {
+    for(EntityListener i:in) centerScreen.add.add(i);
+  }
+  public void centerScreenRemoveAll(EntityListener... in) {
+    for(EntityListener i:in) centerScreen.remove.add(i);
+  }
 }
