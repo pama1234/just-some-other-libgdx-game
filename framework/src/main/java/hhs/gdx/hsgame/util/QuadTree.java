@@ -4,7 +4,6 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
 
-// 四叉树搜索
 public class QuadTree<T extends Rect>{
   public Node<T> root;
   int capacity=64;

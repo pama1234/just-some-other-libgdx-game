@@ -10,7 +10,7 @@ dependencies {
 
   api "com.github.lyze237:gdx-TinyVG:$gdxTinyVGVersion"
   api "space.earlygrey:shapedrawer:$gdxShapeDrawerVersion"
-
+  api "com.badlogicgames.gdx:gdx-freetype:$gdxVersion"
   api 'org.apache.logging.log4j:log4j-core:2.20.0'
 }
 

@@ -1,0 +1,8 @@
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+eclipse.project.name = appName + '-core'
+
+dependencies {
+  api 'com.squidpony:squidlib-util:3.0.6'
+  api "com.badlogicgames.gdx:gdx:$gdxVersion"
+  api project(':framework')
+}

@@ -49,6 +49,7 @@ configure(subprojects.findAll {
     it.name == 'game0006' ||
     it.name == 'game0007' ||
     it.name == 'game0008' ||
+		it.name == 'game0009' ||
     it.name == 'game0001-android' ||
     it.name == 'game0001-pico4' || it.name == 'game0001-taptap' ||
     it.name == 'game0002-android' || it.name == 'game0002-taptap' ||
@@ -58,7 +59,8 @@ configure(subprojects.findAll {
     it.name == 'game0005-android' ||
     it.name == 'game0006-android' ||
     it.name == 'game0007-android' || it.name == 'game0007-taptap' ||
-    it.name == 'game0008-android' || it.name == 'game0008-taptap'
+    it.name == 'game0008-android' || it.name == 'game0008-taptap' ||
+		it.name == 'game0009-android'
   )
 }) {
 
