@@ -30,8 +30,8 @@ public class FirstRunDisplay0002 extends FirstRunDisplayBase{
     boxBodyDef.type=BodyType.DYNAMIC;
     boxFixtureDef=new FixtureDef();
     boxFixtureDef.density=1;
-    // boxFixtureDef.restitution=0.1f;
-    boxFixtureDef.restitution=0f;
+    // boxFixtureDef.restitution=0.3f;
+    // boxFixtureDef.restitution=0f;
     boxFixtureDef.friction=0.1f;
     //---
     bodyCenter=new TextBodyEntityCenter(p);
@@ -44,6 +44,7 @@ public class FirstRunDisplay0002 extends FirstRunDisplayBase{
     // edgeBodyDef.angularVelocity=1/4f;
     edgeFixtureDef=new FixtureDef();
     edgeFixtureDef.friction=0.1f;
+    // edgeFixtureDef.restitution=0.3f;
     Body tb=world.createBody(edgeBodyDef);
     createEdge(tb,0,0,-512,64,512,64);
     // createEdge(tb,0,0,edgeBoxSize,-edgeBoxSize,edgeBoxSize,edgeBoxSize);
@@ -53,7 +54,7 @@ public class FirstRunDisplay0002 extends FirstRunDisplayBase{
     // bodyCenter.add.add(edgeBody);
   }
   public TextBodyEntity<ScreenCide2D> createTextBox(float x,float y,String text) {
-    return createBox(x,y,p.textWidthNoScale(text),p.textSize(),text);
+    return createBox(x,y,p.textWidthNoScale(text)/2f,p.textSize()/2f,text);
   }
   public TextBodyEntity<ScreenCide2D> createBox(float x,float y,float w,float h,String text) {
     boxBodyDef.position.set(x,y);
@@ -63,6 +64,8 @@ public class FirstRunDisplay0002 extends FirstRunDisplayBase{
     boxFixtureDef.shape=dynamicBox;
     body.createFixture(boxFixtureDef);
     TextBodyEntity<ScreenCide2D> out=new TextBodyEntity<ScreenCide2D>(p,body,text);
+    out.dx=-w;
+    out.dy=-h;
     // bodyCenter.addBox(out);
     bodyCenter.add.add(out);
     return out;

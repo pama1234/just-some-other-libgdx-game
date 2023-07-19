@@ -7,6 +7,7 @@ import pama1234.gdx.util.app.UtilScreen;
 import pama1234.gdx.util.box2d.BodyEntity;
 
 public class TextBodyEntity<T extends UtilScreen>extends BodyEntity<T>{
+  public float dx,dy;
   public String text;
   public TextBodyEntity(T p,Body body,String text) {
     super(p,body);
@@ -19,6 +20,7 @@ public class TextBodyEntity<T extends UtilScreen>extends BodyEntity<T>{
     p.translate(pos.x,pos.y);
     p.rotate(body.getAngle());
     for(FixtureData i:fixtureList) i.display(p);
+    p.translate(dx,dy);
     p.text(text);
     p.popMatrix();
   }
