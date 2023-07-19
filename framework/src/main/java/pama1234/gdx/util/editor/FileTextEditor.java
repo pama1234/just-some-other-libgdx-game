@@ -17,6 +17,7 @@ public class FileTextEditor<T extends ScreenCore2D>extends TextEditor<T>{
     super(p,strokeColor,x,y);
     nameField=new TextField(null,new CodeTextFieldStyle(p),new RectF(()->rect.x(),()->rect.y()-26,()->rect.w(),()->18),()->1);
     addAndroidKeyboardUtil(nameField);
+    // file.lastModified();
   }
   @Override
   public void addTo(Stage stage) {
