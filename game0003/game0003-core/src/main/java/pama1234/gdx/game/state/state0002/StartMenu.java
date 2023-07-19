@@ -29,8 +29,12 @@ public class StartMenu extends StateEntity0002{
     p.noStroke();
     p.doFill();
     p.textColor(p.theme.text);
-    p.textScale(p.pus*3);
-    p.text(title,(p.width-p.textWidth(title))/2f,p.height*0.071f);
+    if(p.width>p.height) {
+      p.textScale(p.pus*3);
+      p.text(title,(p.width-p.textWidth(title))/2f,p.height*0.071f);
+    }else {
+      p.text(title,(p.width-p.textWidth(title))/2f,p.height*0.25f);
+    }
     p.textScale(p.pus);
   }
   @Override

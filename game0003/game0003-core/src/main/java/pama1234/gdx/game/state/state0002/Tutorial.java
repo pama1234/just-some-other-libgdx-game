@@ -6,7 +6,7 @@ import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 
 public class Tutorial extends Game{
-  public float level=0.22f;
+  public float level=0.02f;
   // public float level=1f;
   // public float level=1.5f;
   public int shortbowConst=16;
@@ -23,8 +23,9 @@ public class Tutorial extends Game{
     p.textScale(UtilMath.max((int)(p.pus/2),1));
     p.text("难度："+Tools.getFloatString(level),p.u/2f,p.u/2f+p.bu);
     p.text("状态："+(p.config.firstPlay?"进行中":"已完成"),p.u/2f,p.u/2f+p.bu+p.u*0.6f);
+    p.text("目标：再赢"+UtilMath.ceil((1-level)/0.2f)+"次",p.u/2f,p.u/2f+p.bu+p.u*1.2f);
     if(p.debug) {
-      p.text("粒子池数量："+p.game().core.commonParticleSet.particlePool.index,p.u/2f,p.u/2f+p.bu+p.u*1.2f);
+      p.text("粒子池数量："+p.game().core.commonParticleSet.particlePool.index,p.u/2f,p.u/2f+p.bu+p.u*1.8f);
     }
     p.textScale(p.pus);
     super.display();
@@ -32,7 +33,7 @@ public class Tutorial extends Game{
   @Override
   public void newGame(boolean demo,boolean instruction) {
     if(!demo) {
-      level+=0.02f;
+      level+=0.2f;
       if(level>1) p.config.firstPlay=false;
     }
     core=new ClientGameSystem(p,this,demo,instruction,level);
