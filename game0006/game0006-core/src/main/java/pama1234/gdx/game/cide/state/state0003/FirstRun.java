@@ -4,36 +4,23 @@ import com.badlogic.gdx.files.FileHandle;
 
 import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.cide.State0003Util.StateEntity0003;
+import pama1234.gdx.game.cide.state.state0003.firstRun.FirstRunDisplay0001;
 import pama1234.gdx.game.cide.util.app.ScreenCide2D;
-import pama1234.gdx.game.cide.util.graphics.BoxCenter;
-import pama1234.gdx.game.cide.util.graphics.TextBox;
-import pama1234.math.UtilMath;
 
 public class FirstRun extends StateEntity0003{
-  public static final float G=9.81f;
   public int state;
   public int time;
   public FileHandle firstRunFile;
-  public BoxCenter boxCenter;
+  //---
+  public FirstRunDisplay0001 display01;
   public FirstRun(ScreenCide2D p,int id) {
     super(p,id);
     MusicAsset.load_init();
-    boxCenter=new BoxCenter(p);
-    boxCenter.add.add(boxCenter.java=new TextBox(p,"Java",0,4));
-    boxCenter.add.add(boxCenter.libgdx=new TextBox(p,"Libgdx",0,3));
-    boxCenter.add.add(boxCenter.processingPama1234=new TextBox(p,"Processing-Pama1234",0,2));
-    boxCenter.add.add(boxCenter.cide=new TextBox(p,"Center-IDE",0,1));
-    boxCenter.link();
-  }
-  public float randomRotate() {
-    return p.random(-UtilMath.QUARTER_PI,UtilMath.QUARTER_PI);
+    display01=new FirstRunDisplay0001(p,this);
   }
   @Override
   public void update() {
     time++;
-    if(time==30) boxCenter.active=true;
-    else if(time==60) state=1;
-    for(TextBox i:boxCenter.list) for(TextBox j:boxCenter.list) if(i!=j) i.updateNodeGlobal(j);
     if(state==1) {
       firstRunFile.writeString("1234",false);
       p.state(p.stateCenter.loading);
@@ -44,14 +31,18 @@ public class FirstRun extends StateEntity0003{
   @Override
   public void from(StateEntity0003 in) {
     p.cam2d.scale.des=2;
-    p.centerCam.add.add(boxCenter);
+    // p.centerCam.add.add(boxCenter);
     p.noStroke();
     p.backgroundColor(221,244,196);
     MusicAsset.alsoSprachZarathustra.play();
+    display01.from(in);
+    // p.centerCam.add.add(display01);
   }
   @Override
   public void to(StateEntity0003 in) {
     MusicAsset.alsoSprachZarathustra.stop();
-    p.centerCam.remove.add(boxCenter);
+    display01.to(in);
+    // p.centerCam.remove.add(display01);
+    // p.centerCam.remove.add(boxCenter);
   }
 }
