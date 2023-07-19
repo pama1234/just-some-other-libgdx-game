@@ -37,7 +37,7 @@ public class Screen0031 extends ScreenCide2D{
     //---
     FileHandle firstRunFile=cidePath.child("firstRun.txt");
     boolean firstRun=!firstRunFile.exists();
-    // firstRun=true;
+    firstRun=true;
     if(firstRun) {
       stateCenter.firstRun.firstRunFile=firstRunFile;
       state(stateCenter.firstRun);

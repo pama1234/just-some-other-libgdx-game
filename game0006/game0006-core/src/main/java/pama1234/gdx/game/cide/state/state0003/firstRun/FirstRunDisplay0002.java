@@ -6,8 +6,11 @@ import org.jbox2d.common.Vec2;
 import org.jbox2d.dynamics.Body;
 import org.jbox2d.dynamics.BodyDef;
 import org.jbox2d.dynamics.BodyType;
+import org.jbox2d.dynamics.Fixture;
 import org.jbox2d.dynamics.FixtureDef;
 import org.jbox2d.dynamics.World;
+
+import com.badlogic.gdx.Input.Buttons;
 
 import pama1234.gdx.game.cide.State0003Util.StateEntity0003;
 import pama1234.gdx.game.cide.state.state0003.FirstRun;
@@ -15,9 +18,9 @@ import pama1234.gdx.game.cide.util.app.ScreenCide2D;
 import pama1234.gdx.game.cide.util.graphics.TextBodyEntity;
 import pama1234.gdx.game.ui.util.TextButtonCam;
 import pama1234.gdx.util.box2d.BodyEntity;
+import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.wrapper.EntityCenter;
-import pama1234.gdx.util.info.TouchInfo;
-import com.badlogic.gdx.math.Rectangle;
+import pama1234.math.vec.Vec2f;
 
 public class FirstRunDisplay0002 extends FirstRunDisplayBase{
   public World world;
@@ -28,6 +31,10 @@ public class FirstRunDisplay0002 extends FirstRunDisplayBase{
   public FixtureDef edgeFixtureDef;
   public BodyEntity<ScreenCide2D> edgeBody;
   public BodyEntity<ScreenCide2D> centerIDE;
+  public TextBodyEntity<ScreenCide2D> select;
+  //---
+  public Vec2 cache=new Vec2();
+  public Vec2f rotateCache=new Vec2f();
   //---
   public TextButtonCam<ScreenCide2D> exitButton;
   public FirstRunDisplay0002(ScreenCide2D p,FirstRun pf) {
@@ -78,8 +85,8 @@ public class FirstRunDisplay0002 extends FirstRunDisplayBase{
     boxFixtureDef.shape=dynamicBox;
     body.createFixture(boxFixtureDef);
     TextBodyEntity<ScreenCide2D> out=new TextBodyEntity<ScreenCide2D>(p,body,text);
-    out.rect=new Rectangle(x,y,w*2,h*2);
-    out.rect.setCenter(w,h);
+    // out.rect=new Rectangle(x,y,w*2,h*2);
+    // out.rect.setCenter(w,h);
     out.dx=-w;
     out.dy=-h;
     bodyCenter.add.add(out);
@@ -95,13 +102,55 @@ public class FirstRunDisplay0002 extends FirstRunDisplayBase{
   @Override
   public void update() {
     world.step(1/30f,6,2);
-  }
-  @Override
-  public void touchMoved(TouchInfo info) {
-    Vec2 v=new Vec2(info.x,info.y);
-    for(var i:bodyCenter.list) {
-      if(i.rect.contains(v.x,v.y)) i.body.setTransform(v,i.body.getAngle());
+    if(select!=null&&p.mouse.left) {
+      Vec2 pos=select.body.getPosition();
+      cache.set((p.mouse.x-pos.x)*16,(p.mouse.y-pos.y)*16);
+      select.body.applyForceToCenter(cache);
     }
+  }
+  // @Override
+  // public void touchMoved(TouchInfo info) {
+  //   // Vec2 v=new Vec2(info.x,info.y);
+  //   // for(var i:bodyCenter.list) {
+  //   //   if(i.rect.contains(v.x,v.y)) i.body.setTransform(v,i.body.getAngle());
+  //   // }
+  // }
+  @Override
+  public void mousePressed(MouseInfo info) {
+    if(info.button==Buttons.LEFT) {
+      doSelect(info);
+      // if(select==null) if(newBoxCool==0) {
+      //   createBox(info.x,info.y);
+      //   newBoxCool=newBoxCoolConst*2;
+      // }
+    }
+  }
+  public boolean doSelect(MouseInfo info) {
+    cache.set(info.x,info.y);
+    if(select!=null) {
+      Fixture fixture=select.body.getFixtureList();
+      while(fixture!=null) {
+        if(fixture.testPoint(cache)) return true;
+        fixture=fixture.getNext();
+      }
+      bodyCenter.add.add(select);
+      select=null;
+    }
+    for(var i:bodyCenter.list) {
+      Fixture fixture=i.body.getFixtureList();
+      while(fixture!=null) {
+        if(fixture.testPoint(cache)) {
+          select=i;
+          break;
+        }
+        fixture=fixture.getNext();
+      }
+    }
+    if(select!=null) {
+      bodyCenter.remove.add(select);
+      return true;
+    }
+    return false;
   }
   @Override
   public void display() {
@@ -110,6 +159,7 @@ public class FirstRunDisplay0002 extends FirstRunDisplayBase{
     p.noStroke();
     Vec2 pos=centerIDE.body.getPosition();
     p.text("↓ 我们的IDE",pos.x-30,pos.y-30);
+    if(select!=null) select.display();
   }
   @Override
   public void from(StateEntity0003 in) {
