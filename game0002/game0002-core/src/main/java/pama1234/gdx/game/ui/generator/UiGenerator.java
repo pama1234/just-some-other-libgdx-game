@@ -22,20 +22,20 @@ public class UiGenerator{
     return new Button[] {
       new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.fullSettings=!p.fullSettings;
-      },self->self.text="T",p::getButtonUnitLength,()->p.bu*0.5f,()->p.bu*0.5f),
+      },self->self.text="T",p::getButtonUnitLength,()->p.bu*0.5f,()->p.bu*0.5f,()->p.bu),
       new TextButton<T>(p,true,()->true,self-> {},self-> {},self-> {
         p.inputProcessor.keyDown(Input.Keys.Z);
         p.inputProcessor.keyUp(Input.Keys.Z);
-      },self->self.text="Z",p::getButtonUnitLength,()->p.bu*1.5f,()->p.bu*0.5f),
+      },self->self.text="Z",p::getButtonUnitLength,()->p.bu*1.5f,()->p.bu*0.5f,()->p.bu),
       //--------------------------------------------------------------------
       new TextButton<T>(p,true,()->p.fullSettings,self-> {},self-> {},self-> {
         p.inputProcessor.keyDown(Input.Keys.H);
         p.inputProcessor.keyUp(Input.Keys.H);
-      },self->self.text="H",p::getButtonUnitLength,()->p.bu*2.5f,()->p.bu*0.5f),
+      },self->self.text="H",p::getButtonUnitLength,()->p.bu*2.5f,()->p.bu*0.5f,()->p.bu),
       new TextButton<T>(p,true,()->p.fullSettings,self-> {},self-> {},self-> {
         p.inputProcessor.keyDown(Input.Keys.I);
         p.inputProcessor.keyUp(Input.Keys.I);
-      },self->self.text="I",p::getButtonUnitLength,()->p.bu*3.5f,()->p.bu*0.5f),
+      },self->self.text="I",p::getButtonUnitLength,()->p.bu*3.5f,()->p.bu*0.5f,()->p.bu),
       //--------------------------------------------------------------------
       new TextButton<T>(p,true,()->p.fullSettings,self-> {},self-> {},self-> {
         p.inputProcessor.keyDown(Input.Keys.X);
@@ -73,33 +73,33 @@ public class UiGenerator{
         p.inputProcessor.keyDown(Input.Keys.W);
       },self-> {
         p.inputProcessor.keyUp(Input.Keys.W);
-      },self->self.text="W",p::getButtonUnitLength,()->p.bu*2.5f,()->p.height-p.bu*2.5f),
+      },self->self.text="W",p::getButtonUnitLength,()->p.bu*2.5f,()->p.height-p.bu*2.5f,()->p.bu),
       new TextButton<T>(p,true,()->true,self-> {},self-> {
         p.inputProcessor.keyDown(Input.Keys.S);
       },self-> {
         p.inputProcessor.keyUp(Input.Keys.S);
-      },self->self.text="S",p::getButtonUnitLength,()->p.bu*2.5f,()->p.height-p.bu*1.5f),
+      },self->self.text="S",p::getButtonUnitLength,()->p.bu*2.5f,()->p.height-p.bu*1.5f,()->p.bu),
       new TextButton<T>(p,true,()->true,self-> {},self-> {
         p.inputProcessor.keyDown(Input.Keys.A);
       },self-> {
         p.inputProcessor.keyUp(Input.Keys.A);
-      },self->self.text="A",p::getButtonUnitLength,()->p.bu*1.5f,()->p.height-p.bu*1.5f),
+      },self->self.text="A",p::getButtonUnitLength,()->p.bu*1.5f,()->p.height-p.bu*1.5f,()->p.bu),
       new TextButton<T>(p,true,()->true,self-> {},self-> {
         p.inputProcessor.keyDown(Input.Keys.D);
       },self-> {
         p.inputProcessor.keyUp(Input.Keys.D);
-      },self->self.text="D",p::getButtonUnitLength,()->p.bu*3.5f,()->p.height-p.bu*1.5f),
+      },self->self.text="D",p::getButtonUnitLength,()->p.bu*3.5f,()->p.height-p.bu*1.5f,()->p.bu),
       //--------------------------------------------------------------------
       new TextButton<T>(p,true,()->true,self-> {},self-> {
         p.inputProcessor.keyDown(Input.Keys.SPACE);
       },self-> {
         p.inputProcessor.keyUp(Input.Keys.SPACE);
-      },self->self.text="↑",p::getButtonUnitLength,()->p.bu*0.5f,()->p.height-p.bu*2.5f),
+      },self->self.text="↑",p::getButtonUnitLength,()->p.bu*0.5f,()->p.height-p.bu*2.5f,()->p.bu),
       new TextButton<T>(p,true,()->true,self-> {},self-> {
         p.inputProcessor.keyDown(Input.Keys.SHIFT_LEFT);
       },self-> {
         p.inputProcessor.keyUp(Input.Keys.SHIFT_LEFT);
-      },self->self.text="↓",p::getButtonUnitLength,()->p.bu*0.5f,()->p.height-p.bu*1.5f)
+      },self->self.text="↓",p::getButtonUnitLength,()->p.bu*0.5f,()->p.height-p.bu*1.5f,()->p.bu)
     };
   }
   public static TextButton<?>[] genButtons_0002(MainMenu p) {
