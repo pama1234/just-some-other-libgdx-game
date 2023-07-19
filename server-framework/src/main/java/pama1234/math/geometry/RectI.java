@@ -21,4 +21,10 @@ public interface RectI{
   public default float cy() {
     return y()+h()/2f;
   }
+  public default float xnw() {
+    return x()+w();
+  }
+  public default float ynh() {
+    return y()+h();
+  }
 }

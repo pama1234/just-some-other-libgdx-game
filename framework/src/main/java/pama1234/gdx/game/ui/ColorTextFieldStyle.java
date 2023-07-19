@@ -9,12 +9,21 @@ import pama1234.gdx.util.app.UtilScreen;
 public class ColorTextFieldStyle extends TextFieldStyle{
   public Color cursorColor,selectionColor,backgroundColor;
   public UtilScreen p;
-  {
+  public ColorTextFieldStyle(UtilScreen p,Color cursorColor,Color selectionColor,Color backgroundColor) {
+    this.cursorColor=cursorColor==null?UtilScreen.color(0,191):cursorColor;
+    this.selectionColor=selectionColor==null?UtilScreen.color(255,204,0):selectionColor;
+    this.backgroundColor=backgroundColor==null?UtilScreen.color(221,244,196):backgroundColor;
+    this.p=p;
+    init();
+  }
+  public ColorTextFieldStyle(UtilScreen p) {
     cursorColor=UtilScreen.color(0,191);
     selectionColor=UtilScreen.color(255,204,0);
     backgroundColor=UtilScreen.color(221,244,196);
+    this.p=p;
+    init();
   }
-  public ColorTextFieldStyle(UtilScreen p) {
+  public void init() {
     font=p.font;
     fontColor=UtilScreen.color(0);
     cursor=new DrawableEntity(p,(batch,x,y,w,h)-> {
@@ -32,6 +41,5 @@ public class ColorTextFieldStyle extends TextFieldStyle{
       p.fill(backgroundColor);
       p.rect(x,y,w,h);
     });
-    this.p=p;
   }
 }
