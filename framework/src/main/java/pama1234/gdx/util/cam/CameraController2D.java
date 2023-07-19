@@ -52,8 +52,8 @@ public class CameraController2D extends CameraController{
   @Override
   public void touchStarted(TouchInfo info) {
     if(a==null) {
-      if(info.button==Buttons.RIGHT||p.isAndroid) activeUpdate=true;
-      else return;
+      if(!(info.button==Buttons.RIGHT||p.isAndroid)) return;
+      activeUpdate=true;
       a=info;
       scx=point.pos.x;
       scy=point.pos.y;
@@ -63,7 +63,7 @@ public class CameraController2D extends CameraController{
       bavgsox=avg(asox,bsox=info.ox);
       bavgsoy=avg(asoy,bsoy=info.oy);
       iDist=dist(asox,asoy,bsox,bsoy);
-      iScale=scale.pos;
+      iScale=pixelPerfect==SMOOTH?scale.des:scale.pos;
       b=info;
     }
   }

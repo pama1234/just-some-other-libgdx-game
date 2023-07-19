@@ -33,6 +33,7 @@ public class EditorTest extends StateEntity0003{
   @Override
   public void from(StateEntity0003 in) {
     p.backgroundColor(243);
+    p.cam2d.activeTouchZoom=true;
     if(p.isAndroid) p.androidTouchHoldToRightButton=true;
     for(TextEditor<ScreenCide2D> i:list) {
       p.centerCam.add.add(i);

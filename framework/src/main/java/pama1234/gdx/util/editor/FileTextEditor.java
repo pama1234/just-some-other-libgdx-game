@@ -24,6 +24,7 @@ public class FileTextEditor<T extends ScreenCore2D>extends TextEditor<T>{
     fileName=name;
     fileField=new TextField(file.toString(),new ColorTextFieldStyle(p,null,null,UtilScreen.color(206)),new RectF(()->rect.x(),()->rect.y()-26*2,()->rect.w()-60,()->18),()->1);
     nameField=new TextField(name,new ColorTextFieldStyle(p,null,null,UtilScreen.color(216)),new RectF(()->rect.x(),()->rect.y()-26,()->rect.w()-60,()->18),()->1);
+    nameField.setDisabled(true);
     addAndroidKeyboardUtil(fileField);
     addAndroidKeyboardUtil(nameField);
     if(file.exists()) textArea.setText(file.readString(charset));

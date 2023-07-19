@@ -9,8 +9,8 @@ public class MainMenu extends StateEntity0003{
   }
   @Override
   public void from(StateEntity0003 in) {
-    if(p.laodDebugState) p.state(p.stateCenter.debug.editorTest);
     p.backgroundColor(243);
+    if(p.laodDebugState) p.state(p.stateCenter.debug.editorTest);
   }
   @Override
   public void to(StateEntity0003 in) {}

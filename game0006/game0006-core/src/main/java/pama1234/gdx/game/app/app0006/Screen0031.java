@@ -10,6 +10,7 @@ import pama1234.gdx.game.cide.State0003Util.DebugStateEntitys;
 import pama1234.gdx.game.cide.State0003Util.StateCenter0003;
 import pama1234.gdx.game.cide.util.app.ScreenCide2D;
 import pama1234.gdx.util.cam.CameraController2D;
+import pama1234.math.UtilMath;
 
 public class Screen0031 extends ScreenCide2D{
   public FileHandle cidePath;
@@ -21,7 +22,7 @@ public class Screen0031 extends ScreenCide2D{
   @Override
   public void setup() {
     if(isAndroid) Pama.mobile.orientation(MobileUtil.portrait);
-    camStrokeWeight=()->cam2d.pixelPerfect==CameraController2D.SMOOTH?cam2d.scale.pos:u/16*cam2d.scale.pos;
+    camStrokeWeight=()->cam2d.pixelPerfect==CameraController2D.SMOOTH?UtilMath.max(cam2d.scale.pos,2):u/16*cam2d.scale.pos;
     cam2d.pixelPerfect=CameraController2D.SMOOTH;
     //---
     cidePath=Gdx.files.local("data/cide/");
