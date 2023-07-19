@@ -12,20 +12,27 @@ import pama1234.math.geometry.RectF;
 public class FileTextEditor<T extends ScreenCore2D>extends TextEditor<T>{
   public FileHandle file;
   public String fileName;
+  public TextField fileField;
   public TextField nameField;
-  public FileTextEditor(T p,Color strokeColor,float x,float y) {
+  public FileTextEditor(T p,Color strokeColor,float x,float y,String name,FileHandle file) {
     super(p,strokeColor,x,y);
-    nameField=new TextField(null,new CodeTextFieldStyle(p),new RectF(()->rect.x(),()->rect.y()-26,()->rect.w(),()->18),()->1);
+    this.file=file;
+    fileName=name;
+    fileField=new TextField(file.toString(),new CodeTextFieldStyle(p),new RectF(()->rect.x(),()->rect.y()-26*2,()->rect.w(),()->18),()->1);
+    nameField=new TextField(name,new CodeTextFieldStyle(p),new RectF(()->rect.x(),()->rect.y()-26,()->rect.w(),()->18),()->1);
+    addAndroidKeyboardUtil(fileField);
     addAndroidKeyboardUtil(nameField);
     // file.lastModified();
   }
   @Override
   public void addTo(Stage stage) {
+    stage.addActor(fileField);
     stage.addActor(nameField);
     super.addTo(stage);
   }
   @Override
   public void removeFrom(Stage stage) {
+    stage.getRoot().removeActor(fileField);
     stage.getRoot().removeActor(nameField);
     super.removeFrom(stage);
   }
