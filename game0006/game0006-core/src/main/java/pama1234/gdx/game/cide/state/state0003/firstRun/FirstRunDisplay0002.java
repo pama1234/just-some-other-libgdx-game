@@ -46,15 +46,18 @@ public class FirstRunDisplay0002 extends FirstRunDisplayBase{
     createTextBox(30,-60,"OpenXR");
     createTextBox(0,-50,"LibGDX");
     createTextBox(-30,-30,"Dalvik");
+    createTextBox(30,-30,"Gradle");
+    createTextBox(60,-30,"Maven");
     createTextBox(0,-30,"Java");
     //---
     edgeBodyDef=new BodyDef();
     edgeBodyDef.type=BodyType.KINEMATIC;
     edgeFixtureDef=new FixtureDef();
-    edgeFixtureDef.friction=0.1f;
+    edgeFixtureDef.friction=0.6f;
     Body tb=world.createBody(edgeBodyDef);
     createEdge(tb,0,0,-512,64,512,64);
     edgeBody=new BodyEntity<ScreenCide2D>(p,tb);
+    //---
     exitButton=new TextButtonCam<ScreenCide2D>(p,true,()->true,self-> {},self-> {},self-> {
       pf.state=1;
     },self->self.text="进入开始界面",()->18,()->-60,()->-90);
