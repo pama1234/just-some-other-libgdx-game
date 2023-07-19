@@ -13,6 +13,7 @@ import pama1234.gdx.game.cide.State0003Util.StateEntity0003;
 import pama1234.gdx.game.cide.state.state0003.FirstRun;
 import pama1234.gdx.game.cide.util.app.ScreenCide2D;
 import pama1234.gdx.game.cide.util.graphics.TextBodyEntity;
+import pama1234.gdx.game.ui.util.TextButtonCam;
 import pama1234.gdx.util.box2d.BodyEntity;
 import pama1234.gdx.util.wrapper.EntityCenter;
 
@@ -24,6 +25,8 @@ public class FirstRunDisplay0002 extends FirstRunDisplayBase{
   public BodyDef edgeBodyDef;
   public FixtureDef edgeFixtureDef;
   public BodyEntity<ScreenCide2D> edgeBody;
+  //---
+  public TextButtonCam<ScreenCide2D> exitButton;
   public FirstRunDisplay0002(ScreenCide2D p,FirstRun pf) {
     super(p,pf);
     boxBodyDef=new BodyDef();
@@ -38,6 +41,7 @@ public class FirstRunDisplay0002 extends FirstRunDisplayBase{
     createTextBox(-30,-90,"NEAT");
     createTextBox(0,-90,"Center-IDE");
     createTextBox(0,-70,"Processing");
+    createTextBox(-60,-60,"Json");
     createTextBox(-30,-60,"Yaml");
     createTextBox(30,-60,"OpenXR");
     createTextBox(0,-50,"LibGDX");
@@ -51,6 +55,9 @@ public class FirstRunDisplay0002 extends FirstRunDisplayBase{
     Body tb=world.createBody(edgeBodyDef);
     createEdge(tb,0,0,-512,64,512,64);
     edgeBody=new BodyEntity<ScreenCide2D>(p,tb);
+    exitButton=new TextButtonCam<ScreenCide2D>(p,true,()->true,self-> {},self-> {},self-> {
+      pf.state=1;
+    },self->self.text="进入开始界面",()->18,()->-60,()->-90);
   }
   public TextBodyEntity<ScreenCide2D> createTextBox(float x,float y,String text) {
     return createBox(x,y,p.textWidthNoScale(text),p.textSize(),text);
@@ -91,11 +98,13 @@ public class FirstRunDisplay0002 extends FirstRunDisplayBase{
   public void from(StateEntity0003 in) {
     super.from(in);
     p.centerCam.add.add(bodyCenter);
+    p.centerCamAddAll(exitButton);
   }
   @Override
   public void to(StateEntity0003 in) {
     super.to(in);
     p.centerCam.remove.add(bodyCenter);
+    p.centerCamRemoveAll(exitButton);
     p.fill(255);
   }
   public static class TextBodyEntityCenter extends EntityCenter<ScreenCide2D,TextBodyEntity<ScreenCide2D>>{
@@ -105,6 +114,7 @@ public class FirstRunDisplay0002 extends FirstRunDisplayBase{
     @Override
     public void display() {
       p.fill(255,127);
+      p.textColor(0);
       super.display();
     }
   }
