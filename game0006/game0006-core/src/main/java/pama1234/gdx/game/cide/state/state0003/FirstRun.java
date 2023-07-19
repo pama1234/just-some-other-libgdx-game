@@ -33,18 +33,14 @@ public class FirstRun extends StateEntity0003{
   @Override
   public void from(StateEntity0003 in) {
     p.cam2d.scale.des=2;
-    // p.centerCam.add.add(boxCenter);
     p.noStroke();
     p.backgroundColor(221,244,196);
     MusicAsset.alsoSprachZarathustra.play();
     display.from(in);
-    // p.centerCam.add.add(display01);
   }
   @Override
   public void to(StateEntity0003 in) {
     MusicAsset.alsoSprachZarathustra.stop();
     display.to(in);
-    // p.centerCam.remove.add(display01);
-    // p.centerCam.remove.add(boxCenter);
   }
 }

@@ -28,7 +28,6 @@ public class FirstRunDisplay0001 extends FirstRunDisplayBase{
   }
   @Override
   public void update() {
-    // pf.time++;
     if(pf.time==30) boxCenter.active=true;
     // else if(time==60) state=1;
     for(TextBox i:boxCenter.list) for(TextBox j:boxCenter.list) if(i!=j) i.updateNodeGlobal(j);
@@ -36,16 +35,11 @@ public class FirstRunDisplay0001 extends FirstRunDisplayBase{
   @Override
   public void from(StateEntity0003 in) {
     p.centerCam.add.add(this);
-    // p.cam2d.scale.des=2;
     p.centerCam.add.add(boxCenter);
-    // p.noStroke();
-    // p.backgroundColor(221,244,196);
-    // MusicAsset.alsoSprachZarathustra.play();
   }
   @Override
   public void to(StateEntity0003 in) {
     p.centerCam.remove.add(this);
-    // MusicAsset.alsoSprachZarathustra.stop();
     p.centerCam.remove.add(boxCenter);
   }
 }
