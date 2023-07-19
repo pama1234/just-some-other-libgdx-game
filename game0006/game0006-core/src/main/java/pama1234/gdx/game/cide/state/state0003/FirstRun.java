@@ -4,7 +4,8 @@ import com.badlogic.gdx.files.FileHandle;
 
 import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.cide.State0003Util.StateEntity0003;
-import pama1234.gdx.game.cide.state.state0003.firstRun.FirstRunDisplay0001;
+import pama1234.gdx.game.cide.state.state0003.firstRun.FirstRunDisplay0002;
+import pama1234.gdx.game.cide.state.state0003.firstRun.FirstRunDisplayBase;
 import pama1234.gdx.game.cide.util.app.ScreenCide2D;
 
 public class FirstRun extends StateEntity0003{
@@ -12,11 +13,12 @@ public class FirstRun extends StateEntity0003{
   public int time;
   public FileHandle firstRunFile;
   //---
-  public FirstRunDisplay0001 display01;
+  public FirstRunDisplayBase display;
   public FirstRun(ScreenCide2D p,int id) {
     super(p,id);
     MusicAsset.load_init();
-    display01=new FirstRunDisplay0001(p,this);
+    // display=new FirstRunDisplay0001(p,this);
+    display=new FirstRunDisplay0002(p,this);
   }
   @Override
   public void update() {
@@ -35,13 +37,13 @@ public class FirstRun extends StateEntity0003{
     p.noStroke();
     p.backgroundColor(221,244,196);
     MusicAsset.alsoSprachZarathustra.play();
-    display01.from(in);
+    display.from(in);
     // p.centerCam.add.add(display01);
   }
   @Override
   public void to(StateEntity0003 in) {
     MusicAsset.alsoSprachZarathustra.stop();
-    display01.to(in);
+    display.to(in);
     // p.centerCam.remove.add(display01);
     // p.centerCam.remove.add(boxCenter);
   }
