@@ -2,6 +2,13 @@
 
 [![Sonatype Nexus (Releases)](https://img.shields.io/badge/Jit_version-bf0a359313-blue)](https://jitpack.io/#pama1234/just-some-other-libgdx-game/bf0a359313)
 
+## 如何上手
+
+1. 阅读[游戏合集](#游戏合集)
+2. 打开对应项目（例如game0001）的`pama1234.gdx.launcher.MainApp`
+3. 创建新的`Screen0xxx`
+4. 将你的`Screen0xxx`继承`ScreenCore2D`或`ScreenCore3D`
+
 ## 配置`settings.gradle`
 
 众所周知，gradle很慢，这个托管内有至少30个子项目，这会产生4000多个甚至更多的tasks，因此，我们开发时会将一部分用不上的项目在`settings.gradle`文件内注释掉，如果需要使用，取消注释即可

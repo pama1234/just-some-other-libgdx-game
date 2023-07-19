@@ -7,13 +7,13 @@ import pama1234.gdx.game.dimensional.tower.defense.util.math.physics.HighMassPoi
 import pama1234.gdx.game.dimensional.tower.defense.util.math.vec.Vec12f;
 import pama1234.gdx.game.dimensional.tower.defense.util.player.HighPlayer;
 import pama1234.gdx.util.FileUtil;
-import pama1234.gdx.util.app.UtilScreen3D;
+import pama1234.gdx.util.app.ScreenCore3D;
 import pama1234.gdx.util.element.Graphics;
 import pama1234.math.UtilMath;
 import pama1234.math.geometry.RectD;
 import pama1234.math.transform.Pose3D;
 
-public class DemonDefense extends UtilScreen3D{
+public class DemonDefense extends ScreenCore3D{
   public TextureRegion playerImage;
   public HighPlayer yourself;
   public Pose3D textPose;
@@ -22,6 +22,7 @@ public class DemonDefense extends UtilScreen3D{
   public void setup() {
     backgroundColor(0);
     cam3d.point.des.set(0,0,-20);
+    if(isAndroid) addAndroidCam3DButtons();
     Graphics g=new Graphics(this,16,16);
     noStroke();
     g.beginShape();
