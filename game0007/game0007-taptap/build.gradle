@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
   namespace 'pama1234'
-  compileSdk 30
+  compileSdk 31
   signingConfigs {
     release {
       // storeFile file('sign.jks')

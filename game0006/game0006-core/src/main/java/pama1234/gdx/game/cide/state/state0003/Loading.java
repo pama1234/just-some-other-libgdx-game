@@ -9,6 +9,6 @@ public class Loading extends StateEntity0003{
   }
   @Override
   public void update() {
-    p.state(p.stateCenter.mainMenu);
+    p.state(p.stateCenter.firstRun);
   }
 }
