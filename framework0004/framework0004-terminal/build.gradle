@@ -9,7 +9,6 @@ sourceSets.main.resources.srcDirs += ['/assets']
 
 dependencies {
   api project(':framework')
-
 }
 
 // configurations {
