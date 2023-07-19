@@ -95,4 +95,4 @@ dependencies {
   }
 }
 
-eclipse.project.name = appName + '-android-dex'
+eclipse.project.name = appName + '-android-terminal'

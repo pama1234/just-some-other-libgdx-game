@@ -5,11 +5,15 @@ include 'framework0001:framework0001-neat'
 include 'framework0001:framework0001-localization'
 include 'framework0001:framework0001-protobuf'
 include 'framework0001:framework0001-box2d'
+
 include 'framework0002:framework0002-lwjgl3'
 include 'framework0002:framework0002-android'
+
 include 'framework0003:framework0003-androidDex'
 include 'framework0003:framework0003-textmate'
-include 'framework0003:framework0003-terminal'
+
+include 'framework0004:framework0004-terminal'
+include 'framework0004:framework0004-terminal-android'
 
 include 'game0001:game0001-android', 'game0001:game0001-lwjgl3', 'game0001:game0001-core', 'game0001:game0001-server', 'game0001:game0001-headless', 'game0001:game0001-pico4', 'game0001:game0001-taptap'
 include 'game0002:game0002-android', 'game0002:game0002-lwjgl3', 'game0002:game0002-core', 'game0002:game0002-server', 'game0002:game0002-taptap'
