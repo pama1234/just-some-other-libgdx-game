@@ -14,6 +14,7 @@ public class ServerConfigData{
   public boolean firstPlay;
   public ServerThemeData theme;
   public ServerAttr server;
+  public boolean debug;
   public void init() {
     mode=game;
     gameMode=GameMode.OffLine;

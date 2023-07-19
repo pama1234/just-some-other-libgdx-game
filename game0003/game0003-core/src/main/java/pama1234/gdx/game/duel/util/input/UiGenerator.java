@@ -47,7 +47,12 @@ public class UiGenerator{
     return p.config.server==null?"无可加载的联机配置，重启游戏试试":Duel.localization.yaml.dumpAsMap(p.config.server);
   }
   public static TextEditor<?>[] genUi_0002(Duel p) {
-    TextEditor<?>[] out=new TextEditor[] {new TextEditor<Duel>(p,p.theme.stroke,-160,-160,320,640) {
+    TextEditor<?>[] out=new TextEditor[] {new TextEditor<Duel>(p,p.theme.stroke,-160,-160,320,480) {
+      @Override
+      public void display() {
+        super.display();
+        p.fullText("皮肤设置",rect.x(),rect.y()-20);
+      }
       @Override
       public void keyboardHidden(TextField in) {
         if(in==textArea) try {
@@ -57,24 +62,24 @@ public class UiGenerator{
           textArea.setText(getSkinText(p));
         }
       }
-    },new TextEditor<Duel>(p,p.theme.stroke,180,-160) {
+    },new TextEditor<Duel>(p,p.theme.stroke,180,-160,320,60) {
       @Override
       public void keyboardHidden(TextField in) {
         if(in==textArea) p.config.server=Duel.localization.yaml.loadAs(in.getText(),ServerAttr.class);
       }
     }};
     out[0].textArea.setText(getSkinText(p));
-    out[0].textArea.setMessageText("皮肤配置文件");
+    out[0].textArea.setMessageText("皮肤设置");
     out[1].textArea.setText(getServerAttrText(p));
     out[1].textArea.setMessageText("联机设置");
-    return out;
+    return p.debug?out:new TextEditor[] {out[0]};
   }
   public static TextButtonCam<?>[] genButtons_0003(Duel p) {
     return new TextButtonCam[] {
       new TextButtonCam<Duel>(p,true,()->true,self-> {},self-> {},self-> {
         MainApp.instance.restartScreen();
       },self->self.text="重启游戏",()->18,()->-40,()->-250),
-      new TextButtonCam<Duel>(p,true,()->true,self-> {},self-> {},self-> {
+      new TextButtonCam<Duel>(p,true,()->p.debug,self-> {},self-> {},self-> {
         p.config.gameMode=p.config.gameMode.next();
         self.updateText();
       },self->self.text="模式："+p.config.gameMode.toString(),()->18,()->-40,()->-230),

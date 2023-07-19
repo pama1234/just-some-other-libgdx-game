@@ -76,7 +76,7 @@ public class Duel extends ScreenCoreState2D<StateCenter0002,StateEntity0002>{
   public boolean debug;
   {
     // isAndroid=true;
-    debug=true;
+    // debug=true;
   }
   @Override
   public void init() {
@@ -115,6 +115,7 @@ public class Duel extends ScreenCoreState2D<StateCenter0002,StateEntity0002>{
         config.gameMode=GameMode.OffLine;
       }
     }
+    debug=config.debug;
   }
   public Config loadConfig() {
     Config out;
