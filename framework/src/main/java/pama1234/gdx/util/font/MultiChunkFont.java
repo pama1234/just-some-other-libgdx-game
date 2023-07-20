@@ -135,7 +135,7 @@ public class MultiChunkFont extends BitmapFont{
     return size;
   }
   public void size(int in) {//TODO
-    size(in);
+    size((float)in);
   }
   public void size(float in) {
     if(size==in) return;

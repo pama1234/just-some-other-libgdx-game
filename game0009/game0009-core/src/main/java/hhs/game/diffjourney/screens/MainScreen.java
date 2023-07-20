@@ -36,6 +36,8 @@ public class MainScreen extends BasicScreen{
     Resourse.font=new FontManager(Resourse.asset.get("font.ttf"));
     // SkinBuilder sb=new SkinBuilder(font=Resourse.font.newFont(64,Color.WHITE));
     font=UtilScreenCore.genMultiChunkFont(false);
+    font.size(64);
+    font.textScale(4);
     SkinBuilder sb=new SkinBuilder(font);
     TextButton.TextButtonStyle bs=sb.textButton(
       TextureTool.ttd(PixmapBuilder.getRectangle(200,100,ColorTool.碧山)),

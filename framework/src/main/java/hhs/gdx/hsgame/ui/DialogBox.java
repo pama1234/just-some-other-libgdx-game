@@ -81,11 +81,18 @@ public class DialogBox extends Actor{
     }
   }
   @Override
-  public void draw(Batch arg0,float arg1) {
-    arg0.draw(background,getX(),getY(),getWidth(),getHeight());
+  public void draw(Batch batch,float arg1) {
+    batch.draw(background,getX(),getY(),getWidth(),getHeight());
     // LazyBitmapFont font;
+    // font.drawF(
+    //   arg0,
+    //   appear.toString(),
+    //   (int)getX(),
+    //   (int)getHeight()-font.size/2,
+    //   (int)getWidth(),
+    //   (int)font.size/2,true);
     font.drawF(
-      arg0,
+      batch,
       appear.toString(),
       (int)getX(),
       (int)getHeight()-font.size/2,
