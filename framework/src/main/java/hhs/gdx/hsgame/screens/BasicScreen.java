@@ -55,7 +55,7 @@ public class BasicScreen extends ScreenAdapter{
     Resourse.cacheRender.setView(camera);
     entities=new ArrayList<>(500);
     threads=new ThreadCenter();
-    updateThread=new LoopThread() {
+    updateThread=new LoopThread("BasicScreen-LoopThread") {
       @Override
       public void loop() {
         // System.out.println("BasicScreen.BasicScreen().new LoopThread() {...}.loop() "+frameRate+" "+frameCount);
@@ -71,17 +71,17 @@ public class BasicScreen extends ScreenAdapter{
     updateThread.frameRate(60);
   }
   @Override
-  public void render(float arg0) {
+  public void render(float delta) {
     ScreenUtils.clear(clearColor);
     camera.update();
-    Resourse.cacheRender.draw(arg0);
+    Resourse.cacheRender.draw(delta);
     batch.setProjectionMatrix(camera.combined);
     batch.begin();
     for(Entity e:entities) {
       if(!e.hide&&e.update) {
-        e.UpdateAndRender(batch,arg0);
+        e.UpdateAndRender(batch,delta);
       }else {
-        if(e.update) e.update(arg0);
+        if(e.update) e.update(delta);
         if(!e.hide) e.render(batch);
       }
     }
@@ -94,7 +94,7 @@ public class BasicScreen extends ScreenAdapter{
       }
       shape.end();
     }
-    stage.act(arg0);
+    stage.act(delta);
     stage.draw();
   }
   @Override
@@ -124,6 +124,7 @@ public class BasicScreen extends ScreenAdapter{
     e.screen=this;
     entities.add(e);
   }
+  //------------------------------------------------------------------
   public ArrayList<Entity> getEntities() {
     return this.entities;
   }

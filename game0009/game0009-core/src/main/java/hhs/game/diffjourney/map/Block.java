@@ -7,24 +7,26 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
+
 import hhs.gdx.hsgame.entitys.RectEntity;
 import hhs.gdx.hsgame.tools.EntityTool;
 import hhs.gdx.hsgame.tools.PixmapBuilder;
 
 public class Block extends RectEntity implements Pool.Poolable{
+  public static int tileWidth=50,tileHeight=50;
   public static Pool<Block> pool=Pools.get(Block.class);
-  public static Texture shadow=PixmapBuilder.getRectangle(50,50,new Color(1,1,1,1f));
+  public static Texture shadow=PixmapBuilder.getRectangle(tileWidth,tileHeight,new Color(1,1,1,1f));
   public TextureRegion t;
   OrthographicCamera cam;
   int nx,ny;
   public Block() {
-    size.set(50,50);
-    rect.setSize(50,50);
+    size.set(tileWidth,tileHeight);
+    rect.setSize(tileWidth,tileHeight);
   }
   public Block(OrthographicCamera cam) {
     this.cam=cam;
-    size.set(50,50);
-    rect.setSize(50,50);
+    size.set(tileWidth,tileHeight);
+    rect.setSize(tileWidth,tileHeight);
   }
   @Override
   public void dispose() {}
@@ -42,7 +44,9 @@ public class Block extends RectEntity implements Pool.Poolable{
         if(m==0) m=.5f;
         batch.setColor(m,m,m,1f);
       }
-      batch.draw(t,pos.x,pos.y,50,50);
+      // TODO 更好的避免贴砖缝隙问题出现
+      batch.draw(t,pos.x,pos.y,tileWidth+1f,tileHeight+1f);
+      // new Exception().printStackTrace();
     }
   }
   public TextureRegion getT() {

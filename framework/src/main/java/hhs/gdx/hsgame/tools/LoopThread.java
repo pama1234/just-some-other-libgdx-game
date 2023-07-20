@@ -13,6 +13,9 @@ public abstract class LoopThread extends Thread{
   public long frameRatePeriod;
   public long frameRateLastNanos;
   public int frameCount;
+  public LoopThread(String name) {
+    super(name);
+  }
   public abstract void loop();
   @Override
   public void run() {

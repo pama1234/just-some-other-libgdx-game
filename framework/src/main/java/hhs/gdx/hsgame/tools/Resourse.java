@@ -11,6 +11,9 @@ import hhs.gdx.hsgame.screens.BasicScreen;
 import hhs.gdx.hsgame.util.CacheRenderer;
 import java.util.HashMap;
 
+/**
+ * 创建BasicScreen和子类时从此处获取共用绘制工具
+ */
 public class Resourse implements Disposable{
   public static int width=Gdx.graphics.getWidth();
   public static int height=Gdx.graphics.getHeight();
