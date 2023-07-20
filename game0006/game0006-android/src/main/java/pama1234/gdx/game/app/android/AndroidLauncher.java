@@ -22,7 +22,7 @@ public class AndroidLauncher extends AndroidApplication{
       Pama.mobile=new AndroidMobileUtil(this);
     }
     AndroidApplicationConfiguration configuration=new AndroidApplicationConfiguration();
-    configuration.useImmersiveMode=false;
+    configuration.useImmersiveMode=true;
     initialize(new MainApp(),configuration);
   }
 }

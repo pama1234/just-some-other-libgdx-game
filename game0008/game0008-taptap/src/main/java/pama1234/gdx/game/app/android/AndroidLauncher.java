@@ -20,7 +20,7 @@ public class AndroidLauncher extends AndroidApplication{
     AndroidApplicationConfiguration config=new AndroidApplicationConfiguration();
     config.useAccelerometer=false;
     config.useCompass=false;
-    config.useImmersiveMode=false;
+    config.useImmersiveMode=true;
     MainApp.type=MainApp.taptap;
     Welcome.title="粒子生命";
     initialize(new MainApp(),config);

@@ -31,7 +31,7 @@ public class AndroidLauncher extends AndroidApplication {
     // }
     /* You can adjust this configuration to fit your needs */
     AndroidApplicationConfiguration configuration = new AndroidApplicationConfiguration();
-    configuration.useImmersiveMode = true;
+    configuration.useImmersiveMode=true;
     initialize(new MainGame(), configuration);
   }
 }

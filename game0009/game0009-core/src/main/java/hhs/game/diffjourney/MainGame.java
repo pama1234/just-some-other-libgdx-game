@@ -8,7 +8,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGeneratorLoader;
-import hhs.game.diffjourney.screens.MainScreen;
+
+import hhs.game.diffjourney.screens.StartMenu;
 import hhs.gdx.hsgame.tools.BasicLoader;
 import hhs.gdx.hsgame.tools.Resourse;
 
@@ -20,7 +21,7 @@ public class MainGame extends Game{
     res=new Resourse(this);
     asset=Resourse.asset;
     load();
-    setScreen(new BasicLoader(asset,MainScreen.class));
+    setScreen(new BasicLoader(asset,StartMenu.class));
   }
   void load() {
     asset.setLoader(
@@ -41,6 +42,5 @@ public class MainGame extends Game{
   public void dispose() {
     super.dispose();
     res.dispose();
-    // TODO: Implement this method
   }
 }

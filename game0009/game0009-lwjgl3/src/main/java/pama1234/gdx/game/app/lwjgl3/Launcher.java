@@ -19,7 +19,7 @@ public class Launcher{
   }
   public static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
     Lwjgl3ApplicationConfiguration configuration=new Lwjgl3ApplicationConfiguration();
-    configuration.setTitle("小游戏");
+    configuration.setTitle("异星征途");
     configuration.useVsync(true);
     configuration.setForegroundFPS(60);
     // configuration.setForegroundFPS(Lwjgl3ApplicationConfiguration.getDisplayMode().refreshRate);

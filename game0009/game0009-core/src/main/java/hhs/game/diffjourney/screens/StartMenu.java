@@ -22,17 +22,15 @@ import hhs.gdx.hsgame.tools.TextureTool;
 import hhs.gdx.hsgame.ui.DialogBox;
 import pama1234.gdx.util.app.UtilScreenCore;
 import pama1234.gdx.util.font.MultiChunkFont;
-/**
- * StartMenu
- */
-public class MainScreen extends BasicScreen{
+
+public class StartMenu extends BasicScreen{
   Table table;
   TextButton b1,b2;
   DialogBox dbox;
   Music m;
   MultiChunkFont font;
   public TitleLable titleLable;
-  public MainScreen() {
+  public StartMenu() {
     Resourse.font=new FontManager(Resourse.asset.get("font.ttf"));
     font=UtilScreenCore.genMultiChunkFont(false);
     font.size(64);
@@ -71,10 +69,12 @@ public class MainScreen extends BasicScreen{
     }
     m=Resourse.asset.get("music/start.mp3");
     setClearColor(ColorTool.萱草黄);
+    d.addTrace(()->"viewport: "+stage.getViewport().getScreenWidth()+" "+stage.getViewport().getScreenWidth());
+    // resize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
   }
   @Override
-  public void render(float arg0) {
-    super.render(arg0);
+  public void render(float delta) {
+    super.render(delta);
   }
   @Override
   public void show() {
