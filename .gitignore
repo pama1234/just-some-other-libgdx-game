@@ -231,3 +231,5 @@ Thumbs.db
 game0006/assets/music/midi/
 
 .androidide
+
+framework0004/framework0004-terminal-android/src/main/cpp/*.zip
