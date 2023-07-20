@@ -23,7 +23,7 @@ android {
     }
   }
   packagingOptions {
-//    resources.pickFirsts += "**/*.java"
+    //    resources.pickFirsts += "**/*.java"
     resources.pickFirsts += "**/*.proto"
     // exclude 'assets/image/src/*'
     //无法理解的屎山+1
@@ -53,8 +53,8 @@ android {
   }
   defaultConfig {
     applicationId 'pama1234.gdx.game.app.duel'
-    minSdkVersion 26
-    targetSdkVersion 33
+    minSdkVersion project.properties.minSdkVersion.toInteger()
+    targetSdkVersion project.properties.targetSdkVersion.toInteger()
     versionCode 1
     versionName "1.0"
     multiDexEnabled true
@@ -65,36 +65,35 @@ android {
     targetCompatibility "17"
     coreLibraryDesugaringEnabled true
   }
-  
+
   buildTypes {
     release {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-      
+
       signingConfig signingConfigs.release
     }
   }
-
 }
 
 def Properties props = new Properties()
-  def propFile = file('./signing.properties')
-  if (propFile.canRead()){
-    props.load(new FileInputStream(propFile))
+def propFile = file('./signing.properties')
+if (propFile.canRead()){
+  props.load(new FileInputStream(propFile))
 
-    if (props!=null && props.containsKey('STORE_FILE') && props.containsKey('STORE_PASSWORD') &&
-        props.containsKey('KEY_ALIAS') && props.containsKey('KEY_PASSWORD')) {
+  if (props!=null && props.containsKey('STORE_FILE') && props.containsKey('STORE_PASSWORD') &&
+      props.containsKey('KEY_ALIAS') && props.containsKey('KEY_PASSWORD')) {
 
-      android.signingConfigs.release.storeFile = file(props['STORE_FILE'])
-      android.signingConfigs.release.storePassword = props['STORE_PASSWORD']
-      android.signingConfigs.release.keyAlias = props['KEY_ALIAS']
-      android.signingConfigs.release.keyPassword = props['KEY_PASSWORD']
-    } else {
-      android.buildTypes.release.signingConfig = null
-    }
-  }else {
+    android.signingConfigs.release.storeFile = file(props['STORE_FILE'])
+    android.signingConfigs.release.storePassword = props['STORE_PASSWORD']
+    android.signingConfigs.release.keyAlias = props['KEY_ALIAS']
+    android.signingConfigs.release.keyPassword = props['KEY_PASSWORD']
+  } else {
     android.buildTypes.release.signingConfig = null
   }
+}else {
+  android.buildTypes.release.signingConfig = null
+}
 
 repositories {
   // needed for AAPT2, may be needed for other tools

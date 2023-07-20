@@ -85,21 +85,21 @@ configure(subprojects.findAll {
     }
   }
   
-  apply plugin: "com.diffplug.spotless"
+  // apply plugin: "com.diffplug.spotless"
 
-  spotless {
-    lineEndings 'UNIX'
+  // spotless {
+  //   lineEndings 'UNIX'
 
-    java {
-      target '**/*.java'
-      removeUnusedImports()
-      eclipse().configFile new File(rootProject.projectDir.absolutePath, 'doc/eclipse.formatter.xml')
-    }
-    groovyGradle {
-      target '*.gradle'
-      greclipse().configFile new File(rootProject.projectDir.absolutePath, 'doc/eclipse.formatter.xml')
-    }
-  }
+  //   java {
+  //     target '**/*.java'
+  //     removeUnusedImports()
+  //     eclipse().configFile new File(rootProject.projectDir.absolutePath, 'doc/eclipse.formatter.xml')
+  //   }
+  //   groovyGradle {
+  //     target '*.gradle'
+  //     greclipse().configFile new File(rootProject.projectDir.absolutePath, 'doc/eclipse.formatter.xml')
+  //   }
+  // }
 }
 
 subprojects {
@@ -124,6 +124,22 @@ subprojects {
       }
     }
     // maven { url 'maven6(http://dist.wso2.org/maven2/)' }
+  }
+  
+  apply plugin: "com.diffplug.spotless"
+
+  spotless {
+    lineEndings 'UNIX'
+
+    java {
+      target '**/*.java'
+      removeUnusedImports()
+      eclipse().configFile new File(rootProject.projectDir.absolutePath, 'doc/eclipse.formatter.xml')
+    }
+    groovyGradle {
+      target '*.gradle'
+      greclipse().configFile new File(rootProject.projectDir.absolutePath, 'doc/eclipse.formatter.xml')
+    }
   }
 }
 

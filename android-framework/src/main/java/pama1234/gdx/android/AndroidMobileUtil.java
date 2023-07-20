@@ -5,8 +5,7 @@ import com.badlogic.gdx.backends.android.AndroidApplication;
 
 import pama1234.gdx.MobileUtil;
 
-
-public class AndroidMobileUtil implements MobileUtil {
+public class AndroidMobileUtil implements MobileUtil{
   public AndroidApplication p;
   public AndroidMobileUtil(AndroidApplication p) {
     this.p=p;
@@ -17,7 +16,5 @@ public class AndroidMobileUtil implements MobileUtil {
     else if(type==MobileUtil.landscape) p.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
   }
   @Override
-  public void frameRate(int fps) {
-
-  }
+  public void frameRate(int fps) {}
 }

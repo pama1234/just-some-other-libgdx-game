@@ -24,8 +24,8 @@ android {
     }
   }
   defaultConfig {
-    minSdkVersion 26
-    targetSdkVersion 32
+    minSdkVersion project.properties.minSdkVersion.toInteger()
+    targetSdkVersion project.properties.targetSdkVersion.toInteger()
     versionCode 1
     versionName "1.0"
     multiDexEnabled true
@@ -36,12 +36,12 @@ android {
     targetCompatibility "17"
     coreLibraryDesugaringEnabled true
   }
-  
+
   buildTypes {
     release {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-      
+
       signingConfig signingConfigs.release
     }
   }
