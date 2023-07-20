@@ -44,10 +44,13 @@ public class Region extends EntityCenter<Block> implements Collision{
   public void setFov(double[][] map) {
     fovmap=map;
   }
-  /*   # 是墙壁
-   *   ~和, 是水
-   *   " 是草
-   */  
+  /**
+   * # 是墙壁
+   * </p>
+   * ~ 和, 是水
+   * </p>
+   * " 是草
+   */
   void addBlock(char[][] map) {
     isAdd=true;
     int i,j;
