@@ -162,6 +162,8 @@ dependencies {
   implementation project(':android-framework')
 
 	implementation project(':game0006:game0006-core')
+
+  implementation project(':framework0004:framework0004-terminal-android')
 	// implementation (project(':game0006:game0006-core'))
   // { exclude group: "org.jruby.jcodings", module: "jcodings" }
 
