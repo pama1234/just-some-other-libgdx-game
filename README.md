@@ -65,6 +65,7 @@ implementation 'com.github.pama1234.just-some-other-libgdx-game:framework:bf0a35
 0006. 中心IDE
 0007. 填满正方形
 0008. 粒子生命：升天（魔改版2D processing粒子系统）
+0009. 异星征途
 
 [中文](#空想世界) | [English](#game-with-java)
 

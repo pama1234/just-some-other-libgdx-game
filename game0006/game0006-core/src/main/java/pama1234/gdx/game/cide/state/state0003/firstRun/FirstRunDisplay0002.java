@@ -105,7 +105,6 @@ public class FirstRunDisplay0002 extends FirstRunDisplayBase{
     world.step(1/30f,6,2);
     if(select!=null&&p.mouse.left) {
       Vec2 pos=select.body.getPosition();
-      // cache.set((p.mouse.x-pos.x)*64,(p.mouse.y-pos.y)*64);
       float dx=p.mouse.x-pos.x;
       float dy=p.mouse.y-pos.y;
       cache.set(UtilMath.sqsign(dx),UtilMath.sqsign(dy));
@@ -158,12 +157,14 @@ public class FirstRunDisplay0002 extends FirstRunDisplayBase{
   @Override
   public void from(StateEntity0003 in) {
     super.from(in);
+    p.cam2d.activeDragAndroid=false;
     p.centerCam.add.add(bodyCenter);
     p.centerCamAddAll(exitButton);
   }
   @Override
   public void to(StateEntity0003 in) {
     super.to(in);
+    p.cam2d.activeDragAndroid=true;
     p.centerCam.remove.add(bodyCenter);
     p.centerCamRemoveAll(exitButton);
     p.fill(255);

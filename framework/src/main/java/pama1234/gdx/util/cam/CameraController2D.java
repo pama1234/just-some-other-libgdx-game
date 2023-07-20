@@ -29,6 +29,7 @@ public class CameraController2D extends CameraController{
    */
   public int pixelPerfect;
   public boolean activeDrag=true,activeTouchZoom=true,activeScrollZoom=true;
+  public boolean activeDragAndroid=true;
   public PathVar scale,rotate;
   public float minScale=1,maxScale=8,scaleUnit=1;
   //---
@@ -52,7 +53,7 @@ public class CameraController2D extends CameraController{
   @Override
   public void touchStarted(TouchInfo info) {
     if(a==null) {
-      if(!(info.button==Buttons.RIGHT||p.isAndroid)) return;
+      if(!(info.button==Buttons.RIGHT||(activeDragAndroid&&p.isAndroid))) return;
       activeUpdate=true;
       a=info;
       scx=point.pos.x;
