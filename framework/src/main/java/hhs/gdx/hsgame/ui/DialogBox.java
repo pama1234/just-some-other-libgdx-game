@@ -1,5 +1,7 @@
 package hhs.gdx.hsgame.ui;
 
+import java.util.LinkedList;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -8,8 +10,8 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.StringBuilder;
-import hhs.gdx.hsgame.tools.LazyBitmapFont;
-import java.util.LinkedList;
+
+import pama1234.gdx.util.font.MultiChunkFont;
 
 public class DialogBox extends Actor{
   TextureRegion background;
@@ -19,7 +21,7 @@ public class DialogBox extends Actor{
   boolean end=false;
   int apc=0;
   float appearTime=.02f,time=0;
-  LazyBitmapFont font;
+  MultiChunkFont font;
   boolean ok=false;
   boolean autoRemove=true;
   public DialogBox(Texture background) {
@@ -81,18 +83,19 @@ public class DialogBox extends Actor{
   @Override
   public void draw(Batch arg0,float arg1) {
     arg0.draw(background,getX(),getY(),getWidth(),getHeight());
-    font.drawText(
+    // LazyBitmapFont font;
+    font.drawF(
       arg0,
       appear.toString(),
       (int)getX(),
-      (int)getHeight()-font.fontSize/2,
+      (int)getHeight()-font.size/2,
       (int)getWidth(),
-      font.fontSize/2);
+      (int)font.size/2,true);
   }
-  public LazyBitmapFont getFont() {
+  public MultiChunkFont getFont() {
     return this.font;
   }
-  public void setFont(LazyBitmapFont font) {
+  public void setFont(MultiChunkFont font) {
     this.font=font;
   }
   public LinkedList<String> getSequence() {

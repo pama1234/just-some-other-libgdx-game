@@ -53,9 +53,9 @@ public class MultiChunkFont extends BitmapFont{
    * z是这一行目前的字符数量
    */
   public Vec3i posI;
-  public MultiChunkFont(FileHandle[] fontFile,boolean loadOnDemand) {
+  public MultiChunkFont(FileHandle[] fontFile,boolean flip,boolean loadOnDemand) {
     // super(new MultiChunkFontData(fontFile[0],true),(TextureRegion)null,true);
-    super(new MultiChunkFontData(fontFile[0],true),(TextureRegion)null,false);
+    super(new MultiChunkFontData(fontFile[0],flip),(TextureRegion)null,false);
     mfontData=(MultiChunkFontData)getData();//TODO
     mfontData.mfont=this;
     this.fontFile=fontFile;
@@ -113,7 +113,8 @@ public class MultiChunkFont extends BitmapFont{
     multiRegions.set(in,dataM[in].getRegion());
   }
   public BitmapFont createBitmapFont(FileHandle fontFile) {
-    BitmapFont out=fontFile==null?new BitmapFont(true):new BitmapFont(fontFile,true);
+    boolean flipped=getDataM().flipped;
+    BitmapFont out=fontFile==null?new BitmapFont(flipped):new BitmapFont(fontFile,flipped);
     out.getRegion().getTexture().setFilter(TextureFilter.Linear,TextureFilter.Nearest);
     out.getData().setScale(size/defaultSize);
     BitmapFontData data=out.getData();

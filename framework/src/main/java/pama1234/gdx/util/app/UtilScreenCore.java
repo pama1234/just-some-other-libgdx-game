@@ -133,7 +133,10 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
   public boolean isKeyPressed(int in) {
     return keyPressedArray.contains(in);
   }
-  public MultiChunkFont genMultiChunkFont() {
+  public static MultiChunkFont genMultiChunkFont() {
+    return genMultiChunkFont(true);
+  }
+  public static MultiChunkFont genMultiChunkFont(boolean flip) {
     return new MultiChunkFont(new FileHandle[] {
       Gdx.files.internal("unifont/0/unifont-0.fnt"),
       Gdx.files.internal("unifont/1/unifont-1.fnt"),
@@ -151,7 +154,7 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
       Gdx.files.internal("unifont/13/unifont-13.fnt"),
       null,
       Gdx.files.internal("unifont/15/unifont-15.fnt"),
-    },true);
+    },flip,true);
   }
   public void beginShape() {
     rFill.begin(ShapeType.Filled);

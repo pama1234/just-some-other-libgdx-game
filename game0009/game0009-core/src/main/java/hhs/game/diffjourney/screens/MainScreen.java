@@ -6,12 +6,12 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+
 import hhs.game.diffjourney.game.TestSence;
 import hhs.game.diffjourney.ui.MyDialogBox;
 import hhs.gdx.hsgame.screens.BasicScreen;
 import hhs.gdx.hsgame.tools.ColorTool;
 import hhs.gdx.hsgame.tools.FontManager;
-import hhs.gdx.hsgame.tools.LazyBitmapFont;
 import hhs.gdx.hsgame.tools.ListenerBuilder;
 import hhs.gdx.hsgame.tools.PixmapBuilder;
 import hhs.gdx.hsgame.tools.Resourse;
@@ -19,6 +19,8 @@ import hhs.gdx.hsgame.tools.SkinBuilder;
 import hhs.gdx.hsgame.tools.StringTool;
 import hhs.gdx.hsgame.tools.TextureTool;
 import hhs.gdx.hsgame.ui.DialogBox;
+import pama1234.gdx.util.app.UtilScreenCore;
+import pama1234.gdx.util.font.MultiChunkFont;
 
 public class MainScreen extends BasicScreen{
   Table table;
@@ -26,12 +28,15 @@ public class MainScreen extends BasicScreen{
   Label l;
   DialogBox dbox;
   Music m;
-  LazyBitmapFont font;
+  // LazyBitmapFont font;
+  MultiChunkFont font;
   float time=0;
   boolean up=true;
   public MainScreen() {
     Resourse.font=new FontManager(Resourse.asset.get("font.ttf"));
-    SkinBuilder sb=new SkinBuilder(font=Resourse.font.newFont(64,Color.WHITE));
+    // SkinBuilder sb=new SkinBuilder(font=Resourse.font.newFont(64,Color.WHITE));
+    font=UtilScreenCore.genMultiChunkFont(false);
+    SkinBuilder sb=new SkinBuilder(font);
     TextButton.TextButtonStyle bs=sb.textButton(
       TextureTool.ttd(PixmapBuilder.getRectangle(200,100,ColorTool.碧山)),
       TextureTool.ttd(PixmapBuilder.getRectangle(200,100,ColorTool.若竹)),
