@@ -22,8 +22,8 @@ public class Resourse implements Disposable{
   public static CacheRenderer cacheRender;
   public static AssetManager asset;
   public static FontManager font;
-  public Resourse(Game game) {
-    this.game=game;
+  public Resourse(Game gameIn) {
+    game=gameIn;
     asset=new AssetManager();
     batch=new SpriteBatch();
     shape=new ShapeRenderer();

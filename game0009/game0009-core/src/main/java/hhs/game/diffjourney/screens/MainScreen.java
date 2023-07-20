@@ -1,6 +1,7 @@
 package hhs.game.diffjourney.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -35,13 +36,13 @@ public class MainScreen extends BasicScreen{
     font.size(64);
     font.textScale(4);
     SkinBuilder sb=new SkinBuilder(font);
-    TextButton.TextButtonStyle bs=sb.textButton(
+    TextButton.TextButtonStyle bstyle=sb.textButton(
       TextureTool.ttd(PixmapBuilder.getRectangle(200,100,ColorTool.碧山)),
       TextureTool.ttd(PixmapBuilder.getRectangle(200,100,ColorTool.若竹)),
       null);
-    b1=new TextButton("开启新征途",bs);
+    b1=new TextButton("开启新征途",bstyle);
     b1.addListener(ListenerBuilder.touch(()->Resourse.game.setScreen(new TestSence())));
-    b2=new TextButton("退出",bs);
+    b2=new TextButton("退出",bstyle);
     b2.addListener(ListenerBuilder.touch(()->Gdx.app.exit()));
     table=new Table();
     table.setFillParent(true);
@@ -106,5 +107,10 @@ public class MainScreen extends BasicScreen{
       }else alphaFlag=!alphaFlag;
       title.getColor().a=alphaCache;
     }
+  }
+  @Override
+  public void dispose() {
+    super.dispose();
+    if(Gdx.app.getType()==ApplicationType.Desktop) System.exit(0);
   }
 }
