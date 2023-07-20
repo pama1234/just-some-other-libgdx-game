@@ -21,27 +21,24 @@ import java.util.function.BiConsumer;
 /**
  * The main terminal emulator class.
  * <p/>
- * Obtains data from the  {@link com.jediterm.terminal.TerminalDataStream}, interprets terminal ANSI escape sequences as commands and directs them
- * as well as plain data characters to the  {@link com.jediterm.terminal.Terminal}
+ * Obtains data from the {@link com.jediterm.terminal.TerminalDataStream}, interprets terminal
+ * ANSI escape sequences as commands and directs them as well as plain data characters to the
+ * {@link com.jediterm.terminal.Terminal}
  *
  * @author traff
  */
-
-public class JediEmulator extends DataStreamIteratingEmulator {
-  private static final Logger LOG = LoggerFactory.getLogger(JediEmulator.class);
-
-  private static int logThrottlerCounter = 0;
-  private static int logThrottlerRatio = 100;
-  private static int logThrottlerLimit = logThrottlerRatio;
-  private final BlockingQueue<CompletableFuture<Void>> myResizeFutureQueue = new LinkedBlockingQueue<>();
-
-  public JediEmulator(TerminalDataStream dataStream, Terminal terminal) {
-    super(dataStream, terminal);
+public class JediEmulator extends DataStreamIteratingEmulator{
+  private static final Logger LOG=LoggerFactory.getLogger(JediEmulator.class);
+  private static int logThrottlerCounter=0;
+  private static int logThrottlerRatio=100;
+  private static int logThrottlerLimit=logThrottlerRatio;
+  private final BlockingQueue<CompletableFuture<Void>> myResizeFutureQueue=new LinkedBlockingQueue<>();
+  public JediEmulator(TerminalDataStream dataStream,Terminal terminal) {
+    super(dataStream,terminal);
   }
-
   @Override
-  public void processChar(char ch, Terminal terminal) throws IOException {
-    switch (ch) {
+  public void processChar(char ch,Terminal terminal) throws IOException {
+    switch(ch) {
       case 0:
         break;
       case Ascii.BEL: //Bell (Ctrl-G)
@@ -54,7 +51,7 @@ public class JediEmulator extends DataStreamIteratingEmulator {
         terminal.carriageReturn();
         break;
       case Ascii.ENQ: //Return terminal status (Ctrl-E). Default response is an empty string
-        unsupported("Terminal status:" + escapeSequenceToString(ch));
+        unsupported("Terminal status:"+escapeSequenceToString(ch));
         break;
       case Ascii.FF: //Form Feed or New Page (NP). Ctrl-L treated the same as LF
       case Ascii.LF: //Line Feed or New Line (NL). (LF is Ctrl-J)
@@ -70,7 +67,7 @@ public class JediEmulator extends DataStreamIteratingEmulator {
       case Ascii.SO: //Shift Out (Ctrl-N) -> Switch to Alternate Character Set. This invokes the G1 character set (the default)
         //LS1 (locking shift 1)
         //Map G1 into GL
-        if (Boolean.getBoolean("jediterm.enable.shift_out.character.support")) {
+        if(Boolean.getBoolean("jediterm.enable.shift_out.character.support")) {
           terminal.mapCharsetToGL(1);
         }
         break;
@@ -78,40 +75,38 @@ public class JediEmulator extends DataStreamIteratingEmulator {
         terminal.horizontalTab();
         break;
       case Ascii.ESC: // ESC
-        processEscapeSequence(myDataStream.getChar(), myTerminal);
+        processEscapeSequence(myDataStream.getChar(),myTerminal);
         break;
       case SystemCommandSequence.OSC:
         processOsc();
         break;
       default:
-        if (ch <= Ascii.US) {
-          StringBuilder sb = new StringBuilder("Unhandled control character:");
-          CharUtils.appendChar(sb, CharUtils.CharacterType.NONE, ch);
+        if(ch<=Ascii.US) {
+          StringBuilder sb=new StringBuilder("Unhandled control character:");
+          CharUtils.appendChar(sb,CharUtils.CharacterType.NONE,ch);
           unhandledLogThrottler(sb.toString());
-        } else { // Plain characters
+        }else { // Plain characters
           myDataStream.pushChar(ch);
-          String nonControlCharacters = myDataStream.readNonControlCharacters(terminal.distanceToLineEnd());
-
+          String nonControlCharacters=myDataStream.readNonControlCharacters(terminal.distanceToLineEnd());
           terminal.writeCharacters(nonControlCharacters);
         }
         break;
     }
-    if (myDataStream.isEmpty()) {
+    if(myDataStream.isEmpty()) {
       completeResize();
     }
   }
-
-  private void processEscapeSequence(char ch, Terminal terminal) throws IOException {
-    switch (ch) {
+  private void processEscapeSequence(char ch,Terminal terminal) throws IOException {
+    switch(ch) {
       case '[': // Control Sequence Introducer (CSI)
-        ControlSequence args = new ControlSequence(myDataStream);
-        if (LOG.isDebugEnabled()) {
-          LOG.debug("Control Sequence (" + args.getDebugInfo() + ")");
+        ControlSequence args=new ControlSequence(myDataStream);
+        if(LOG.isDebugEnabled()) {
+          LOG.debug("Control Sequence ("+args.getDebugInfo()+")");
         }
-        if (!args.pushBackReordered(myDataStream)) {
-          boolean result = processControlSequence(args);
-          if (!result) {
-            LOG.warn("Unhandled Control Sequence (" + args.getDebugInfo() + ")");
+        if(!args.pushBackReordered(myDataStream)) {
+          boolean result=processControlSequence(args);
+          if(!result) {
+            LOG.warn("Unhandled Control Sequence ("+args.getDebugInfo()+")");
           }
         }
         break;
@@ -134,10 +129,9 @@ public class JediEmulator extends DataStreamIteratingEmulator {
         terminal.singleShiftSelect(3); //Single Shift Select of G3 Character Set (SS3). This affects next character only.
         break;
       case 'P': // Device Control String (DCS)
-        SystemCommandSequence command = new SystemCommandSequence(myDataStream);
-
-        if (!deviceControlString(command)) {
-          LOG.warn("Error processing DCS: ESCP" + command);
+        SystemCommandSequence command=new SystemCommandSequence(myDataStream);
+        if(!deviceControlString(command)) {
+          LOG.warn("Error processing DCS: ESCP"+command);
         }
         break;
       case ']': // Operating System Command (OSC)
@@ -156,13 +150,13 @@ public class JediEmulator extends DataStreamIteratingEmulator {
         unsupported("Forward Index (DECFI), VT420 and up");
         break;
       case '=': //Application Keypad (DECKPAM)
-        setModeEnabled(TerminalMode.Keypad, true);
+        setModeEnabled(TerminalMode.Keypad,true);
         break;
       case '>': //Normal Keypad (DECKPNM)
-        setModeEnabled(TerminalMode.Keypad, false);
+        setModeEnabled(TerminalMode.Keypad,false);
         break;
       case 'F': //Cursor to lower left corner of the screen
-        terminal.cursorPosition(1, terminal.getTerminalHeight());
+        terminal.cursorPosition(1,terminal.getTerminalHeight());
         break;
       case 'c': //Full Reset (RIS)
         terminal.reset();
@@ -193,34 +187,30 @@ public class JediEmulator extends DataStreamIteratingEmulator {
       case '.':
       case '/':
       case ' ':
-        processTwoCharSequence(ch, terminal);
+        processTwoCharSequence(ch,terminal);
         break;
       default:
         unsupported(ch);
     }
   }
-
   private void processOsc() throws IOException {
-    SystemCommandSequence command = new SystemCommandSequence(myDataStream);
-    if (!operatingSystemCommand(command)) {
-      LOG.warn("Error processing OSC: ESC]" + command);
+    SystemCommandSequence command=new SystemCommandSequence(myDataStream);
+    if(!operatingSystemCommand(command)) {
+      LOG.warn("Error processing OSC: ESC]"+command);
     }
   }
-
   private boolean deviceControlString(SystemCommandSequence args) {
     return false;
   }
-
   private boolean operatingSystemCommand(SystemCommandSequence args) {
-    int ps = args.getIntAt(0, -1);
-
-    switch (ps) {
+    int ps=args.getIntAt(0,-1);
+    switch(ps) {
       case 0: // Icon name / Window Title
       case 1: // Icon name
       case 2: // Window Title
         // https://invisible-island.net/xterm/ctlseqs/ctlseqs.html#h3-Operating-System-Commands
-        String name = args.getStringAt(1);
-        if (name != null) {
+        String name=args.getStringAt(1);
+        if(name!=null) {
           myTerminal.setWindowTitle(name);
           return true;
         }
@@ -230,12 +220,11 @@ public class JediEmulator extends DataStreamIteratingEmulator {
         // "return true" to avoid logging errors about unhandled sequences;
         return true;
       case 8: // Hyperlink https://gist.github.com/egmontkob/eb114294efbcd5adb1944c9f3cb5feda
-        String uri = args.getStringAt(2);
-        if (uri != null) {
-          if (!uri.isEmpty()) {
+        String uri=args.getStringAt(2);
+        if(uri!=null) {
+          if(!uri.isEmpty()) {
             myTerminal.setLinkUriStarted(uri);
-          }
-          else {
+          }else {
             myTerminal.setLinkUriFinished();
           }
           return true;
@@ -245,50 +234,44 @@ public class JediEmulator extends DataStreamIteratingEmulator {
       case 11:
         return processColorQuery(args);
       case 1341:
-        List<String> argList = args.getArgs();
-        myTerminal.processCustomCommand(argList.subList(1, argList.size()));
+        List<String> argList=args.getArgs();
+        myTerminal.processCustomCommand(argList.subList(1,argList.size()));
         return true;
     }
     return false;
   }
-
-
   /**
-   * <a href="http://www.xfree86.org/4.8.0/ctlseqs.html">
-   * If a "?" is given rather than a name or RGB specification, xterm replies with a control sequence of
-   * the same form which can be used to set the corresponding dynamic color.
-   * </a>
+   * <a href="http://www.xfree86.org/4.8.0/ctlseqs.html"> If a "?" is given rather than a name or
+   * RGB specification, xterm replies with a control sequence of the same form which can be used
+   * to set the corresponding dynamic color. </a>
    */
   private boolean processColorQuery(@NotNull SystemCommandSequence args) {
-    if (!"?".equals(args.getStringAt(1))) {
+    if(!"?".equals(args.getStringAt(1))) {
       return false;
     }
-    int ps = args.getIntAt(0, -1);
+    int ps=args.getIntAt(0,-1);
     Color color;
-    if (ps == 10) {
-      color = myTerminal.getWindowForeground();
-    }
-    else if (ps == 11) {
-      color = myTerminal.getWindowBackground();
-    }
-    else {
+    if(ps==10) {
+      color=myTerminal.getWindowForeground();
+    }else if(ps==11) {
+      color=myTerminal.getWindowBackground();
+    }else {
       return false;
     }
-    if (color != null) {
-      String str = args.format(ps + ";" + color.toXParseColor());
-      if (LOG.isDebugEnabled()) {
-        LOG.debug("Responding to OSC " + ps + " query: " + str);
+    if(color!=null) {
+      String str=args.format(ps+";"+color.toXParseColor());
+      if(LOG.isDebugEnabled()) {
+        LOG.debug("Responding to OSC "+ps+" query: "+str);
       }
       myTerminal.deviceStatusReport(str);
     }
     return true;
   }
-
-  private void processTwoCharSequence(char ch, Terminal terminal) throws IOException {
-    char secondCh = myDataStream.getChar();
-    switch (ch) {
+  private void processTwoCharSequence(char ch,Terminal terminal) throws IOException {
+    char secondCh=myDataStream.getChar();
+    switch(ch) {
       case ' ':
-        switch (secondCh) {
+        switch(secondCh) {
           //About different character sets: http://en.wikipedia.org/wiki/ISO/IEC_2022
           case 'F': //7-bit controls
             unsupported("Switching to 7-bit");
@@ -306,57 +289,55 @@ public class JediEmulator extends DataStreamIteratingEmulator {
           case 'N': //Set ANSI conformance level 3
             terminal.setAnsiConformanceLevel(3);
             break;
-
           default:
-            unsupported(ch, secondCh);
+            unsupported(ch,secondCh);
         }
         break;
       case '#':
-        switch (secondCh) {
+        switch(secondCh) {
           case '8':
             terminal.fillScreen('E');
             break;
           default:
-            unsupported(ch, secondCh);
+            unsupported(ch,secondCh);
         }
         break;
       case '%':
-        switch (secondCh) {
+        switch(secondCh) {
           case '@': // Select default character set. That is ISO 8859-1
           case 'G': // Select UTF-8 character set
-            unsupported("Selecting charset is unsupported: " + escapeSequenceToString(ch, secondCh));
+            unsupported("Selecting charset is unsupported: "+escapeSequenceToString(ch,secondCh));
             break;
           default:
-            unsupported(ch, secondCh);
+            unsupported(ch,secondCh);
         }
         break;
       case '(':
-        terminal.designateCharacterSet(0, secondCh); //Designate G0 Character set (VT100)
+        terminal.designateCharacterSet(0,secondCh); //Designate G0 Character set (VT100)
         break;
       case ')':
-        terminal.designateCharacterSet(1, secondCh); //Designate G1 Character set (VT100)
+        terminal.designateCharacterSet(1,secondCh); //Designate G1 Character set (VT100)
         break;
       case '*':
-        terminal.designateCharacterSet(2, secondCh); //Designate G2 Character set (VT220)
+        terminal.designateCharacterSet(2,secondCh); //Designate G2 Character set (VT220)
         break;
       case '+':
-        terminal.designateCharacterSet(3, secondCh); //Designate G3 Character set (VT220)
+        terminal.designateCharacterSet(3,secondCh); //Designate G3 Character set (VT220)
         break;
       case '-':
-        terminal.designateCharacterSet(1, secondCh); //Designate G1 Character set (VT300)
+        terminal.designateCharacterSet(1,secondCh); //Designate G1 Character set (VT300)
         break;
       case '.':
-        terminal.designateCharacterSet(2, secondCh); //Designate G2 Character set (VT300)
+        terminal.designateCharacterSet(2,secondCh); //Designate G2 Character set (VT300)
         break;
       case '/':
-        terminal.designateCharacterSet(3, secondCh); //Designate G3 Character set (VT300)
+        terminal.designateCharacterSet(3,secondCh); //Designate G3 Character set (VT300)
         break;
       case '$':
       case '@':
-        unsupported(ch, secondCh);
+        unsupported(ch,secondCh);
     }
   }
-
   /**
    * This method is used to handle unknown sequences. Can be overridden.
    *
@@ -366,42 +347,37 @@ public class JediEmulator extends DataStreamIteratingEmulator {
   protected void unsupported(char... sequenceChars) {
     unsupported(escapeSequenceToString(sequenceChars));
   }
-
   /**
    * This method is used to report about know unsupported sequences
    *
    * @param msg The message describing the sequence
    */
   private static void unsupported(String msg) {
-    unhandledLogThrottler("Unsupported control characters: " + msg);
+    unhandledLogThrottler("Unsupported control characters: "+msg);
   }
-
   private static void unhandledLogThrottler(String msg) {
     logThrottlerCounter++;
-    if (logThrottlerCounter < logThrottlerLimit) {
-      if (logThrottlerCounter % (logThrottlerLimit / logThrottlerRatio) == 0) {
-        if (logThrottlerLimit / logThrottlerRatio > 1) {
-          msg += " and " + (logThrottlerLimit / logThrottlerRatio) + " more...";
+    if(logThrottlerCounter<logThrottlerLimit) {
+      if(logThrottlerCounter%(logThrottlerLimit/logThrottlerRatio)==0) {
+        if(logThrottlerLimit/logThrottlerRatio>1) {
+          msg+=" and "+(logThrottlerLimit/logThrottlerRatio)+" more...";
         }
         LOG.warn(msg);
       }
-    } else {
-      logThrottlerLimit *= 10;
+    }else {
+      logThrottlerLimit*=10;
     }
   }
-
   private static String escapeSequenceToString(final char... b) {
-    StringBuilder sb = new StringBuilder("ESC ");
-
-    for (char c : b) {
+    StringBuilder sb=new StringBuilder("ESC ");
+    for(char c:b) {
       sb.append(' ');
       sb.append(c);
     }
     return sb.toString();
   }
-
   private boolean processControlSequence(ControlSequence args) {
-    switch (args.getFinalChar()) {
+    switch(args.getFinalChar()) {
       case '@':
         return insertBlankCharacters(args); //ICH
       case 'A':
@@ -439,8 +415,8 @@ public class JediEmulator extends DataStreamIteratingEmulator {
       case 'T': //SD
         return scrollDown(args);
       case 'c': //Send Device Attributes (Primary DA)
-        if (args.startsWithMoreMark()) { //Send Device Attributes (Secondary DA)
-          if (args.getArg(0, 0) == 0) { //apply on to VT220 but xterm extends this to VT100
+        if(args.startsWithMoreMark()) { //Send Device Attributes (Secondary DA)
+          if(args.getArg(0,0)==0) { //apply on to VT220 but xterm extends this to VT100
             sendDeviceAttributes();
             return true;
           }
@@ -450,13 +426,13 @@ public class JediEmulator extends DataStreamIteratingEmulator {
       case 'd': //VPA
         return linePositionAbsolute(args);
       case 'g': // Tab Clear (TBC)
-        return tabClear(args.getArg(0, 0));
+        return tabClear(args.getArg(0,0));
       case 'h': //Set Mode (SM) or DEC Private Mode Set (DECSET)
-        return setModeOrPrivateMode(args, true);
+        return setModeOrPrivateMode(args,true);
       case 'l': //Reset Mode (RM) or DEC Private Mode Reset (DECRST)
-        return setModeOrPrivateMode(args, false);
+        return setModeOrPrivateMode(args,false);
       case 'm':
-        if (args.startsWithMoreMark()) { //Set or reset resource-values used by xterm
+        if(args.startsWithMoreMark()) { //Set or reset resource-values used by xterm
           // to decide whether to construct escape sequences holding information about
           // the modifiers pressed with a given key
           return false;
@@ -467,9 +443,9 @@ public class JediEmulator extends DataStreamIteratingEmulator {
       case 'q':
         return cursorShape(args); //DECSCUSR
       case 'r':
-        if (args.startsWithQuestionMark()) {
+        if(args.startsWithQuestionMark()) {
           return restoreDecPrivateModeValues(args); //
-        } else {
+        }else {
           //Set Top and Bottom Margins
           return setScrollingRegion(args); //DECSTBM
         }
@@ -479,24 +455,23 @@ public class JediEmulator extends DataStreamIteratingEmulator {
         return false;
     }
   }
-
   private boolean windowManipulation(ControlSequence args) {
     // CSI Ps ; Ps ; Ps t
-    switch (args.getArg(0, -1)) {
+    switch(args.getArg(0,-1)) {
       case 8:
-//        Ps = 8  ;  height ;  width -> Resize the text area to given
-//        height and width in characters.  Omitted parameters reuse the
-//        current height or width.  Zero parameters use the display's
-//        height or width.
-        int width = args.getArg(2, 0);
-        int height = args.getArg(1, 0);
-        if (width == 0) {
-          width = myTerminal.getTerminalWidth();
+        //        Ps = 8  ;  height ;  width -> Resize the text area to given
+        //        height and width in characters.  Omitted parameters reuse the
+        //        current height or width.  Zero parameters use the display's
+        //        height or width.
+        int width=args.getArg(2,0);
+        int height=args.getArg(1,0);
+        if(width==0) {
+          width=myTerminal.getTerminalWidth();
         }
-        if (height == 0) {
-          height = myTerminal.getTerminalHeight();
+        if(height==0) {
+          height=myTerminal.getTerminalHeight();
         }
-        myTerminal.resize(new TermSize(width, height), RequestOrigin.Remote);
+        myTerminal.resize(new TermSize(width,height),RequestOrigin.Remote);
         return true;
       case 22:
         return csi22(args);
@@ -506,9 +481,8 @@ public class JediEmulator extends DataStreamIteratingEmulator {
         return false;
     }
   }
-
   private boolean csi22(ControlSequence args) { // TODO: support icon title
-    switch (args.getArg(1, -1)) {
+    switch(args.getArg(1,-1)) {
       case 0: // Save xterm icon and window title on stack.
       case 2: // Save xterm window title on stack.
         myTerminal.saveWindowTitleOnStack();
@@ -519,9 +493,8 @@ public class JediEmulator extends DataStreamIteratingEmulator {
         return false;
     }
   }
-
   private boolean csi23(ControlSequence args) { // TODO: support icon title
-    switch (args.getArg(1, -1)) {
+    switch(args.getArg(1,-1)) {
       case 0: // Restore xterm icon and window title on stack.
       case 2: // Restore xterm window title on stack.
         myTerminal.restoreWindowTitleFromStack();
@@ -532,146 +505,143 @@ public class JediEmulator extends DataStreamIteratingEmulator {
         return false;
     }
   }
-
   private boolean tabClear(int mode) {
-    if (mode == 0) { //Clear Current Column (default)
+    if(mode==0) { //Clear Current Column (default)
       myTerminal.clearTabStopAtCursor();
       return true;
-    } else if (mode == 3) {
+    }else if(mode==3) {
       myTerminal.clearAllTabStops();
       return true;
-    } else {
+    }else {
       return false;
     }
   }
-
   private boolean eraseCharacters(ControlSequence args) {
-    myTerminal.eraseCharacters(args.getArg(0, 1));
+    myTerminal.eraseCharacters(args.getArg(0,1));
     return true;
   }
-
-  private boolean setModeOrPrivateMode(ControlSequence args, boolean enabled) {
-    if (args.startsWithQuestionMark()) { // DEC Private Mode
-      switch (args.getArg(0, -1)) {
+  private boolean setModeOrPrivateMode(ControlSequence args,boolean enabled) {
+    if(args.startsWithQuestionMark()) { // DEC Private Mode
+      switch(args.getArg(0,-1)) {
         case 1: //Cursor Keys Mode (DECCKM)
-          setModeEnabled(TerminalMode.CursorKey, enabled);
+          setModeEnabled(TerminalMode.CursorKey,enabled);
           return true;
         case 3: //132 Column Mode (DECCOLM)
-          setModeEnabled(TerminalMode.WideColumn, enabled);
+          setModeEnabled(TerminalMode.WideColumn,enabled);
           return true;
         case 4: //Smooth (Slow) Scroll (DECSCLM)
-          setModeEnabled(TerminalMode.SmoothScroll, enabled);
+          setModeEnabled(TerminalMode.SmoothScroll,enabled);
           return true;
         case 5: //Reverse Video (DECSCNM)
-          setModeEnabled(TerminalMode.ReverseVideo, enabled);
+          setModeEnabled(TerminalMode.ReverseVideo,enabled);
           return true;
         case 6: //Origin Mode (DECOM)
-          setModeEnabled(TerminalMode.OriginMode, enabled);
+          setModeEnabled(TerminalMode.OriginMode,enabled);
           return true;
         case 7: //Wraparound Mode (DECAWM)
-          setModeEnabled(TerminalMode.AutoWrap, enabled);
+          setModeEnabled(TerminalMode.AutoWrap,enabled);
           return true;
         case 8: //Auto-repeat Keys (DECARM)
-          setModeEnabled(TerminalMode.AutoRepeatKeys, enabled);
+          setModeEnabled(TerminalMode.AutoRepeatKeys,enabled);
           return true;
         case 12: //Start Blinking Cursor (att610)
           //setModeEnabled(TerminalMode.CursorBlinking, enabled);
           //We want to show blinking cursor always
           return true;
         case 25:
-          setModeEnabled(TerminalMode.CursorVisible, enabled);
+          setModeEnabled(TerminalMode.CursorVisible,enabled);
           return true;
         case 40: //Allow 80->132 Mode
-          setModeEnabled(TerminalMode.AllowWideColumn, enabled);
+          setModeEnabled(TerminalMode.AllowWideColumn,enabled);
           return true;
         case 45: //Reverse-wraparound Mode
-          setModeEnabled(TerminalMode.ReverseWrapAround, enabled);
+          setModeEnabled(TerminalMode.ReverseWrapAround,enabled);
           return true;
         case 47:
         case 1047:
-          setModeEnabled(TerminalMode.AlternateBuffer, enabled);
+          setModeEnabled(TerminalMode.AlternateBuffer,enabled);
           return true;
         case 1048:
-          setModeEnabled(TerminalMode.StoreCursor, enabled);
+          setModeEnabled(TerminalMode.StoreCursor,enabled);
           return true;
         case 1049: //Save cursor and use Alternate Screen Buffer
-          setModeEnabled(TerminalMode.StoreCursor, enabled);
-          setModeEnabled(TerminalMode.AlternateBuffer, enabled);
+          setModeEnabled(TerminalMode.StoreCursor,enabled);
+          setModeEnabled(TerminalMode.AlternateBuffer,enabled);
           return true;
         case 1000:
-          if (enabled) {
+          if(enabled) {
             setMouseMode(MouseMode.MOUSE_REPORTING_NORMAL);
-          } else {
+          }else {
             setMouseMode(MouseMode.MOUSE_REPORTING_NONE);
           }
           return true;
         case 1001:
-          if (enabled) {
+          if(enabled) {
             setMouseMode(MouseMode.MOUSE_REPORTING_HILITE);
-          } else {
+          }else {
             setMouseMode(MouseMode.MOUSE_REPORTING_NONE);
           }
           return true;
         case 1002:
-          if (enabled) {
+          if(enabled) {
             setMouseMode(MouseMode.MOUSE_REPORTING_BUTTON_MOTION);
-          } else {
+          }else {
             setMouseMode(MouseMode.MOUSE_REPORTING_NONE);
           }
           return true;
         case 1003:
-          if (enabled) {
+          if(enabled) {
             setMouseMode(MouseMode.MOUSE_REPORTING_ALL_MOTION);
-          } else {
+          }else {
             setMouseMode(MouseMode.MOUSE_REPORTING_NONE);
           }
           return true;
         case 1005:
-          if (enabled) {
+          if(enabled) {
             myTerminal.setMouseFormat(MouseFormat.MOUSE_FORMAT_XTERM_EXT);
-          } else {
+          }else {
             myTerminal.setMouseFormat(MouseFormat.MOUSE_FORMAT_XTERM);
           }
           return true;
         case 1006:
-          if (enabled) {
+          if(enabled) {
             myTerminal.setMouseFormat(MouseFormat.MOUSE_FORMAT_SGR);
-          } else {
+          }else {
             myTerminal.setMouseFormat(MouseFormat.MOUSE_FORMAT_XTERM);
           }
           return true;
         case 1015:
-          if (enabled) {
+          if(enabled) {
             myTerminal.setMouseFormat(MouseFormat.MOUSE_FORMAT_URXVT);
-          } else {
+          }else {
             myTerminal.setMouseFormat(MouseFormat.MOUSE_FORMAT_XTERM);
           }
           return true;
         case 1034:
-          setModeEnabled(TerminalMode.EightBitInput, enabled);
+          setModeEnabled(TerminalMode.EightBitInput,enabled);
           return true;
         case 1039:
-          setModeEnabled(TerminalMode.AltSendsEscape, enabled);
+          setModeEnabled(TerminalMode.AltSendsEscape,enabled);
           return true;
         case 2004:
-          setModeEnabled(TerminalMode.BracketedPasteMode, enabled);
+          setModeEnabled(TerminalMode.BracketedPasteMode,enabled);
           return true;
         default:
           return false;
       }
-    } else {
-      switch (args.getArg(0, -1)) {
+    }else {
+      switch(args.getArg(0,-1)) {
         case 2: //Keyboard Action Mode (AM)
-          setModeEnabled(TerminalMode.KeyboardAction, enabled);
+          setModeEnabled(TerminalMode.KeyboardAction,enabled);
           return true;
         case 4: //Insert Mode (IRM)
-          setModeEnabled(TerminalMode.InsertMode, enabled);
+          setModeEnabled(TerminalMode.InsertMode,enabled);
           return true;
         case 12: //Send/receive (SRM)
-          setModeEnabled(TerminalMode.SendReceive, enabled);
+          setModeEnabled(TerminalMode.SendReceive,enabled);
           return true;
         case 20:
-          setModeEnabled(TerminalMode.AutoNewLine, enabled);
+          setModeEnabled(TerminalMode.AutoNewLine,enabled);
           return true;
         case 25:
           return true;
@@ -680,48 +650,41 @@ public class JediEmulator extends DataStreamIteratingEmulator {
       }
     }
   }
-
   private boolean linePositionAbsolute(ControlSequence args) {
-    int y = args.getArg(0, 1);
+    int y=args.getArg(0,1);
     myTerminal.linePositionAbsolute(y);
-
     return true;
   }
-
   private boolean restoreDecPrivateModeValues(ControlSequence args) {
-    LOG.warn("Unsupported: " + args.toString());
-
+    LOG.warn("Unsupported: "+args.toString());
     return false;
   }
-
   private boolean deviceStatusReport(ControlSequence args) {
-    if (args.startsWithQuestionMark()) {
+    if(args.startsWithQuestionMark()) {
       LOG.warn("Don't support DEC-specific Device Report Status");
       return false;
     }
-    int c = args.getArg(0, 0);
-    if (c == 5) {
-      String str = "\033[0n";
-      LOG.debug("Sending Device Report Status : " + str);
+    int c=args.getArg(0,0);
+    if(c==5) {
+      String str="\033[0n";
+      LOG.debug("Sending Device Report Status : "+str);
       myTerminal.deviceStatusReport(str);
       return true;
-    } else if (c == 6) {
-      int row = myTerminal.getCursorY();
-      int column = myTerminal.getCursorX();
-      String str = "\033[" + row + ";" + column + "R";
-
-      LOG.debug("Sending Device Report Status : " + str);
+    }else if(c==6) {
+      int row=myTerminal.getCursorY();
+      int column=myTerminal.getCursorX();
+      String str="\033["+row+";"+column+"R";
+      LOG.debug("Sending Device Report Status : "+str);
       myTerminal.deviceStatusReport(str);
       return true;
-    } else {
-      LOG.warn("Sending Device Report Status : unsupported parameter: " + args.toString());
+    }else {
+      LOG.warn("Sending Device Report Status : unsupported parameter: "+args.toString());
       return false;
     }
   }
-
   private boolean cursorShape(ControlSequence args) {
     myTerminal.cursorBackward(1);
-    switch (args.getArg(0, 0)) {
+    switch(args.getArg(0,0)) {
       case 0:
       case 1:
         myTerminal.cursorShape(CursorShape.BLINK_BLOCK);
@@ -742,228 +705,180 @@ public class JediEmulator extends DataStreamIteratingEmulator {
         myTerminal.cursorShape(CursorShape.STEADY_VERTICAL_BAR);
         return true;
       default:
-        LOG.warn("Setting cursor shape : unsupported parameter " + args.toString());
+        LOG.warn("Setting cursor shape : unsupported parameter "+args.toString());
         return false;
     }
   }
-
   private boolean insertLines(ControlSequence args) {
-    myTerminal.insertLines(args.getArg(0, 1));
+    myTerminal.insertLines(args.getArg(0,1));
     return true;
   }
-
   private boolean sendDeviceAttributes() {
-    if (LOG.isDebugEnabled()) {
+    if(LOG.isDebugEnabled()) {
       LOG.debug("Identifying to remote system as VT102");
     }
     myTerminal.deviceAttributes(CharUtils.VT102_RESPONSE);
-
     return true;
   }
-
   private boolean cursorHorizontalAbsolute(ControlSequence args) {
-    int x = args.getArg(0, 1);
-
+    int x=args.getArg(0,1);
     myTerminal.cursorHorizontalAbsolute(x);
-
     return true;
   }
-
   private boolean cursorNextLine(ControlSequence args) {
-    int dx = args.getArg(0, 1);
-    dx = dx == 0 ? 1 : dx;
+    int dx=args.getArg(0,1);
+    dx=dx==0?1:dx;
     myTerminal.cursorDown(dx);
     myTerminal.cursorHorizontalAbsolute(1);
-
     return true;
   }
-
   private boolean cursorPrecedingLine(ControlSequence args) {
-    int dx = args.getArg(0, 1);
-    dx = dx == 0 ? 1 : dx;
+    int dx=args.getArg(0,1);
+    dx=dx==0?1:dx;
     myTerminal.cursorUp(dx);
-
     myTerminal.cursorHorizontalAbsolute(1);
-
     return true;
   }
-
   private boolean insertBlankCharacters(ControlSequence args) {
-    final int count = args.getArg(0, 1);
-
+    final int count=args.getArg(0,1);
     myTerminal.insertBlankCharacters(count);
-
     return true;
   }
-
   private boolean eraseInDisplay(ControlSequence args) {
     // ESC [ Ps J
-    final int arg = args.getArg(0, 0);
-
-    if (args.startsWithQuestionMark()) {
+    final int arg=args.getArg(0,0);
+    if(args.startsWithQuestionMark()) {
       //TODO: support ESC [ ? Ps J - Selective Erase (DECSED)
       return false;
     }
-
     myTerminal.eraseInDisplay(arg);
-
     return true;
   }
-
   private boolean eraseInLine(ControlSequence args) {
     // ESC [ Ps K
-    final int arg = args.getArg(0, 0);
-
-    if (args.startsWithQuestionMark()) {
+    final int arg=args.getArg(0,0);
+    if(args.startsWithQuestionMark()) {
       //TODO: support ESC [ ? Ps K - Selective Erase (DECSEL)
       return false;
     }
-
     myTerminal.eraseInLine(arg);
-
     return true;
   }
-
   private boolean deleteLines(ControlSequence args) {
     // ESC [ Ps M
-    myTerminal.deleteLines(args.getArg(0, 1));
+    myTerminal.deleteLines(args.getArg(0,1));
     return true;
   }
-
   private boolean deleteCharacters(ControlSequence args) {
     // ESC [ Ps P
-    final int arg = args.getArg(0, 1);
-
+    final int arg=args.getArg(0,1);
     myTerminal.deleteCharacters(arg);
-
     return true;
   }
-
   private boolean cursorBackward(ControlSequence args) {
-    int dx = args.getArg(0, 1);
-    dx = dx == 0 ? 1 : dx;
-
+    int dx=args.getArg(0,1);
+    dx=dx==0?1:dx;
     myTerminal.cursorBackward(dx);
-
     return true;
   }
-
   private boolean setScrollingRegion(ControlSequence args) {
-    final int top = args.getArg(0, 1);
-    final int bottom = args.getArg(1, myTerminal.getTerminalHeight());
-
-    myTerminal.setScrollingRegion(top, bottom);
-
+    final int top=args.getArg(0,1);
+    final int bottom=args.getArg(1,myTerminal.getTerminalHeight());
+    myTerminal.setScrollingRegion(top,bottom);
     return true;
   }
-
   private boolean scrollUp(ControlSequence args) {
-    int count = args.getArg(0, 1);
+    int count=args.getArg(0,1);
     myTerminal.scrollUp(count);
     return true;
   }
-
   private boolean scrollDown(ControlSequence args) {
-    int count = args.getArg(0, 1);
+    int count=args.getArg(0,1);
     myTerminal.scrollDown(count);
     return true;
   }
-
   private boolean cursorForward(ControlSequence args) {
-    int countX = args.getArg(0, 1);
-    countX = countX == 0 ? 1 : countX;
-
+    int countX=args.getArg(0,1);
+    countX=countX==0?1:countX;
     myTerminal.cursorForward(countX);
-
     return true;
   }
-
   private boolean cursorDown(ControlSequence cs) {
-    int countY = cs.getArg(0, 0);
-    countY = countY == 0 ? 1 : countY;
+    int countY=cs.getArg(0,0);
+    countY=countY==0?1:countY;
     myTerminal.cursorDown(countY);
     return true;
   }
-
   private boolean cursorPosition(ControlSequence cs) {
-    final int argy = cs.getArg(0, 1);
-    final int argx = cs.getArg(1, 1);
-
-    myTerminal.cursorPosition(argx, argy);
-
+    final int argy=cs.getArg(0,1);
+    final int argx=cs.getArg(1,1);
+    myTerminal.cursorPosition(argx,argy);
     return true;
   }
-
   private boolean characterAttributes(final ControlSequence args) {
-    TextStyle styleState = createStyleState(myTerminal.getStyleState().getCurrent(), args);
-
+    TextStyle styleState=createStyleState(myTerminal.getStyleState().getCurrent(),args);
     myTerminal.characterAttributes(styleState);
-
     return true;
   }
-
   @NotNull
-  private static TextStyle createStyleState(@NotNull TextStyle textStyle, ControlSequence args) {
-    TextStyle.Builder builder = textStyle.toBuilder();
-    final int argCount = args.getCount();
-    if (argCount == 0) {
-      builder = new TextStyle.Builder();
+  private static TextStyle createStyleState(@NotNull TextStyle textStyle,ControlSequence args) {
+    TextStyle.Builder builder=textStyle.toBuilder();
+    final int argCount=args.getCount();
+    if(argCount==0) {
+      builder=new TextStyle.Builder();
     }
-
-    int i = 0;
-    while (i < argCount) {
-      int step = 1;
-
-      final int arg = args.getArg(i, -1);
-      if (arg == -1) {
-        LOG.warn("Error in processing char attributes, arg " + i);
+    int i=0;
+    while(i<argCount) {
+      int step=1;
+      final int arg=args.getArg(i,-1);
+      if(arg==-1) {
+        LOG.warn("Error in processing char attributes, arg "+i);
         i++;
         continue;
       }
-
-      switch (arg) {
+      switch(arg) {
         case 0: //Normal (default)
-          builder = new TextStyle.Builder();
+          builder=new TextStyle.Builder();
           break;
         case 1:// Bold
-          builder.setOption(TextStyle.Option.BOLD, true);
+          builder.setOption(TextStyle.Option.BOLD,true);
           break;
         case 2:// Dim
-          builder.setOption(TextStyle.Option.DIM, true);
+          builder.setOption(TextStyle.Option.DIM,true);
           break;
         case 3:// Italic
-          builder.setOption(TextStyle.Option.ITALIC, true);
+          builder.setOption(TextStyle.Option.ITALIC,true);
           break;
         case 4:// Underlined
-          builder.setOption(TextStyle.Option.UNDERLINED, true);
+          builder.setOption(TextStyle.Option.UNDERLINED,true);
           break;
         case 5:// Blink (appears as Bold)
-          builder.setOption(TextStyle.Option.BLINK, true);
+          builder.setOption(TextStyle.Option.BLINK,true);
           break;
         case 7:// Inverse
-          builder.setOption(TextStyle.Option.INVERSE, true);
+          builder.setOption(TextStyle.Option.INVERSE,true);
           break;
         case 8: // Invisible (hidden)
-          builder.setOption(TextStyle.Option.HIDDEN, true);
+          builder.setOption(TextStyle.Option.HIDDEN,true);
           break;
         case 22: //Normal (neither bold nor faint)
-          builder.setOption(TextStyle.Option.BOLD, false);
-          builder.setOption(TextStyle.Option.DIM, false);
+          builder.setOption(TextStyle.Option.BOLD,false);
+          builder.setOption(TextStyle.Option.DIM,false);
           break;
         case 23: // Not italic
-          builder.setOption(TextStyle.Option.ITALIC, false);
+          builder.setOption(TextStyle.Option.ITALIC,false);
           break;
         case 24: // Not underlined
-          builder.setOption(TextStyle.Option.UNDERLINED, false);
+          builder.setOption(TextStyle.Option.UNDERLINED,false);
           break;
         case 25: //Steady (not blinking)
-          builder.setOption(TextStyle.Option.BLINK, false);
+          builder.setOption(TextStyle.Option.BLINK,false);
           break;
         case 27: //Positive (not inverse)
-          builder.setOption(TextStyle.Option.INVERSE, false);
+          builder.setOption(TextStyle.Option.INVERSE,false);
           break;
         case 28: //Visible, i.e. not hidden
-          builder.setOption(TextStyle.Option.HIDDEN, false);
+          builder.setOption(TextStyle.Option.HIDDEN,false);
           break;
         case 30:
         case 31:
@@ -973,13 +888,13 @@ public class JediEmulator extends DataStreamIteratingEmulator {
         case 35:
         case 36:
         case 37:
-          builder.setForeground(TerminalColor.index(arg - 30));
+          builder.setForeground(TerminalColor.index(arg-30));
           break;
         case 38: // Set xterm-256 text color
-          TerminalColor color256 = getColor256(args, i);
-          if (color256 != null) {
+          TerminalColor color256=getColor256(args,i);
+          if(color256!=null) {
             builder.setForeground(color256);
-            step = getColor256Step(args, i);
+            step=getColor256Step(args,i);
           }
           break;
         case 39: // Default (original) foreground
@@ -993,13 +908,13 @@ public class JediEmulator extends DataStreamIteratingEmulator {
         case 45:
         case 46:
         case 47:
-          builder.setBackground(TerminalColor.index(arg - 40));
+          builder.setBackground(TerminalColor.index(arg-40));
           break;
         case 48: // Set xterm-256 background color
-          TerminalColor bgColor256 = getColor256(args, i);
-          if (bgColor256 != null) {
+          TerminalColor bgColor256=getColor256(args,i);
+          if(bgColor256!=null) {
             builder.setBackground(bgColor256);
-            step = getColor256Step(args, i);
+            step=getColor256Step(args,i);
           }
           break;
         case 49: //Default (original) foreground
@@ -1014,7 +929,7 @@ public class JediEmulator extends DataStreamIteratingEmulator {
         case 96:
         case 97:
           //Bright versions of the ISO colors for foreground
-          builder.setForeground(ColorPalette.getIndexedTerminalColor(arg - 82));
+          builder.setForeground(ColorPalette.getIndexedTerminalColor(arg-82));
           break;
         case 100:
         case 101:
@@ -1025,79 +940,71 @@ public class JediEmulator extends DataStreamIteratingEmulator {
         case 106:
         case 107:
           //Bright versions of the ISO colors for background
-          builder.setBackground(ColorPalette.getIndexedTerminalColor(arg - 92));
+          builder.setBackground(ColorPalette.getIndexedTerminalColor(arg-92));
           break;
         default:
-          LOG.warn("Unknown character attribute:" + arg);
+          LOG.warn("Unknown character attribute:"+arg);
       }
-      i = i + step;
+      i=i+step;
     }
     return builder.build();
   }
-
-  private static TerminalColor getColor256(ControlSequence args, int index) {
-    int code = args.getArg(index + 1, 0);
-
-    if (code == 2) {
+  private static TerminalColor getColor256(ControlSequence args,int index) {
+    int code=args.getArg(index+1,0);
+    if(code==2) {
       /* direct color in rgb space */
-      int val0 = args.getArg(index + 2, -1);
-      int val1 = args.getArg(index + 3, -1);
-      int val2 = args.getArg(index + 4, -1);
-      if ((val0 >= 0 && val0 < 256) &&
-              (val1 >= 0 && val1 < 256) &&
-              (val2 >= 0 && val2 < 256)) {
-        return new TerminalColor(val0, val1, val2);
-      } else {
-        LOG.warn("Bogus color setting " + args.toString());
+      int val0=args.getArg(index+2,-1);
+      int val1=args.getArg(index+3,-1);
+      int val2=args.getArg(index+4,-1);
+      if((val0>=0&&val0<256)&&
+        (val1>=0&&val1<256)&&
+        (val2>=0&&val2<256)) {
+        return new TerminalColor(val0,val1,val2);
+      }else {
+        LOG.warn("Bogus color setting "+args.toString());
         return null;
       }
-    } else if (code == 5) {
+    }else if(code==5) {
       /* indexed color */
-      return ColorPalette.getIndexedTerminalColor(args.getArg(index + 2, 0));
-    } else {
-      LOG.warn("Unsupported code for color attribute " + args.toString());
+      return ColorPalette.getIndexedTerminalColor(args.getArg(index+2,0));
+    }else {
+      LOG.warn("Unsupported code for color attribute "+args.toString());
       return null;
     }
   }
-
-  private static int getColor256Step(ControlSequence args, int i) {
-    int code = args.getArg(i + 1, 0);
-    if (code == 2) {
+  private static int getColor256Step(ControlSequence args,int i) {
+    int code=args.getArg(i+1,0);
+    if(code==2) {
       return 5;
-    } else if (code == 5) {
+    }else if(code==5) {
       return 3;
     }
     return 1;
   }
-
   private boolean cursorUp(ControlSequence cs) {
-    int arg = cs.getArg(0, 0);
-    arg = arg == 0 ? 1 : arg;
+    int arg=cs.getArg(0,0);
+    arg=arg==0?1:arg;
     myTerminal.cursorUp(arg);
     return true;
   }
-
-  private void setModeEnabled(final TerminalMode mode, final boolean enabled) {
-    if (LOG.isDebugEnabled()) {
-      LOG.info("Setting mode " + mode + " enabled = " + enabled);
+  private void setModeEnabled(final TerminalMode mode,final boolean enabled) {
+    if(LOG.isDebugEnabled()) {
+      LOG.info("Setting mode "+mode+" enabled = "+enabled);
     }
-    myTerminal.setModeEnabled(mode, enabled);
+    myTerminal.setModeEnabled(mode,enabled);
   }
-
   public void setMouseMode(MouseMode mouseMode) {
     myTerminal.setMouseMode(mouseMode);
   }
-
-  public @NotNull CompletableFuture<?> getPromptUpdatedAfterResizeFuture(@NotNull BiConsumer<Long, Runnable> taskScheduler) {
-    CompletableFuture<Void> resizeFuture = new CompletableFuture<>();
-    taskScheduler.accept(100L, this::completeResize);
+  public @NotNull CompletableFuture<?> getPromptUpdatedAfterResizeFuture(@NotNull BiConsumer<Long,Runnable> taskScheduler) {
+    CompletableFuture<Void> resizeFuture=new CompletableFuture<>();
+    taskScheduler.accept(100L,this::completeResize);
     myResizeFutureQueue.add(resizeFuture);
     return resizeFuture;
   }
-
   private void completeResize() {
     CompletableFuture<Void> resizeFuture;
-    while ((resizeFuture = myResizeFutureQueue.poll()) != null) {
+    while((resizeFuture=myResizeFutureQueue.poll())!=null) {
       resizeFuture.complete(null);
     }
   }

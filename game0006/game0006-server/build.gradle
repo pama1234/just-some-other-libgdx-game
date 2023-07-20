@@ -9,7 +9,7 @@ dependencies {
 
   // textmate theme support
   api project(':framework0003:framework0003-textmate')
-  
+
   api project(':framework0004:framework0004-terminal')
 
   // incomplete parse and compile util for java

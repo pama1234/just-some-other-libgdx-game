@@ -3,9 +3,8 @@ package com.jediterm.terminal.emulator;
 import com.jediterm.core.Color;
 import org.jetbrains.annotations.NotNull;
 
-public class ColorPaletteImpl extends ColorPalette {
-
-  private static final Color[] XTERM_COLORS = new Color[]{
+public class ColorPaletteImpl extends ColorPalette{
+  private static final Color[] XTERM_COLORS=new Color[] {
     new Color(0x000000), //Black
     new Color(0xcd0000), //Red 
     new Color(0x00cd00), //Green
@@ -24,10 +23,8 @@ public class ColorPaletteImpl extends ColorPalette {
     new Color(0x00ffff), //Cyan
     new Color(0xffffff), //White
   };
-
-  public static final ColorPalette XTERM_PALETTE = new ColorPaletteImpl(XTERM_COLORS);
-
-  private static final Color[] WINDOWS_COLORS = new Color[]{
+  public static final ColorPalette XTERM_PALETTE=new ColorPaletteImpl(XTERM_COLORS);
+  private static final Color[] WINDOWS_COLORS=new Color[] {
     new Color(0x000000), //Black
     new Color(0x800000), //Red 
     new Color(0x008000), //Green
@@ -46,21 +43,16 @@ public class ColorPaletteImpl extends ColorPalette {
     new Color(0x00ffff), //Cyan
     new Color(0xffffff), //White
   };
-
-  public static final ColorPalette WINDOWS_PALETTE = new ColorPaletteImpl(WINDOWS_COLORS);
-
+  public static final ColorPalette WINDOWS_PALETTE=new ColorPaletteImpl(WINDOWS_COLORS);
   private final Color[] myColors;
-
   private ColorPaletteImpl(@NotNull Color[] colors) {
-    myColors = colors;
+    myColors=colors;
   }
-
   @NotNull
   @Override
   public Color getForegroundByColorIndex(int colorIndex) {
     return myColors[colorIndex];
   }
-
   @NotNull
   @Override
   protected Color getBackgroundByColorIndex(int colorIndex) {

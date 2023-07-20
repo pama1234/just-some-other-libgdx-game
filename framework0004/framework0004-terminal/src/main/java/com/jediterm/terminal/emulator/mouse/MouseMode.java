@@ -3,7 +3,7 @@ package com.jediterm.terminal.emulator.mouse;
 /**
  * @author traff
  */
-public enum MouseMode {
+public enum MouseMode{
   MOUSE_REPORTING_NONE,
   MOUSE_REPORTING_NORMAL,
   MOUSE_REPORTING_HILITE,

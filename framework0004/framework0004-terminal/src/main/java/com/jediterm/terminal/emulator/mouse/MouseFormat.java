@@ -3,7 +3,7 @@ package com.jediterm.terminal.emulator.mouse;
 /**
  * @author traff
  */
-public enum MouseFormat {
+public enum MouseFormat{
   MOUSE_FORMAT_XTERM_EXT,
   MOUSE_FORMAT_URXVT,
   MOUSE_FORMAT_SGR,

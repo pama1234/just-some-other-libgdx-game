@@ -5,8 +5,7 @@ import org.jetbrains.annotations.Nullable;
 /**
  * @author traff
  */
-public interface HyperlinkFilter {
-
+public interface HyperlinkFilter{
   @Nullable
   LinkResult apply(String line);
 }

@@ -3,6 +3,6 @@ package com.jediterm.terminal.model;
 /**
  * @author traff
  */
-public interface TerminalModelListener {
+public interface TerminalModelListener{
   void modelChanged();
 }

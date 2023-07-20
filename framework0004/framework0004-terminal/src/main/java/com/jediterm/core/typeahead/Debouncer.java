@@ -1,7 +1,6 @@
 package com.jediterm.core.typeahead;
 
-public interface Debouncer {
+public interface Debouncer{
   void call();
-
   void terminateCall();
 }
