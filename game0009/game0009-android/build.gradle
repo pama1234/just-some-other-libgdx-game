@@ -7,6 +7,14 @@ android {
     buildToolsVersion "33.0.0"
 		aaptOptions.cruncherEnabled = false
     aaptOptions.useNewCruncher = false
+  signingConfigs {
+    release {
+      // storeFile file('sign.jks')
+      // storePassword ''
+      // keyAlias 'xxx'
+      // keyPassword ''
+    }
+  }
 	sourceSets {
 		main {
 			manifest.srcFile 'AndroidManifest.xml'
@@ -19,6 +27,8 @@ android {
 		}
 	}
 	packagingOptions {
+    resources.pickFirsts += "**/*"
+
 		// Preventing from license violations (more or less):
 		pickFirst "win/libgcc_s_seh_x86_64.dll"
     pickFirst "win/libstdc++-6_x86.dll"
@@ -61,12 +71,33 @@ android {
 	
 	buildTypes {
 		release {
-			minifyEnabled true
+			minifyEnabled false
 			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+			
+      signingConfig signingConfigs.release
 		}
 	}
 
 }
+
+def Properties props = new Properties()
+  def propFile = file('./signing.properties')
+  if (propFile.canRead()){
+    props.load(new FileInputStream(propFile))
+
+    if (props!=null && props.containsKey('STORE_FILE') && props.containsKey('STORE_PASSWORD') &&
+        props.containsKey('KEY_ALIAS') && props.containsKey('KEY_PASSWORD')) {
+
+      android.signingConfigs.release.storeFile = file(props['STORE_FILE'])
+      android.signingConfigs.release.storePassword = props['STORE_PASSWORD']
+      android.signingConfigs.release.keyAlias = props['KEY_ALIAS']
+      android.signingConfigs.release.keyPassword = props['KEY_PASSWORD']
+    } else {
+      android.buildTypes.release.signingConfig = null
+    }
+  }else {
+    android.buildTypes.release.signingConfig = null
+  }
 
 repositories {
 	// needed for AAPT2, may be needed for other tools
@@ -76,9 +107,12 @@ repositories {
 configurations { natives }
 
 dependencies {
-	coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:1.0.10'
+  coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:$androidDesugarVersion"
+
 	implementation project(':game0009:game0009-core')
-	implementation "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
+
+  implementation "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
+  implementation "com.github.simplepeng.SpiderMan:spiderman:$spidermanVersion"//如果程序异常闪退提供log
 
 	natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
 	natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a"

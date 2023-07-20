@@ -18,17 +18,17 @@ public class AndroidLauncher extends AndroidApplication {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     //LogSender.startLogging(this);
-    if (Build.VERSION.SDK_INT >= 23) { // 6.0
-      String[] perms = {
-        Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE
-      };
-      requestPermissions(perms, 0XCF);
-    }
-    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
-      if (!Environment.isExternalStorageManager()) {
-        startActivity(new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION));
-      }
-    }
+    // if (Build.VERSION.SDK_INT >= 23) { // 6.0
+    //   String[] perms = {
+    //     Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE
+    //   };
+    //   requestPermissions(perms, 0XCF);
+    // }
+    // if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.R) {
+    //   if (!Environment.isExternalStorageManager()) {
+    //     startActivity(new Intent(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION));
+    //   }
+    // }
     /* You can adjust this configuration to fit your needs */
     AndroidApplicationConfiguration configuration = new AndroidApplicationConfiguration();
     configuration.useImmersiveMode = true;
