@@ -42,7 +42,7 @@ public class BasicScreen extends ScreenAdapter{
   public BasicScreen() {
     Resourse.screens.put(getClass(),this);
     input=new InputMultiplexer();
-    stage=new Stage(new ScalingViewport(Scaling.fit,1280,720,new OrthographicCamera()));
+    stage=new Stage(new ScalingViewport(Scaling.fit,Resourse.width,Resourse.height,new OrthographicCamera()));
     input.addProcessor(stage);
     BitmapFont f=new BitmapFont();
     f.getData().setScale(4,4);

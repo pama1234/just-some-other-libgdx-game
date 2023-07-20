@@ -1,7 +1,7 @@
 package hhs.game.diffjourney.screens;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Application.ApplicationType;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
@@ -11,7 +11,6 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import hhs.game.diffjourney.game.TestSence;
 import hhs.game.diffjourney.ui.MyDialogBox;
-import hhs.gdx.hsgame.entitys.Entity;
 import hhs.gdx.hsgame.screens.BasicScreen;
 import hhs.gdx.hsgame.tools.ColorTool;
 import hhs.gdx.hsgame.tools.FontManager;
