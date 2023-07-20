@@ -3,7 +3,8 @@ package hhs.gdx.hsgame.util;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-
+//四叉树分割
+//可以加快搜索速度
 public class QuadTree<T extends Rect>{
   public Node<T> root;
   int capacity=64;
