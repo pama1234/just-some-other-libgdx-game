@@ -11,7 +11,7 @@
       "name": "Screen0024",
       "request": "launch",
       "mainClass": "pama1234.gdx.game.app.app0005.Screen0024",
-      "projectName": "game-game0006-core"
+      "projectName": "game0006-core"
     },
     {
       "type": "java",
@@ -38,105 +38,105 @@
       "name": "01-HeadlessLauncher",
       "request": "launch",
       "mainClass": "pama1234.gdx.game.app.headless.HeadlessLauncher",
-      "projectName": "game-game0001-headless"
+      "projectName": "game0001-headless"
     },
     {
       "type": "java",
       "name": "01-Launcher",
       "request": "launch",
       "mainClass": "pama1234.gdx.game.app.lwjgl3.Launcher",
-      "projectName": "game-game0001-lwjgl3"
+      "projectName": "game0001-lwjgl3"
     },
     {
       "type": "java",
       "name": "01-ServerLauncher",
       "request": "launch",
       "mainClass": "pama1234.app.game.server.launcher.ServerLauncher",
-      "projectName": "game-game0001-server"
+      "projectName": "game0001-server"
     },
     {
       "type": "java",
       "name": "02-Launcher",
       "request": "launch",
       "mainClass": "pama1234.gdx.game.app.lwjgl3.Launcher",
-      "projectName": "game-game0002-lwjgl3"
+      "projectName": "game0002-lwjgl3"
     },
     {
       "type": "java",
       "name": "02-LauncherDebug",
       "request": "launch",
       "mainClass": "pama1234.gdx.game.app.lwjgl3.LauncherDebug",
-      "projectName": "game-game0002-lwjgl3"
+      "projectName": "game0002-lwjgl3"
     },
     {
       "type": "java",
       "name": "02-LauncherServer",
       "request": "launch",
       "mainClass": "pama1234.gdx.game.app.lwjgl3.LauncherServer",
-      "projectName": "game-game0002-lwjgl3"
+      "projectName": "game0002-lwjgl3"
     },
     {
       "type": "java",
       "name": "02-ServerLauncher",
       "request": "launch",
       "mainClass": "pama1234.app.game.server.launcher.ServerLauncher",
-      "projectName": "game-game0002-server"
+      "projectName": "game0002-server"
     },
     {
       "type": "java",
       "name": "02-Server0001",
       "request": "launch",
       "mainClass": "pama1234.game.app.server.server0001.game.Server0001",
-      "projectName": "game-game0002-server"
+      "projectName": "game0002-server"
     },
     {
       "type": "java",
       "name": "03-Launcher",
       "request": "launch",
       "mainClass": "pama1234.gdx.game.app.lwjgl3.Launcher",
-      "projectName": "game-game0003-lwjgl3"
+      "projectName": "game0003-lwjgl3"
     },
     {
       "type": "java",
       "name": "03-ServerLauncher",
       "request": "launch",
       "mainClass": "pama1234.app.game.server.launcher.ServerLauncher",
-      "projectName": "game-game0003-server"
+      "projectName": "game0003-server"
     },
     {
       "type": "java",
       "name": "04-Launcher",
       "request": "launch",
       "mainClass": "pama1234.gdx.game.app.lwjgl3.Launcher",
-      "projectName": "game-game0004-lwjgl3"
+      "projectName": "game0004-lwjgl3"
     },
     {
       "type": "java",
       "name": "04-LauncherDebug",
       "request": "launch",
       "mainClass": "pama1234.gdx.game.app.lwjgl3.LauncherDebug",
-      "projectName": "game-game0004-lwjgl3"
+      "projectName": "game0004-lwjgl3"
     },
     {
       "type": "java",
       "name": "04-LauncherServer",
       "request": "launch",
       "mainClass": "pama1234.gdx.game.app.lwjgl3.LauncherServer",
-      "projectName": "game-game0004-lwjgl3"
+      "projectName": "game0004-lwjgl3"
     },
     {
       "type": "java",
       "name": "04-ServerLauncher",
       "request": "launch",
       "mainClass": "pama1234.app.game.server.launcher.ServerLauncher",
-      "projectName": "game-game0004-server"
+      "projectName": "game0004-server"
     },
     {
       "type": "java",
       "name": "05-Launcher",
       "request": "launch",
       "mainClass": "pama1234.gdx.game.app.lwjgl3.Launcher",
-      "projectName": "game-game0005-lwjgl3"
+      "projectName": "game0005-lwjgl3"
     },
     {
       "type": "java",
@@ -150,21 +150,21 @@
       "name": "06-Launcher",
       "request": "launch",
       "mainClass": "pama1234.gdx.game.app.lwjgl3.Launcher",
-      "projectName": "game-game0006-lwjgl3"
+      "projectName": "game0006-lwjgl3"
     },
     {
       "type": "java",
       "name": "07-Launcher",
       "request": "launch",
       "mainClass": "pama1234.gdx.game.app.lwjgl3.Launcher",
-      "projectName": "game-game0007-lwjgl3"
+      "projectName": "game0007-lwjgl3"
     },
     {
       "type": "java",
       "name": "02-Launcher-cgj",
       "request": "launch",
       "mainClass": "pama1234.gdx.game.app.lwjgl3.Launcher",
-      "projectName": "game-game0002-lwjgl3-cgj"
+      "projectName": "game0002-lwjgl3-cgj"
     }
   ]
 }

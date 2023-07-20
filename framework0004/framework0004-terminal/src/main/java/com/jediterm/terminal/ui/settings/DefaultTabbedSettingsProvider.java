@@ -1,17 +1,22 @@
 package com.jediterm.terminal.ui.settings;
 
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+
+import javax.swing.KeyStroke;
+
+import org.jetbrains.annotations.NotNull;
+
 import com.jediterm.terminal.TtyConnector;
 import com.jediterm.terminal.ui.TerminalActionPresentation;
 import com.jediterm.terminal.ui.UIUtil;
-import org.jetbrains.annotations.NotNull;
 
-import javax.swing.*;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
+import pama1234.gdx.terminal.DeprecatedAwt;
 
 /**
  * @author traff
  */
+@DeprecatedAwt
 public class DefaultTabbedSettingsProvider extends DefaultSettingsProvider implements TabbedSettingsProvider{
   @Override
   public boolean shouldCloseTabOnLogout(TtyConnector ttyConnector) {

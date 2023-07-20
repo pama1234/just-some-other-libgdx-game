@@ -80,6 +80,8 @@ dependencies {
 
   implementation project(':server-framework')
 
+  implementation project(':framework0004:framework0004-terminal')
+
   // api "com.android.tools.build:builder:$androidPluginVersion"
   // api 'com.github.ThexXTURBOXx:dex2jar:v59'
 

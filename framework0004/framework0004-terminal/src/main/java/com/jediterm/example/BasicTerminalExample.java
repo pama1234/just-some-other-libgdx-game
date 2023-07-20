@@ -13,6 +13,9 @@ import com.jediterm.terminal.TtyConnector;
 import com.jediterm.terminal.ui.JediTermWidget;
 import com.jediterm.terminal.ui.settings.DefaultSettingsProvider;
 
+import pama1234.gdx.terminal.DeprecatedAwt;
+
+@DeprecatedAwt
 public class BasicTerminalExample{
   private static final char ESC=27;
   private static void writeTerminalCommands(@NotNull PipedWriter writer) throws IOException {

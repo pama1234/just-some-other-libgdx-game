@@ -1,12 +1,16 @@
 package com.jediterm.terminal.ui.input;
 
+import javax.swing.SwingUtilities;
+
+import org.jetbrains.annotations.NotNull;
+
 import com.jediterm.core.input.MouseEvent;
 import com.jediterm.terminal.emulator.mouse.MouseButtonCodes;
 import com.jediterm.terminal.emulator.mouse.MouseButtonModifierFlags;
-import org.jetbrains.annotations.NotNull;
 
-import javax.swing.*;
+import pama1234.gdx.terminal.DeprecatedAwt;
 
+@DeprecatedAwt
 public final class AwtMouseEvent extends MouseEvent{
   private final java.awt.event.MouseEvent myAwtMouseEvent;
   public AwtMouseEvent(@NotNull java.awt.event.MouseEvent awtMouseEvent) {

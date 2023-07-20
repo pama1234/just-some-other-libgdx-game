@@ -11,6 +11,9 @@ import com.jediterm.terminal.model.*;
 import com.jediterm.terminal.model.hyperlinks.HyperlinkFilter;
 import com.jediterm.terminal.model.hyperlinks.TextProcessing;
 import com.jediterm.terminal.ui.settings.SettingsProvider;
+
+import pama1234.gdx.terminal.DeprecatedAwt;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
@@ -32,6 +35,7 @@ import java.util.concurrent.atomic.AtomicReference;
  * JediTerm terminal widget with UI implemented in Swing.
  * <p/>
  */
+@DeprecatedAwt
 public class JediTermWidget extends JPanel implements TerminalSession,TerminalWidget,TerminalActionProvider{
   private static final Logger LOG=LoggerFactory.getLogger(JediTermWidget.class);
   protected final TerminalPanel myTerminalPanel;

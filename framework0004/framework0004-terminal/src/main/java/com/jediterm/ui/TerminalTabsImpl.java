@@ -1,15 +1,20 @@
 package com.jediterm.ui;
 
-import com.jediterm.terminal.ui.JediTermWidget;
-
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Component;
 import java.awt.event.ContainerEvent;
 import java.awt.event.ContainerListener;
+
+import javax.swing.JComponent;
+import javax.swing.JTabbedPane;
+
+import com.jediterm.terminal.ui.JediTermWidget;
+
+import pama1234.gdx.terminal.DeprecatedAwt;
 
 /**
  * @author traff
  */
+@DeprecatedAwt
 public class TerminalTabsImpl implements AbstractTabs<JediTermWidget>{
   protected JTabbedPane myTabbedPane=new JTabbedPane();
   @Override

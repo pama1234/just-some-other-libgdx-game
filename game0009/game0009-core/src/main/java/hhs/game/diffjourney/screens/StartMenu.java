@@ -124,4 +124,14 @@ public class StartMenu extends BasicScreen{
     super.dispose();
     if(Gdx.app.getType()==ApplicationType.Desktop) System.exit(0);
   }
+  @Override
+  public void setup() {}
+  @Override
+  public void update() {}
+  @Override
+  public void display() {}
+  @Override
+  public void displayWithCam() {}
+  @Override
+  public void frameResized() {}
 }

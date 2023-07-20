@@ -1,23 +1,40 @@
 package com.jediterm.ui;
 
+import java.awt.BorderLayout;
+import java.awt.DefaultFocusTraversalPolicy;
+import java.awt.Dimension;
+import java.awt.event.KeyEvent;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.function.Function;
+
+import javax.swing.JComponent;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
+import org.jetbrains.annotations.NotNull;
+
 import com.jediterm.app.TtyConnectorWaitFor;
 import com.jediterm.terminal.RequestOrigin;
 import com.jediterm.terminal.TerminalDisplay;
 import com.jediterm.terminal.TtyConnector;
-import com.jediterm.terminal.ui.*;
+import com.jediterm.terminal.ui.JediTermWidget;
+import com.jediterm.terminal.ui.TerminalAction;
+import com.jediterm.terminal.ui.TerminalActionProvider;
+import com.jediterm.terminal.ui.TerminalPanelListener;
+import com.jediterm.terminal.ui.TerminalWidget;
+import com.jediterm.terminal.ui.TerminalWidgetListener;
 import com.jediterm.terminal.ui.settings.TabbedSettingsProvider;
-import org.jetbrains.annotations.NotNull;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.KeyEvent;
-import java.util.List;
-import java.util.*;
-import java.util.function.Function;
+import pama1234.gdx.terminal.DeprecatedAwt;
 
 /**
  * @author traff
  */
+@DeprecatedAwt
 public abstract class AbstractTabbedTerminalWidget<T extends JediTermWidget>extends JPanel implements TerminalWidget,TerminalActionProvider{
   private final Object myLock=new Object();
   private TerminalPanelListener myTerminalPanelListener=null;

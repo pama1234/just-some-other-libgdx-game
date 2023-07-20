@@ -1,18 +1,24 @@
 package com.jediterm.terminal.ui;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-
-import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.function.Supplier;
 
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
+import javax.swing.KeyStroke;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
+import pama1234.gdx.terminal.DeprecatedAwt;
+
 /**
  * @author traff
  */
+@DeprecatedAwt
 public class TerminalAction{
   private final TerminalActionPresentation myPresentation;
   private final Predicate<KeyEvent> myRunnable;

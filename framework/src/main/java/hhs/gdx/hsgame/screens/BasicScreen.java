@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
-import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -22,8 +21,9 @@ import hhs.gdx.hsgame.tools.LoopThread;
 import hhs.gdx.hsgame.tools.Resourse;
 import hhs.gdx.hsgame.ui.Debug;
 import hhs.gdx.hsgame.util.thread.ThreadCenter;
+import pama1234.gdx.util.app.UtilScreen2D;
 
-public class BasicScreen extends ScreenAdapter{
+public abstract class BasicScreen extends UtilScreen2D{
   LoopThread updateThread;
   public ArrayList<Entity> entities;
   public ThreadCenter threads;
@@ -70,6 +70,7 @@ public class BasicScreen extends ScreenAdapter{
   }
   @Override
   public void render(float delta) {
+    super.render(delta);
     ScreenUtils.clear(clearColor);
     camera.update();
     Resourse.cacheRender.draw(delta);
@@ -97,16 +98,19 @@ public class BasicScreen extends ScreenAdapter{
   }
   @Override
   public void hide() {
+    super.hide();
     updateThread.interrupt();
   }
   @Override
   public void show() {
+    super.show();
     threads.start();
     // updateThread.start();
     Gdx.input.setInputProcessor(input);
   }
   @Override
   public void dispose() {
+    super.dispose();
     stage.dispose();
     for(Entity e:entities) {
       e.dispose();
@@ -114,6 +118,7 @@ public class BasicScreen extends ScreenAdapter{
   }
   @Override
   public void resize(int width,int height) {
+    super.resize(width,height);
     ScalingViewport tv=(ScalingViewport)stage.getViewport();
     tv.setScreenSize(width,height);
     stage.setViewport(tv);

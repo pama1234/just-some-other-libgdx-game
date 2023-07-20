@@ -17,6 +17,9 @@ import org.jetbrains.annotations.NotNull;
 
 import com.jediterm.core.compatibility.Charsets;
 
+import pama1234.gdx.terminal.DeprecatedAwt;
+
+@DeprecatedAwt
 public final class JediTermMain{
   @NotNull
   public static final JediTermMain INSTANCE;

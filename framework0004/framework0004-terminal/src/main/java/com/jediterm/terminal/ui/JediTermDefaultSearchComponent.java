@@ -22,6 +22,9 @@ import org.jetbrains.annotations.Nullable;
 
 import com.jediterm.terminal.SubstringFinder;
 
+import pama1234.gdx.terminal.DeprecatedAwt;
+
+@DeprecatedAwt
 final class JediTermDefaultSearchComponent extends JPanel implements JediTermSearchComponent{
   private final JTextField myTextField=new JTextField();
   private final JLabel label=new JLabel();

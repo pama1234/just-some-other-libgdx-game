@@ -1,12 +1,17 @@
 package com.jediterm.terminal.ui;
 
-import com.jediterm.terminal.SubstringFinder;
+import java.awt.event.KeyListener;
+
+import javax.swing.JComponent;
+
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.swing.*;
-import java.awt.event.KeyListener;
+import com.jediterm.terminal.SubstringFinder;
 
+import pama1234.gdx.terminal.DeprecatedAwt;
+
+@DeprecatedAwt
 public interface JediTermSearchComponent{
   @NotNull
   JComponent getComponent();

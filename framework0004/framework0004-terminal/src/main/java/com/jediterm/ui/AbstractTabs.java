@@ -1,11 +1,15 @@
 package com.jediterm.ui;
 
-import javax.swing.*;
-import java.awt.*;
+import java.awt.Component;
+
+import javax.swing.JComponent;
+
+import pama1234.gdx.terminal.DeprecatedAwt;
 
 /**
  * @author traff
  */
+@DeprecatedAwt
 public interface AbstractTabs<T extends Component>{
   int getTabCount();
   void addTab(String name,T terminal);

@@ -17,9 +17,12 @@ import com.jediterm.terminal.util.Pair;
 import com.jediterm.ui.AbstractTabbedTerminalWidget;
 import com.jediterm.ui.AbstractTabs;
 
+import pama1234.gdx.terminal.DeprecatedAwt;
+
 /**
  * @author traff
  */
+@DeprecatedAwt
 public class JediTabbedTerminalWidget extends AbstractTabbedTerminalWidget<JediTerminalWidget>{
   private final TabbedSettingsProvider mySettingsProvider;
   public JediTabbedTerminalWidget(@NotNull TabbedSettingsProvider settingsProvider,

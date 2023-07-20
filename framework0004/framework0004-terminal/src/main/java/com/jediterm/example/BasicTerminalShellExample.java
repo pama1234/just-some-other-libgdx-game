@@ -1,5 +1,16 @@
 package com.jediterm.example;
 
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+
+import org.jetbrains.annotations.NotNull;
+
 import com.jediterm.pty.PtyProcessTtyConnector;
 import com.jediterm.terminal.TtyConnector;
 import com.jediterm.terminal.ui.JediTermWidget;
@@ -7,15 +18,10 @@ import com.jediterm.terminal.ui.UIUtil;
 import com.jediterm.terminal.ui.settings.DefaultSettingsProvider;
 import com.pty4j.PtyProcess;
 import com.pty4j.PtyProcessBuilder;
-import org.jetbrains.annotations.NotNull;
 
-import javax.swing.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
+import pama1234.gdx.terminal.DeprecatedAwt;
 
+@DeprecatedAwt
 public class BasicTerminalShellExample{
   private static @NotNull JediTermWidget createTerminalWidget() {
     JediTermWidget widget=new JediTermWidget(80,24,new DefaultSettingsProvider());

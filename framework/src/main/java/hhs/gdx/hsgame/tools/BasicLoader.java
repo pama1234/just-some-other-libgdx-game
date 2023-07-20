@@ -35,4 +35,14 @@ public class BasicLoader extends BasicScreen{
     batch.draw(back,0,0,Resourse.width*asset.getProgress(),Resourse.height/3);
     batch.end();
   }
+  @Override
+  public void setup() {}
+  @Override
+  public void update() {}
+  @Override
+  public void display() {}
+  @Override
+  public void displayWithCam() {}
+  @Override
+  public void frameResized() {}
 }

@@ -71,4 +71,14 @@ public class TestSence extends BasicScreen{
     super.render(arg0);
     // TODO: Implement this method
   }
+  @Override
+  public void setup() {}
+  @Override
+  public void update() {}
+  @Override
+  public void display() {}
+  @Override
+  public void displayWithCam() {}
+  @Override
+  public void frameResized() {}
 }

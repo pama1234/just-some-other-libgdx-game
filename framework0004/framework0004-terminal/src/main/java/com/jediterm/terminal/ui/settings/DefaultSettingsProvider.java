@@ -1,5 +1,16 @@
 package com.jediterm.terminal.ui.settings;
 
+import static com.jediterm.terminal.ui.AwtTransformers.fromAwtToTerminalColor;
+
+import java.awt.Font;
+import java.awt.event.InputEvent;
+import java.awt.event.KeyEvent;
+import java.util.Collections;
+
+import javax.swing.KeyStroke;
+
+import org.jetbrains.annotations.NotNull;
+
 import com.jediterm.terminal.HyperlinkStyle;
 import com.jediterm.terminal.TerminalColor;
 import com.jediterm.terminal.TextStyle;
@@ -9,16 +20,10 @@ import com.jediterm.terminal.model.LinesBuffer;
 import com.jediterm.terminal.model.TerminalTypeAheadSettings;
 import com.jediterm.terminal.ui.TerminalActionPresentation;
 import com.jediterm.terminal.ui.UIUtil;
-import org.jetbrains.annotations.NotNull;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
-import java.util.Collections;
+import pama1234.gdx.terminal.DeprecatedAwt;
 
-import static com.jediterm.terminal.ui.AwtTransformers.fromAwtToTerminalColor;
-
+@DeprecatedAwt
 public class DefaultSettingsProvider implements SettingsProvider{
   @Override
   public @NotNull TerminalActionPresentation getOpenUrlActionPresentation() {

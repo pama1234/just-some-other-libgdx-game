@@ -3,17 +3,31 @@
  */
 package com.jediterm.terminal.debug;
 
-import com.jediterm.terminal.LoggingTtyConnector;
-import com.jediterm.terminal.ui.TerminalSession;
-
-import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import java.awt.*;
+import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JSlider;
+import javax.swing.JSpinner;
+import javax.swing.JTextArea;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
+import javax.swing.Timer;
+import javax.swing.event.ChangeEvent;
+
+import com.jediterm.terminal.LoggingTtyConnector;
+import com.jediterm.terminal.ui.TerminalSession;
+
+import pama1234.gdx.terminal.DeprecatedAwt;
+
+@DeprecatedAwt
 public class BufferPanel extends JPanel{
   public BufferPanel(final TerminalSession terminal) {
     super(new GridBagLayout());

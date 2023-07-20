@@ -1,16 +1,21 @@
 package com.jediterm.terminal.ui.hyperlinks;
 
-import com.jediterm.terminal.model.hyperlinks.LinkInfo;
-import com.jediterm.terminal.ui.TerminalAction;
+import java.awt.Rectangle;
+import java.awt.event.MouseEvent;
+import java.util.List;
+
+import javax.swing.JComponent;
+
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.util.List;
+import com.jediterm.terminal.model.hyperlinks.LinkInfo;
+import com.jediterm.terminal.ui.TerminalAction;
 
+import pama1234.gdx.terminal.DeprecatedAwt;
+
+@DeprecatedAwt
 public final class LinkInfoEx extends LinkInfo{
   private final PopupMenuGroupProvider myPopupMenuGroupProvider;
   private final HoverConsumer myHoverConsumer;

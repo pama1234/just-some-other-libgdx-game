@@ -1,5 +1,23 @@
 package com.jediterm.ui;
 
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.util.logging.Level;
+
+import javax.swing.AbstractAction;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
+
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import com.jediterm.app.JediTerm;
 import com.jediterm.core.compatibility.Point;
 import com.jediterm.terminal.RequestOrigin;
@@ -13,18 +31,10 @@ import com.jediterm.terminal.ui.TerminalWidget;
 import com.jediterm.terminal.ui.settings.DefaultTabbedSettingsProvider;
 import com.jediterm.terminal.ui.settings.TabbedSettingsProvider;
 import com.jediterm.terminal.util.Pair;
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.util.logging.Level;
+import pama1234.gdx.terminal.DeprecatedAwt;
 
+@DeprecatedAwt
 public abstract class AbstractTerminalFrame{
   public static final Logger LOG=LoggerFactory.getLogger(AbstractTerminalFrame.class);
   private JFrame myBufferFrame;
