@@ -51,12 +51,12 @@ android {
     targetCompatibility "17"
     coreLibraryDesugaringEnabled true
   }
-  
+
   buildTypes {
     release {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-      
+
       signingConfig signingConfigs.release
     }
   }
@@ -72,51 +72,51 @@ android {
 }
 
 tasks.withType(Test).configureEach {
-    testLogging {
-        events "started", "passed", "skipped", "failed"
-    }
+  testLogging {
+    events "started", "passed", "skipped", "failed"
+  }
 }
 
 tasks.register('sourceJar', Jar) {
-    from android.sourceSets.main.java.srcDirs
-    archiveClassifier.set("sources")
+  from android.sourceSets.main.java.srcDirs
+  archiveClassifier.set("sources")
 }
 
 afterEvaluate {
-    publishing {
-        publications {
-            // Creates a Maven publication called "release".
-            release(MavenPublication) {
+  publishing {
+    publications {
+      // Creates a Maven publication called "release".
+      release(MavenPublication) {
         // println("Components: " + components*.name)
         //         from components.release
-                groupId = 'com.termux'
-                artifactId = 'terminal-emulator'
-                version = '0.118.0'
-                artifact(sourceJar)
-            }
-        }
+        groupId = 'com.termux'
+        artifactId = 'terminal-emulator'
+        version = '0.118.0'
+        artifact(sourceJar)
+      }
     }
+  }
 }
 
 
 def Properties props = new Properties()
-  def propFile = file('./signing.properties')
-  if (propFile.canRead()){
-    props.load(new FileInputStream(propFile))
+def propFile = file('./signing.properties')
+if (propFile.canRead()){
+  props.load(new FileInputStream(propFile))
 
-    if (props!=null && props.containsKey('STORE_FILE') && props.containsKey('STORE_PASSWORD') &&
-        props.containsKey('KEY_ALIAS') && props.containsKey('KEY_PASSWORD')) {
+  if (props!=null && props.containsKey('STORE_FILE') && props.containsKey('STORE_PASSWORD') &&
+      props.containsKey('KEY_ALIAS') && props.containsKey('KEY_PASSWORD')) {
 
-      android.signingConfigs.release.storeFile = file(props['STORE_FILE'])
-      android.signingConfigs.release.storePassword = props['STORE_PASSWORD']
-      android.signingConfigs.release.keyAlias = props['KEY_ALIAS']
-      android.signingConfigs.release.keyPassword = props['KEY_PASSWORD']
-    } else {
-      android.buildTypes.release.signingConfig = null
-    }
-  }else {
+    android.signingConfigs.release.storeFile = file(props['STORE_FILE'])
+    android.signingConfigs.release.storePassword = props['STORE_PASSWORD']
+    android.signingConfigs.release.keyAlias = props['KEY_ALIAS']
+    android.signingConfigs.release.keyPassword = props['KEY_PASSWORD']
+  } else {
     android.buildTypes.release.signingConfig = null
   }
+}else {
+  android.buildTypes.release.signingConfig = null
+}
 
 repositories {
   // needed for AAPT2, may be needed for other tools
@@ -131,7 +131,7 @@ dependencies {
 
   implementation project(':server-framework')
   implementation project(':framework0004:framework0004-terminal')
-  
+
   implementation "androidx.annotation:annotation:1.6.0"
 
   // This follows advice from https://blog.gradle.org/log4j-vulnerability

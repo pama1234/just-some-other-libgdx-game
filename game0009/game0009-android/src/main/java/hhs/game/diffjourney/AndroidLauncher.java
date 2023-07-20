@@ -1,19 +1,12 @@
 package hhs.game.diffjourney;
 
-import android.Manifest;
-import android.content.ContextParams;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 
-import android.os.Environment;
-import android.provider.Settings;
 import com.badlogic.gdx.backends.android.AndroidApplication;
 import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 
 /* Launches the Android application. */
-public class AndroidLauncher extends AndroidApplication {
+public class AndroidLauncher extends AndroidApplication{
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -30,8 +23,8 @@ public class AndroidLauncher extends AndroidApplication {
     //   }
     // }
     /* You can adjust this configuration to fit your needs */
-    AndroidApplicationConfiguration configuration = new AndroidApplicationConfiguration();
+    AndroidApplicationConfiguration configuration=new AndroidApplicationConfiguration();
     configuration.useImmersiveMode=true;
-    initialize(new MainGame(), configuration);
+    initialize(new MainGame(),configuration);
   }
 }

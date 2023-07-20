@@ -3,8 +3,6 @@ package pama1234.gdx.game.app.android;
 import java.io.*;
 
 import dalvik.system.DexClassLoader;
-import dalvik.system.DexFile;
-import dalvik.system.PathClassLoader;
 import pama1234.dex.DexUtil;
 
 public class AndroidDexUtil implements DexUtil{
