@@ -29,6 +29,9 @@ public class BasicScreen extends ScreenAdapter{
   SpriteBatch batch;
   ShapeRenderer shape;
   public OrthographicCamera camera;
+  /**
+   * debug
+   */
   public Debug d;
   public boolean debug=false;
   public BasicScreen() {

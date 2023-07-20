@@ -17,6 +17,9 @@ import squidpony.squidgrid.FOV;
 import squidpony.squidgrid.Radius;
 import squidpony.squidgrid.mapping.DungeonUtility;
 
+/**
+ * 玩家
+ */
 public class Character extends RectEntity implements Controler.Controlable{
   int speed=200;
   boolean direct=true;
@@ -89,7 +92,7 @@ public class Character extends RectEntity implements Controler.Controlable{
         tr.flip(true,false);
       }
     }
-    if(tr==null) return;
+    // if(tr==null) return;
     batch.draw(tr,pos.x-2*size.x,pos.y-size.y,size.x*5,size.x*5);
     anim.state(State.stop);
   }
