@@ -120,6 +120,8 @@ if (propFile.canRead()){
 
 repositories {
   // needed for AAPT2, may be needed for other tools
+  maven { url 'https://maven.aliyun.com/repository/public' }
+  maven { url 'https://maven.aliyun.com/repository/google' }
   mavenCentral()
   maven { url 'https://maven.scijava.org/content/repositories/public/' }
   maven { url 'https://jitpack.io' }

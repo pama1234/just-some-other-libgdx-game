@@ -85,21 +85,6 @@ configure(subprojects.findAll {
     }
   }
   
-  // apply plugin: "com.diffplug.spotless"
-
-  // spotless {
-  //   lineEndings 'UNIX'
-
-  //   java {
-  //     target '**/*.java'
-  //     removeUnusedImports()
-  //     eclipse().configFile new File(rootProject.projectDir.absolutePath, 'doc/eclipse.formatter.xml')
-  //   }
-  //   groovyGradle {
-  //     target '*.gradle'
-  //     greclipse().configFile new File(rootProject.projectDir.absolutePath, 'doc/eclipse.formatter.xml')
-  //   }
-  // }
 }
 
 subprojects {
@@ -109,6 +94,8 @@ subprojects {
   version = '0.0.1'
   ext.appName = 'game'
   repositories {
+    maven { url 'https://maven.aliyun.com/repository/public' }
+    maven { url 'https://maven.aliyun.com/repository/google' }
     mavenCentral()
     maven { url 'https://s01.oss.sonatype.org' }
     mavenLocal()
@@ -116,14 +103,7 @@ subprojects {
     maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
     maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
     maven { url 'https://maven.scijava.org/content/repositories/public/' }
-    maven {
-      url 'https://jitpack.io' 
-    
-      content {//Jit可用后取消排除
-        excludeGroupByRegex "com\\.github.ThexXTURBOXx.dex2jar.*"
-      }
-    }
-    // maven { url 'maven6(http://dist.wso2.org/maven2/)' }
+    maven { url 'https://jitpack.io' }
   }
   
   apply plugin: "com.diffplug.spotless"
