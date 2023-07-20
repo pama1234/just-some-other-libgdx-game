@@ -1,5 +1,7 @@
 package hhs.gdx.hsgame.screens;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.ScreenAdapter;
@@ -10,7 +12,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
-import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 
@@ -20,7 +21,6 @@ import hhs.gdx.hsgame.tools.LoopThread;
 import hhs.gdx.hsgame.tools.Resourse;
 import hhs.gdx.hsgame.ui.Debug;
 import hhs.gdx.hsgame.util.thread.ThreadCenter;
-import java.util.ArrayList;
 
 public class BasicScreen extends ScreenAdapter{
   LoopThread updateThread;
@@ -58,12 +58,20 @@ public class BasicScreen extends ScreenAdapter{
     updateThread=new LoopThread() {
       @Override
       public void loop() {
-        for(Entity e:entities) {
+        // System.out.println(frameRate+" "+frameCount);
+        // for(Entity e:entities) {
+        for(int i=0;i<entities.size();i++) {
+          Entity e=entities.get(i);
           if(!e.update) continue;
-          e.update(Gdx.graphics.getDeltaTime());
+          // e.update(Gdx.graphics.getDeltaTime());
+          // synchronized(e) {
+          e.update(frameRate);
+          // }
         }
+        // }
       }
     };
+    updateThread.frameRate(60);
   }
   @Override
   public void render(float arg0) {
@@ -99,7 +107,7 @@ public class BasicScreen extends ScreenAdapter{
   @Override
   public void show() {
     threads.start();
-    // updateThread.start();
+    updateThread.start();
     Gdx.input.setInputProcessor(input);
   }
   @Override
