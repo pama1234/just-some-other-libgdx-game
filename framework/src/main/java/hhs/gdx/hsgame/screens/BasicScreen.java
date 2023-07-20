@@ -42,6 +42,8 @@ public class BasicScreen extends ScreenAdapter{
     Resourse.screens.put(getClass(),this);
     input=new InputMultiplexer();
     stage=new Stage();
+    ScalingViewport tv=(ScalingViewport)stage.getViewport();
+    tv.setWorldSize(1280,720);
     input.addProcessor(stage);
     BitmapFont f=new BitmapFont();
     f.getData().setScale(4,4);

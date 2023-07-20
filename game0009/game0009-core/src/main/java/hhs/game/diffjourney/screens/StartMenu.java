@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 import hhs.game.diffjourney.game.TestSence;
 import hhs.game.diffjourney.ui.MyDialogBox;
@@ -69,7 +70,17 @@ public class StartMenu extends BasicScreen{
     }
     m=Resourse.asset.get("music/start.mp3");
     setClearColor(ColorTool.萱草黄);
-    d.addTrace(()->"viewport: "+stage.getViewport().getScreenWidth()+" "+stage.getViewport().getScreenWidth());
+    d.addTrace(()-> {
+      Viewport viewport=stage.getViewport();
+      return "viewport: "+
+        viewport.getScreenWidth()+
+        " "+
+        viewport.getScreenHeight()+
+        " "+
+        viewport.getWorldWidth()+
+        " "+
+        viewport.getWorldHeight();
+    });
     // resize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
   }
   @Override
