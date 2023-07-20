@@ -8,16 +8,11 @@ import com.jediterm.terminal.model.TerminalTextBuffer;
 /**
  * @author traff
  */
-public interface TerminalSession {
+public interface TerminalSession{
   void start();
-
-  String getBufferText(DebugBufferType type, int stateIndex);
-
+  String getBufferText(DebugBufferType type,int stateIndex);
   TerminalTextBuffer getTerminalTextBuffer();
-
   Terminal getTerminal();
-
   TtyConnector getTtyConnector();
-
   void close();
 }

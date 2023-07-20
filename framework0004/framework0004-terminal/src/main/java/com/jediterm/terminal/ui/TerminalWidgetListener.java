@@ -1,5 +1,5 @@
 package com.jediterm.terminal.ui;
 
-public interface TerminalWidgetListener {
+public interface TerminalWidgetListener{
   void allSessionsClosed(TerminalWidget widget);
 }
