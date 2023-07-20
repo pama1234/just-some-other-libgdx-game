@@ -54,8 +54,8 @@ android {
   defaultConfig {
     // pft01 is platform type 01 is taptap
     applicationId 'pama1234.gdx.game.app.fillBox.pft01'
-    minSdkVersion 26
-    targetSdkVersion 30
+    minSdkVersion project.properties.minSdkVersion.toInteger()
+    targetSdkVersion project.properties.targetSdkVersion.toInteger()
     versionCode 2
     versionName "1.0.1"
     multiDexEnabled true

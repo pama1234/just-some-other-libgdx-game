@@ -56,8 +56,8 @@ android {
 	}
 	defaultConfig {
 		applicationId 'hhs.game.diffjourney'
-		minSdkVersion 26
-		targetSdkVersion 31
+		minSdkVersion project.properties.minSdkVersion.toInteger()
+		targetSdkVersion project.properties.targetSdkVersion.toInteger()
 		versionCode 1
 		versionName "1.0"
 		multiDexEnabled true

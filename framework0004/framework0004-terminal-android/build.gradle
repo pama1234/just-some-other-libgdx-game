@@ -1,9 +1,11 @@
 apply plugin: "com.android.library"
+// apply plugin: 'maven-publish'
 
 android {
   namespace 'pama1234.util'
 
   compileSdk project.properties.compileSdkVersion.toInteger()
+  ndkVersion = System.getenv("JITPACK_NDK_VERSION") ?: project.properties.ndkVersion
   signingConfigs {
     release {
       // storeFile file('sign.jks')
@@ -23,13 +25,25 @@ android {
       jniLibs.srcDirs = ['libs']
     }
   }
+  packagingOptions {
+    resources.pickFirsts += "**/*"
+  }
   defaultConfig {
-    // applicationId 'pama1234.gdx.util.android.dex' NOP
-    minSdkVersion 26
-    targetSdkVersion 33
+    minSdkVersion project.properties.minSdkVersion.toInteger()
+    targetSdkVersion project.properties.targetSdkVersion.toInteger()
     versionCode 1
     versionName "1.0"
     multiDexEnabled true
+
+    externalNativeBuild {
+      ndkBuild {
+        cFlags "-std=c11", "-Wall", "-Wextra", "-Werror", "-Os", "-fno-stack-protector", "-Wl,--gc-sections"
+      }
+    }
+
+    ndk {
+      abiFilters 'x86', 'x86_64', 'armeabi-v7a', 'arm64-v8a'
+    }
   }
   compileOptions {
     encoding = 'UTF-8'
@@ -79,11 +93,8 @@ dependencies {
   coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:$androidDesugarVersion"
 
   implementation project(':server-framework')
-
   implementation project(':framework0004:framework0004-terminal')
-
-  // api "com.android.tools.build:builder:$androidPluginVersion"
-  // api 'com.github.ThexXTURBOXx:dex2jar:v59'
+  
 
   // This follows advice from https://blog.gradle.org/log4j-vulnerability
   constraints {
