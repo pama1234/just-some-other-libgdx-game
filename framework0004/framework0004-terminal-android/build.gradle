@@ -3,7 +3,7 @@ apply plugin: "com.android.library"
 android {
   namespace 'pama1234.util'
 
-  compileSdk 33
+  compileSdk project.properties.compileSdkVersion.toInteger()
   signingConfigs {
     release {
       // storeFile file('sign.jks')
