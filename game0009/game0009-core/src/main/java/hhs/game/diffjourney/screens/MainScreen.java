@@ -25,16 +25,12 @@ import pama1234.gdx.util.font.MultiChunkFont;
 public class MainScreen extends BasicScreen{
   Table table;
   TextButton b1,b2;
-  Label l;
   DialogBox dbox;
   Music m;
-  // LazyBitmapFont font;
   MultiChunkFont font;
-  float time=0;
-  boolean up=true;
+  public TitleLable titleLable;
   public MainScreen() {
     Resourse.font=new FontManager(Resourse.asset.get("font.ttf"));
-    // SkinBuilder sb=new SkinBuilder(font=Resourse.font.newFont(64,Color.WHITE));
     font=UtilScreenCore.genMultiChunkFont(false);
     font.size(64);
     font.textScale(4);
@@ -54,12 +50,8 @@ public class MainScreen extends BasicScreen{
     table.row();
     table.add(b2).padTop(50);
     stage.addActor(table);
-    l=new Label(
-      "异界征途",
-      new Label.LabelStyle(
-        Resourse.font.newFont(Resourse.width/8,Color.WHITE),Color.BLACK));
-    l.setPosition(0,Resourse.height-Resourse.width/8);
-    stage.addActor(l);
+    titleLable=new TitleLable();
+    stage.addActor(titleLable.title);
     if(Resourse.recoder.isFirstRun("start")) {
       dbox=new MyDialogBox(PixmapBuilder.getRectangle(200,100,ColorTool.松绿));
       dbox.setSequence(
@@ -79,17 +71,6 @@ public class MainScreen extends BasicScreen{
   }
   @Override
   public void render(float arg0) {
-    if(time<1) {
-      if(up) time+=arg0;
-    }else {
-      up=!up;
-    }
-    if(time>0) {
-      if(!up) time-=arg0;
-    }else {
-      up=!up;
-    }
-    l.getColor().a=time;
     super.render(arg0);
   }
   @Override
@@ -104,5 +85,26 @@ public class MainScreen extends BasicScreen{
     super.hide();
     m.stop();
     // TODO: Implement this method
+  }
+  public static class TitleLable{
+    public Label title;
+    float alphaCache=0;
+    boolean alphaFlag=true;
+    public TitleLable() {
+      title=new Label(
+        "异界征途",
+        new Label.LabelStyle(
+          Resourse.font.newFont(Resourse.width/8,Color.WHITE),Color.BLACK));
+      title.setPosition(0,Resourse.height-Resourse.width/8);
+    }
+    public void update(float delta) {
+      if(alphaCache<1) {
+        if(alphaFlag) alphaCache+=delta;
+      }else alphaFlag=!alphaFlag;
+      if(alphaCache>0) {
+        if(!alphaFlag) alphaCache-=delta;
+      }else alphaFlag=!alphaFlag;
+      title.getColor().a=alphaCache;
+    }
   }
 }
