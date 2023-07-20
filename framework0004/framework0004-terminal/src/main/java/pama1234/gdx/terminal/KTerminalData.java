@@ -217,7 +217,7 @@ public final class KTerminalData{
     return this.terminal;
   }
   public final void setTerminal(@NotNull KTerminalGlyph[][] var1) {
-    // Intrinsics.checkParameterIsNotNull(var1,"<set-?>");
+    // // Intrinsics.checkParameterIsNotNull(var1,"<set-?>");
     this.terminal=var1;
   }
   public final void resize(int width,int height) {
@@ -230,7 +230,7 @@ public final class KTerminalData{
       KTerminalGlyph[] var8=new KTerminalGlyph[height];
       for(int var9=0;var9<var7;++var9) {
         int var13=0;
-        KTerminalGlyph var14=new KTerminalGlyph(0,this.defaultForegroundColor,this.defaultBackgroundColor,0.0F,0.0F,0.0F,0.0F,false,false,504,(DefaultConstructorMarker)null);
+        KTerminalGlyph var14=new KTerminalGlyph(0,this.defaultForegroundColor,this.defaultBackgroundColor,0.0F,0.0F,0.0F,0.0F,false,false,504,null);
         var8[var9]=var14;
       }
       var3[var4]=var8;
@@ -325,8 +325,8 @@ public final class KTerminalData{
   }
   @NotNull
   public final KTerminalData setCursorColor(@NotNull Color foregroundColor,@NotNull Color backgroundColor) {
-    Intrinsics.checkParameterIsNotNull(foregroundColor,"foregroundColor");
-    Intrinsics.checkParameterIsNotNull(backgroundColor,"backgroundColor");
+    // Intrinsics.checkParameterIsNotNull(foregroundColor,"foregroundColor");
+    // Intrinsics.checkParameterIsNotNull(backgroundColor,"backgroundColor");
     return this.setCursorColor(foregroundColor.toFloatBits(),backgroundColor.toFloatBits());
   }
   @NotNull
@@ -367,8 +367,8 @@ public final class KTerminalData{
   }
   @NotNull
   public final KTerminalData get(@NotNull Color foregroundColor,@NotNull Color backgroundColor) {
-    // Intrinsics.checkParameterIsNotNull(foregroundColor,"foregroundColor");
-    // Intrinsics.checkParameterIsNotNull(backgroundColor,"backgroundColor");
+    // // Intrinsics.checkParameterIsNotNull(foregroundColor,"foregroundColor");
+    // // Intrinsics.checkParameterIsNotNull(backgroundColor,"backgroundColor");
     return this.setCursorColor(foregroundColor,backgroundColor);
   }
   @NotNull
@@ -381,7 +381,7 @@ public final class KTerminalData{
   }
   @NotNull
   public final KTerminalData write(@NotNull KTerminalGlyph glyph) {
-    // Intrinsics.checkParameterIsNotNull(glyph,"glyph");
+    // // Intrinsics.checkParameterIsNotNull(glyph,"glyph");
     this.workingCursor.setForegroundColor(glyph.getForegroundColor());
     this.workingCursor.setBackgroundColor(glyph.getBackgroundColor());
     this.workingCursor.setRotation(glyph.getRotation());
@@ -395,7 +395,7 @@ public final class KTerminalData{
   @NotNull
   public final KTerminalData write(int value) {
     KTerminalGlyph var2=this.terminal[this.workingCursor.getX()][this.workingCursor.getY()];
-    int var4=false;
+    int var4=0;
     var2.setValue(value);
     var2.setForegroundColor(this.workingCursor.getForegroundColor());
     var2.setBackgroundColor(this.workingCursor.getBackgroundColor());
@@ -421,7 +421,7 @@ public final class KTerminalData{
       int tagPos=tagPosition;
       String outputString=output;
       int offsetPos=offsetPosition;
-      var $fun$isStartingChar$1=new Function1() {
+      var $fun$isStartingChar$1=new WithObjectFunction() {
         // $FF: synthetic method
         // $FF: bridge method
         public Object invoke(Object var1) {
@@ -438,7 +438,7 @@ public final class KTerminalData{
           return var0.invoke(var1);
         }
       };
-      final var $fun$isEscapeChar$2=new Function1() {
+      final var $fun$isEscapeChar$2=new WithObjectFunction() {
         // $FF: synthetic method
         // $FF: bridge method
         public Object invoke(Object var1) {
@@ -455,7 +455,7 @@ public final class KTerminalData{
           return var0.invoke(var1);
         }
       };
-      var $fun$isEndingChar$3=new Function1() {
+      var $fun$isEndingChar$3=new WithObjectFunction() {
         // $FF: synthetic method
         // $FF: bridge method
         public Object invoke(Object var1) {
@@ -472,7 +472,7 @@ public final class KTerminalData{
           return var0.invoke(var1);
         }
       };
-      var $fun$isEscaped$4=new Function1() {
+      var $fun$isEscaped$4=new WithObjectFunction() {
         // $FF: synthetic method
         // $FF: bridge method
         public Object invoke(Object var1) {
@@ -502,11 +502,11 @@ public final class KTerminalData{
         if(tagging) {
           Integer var10001=tagPos;
           var21=(CharSequence)tagMap.get(tagPos);
-          tagMap.put(var10001,var21==null||var21.length()==0?inputCharString:Intrinsics.stringPlus((String)tagMap.get(tagPos),inputCharString));
+          tagMap.put(var10001,var21==null||var21.length()==0?inputCharString:// Intrinsics.stringPlus((String)tagMap.get(tagPos),inputCharString));
         }else if(!tagging) {
           StringBuilder var10000=(new StringBuilder()).append(output);
           var21=(CharSequence)tagMap.get(-1);
-          outputString=var10000.append(var21==null||var21.length()==0?inputCharString:Intrinsics.stringPlus((String)tagMap.get(-1),inputCharString)).toString();
+          outputString=var10000.append(var21==null||var21.length()==0?inputCharString:// Intrinsics.stringPlus((String)tagMap.get(-1),inputCharString)).toString();
           offsetPos=offsetPosition+1;
         }
       }
@@ -542,7 +542,7 @@ public final class KTerminalData{
   }
   @NotNull
   public final KTerminalData write(@NotNull String string,boolean hasMarkup,int direction,final int wrapping) {
-    Intrinsics.checkParameterIsNotNull(string,"string");
+    // Intrinsics.checkParameterIsNotNull(string,"string");
     int posX=this.cursor.getX();
     int posY=this.cursor.getY();
     final Ref.BooleanRef isWriting=new Ref.BooleanRef();
@@ -598,10 +598,10 @@ public final class KTerminalData{
     String workingString=hasMarkup?recursiveTagExtractor$default(this,string,tagMap,0,false,(String)null,0,0,124,(Object)null):string;
     float writingColor=this.workingCursor.getForegroundColor();
     if(workingString==null) {
-      throw new TypeCastException("null cannot be cast to non-null type java.lang.String");
+      throw new Exception("null cannot be cast to non-null type java.lang.String");
     }else {
       char[] var10000=workingString.toCharArray();
-      Intrinsics.checkExpressionValueIsNotNull(var10000,"(this as java.lang.String).toCharArray()");
+      // Intrinsics.checkExpressionValueIsNotNull(var10000,"(this as java.lang.String).toCharArray()");
       char[] $receiver$iv=var10000;
       int index$iv=0;
       char[] var14=$receiver$iv;
@@ -609,7 +609,7 @@ public final class KTerminalData{
       for(int var16=0;var16<var15;++var16) {
         char item$iv=var14[var16];
         int i=index$iv++;
-        int var20=false;
+        int var20=0;
         if(isWriting.element) {
           this.workingCursor.set(posX,posY);
           if(hasMarkup&&tagMap.get(i)!=null) {
@@ -691,7 +691,7 @@ public final class KTerminalData{
     int tempX=$fun$clampCoord$1.invoke(subcellX,this.width*2);
     int tempY=$fun$clampCoord$1.invoke(subcellY,this.height*2);
     KTerminalGlyph var8=this.terminal[tempX/2][tempY/2];
-    int var10=false;
+    int var10=0;
     var8.setSubCellEnabled(true);
     int var10000;
     switch(value) {
@@ -796,10 +796,10 @@ public final class KTerminalData{
   }
   @NotNull
   public final KTerminalData setSubCell(@NotNull Color topLeftColor,@NotNull Color topRightColor,@NotNull Color bottomLeftColor,@NotNull Color bottomRightColor,int topLeftValue,int topRightValue,int bottomLeftValue,int bottomRightValue) {
-    Intrinsics.checkParameterIsNotNull(topLeftColor,"topLeftColor");
-    Intrinsics.checkParameterIsNotNull(topRightColor,"topRightColor");
-    Intrinsics.checkParameterIsNotNull(bottomLeftColor,"bottomLeftColor");
-    Intrinsics.checkParameterIsNotNull(bottomRightColor,"bottomRightColor");
+    // Intrinsics.checkParameterIsNotNull(topLeftColor,"topLeftColor");
+    // Intrinsics.checkParameterIsNotNull(topRightColor,"topRightColor");
+    // Intrinsics.checkParameterIsNotNull(bottomLeftColor,"bottomLeftColor");
+    // Intrinsics.checkParameterIsNotNull(bottomRightColor,"bottomRightColor");
     return this.setSubCell(topLeftColor.toFloatBits(),topRightColor.toFloatBits(),bottomLeftColor.toFloatBits(),bottomRightColor.toFloatBits(),topLeftValue,topRightValue,bottomLeftValue,bottomRightValue);
   }
   // $FF: synthetic method
@@ -820,7 +820,7 @@ public final class KTerminalData{
   }
   @NotNull
   public final KTerminalData setSubCell(@NotNull SubCellGlyph subCellGlyph) {
-    Intrinsics.checkParameterIsNotNull(subCellGlyph,"subCellGlyph");
+    // Intrinsics.checkParameterIsNotNull(subCellGlyph,"subCellGlyph");
     this.terminal[this.workingCursor.getX()][this.workingCursor.getY()].setSubCellEnabled(true);
     this.terminal[this.workingCursor.getX()][this.workingCursor.getY()].setSubCellGlyph(subCellGlyph);
     return this;
@@ -1387,8 +1387,8 @@ public final class KTerminalData{
   }
   @NotNull
   public final KTerminalData drawSingleBox(int width,int height,boolean isFilled,char fillChar,@NotNull Color fillForeground,@NotNull Color fillBackground) {
-    Intrinsics.checkParameterIsNotNull(fillForeground,"fillForeground");
-    Intrinsics.checkParameterIsNotNull(fillBackground,"fillBackground");
+    // Intrinsics.checkParameterIsNotNull(fillForeground,"fillForeground");
+    // Intrinsics.checkParameterIsNotNull(fillBackground,"fillBackground");
     return this.drawSingleBox(width,height,isFilled,fillChar,fillForeground,fillBackground);
   }
   @NotNull
@@ -1470,7 +1470,7 @@ public final class KTerminalData{
       KTerminalGlyph[] var11=new KTerminalGlyph[height];
       for(int var12=0;var12<var10;++var12) {
         int var16=false;
-        KTerminalGlyph var17=new KTerminalGlyph(0,this.defaultForegroundColor,this.defaultBackgroundColor,0.0F,0.0F,0.0F,0.0F,false,false,504,(DefaultConstructorMarker)null);
+        KTerminalGlyph var17=new KTerminalGlyph(0,this.defaultForegroundColor,this.defaultBackgroundColor,0.0F,0.0F,0.0F,0.0F,false,false,504,null);
         var11[var12]=var17;
       }
       var6[var7]=var11;
@@ -1580,7 +1580,7 @@ public final class KTerminalData{
       this.setY(y);
     }
     public final void set(@NotNull Cursor cursor) {
-      Intrinsics.checkParameterIsNotNull(cursor,"cursor");
+      // Intrinsics.checkParameterIsNotNull(cursor,"cursor");
       this.set(cursor.x,cursor.y,cursor.getForegroundColor(),cursor.getBackgroundColor(),cursor.getRotation(),cursor.getScale(),cursor.getOffsetX(),cursor.getOffsetY(),cursor.isFlippedX(),cursor.isFlippedY());
     }
     public Cursor(int x,int y,float foregroundColor,float backgroundColor,float rotation,float scale,float offsetX,float offsetY,boolean isFlippedX,boolean isFlippedY) {

@@ -238,7 +238,7 @@ public final class KTerminalGlyph{
     this.subCellGlyph=new SubCellGlyph();
   }
   // $FF: synthetic method
-  public KTerminalGlyph(int var1,float var2,float var3,float var4,float var5,float var6,float var7,boolean var8,boolean var9,int var10,DefaultConstructorMarker var11) {
+  public KTerminalGlyph(int var1,float var2,float var3,float var4,float var5,float var6,float var7,boolean var8,boolean var9,int var10,Object var11) {
     if((var10&1)!=0) {
       var1=0;
     }
@@ -266,7 +266,7 @@ public final class KTerminalGlyph{
     if((var10&256)!=0) {
       var9=false;
     }
-    this(var1,var2,var3,var4,var5,var6,var7,var8,var9);
+    // this(var1,var2,var3,var4,var5,var6,var7,var8,var9);
   }
   public KTerminalGlyph(int value,float foregroundColor,float backgroundColor,float rotation,float scale,float offsetX,float offsetY,boolean isFlippedX) {
     this((int)value,foregroundColor,backgroundColor,rotation,scale,offsetX,offsetY,isFlippedX,false,256,null);
@@ -299,7 +299,7 @@ public final class KTerminalGlyph{
     this((int)var1,foregroundColor,backgroundColor,rotation,scale,offsetX,offsetY,isFlippedX,isFlippedY);
   }
   // $FF: synthetic method
-  public KTerminalGlyph(char var1,float var2,float var3,float var4,float var5,float var6,float var7,boolean var8,boolean var9,int var10,DefaultConstructorMarker var11) {
+  public KTerminalGlyph(char var1,float var2,float var3,float var4,float var5,float var6,float var7,boolean var8,boolean var9,int var10,Object var11) {
     if((var10&8)!=0) {
       var4=0.0F;
     }
@@ -318,7 +318,7 @@ public final class KTerminalGlyph{
     if((var10&256)!=0) {
       var9=false;
     }
-    this(var1,var2,var3,var4,var5,var6,var7,var8,var9);
+    // this(var1,var2,var3,var4,var5,var6,var7,var8,var9);
   }
   public KTerminalGlyph(char var1,float foregroundColor,float backgroundColor,float rotation,float scale,float offsetX,float offsetY,boolean isFlippedX) {
     this((char)var1,foregroundColor,backgroundColor,rotation,scale,offsetX,offsetY,isFlippedX,false,256,null);
@@ -347,7 +347,7 @@ public final class KTerminalGlyph{
     this.isSubCellEnabled=true;
   }
   // $FF: synthetic method
-  public KTerminalGlyph(float var1,float var2,float var3,float var4,float var5,float var6,float var7,float var8,boolean var9,boolean var10,int var11,DefaultConstructorMarker var12) {
+  public KTerminalGlyph(float var1,float var2,float var3,float var4,float var5,float var6,float var7,float var8,boolean var9,boolean var10,int var11,Object var12) {
     if((var11&16)!=0) {
       var5=0.0F;
     }
@@ -366,7 +366,7 @@ public final class KTerminalGlyph{
     if((var11&512)!=0) {
       var10=false;
     }
-    this(var1,var2,var3,var4,var5,var6,var7,var8,var9,var10);
+    // this(var1,var2,var3,var4,var5,var6,var7,var8,var9,var10);
   }
   public KTerminalGlyph(float topLeftColor,float topRightColor,float bottomLeftColor,float bottomRightColor,float rotation,float scale,float offsetX,float offsetY,boolean isFlippedX) {
     this(topLeftColor,topRightColor,bottomLeftColor,bottomRightColor,rotation,scale,offsetX,offsetY,isFlippedX,false,512,null);
