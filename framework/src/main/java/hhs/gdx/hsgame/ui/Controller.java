@@ -23,10 +23,10 @@ public class Controller extends Group{
     addActor(pad);
   }
   @Override
-  public void act(float arg0) {
-    super.act(arg0);
+  public void act(float delta) {
+    super.act(delta);
     if(pad.isTouched()) {
-      control.control(arg0,prence.set(pad.getKnobPercentX(),pad.getKnobPercentY()));
+      control.control(delta,prence.set(pad.getKnobPercentX(),pad.getKnobPercentY()));
     }
     // TODO: Implement this method
   }

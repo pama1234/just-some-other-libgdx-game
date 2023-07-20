@@ -9,7 +9,7 @@ public class LobbyMap extends Region{
     super(
       50,
       20,
-      new SectionDungeonGenerator(50,20,new RNG("test"))
+      new SectionDungeonGenerator(Block.tileWidth,Block.wallHeight,new RNG("test"))
         .addGrass(1,1)
         .addDoors(1,true)
         .generate(),

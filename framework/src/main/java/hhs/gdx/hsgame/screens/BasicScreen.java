@@ -109,7 +109,7 @@ public class BasicScreen extends ScreenAdapter{
   @Override
   public void show() {
     threads.start();
-    updateThread.start();
+    // updateThread.start();
     Gdx.input.setInputProcessor(input);
   }
   @Override

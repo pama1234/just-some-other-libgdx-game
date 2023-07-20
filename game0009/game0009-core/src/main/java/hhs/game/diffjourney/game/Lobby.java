@@ -1,6 +1,9 @@
 package hhs.game.diffjourney.game;
 
+import com.badlogic.gdx.Application.ApplicationType;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.input.GestureDetector;
+
 import hhs.game.diffjourney.entities.Character;
 import hhs.game.diffjourney.map.LobbyMap;
 import hhs.game.diffjourney.map.Region;
@@ -11,6 +14,7 @@ import hhs.gdx.hsgame.tools.ColorTool;
 import hhs.gdx.hsgame.tools.PixmapBuilder;
 import hhs.gdx.hsgame.tools.TextureTool;
 import hhs.gdx.hsgame.ui.Controller;
+import hhs.gdx.hsgame.ui.DesktopController;
 
 public class Lobby extends BasicScreen{
   Character c;
@@ -25,11 +29,17 @@ public class Lobby extends BasicScreen{
     c.setMap(r.map);
     c.setCurr(r);
     // 添加左下角的手柄
-    stage.addActor(
-      new Controller(
-        c,
-        TextureTool.ttr(PixmapBuilder.getRectangle(200,200,ColorTool.宝石蓝)),
-        TextureTool.ttr(PixmapBuilder.getCircle(50,ColorTool.奶酪色))));
+    if(Gdx.app.getType()==ApplicationType.Desktop) {
+      var ctrl=new DesktopController(c);
+      input.addProcessor(ctrl);
+      entities.add(ctrl);
+    }else {
+      stage.addActor(
+        new Controller(
+          c,
+          TextureTool.ttr(PixmapBuilder.getRectangle(200,200,ColorTool.宝石蓝)),
+          TextureTool.ttr(PixmapBuilder.getCircle(50,ColorTool.奶酪色))));
+    }
     setClearColor(ColorTool.东方既白);
     d.addTrace(()->"camera zoom:"+camera.zoom);
   }
