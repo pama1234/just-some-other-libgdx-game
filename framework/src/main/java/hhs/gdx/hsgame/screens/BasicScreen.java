@@ -10,7 +10,10 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.ScalingViewport;
+
 import hhs.gdx.hsgame.entitys.BasicEntity;
 import hhs.gdx.hsgame.entitys.Entity;
 import hhs.gdx.hsgame.tools.LoopThread;
@@ -105,6 +108,12 @@ public class BasicScreen extends ScreenAdapter{
     for(Entity e:entities) {
       e.dispose();
     }
+  }
+  @Override
+  public void resize(int width,int height) {
+    ScalingViewport tv=(ScalingViewport)stage.getViewport();
+    tv.setScreenSize(width,height);
+    stage.setViewport(tv);
   }
   public void addEntity(Entity e) {
     e.screen=this;
