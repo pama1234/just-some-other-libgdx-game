@@ -58,15 +58,12 @@ public class BasicScreen extends ScreenAdapter{
     updateThread=new LoopThread() {
       @Override
       public void loop() {
-        // System.out.println(frameRate+" "+frameCount);
-        // for(Entity e:entities) {
-        for(int i=0;i<entities.size();i++) {
-          Entity e=entities.get(i);
+        // System.out.println("BasicScreen.BasicScreen().new LoopThread() {...}.loop() "+frameRate+" "+frameCount);
+        // for(int i=0;i<entities.size();i++) {
+        //   Entity e=entities.get(i);
+        for(Entity e:entities) {
           if(!e.update) continue;
-          // e.update(Gdx.graphics.getDeltaTime());
-          // synchronized(e) {
-          e.update(frameRate);
-          // }
+          e.update(1/frameRate);
         }
         // }
       }

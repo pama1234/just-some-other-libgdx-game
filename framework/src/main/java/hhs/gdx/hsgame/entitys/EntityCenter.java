@@ -45,8 +45,10 @@ public class EntityCenter<T extends BasicEntity>extends BasicEntity{
       sons.addAll(add);
       add.clear();
     }
-    for(BasicEntity be:sons) {
-      be.update(delta);
+    synchronized(sons) {
+      for(BasicEntity be:sons) {
+        be.update(delta);
+      }
     }
   }
   @Override
