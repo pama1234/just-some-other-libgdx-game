@@ -16,42 +16,38 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BasicTerminalShellExample {
-
+public class BasicTerminalShellExample{
   private static @NotNull JediTermWidget createTerminalWidget() {
-    JediTermWidget widget = new JediTermWidget(80, 24, new DefaultSettingsProvider());
+    JediTermWidget widget=new JediTermWidget(80,24,new DefaultSettingsProvider());
     widget.setTtyConnector(createTtyConnector());
     widget.start();
     return widget;
   }
-
   private static @NotNull TtyConnector createTtyConnector() {
     try {
-      Map<String, String> envs = System.getenv();
+      Map<String,String> envs=System.getenv();
       String[] command;
-      if (UIUtil.isWindows) {
-        command = new String[]{"cmd.exe"};
-      } else {
-        command = new String[]{"/bin/bash", "--login"};
-        envs = new HashMap<>(System.getenv());
-        envs.put("TERM", "xterm-256color");
+      if(UIUtil.isWindows) {
+        command=new String[] {"cmd.exe"};
+      }else {
+        command=new String[] {"/bin/bash","--login"};
+        envs=new HashMap<>(System.getenv());
+        envs.put("TERM","xterm-256color");
       }
-
-      PtyProcess process = new PtyProcessBuilder().setCommand(command).setEnvironment(envs).start();
-      return new PtyProcessTtyConnector(process, StandardCharsets.UTF_8);
-    } catch (Exception e) {
+      PtyProcess process=new PtyProcessBuilder().setCommand(command).setEnvironment(envs).start();
+      return new PtyProcessTtyConnector(process,StandardCharsets.UTF_8);
+    }catch(Exception e) {
       throw new IllegalStateException(e);
     }
   }
-
   private static void createAndShowGUI() {
-    JFrame frame = new JFrame("Basic Terminal Shell Example");
+    JFrame frame=new JFrame("Basic Terminal Shell Example");
     frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-    JediTermWidget widget = createTerminalWidget();
-    widget.addListener(terminalWidget -> {
+    JediTermWidget widget=createTerminalWidget();
+    widget.addListener(terminalWidget-> {
       widget.close(); // terminate the current process and dispose all allocated resources
-      SwingUtilities.invokeLater(() -> {
-        if (frame.isVisible()) {
+      SwingUtilities.invokeLater(()-> {
+        if(frame.isVisible()) {
           frame.dispose();
         }
       });
@@ -67,7 +63,6 @@ public class BasicTerminalShellExample {
     frame.pack();
     frame.setVisible(true);
   }
-
   public static void main(String[] args) {
     // Create and show this application's GUI in the event-dispatching thread.
     SwingUtilities.invokeLater(BasicTerminalShellExample::createAndShowGUI);

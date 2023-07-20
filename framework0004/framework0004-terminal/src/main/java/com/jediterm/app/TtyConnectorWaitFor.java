@@ -10,47 +10,39 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
 import java.util.function.Predicate;
 
-public class TtyConnectorWaitFor {
-  private static final Logger LOG = LoggerFactory.getLogger(TtyConnectorWaitFor.class);
-
+public class TtyConnectorWaitFor{
+  private static final Logger LOG=LoggerFactory.getLogger(TtyConnectorWaitFor.class);
   private final Future<?> myWaitForThreadFuture;
-  private final BlockingQueue<Predicate<Integer>> myTerminationCallback = new ArrayBlockingQueue<Predicate<Integer>>(1);
-
+  private final BlockingQueue<Predicate<Integer>> myTerminationCallback=new ArrayBlockingQueue<Predicate<Integer>>(1);
   public void detach() {
     myWaitForThreadFuture.cancel(true);
   }
-
-
-  public TtyConnectorWaitFor(final TtyConnector ttyConnector, final ExecutorService executor) {
-    myWaitForThreadFuture = executor.submit(new Runnable() {
+  public TtyConnectorWaitFor(final TtyConnector ttyConnector,final ExecutorService executor) {
+    myWaitForThreadFuture=executor.submit(new Runnable() {
       @Override
       public void run() {
-        int exitCode = 0;
+        int exitCode=0;
         try {
-          while (true) {
+          while(true) {
             try {
-              exitCode = ttyConnector.waitFor();
+              exitCode=ttyConnector.waitFor();
               break;
-            }
-            catch (InterruptedException e) {
-              LOG.debug("", e);
+            }catch(InterruptedException e) {
+              LOG.debug("",e);
             }
           }
-        }
-        finally {
+        }finally {
           try {
-            if (!myWaitForThreadFuture.isCancelled()) {
+            if(!myWaitForThreadFuture.isCancelled()) {
               myTerminationCallback.take().test(exitCode);
             }
-          }
-          catch (InterruptedException e) {
-            LOG.info("", e);
+          }catch(InterruptedException e) {
+            LOG.info("",e);
           }
         }
       }
     });
   }
-
   public void setTerminationCallback(Predicate<Integer> r) {
     myTerminationCallback.offer(r);
   }
