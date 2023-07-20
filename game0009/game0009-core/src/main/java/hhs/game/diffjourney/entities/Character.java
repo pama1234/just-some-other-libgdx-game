@@ -12,7 +12,7 @@ import hhs.gdx.hsgame.tools.AnimationBuilder;
 import hhs.gdx.hsgame.tools.AnimationSet;
 import hhs.gdx.hsgame.tools.ImpactBox;
 import hhs.gdx.hsgame.tools.Resourse;
-import hhs.gdx.hsgame.ui.Controler;
+import hhs.gdx.hsgame.ui.Controller;
 import squidpony.squidgrid.FOV;
 import squidpony.squidgrid.Radius;
 import squidpony.squidgrid.mapping.DungeonUtility;
@@ -20,7 +20,7 @@ import squidpony.squidgrid.mapping.DungeonUtility;
 /**
  * 玩家
  */
-public class Character extends RectEntity implements Controler.Controlable{
+public class Character extends RectEntity implements Controller.Controlable{
   int speed=200;
   boolean direct=true;
   AnimationSet<State,TextureRegion> anim;

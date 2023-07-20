@@ -11,7 +11,7 @@ import hhs.gdx.hsgame.tools.CameraTool;
 import hhs.gdx.hsgame.tools.ColorTool;
 import hhs.gdx.hsgame.tools.PixmapBuilder;
 import hhs.gdx.hsgame.tools.TextureTool;
-import hhs.gdx.hsgame.ui.Controler;
+import hhs.gdx.hsgame.ui.Controller;
 import squidpony.squidgrid.mapping.DungeonGenerator;
 import squidpony.squidgrid.mapping.SectionDungeonGenerator;
 import squidpony.squidmath.RNG;
@@ -36,7 +36,7 @@ public class TestSence extends BasicScreen{
     c.setCurr(m);
     // entities.add(new debugQuad(r.quad));
     stage.addActor(
-      new Controler(
+      new Controller(
         c,
         TextureTool.ttr(PixmapBuilder.getRectangle(200,200,ColorTool.宝石蓝)),
         TextureTool.ttr(PixmapBuilder.getCircle(50,ColorTool.奶酪色))));

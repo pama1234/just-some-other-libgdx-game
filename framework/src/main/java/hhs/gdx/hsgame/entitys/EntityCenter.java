@@ -37,21 +37,23 @@ public class EntityCenter<T extends BasicEntity>extends BasicEntity{
   @Override
   public void update(float delta) {
     super.update(delta);
-    // synchronized(sons) {
     addAndRemove();
-    for(T be:sons) {
-      be.update(delta);
+    synchronized(sons) {
+      for(T be:sons) {
+        be.update(delta);
+      }
     }
-    // }
   }
-  public synchronized void addAndRemove() {
-    if(!remove.isEmpty()) {
-      sons.removeAll(remove);
-      remove.clear();
-    }
-    if(!add.isEmpty()) {
-      sons.addAll(add);
-      add.clear();
+  public void addAndRemove() {
+    synchronized(sons) {
+      if(!remove.isEmpty()) {
+        sons.removeAll(remove);
+        remove.clear();
+      }
+      if(!add.isEmpty()) {
+        sons.addAll(add);
+        add.clear();
+      }
     }
   }
   @Override

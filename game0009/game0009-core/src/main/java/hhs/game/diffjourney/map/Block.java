@@ -13,7 +13,8 @@ import hhs.gdx.hsgame.tools.EntityTool;
 import hhs.gdx.hsgame.tools.PixmapBuilder;
 
 public class Block extends RectEntity implements Pool.Poolable{
-  public static int tileWidth=50,tileHeight=50;
+  public static int tileWidth=50,tileHeight=50,wallHeight=20;
+  public static float tileFix=0;
   public static Pool<Block> pool=Pools.get(Block.class);
   public static Texture shadow=PixmapBuilder.getRectangle(tileWidth,tileHeight,new Color(1,1,1,1f));
   public TextureRegion t;
@@ -45,7 +46,7 @@ public class Block extends RectEntity implements Pool.Poolable{
         batch.setColor(m,m,m,1f);
       }
       // TODO 更好的避免贴砖缝隙问题出现
-      batch.draw(t,pos.x,pos.y,tileWidth+1f,tileHeight+1f);
+      batch.draw(t,pos.x,pos.y,tileWidth+tileFix,tileHeight+tileFix);
       // new Exception().printStackTrace();
     }
   }

@@ -7,12 +7,12 @@ import com.badlogic.gdx.scenes.scene2d.ui.Touchpad;
 import hhs.gdx.hsgame.tools.Resourse;
 import hhs.gdx.hsgame.tools.TextureTool;
 
-public class Controler extends Group{
+public class Controller extends Group{
   TextureRegion ground,knob;
   Touchpad pad;
   Controlable control;
   Vector2 prence=new Vector2();
-  public Controler(Controlable c,TextureRegion ground,TextureRegion knob) {
+  public Controller(Controlable c,TextureRegion ground,TextureRegion knob) {
     control=c;
     this.ground=ground;
     this.knob=knob;

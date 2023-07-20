@@ -34,8 +34,8 @@ public class Region extends EntityCenter<Block> implements Collision{
     if((fx+msx>map.length)||(fy+msy>map[0].length)) {
       throw new GdxRuntimeException("out of index:map");
     }
-    pos.set(fx*50,fy*50);
-    size.set(msx*50,msy*50);
+    pos.set(fx*Block.tileWidth,fy*Block.tileHeight);
+    size.set(msx*Block.tileWidth,msy*Block.tileHeight);
     quad=new QuadTree<>(pos,size);
   }
   public Region(int msize,char[][] map,int fx,int fy,OrthographicCamera cam) {
@@ -53,13 +53,13 @@ public class Region extends EntityCenter<Block> implements Collision{
     TextureRegion water=ta.findRegion("water");
     TextureRegion water2=ta.findRegion("water2");
     TextureRegion grass=ta.findRegion("plant");
-    for(i=fx;i<size.x/50+fx;i++) {
-      for(j=fy;j<size.y/50+fy;j++) {
+    for(i=fx;i<size.x/Block.tileWidth+fx;i++) {
+      for(j=fy;j<size.y/Block.tileHeight+fy;j++) {
         Block b=Block.pool.obtain();
         b.setIndex(i,j);
         b.setCam(cam);
         b.setPos(i*b.size.x,j*b.size.y);
-        // b.pos.set(i * 50,j * 50);
+        // b.pos.set(i * Block.tileWidth,j * Block.tileWidth);
         switch(map[i][j]) {
           case '#':
             if(j>0&&map[i][j-1]=='#') {
@@ -70,7 +70,7 @@ public class Region extends EntityCenter<Block> implements Collision{
             }else {
               b.setT(wall);
               b.rect.setPosition(i*b.size.x,j*b.size.y+30);
-              b.rect.setSize(50,20);
+              b.rect.setSize(Block.tileWidth,Block.wallHeight);
               quad.add(b);
             }
             break;

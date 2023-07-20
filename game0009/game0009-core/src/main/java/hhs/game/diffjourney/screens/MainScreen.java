@@ -22,7 +22,9 @@ import hhs.gdx.hsgame.tools.TextureTool;
 import hhs.gdx.hsgame.ui.DialogBox;
 import pama1234.gdx.util.app.UtilScreenCore;
 import pama1234.gdx.util.font.MultiChunkFont;
-
+/**
+ * StartMenu
+ */
 public class MainScreen extends BasicScreen{
   Table table;
   TextButton b1,b2;

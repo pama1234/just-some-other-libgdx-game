@@ -37,6 +37,7 @@ public class BasicScreen extends ScreenAdapter{
    */
   public Debug d;
   public boolean debug=false;
+  // public boolean pixelPerfect;
   public BasicScreen() {
     Resourse.screens.put(getClass(),this);
     input=new InputMultiplexer();
@@ -74,6 +75,10 @@ public class BasicScreen extends ScreenAdapter{
   public void render(float delta) {
     ScreenUtils.clear(clearColor);
     camera.update();
+    // if(pixelPerfect) {
+    //   Vector3 pos=camera.position;
+    //   camera.position.set(UtilMath.floor(pos.x),UtilMath.floor(pos.y),UtilMath.floor(pos.z));
+    // }
     Resourse.cacheRender.draw(delta);
     batch.setProjectionMatrix(camera.combined);
     batch.begin();
