@@ -120,6 +120,8 @@ if (propFile.canRead()){
 
 repositories {
   // needed for AAPT2, may be needed for other tools
+  maven { url 'https://maven.google.com/public' }
+  maven { url 'https://maven.google.com/google' }
   maven { url 'https://maven.aliyun.com/repository/public' }
   maven { url 'https://maven.aliyun.com/repository/google' }
   mavenCentral()
@@ -135,6 +137,7 @@ dependencies {
   implementation project(':framework0004:framework0004-terminal')
 
   implementation "androidx.annotation:annotation:1.6.0"
+  testImplementation "junit:junit:4.13.2"
 
   // This follows advice from https://blog.gradle.org/log4j-vulnerability
   constraints {

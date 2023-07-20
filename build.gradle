@@ -94,6 +94,8 @@ subprojects {
   version = '0.0.1'
   ext.appName = 'game'
   repositories {
+    maven { url 'https://maven.google.com/public' }
+    maven { url 'https://maven.google.com/google' }
     maven { url 'https://maven.aliyun.com/repository/public' }
     maven { url 'https://maven.aliyun.com/repository/google' }
     mavenCentral()
