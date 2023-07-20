@@ -54,7 +54,7 @@ public final class KTerminalShapePlotter{
             }else if(!isHigh) {
                dy*=direction;
             }
-            var $fun$getDifference$2=new Function2() {
+            var $fun$getDifference$2=new WithObjectFunction() {
                // $FF: synthetic method
                // $FF: bridge method
                public Object invoke(Object var1,Object var2) {
@@ -67,25 +67,25 @@ public final class KTerminalShapePlotter{
                      var10000=2*x-y;
                   }else {
                      if(var3) {
-                        throw new NoWhenBranchMatchedException();
+                        // throw new NoWhenBranchMatchedException();
                      }
                      var10000=2*y-x;
                   }
                   return var10000;
                }
             };
-            final Ref.IntRef difference=new Ref.IntRef();
-            difference.element=$fun$getDifference$2.invoke(dx,dy);
-            final Ref.IntRef temp=new Ref.IntRef();
+            // final Ref.IntRef difference=new Ref.IntRef();
+            var difference=$fun$getDifference$2.invoke(dx,dy);
+            // final Ref.IntRef temp=new Ref.IntRef();
             if(isHigh) {
                var10001=x0;
             }else {
                if(isHigh) {
-                  throw new NoWhenBranchMatchedException();
+                  // throw new NoWhenBranchMatchedException();
                }
                var10001=y0;
             }
-            temp.element=var10001;
+            var temp=var10001;
             var $fun$offset$3=new ExecuteFunction() {
                // $FF: synthetic method
                // $FF: bridge method
@@ -215,7 +215,7 @@ public final class KTerminalShapePlotter{
             err+=x*2+1;
          }
       }while(x<0);
-      return CollectionsKt.toList((Iterable)output);
+      return Arrays.asList((Iterable)output);
    }
    @NotNull
    public final List plotTriangle(int topX,int topY,int leftX,int leftY,int rightX,int rightY) {
@@ -223,7 +223,7 @@ public final class KTerminalShapePlotter{
       output.addAll((Collection)this.plotLine(topX,topY,leftX,leftY));
       output.addAll((Collection)this.plotLine(leftX,leftY,rightX,rightY));
       output.addAll((Collection)this.plotLine(rightX,rightY,topX,topY));
-      return CollectionsKt.distinct((Iterable)output);
+      return Arrays.asList((Iterable)output);
    }
    private KTerminalShapePlotter() {}
    static {

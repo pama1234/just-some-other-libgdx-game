@@ -545,9 +545,9 @@ public final class KTerminalData{
     // Intrinsics.checkParameterIsNotNull(string,"string");
     int posX=this.cursor.getX();
     int posY=this.cursor.getY();
-    final Ref.BooleanRef isWriting=new Ref.BooleanRef();
-    isWriting.element=true;
-    var $fun$wrap$2=new Function3() {
+    final boolean isWriting=true;
+    // isWriting.element=true;
+    var $fun$wrap$2=new WithObjectFunction() {
       // $FF: synthetic method
       // $FF: bridge method
       public Object invoke(Object var1,Object var2,Object var3) {
@@ -555,9 +555,9 @@ public final class KTerminalData{
       }
       @NotNull
       public final Pair invoke(int writingPos,int alignPos,int max) {
-        final Ref.IntRef tempAlignPos=new Ref.IntRef();
-        tempAlignPos.element=alignPos;
-        var $fun$adjustAlignPos$1=new Function0() {
+        // final Ref.IntRef tempAlignPos=new Ref.IntRef();
+        var tempAlignPos=alignPos;
+        var $fun$adjustAlignPos$1=new WithObjectFunction() {
           // $FF: synthetic method
           // $FF: bridge method
           public Object invoke() {
@@ -687,7 +687,7 @@ public final class KTerminalData{
   }
   @NotNull
   public final KTerminalData writeSubCell(int subcellX,int subcellY,float color,int value) {
-    var $fun$clampCoord$1=null.INSTANCE;
+    WithObjectFunction $fun$clampCoord$1=null;
     int tempX=$fun$clampCoord$1.invoke(subcellX,this.width*2);
     int tempY=$fun$clampCoord$1.invoke(subcellY,this.height*2);
     KTerminalGlyph var8=this.terminal[tempX/2][tempY/2];
