@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import hhs.game.diffjourney.game.TestSence;
 import hhs.game.diffjourney.ui.MyDialogBox;
+import hhs.gdx.hsgame.entitys.Entity;
 import hhs.gdx.hsgame.screens.BasicScreen;
 import hhs.gdx.hsgame.tools.ColorTool;
 import hhs.gdx.hsgame.tools.FontManager;
@@ -85,6 +86,7 @@ public class StartMenu extends BasicScreen{
   }
   @Override
   public void render(float delta) {
+    titleLable.update(delta);
     super.render(delta);
   }
   @Override

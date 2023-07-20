@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
+import com.badlogic.gdx.utils.Scaling;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ScalingViewport;
 
@@ -41,9 +42,7 @@ public class BasicScreen extends ScreenAdapter{
   public BasicScreen() {
     Resourse.screens.put(getClass(),this);
     input=new InputMultiplexer();
-    stage=new Stage();
-    ScalingViewport tv=(ScalingViewport)stage.getViewport();
-    tv.setWorldSize(1280,720);
+    stage=new Stage(new ScalingViewport(Scaling.fit,1280,720,new OrthographicCamera()));
     input.addProcessor(stage);
     BitmapFont f=new BitmapFont();
     f.getData().setScale(4,4);
