@@ -34,7 +34,6 @@ public class Block extends RectEntity implements Pool.Poolable{
   @Override
   public void update(float delta) {
     // super.update(delta);
-    // TODO: Implement this method
   }
   @Override
   public void render(SpriteBatch batch) {

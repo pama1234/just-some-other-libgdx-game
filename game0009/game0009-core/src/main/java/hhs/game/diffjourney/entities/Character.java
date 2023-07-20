@@ -26,8 +26,8 @@ public class Character extends RectEntity implements Controller.Controlable{
   AnimationSet<State,TextureRegion> anim;
   Collision curr=null;
   Vector2 direction=new Vector2();
-  ImpactBox tmp=new ImpactBox();
-  boolean xcost=false;
+  ImpactBox boxCache=new ImpactBox();
+  boolean flagx,flagy;
   char map[][];
   static boolean flag=false;
   public double fovmap[][],res[][];
@@ -55,26 +55,28 @@ public class Character extends RectEntity implements Controller.Controlable{
     // pos.add(direction.x, direction.y);
     if(curr!=null) {
       flag=true;
-      tmp.setSize(size.x,size.y);
-      tmp.setPosition(pos.x+direction.x,pos.y);
+      boxCache.setSize(size.x,size.y);
+      boxCache.setPosition(pos.x+direction.x,pos.y);
       Array<Block> testList=curr.getCollisions(this);
       for(Block b:testList) {
-        if(tmp.overlaps(b.rect)) {
-          xcost=true;
+        if(boxCache.overlaps(b.rect)) {
+          flagx=true;
         }
       }
-      if(!xcost) {
+      if(!flagx) {
         pos.add(direction.x,0);
-      }
-      xcost=false;
-      tmp.setPosition(pos.x,pos.y+direction.y);
-      testList=curr.getCollisions(tmp);
+      }else flagx=false;
+      boxCache.setPosition(pos.x,pos.y+direction.y);
+      testList=curr.getCollisions(boxCache);
       for(Block b:testList) {
-        if(tmp.overlaps(b.rect)) {
-          return;
+        if(boxCache.overlaps(b.rect)) {
+          // return;
+          flagy=true;
         }
       }
-      pos.add(0,direction.y);
+      if(!flagy) {
+        pos.add(0,direction.y);
+      }else flagy=false;
     }
   }
   @Override
@@ -126,7 +128,7 @@ public class Character extends RectEntity implements Controller.Controlable{
         while(true) {
           if(flag) {
             flag=false;
-            fovmap=fov.calculateFOV(res,(int)pos.x/50,(int)pos.y/50);
+            fovmap=fov.calculateFOV(res,(int)pos.x/Block.tileWidth,(int)pos.y/Block.tileHeight);
           }
         }
       }
@@ -135,7 +137,7 @@ public class Character extends RectEntity implements Controller.Controlable{
     for(i=map.length/2;i<map.length;i++) {
       for(j=map[i].length/2;j<map[i].length;j++) {
         if(map[i][j]!='#') {
-          pos.set(i*50,j*50);
+          pos.set(i*Block.tileWidth,j*Block.tileHeight);
           return;
         }
       }
