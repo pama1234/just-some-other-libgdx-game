@@ -15,7 +15,7 @@ public class Resourse implements Disposable{
   public static int width=Gdx.graphics.getWidth();
   public static int height=Gdx.graphics.getHeight();
   public static Game game;
-  public static HashMap<Class,BasicScreen> screens;
+  public static HashMap<Class<?>,BasicScreen> screens;
   public static AppRecorder recoder;
   public static SpriteBatch batch;
   public static ShapeRenderer shape;

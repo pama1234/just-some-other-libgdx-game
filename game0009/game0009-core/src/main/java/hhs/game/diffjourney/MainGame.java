@@ -18,7 +18,7 @@ public class MainGame extends Game{
   @Override
   public void create() {
     res=new Resourse(this);
-    asset=res.asset;
+    asset=Resourse.asset;
     load();
     setScreen(new BasicLoader(asset,MainScreen.class));
   }

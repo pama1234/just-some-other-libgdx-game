@@ -36,7 +36,7 @@ public class DialogBox extends Actor{
     addListener(
       new ClickListener() {
         public void clicked(InputEvent event,float x,float y) {
-          ok=ok==true?false:true;
+          ok=ok?false:true;
           if(!ok) {
             if(!sequence.isEmpty()) paragraph=sequence.pollFirst();
             return;
@@ -83,14 +83,6 @@ public class DialogBox extends Actor{
   @Override
   public void draw(Batch batch,float arg1) {
     batch.draw(background,getX(),getY(),getWidth(),getHeight());
-    // LazyBitmapFont font;
-    // font.drawF(
-    //   arg0,
-    //   appear.toString(),
-    //   (int)getX(),
-    //   (int)getHeight()-font.size/2,
-    //   (int)getWidth(),
-    //   (int)font.size/2,true);
     font.drawF(
       batch,
       appear.toString(),

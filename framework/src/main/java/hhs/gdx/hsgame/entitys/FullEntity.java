@@ -7,7 +7,7 @@ import hhs.gdx.hsgame.components.Component;
 
 public abstract class FullEntity extends BasicEntity{
   public Array<Action<FullEntity>> actions;
-  public Array<Component> compontents;
+  public Array<Component<?>> compontents;
   Action<FullEntity> currAction=null;
   public FullEntity() {
     actions=new Array<>();
@@ -25,7 +25,7 @@ public abstract class FullEntity extends BasicEntity{
   @Override
   public void UpdateAndRender(SpriteBatch batch,float delta) {
     super.UpdateAndRender(batch,delta);
-    for(Component c:compontents) {
+    for(Component<?> c:compontents) {
       c.update(delta);
       c.render(batch);
     }
