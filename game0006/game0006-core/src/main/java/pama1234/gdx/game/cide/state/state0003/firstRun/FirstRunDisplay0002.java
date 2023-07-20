@@ -158,6 +158,7 @@ public class FirstRunDisplay0002 extends FirstRunDisplayBase{
   public void from(StateEntity0003 in) {
     super.from(in);
     p.cam2d.activeDragAndroid=false;
+    p.androidTouchHoldToRightButton=true;
     p.centerCam.add.add(bodyCenter);
     p.centerCamAddAll(exitButton);
   }
@@ -165,6 +166,7 @@ public class FirstRunDisplay0002 extends FirstRunDisplayBase{
   public void to(StateEntity0003 in) {
     super.to(in);
     p.cam2d.activeDragAndroid=true;
+    p.androidTouchHoldToRightButton=false;
     p.centerCam.remove.add(bodyCenter);
     p.centerCamRemoveAll(exitButton);
     p.fill(255);

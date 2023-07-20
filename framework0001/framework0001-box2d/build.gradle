@@ -6,13 +6,13 @@ mainClassName = 'pama1234.util.localization.MainTest'
 eclipse.project.name = appName + '-box2d'
 
 dependencies {
-  api project(':framework')
+  implementation project(':framework')
 
   api "org.jbox2d:jbox2d-library:$jbox2dVersion"
 }
 
 jar {
-  archiveBaseName.set(appName)
+  archiveBaseName.set(eclipse.project.name)
   // the duplicatesStrategy matters starting in Gradle 7.0; this setting works.
   duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
   dependsOn configurations.runtimeClasspath

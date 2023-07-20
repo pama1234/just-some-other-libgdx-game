@@ -1,0 +1,10 @@
+start cmd /c "gradlew game0001:game0001-android:installRelease"
+start cmd /c "gradlew game0002:game0002-android:installRelease"
+start cmd /c "gradlew game0003:game0003-android:installRelease"
+start cmd /c "gradlew game0004:game0004-android:installRelease"
+start cmd /c "gradlew game0005:game0005-android:installRelease"
+start cmd /c "gradlew game0006:game0006-android:installRelease"
+start cmd /c "gradlew game0007:game0007-android:installRelease"
+start cmd /c "gradlew game0008:game0008-android:installRelease"
+start cmd /c "gradlew game0009:game0009-android:installRelease"
+pause

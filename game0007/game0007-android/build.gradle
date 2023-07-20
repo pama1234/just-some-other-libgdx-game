@@ -23,7 +23,8 @@ android {
     }
   }
   packagingOptions {
-//    resources.pickFirsts += "**/*.java"
+    resources.pickFirsts += "**/*"
+    // resources.pickFirsts += "**/*.java"
     resources.pickFirsts += "**/*.proto"
     // exclude 'assets/image/src/*'
     //无法理解的屎山+1

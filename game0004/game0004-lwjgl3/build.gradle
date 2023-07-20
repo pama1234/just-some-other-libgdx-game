@@ -52,7 +52,7 @@ run {
 
 jar {
   // sets the name of the .jar file this produces to the name of the game or app.
-  archiveBaseName.set(appName)
+  archiveBaseName.set(eclipse.project.name)
   // using 'lib' instead of the default 'libs' appears to be needed by jpackageimage.
   destinationDirectory = file("$project.buildDir/lib")
   // the duplicatesStrategy matters starting in Gradle 7.0; this setting works.

@@ -4,9 +4,9 @@ eclipse.project.name = appName + '-game0005-core'
 dependencies {
   api "com.badlogicgames.gdx:gdx:$gdxVersion"
 
-  api project(':game0005:game0005-server')
+  api project(":framework")
 
-  implementation project(":framework")
+  api project(':game0005:game0005-server')
 
   implementation 'org.locationtech.jts:jts-core:1.19.0'
 }
