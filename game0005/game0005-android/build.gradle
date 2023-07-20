@@ -180,4 +180,4 @@ tasks.register('run', Exec) {
 //   }
 // }
 
-eclipse.project.name = appName + "-game0005-android"
+eclipse.project.name = appName + '0005-android'
