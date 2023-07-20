@@ -213,4 +213,4 @@ task run(type: Exec) {
 //   }
 // }
 
-eclipse.project.name = appName + '-game0001-android'
+eclipse.project.name = appName + '0001-android'

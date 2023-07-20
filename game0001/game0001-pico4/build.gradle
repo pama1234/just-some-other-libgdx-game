@@ -227,4 +227,4 @@ tasks.whenTaskAdded { task ->
   }
 }
 
-eclipse.project.name = appName + '-game0001-pico4'
+eclipse.project.name = appName + '0001-pico4'

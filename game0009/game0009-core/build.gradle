@@ -3,7 +3,7 @@ apply plugin: 'application'
 sourceCompatibility = 17
 mainClassName = 'pama1234.gdx.game.app.server.ServerLauncher'
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
-eclipse.project.name = appName + '-game0009-core'
+eclipse.project.name = appName + '0009-core'
 
 dependencies {
   api 'com.squidpony:squidlib-util:3.0.6'

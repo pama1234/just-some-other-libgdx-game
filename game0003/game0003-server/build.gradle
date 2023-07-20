@@ -4,7 +4,7 @@ apply plugin: 'com.google.protobuf'
 
 sourceCompatibility = 17
 mainClassName = 'pama1234.gdx.game.app.server.ServerLauncher'
-eclipse.project.name = appName + '-game0003-server'
+eclipse.project.name = appName + '0003-server'
 
 dependencies {
   implementation project(":server-framework")

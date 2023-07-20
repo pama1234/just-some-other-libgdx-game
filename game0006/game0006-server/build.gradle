@@ -2,7 +2,7 @@ apply plugin: 'application'
 
 sourceCompatibility = 17
 mainClassName = 'pama1234.game.app.server.launcher.ServerLauncher'
-eclipse.project.name = appName + '-game0006-server'
+eclipse.project.name = appName + '0006-server'
 
 dependencies {
   implementation project(':server-framework')
