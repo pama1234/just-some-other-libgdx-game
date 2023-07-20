@@ -34,7 +34,6 @@ public class DesktopController extends Entity implements InputProcessor{
       for(int j:e) {
         if(keycode==j) {
           keys[i]=true;
-          // System.out.println("DesktopController.keyDown() "+keys[0]);
           return false;
         }
       }
@@ -89,10 +88,11 @@ public class DesktopController extends Entity implements InputProcessor{
     vec.set(
       keys[0]==keys[1]?0:(keys[0]?1:-1),
       keys[2]==keys[3]?0:(keys[2]?1:-1));
-    vec.rotate90(1);
-    vec.limit(1);
-    // System.out.println("DesktopController.update() "+vec);
-    c.control(delta,vec);
+    if(vec.len()>0.01f) {
+      vec.rotate90(1);
+      vec.limit(1);
+      c.control(delta,vec);
+    }
   }
   @Override
   public void render(SpriteBatch batch) {}

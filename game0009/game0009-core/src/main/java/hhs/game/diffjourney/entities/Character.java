@@ -70,7 +70,6 @@ public class Character extends RectEntity implements Controller.Controlable{
       testList=curr.getCollisions(boxCache);
       for(Block b:testList) {
         if(boxCache.overlaps(b.rect)) {
-          // return;
           flagy=true;
         }
       }
@@ -94,7 +93,6 @@ public class Character extends RectEntity implements Controller.Controlable{
         tr.flip(true,false);
       }
     }
-    // if(tr==null) return;
     batch.draw(tr,pos.x-2*size.x,pos.y-size.y,size.x*5,size.x*5);
     anim.state(State.stop);
   }

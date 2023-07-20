@@ -60,14 +60,10 @@ public class BasicScreen extends ScreenAdapter{
     updateThread=new LoopThread("BasicScreen-LoopThread") {
       @Override
       public void loop() {
-        // System.out.println("BasicScreen.BasicScreen().new LoopThread() {...}.loop() "+frameRate+" "+frameCount);
-        // for(int i=0;i<entities.size();i++) {
-        //   Entity e=entities.get(i);
         for(Entity e:entities) {
           if(!e.update) continue;
           e.update(1/frameRate);
         }
-        // }
       }
     };
     updateThread.frameRate(60);
@@ -76,10 +72,6 @@ public class BasicScreen extends ScreenAdapter{
   public void render(float delta) {
     ScreenUtils.clear(clearColor);
     camera.update();
-    // if(pixelPerfect) {
-    //   Vector3 pos=camera.position;
-    //   camera.position.set(UtilMath.floor(pos.x),UtilMath.floor(pos.y),UtilMath.floor(pos.z));
-    // }
     Resourse.cacheRender.draw(delta);
     batch.setProjectionMatrix(camera.combined);
     batch.begin();

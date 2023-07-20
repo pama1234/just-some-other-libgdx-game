@@ -81,7 +81,6 @@ public class StartMenu extends BasicScreen{
         " "+
         viewport.getWorldHeight();
     });
-    // resize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
   }
   @Override
   public void render(float delta) {
@@ -93,13 +92,11 @@ public class StartMenu extends BasicScreen{
     super.show();
     m.setLooping(true);
     m.play();
-    // TODO: Implement this method
   }
   @Override
   public void hide() {
     super.hide();
     m.stop();
-    // TODO: Implement this method
   }
   public static class TitleLable{
     public Label title;
