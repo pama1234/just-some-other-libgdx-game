@@ -14,7 +14,7 @@ public final class ClientDamagedPlayerActorState extends ServerDamagedPlayerActo
   public void displayEffect(ServerPlayerActor parentActor) {
     p.noFill();
     // duel.beginBlend();
-    p.stroke(p.skin.playerDamaged,UtilMath.floor(256*(float)parentActor.damageRemainingFrameCount/durationFrameCount));
+    p.stroke(p.theme().playerDamaged,UtilMath.floor(256*(float)parentActor.damageRemainingFrameCount/durationFrameCount));
     p.circle(0,0,32);
     // duel.endBlend();
   }

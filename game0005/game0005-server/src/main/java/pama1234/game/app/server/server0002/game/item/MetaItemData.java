@@ -1,6 +1,6 @@
 package pama1234.game.app.server.server0002.game.item;
 
-import pama1234.game.app.server.server0002.PixelArray2D;
+import pama1234.data.PixelArray2D;
 import pama1234.game.app.server.server0002.game.block.MetaBlockData;
 import pama1234.game.app.server.server0002.game.metainfo.MetaInfoBase;
 import pama1234.game.app.server.server0002.game.metainfo.center.MetaItemCenter0002;

@@ -11,6 +11,8 @@
 		android:appCategory="game"
 		android:label="@string/app_name"
 		android:theme="@style/GdxTheme">
+		<!-- 这里需要考虑在app完全正常启动之前发生异常导致"You need to use a Theme.AppCompat theme (or descendant) with this activity."的问题
+		android:theme="@style/Theme.AppCompat.Light" -->
 		<activity
 			android:name="pama1234.gdx.game.app.android.AndroidLauncher"
 			android:screenOrientation="landscape"

@@ -16,6 +16,7 @@ public class AndroidLauncher extends AndroidApplication{
     config.useGyroscope=true;
     config.useAccelerometer=true;
     config.useCompass=true;
+    config.useImmersiveMode=true;
     // configuration.useGyroscope=true;
     initialize(new MainApp(),config);
     // initialize(new Game(), configuration);

@@ -16,6 +16,7 @@ public class ServerHumanPlayerEngine extends PlayerEngine{
     inputDevice.operateMoveButton(intLeft+intRight,intUp+intDown);
     inputDevice.operateShotButton(currentInput.isZPressed);
     inputDevice.operateLongShotButton(currentInput.isXPressed);
+    inputDevice.operateTeleportButton(currentInput.isCPressed);
   }
   @Override
   public void setScore(int scoreType,float score) {

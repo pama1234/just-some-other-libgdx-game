@@ -13,7 +13,7 @@ import pama1234.util.wrapper.Center;
 public class NeatCenter extends Center<NetworkGroup>{
   public NetworkGroupParam param;
   public NeatModule vision,logic,behavior,world;
-  //---
+
   public int index;
   public NeatCenter(NetworkGroupParam param) {
     this.param=param;
@@ -70,7 +70,7 @@ public class NeatCenter extends Center<NetworkGroup>{
     public int canvasSize=256;
     public int inputSize,logicSize,outputSize,memorySize;
     public EvolveOptions visionOptions,logicOptions,behaviorOptions,worldbehavior;
-    //---
+
     public EvolveOptions newEvolveOptions(int tempInputSize,int tempOutputSize) {
       EvolveOptions out=new EvolveOptions();
       out.setError(0.05f);
@@ -85,7 +85,7 @@ public class NeatCenter extends Center<NetworkGroup>{
       logicSize=64;
       outputSize=3;
       memorySize=1;
-      //---
+
       visionOptions=newEvolveOptions(inputSize,logicSize);
       logicOptions=newEvolveOptions(logicSize,logicSize);
       behaviorOptions=newEvolveOptions(logicSize,outputSize);

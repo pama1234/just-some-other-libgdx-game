@@ -1,5 +1,6 @@
 package pama1234.gdx.game.world;
 
+import pama1234.Tools;
 import pama1234.game.app.server.server0001.particle.with2d.CellGroup2D;
 import pama1234.game.app.server.server0001.particle.with2d.CellGroupGenerator2D;
 import pama1234.gdx.game.util.ControlBindUtil;
@@ -7,14 +8,13 @@ import pama1234.gdx.util.app.UtilScreen2D;
 import pama1234.gdx.util.app.UtilScreenRender;
 import pama1234.gdx.util.entity.Entity;
 import pama1234.gdx.util.listener.DisplayEntityListener;
-import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 import pama1234.math.vec.Vec2f;
 import pama1234.util.function.ExecuteFunction;
 
 public class World0002 extends Entity<UtilScreen2D> implements DisplayEntityListener{
   ControlBindUtil controlBind;
-  //---
+  
   public int maxParticle;
   public int particleCount;
   public CellGroup2D group;

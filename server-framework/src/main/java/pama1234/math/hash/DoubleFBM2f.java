@@ -1,6 +1,6 @@
 package pama1234.math.hash;
 
-import pama1234.math.Tools;
+import pama1234.Tools;
 
 public class DoubleFBM2f extends HashFunction2f{
   FractalNoise2f son;

@@ -1,0 +1,12 @@
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+eclipse.project.name = appName + '0010-core'
+
+dependencies {
+  api "$gdxCustomModule:gdx:$gdxCustomVersion"
+
+  implementation project(":framework")
+
+  api project(":framework0001:framework0001-box2d")
+
+  api project(':game0010:game0010-server')
+}

@@ -9,7 +9,7 @@ import com.badlogic.gdx.graphics.Color;
  * @see UtilScreen2D
  * @see UtilScreen3D
  */
-public abstract class UtilScreenColor extends UtilScreenCore{
+public abstract class UtilScreenColor extends UtilScreenPose{
   public void textColor(Color in) {
     textColor.set(in);
     font.color(textColor);
@@ -29,20 +29,39 @@ public abstract class UtilScreenColor extends UtilScreenCore{
     textColor.set(gray/255f,gray/255f,gray/255f,alpha/255f);
     font.color(textColor);
   }
+  // TODO
+  // @Deprecated
   public void setTextColor(int gray) {
     font.getColor().set(gray/255f,gray/255f,gray/255f,1);
+    font.cacheM.setColor(font.getColor());
     // setTextColor(gray,255);
   }
+  // @Deprecated
   public void setTextColor(Color in) {
     font.getColor().set(in);
+    font.cacheM.setColor(font.getColor());
   }
+  // @Deprecated
   public void setTextColor(int gray,int alpha) {
     font.getColor().set(gray/255f,gray/255f,gray/255f,alpha/255f);
+    font.cacheM.setColor(font.getColor());
+  }
+  // @Deprecated
+  public void setTextColor(Color color,int alpha) {
+    font.getColor().set(color.r,color.g,color.b,alpha/255f);
+    font.cacheM.setColor(font.getColor());
   }
   //---------------------------------------------------------------------------
   public void fill(Color in) {
     fillColor.set(in);
     rFill.setColor(fillColor);
+    pFill.setColor(fillColor);
+  }
+  public void fill(Color in,int a) {
+    fillColor.set(in);
+    fillColor.a=a/255f;
+    rFill.setColor(fillColor);
+    pFill.setColor(fillColor);
   }
   public void fill(int gray) {
     fill(gray,255);
@@ -50,14 +69,17 @@ public abstract class UtilScreenColor extends UtilScreenCore{
   public void fill(int gray,int a) {
     fillColor.set(gray/255f,gray/255f,gray/255f,a/255f);
     rFill.setColor(fillColor);
+    pFill.setColor(fillColor);
   }
   public void fill(int r,int g,int b) {
     fillColor.set(r/255f,g/255f,b/255f,1);
     rFill.setColor(fillColor);
+    pFill.setColor(fillColor);
   }
   public void fill(int r,int g,int b,int a) {
     fillColor.set(r/255f,g/255f,b/255f,a/255f);
     rFill.setColor(fillColor);
+    pFill.setColor(fillColor);
   }
   public void fillHex(int argb) {
     fill((argb>>16)&0xff,(argb>>8)&0xff,argb&0xff,(argb>>24)&0xff);
@@ -153,21 +175,31 @@ public abstract class UtilScreenColor extends UtilScreenCore{
   public static Color color(float r,float g,float b,float a) {
     return new Color(r/255f,g/255f,b/255f,a/255f);
   }
+  /**
+   * 应当改为更加"消耗内存空间增加效率"的做法
+   * 
+   * @param argb
+   * @return
+   */
   @Deprecated
   public static Color colorFromInt(int argb) {
+    return newColorFromInt(argb);
+  }
+  public static Color newColorFromInt(int argb) {
     return colorFromInt(new Color(),argb);
   }
   public static Color colorFromInt(Color c,int argb) {
     Color.argb8888ToColor(c,argb);
     return c;
   }
-  // TODO 移动到Tools
-  @Deprecated
-  public static Color lerpColor(int a,int b,float pos) {
-    Color out=new Color();
-    lerpColor(new Color(a),new Color(b),out,pos);
-    return out;
-  }
+  /**
+   * 使用lerpColor(Color a,Color b,Color out,float pos)传入Color缓存对象
+   * 
+   * @param a
+   * @param b
+   * @param pos
+   * @return
+   */
   @Deprecated
   public static Color lerpColor(Color a,Color b,float pos) {
     Color out=new Color();
@@ -177,11 +209,13 @@ public abstract class UtilScreenColor extends UtilScreenCore{
   public static void lerpColor(Color a,Color b,Color out,float pos) {
     if(pos==0) out.set(a);
     else if(pos==1) out.set(b);
-    float tr=b.r-a.r,
-      tg=b.g-a.g,
-      tb=b.b-a.b,
-      ta=b.a-a.a;
-    out.set(a.r+tr*pos,a.g+tg*pos,a.b+tb*pos,a.a+ta*pos);
+    else {
+      float tr=b.r-a.r,
+        tg=b.g-a.g,
+        tb=b.b-a.b,
+        ta=b.a-a.a;
+      out.set(a.r+tr*pos,a.g+tg*pos,a.b+tb*pos,a.a+ta*pos);
+    }
   }
   //---------------------------------------------------------------------------
   public void backgroundColor(int r,int g,int b) {

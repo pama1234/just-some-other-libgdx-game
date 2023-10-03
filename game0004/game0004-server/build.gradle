@@ -2,14 +2,16 @@ apply plugin: 'application'
 
 sourceCompatibility = 17
 mainClassName = 'pama1234.gdx.game.app.server.ServerLauncher'
-eclipse.project.name = appName + '-game0004-server'
+eclipse.project.name = appName + '0004-server'
 
 dependencies {
   api project(':server-framework')
+
+  api project(':framework0001:framework0001-yaml')
 }
 
 jar {
-  archiveBaseName.set(appName)
+  archiveBaseName.set(eclipse.project.name)
   // the duplicatesStrategy matters starting in Gradle 7.0; this setting works.
   duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
   dependsOn configurations.runtimeClasspath
@@ -34,8 +36,7 @@ jar {
 }
 
 // Equivalent to the jar task; here for compatibility with gdx-setup.
-task dist(dependsOn: [jar]) {
-}
+task dist(dependsOn: [jar]) { }
 
 tasks.getByName('distTar') { duplicatesStrategy = DuplicatesStrategy.EXCLUDE }
 tasks.getByName('distZip') { duplicatesStrategy = DuplicatesStrategy.EXCLUDE }

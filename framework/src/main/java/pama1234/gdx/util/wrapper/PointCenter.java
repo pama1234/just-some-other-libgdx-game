@@ -56,7 +56,7 @@ public class PointCenter<T extends UtilScreen,P extends Point,E extends PointEnt
     super.display();
     //    UITools.cross(p.g,p.cam.mouseX,p.cam.mouseY,minDist/2,minDist/2);
     //  System.out.println(i.point.pos.dist(p.cam.mouseX,p.cam.mouseY));
-    //---
+
     if(displayCircle) {
       p.beginBlend();
       p.stroke(255,255,255,191);
@@ -65,7 +65,7 @@ public class PointCenter<T extends UtilScreen,P extends Point,E extends PointEnt
         p.circle(i.point.pos.x,i.point.pos.y,minDist*2);
         if(i.point.pos.dist(p.mouse.x,p.mouse.y)<minDisplayDist) {
           p.cross(i.point.pos.x,i.point.pos.y,minDist*2,minDist*2);
-          String ts=i.getName()+"\n"+i.point.pos.toString();
+          String ts=i.getClass().getSimpleName()+"\n"+i.point.pos.toString();
           //      p.text(ts,i.point.pos.x-p.textWidth(ts)/2,i.point.pos.y-p.g.textSize);
           p.text(ts,i.point.pos.x,i.point.pos.y);
         }

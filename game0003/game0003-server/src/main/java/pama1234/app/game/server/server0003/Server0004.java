@@ -6,14 +6,12 @@ import java.io.OutputStream;
 import java.net.Socket;
 
 import pama1234.util.UtilServer;
-import pama1234.util.protobuf.PointUpdateProto.PointUpdate;
-import pama1234.util.wrapper.Center;
 
 public class Server0004 extends UtilServer{
   public static void main(String[] args) {
     new Server0004().run();
   }
-  Center<PointUpdate> pointCenter=new Center<>();
+  // Center<PointUpdate> pointCenter=new Center<>();
   Socket socket;
   InputStream in;
   @Override

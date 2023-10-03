@@ -16,21 +16,21 @@ public class Screen0020 extends ScreenCore2D{
   public NEAT neat;
   public EvolveOptions options;
   public Network network;
-  //---
+
   public float[][] inputs;
   public float[][] outputs;
   public float score;
-  //---
+
   public float error=-Float.MAX_VALUE;
   public float bestScore=-Float.MAX_VALUE;
   public Network bestGenome=null;
-  //---
+
   public int state;
   public ExecuteFunction[] stateDo;
   @Override
   public void setup() {
     stateDo=new ExecuteFunction[] {this::evolve,ExecuteFunction.doNothing};
-    //---
+
     options=new EvolveOptions();
     options.setLog(5);
     options.setError(0.05f);
@@ -49,7 +49,7 @@ public class Screen0020 extends ScreenCore2D{
         .sum();
       return (sum-genome.getGrowthScore(growth))/amount;
     });
-    //---
+
     inputs=new float[][] {
       {0,0},
       {0,1},

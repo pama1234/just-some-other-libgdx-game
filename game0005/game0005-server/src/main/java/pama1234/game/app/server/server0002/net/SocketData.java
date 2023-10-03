@@ -15,7 +15,7 @@ public class SocketData{
   public ServerState serverState=ServerState.ServerProtocolVersion;
   public SceneState sceneState=SceneState.TestWorld;
   public Token token;
-  //---
+
   public SocketInterface s;
   public InputStream i;
   public OutputStream o;

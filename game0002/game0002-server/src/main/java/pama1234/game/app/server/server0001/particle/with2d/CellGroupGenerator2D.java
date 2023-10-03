@@ -1,7 +1,7 @@
 package pama1234.game.app.server.server0001.particle.with2d;
 
+import pama1234.Tools;
 import pama1234.game.app.server.server0001.particle.Var;
-import pama1234.math.Tools;
 import pama1234.math.hash.Random2f;
 
 public class CellGroupGenerator2D{
@@ -24,7 +24,7 @@ public class CellGroupGenerator2D{
     boxR=40;
     int cellType=64;
     colors=new int[cellType];
-    for(int i=0;i<colors.length;i++) colors[i]=Tools.hsbColor((float)i/colors.length*255,0xff,0xff);
+    for(int i=0;i<colors.length;i++) colors[i]=Tools.hsbColorInt((float)i/colors.length*255,0xff,0xff);
     int range=(int)(boxR*16/cellType);
     int arraySize=range*cellType;
     int[] type=new int[arraySize];
@@ -43,7 +43,7 @@ public class CellGroupGenerator2D{
     for(int i=0;i<group.size;i++) {
       group.posX[i]=random(-randR,randR);
       group.posY[i]=random(-randR,randR);
-      //---
+      
       //      group.velX[i]=random(-32,32);
       //      group.velY[i]=random(-32,32);
     }
@@ -77,7 +77,7 @@ public class CellGroupGenerator2D{
     }
     int cellType=core.length;
     colors=new int[cellType];
-    for(int i=0;i<colors.length;i++) colors[i]=Tools.hsbColor((float)i/cellType*255,0xff,0xff);
+    for(int i=0;i<colors.length;i++) colors[i]=Tools.hsbColorInt((float)i/cellType*255,0xff,0xff);
     // int range=1024;
     int arraySize=range*cellType;
     int[] type=new int[arraySize];
@@ -87,7 +87,7 @@ public class CellGroupGenerator2D{
     for(int i=0;i<group.size;i++) {
       group.posX[i]=random(-randR,randR);
       group.posY[i]=random(-randR,randR);
-      //---
+      
       //      group.velX[i]=random(-32,32);
       //      group.velY[i]=random(-32,32);
     }

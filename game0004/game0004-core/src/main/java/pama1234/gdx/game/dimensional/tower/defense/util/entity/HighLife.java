@@ -2,11 +2,11 @@ package pama1234.gdx.game.dimensional.tower.defense.util.entity;
 
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
 
+import pama1234.Tools;
 import pama1234.gdx.game.dimensional.tower.defense.DemonDefense;
 import pama1234.gdx.game.dimensional.tower.defense.util.DimCut;
 import pama1234.gdx.game.dimensional.tower.defense.util.math.physics.HighMassPoint;
 import pama1234.gdx.game.dimensional.tower.defense.util.math.vec.Vec12f;
-import pama1234.math.Tools;
 import pama1234.math.physics.PathVar;
 
 public abstract class HighLife extends HighPointEntity<DemonDefense,HighMassPoint>{

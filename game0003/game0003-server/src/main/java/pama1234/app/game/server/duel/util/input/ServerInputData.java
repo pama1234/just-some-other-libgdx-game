@@ -10,6 +10,7 @@ public class ServerInputData{
   public boolean isRightPressed=false;
   public boolean isZPressed=false;
   public boolean isXPressed=false;
+  public boolean isCPressed=false;
   public void copyToProto(InputDataProto.InputData.Builder in) {
     in.setDx(dx);
     in.setDy(dy);
@@ -19,5 +20,17 @@ public class ServerInputData{
     in.setIsRightPressed(isRightPressed);
     in.setIsZPressed(isZPressed);
     in.setIsXPressed(isXPressed);
+    // in.setIsCPressed(isXPressed);
+  }
+  public void copyFromProto(InputDataProto.InputData in) {
+    dx=in.getDx();
+    dy=in.getDy();
+    isUpPressed=in.getIsUpPressed();
+    isDownPressed=in.getIsDownPressed();
+    isLeftPressed=in.getIsLeftPressed();
+    isRightPressed=in.getIsRightPressed();
+    isZPressed=in.getIsZPressed();
+    isXPressed=in.getIsXPressed();
+    // isXPressed=in.getIsCPressed();
   }
 }

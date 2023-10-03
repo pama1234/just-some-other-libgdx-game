@@ -1,0 +1,170 @@
+{
+  // 使用 IntelliSense 了解相关属性。 
+  // 悬停以查看现有属性的描述。
+  // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+  // ,"vmArgs": "-Dcom.aparapi.enableShowGeneratedOpenCL=true"
+  // ,"vmArgs": "-XX:MinHeapFreeRatio=15 -XX:MaxHeapFreeRatio=30"
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "type": "java",
+      "name": "Screen0024",
+      "request": "launch",
+      "mainClass": "pama1234.gdx.game.app.app0005.Screen0024",
+      "projectName": "game0006-core"
+    },
+    {
+      "type": "java",
+      "name": "MainTest",
+      "request": "launch",
+      "mainClass": "pama1234.util.neat.raimannma.test.MainTest",
+      "projectName": "framework0001-neat"
+    },
+    {
+      "type": "java",
+      "name": "Tools",
+      "request": "launch",
+      "mainClass": "pama1234.math.Tools",
+      "projectName": "game-server-framework"
+    },
+    {
+      "type": "java",
+      "name": "Current File",
+      "request": "launch",
+      "mainClass": "${file}"
+    },
+    {
+      "type": "java",
+      "name": "01-HeadlessLauncher",
+      "request": "launch",
+      "mainClass": "pama1234.gdx.game.app.headless.HeadlessLauncher",
+      "projectName": "game0001-headless"
+    },
+    {
+      "type": "java",
+      "name": "01-Launcher",
+      "request": "launch",
+      "mainClass": "pama1234.gdx.game.app.lwjgl3.Launcher",
+      "projectName": "game0001-lwjgl3"
+    },
+    {
+      "type": "java",
+      "name": "01-ServerLauncher",
+      "request": "launch",
+      "mainClass": "pama1234.app.game.server.launcher.ServerLauncher",
+      "projectName": "game0001-server"
+    },
+    {
+      "type": "java",
+      "name": "02-Launcher",
+      "request": "launch",
+      "mainClass": "pama1234.gdx.game.app.lwjgl3.Launcher",
+      "projectName": "game0002-lwjgl3"
+    },
+    {
+      "type": "java",
+      "name": "02-LauncherDebug",
+      "request": "launch",
+      "mainClass": "pama1234.gdx.game.app.lwjgl3.LauncherDebug",
+      "projectName": "game0002-lwjgl3"
+    },
+    {
+      "type": "java",
+      "name": "02-LauncherServer",
+      "request": "launch",
+      "mainClass": "pama1234.gdx.game.app.lwjgl3.LauncherServer",
+      "projectName": "game0002-lwjgl3"
+    },
+    {
+      "type": "java",
+      "name": "02-ServerLauncher",
+      "request": "launch",
+      "mainClass": "pama1234.app.game.server.launcher.ServerLauncher",
+      "projectName": "game0002-server"
+    },
+    {
+      "type": "java",
+      "name": "02-Server0001",
+      "request": "launch",
+      "mainClass": "pama1234.game.app.server.server0001.game.Server0001",
+      "projectName": "game0002-server"
+    },
+    {
+      "type": "java",
+      "name": "03-Launcher",
+      "request": "launch",
+      "mainClass": "pama1234.gdx.game.app.lwjgl3.Launcher",
+      "projectName": "game0003-lwjgl3"
+    },
+    {
+      "type": "java",
+      "name": "03-ServerLauncher",
+      "request": "launch",
+      "mainClass": "pama1234.app.game.server.launcher.ServerLauncher",
+      "projectName": "game0003-server"
+    },
+    {
+      "type": "java",
+      "name": "04-Launcher",
+      "request": "launch",
+      "mainClass": "pama1234.gdx.game.app.lwjgl3.Launcher",
+      "projectName": "game0004-lwjgl3"
+    },
+    {
+      "type": "java",
+      "name": "04-LauncherDebug",
+      "request": "launch",
+      "mainClass": "pama1234.gdx.game.app.lwjgl3.LauncherDebug",
+      "projectName": "game0004-lwjgl3"
+    },
+    {
+      "type": "java",
+      "name": "04-LauncherServer",
+      "request": "launch",
+      "mainClass": "pama1234.gdx.game.app.lwjgl3.LauncherServer",
+      "projectName": "game0004-lwjgl3"
+    },
+    {
+      "type": "java",
+      "name": "04-ServerLauncher",
+      "request": "launch",
+      "mainClass": "pama1234.app.game.server.launcher.ServerLauncher",
+      "projectName": "game0004-server"
+    },
+    {
+      "type": "java",
+      "name": "05-Launcher",
+      "request": "launch",
+      "mainClass": "pama1234.gdx.game.app.lwjgl3.Launcher",
+      "projectName": "game0005-lwjgl3"
+    },
+    {
+      "type": "java",
+      "name": "UtilServer",
+      "request": "launch",
+      "mainClass": "pama1234.util.UtilServer",
+      "projectName": "game-server-framework"
+    },
+    {
+      "type": "java",
+      "name": "06-Launcher",
+      "request": "launch",
+      "mainClass": "pama1234.gdx.game.app.lwjgl3.Launcher",
+      "projectName": "game0006-lwjgl3"
+    },
+    {
+      "type": "java",
+      "name": "07-Launcher",
+      "request": "launch",
+      "mainClass": "pama1234.gdx.game.app.lwjgl3.Launcher",
+      "projectName": "game0007-lwjgl3"
+    },
+    {
+      "type": "java",
+      "name": "02-Launcher-cgj",
+      "request": "launch",
+      "mainClass": "pama1234.gdx.game.app.lwjgl3.Launcher",
+      "projectName": "game0002-lwjgl3-cgj"
+    }
+  ]
+}

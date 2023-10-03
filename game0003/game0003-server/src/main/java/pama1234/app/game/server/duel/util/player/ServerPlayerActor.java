@@ -10,12 +10,14 @@ public class ServerPlayerActor extends AbstractPlayerActor{
   public float aimAngle;
   public int chargedFrameCount;
   public int damageRemainingFrameCount;
+
+  public int teleportChargedFrameCount;
   public ServerPlayerActor(PlayerEngine engine) {
     super(16,engine);
   }
   public void addVelocity(float xAcceleration,float yAcceleration) {
-    xVelocity=UtilMath.constrain(xVelocity+xAcceleration,-10,10);
-    yVelocity=UtilMath.constrain(yVelocity+yAcceleration,-7,7);
+    vel.x=UtilMath.constrain(vel.x+xAcceleration,-10,10);
+    vel.y=UtilMath.constrain(vel.y+yAcceleration,-7,7);
   }
   @Override
   public void act() {
@@ -25,25 +27,26 @@ public class ServerPlayerActor extends AbstractPlayerActor{
   @Override
   public void update() {
     super.update();
-    if(xPosition<halfBodySize) {
-      xPosition=halfBodySize;
-      xVelocity=-0.5f*xVelocity;
+    if(pos.x<halfBodySize) {
+      pos.x=halfBodySize;
+      vel.x=-0.5f*vel.x;
     }
-    if(xPosition>Const.CANVAS_SIZE-halfBodySize) {
-      xPosition=Const.CANVAS_SIZE-halfBodySize;
-      xVelocity=-0.5f*xVelocity;
+    if(pos.x>Const.CANVAS_SIZE-halfBodySize) {
+      pos.x=Const.CANVAS_SIZE-halfBodySize;
+      vel.x=-0.5f*vel.x;
     }
-    if(yPosition<halfBodySize) {
-      yPosition=halfBodySize;
-      yVelocity=-0.5f*yVelocity;
+    if(pos.y<halfBodySize) {
+      pos.y=halfBodySize;
+      vel.y=-0.5f*vel.y;
     }
-    if(yPosition>Const.CANVAS_SIZE-halfBodySize) {
-      yPosition=Const.CANVAS_SIZE-halfBodySize;
-      yVelocity=-0.5f*yVelocity;
+    if(pos.y>Const.CANVAS_SIZE-halfBodySize) {
+      pos.y=Const.CANVAS_SIZE-halfBodySize;
+      vel.y=-0.5f*vel.y;
     }
-    xVelocity=xVelocity*0.92f;
-    yVelocity=yVelocity*0.92f;
-    rotationAngle+=(0.1f+0.04f*(UtilMath.sq(xVelocity)+UtilMath.sq(yVelocity)))*UtilMath.PI2/Const.IDEAL_FRAME_RATE;
+    vel.x=vel.x*0.92f;
+    vel.y=vel.y*0.92f;
+    rotationAngle+=(0.1f+0.04f*(UtilMath.sq(vel.x)+UtilMath.sq(vel.y)))*UtilMath.PI2/Const.IDEAL_FRAME_RATE;
+    state.update(this);
   }
   @Override
   public void display() {}

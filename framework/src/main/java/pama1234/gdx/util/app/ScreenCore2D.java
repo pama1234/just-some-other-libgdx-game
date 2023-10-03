@@ -1,69 +1,78 @@
 package pama1234.gdx.util.app;
 
-import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.Scaling;
-import com.badlogic.gdx.utils.viewport.ScalingViewport;
-import com.badlogic.gdx.utils.viewport.Viewport;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-import pama1234.gdx.game.ui.util.Button;
-import pama1234.gdx.game.ui.util.TextButton;
-import pama1234.gdx.util.info.MouseInfo;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.files.FileHandle;
+
+import pama1234.gdx.game.ui.element.TextField;
+import pama1234.gdx.util.android.AndroidTouchUtil;
+import pama1234.gdx.util.info.TouchInfo;
 import pama1234.gdx.util.listener.EntityListener;
 
 /**
  * 包含一些未被加入至{@link UtilScreen2D}的功能
+ * </p>
+ * 定期移动到{@link UtilScreen2D}或其上级{@link UtilScreenCore}
  */
 public abstract class ScreenCore2D extends UtilScreen2D{
-  // public ServerInfo dataServerInfo;
-  //---
-  public Stage screenStage,camStage;
-  public Viewport screenViewport,camViewport;
-  //---
-  public float multDist=1;
-  public Button<?>[] buttons;
-  public TextButton<?>[] textButtons;
-  public int bu;
-  public boolean fullSettings;
+  @Deprecated
+  public ScreenCore2D p=this;
+  /**
+   * only use on Android
+   */
+  public TextField hideKeyboardTextField;
+  public int hideKeyboard;//TODO fix this by remove
+
+  public AndroidTouchUtil androidTouch;
+
+  public SimpleDateFormat dateFormat=new SimpleDateFormat("yyyy/MM/dd HH:mm:ss SSS");
+  public FileHandle rootPath;
+
+  public boolean drawCursorWhenGrab;
+  public int drawCursorPressedColor=255,drawCursorReleasedColor;
   @Override
   public void init() {
-    screenStage=new Stage(screenViewport=new ScalingViewport(Scaling.fit,width,height,screenCam),imageBatch);
-    camStage=new Stage(camViewport=new ScalingViewport(Scaling.fit,width,height,cam2d.camera),imageBatch);
-    inputProcessor.sub.add.add(screenStage);
-    inputProcessor.sub.add.add(camStage);
-    center.list.add(new EntityListener() {
+    // super.init();
+    androidTouch=new AndroidTouchUtil(this,this::touchButtonToRight);
+    center.add.add(new EntityListener() {
       @Override
       public void update() {
-        screenStage.act();
-        camStage.act();
+        if(hideKeyboard>0) {
+          hideKeyboard--;
+          if(hideKeyboard==0) {
+            keyboardHidden(hideKeyboardTextField);
+            if(isAndroid) Gdx.input.setOnscreenKeyboardVisible(false);
+          }
+        }
+        androidTouch.update();
       }
       @Override
-      public void mousePressed(MouseInfo info) {
-        screenStage.setKeyboardFocus(null);
-        camStage.setKeyboardFocus(null);
+      public void touchStarted(TouchInfo info) {
+        androidTouch.touchStarted(info);
       }
       @Override
       public void frameResized(int w,int h) {
-        bu=pus*24;
-        screenViewport.setWorldSize(width,height);
-        screenViewport.update(width,height);
-        camViewport.setWorldSize(width,height);
-        camViewport.update(width,height);
-      }
-    });
-    centerScreen.list.add(new EntityListener() {
-      @Override
-      public void display() {
-        screenStage.draw();
-      }
-    });
-    centerCam.list.add(new EntityListener() {
-      @Override
-      public void display() {
-        camStage.draw();
+        androidTouch.updateAndroidTouchHoldToRightButtonMagCache();
+
       }
     });
   }
-  public int getButtonUnitLength() {
-    return bu;
+  @Override
+  public void camOverlay() {
+    if(drawCursorWhenGrab) {
+      if(grabCursor) {
+        beginBlend();
+        drawCursor(drawCursorPressedColor,drawCursorReleasedColor);
+        endBlend();
+      }
+    }
+  }
+  public void keyboardHidden(TextField textField) {}
+  public void touchButtonToRight(TouchInfo info) {}
+  //---------------------------------------------------------------------------
+  public String timeString() {
+    return dateFormat.format(new Date());
   }
 }

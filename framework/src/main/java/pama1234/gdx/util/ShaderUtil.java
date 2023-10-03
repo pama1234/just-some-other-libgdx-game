@@ -2,6 +2,8 @@ package pama1234.gdx.util;
 
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
+import pama1234.gdx.util.app.UtilScreen;
+
 public class ShaderUtil{
   public static ShaderProgram createDefaultShader() {
     String vertexShader=//
@@ -39,5 +41,44 @@ public class ShaderUtil{
     // if(Gdx.app.getType()!=ApplicationType.HeadlessDesktop&&!shader.isCompiled())
     if(!shader.isCompiled()) throw new IllegalArgumentException("Error compiling shader: "+shader.getLog());
     return shader;
+  }
+  public static final int POINT=0;
+  public static final int LINE=1;
+  public static final int POLY=2;
+  public static final int COLOR=3;
+  public static final int LIGHT=4;
+  public static final int TEXTURE=5;
+  public static final int TEXLIGHT=6;
+  public static String pointShaderAttrRegexp="attribute *vec2 *offset";
+  public static String pointShaderInRegexp="in *vec2 *offset;";
+  public static String lineShaderAttrRegexp="attribute *vec4 *direction";
+  public static String lineShaderInRegexp="in *vec4 *direction";
+  public static String pointShaderDefRegexp="#define *PROCESSING_POINT_SHADER";
+  public static String lineShaderDefRegexp="#define *PROCESSING_LINE_SHADER";
+  public static String colorShaderDefRegexp="#define *PROCESSING_COLOR_SHADER";
+  public static String lightShaderDefRegexp="#define *PROCESSING_LIGHT_SHADER";
+  public static String texShaderDefRegexp="#define *PROCESSING_TEXTURE_SHADER";
+  public static String texlightShaderDefRegexp="#define *PROCESSING_TEXLIGHT_SHADER";
+  public static String polyShaderDefRegexp="#define *PROCESSING_POLYGON_SHADER";
+  public static String triShaderAttrRegexp="#define *PROCESSING_TRIANGLES_SHADER";
+  public static String quadShaderAttrRegexp="#define *PROCESSING_QUADS_SHADER";
+  public static int getShaderType(String[] source,int defaultType) {
+    for(String s:source) {
+      String line=s.trim();
+      if(UtilScreen.match(line,colorShaderDefRegexp)!=null) return COLOR;
+      else if(UtilScreen.match(line,lightShaderDefRegexp)!=null) return LIGHT;
+      else if(UtilScreen.match(line,texShaderDefRegexp)!=null) return TEXTURE;
+      else if(UtilScreen.match(line,texlightShaderDefRegexp)!=null) return TEXLIGHT;
+      else if(UtilScreen.match(line,polyShaderDefRegexp)!=null) return POLY;
+      else if(UtilScreen.match(line,triShaderAttrRegexp)!=null) return POLY;
+      else if(UtilScreen.match(line,quadShaderAttrRegexp)!=null) return POLY;
+      else if(UtilScreen.match(line,pointShaderDefRegexp)!=null) return POINT;
+      else if(UtilScreen.match(line,lineShaderDefRegexp)!=null) return LINE;
+      else if(UtilScreen.match(line,pointShaderAttrRegexp)!=null) return POINT;
+      else if(UtilScreen.match(line,pointShaderInRegexp)!=null) return POINT;
+      else if(UtilScreen.match(line,lineShaderAttrRegexp)!=null) return LINE;
+      else if(UtilScreen.match(line,lineShaderInRegexp)!=null) return LINE;
+    }
+    return defaultType;
   }
 }

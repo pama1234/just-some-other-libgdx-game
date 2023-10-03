@@ -2,7 +2,7 @@ package pama1234.gdx.game.state.state0001;
 
 import static com.badlogic.gdx.Input.Keys.ESCAPE;
 import static pama1234.gdx.game.app.Screen0011.kryo;
-import static pama1234.gdx.game.state.state0001.Settings.ld;
+import static pama1234.gdx.game.state.state0001.setting.Settings.ld;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
@@ -10,16 +10,17 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.utils.FocusListener;
 
 import pama1234.gdx.game.app.Screen0011;
+import pama1234.gdx.game.sandbox.platformer.KryoUtil;
 import pama1234.gdx.game.state.state0001.State0001Util.StateEntity0001;
-import pama1234.gdx.game.state.state0001.game.KryoUtil;
-import pama1234.gdx.game.state.state0001.game.net.NetMode;
+import pama1234.gdx.game.sandbox.platformer.net.NetMode;
 import pama1234.gdx.game.ui.CodeTextFieldStyle;
-import pama1234.gdx.game.ui.util.Button;
-import pama1234.gdx.game.ui.util.Button.ButtonEvent;
+import pama1234.gdx.game.ui.NormalOnscreenKeyboard;
+import pama1234.gdx.game.ui.element.Button;
+import pama1234.gdx.game.ui.element.TextButton;
+import pama1234.gdx.game.ui.element.TextField;
+import pama1234.gdx.game.ui.element.TextButton.TextButtonEvent;
 import pama1234.math.geometry.RectF;
-import pama1234.gdx.game.ui.util.NormalOnscreenKeyboard;
-import pama1234.gdx.game.ui.util.TextButton;
-import pama1234.gdx.game.ui.util.TextField;
+import pama1234.math.geometry.RectI;
 import pama1234.util.function.GetFloat;
 import pama1234.util.net.NetAddressInfo;
 
@@ -31,9 +32,9 @@ public class GameMenu extends StateEntity0001{
   }
   public Button<?>[] buttons;
   public TextField[] screenTextFields;
-  //---
+
   public float time;
-  //---
+
   public GameSettingsData settings;
   public FileHandle settingsFile=Gdx.files.local("data/gameSettings.bin");
   public Game game;
@@ -114,19 +115,16 @@ public class GameMenu extends StateEntity0001{
       getH=()->p.u/2f+p.pus;
     TextField[] out=new TextField[] {
       new TextField("",new CodeTextFieldStyle(p),
-        new RectF(getX,()->p.height-p.u*2,getW,getH),()->p.pus/2f),
+        new RectF(getX,()->p.height-p.u*2,getW,getH),()->p.pus/2f,ld.serverAddress),
       new TextField("",new CodeTextFieldStyle(p),
-        new RectF(getX,()->p.height-p.u*3,getW,getH),()->p.pus/2f),
+        new RectF(getX,()->p.height-p.u*3,getW,getH),()->p.pus/2f,ld.deviceAddress),
       new TextField("",new CodeTextFieldStyle(p),
-        new RectF(getX,()->p.height-p.u*4,getW,getH),()->p.pus/2f),
+        new RectF(getX,()->p.height-p.u*4,getW,getH),()->p.pus/2f,ld.userName),
     };
-    out[0].setMessageText(ld.serverAddress);
-    out[1].setMessageText(ld.deviceAddress);
-    out[2].setMessageText(ld.userName);
     if(p.isAndroid) {
       RectF rectF_2=new RectF(getX,()->p.u*2,getW,getH);
       for(TextField e:out) e.addListener(new FocusListener() {
-        public RectF original;
+        public RectI original;
         {
           original=e.rectF;
         }
@@ -145,23 +143,23 @@ public class GameMenu extends StateEntity0001{
   }
   public static <T extends Screen0011> Button<?>[] genButtons_0010(T p) {
     GetFloat getX=()->p.width/4f*3-p.pu*3.5f;
-    ButtonEvent nop=self-> {};
+    TextButtonEvent<T> nop=self-> {};
     return new Button[] {
-      new TextButton<T>(p,true,()->true,nop,nop,self-> {
+      new TextButton<T>(p,self->self.text=ld.singlePlayer).allTextButtonEvent(nop,nop,self-> {
         p.stateCenter.game.netMode=NetMode.SinglePlayer;
         p.state(p.stateCenter.game);
-      },self->self.text=ld.singlePlayer,p::getButtonUnitLength,getX,()->p.height/5f-p.bu/2f),
-      new TextButton<T>(p,true,()->true,nop,nop,self-> {
+      }).rectAuto(getX,()->p.height/5f-p.bu/2f),
+      new TextButton<T>(p,self->self.text=ld.createServer).allTextButtonEvent(nop,nop,self-> {
         p.stateCenter.game.netMode=NetMode.IntegratedServer;
         p.state(p.stateCenter.game);
-      },self->self.text=ld.createServer,p::getButtonUnitLength,getX,()->p.height/5*2f-p.bu/2f),
-      new TextButton<T>(p,true,()->true,nop,nop,self-> {
+      }).rectAuto(getX,()->p.height/5*2f-p.bu/2f),
+      new TextButton<T>(p,self->self.text=ld.joinServer).allTextButtonEvent(nop,nop,self-> {
         p.stateCenter.game.netMode=NetMode.Client;
         p.state(p.stateCenter.game);
-      },self->self.text=ld.joinServer,p::getButtonUnitLength,getX,()->p.height/5f*3-p.bu/2f),
-      new TextButton<T>(p,true,()->true,nop,nop,self-> {
+      }).rectAuto(getX,()->p.height/5f*3-p.bu/2f),
+      new TextButton<T>(p,self->self.text=ld.returnTo).allTextButtonEvent(nop,nop,self-> {
         p.state(p.stateCenter.startMenu);
-      },self->self.text=ld.returnTo,p::getButtonUnitLength,getX,()->p.height/5f*4-p.bu/2f),
+      }).rectAuto(getX,()->p.height/5f*4-p.bu/2f),
     };
   }
 }

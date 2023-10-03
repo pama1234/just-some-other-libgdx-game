@@ -9,22 +9,27 @@ import java.util.Random;
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer.ShapeType;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.IntArray;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 import dev.lyze.gdxtinyvg.drawers.TinyVGShapeDrawer;
-import pama1234.gdx.util.element.CameraController;
-import pama1234.gdx.util.element.MultiChunkFont;
-import pama1234.gdx.util.element.UtilShapeRenderer;
+import hhs.gdx.hsgame.tools.LoopThread;
+import pama1234.gdx.game.ui.element.Button;
+import pama1234.gdx.game.ui.element.TextButton;
+import pama1234.gdx.util.cam.CameraController;
+import pama1234.gdx.util.element.FontStyle;
+import pama1234.gdx.util.font.MultiChunkFont;
+import pama1234.gdx.util.graphics.ShapeRendererBase.ShapeType;
+import pama1234.gdx.util.graphics.UtilPolygonSpriteBatch;
+import pama1234.gdx.util.graphics.UtilShapeRenderer;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.gdx.util.input.UtilInputProcesser;
@@ -46,13 +51,18 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
   public int width,height;
   public int frameCount;
   public float frameRate;
+  public boolean doUpdateThread;
+  public LoopThread updateThread;
   // public float frameDelta;
-  //---
+  //---------------------------------------------------------------------------
   public boolean mouseMoved;
   public MouseInfo mouse;
   public Vector3 vectorCache;
   public int touchCount;
   public TouchInfo[] touches=new TouchInfo[16];
+  public boolean grabCursor;
+  public boolean is3d;
+  //---------------------------------------------------------------------------
   public boolean keyPressed;
   /** normally "a" and "A" will be treat as 'A' */
   public char key;
@@ -60,17 +70,22 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
   public int keyCode;
   public boolean shift,ctrl,alt;
   public IntArray keyPressedArray;
+
+  public boolean focus;
+
   public CameraController cam;
   public OrthographicCamera screenCam;
   public Camera usedCamera;
   public SpriteBatch fontBatch,imageBatch;
   public TinyVGShapeDrawer tvgDrawer;
   public MultiChunkFont font;
+  //---------------------------------------------------------------------------
+  public FontStyle fontStyle=new FontStyle();
   public Color textColor,fillColor,strokeColor;
   public boolean fill=true,stroke=true;
   public float defaultStrokeWeight,strokeWeight;
   public UtilShapeRenderer rFill,rStroke;
-  public PolygonSpriteBatch pFill;
+  public UtilPolygonSpriteBatch pFill;
   public boolean background=true;
   public Color backgroundColor;
   /**
@@ -89,6 +104,9 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
    * TODO 很明显，这东东很丑，应当改为更高效的实现
    */
   public EntityCenter<UtilScreen,EntityListener> centerScreen;
+  /**
+   * 类似center但是存放的是ServerEntityListener
+   */
   public ServerEntityCenter<ServerEntityListener> serverCenter;
   public UtilInputProcesser inputProcessor;
   public Random rng=new Random();
@@ -103,55 +121,47 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
   /**
    * 文本的放大倍数，为了清晰显示因此只能是整数
    */
-  public int pus;
+  // TODO 电脑端Android调试模式下无法在init环节初始化pus值，调整执行顺序
+  public int pus=1;
   public boolean stop;
-  //---
+  //---------------------------------------------------------------------------
   // public boolean isAndroid=true;
   public boolean isAndroid=Gdx.app.getType()==ApplicationType.Android;
+  //---------------------------------------------------------------------------
+  public Matrix4[] matrixStack=new Matrix4[10];
+  public int matrixStackPointer=-1;
+  //---------------------------------------------------------------------------
+  public Stage screenStage,camStage;
+  public Viewport screenViewport,camViewport;
+
+  public float multDist=1;
+  public Button<?>[] buttons;
+  public TextButton<?>[] textButtons;
+  public int bu;
+  // TODO
+  public boolean fullSettings;
+  //---------------------------------------------------------------------------
   public boolean isKeyPressed(int in) {
     return keyPressedArray.contains(in);
-  }
-  public MultiChunkFont genMultiChunkFont() {
-    return new MultiChunkFont(new FileHandle[] {
-      Gdx.files.internal("unifont/0/unifont-0.fnt"),
-      Gdx.files.internal("unifont/1/unifont-1.fnt"),
-      Gdx.files.internal("unifont/2/unifont-2.fnt"),
-      Gdx.files.internal("unifont/3/unifont-3.fnt"),
-      Gdx.files.internal("unifont/4/unifont-4.fnt"),
-      Gdx.files.internal("unifont/5/unifont-5.fnt"),
-      Gdx.files.internal("unifont/6/unifont-6.fnt"),
-      Gdx.files.internal("unifont/7/unifont-7.fnt"),
-      Gdx.files.internal("unifont/8/unifont-8.fnt"),
-      Gdx.files.internal("unifont/9/unifont-9.fnt"),
-      Gdx.files.internal("unifont/10/unifont-10.fnt"),
-      Gdx.files.internal("unifont/11/unifont-11.fnt"),
-      Gdx.files.internal("unifont/12/unifont-12.fnt"),
-      Gdx.files.internal("unifont/13/unifont-13.fnt"),
-      null,
-      Gdx.files.internal("unifont/15/unifont-15.fnt"),
-    },true);
   }
   public void beginShape() {
     rFill.begin(ShapeType.Filled);
     rStroke.begin(ShapeType.Line);
-    // pFill.begin();
   }
   public void endShape() {
     rFill.end();
     rStroke.end();
-    // pFill.end();
   }
   public void setCamera(Camera in) {
     if(usedCamera!=in) usedCamera=in;
     else return;
     setMatrix(in.combined);
-    // textScale(1);
-    // strokeWeight(1);
   }
   public void setMatrix(Matrix4 combined) {
     fontBatch.setProjectionMatrix(combined);
     imageBatch.setProjectionMatrix(combined);
     rFill.setProjectionMatrix(combined);
+    pFill.setProjectionMatrix(combined);
     rStroke.setProjectionMatrix(combined);
   }
   @Override
@@ -161,11 +171,10 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
   public abstract void display();
   public abstract void displayWithCam();
   public abstract void frameResized();
-  public abstract Vector3 unproject(float x,float y);
+  public abstract Vector3 screenToWorld(float x,float y);
   @Override
   public void resize(int w,int h) {
     innerResize(w,h);
-    // serverCenter.frameResized(w,h);
     frameResized();
   }
   public void innerResize(int w,int h) {
@@ -177,7 +186,7 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
     pu=pus*16;
     cam.preResizeEvent(w,h);
     screenCam.setToOrtho(flip,w,h);
-    //---
+
     center.frameResized(w,h);
   }
   @Override
@@ -194,10 +203,11 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
   @Override
   public void dispose() {
     stop=true;
-    fontBatch.dispose();
-    font.dispose();
+    // fontBatch.dispose();
+    // font.dispose();
     center.dispose();
     serverCenter.dispose();
+    if(doUpdateThread) updateThread.stop=true;
   }
   //---------------------------------------------------------------------------
   /**
@@ -243,6 +253,20 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
     return out;
   }
   //---------------------------------------------------------------------------
+  public int getButtonUnitLength() {
+    return bu;
+  }
+  //---------------------------------------------------------------------------
+  public void changeGrab() {
+    Gdx.input.setCursorCatched(grabCursor=!grabCursor);
+  }
+  public void doGrab() {
+    Gdx.input.setCursorCatched(grabCursor=true);
+  }
+  public void noGrab() {
+    Gdx.input.setCursorCatched(grabCursor=false);
+  }
+  //---------------------------------------------------------------------------
   @Override
   public void mousePressed(MouseInfo info) {}
   @Override
@@ -269,4 +293,19 @@ public abstract class UtilScreenCore implements Screen,InputListener,LifecycleLi
   public void touchEnded(TouchInfo info) {}
   @Override
   public void touchMoved(TouchInfo info) {}
+  @Override
+  public void focusGained() {}
+  @Override
+  public void focusLost() {}
+  //---------------------------------------------------------------------------
+  public void focusGainedOuter() {
+    focus=true;
+    center.focusGained();
+    focusGained();
+  }
+  public void focusLostOuter() {
+    focus=false;
+    center.focusLost();
+    focusLost();
+  }
 }

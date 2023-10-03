@@ -7,4 +7,18 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowFullscreen">true</item>
     </style>
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="CustomTheme" parent="SpiderManTheme.Light">
+        <item name="colorPrimaryDark">#e34b27</item>
+        <item name="smToolbar">#fc582f</item>
+        <item name="smDescText">#fc582f</item>
+    </style>
+
 </resources>

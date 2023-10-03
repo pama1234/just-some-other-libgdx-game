@@ -5,17 +5,16 @@ import pama1234.gdx.game.util.input.InputData;
 import pama1234.gdx.game.world.World0002;
 import pama1234.gdx.util.app.ScreenCore2D;
 import pama1234.gdx.util.wrapper.DisplayEntity;
+import pama1234.util.Annotations.ScreenDescription;
 
-/**
- * 2D 粒子系统
- */
+@ScreenDescription("2D 粒子系统")
 public class Screen0002 extends ScreenCore2D{
   public ControlBindUtil controlBind;
   public float zoomSpeed=0.0625f;
   public boolean zoomIn,zoomOut;
   public boolean paused;
   public InputData currentInput;
-  //---
+  
   public World0002 world0002;
   @Override
   public void setup() {

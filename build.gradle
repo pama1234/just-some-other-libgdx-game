@@ -3,6 +3,7 @@ buildscript {
     mavenCentral()
     google()
     maven { url 'https://s01.oss.sonatype.org' }
+    maven { url 'https://maven.scijava.org/content/repositories/public/' }
     maven { url 'https://jitpack.io' }
     mavenLocal()
     gradlePluginPortal()
@@ -28,19 +29,42 @@ buildscript {
 }
 
 allprojects{
-  apply plugin: 'idea'
-  apply plugin: 'eclipse'
+  // apply plugin: 'idea'
+  // apply plugin: 'eclipse'
 }
 
-configure(subprojects 
-    - [ project('framework0001') , project('framework0002') ]
-    - [ project('framework0002:framework0002-android') ]
-    - [ project('game0001') , project('game0002') , project('game0004') ]
-    - [ project('game0001:game0001-android') , project('game0001:game0001-pico4') , project('game0001:game0001-taptap') ]
-    - [ project('game0002:game0002-android') , project('game0002:game0002-taptap') ]
-    - [ project('game0003:game0003-android') , project('game0003:game0003-taptap') ]
-    - [ project('game0004:game0004-android') ]
-    - [ project('game0005:game0005-android') ]) {
+configure(subprojects.findAll {
+  !(
+    it.name == 'android-framework' ||
+    it.name == 'framework0001' || it.name == 'framework0002' || 
+    it.name == 'framework0003' || it.name == 'framework0004' ||
+    it.name == 'xr4j-android' ||
+    it.name == 'framework0003-androidDex' ||
+    it.name == 'framework0004-terminal-android' ||
+    it.name == 'game0001' ||
+    it.name == 'game0002' ||
+    it.name == 'game0003' ||
+    it.name == 'game0004' ||
+    it.name == 'game0005' ||
+    it.name == 'game0006' ||
+    it.name == 'game0007' ||
+    it.name == 'game0008' ||
+		it.name == 'game0009' ||
+		it.name == 'game0010' ||
+    it.name == 'game0001-android' ||
+    it.name == 'game0001-pico4' || it.name == 'game0001-taptap' ||
+    it.name == 'game0002-android' || it.name == 'game0002-taptap' ||
+    it.name == 'game0002-android-cgj' ||
+    it.name == 'game0003-android' || it.name == 'game0003-taptap' ||
+    it.name == 'game0004-android' ||
+    it.name == 'game0005-android' ||
+    it.name == 'game0006-android' ||
+    it.name == 'game0007-android' || it.name == 'game0007-taptap' ||
+    it.name == 'game0008-android' || it.name == 'game0008-taptap' ||
+		it.name == 'game0009-android' ||
+		it.name == 'game0010-android'
+  )
+}) {
 
   apply plugin: "java"
   apply plugin: 'java-library'
@@ -63,6 +87,30 @@ configure(subprojects
     }
   }
   
+}
+
+subprojects {
+  apply plugin: 'idea'
+  apply plugin: 'eclipse'
+
+  version = '0.0.1'
+  ext.appName = 'game'
+  repositories {
+    maven { url 'https://maven.google.com/public' }
+    maven { url 'https://maven.google.com/google' }
+    // maven { url 'https://maven.aliyun.com/repository/public' }
+    // maven { url 'https://maven.aliyun.com/repository/google' }
+    mavenCentral()
+    maven { url 'https://s01.oss.sonatype.org' }
+    mavenLocal()
+    gradlePluginPortal()
+    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+    maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
+    maven { url 'https://maven.scijava.org/content/repositories/public/' }
+    maven { url 'https://jitpack.io' }
+    maven { url 'https://jogamp.org/deployment/maven/' }
+  }
+  
   apply plugin: "com.diffplug.spotless"
 
   spotless {
@@ -79,19 +127,3 @@ configure(subprojects
     }
   }
 }
-
-subprojects {
-  version = '0.0.1'
-  ext.appName = 'game'
-  repositories {
-    mavenCentral()
-    maven { url 'https://s01.oss.sonatype.org' }
-    mavenLocal()
-    gradlePluginPortal()
-    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
-    maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
-    maven { url 'https://jitpack.io' }
-  }
-}
-
-eclipse.project.name = 'game' + '-parent'

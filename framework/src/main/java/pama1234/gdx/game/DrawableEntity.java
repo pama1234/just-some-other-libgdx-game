@@ -11,7 +11,7 @@ import pama1234.gdx.util.entity.Entity;
 public class DrawableEntity extends Entity<UtilScreen> implements Drawable{
   public String name;
   public float leftWidth,rightWidth,topHeight,bottomHeight,minWidth,minHeight;
-  //---
+
   public DrawFunction f;
   public Batch b;//TODO
   public DrawableEntity(UtilScreen p,DrawFunction in) {

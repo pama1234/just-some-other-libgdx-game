@@ -7,16 +7,26 @@ import com.badlogic.gdx.graphics.g3d.ModelInstance;
 import com.badlogic.gdx.graphics.g3d.decals.CameraGroupStrategy;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.badlogic.gdx.graphics.g3d.decals.DecalBatch;
+import com.badlogic.gdx.math.Intersector;
+import com.badlogic.gdx.math.Plane;
 import com.badlogic.gdx.math.Vector3;
+import com.badlogic.gdx.math.collision.Ray;
 
-import pama1234.gdx.util.element.CameraController;
-import pama1234.gdx.util.element.CameraController3D;
+import pama1234.gdx.util.cam.CameraController;
+import pama1234.gdx.util.cam.CameraController3D;
 
 public abstract class UtilScreen3D extends UtilScreen{
   public CameraController3D cam3d;
   public DecalBatch decalBatch;
   public ModelBatch modelBatch;
-  // public CameraGroupStrategy cameraGroupStrategy;
+  public CameraGroupStrategy cameraGroupStrategy;
+
+  public Ray rayCache=new Ray();
+  public Plane planeCache=new Plane();
+  public Vector3 intersectionCache=new Vector3();
+  {
+    is3d=true;
+  }
   @Override
   public void show() {
     preInit();
@@ -24,10 +34,24 @@ public abstract class UtilScreen3D extends UtilScreen{
     postInit();
     setup();
   }
+  // @Override
+  // public void doUpdate() {
+  //   mouse.update(this);
+  //   // if(grabCursor) {
+  //   //   Vector3 tv=screenToWorld(width/2f,height/2f);
+  //   //   mouse.set(tv.x,tv.y);
+  //   // }
+  //   for(TouchInfo i:touches) i.update(this);
+  //   inputProcessor.update();
+  //   center.update();
+  //   serverCenter.update();
+  //   update();
+  // }
   @Override
   public void createRenderUtil() {
     super.createRenderUtil();
-    decalBatch=new DecalBatch(new CameraGroupStrategy(cam.camera));//TODO
+    cameraGroupStrategy=new CameraGroupStrategy(cam.camera);
+    decalBatch=new DecalBatch(cameraGroupStrategy);//TODO
     modelBatch=new ModelBatch();
   }
   @Override
@@ -41,15 +65,37 @@ public abstract class UtilScreen3D extends UtilScreen{
     // strokeWeight(defaultStrokeWeight=u/16*cam2d.scale.pos);
     strokeWeight(defaultStrokeWeight=u/16);
   }
-  //TODO this do nothing
-  public Vector3 unproject(float x,float y) {
+  //TODO fix 3d screen vec unproject to world vec
+  @Override
+  public Vector3 screenToWorld(float x,float y) {
+    Vector3 out=screenToWorld(x,y,0);
+    if(out==null) {
+      // TODO fix this
+      // vectorCache.set(Float.NaN,Float.NaN,Float.NaN);
+      // var pos=cam3d.point.pos;
+      // vectorCache.set(pos.x,pos.y,pos.z);
+      // vectorCache.set(0,0,0);
+      return vectorCache;
+    }
+    return out;
+  }
+  // @Null
+  public Vector3 screenToWorld(float x,float y,float zPlain) {
     vectorCache.set(x,y,0);
-    return vectorCache;
+    cam.camera.unproject(vectorCache);
+    var pos=cam3d.point.pos;
+    rayCache.set(pos.x,pos.y,pos.z,vectorCache.x-pos.x,vectorCache.y-pos.y,vectorCache.z-pos.z);
+    // rayCache.set(cam.camera.getPickRay(x,y));
+    // 减少计算开销
+    // planeCache.set(0,0,zPlain,0,0,zPlain+1);
+    planeCache.set(0,0,zPlain+1,zPlain*(zPlain+1));
+    if(Intersector.intersectRayPlane(rayCache,planeCache,intersectionCache)) {
+      return intersectionCache;// 射线与平面相交，intersection变量保存了交点的坐标
+    }else return null;// 射线与平面不相交
   }
   //---------------------------------------------------------------------------
   public void decal(Decal in) {
     decalBatch.add(in);
-    // System.out.println(in);
   }
   public void decalFlush(Decal in) {
     decal(in);

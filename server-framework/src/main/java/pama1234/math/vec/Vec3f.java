@@ -4,8 +4,8 @@ import java.nio.ByteBuffer;
 
 import javax.vecmath.Vector3f;
 
+import pama1234.Tools;
 import pama1234.data.nio.ByteBufferData;
-import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 import pama1234.math.mat.Mat4f;
 
@@ -53,6 +53,9 @@ public class Vec3f extends Vector3f implements ByteBufferData{
   }
   public float dist(float a,float b) {
     return (float)Math.sqrt(Tools.sq(x-a)+Tools.sq(y-b));
+  }
+  public float dist(float a,float b,float c) {
+    return (float)Math.sqrt(Tools.sq(x-a)+Tools.sq(y-b)+Tools.sq(z-c));
   }
   public boolean toNumber() {
     if(Float.isInfinite(x)||Float.isNaN(x)) {

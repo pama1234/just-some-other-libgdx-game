@@ -14,6 +14,7 @@ import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.net.SocketHints;
 
+import pama1234.Tools;
 import pama1234.game.app.server.server0001.game.net.SocketData0001;
 import pama1234.game.app.server.server0001.game.net.SocketData0001.Token;
 import pama1234.game.app.server.server0001.game.net.data.Client0001Core;
@@ -25,23 +26,23 @@ import pama1234.gdx.game.ui.generator.UiGenerator;
 import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.util.ClientPlayerCenter3D;
 import pama1234.gdx.game.util.ControllerClientPlayer3D;
+import pama1234.gdx.game.util.ParticleScreen3D;
 import pama1234.gdx.util.FileUtil;
-import pama1234.gdx.util.app.ScreenCore3D;
 import pama1234.gdx.util.element.Graphics;
 import pama1234.gdx.util.net.SocketWrapperGDX;
-import pama1234.math.Tools;
+import pama1234.util.Annotations.ScreenDescription;
 import pama1234.util.net.NetAddressInfo;
 
-/**
- * 3D 粒子系统 联机 客户端
- */
-public class Screen0003 extends ScreenCore3D{
+@ScreenDescription("3D 粒子系统 联机 客户端")
+public class Screen0003 extends ParticleScreen3D{
+  public NetAddressInfo dataServerInfo;
+  
   public SocketData0001 clientSocket;
   public Client0001Core clientCore;
-  //---
+  
   public ClientRead clientRead;
   public ClientWrite clientWrite;
-  //---
+  
   @Deprecated
   public ClientPlayerCenter3D playerCenter;//TODO
   public ControllerClientPlayer3D yourself;
@@ -86,9 +87,9 @@ public class Screen0003 extends ScreenCore3D{
     clientCore=new Client0001Core(tempSize,"pama"+String.format("%04d",(int)(random(0,10000))));
     playerCenter=new ClientPlayerCenter3D(this);
     yourself=new ControllerClientPlayer3D(this,clientCore.yourself);
-    //---
+    
     dataServerInfo=new NetAddressInfo("192.168.2.105",12347);
-    //---
+    
     SocketHints tsh=new SocketHints();
     tsh.connectTimeout=10000;
     tsh.socketTimeout=5000;
@@ -96,7 +97,7 @@ public class Screen0003 extends ScreenCore3D{
     tsh.performancePrefConnectionTime=0;
     tsh.performancePrefLatency=2;
     tsh.performancePrefBandwidth=1;
-    //---
+    
     clientSocket=new SocketData0001(new Token(yourself.data.name()),new SocketWrapperGDX(Gdx.net.newClientSocket(Protocol.TCP,dataServerInfo.addr,dataServerInfo.port,tsh)));
     new Thread("SocketConnect") {
       public void run() {
@@ -117,7 +118,7 @@ public class Screen0003 extends ScreenCore3D{
     final int ts=tempColorSize;
     int tsize=tempCellSize;
     int[] colors=new int[tempColorSize];
-    for(int i=0;i<colors.length;i++) colors[i]=Tools.hsbColor((float)i/colors.length*255,0xff,0xff);
+    for(int i=0;i<colors.length;i++) colors[i]=Tools.hsbColorInt((float)i/colors.length*255,0xff,0xff);
     graphicsList.add(0,new ArrayList<GraphicsData>(ts));
     for(int i=0;i<ts;i++) {
       int tgsize=tgsizeF(0);

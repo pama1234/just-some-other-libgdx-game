@@ -3,21 +3,23 @@ package pama1234.util;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-import pama1234.math.Tools;
+import pama1234.Tools;
 import pama1234.util.listener.ServerEntityListener;
 import pama1234.util.wrapper.ServerEntityCenter;
 
 public abstract class UtilServer implements Runnable{
   public ServerEntityCenter<ServerEntityListener> center=new ServerEntityCenter<ServerEntityListener>();
   public boolean stop;
-  //---
+
   // public float targetFrameRate=30,frameRate;
   // public long frameRatePeriod=1000000000L/(long)targetFrameRate;
   public float frameRate;
@@ -25,9 +27,9 @@ public abstract class UtilServer implements Runnable{
   public long frameRatePeriod;
   public long frameRateLastNanos;
   public int frameCount;
-  //---
+
   public long overSleepTime=0L;
-  //---
+
   public Random rng=new Random();
   public final float random(float high) {
     if(high==0||high!=high) return 0;
@@ -42,7 +44,7 @@ public abstract class UtilServer implements Runnable{
     do value=random(diff)+low; while(value==high);
     return value;
   }
-  //---
+
   {
     frameRate(60);
   }
@@ -55,17 +57,17 @@ public abstract class UtilServer implements Runnable{
     long overSleepTime=0L;
     int noDelays=0;
     final int NO_DELAYS_PER_YIELD=15;
-    //---
+
     init();
     while(!stop) {
       long now=System.nanoTime();
       double rate=1000000.0/((now-frameRateLastNanos)/1000000.0);
       float instantaneousRate=(float)(rate/1000.0);
       frameRate=(frameRate*0.9f)+(instantaneousRate*0.1f);
-      //---
+
       center.update();
       update();
-      //---
+
       frameRateLastNanos=now;
       //-
       long afterTime=System.nanoTime();
@@ -105,6 +107,15 @@ public abstract class UtilServer implements Runnable{
       e.printStackTrace();
     }
     return null;
+  }
+  public static void saveString(File path,String in) {
+    try {
+      OutputStream outputStream=new FileOutputStream(path);
+      outputStream.write(in.getBytes());
+      outputStream.close();
+    }catch(IOException e) {
+      e.printStackTrace();
+    }
   }
   public static void main(String[] args) {
     new UtilServer() {

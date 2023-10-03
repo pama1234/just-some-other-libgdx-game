@@ -4,12 +4,12 @@ apply plugin: 'com.google.protobuf'
 
 sourceCompatibility = 17
 mainClassName = 'pama1234.gdx.game.app.server.ServerLauncher'
-eclipse.project.name = appName + '-game0003-server'
+eclipse.project.name = appName + '0003-server'
 
 dependencies {
   implementation project(":server-framework")
 
-  api project(":framework0001:framework0001-localization")
+  api project(":framework0001:framework0001-yaml")
   api project(":framework0001:framework0001-protobuf")
   api project(":framework0001:framework0001-neat")
 
@@ -20,7 +20,7 @@ dependencies {
 }
 
 jar {
-  archiveBaseName.set(appName)
+  archiveBaseName.set(eclipse.project.name)
   // the duplicatesStrategy matters starting in Gradle 7.0; this setting works.
   duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
   dependsOn configurations.runtimeClasspath

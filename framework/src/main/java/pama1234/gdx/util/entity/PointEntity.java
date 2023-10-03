@@ -21,7 +21,6 @@ public abstract class PointEntity<T extends UtilScreen,P extends Point>extends E
   @Override
   public void update() {
     point.update();
-    //    update2();
   }
   public float x() {
     return point.x();
@@ -36,30 +35,15 @@ public abstract class PointEntity<T extends UtilScreen,P extends Point>extends E
     return (int)Math.floor(point.pos.y);
   }
   /**
-   * 无意义的语法糖
-   * 
    * @return 鼠标位置减去此坐标的值
    */
-  @Deprecated
   public float mouseX() {
     return p.mouse.x-x();
   }
   /**
-   * 无意义的语法糖
-   * 
    * @return 鼠标位置减去此坐标的值
    */
-  @Deprecated
   public float mouseY() {
     return p.mouse.y-y();
-  }
-  //  abstract public void update2();
-  /**
-   * 此方法用于调试
-   * 
-   * @see pama1234.gdx.util.wrapper.PointCenter
-   */
-  public String getName() {
-    return getClass().getSimpleName();
   }
 }

@@ -1,10 +1,10 @@
 package pama1234.game.app.server.server0002.cmd;
 
-import pama1234.game.app.server.server0002.Server0002;
+import pama1234.game.app.server.server0002.Server0006;
 import pama1234.game.app.server.server0002.cmd.ScannerThread.CommandList;
 
 public class CommandGenerator{
-  public static CommandList getCommand_0001(Server0002 p) {
+  public static CommandList getCommand_0001(Server0006 p) {
     CommandList commandList=new CommandList();
     commandList.put("help",(p1,p2,d,pt,s)-> {
       // System.out.println("切换中文提示信息请输入：lang cn"); //TODO

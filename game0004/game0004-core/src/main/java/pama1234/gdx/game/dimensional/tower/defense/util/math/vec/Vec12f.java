@@ -2,7 +2,7 @@ package pama1234.gdx.game.dimensional.tower.defense.util.math.vec;
 
 import java.util.Arrays;
 
-import pama1234.math.Tools;
+import pama1234.Tools;
 import pama1234.math.UtilMath;
 
 public class Vec12f{

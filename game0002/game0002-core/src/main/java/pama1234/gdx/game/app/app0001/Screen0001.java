@@ -5,69 +5,49 @@ import static pama1234.gdx.game.ui.generator.InfoUtil.info0001;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
 
-import pama1234.gdx.game.app.app0002.MainMenu;
+import pama1234.gdx.game.state.state0005.State0005Util;
+import pama1234.gdx.game.state.state0005.State0005Util.StateCenter0005;
 import pama1234.gdx.game.ui.ConfigInfo;
 import pama1234.gdx.game.ui.generator.UiGenerator;
-import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.util.ControlBindUtil;
-import pama1234.gdx.game.world.World0001;
+import pama1234.gdx.game.util.ParticleScreen3D;
 import pama1234.gdx.util.FileUtil;
-import pama1234.gdx.util.app.ScreenCore3D;
 import pama1234.gdx.util.element.Graphics;
-import pama1234.gdx.util.wrapper.DisplayEntity;
+import pama1234.util.Annotations.ScreenDescription;
 
-/**
- * 3D 粒子系统 单机模式
- */
-public class Screen0001 extends ScreenCore3D{
-  public MainMenu mainMenu;
-  public ControlBindUtil controlBind;
-  public World0001 world;
+@ScreenDescription("3D 粒子系统 单机模式")
+public class Screen0001 extends ParticleScreen3D{
+  // public MainMenu mainMenu;
+  
   public boolean displayHint;
   public Decal infoD;
   public Decal logo;
   public boolean tempTest;//TODO
   public ConfigInfo configInfo;
-  public static class GraphicsData{
-    public Graphics g;
-    public TextureRegion tr;
-    public GraphicsData(Graphics g,TextureRegion tr) {
-      this.g=g;
-      this.tr=tr;
-    }
-  }
-  public static class DecalData{//TODO
-    public Decal decal;
-    public int layer;
-    public DecalData(Decal g,int layer) {
-      this.decal=g;
-      this.layer=layer;
-    }
-  }
-  public Screen0001(MainMenu mainMenu) {
-    this.mainMenu=mainMenu;
+  {
+    // isAndroid=true;
   }
   @Override
   public void setup() {
     setupCamera();
     backgroundColor(0);
     textColor(255);
-    //---
+    
+    stateCenter=new StateCenter0005(this);
+    State0005Util.loadState0005(this,stateCenter);
+    // state(stateCenter.game);
+    state(stateCenter.startMenu);
     controlBind=new ControlBindUtil();
-    world=new World0001(this);
-    world.init();
     infoD=Decal.newDecal(drawInfoImage(),true);
     logo=Decal.newDecal(256,256,new TextureRegion(FileUtil.loadTexture("logo/logo-ingame.png")),true);
     logo.setPosition(0,-512,0);
     //TODO
     if(isAndroid) {
-      // if(true) {
-      buttons=UiGenerator.genButtons_0001(this);
-      for(Button<?> e:buttons) centerScreen.add.add(e);
+      var buttons=UiGenerator.genButtons_0001(this);
+      centerScreenAddAll(buttons);
+      addAndroidCam3DButtons();
     }
     centerScreen.add.add(configInfo=new ConfigInfo(this));
-    centerScreen.add.add(world);
-    centerCam.add.add(new DisplayEntity(world::displayCam));
   }
   public TextureRegion drawInfoImage() {
     Graphics tg=new Graphics(this,360,16*info0001.length);
@@ -81,11 +61,13 @@ public class Screen0001 extends ScreenCore3D{
     cam.point.f=0.1f;//TODO
     cam3d.viewDir.f=0.1f;
     cam.point.set(0,0,-240);
+    // cam3d.camera.far=600f;
   }
   @Override
   public void update() {}
   @Override
   public void displayWithCam() {
+    
     // Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
     // Gdx.gl20.glDepthMask(false);
     // world.displayCam();

@@ -7,6 +7,7 @@ import pama1234.app.game.server.duel.util.ai.mesh.ComputerPlayerEngine;
 import pama1234.app.game.server.duel.util.player.DrawBowPlayerActorState;
 import pama1234.app.game.server.duel.util.player.MovePlayerActorState;
 import pama1234.app.game.server.duel.util.player.PlayerEngine;
+import pama1234.app.game.server.duel.util.player.ServerDoTeleportPlayerActorState;
 import pama1234.gdx.game.duel.util.actor.ClientPlayerActor;
 import pama1234.gdx.game.duel.util.ai.nnet.ComputerLifeEngine;
 import pama1234.gdx.game.duel.util.graphics.DemoInfo;
@@ -16,6 +17,7 @@ import pama1234.gdx.game.duel.util.graphics.ParticleBuilder;
 import pama1234.gdx.game.duel.util.graphics.ParticleSet;
 import pama1234.gdx.game.duel.util.player.ClientAndroidHumanPlayerEngine;
 import pama1234.gdx.game.duel.util.player.ClientDamagedPlayerActorState;
+import pama1234.gdx.game.duel.util.player.ClientDoTeleportPlayerActorState;
 import pama1234.gdx.game.duel.util.player.ClientDrawLongbowPlayerActorState;
 import pama1234.gdx.game.duel.util.player.ClientDrawShortbowPlayerActorState;
 import pama1234.gdx.game.duel.util.player.ClientHumanPlayerEngine;
@@ -37,18 +39,24 @@ public final class ClientGameSystem extends ServerGameSystem{
     this(duel,pg,false,false);
   }
   public ClientGameSystem(Duel duel,Game pg,boolean demo,boolean instruction) {
-    super(null,demo,false);
+    this(duel,pg,demo,instruction,1);
+  }
+  public ClientGameSystem(Duel duel,Game pg,boolean demo,boolean instruction,float level) {
+    super(null,demo,false,level);
     this.p=duel;
     this.pg=pg;
     // prepare PlayerActorState
     final MovePlayerActorState moveState=new MovePlayerActorState();
     final DrawBowPlayerActorState drawShortbowState=new ClientDrawShortbowPlayerActorState(duel);
     final DrawBowPlayerActorState drawLongbowState=new ClientDrawLongbowPlayerActorState(duel);
+    final ServerDoTeleportPlayerActorState doTeleportState=new ClientDoTeleportPlayerActorState(duel);
     damagedState=new ClientDamagedPlayerActorState(duel);
     moveState.drawShortbowState=drawShortbowState;
     moveState.drawLongbowState=drawLongbowState;
+    moveState.doTeleportState=doTeleportState;
     drawShortbowState.moveState=moveState;
     drawLongbowState.moveState=moveState;
+    doTeleportState.moveState=moveState;
     damagedState.moveState=moveState;
     // prepare PlayerActor
     PlayerEngine myEngine;
@@ -57,41 +65,41 @@ public final class ClientGameSystem extends ServerGameSystem{
       if(duel.isAndroid) myEngine=new ClientAndroidHumanPlayerEngine(pg.currentInput);
       else myEngine=new ClientHumanPlayerEngine(pg.currentInput);
     }
-    ClientPlayerActor myPlayer=new ClientPlayerActor(duel,myEngine,duel.config.mode==ServerConfigData.neat?duel.skin.player_b:duel.skin.player_a);
-    myPlayer.xPosition=Const.CANVAS_SIZE*0.5f;
-    myPlayer.yPosition=Const.CANVAS_SIZE-100;
+    ClientPlayerActor myPlayer=new ClientPlayerActor(duel,myEngine,duel.config.data.mode==ServerConfigData.neat?duel.theme().player_b:duel.theme().player_a);
+    myPlayer.pos.set(Const.CANVAS_SIZE*0.5f,Const.CANVAS_SIZE-100);
     myPlayer.state=moveState;
-    myGroup.setPlayer(myPlayer);
+    myGroup().addPlayer(myPlayer);
     PlayerEngine otherEngine=createComputerEngine(false);
-    ClientPlayerActor otherPlayer=new ClientPlayerActor(duel,otherEngine,duel.skin.player_b);
-    otherPlayer.xPosition=Const.CANVAS_SIZE*0.5f;
-    otherPlayer.yPosition=100;
+    ClientPlayerActor otherPlayer=new ClientPlayerActor(duel,otherEngine,duel.theme().player_b);
+    otherPlayer.pos.set(Const.CANVAS_SIZE*0.5f,100);
     otherPlayer.state=moveState;
-    otherGroup.setPlayer(otherPlayer);
+    otherGroup().addPlayer(otherPlayer);
     // other
-    commonParticleSet=new ParticleSet(duel,2048);
+    commonParticleSet=new ParticleSet(duel,this,2048);
     currentState(new ClientStartGameState(duel,this));
-    currentBackground=new GameBackground(duel,duel.skin.backgroundLine,0.1f);
+    currentBackground=new GameBackground(duel,duel.theme().backgroundLine,0.1f);
     // demoPlay=demo;
     showsInstructionWindow=instruction;
   }
+  @Override
   public PlayerEngine createComputerEngine(boolean side) {
-    if(p.config.mode==ServerConfigData.neat) {
-      // if(type) return new ComputerPlayerEngine(duel::random);
-      // else return new ComputerLifeEngine((type?duel.player_a:duel.player_b).graphics,duel.neatCenter.getNext());
+    if(p.config.data.mode==ServerConfigData.neat) {
       return new ComputerLifeEngine((side?p.neatE.player_a:p.neatE.player_b).graphics,p.neatCenter.getNext(),side);
-    }else return new ComputerPlayerEngine(p::random);
+    }else return new ComputerPlayerEngine(p::random,level);
   }
+  @Override
   public void update() {
     if(demoPlay) {
       if(pg.currentInput.isZPressed) {
-        pg.system=new ClientGameSystem(p,pg); // stop demo and start game
+        // stop demo and start game
+        pg.newGame(false,false);
         return;
       }
     }
     currentBackground.update();
     currentState.update();
   }
+  @Override
   public void display() {
     p.pushMatrix();
     if(screenShakeValue>0) {
@@ -102,26 +110,28 @@ public final class ClientGameSystem extends ServerGameSystem{
     currentState.display();
     p.popMatrix();
   }
+  @Override
   public void displayScreen() {
     currentState.displayScreen();
     if(demoPlay&&showsInstructionWindow) DemoInfo.displayDemo(p);
   }
+  @Override
   public void addSquareParticles(float x,float y,int particleCount,float particleSize,float minSpeed,float maxSpeed,float lifespanSecondValue) {
-    final ParticleBuilder builder=pg.system.commonParticleSet.builder
+    final ParticleBuilder builder=pg.core.commonParticleSet.builder
       .type(Particle.square)
       .position(x,y)
       .particleSize(particleSize)
-      .particleColor(p.skin.squareParticles)
+      .particleColor(p.theme().squareParticles)
       .lifespanSecond(lifespanSecondValue);
     for(int i=0;i<particleCount;i++) {
       final Particle newParticle=builder
         .polarVelocity(p.random(UtilMath.PI2),p.random(minSpeed,maxSpeed))
         .build();
-      pg.system.commonParticleSet.particleList.add(newParticle);
+      pg.core.commonParticleSet.particleList.add(newParticle);
     }
   }
   public void currentState(ClientGameSystemState currentState) {
     this.currentState=currentState;
-    p.stateChangeEvent(this,stateIndex);
+    p.inGameStateChangeEvent(this,stateIndex);
   }
 }

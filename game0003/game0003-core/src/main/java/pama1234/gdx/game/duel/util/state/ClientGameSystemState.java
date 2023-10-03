@@ -1,16 +1,24 @@
 package pama1234.gdx.game.duel.util.state;
 
-import pama1234.gdx.game.duel.Duel;
 import pama1234.app.game.server.duel.util.state.ServerGameSystemState;
 import pama1234.gdx.game.duel.ClientGameSystem;
+import pama1234.gdx.game.duel.Duel;
 
+/**
+ * {@link ClientGameResultState}
+ * </p>
+ * {@link ClientPlayGameState}
+ * </p>
+ * {@link ClientStartGameState}
+ * </p>
+ */
 public abstract class ClientGameSystemState extends ServerGameSystemState{
-  public final Duel duel;
+  public final Duel p;
   public ClientGameSystem system;
-  //---
+
   public ClientGameSystemState(Duel duel,ClientGameSystem system) {
     super(system);
-    this.duel=duel;
+    this.p=duel;
     this.system=system;
   }
   public void display() {

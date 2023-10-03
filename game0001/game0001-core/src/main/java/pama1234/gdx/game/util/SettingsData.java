@@ -1,5 +1,7 @@
 package pama1234.gdx.game.util;
 
+import pama1234.gdx.util.cam.CameraController2D;
+
 public class SettingsData{
   public boolean showEarth=true;
   public boolean debugInfo,debugGraphics;
@@ -16,6 +18,6 @@ public class SettingsData{
   public boolean printLog;
   public boolean ctrlButton;
   public String langType;
-  public boolean pixelPerfectGlobal=true;
-  public boolean pixelPerfectIngame;
+  public int pixelPerfectGlobal=CameraController2D.SMOOTH;
+  public int pixelPerfectIngame;
 }

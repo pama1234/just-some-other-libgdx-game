@@ -3,9 +3,9 @@ package pama1234.gdx.game.state.state0001;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.util.listener.StateChanger;
 import pama1234.gdx.util.listener.StateEntityListener;
-import pama1234.gdx.util.wrapper.DisplayEntity;
 import pama1234.gdx.util.wrapper.StateCenter;
-import pama1234.gdx.util.wrapper.StateEntity;
+import pama1234.gdx.util.wrapper.StateEntityBase;
+import pama1234.gdx.game.state.state0001.setting.Settings;
 
 public class State0001Util{
   public static void loadState0001(Screen0011 in,StateCenter0001 center) {
@@ -19,19 +19,12 @@ public class State0001Util{
     center.list.add(center.exception=new ExceptionState(in,7));
     center.list.add(center.debug=new Debug(in,8));
   }
-  public static abstract class StateEntity0001 extends StateEntity<Screen0011,StateEntityListener0001> implements StateEntityListener0001{
-    public int id;
+  public static abstract class StateEntity0001 extends StateEntityBase<Screen0011,StateEntityListener0001,StateEntity0001> implements StateEntityListener0001{
     public StateEntity0001(Screen0011 p,int id) {
-      super(p);
-      displayCam=new DisplayEntity(this::displayCam);
-      this.id=id;
+      super(p,id);
     }
   }
   public interface StateEntityListener0001 extends StateEntityListener<StateEntity0001>{
-    @Override
-    default public void from(StateEntity0001 in) {}
-    @Override
-    default public void to(StateEntity0001 in) {}
   }
   public interface StateChanger0001 extends StateChanger<StateEntity0001>{
   }
@@ -53,10 +46,6 @@ public class State0001Util{
     }
     public StateCenter0001(Screen0011 p,StateEntity0001[] in) {
       super(p,in);
-    }
-    @Deprecated
-    public void disposeAll() {
-      dispose();
     }
   }
 }

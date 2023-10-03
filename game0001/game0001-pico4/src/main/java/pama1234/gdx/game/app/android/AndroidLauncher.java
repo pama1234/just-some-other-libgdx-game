@@ -16,6 +16,7 @@ public class AndroidLauncher extends AndroidApplication{
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     AndroidApplicationConfiguration configuration=new AndroidApplicationConfiguration();
+    configuration.useImmersiveMode=true;
     // configuration.useGyroscope=true;
     MainApp.type=MainApp.pico;
     initialize(new MainApp(),configuration);

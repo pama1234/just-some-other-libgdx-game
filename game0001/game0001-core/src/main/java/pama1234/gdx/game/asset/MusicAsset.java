@@ -14,7 +14,7 @@ public class MusicAsset{
     load_0001(manager);
   }
   public static void load_init() {
-    alsoSprachZarathustra=load("Also-sprach-Zarathustra.mp3");
+    if(alsoSprachZarathustra==null) alsoSprachZarathustra=load("Also-sprach-Zarathustra.mp3");
   }
   public static void load_0001(AssetManager manager) {
     manager.load("music/Beethoven-Moonlight-Sonata.mp3",Music.class);

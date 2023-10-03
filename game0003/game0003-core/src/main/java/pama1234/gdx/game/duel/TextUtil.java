@@ -4,10 +4,10 @@ import pama1234.util.function.GetFloatWith;
 
 public class TextUtil{
   public static TextUtil used;
-  //---
+
   public TextWithWidth win;
   public TextWithWidth lose;
-  //---
+
   public TextWithWidth restart;
   public TextWithWidth go;
   public static TextUtil gen_ch(GetFloatWith<String> textWidth) {

@@ -1,0 +1,15 @@
+package pama1234.gdx.textmate;
+
+import com.badlogic.gdx.graphics.Color;
+
+public class EclipseTools{
+  public static org.eclipse.swt.graphics.Color eColor(Color color) {
+    return new org.eclipse.swt.graphics.Color((int)(color.r*255f),(int)(color.g*255f),(int)(color.b*255f),(int)(color.a*255f));
+  }
+  public static Color gColor(org.eclipse.swt.graphics.Color color) {
+    return new Color(color.getRed()/225f,color.getGreen()/225f,color.getBlue()/225f,color.getAlpha());
+  }
+  public static StyledText newStyledText(org.eclipse.swt.custom.StyledText in) {
+    return new StyledText(gColor(in.getBackground()),gColor(in.getForeground()),gColor(in.getSelectionBackground()),gColor(in.getSelectionForeground()));
+  }
+}

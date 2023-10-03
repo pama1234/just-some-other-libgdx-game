@@ -1,13 +1,13 @@
 package pama1234.gdx.game.app.app0002;
 
+import pama1234.gdx.game.ui.element.Button;
 import pama1234.gdx.game.ui.generator.UiGenerator;
-import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.util.app.ScreenCore3D;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.listener.EntityListener;
 
 public class Screen0006 extends ScreenCore3D{
-  //---
+
   public float[] idata=new float[7];
   @Override
   public void setup() {

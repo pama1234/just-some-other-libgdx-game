@@ -15,9 +15,9 @@ public class DemoInfo extends Entity<Duel>{
     text.begin();
     p.beginShape();
     p.beginBlend();
-    p.background(255,200);
+    p.background(p.theme().background,200);
     p.doStroke();
-    p.stroke(0);
+    p.stroke(p.theme().stroke);
     p.strokeWeightOriginal(2);
     p.noFill();
     p.rect(0,0,text.texture.getWidth(),text.texture.getHeight());
@@ -25,6 +25,8 @@ public class DemoInfo extends Entity<Duel>{
     p.endShape();
     p.setTextScale(1);
     p.strokeWeightOriginal(1);
+    p.setTextColor(p.theme().text);
+    // p.textColor(p.theme().text);
     if(p.isAndroid) drawText_ch_android(p,UtilMath.min(p.width,p.height));
     else drawText_ch(p,UtilMath.min(p.width,p.height));
     text.end();
@@ -37,51 +39,51 @@ public class DemoInfo extends Entity<Duel>{
     int th=img.getHeight()*tf;
     p.image(img,(p.width-tw)/2f,(p.height-th)/2f,tw,th);
   }
-  public static void drawText_en(Duel duel,int fu) {
-    duel.fullText("    Z key:",200,180);
-    duel.fullText("    X key:",200,250);
-    duel.fullText("Arrow key:",200,345);
-    duel.fullText("Weak shot\n (auto aiming)",300,180);
-    duel.fullText("Lethal shot\n (manual aiming,\n  requires charge)",300,250);
-    duel.fullText("Move\n (or aim lethal shot)",300,345);
-    duel.fullText("- Press Z key to start -",192,430);
-    duel.fullText("(Click to hide this window)",192,475);
+  public static void drawText_en(Duel p,int fu) {
+    p.fullText("    Z key:",200,180);
+    p.fullText("    X key:",200,250);
+    p.fullText("Arrow key:",200,345);
+    p.fullText("Weak shot\n (auto aiming)",300,180);
+    p.fullText("Lethal shot\n (manual aiming,\n  requires charge)",300,250);
+    p.fullText("Move\n (or aim lethal shot)",300,345);
+    p.fullText("- Press Z key to start -",192,430);
+    p.fullText("(Click to hide this window)",192,475);
   }
-  public static void drawText_ch(Duel duel,int fu) {
-    duel.setTextScale(3);
-    duel.fullText("几何决斗！",180,20);
-    duel.setTextScale(1);
-    duel.fullText("      Z 按键:",180,100);
-    duel.fullText("      X 按键:",180,170);
-    duel.fullText("左手触摸屏幕:",180,245);
-    duel.fullText("普通攻击\n (自动瞄准)",300,100);
-    duel.fullText("致命大招\n (手动瞄准,\n  需要蓄力)",300,170);
-    duel.fullText("移动\n (或使用大招时进行瞄准)",300,245);
-    duel.fullText("- 按 Z 键开始游戏 -",192,330);
-    duel.fullText("(轻触显示或隐藏此界面)",192,360);
-    duel.setTextColor(80);
-    duel.fullText("由FAL制作！( https://www.fal-works.com/ )",20,400);
-    duel.fullText("由Pama1234移植到安卓版！( https://space.bilibili.com/646050693 )",20,420);
-    duel.fullText("原型版本，视觉BUG很多，敬请关注此开源项目！会更新联机版！",20,440);
+  public static void drawText_ch(Duel p,int fu) {
+    p.setTextScale(3);
+    p.fullText("几何决斗！",180,20);
+    p.setTextScale(1);
+    p.fullText("      Z 按键:",180,100);
+    p.fullText("      X 按键:",180,170);
+    p.fullText("左手触摸屏幕:",180,245);
+    p.fullText("普通攻击\n (自动瞄准)",300,100);
+    p.fullText("致命大招\n (手动瞄准,\n  需要蓄力)",300,170);
+    p.fullText("移动\n (或使用大招时进行瞄准)",300,245);
+    p.fullText("- 按 Z 键开始游戏 -",192,330);
+    p.fullText("(轻触显示或隐藏此界面)",192,360);
+    p.setTextColor(p.theme().text,192);
+    p.fullText("由FAL制作！( https://www.fal-works.com/ )",20,400);
+    p.fullText("由Pama1234移植到安卓版！( https://space.bilibili.com/646050693 )",20,420);
+    p.fullText("原型版本，视觉BUG很多，敬请关注此开源项目！会更新联机版！",20,440);
   }
-  public static void drawText_ch_android(Duel duel,int fu) {
-    duel.setTextScale(3);
-    duel.fullText("几何决斗！",180,20);
-    duel.setTextScale(2);
-    duel.fullText("      Z 按键:",60,100);
-    duel.fullText("      X 按键:",60,140);
-    duel.fullText("左手触摸屏幕:",60,190);
-    //---
-    duel.fullText("普通攻击",300,100);
-    duel.fullText("致命大招",300,140);
-    duel.fullText("移动或瞄准",300,190);
-    //---
-    duel.fullText("- 按 Z 键开始游戏 -",160,300);
-    duel.fullText("(轻触显示或隐藏此界面)",160,340);
-    duel.setTextColor(80);
-    duel.setTextScale(1);
-    duel.fullText("由FAL制作！( https://www.fal-works.com/ )",20,380);
-    duel.fullText("由Pama1234移植到安卓版！( https://space.bilibili.com/646050693 )",20,400);
-    duel.fullText("敬请关注此开源项目！会更新联机版！",20,420);
+  public static void drawText_ch_android(Duel p,int fu) {
+    p.setTextScale(3);
+    p.fullText("几何决斗！",180,20);
+    p.setTextScale(2);
+    p.fullText("      Z 按键:",60,100);
+    p.fullText("      X 按键:",60,140);
+    p.fullText("左手触摸屏幕:",60,190);
+
+    p.fullText("普通攻击",300,100);
+    p.fullText("致命大招",300,140);
+    p.fullText("移动或瞄准",300,190);
+
+    p.fullText("- 按 Z 键开始游戏 -",160,300);
+    p.fullText("(轻触显示或隐藏此界面)",160,340);
+    p.setTextColor(p.theme().text,192);
+    p.setTextScale(1);
+    p.fullText("由FAL制作！( https://www.fal-works.com/ )",20,380);
+    p.fullText("由Pama1234移植到安卓版！( https://space.bilibili.com/646050693 )",20,400);
+    p.fullText("敬请关注此开源项目！会更新联机版！",20,420);
   }
 }

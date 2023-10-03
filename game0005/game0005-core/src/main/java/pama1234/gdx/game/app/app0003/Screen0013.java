@@ -5,9 +5,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
 
+import pama1234.Tools;
 import pama1234.gdx.util.app.ScreenCore3D;
 import pama1234.gdx.util.element.Graphics;
-import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 
 public class Screen0013 extends ScreenCore3D{

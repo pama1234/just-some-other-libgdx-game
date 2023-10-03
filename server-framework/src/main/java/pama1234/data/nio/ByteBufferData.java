@@ -13,11 +13,11 @@ public interface ByteBufferData extends Data<ByteBuffer>{
   default ByteBuffer toData() {
     return toData(ByteBuffer.allocate(bufferSize()),0);
   }
-  //---
+
   void fromData(ByteBuffer in,int offset,int size);
   ByteBuffer toData(ByteBuffer in,int offset);
   int bufferSize();
-  //---
+
   public static final int FLOAT_SIZE=4;
   public static final int INT_SIZE=4;
   public static final int CHAR_SIZE=2;

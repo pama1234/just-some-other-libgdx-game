@@ -3,7 +3,7 @@ apply plugin: "com.android.library"
 android {
   namespace 'com.badlogic.gdx.xr.android'
 
-  compileSdkVersion 32
+  compileSdkVersion project.properties.compileSdkVersion.toInteger()
   signingConfigs {
     release {
       // storeFile file('sign.jks')
@@ -24,8 +24,8 @@ android {
     }
   }
   defaultConfig {
-    minSdkVersion 26
-    targetSdkVersion 32
+    minSdkVersion project.properties.minSdkVersion.toInteger()
+    targetSdkVersion project.properties.targetSdkVersion.toInteger()
     versionCode 1
     versionName "1.0"
     multiDexEnabled true
@@ -36,12 +36,12 @@ android {
     targetCompatibility "17"
     coreLibraryDesugaringEnabled true
   }
-  
+
   buildTypes {
     release {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-      
+
       signingConfig signingConfigs.release
     }
   }
@@ -59,19 +59,10 @@ dependencies {
 
   implementation project(':framework')
   // compileOnly project(":gdx-vr-core")
-  // implementation "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
+  implementation ("$gdxCustomModule:gdx-backend-android:$gdxCustomVersion") {
+    exclude group: "com.badlogicgames.gdx"
+  }
   // implementation "com.google.vr:sdk-base:1.190.0"
 
   implementation 'net.java.dev.jna:jna:5.13.0'
-
-  // This follows advice from https://blog.gradle.org/log4j-vulnerability
-  constraints {
-    implementation("org.apache.logging.log4j:log4j-core") {
-      version {
-        strictly("[2.17, 3[")
-        prefer("2.17.0")
-      }
-      because("CVE-2021-44228, CVE-2021-45046, CVE-2021-45105: Log4j vulnerable to remote code execution and other critical security vulnerabilities")
-    }
-  }
 }

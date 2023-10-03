@@ -11,6 +11,9 @@ public final class GameBackground{
   public final ArrayList<BackgroundLine> lineList=new ArrayList<BackgroundLine>();
   public final float maxAccelerationMagnitude;
   public final Color lineColor;
+  public GameBackground(Duel duel,Color col) {
+    this(duel,col,0.1f);
+  }
   public GameBackground(Duel duel,Color col,float maxAcc) {
     this.duel=duel;
     lineColor=col;
@@ -23,12 +26,14 @@ public final class GameBackground{
     }
   }
   public void update() {
-    for(BackgroundLine eachLine:lineList) {
-      eachLine.update(duel.random(-maxAccelerationMagnitude,maxAccelerationMagnitude));
-    }
+    for(BackgroundLine eachLine:lineList) eachLine.update(duel.random(-maxAccelerationMagnitude,maxAccelerationMagnitude));
   }
   public void display() {
     duel.stroke(lineColor);
-    for(BackgroundLine eachLine:lineList) eachLine.display();
+    // System.out.println("GameBackground.display()");
+    for(BackgroundLine eachLine:lineList) {
+      // System.out.println("GameBackground.display() "+eachLine);
+      eachLine.display();
+    }
   }
 }

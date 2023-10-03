@@ -20,14 +20,16 @@ public class ServerDrawShortbowPlayerActorState extends DrawBowPlayerActorState{
   public void fire(ServerPlayerActor parentActor) {
     ServerShortbowArrow newArrow=new ServerShortbowArrow();
     final float directionAngle=parentActor.aimAngle;
-    newArrow.xPosition=parentActor.xPosition+24*UtilMath.cos(directionAngle);
-    newArrow.yPosition=parentActor.yPosition+24*UtilMath.sin(directionAngle);
+    newArrow.pos.x=parentActor.pos.x+24*UtilMath.cos(directionAngle);
+    newArrow.pos.y=parentActor.pos.y+24*UtilMath.sin(directionAngle);
     newArrow.rotationAngle=directionAngle;
-    newArrow.setVelocity(directionAngle,24);
+    newArrow.vel(directionAngle,24);
     parentActor.group.addArrow(newArrow);
   }
   @Override
   public void displayEffect(ServerPlayerActor parentActor) {}
+  @Override
+  public void update(ServerPlayerActor parentActor) {}
   @Override
   public PlayerActorState entryState(ServerPlayerActor parentActor) {
     return this;

@@ -1,7 +1,7 @@
 package pama1234.gdx.game.ui;
 
 import pama1234.gdx.game.DrawableEntity;
-import pama1234.gdx.game.ui.util.TextField.TextFieldStyle;
+import pama1234.gdx.game.ui.element.TextField.TextFieldStyle;
 import pama1234.gdx.util.app.UtilScreen;
 
 public class CodeTextFieldStyle extends TextFieldStyle{

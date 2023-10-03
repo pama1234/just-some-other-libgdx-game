@@ -4,7 +4,7 @@ import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
 public class ItemData{
   // public static final Kryo kryo=new Kryo();
-  public MetaItemData type;
+  public MetaItemDataDepc type;
   @Tag(0)
   public int typeId;
   public int[] displayType;
@@ -12,17 +12,17 @@ public class ItemData{
   public int count=1;
   @Deprecated
   public ItemData() {}//kryo
-  public ItemData(MetaItemData type) {
+  public ItemData(MetaItemDataDepc type) {
     this.type=type;
     init(type);
     count=1;
   }
-  public ItemData(MetaItemData type,int count) {
+  public ItemData(MetaItemDataDepc type,int count) {
     this.type=type;
     init(type);
     this.count=count;
   }
-  public void init(MetaItemData type) {
+  public void init(MetaItemDataDepc type) {
     typeId=type.id;
     if(type.displayTypeSize>0) {
       displayType=new int[type.displayTypeSize];

@@ -3,13 +3,13 @@ package pama1234.game.app.server.server0002.cmd;
 import java.util.HashMap;
 import java.util.Scanner;
 
-import pama1234.game.app.server.server0002.Server0002;
+import pama1234.game.app.server.server0002.Server0006;
 
 public class ScannerThread extends Thread{
-  public Server0002 p;
+  public Server0006 p;
   public Scanner scanner;
   public CommandList commandList;
-  public ScannerThread(Server0002 p) {
+  public ScannerThread(Server0006 p) {
     super("ScannerThread");
     this.p=p;
     scanner=new Scanner(System.in);
@@ -41,7 +41,7 @@ public class ScannerThread extends Thread{
   }
   @FunctionalInterface
   public interface Command{
-    public void execute(Server0002 p,CommandList parent,String[] data,int pointer,int maxStep);
+    public void execute(Server0006 p,CommandList parent,String[] data,int pointer,int maxStep);
   }
   public static class CommandList implements Command{
     public HashMap<String,CommandList> subCommand=new HashMap<>();
@@ -60,13 +60,13 @@ public class ScannerThread extends Thread{
     public void put(String string,CommandList in) {
       subCommand.put(string,in);
     }
-    public void execute(Server0002 p,CommandList parent,String[] data,int pointer,int maxStep) {
+    public void execute(Server0006 p,CommandList parent,String[] data,int pointer,int maxStep) {
       if(maxStep==0) return;
       command.execute(p,parent,data,pointer,maxStep-=1);
       if((pointer+=1)>=data.length) return;
       executeSub(p,parent,data,pointer,maxStep);
     }
-    public void executeSub(Server0002 p,CommandList parent,String[] data,int pointer,int maxStep) {
+    public void executeSub(Server0006 p,CommandList parent,String[] data,int pointer,int maxStep) {
       // System.out.println(data[pointer]);
       CommandList e=subCommand.get(data[pointer]);
       // System.out.println(e);

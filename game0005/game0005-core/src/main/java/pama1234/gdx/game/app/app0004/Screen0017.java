@@ -9,8 +9,8 @@ import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Polygon;
 import com.badlogic.gdx.math.Vector2;
 
+import pama1234.Tools;
 import pama1234.gdx.util.app.ScreenCore2D;
-import pama1234.math.Tools;
 
 public class Screen0017 extends ScreenCore2D{
   @Override
@@ -32,7 +32,7 @@ public class Screen0017 extends ScreenCore2D{
     // Coordinate coord=new Coordinate(10,20);
     // Point temp=new GeometryFactory().createPoint(coord);
     // System.out.println(temp);
-    //---
+
     // 构造三角形的三个顶点
     Coordinate p1=new Coordinate(0,0);
     Coordinate p2=new Coordinate(3,0);

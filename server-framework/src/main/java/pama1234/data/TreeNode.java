@@ -4,9 +4,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class TreeNode<T>{
-  public T data=null;
+  public T data;
   public LinkedList<TreeNode<T>> children=new LinkedList<>();
-  public TreeNode<T> parent=null;
+  public TreeNode<T> parent;
   public int depth;
   public TreeNode(T data) {
     this.data=data;
@@ -15,6 +15,12 @@ public class TreeNode<T>{
     in.setParent(this);
     children.add(in);
   }
+  /**
+   * 含义模糊，应当修改
+   * 
+   * @param in
+   */
+  @Deprecated
   public void addChild(T in) {
     TreeNode<T> newChild=new TreeNode<>(in);
     addChild(newChild);

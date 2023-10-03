@@ -9,7 +9,7 @@ import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.listener.EntityListener;
 
 public class Screen0010 extends ScreenCore3D{
-  //---
+
   public Graphics gbackground;
   public ShaderProgram shader;
   public float[] idata=new float[7];

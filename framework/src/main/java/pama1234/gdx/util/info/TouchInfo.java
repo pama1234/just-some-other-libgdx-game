@@ -12,22 +12,29 @@ public class TouchInfo extends ScreenCamInfo{
   }
   public void update(UtilScreenCore p) {
     if(!active) return;
-    px=x;
-    py=y;
+    flipPD();
   }
-  public void putRaw(int xIn,int yIn) {
-    Vector3 tv=p.unproject(ox=xIn,oy=yIn);
-    set(tv.x,tv.y);
-    dx=x-px;
-    dy=y-py;
-  }
-  public void begin(int xIn,int yIn,int pIn,int b) {
+  // public void putRaw(int xIn,int yIn) {
+  //   Vector3 tv=p.screenToWorld(ox=xIn,oy=yIn);
+  //   set(tv.x,tv.y);
+  // }
+  public void begin(int xIn,int yIn,int pIn,int b,int time) {
     active=true;
-    Vector3 tv=p.unproject(ox=osx=xIn,oy=osy=yIn);
+    // Vector3 tv=p.screenToWorld(ox=osx=xIn,oy=osy=yIn);
+    Vector3 tv;
+    if(p.is3d&&p.grabCursor) {
+      ox=osx=xIn;
+      oy=osy=yIn;
+      tv=p.screenToWorld(p.width/2f,p.height/2f);
+    }else {
+      tv=p.screenToWorld(ox=osx=xIn,oy=osy=yIn);
+    }
     sx=x=tv.x;
     sy=y=tv.y;
+    flipPD();
     pointer=pIn;
     button=b;
+    startTime=time;
   }
   public void end() {
     active=false;

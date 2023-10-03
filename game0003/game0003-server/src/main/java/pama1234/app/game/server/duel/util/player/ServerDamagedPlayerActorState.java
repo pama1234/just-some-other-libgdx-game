@@ -22,4 +22,6 @@ public class ServerDamagedPlayerActorState extends PlayerActorState{
   public boolean isDamaged() {
     return true;
   }
+  @Override
+  public void update(ServerPlayerActor parentActor) {}
 }

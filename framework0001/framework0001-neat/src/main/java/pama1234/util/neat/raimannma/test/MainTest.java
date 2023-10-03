@@ -9,12 +9,12 @@ public class MainTest{
     Network network;
     float[][] inputs;
     float[][] outputs;
-    //---
+
     options=new EvolveOptions();
     options.setLog(5);
     options.setError(0.05f);
     options.setTemplate(new Network(2,1));
-    //---
+
     inputs=new float[][] {
       {0,0},
       {0,1},

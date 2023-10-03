@@ -5,6 +5,9 @@ import pama1234.math.gdx.temp.ServerAffine2;
 import pama1234.math.gdx.temp.ServerQuaternion;
 import pama1234.math.vec.Vec3f;
 
+/**
+ * 直接从libgdx复制过来的
+ */
 public class Mat4f{
   private static final long serialVersionUID=-2717655254359579617L;
   public static final int M00=0;

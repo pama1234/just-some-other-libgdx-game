@@ -1,0 +1,27 @@
+package org.eclipse.tm4e.ui.internal.widgets;
+
+import org.eclipse.jdt.annotation.Nullable;
+import org.eclipse.jface.viewers.IStructuredContentProvider;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.tm4e.registry.IGrammarRegistryManager;
+
+@DeprecatedJface
+public final class GrammarDefinitionContentProvider implements IStructuredContentProvider{
+  @Nullable
+  private IGrammarRegistryManager registry;
+  @Override
+  public Object @Nullable [] getElements(@Nullable final Object input) {
+    final var registry=this.registry;
+    if(registry==null) return null;
+    return registry.getDefinitions();
+  }
+  @Override
+  public void inputChanged(@Nullable final Viewer viewer,@Nullable final Object oldInput,
+    @Nullable final Object newInput) {
+    registry=(IGrammarRegistryManager)newInput;
+  }
+  @Override
+  public void dispose() {
+    registry=null;
+  }
+}

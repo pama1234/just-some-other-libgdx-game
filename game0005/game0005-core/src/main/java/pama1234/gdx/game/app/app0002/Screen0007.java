@@ -9,15 +9,15 @@ import com.badlogic.gdx.graphics.g3d.utils.ModelBuilder;
 
 import pama1234.gdx.game.ui.CodeTextFieldStyle;
 import pama1234.gdx.game.ui.ConfigInfo;
-import pama1234.gdx.game.ui.util.NormalOnscreenKeyboard;
-import pama1234.gdx.game.ui.util.TextField;
+import pama1234.gdx.game.ui.NormalOnscreenKeyboard;
+import pama1234.gdx.game.ui.element.TextField;
 import pama1234.gdx.util.app.ScreenCore3D;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.math.geometry.RectF;
 
 public class Screen0007 extends ScreenCore3D{
   TextField textField;
-  //---
+
   public Model model;
   public ModelInstance instance;
   @Override
@@ -28,9 +28,9 @@ public class Screen0007 extends ScreenCore3D{
     textField=new TextField("1234",new CodeTextFieldStyle(this),
       new RectF(()->u,()->u,()->width-u*2,()->u+pus*2),()->pus);
     textField.setOnscreenKeyboard(new NormalOnscreenKeyboard());
-    stage.addActor(textField);
+    screenStage.addActor(textField);
     centerScreen.add.add(new ConfigInfo(this));
-    //---
+
     ModelBuilder modelBuilder=new ModelBuilder();
     model=modelBuilder.createBox(512,1152,128,
       new Material(

@@ -12,5 +12,6 @@ public class ClientAndroidHumanPlayerEngine extends ClientHumanPlayerEngine{
     inputDevice.operateMove(currentInput.dx,currentInput.dy);
     inputDevice.operateShotButton(currentInput.isZPressed);
     inputDevice.operateLongShotButton(currentInput.isXPressed);
+    inputDevice.operateTeleportButton(currentInput.isCPressed);
   }
 }

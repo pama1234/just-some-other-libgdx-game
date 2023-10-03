@@ -29,7 +29,7 @@ public final class ParticleBuilder{
     directionAngle=0;
     speed=0;
     rotationAngle=0;
-    displayColor=p.skin.stroke;
+    displayColor=p.theme().stroke;
     strokeWeightValue=1;
     displaySize=10;
     lifespanFrameCount=60;
@@ -76,12 +76,10 @@ public final class ParticleBuilder{
     return this;
   }
   public Particle build() {
-    final Particle newParticle=p.stateCenter.game.system.commonParticleSet.allocate();
+    final Particle newParticle=p.core().commonParticleSet.allocate();
     newParticle.particleTypeNumber=this.particleTypeNumber;
-    newParticle.xPosition=this.xPosition;
-    newParticle.yPosition=this.yPosition;
-    newParticle.xVelocity=this.xVelocity;
-    newParticle.yVelocity=this.yVelocity;
+    newParticle.pos.set(xPosition,yPosition);
+    newParticle.vel.set(xVelocity,yVelocity);
     newParticle.directionAngle=this.directionAngle;
     newParticle.speed=this.speed;
     newParticle.rotationAngle=this.rotationAngle;

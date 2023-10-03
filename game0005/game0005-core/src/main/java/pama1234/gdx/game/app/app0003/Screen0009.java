@@ -22,7 +22,7 @@ public class Screen0009 extends ScreenCore2D{
     noStroke();
     MusicAsset.moonlightSonata=MusicAssetUtil.load("Beethoven-Moonlight-Sonata.mp3");
     moonlightSonata.play();
-    //---
+
     background=FileUtil.loadTextureRegion("image/background.png");
     GifDecoder gdec=new GifDecoder();
     gdec.read(Gdx.files.internal("image/bigEarth.gif").read());

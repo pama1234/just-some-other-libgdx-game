@@ -23,8 +23,11 @@ public interface InputListener{
   public void keyTyped(char key);
   public void frameResized(int w,int h);
   public void frameMoved(int x,int y);
-  //--
+
   public void touchStarted(TouchInfo info);
   public void touchEnded(TouchInfo info);
   public void touchMoved(TouchInfo info);
+
+  public void focusGained();
+  public void focusLost();
 }

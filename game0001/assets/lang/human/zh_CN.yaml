@@ -35,7 +35,7 @@
 
     'yes': 是
     'no': 否
-    languageSettings: 语言设置
+    languageSettings: '语言设置 (Language settings)'
     resetSettings: 重置设置
     restart: 重启游戏
     muteYes: 静音：是

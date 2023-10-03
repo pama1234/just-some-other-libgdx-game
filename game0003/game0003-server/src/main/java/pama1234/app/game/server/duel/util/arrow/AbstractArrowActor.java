@@ -1,5 +1,6 @@
 package pama1234.app.game.server.duel.util.arrow;
 
+import pama1234.Tools;
 import pama1234.app.game.server.duel.util.Const;
 import pama1234.app.game.server.duel.util.actor.Actor;
 
@@ -12,11 +13,8 @@ public abstract class AbstractArrowActor extends Actor{
   @Override
   public void update() {
     super.update();
-    if(xPosition<-halfLength||
-      xPosition>Const.CANVAS_SIZE+halfLength||
-      yPosition<-halfLength||
-      yPosition>Const.CANVAS_SIZE+halfLength) {
-      group.removingArrowList.add(this);
+    if(Tools.notInRange(pos.x,pos.y,-halfLength,-halfLength,Const.CANVAS_SIZE+halfLength,Const.CANVAS_SIZE+halfLength)) {
+      group.arrowCenter.remove.add(this);
     }
   }
   public abstract boolean isLethal();

@@ -4,6 +4,7 @@ import pama1234.app.game.server.duel.util.arrow.ServerShortbowArrow;
 import pama1234.gdx.game.duel.Duel;
 import pama1234.gdx.game.duel.util.graphics.Particle;
 import pama1234.math.UtilMath;
+import pama1234.util.protobuf.OutputDataProto.OutputDataElement;
 
 public class ClientShortbowArrow extends ServerShortbowArrow{
   public final Duel p;
@@ -11,31 +12,35 @@ public class ClientShortbowArrow extends ServerShortbowArrow{
     super();
     this.p=duel;
   }
+  public ClientShortbowArrow(Duel p,OutputDataElement proto) {
+    this(p);
+    copyFromProto(proto);
+  }
   @Override
   public void act() {
     if((p.random(1)>=0.5f)) return;
     final float particleDirectionAngle=this.directionAngle+UtilMath.PI+p.random(-UtilMath.QUARTER_PI,UtilMath.QUARTER_PI);
     for(int i=0;i<3;i++) {
       final float particleSpeed=p.random(0.5f,2);
-      final Particle newParticle=p.stateCenter.game.system.commonParticleSet.builder
+      final Particle newParticle=p.core().commonParticleSet.builder
         .type(Particle.square)
-        .position(this.xPosition,this.yPosition)
+        .position(pos.x,pos.y)
         .polarVelocity(particleDirectionAngle,particleSpeed)
         .particleSize(2)
-        .particleColor(p.skin.shortbowArrow)
+        .particleColor(p.theme().shortbowArrow)
         .lifespanSecond(0.5f)
         .build();
-      p.stateCenter.game.system.commonParticleSet.particleList.add(newParticle);
+      p.core().commonParticleSet.particleList.add(newParticle);
     }
   }
   @Override
   public void display() {
     p.strokeWeight(3);
-    p.stroke(p.skin.stroke);
+    p.stroke(p.theme().stroke);
     p.doFill();
     p.fill(0);
     p.pushMatrix();
-    p.translate(xPosition,yPosition);
+    p.translate(pos.x,pos.y);
     p.rotate(rotationAngle);
     p.line(-halfLength,0,halfLength,0);
     p.quad(

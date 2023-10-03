@@ -9,12 +9,14 @@ public final class ComputerPlayerEngine extends PlayerEngine{
   public int time;
   public final int planUpdateFrameCount=10;
   public PlayerPlan currentPlan;
-  public ComputerPlayerEngine(GetRandom rng) {
+  public float level;
+  public ComputerPlayerEngine(GetRandom rng,float level) {
     this.rng=rng;
     // There shoud be a smarter way!!!
-    final MovePlayerPlan move=new MovePlayerPlan(rng);
-    final JabPlayerPlan jab=new JabPlayerPlan(rng);
-    final KillPlayerPlan kill=new KillPlayerPlan(rng);
+    final MovePlayerPlan move=new MovePlayerPlan(rng,level);
+    final JabPlayerPlan jab=new JabPlayerPlan(rng,level);
+    final KillPlayerPlan kill=new KillPlayerPlan(rng,level);
+    this.level=level;
     move.movePlan=move;
     move.jabPlan=jab;
     move.killPlan=kill;

@@ -18,11 +18,14 @@ public class ClientInputData extends ServerInputData{
       dy=dyIn/mag;
     }
   }
-  public void keyPressed(Duel duel,char key,int keyCode) {
+  public void keyPressed(Duel p,char key,int keyCode) {
     key=Character.toLowerCase(key);
+    if(p.debug) {
+      if(key=='c') isCPressed=true;
+    }
     if(key=='z') isZPressed=true;
     else if(key=='x') isXPressed=true;
-    else if(key=='p') duel.stateCenter.game.doPause();
+    else if(key=='p') p.game().doPause();
     else switch(keyCode) {
       case UP:
         isUpPressed=true;
@@ -38,8 +41,11 @@ public class ClientInputData extends ServerInputData{
         return;
     }
   }
-  public void keyReleased(Duel duel,char key,int keyCode) {
+  public void keyReleased(Duel p,char key,int keyCode) {
     key=Character.toLowerCase(key);
+    if(p.debug) {
+      if(key=='c') isCPressed=false;
+    }
     if(key=='z') isZPressed=false;
     else if(key=='x') isXPressed=false;
     else switch(keyCode) {

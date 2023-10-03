@@ -3,19 +3,19 @@ package pama1234.gdx.game.state.state0001;
 import com.badlogic.gdx.Input.Keys;
 
 import pama1234.gdx.game.app.Screen0011;
+import pama1234.gdx.game.sandbox.platformer.GameDisplayUtil;
+import pama1234.gdx.game.sandbox.platformer.item.Inventory;
+import pama1234.gdx.game.sandbox.platformer.player.MainPlayer;
+import pama1234.gdx.game.sandbox.platformer.player.ctrl.PlayerControllerFull;
+import pama1234.gdx.game.sandbox.platformer.world.world0001.World0001;
 import pama1234.gdx.game.state.state0001.State0001Util.StateEntity0001;
-import pama1234.gdx.game.state.state0001.game.GameDisplayUtil;
-import pama1234.gdx.game.state.state0001.game.item.Inventory;
-import pama1234.gdx.game.state.state0001.game.player.MainPlayer;
-import pama1234.gdx.game.state.state0001.game.player.PlayerControllerFull;
-import pama1234.gdx.game.state.state0001.game.world.world0001.World0001;
+import pama1234.gdx.game.ui.element.Button;
 import pama1234.gdx.game.ui.generator.UiGenerator;
-import pama1234.gdx.game.ui.util.Button;
 import pama1234.math.UtilMath;
 
 public class Debug extends StateEntity0001{
   public Button<?>[] buttons;
-  //---
+
   public World0001 world;
   public MainPlayer player;
   public PlayerControllerFull controller;

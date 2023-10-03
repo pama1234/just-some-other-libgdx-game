@@ -1,12 +1,12 @@
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
-eclipse.project.name = appName + '-game0005-core'
+eclipse.project.name = appName + '0005-core'
 
 dependencies {
-  api "com.badlogicgames.gdx:gdx:$gdxVersion"
+  api "$gdxCustomModule:gdx:$gdxCustomVersion"
+
+  api project(":framework")
 
   api project(':game0005:game0005-server')
-
-  implementation project(":framework")
 
   implementation 'org.locationtech.jts:jts-core:1.19.0'
 }

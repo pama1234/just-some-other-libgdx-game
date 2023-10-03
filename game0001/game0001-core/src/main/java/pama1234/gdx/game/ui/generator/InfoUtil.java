@@ -9,7 +9,7 @@ import com.badlogic.gdx.Net.HttpResponseListener;
 import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.net.HttpRequestBuilder;
 
-import pama1234.gdx.game.state.state0001.game.KryoUtil;
+import pama1234.gdx.game.sandbox.platformer.KryoUtil;
 
 public class InfoUtil{
   public static final String[] errorText=new String[] {

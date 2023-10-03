@@ -1,9 +1,11 @@
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
-eclipse.project.name = appName + '-game0004-core'
+eclipse.project.name = appName + '0004-core'
 
 dependencies {
-  implementation "com.badlogicgames.gdx:gdx:$gdxVersion"
+  implementation "$gdxCustomModule:gdx:$gdxCustomVersion"
 
-  implementation project(':framework')
+  api project(':framework')
+  api project(':server-framework')
+
   implementation project(':game0004:game0004-server')
 }

@@ -5,8 +5,8 @@ import pama1234.app.game.server.duel.util.input.AbstractInputDevice;
 import pama1234.app.game.server.duel.util.player.ServerPlayerActor;
 
 public final class JabPlayerPlan extends DefaultPlayerPlan{
-  public JabPlayerPlan(GetRandom rng) {
-    super(rng);
+  public JabPlayerPlan(GetRandom rng,float level) {
+    super(rng,level);
   }
   @Override
   public void execute(ServerPlayerActor player,AbstractInputDevice input) {

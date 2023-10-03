@@ -38,3 +38,6 @@ LayeredEntityCenter的泛型可以再修一下
 使得EntityPointer可选择多个生物实体
 使得BlockPointer可选择多个方块
 电脑版：在整个游戏外的异常处理机制
+
+拆分game0001的PlayerControllerFull
+将粒子生命的显示方式改为有限区域的尾迹绘制和无限大小的地图，通过区块存储的方式记录粒子，并根据距离主角的位置判断刷新速度的优先级

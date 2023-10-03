@@ -1,9 +1,9 @@
 package pama1234.gdx.game.app.app0003;
 
 import pama1234.gdx.game.ui.CodeTextFieldStyle;
-import pama1234.gdx.game.ui.util.NormalOnscreenKeyboard;
-import pama1234.gdx.game.ui.util.TextArea;
-import pama1234.gdx.game.ui.util.TextField;
+import pama1234.gdx.game.ui.NormalOnscreenKeyboard;
+import pama1234.gdx.game.ui.element.TextArea;
+import pama1234.gdx.game.ui.element.TextField;
 import pama1234.gdx.util.app.ScreenCore2D;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.math.geometry.RectF;
@@ -18,7 +18,7 @@ public class Screen0008 extends ScreenCore2D{
     textField=new TextField("1234",new CodeTextFieldStyle(this),
       new RectF(()->u,()->u*2+pu*4.25f,()->width-u*2,()->pu*4.25f),()->pus);
     textField.setOnscreenKeyboard(new NormalOnscreenKeyboard());
-    //---
+
     textArea=new TextArea("1234",new CodeTextFieldStyle(this),
       new RectF(()->u,()->u,()->width-u*2,()->pu*4.25f),()->pus);
     textArea.setOnscreenKeyboard(new NormalOnscreenKeyboard());

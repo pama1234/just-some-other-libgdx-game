@@ -15,6 +15,7 @@ gradle-app.setting
 /game*-headless/build/
 /game*-server/build/
 /game*-shared/build/
+/game*/build/
 
 ## Java:
 *.class
@@ -32,6 +33,12 @@ hs_err_pid*
 /game*-android/out/
 local.properties
 com_crashlytics_export_strings.xml
+/game*-android-*/libs/armeabi-v7a/
+/game*-android-*/libs/arm64-v8a/
+/game*-android-*/libs/x86/
+/game*-android-*/libs/x86_64/
+/game*-android-*/gen/
+/game*-android-*/out/
 
 ## pico4:
 /game*-pico4/libs/armeabi-v7a/
@@ -50,6 +57,7 @@ com_crashlytics_export_strings.xml
 /game*-taptap/libs/x86_64/
 /game*-taptap/gen/
 /game*-taptap/out/
+/game*/out/
 
 *.jks
 *.p12
@@ -112,6 +120,7 @@ www-test/
 .loadpath
 .externalToolBuilders/
 *.launch
+/game*/bin/
 
 ## NetBeans:
 
@@ -129,6 +138,7 @@ www-test/
 /game*-headless/nbproject/private/
 /game*-server/nbproject/private/
 /game*-shared/nbproject/private/
+/game*/nbproject/private/
 
 /nbbuild/
 /game*-android/nbbuild/
@@ -143,6 +153,7 @@ www-test/
 /game*-headless/nbbuild/
 /game*-server/nbbuild/
 /game*-shared/nbbuild/
+/game*/nbbuild/
 
 /dist/
 /dist/
@@ -158,6 +169,7 @@ www-test/
 /game*-headless/dist/
 /game*-server/dist/
 /game*-shared/dist/
+/game*/dist/
 
 /nbdist/
 /nbdist/
@@ -173,6 +185,7 @@ www-test/
 /game*-headless/nbdist/
 /game*-server/nbdist/
 /game*-shared/nbdist/
+/game*/nbdist/
 
 nbactions.xml
 nb-configuration.xml

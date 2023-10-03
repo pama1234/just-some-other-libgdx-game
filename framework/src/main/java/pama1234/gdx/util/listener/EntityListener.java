@@ -101,4 +101,7 @@ public interface EntityListener extends ServerEntityListener,InputListener{
    * 安卓版，触摸屏上手指按下时会被调用一次
    */
   default void touchStarted(TouchInfo info) {}
+
+  default void focusGained() {}
+  default void focusLost() {}
 }

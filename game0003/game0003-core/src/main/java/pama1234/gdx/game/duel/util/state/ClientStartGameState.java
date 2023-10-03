@@ -17,18 +17,16 @@ public final class ClientStartGameState extends ClientGameSystemState{
   public ClientStartGameState(Duel duel,ClientGameSystem system) {
     super(duel,system);
     system.stateIndex=ClientGameSystem.start;
-    ringColor=duel.skin.ring;
+    ringColor=duel.theme().ring;
   }
   @Override
   public void updateSystem() {
-    system.myGroup.update();
-    system.otherGroup.update();
+    for(var group:system.groupCenter.list) group.update();
   }
   @Override
   public void displaySystem() {
-    system.myGroup.displayPlayer();
-    system.otherGroup.displayPlayer();
-    duel.translate(Const.CANVAS_SIZE*0.5f,Const.CANVAS_SIZE*0.5f);
+    for(var group:system.groupCenter.list) group.displayPlayer();
+    p.translate(Const.CANVAS_SIZE*0.5f,Const.CANVAS_SIZE*0.5f);
     drawRing();
   }
   @Override
@@ -36,19 +34,21 @@ public final class ClientStartGameState extends ClientGameSystemState{
     final int currentNumberFrameCount=properFrameCount%frameCountPerNumber;
     if(currentNumberFrameCount==0) displayNumber--;
     if(displayNumber<0) return;
-    duel.setTextColor(ringColor);
-    duel.setTextScale(duel.pus);
+    p.setTextColor(ringColor);
+    p.setTextScale(p.pus);
     String in=Integer.toString(displayNumber);
-    duel.fullText(in,(duel.width-duel.textWidth(in))/2f,(duel.height-duel.pu)/2f);
-    duel.setTextScale(1);
+    // TODO 有问题，但不多
+    if(p.config.data.orientation==1) p.fullText(in,(p.width-p.textWidthNoScale(in)*p.pus)/2f,(p.height-p.width/3f-p.pu)/2f);
+    else p.fullText(in,(p.width-p.textWidthNoScale(in)*p.pus)/2f,(p.height-p.pu)/2f);
+    p.setTextScale(1);
   }
   public void drawRing() {
-    duel.rotate(UtilMath.HALF_PI);
-    duel.strokeWeight(3);
-    duel.doStroke();
-    duel.stroke(ringColor);
-    duel.noFill();
-    duel.arc(0,0,ringSize/2f,0,360*(float)(properFrameCount%frameCountPerNumber)/frameCountPerNumber);
+    p.rotate(UtilMath.HALF_PI);
+    p.strokeWeight(3);
+    p.doStroke();
+    p.stroke(ringColor);
+    p.noFill();
+    p.arc(0,0,ringSize/2f,0,360*(float)(properFrameCount%frameCountPerNumber)/frameCountPerNumber);
   }
   @Override
   public void checkStateTransition() {
@@ -63,7 +63,7 @@ public final class ClientStartGameState extends ClientGameSystemState{
         .lifespanSecond(1.0f)
         .build();
       system.commonParticleSet.particleList.add(newParticle);
-      system.currentState(new ClientPlayGameState(duel,system));
+      system.currentState(new ClientPlayGameState(p,system));
     }
   }
   @Override

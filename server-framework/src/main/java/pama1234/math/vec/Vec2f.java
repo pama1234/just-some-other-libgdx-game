@@ -4,9 +4,10 @@ import java.nio.ByteBuffer;
 
 import javax.vecmath.Vector2f;
 
+import pama1234.Tools;
 import pama1234.data.nio.ByteBufferData;
-import pama1234.math.Tools;
 import pama1234.math.UtilMath;
+import pama1234.math.geometry.RectI;
 
 /**
  * 基于vecmath的矢量数据类，只包含两个浮点数
@@ -147,5 +148,11 @@ public class Vec2f extends Vector2f implements ByteBufferData{
   }
   public boolean inBox(float xIn,float yIn,float w,float h) {
     return Tools.inBox(x,y,xIn,yIn,w,h);
+  }
+  public boolean inBox(RectI rect) {
+    return Tools.inBox(x,y,rect.x(),rect.y(),rect.w(),rect.h());
+  }
+  public boolean inRange(float x1,float y1,float x2,float y2) {
+    return Tools.inRange(x,y,x1,y1,x2,y2);
   }
 }

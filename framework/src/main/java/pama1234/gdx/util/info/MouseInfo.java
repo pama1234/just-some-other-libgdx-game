@@ -1,9 +1,7 @@
 package pama1234.gdx.util.info;
 
-import com.badlogic.gdx.math.Vector3;
-
+import pama1234.Tools;
 import pama1234.gdx.util.app.UtilScreenCore;
-import pama1234.math.Tools;
 
 public class MouseInfo extends ScreenCamInfo{
   /**
@@ -24,17 +22,25 @@ public class MouseInfo extends ScreenCamInfo{
     this.p=p;
   }
   public void update(UtilScreenCore p) {
-    px=x;
-    py=y;
-    putRaw(ox,oy);
-  }
-  public void putRaw(int xIn,int yIn) {
-    Vector3 tv=p.unproject(ox=xIn,oy=yIn);
-    set(tv.x,tv.y);
-    dx=x-px;
-    dy=y-py;
+    flipPD();
   }
   public boolean inbox(float a,float b,float w,float h) {
     return Tools.inBox(x,y,a,b,w,h);
   }
+  // @Override
+  // public void updateWithCam() {
+  //   if(p.grabCursor) {
+  //     Vector3 tv=p.screenToWorld(p.width/2f,p.height/2f);
+  //     set(tv.x,tv.y);
+  //   }else super.updateWithCam();
+  // }
+  // @Override
+  // public void putRaw(int xIn,int yIn) {
+  //   if(p.grabCursor) {
+  //     ox=xIn;
+  //     oy=yIn;
+  //     Vector3 tv=p.screenToWorld(p.width/2f,p.height/2f);
+  //     set(tv.x,tv.y);
+  //   }else super.putRaw(xIn,yIn);
+  // }
 }

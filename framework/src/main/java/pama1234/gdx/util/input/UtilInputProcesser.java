@@ -25,10 +25,17 @@ public class UtilInputProcesser implements EssentialListener,InputProcessor{
   @Override
   public void update() {
     sub.refresh();
+    mouseUpdate();
+  }
+  public void mouseUpdate() {
+    // p.mouseMoved=true;
+    // Vector3 tv=p.screenToWorld(p.mouse.ox,p.mouse.oy);
+    // p.mouse.set(tv.x,tv.y);
+    p.mouse.updateWithCam();
+    for(var i:p.touches) i.updateWithCam();
   }
   @Override
   public boolean keyDown(int kc) {
-    //    keyCount++;
     p.keyPressed=true;
     p.keyPressedArray.add(kc);
     if(kc==Keys.SHIFT_LEFT||kc==Keys.SHIFT_RIGHT) p.shift=true;
@@ -46,7 +53,6 @@ public class UtilInputProcesser implements EssentialListener,InputProcessor{
   }
   @Override
   public boolean keyUp(int kc) {
-    //    keyCount--;
     p.keyPressedArray.removeValue(kc);
     if((!p.keyPressedArray.contains(Keys.SHIFT_LEFT))&&
       (!p.keyPressedArray.contains(Keys.SHIFT_RIGHT))) p.shift=false;
@@ -55,7 +61,6 @@ public class UtilInputProcesser implements EssentialListener,InputProcessor{
     if((!p.keyPressedArray.contains(Keys.ALT_LEFT))&&
       (!p.keyPressedArray.contains(Keys.ALT_RIGHT))) p.alt=false;
     p.keyPressed=p.keyPressedArray.size>0;
-    //    keyPressed=keyCount>0;
     p.center.keyReleased(p.key=keyCodeToChar(kc),kc);
     p.keyReleased(p.key,p.keyCode=kc);
     for(InputProcessor i:sub.list) if(i.keyUp(kc)) return true;
@@ -71,16 +76,11 @@ public class UtilInputProcesser implements EssentialListener,InputProcessor{
   @Override
   public boolean touchDown(int screenX,int screenY,int pointer,int button) {
     p.touchCount++;
-    // p.textScale(p.pus);//TODO
     TouchInfo info=p.touches[pointer];
     boolean flag=false;
-    // if(flag=Tools.inBox(screenX,screenY,p.u/4,p.u/4,p.u,p.u)) coverButton=!coverButton;
-    // if(coverButton) button=Buttons.RIGHT;
-    // if(gadgets[0].state==1) button=Buttons.RIGHT;
     if(!flag) {
-      info.begin(screenX,screenY,pointer,button);
-      // info.flip();
-    }// else info.put(screenX,screenY,pointer,button);
+      info.begin(screenX,screenY,pointer,button,p.frameCount);
+    }
     if(pointer==0) {
       MouseInfo mouse=p.mouse;
       mouse.pressed=true;
@@ -96,7 +96,8 @@ public class UtilInputProcesser implements EssentialListener,InputProcessor{
           mouse.center=true;
           break;
         default:
-          throw new RuntimeException("??? "+button);
+          // throw new RuntimeException("??? "+button);
+          // 在新鼠标上可能有按键为3和4，也就是BACK和FORWARD
       }
       mouse.putRaw(screenX,screenY);
       mouse.flip();
@@ -114,14 +115,17 @@ public class UtilInputProcesser implements EssentialListener,InputProcessor{
   }
   @Override
   public boolean touchUp(int screenX,int screenY,int pointer,int button) {
+    touchUpInner(screenX,screenY,pointer,button);
+    for(InputProcessor i:sub.list) if(i.touchUp(screenX,screenY,pointer,button)) return true;
+    return false;
+  }
+  public void touchUpInner(int screenX,int screenY,int pointer,int button) {
     TouchInfo info=p.touches[pointer];
     info.putRaw(screenX,screenY);
-    // info.flip();
     p.center.touchEnded(info);
     p.touchEnded(info);
     info.end();
     if(pointer==0) {
-      //      mouse.pressed=false;
       MouseInfo mouse=p.mouse;
       switch(button) {
         case Buttons.LEFT:
@@ -138,21 +142,16 @@ public class UtilInputProcesser implements EssentialListener,InputProcessor{
       }
       if(!(mouse.left||mouse.right||mouse.center)) mouse.pressed=false;
       mouse.button=button;
-      // mouse.ox=screenX;
-      // mouse.oy=screenY;
       mouse.putRaw(screenX,screenY);
       mouse.flip();
       p.center.mouseReleased(mouse);
       p.mouseReleased(mouse);
     }
     p.touchCount--;
-    for(InputProcessor i:sub.list) if(i.touchUp(screenX,screenY,pointer,button)) return true;
-    return false;
   }
   @Override
   public boolean touchDragged(int screenX,int screenY,int pointer) {
     if(pointer==0) {
-      // target.mouse.put(screenX,screenY);
       p.mouse.putRaw(screenX,screenY);
       p.center.mouseDragged();
       p.mouseDragged();
@@ -167,7 +166,6 @@ public class UtilInputProcesser implements EssentialListener,InputProcessor{
   @Override
   public boolean mouseMoved(int screenX,int screenY) {
     p.mouseMoved=true;
-    // target.mouse.put(screenX,screenY);
     p.mouse.putRaw(screenX,screenY);
     p.center.mouseMoved();
     p.mouseMoved();
@@ -179,6 +177,12 @@ public class UtilInputProcesser implements EssentialListener,InputProcessor{
     p.center.mouseWheel(amountX,amountY);
     p.mouseWheel(amountX,amountY);
     for(InputProcessor i:sub.list) if(i.scrolled(amountX,amountY)) return true;
+    return false;
+  }
+  @Override
+  public boolean touchCancelled(int screenX,int screenY,int pointer,int button) {
+    touchUpInner(screenX,screenY,pointer,button);
+    for(InputProcessor i:sub.list) if(i.touchCancelled(screenX,screenY,pointer,button)) return true;
     return false;
   }
 }

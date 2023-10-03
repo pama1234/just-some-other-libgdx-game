@@ -19,13 +19,13 @@ else {
 
 sourceSets.main.resources.srcDirs += ['../../assets', '../assets']
 mainClassName = 'pama1234.gdx.game.app.lwjgl3.Launcher'
-eclipse.project.name = appName + '-game0003-lwjgl3'
+eclipse.project.name = appName + '0003-lwjgl3'
 sourceCompatibility = 17
 
 dependencies {
-  implementation "com.badlogicgames.gdx:gdx-backend-lwjgl3:$gdxVersion"
-  // implementation "com.badlogicgames.gdx:gdx-bullet-platform:$gdxVersion:natives-desktop"
-  implementation "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
+  implementation "$gdxModule:gdx-backend-lwjgl3:$gdxVersion"
+  // implementation "$gdxCustomModule:gdx-bullet-platform:$gdxCustomVersion:natives-desktop"
+  implementation "$gdxModule:gdx-platform:$gdxVersion:natives-desktop"
   implementation project(':game0003:game0003-core')
 
   // implementation "com.mazatech.amanithsvg:amanithsvg-gdx:$amanithsvgVersion:natives-desktop"
@@ -48,7 +48,7 @@ run {
 
 jar {
   // sets the name of the .jar file this produces to the name of the game or app.
-  archiveBaseName.set(appName)
+  archiveBaseName.set(eclipse.project.name)
   // using 'lib' instead of the default 'libs' appears to be needed by jpackageimage.
   destinationDirectory = file("$project.buildDir/lib")
   // the duplicatesStrategy matters starting in Gradle 7.0; this setting works.

@@ -2,6 +2,13 @@ package pama1234.app.game.server.duel.util.player;
 
 import pama1234.app.game.server.duel.util.input.AbstractInputDevice;
 
+/**
+ * {@link ServerDoTeleportPlayerActorState}
+ * </p>
+ * {@link ServerDrawLongbowPlayerActorState}
+ * </p>
+ * {@link ServerDrawShortbowPlayerActorState}
+ */
 public abstract class DrawBowPlayerActorState extends PlayerActorState{
   public PlayerActorState moveState;
   @Override
@@ -10,9 +17,7 @@ public abstract class DrawBowPlayerActorState extends PlayerActorState{
     aim(parentActor,input);
     parentActor.addVelocity(0.25f*input.horizontalMove,0.25f*input.verticalMove);
     if(triggerPulled(parentActor)) fire(parentActor);
-    if(!buttonPressed(input)) {
-      parentActor.state=moveState.entryState(parentActor);
-    }
+    if(!buttonPressed(input)) parentActor.state=moveState.entryState(parentActor);
   }
   public abstract void aim(ServerPlayerActor parentActor,AbstractInputDevice input);
   public abstract void fire(ServerPlayerActor parentActor);

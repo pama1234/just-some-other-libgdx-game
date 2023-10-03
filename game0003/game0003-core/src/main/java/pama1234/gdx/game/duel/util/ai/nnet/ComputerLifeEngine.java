@@ -9,7 +9,7 @@ import pama1234.math.UtilMath;
 
 public class ComputerLifeEngine extends PlayerEngine{
   public static final int dirPos=0,magPos=1,firePos=2;
-  //---
+
   public VisionConverter vision;
   public NetworkGroup networks;
   public int dfire;
@@ -37,7 +37,7 @@ public class ComputerLifeEngine extends PlayerEngine{
     float dx=UtilMath.sin(rad);
     float dy=UtilMath.cos(rad);
     inputDevice.operateMove(dx*mag,dy*mag);
-    //---
+
     int fire=fireType(networks.output.get(firePos));
     if(fire==2) {
       if(completeCharge) inputDevice.operateLongShotButton(false);
@@ -46,7 +46,7 @@ public class ComputerLifeEngine extends PlayerEngine{
     if(fire!=dfire) {
       if(dfire==1) inputDevice.operateShotButton(false);
       else if(dfire==3) inputDevice.operateLongShotButton(false);
-      //---
+
       if(fire==1) inputDevice.operateShotButton(true);
       else if(fire==3) inputDevice.operateLongShotButton(true);
       dfire=fire;

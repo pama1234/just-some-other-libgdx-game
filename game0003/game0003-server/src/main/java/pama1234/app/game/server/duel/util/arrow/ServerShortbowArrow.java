@@ -14,8 +14,8 @@ public class ServerShortbowArrow extends AbstractArrowActor{
   }
   @Override
   public void update() {
-    xVelocity=speed*UtilMath.cos(directionAngle);
-    yVelocity=speed*UtilMath.sin(directionAngle);
+    vel.x=speed*UtilMath.cos(directionAngle);
+    vel.y=speed*UtilMath.sin(directionAngle);
     super.update();
     speed+=(terminalSpeed-speed)*0.1f;
   }

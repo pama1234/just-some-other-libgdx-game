@@ -1,10 +1,10 @@
 package pama1234.gdx.game.util.player;
 
+import pama1234.Tools;
 import pama1234.game.app.server.server0001.particle.with2d.CellGroup2D;
 import pama1234.gdx.game.app.app0002.Screen0005;
 import pama1234.gdx.game.util.input.InputData;
 import pama1234.gdx.util.entity.PointEntity;
-import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 import pama1234.math.physics.MassPoint;
 import pama1234.math.vec.Vec2f;

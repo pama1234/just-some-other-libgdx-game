@@ -68,8 +68,7 @@ public class Arguments{
       modelDir=cmd.getOptionValue("model-dir");
     }
     if(cmd.hasOption("criteria")) {
-      Type type=new TypeToken<Map<String,Object>>() {
-      }.getType();
+      Type type=new TypeToken<Map<String,Object>>() {}.getType();
       criteria=JsonUtils.GSON.fromJson(cmd.getOptionValue("criteria"),type);
     }
   }

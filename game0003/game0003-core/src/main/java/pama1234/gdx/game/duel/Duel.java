@@ -3,24 +3,31 @@ package pama1234.gdx.game.duel;
 import static pama1234.app.game.server.duel.ServerConfigData.neat;
 import static pama1234.app.game.server.duel.util.Const.CANVAS_SIZE;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.files.FileHandle;
+import java.util.function.Supplier;
 
-import pama1234.gdx.game.duel.NetUtil.ClientConfig;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Net.Protocol;
+import com.badlogic.gdx.net.SocketHints;
+
+import pama1234.app.game.server.duel.NetUtil.LoginInfo;
+import pama1234.app.game.server.duel.ServerConfigData.GameMode;
+import pama1234.app.game.server.duel.ServerConfigData.ServerAttr;
+import pama1234.app.game.server.duel.ServerConfigData.ThemeType;
+import pama1234.gdx.Pama;
 import pama1234.gdx.game.duel.NetUtil.GameClient;
-import pama1234.gdx.game.duel.NetUtil.LoginInfo;
+import pama1234.gdx.game.duel.State0002Util.DebugStateEntitys;
 import pama1234.gdx.game.duel.State0002Util.StateCenter0002;
-import pama1234.gdx.game.duel.State0002Util.StateChanger0002;
 import pama1234.gdx.game.duel.State0002Util.StateEntity0002;
 import pama1234.gdx.game.duel.util.ai.nnet.NeatCenter;
 import pama1234.gdx.game.duel.util.ai.nnet.NeatCenter.NetworkGroupParam;
 import pama1234.gdx.game.duel.util.graphics.DemoInfo;
-import pama1234.gdx.game.duel.util.skin.SkinData;
-import pama1234.gdx.util.app.ScreenCore2D;
+import pama1234.gdx.game.duel.util.theme.ThemeData;
+import pama1234.gdx.game.state.state0002.Game;
+import pama1234.gdx.util.app.ScreenCoreState2D;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
-import pama1234.util.localization.Localization;
-import pama1234.util.protobuf.InputDataProto;
+import pama1234.gdx.util.net.SocketWrapperGDX;
+import pama1234.util.yaml.Serialization;
 
 /**
  * Title: Duel
@@ -37,112 +44,126 @@ import pama1234.util.protobuf.InputDataProto;
  * </p>
  * Modified by: Pama1234 ( https://space.bilibili.com/646050693 )
  * </p>
- * Altered with self-made framework v0.0.1
+ * Altered with self-made framework
  * </p>
- * Altered with Processing-Libgdx v0.0.1
+ * Altered with Processing-Libgdx
  * </p>
  * </p>
  *
  * The font "Unifont" https://unifoundry.com/unifont/ is part of the GNU Project.
  */
-public class Duel extends ScreenCore2D implements StateChanger0002{
-  //---
-  public static final Localization localization=new Localization();
-  // public static LocalBundleCenter bundleCenter;
-  //---
+public class Duel extends ScreenCoreState2D<StateCenter0002,StateEntity0002>{
+
+  public static final Serialization localization=new Serialization();
+
   public int canvasSideLength=CANVAS_SIZE;
-  //---
+
   public DemoInfo demoInfo;
   public float strokeUnit;
-  public SkinData skin;
-  //---
+
   public Config config;
-  public FileHandle configFile;
-  //---
+
   public NeatEntity neatE;
   public NeatCenter neatCenter;
   public NetworkGroupParam param;
-  //---
+
   public GameClient gameClient;
-  public ClientConfig clientConfig;
   public LoginInfo loginInfo;
-  public InputDataProto.InputData.Builder inputDataBuilder;
-  //---
-  public StateCenter0002 stateCenter;
-  public StateEntity0002 state;
+
+  public Supplier<ClientGameSystem> core;
+  public boolean debug;
   {
     // isAndroid=true;
+    // doUpdateThread=true;
   }
   @Override
   public void init() {
-    configFile=Gdx.files.local("data/config.yaml");
-    config=loadConfig();
-    if(config.skin!=null) {
-      skin=SkinData.fromData(config.skin);
-    }else {
-      skin=new SkinData();
-      skin.init();
-    }
+    configMisc();
     super.init();
   }
-  public Config loadConfig() {
-    Config out;
-    if(configFile.exists()) {
-      out=localization.yaml.loadAs(configFile.readString("UTF-8"),Config.class);
-    }else {
-      Gdx.files.local("data").mkdirs();
-      out=new Config();
-      out.init();
+  public void configMisc() {
+    config=new Config();
+    initConfig();
+    if(isAndroid) Pama.mobile.orientation(config.data.orientation);
+    if(config.data.server==null) config.data.server=new ServerAttr("127.0.0.1",12348);
+    if(config.data.themeType==null) config.data.themeType=ThemeType.Light;
+    if(config.data.gameMode==GameMode.OnLine) {
+      SocketHints socketHints=new SocketHints();
+      socketHints.connectTimeout=5000;
+      socketHints.socketTimeout=5000;
+      socketHints.keepAlive=true;
+      socketHints.performancePrefConnectionTime=0;
+      socketHints.performancePrefLatency=2;
+      socketHints.performancePrefBandwidth=1;
+      try {
+        gameClient=new GameClient(new SocketWrapperGDX(Gdx.net.newClientSocket(Protocol.TCP,config.data.server.addr,config.data.server.port,socketHints)));
+      }catch(RuntimeException ex) {
+        ex.printStackTrace();
+        config.data.gameMode=GameMode.OffLine;
+      }
     }
-    return out;
+    debug=config.data.debug;
+    if(config.data.fpsFix) doUpdateThread=true;
   }
-  public void saveConfig() {
-    config.skin=skin.toData();
-    configFile.writeString(localization.yaml.dumpAsMap(config),false);
+  public void initConfig() {
+    config.initConfig();
+  }
+  public ThemeData theme() {
+    return config.theme;
+  }
+  public void theme(ThemeData in) {
+    config.theme=in;
   }
   @Override
   public void setup() {
     stateCenter=new StateCenter0002(this);
     State0002Util.loadState0002(this,stateCenter);
-    state(stateCenter.game);
-    //---
+    if(debug) {
+      stateCenter.debug=new DebugStateEntitys(this);
+      State0002Util.loadState0003Test(this,stateCenter.debug);
+    }
+    state(stateCenter.startMenu);
+
+    config.themeConfigTextArea=stateCenter.settings.textEditors[0].textArea;
     TextUtil.used=TextUtil.gen_ch(this::textWidthNoScale);
-    //---
-    if(config.mode==neat) neatE=new NeatEntity(this,stateCenter.game,true);
-    //---
-    backgroundColor(skin.background);
-    setTextColor(skin.text);
+
+    if(config.data.mode==neat) neatE=new NeatEntity(this,game(),true);
+
+    backgroundColor(theme().background);
+    setTextColor(theme().text);
     demoInfo=new DemoInfo(this);
-    //---
+
     setupCamera();
   }
   public void setupCamera() {
     cam.point.des.set(canvasSideLength/2f,canvasSideLength/2f);
     cam.point.pos.set(cam.point.des);
-    if(config.mode==neat) {
+    if(config.data.mode==neat) {
       cam2d.minScale=1/8f;
       cam2d.scaleUnit=1/8f;
       cam2d.scale.pos=cam2d.scale.des=(isAndroid?0.25f:1)*0.6f;
     }else {
       if(isAndroid) {
-        cam2d.minScale=1/4f;
+        cam2d.minScale=1/2f;
         cam2d.scale.pos=cam2d.scale.des=0.25f;
+      }else {
+        cam2d.minScale=2f;
       }
     }
   }
   @Override
   public void pause() {
     super.pause();
-    if(isAndroid) saveConfig();
+    if(isAndroid) config.saveConfig();
   }
   @Override
   public void dispose() {
     super.dispose();
-    saveConfig();
+    config.saveConfig();
   }
   @Override
   public void display() {
-    if(config.mode==neat) neatE.display();
+    if(config.data.mode==neat) neatE.display();
   }
   @Override
   public void displayWithCam() {}
@@ -160,7 +181,7 @@ public class Duel extends ScreenCore2D implements StateChanger0002{
   }
   @Override
   public void strokeWeight(float in) {
-    super.strokeWeight(config.mode==neat?in:in*strokeUnit);
+    super.strokeWeight(config.data.mode==neat?in:in*strokeUnit);
   }
   public void strokeWeightOriginal(float in) {
     super.strokeWeight(in);
@@ -171,30 +192,23 @@ public class Duel extends ScreenCore2D implements StateChanger0002{
   public void touchMoved(TouchInfo info) {}
   @Override
   public void touchEnded(TouchInfo info) {}
-  public void stateChangeEvent(ClientGameSystem system,int stateIndex) {
+  public void inGameStateChangeEvent(ClientGameSystem system,int stateIndex) {
     if(system.stateIndex==ClientGameSystem.play) {
-      if(config.mode==neat) neatE.time=0;
+      if(config.data.mode==neat) neatE.time=0;
     }else if(system.stateIndex==ClientGameSystem.result) {
-      system.myGroup.player.engine.setScore(0,system.currentState.getScore(system.myGroup.id));
-      system.otherGroup.player.engine.setScore(0,system.currentState.getScore(system.otherGroup.id));
+      for(var group:system.groupCenter.list) {
+        for(var i:group.playerCenter.list) i.engine.setScore(0,system.currentState.getScore(group.id));
+      }
     }
   }
-  @Override
-  public StateEntity0002 state(StateEntity0002 in) {
-    StateEntity0002 out=state;
-    state=in;
-    if(out!=null) {
-      centerScreen.remove.add(out);
-      centerCam.remove.add(out.displayCam);
-      out.to(in);
-      out.pause();
-    }
-    if(in!=null) {
-      in.resume();
-      in.from(state);
-      centerScreen.add.add(in);
-      centerCam.add.add(in.displayCam);
-    }
-    return out;
+  @Deprecated
+  public Game game() {
+    return (Game)state;
+  }
+  public ClientGameSystem core() {
+    return core.get();
+  }
+  public boolean online() {
+    return config.data.gameMode==GameMode.OnLine;
   }
 }

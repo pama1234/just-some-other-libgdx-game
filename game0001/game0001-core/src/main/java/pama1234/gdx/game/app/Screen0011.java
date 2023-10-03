@@ -1,8 +1,8 @@
 package pama1234.gdx.game.app;
 
-import static pama1234.math.Tools.getFloatString;
-import static pama1234.math.Tools.getMemory;
-import static pama1234.math.Tools.getMillisString;
+import static pama1234.Tools.getFloatString;
+import static pama1234.Tools.getMemory;
+import static pama1234.Tools.getMillisString;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -21,30 +21,29 @@ import com.badlogic.gdx.graphics.profiling.GLErrorListener;
 import com.badlogic.gdx.graphics.profiling.GLProfiler;
 import com.esotericsoftware.kryo.Kryo;
 
+import pama1234.Tools;
 import pama1234.gdx.game.asset.MusicAsset;
+import pama1234.gdx.game.sandbox.platformer.KryoUtil;
+import pama1234.gdx.game.sandbox.platformer.player.ctrl.ControlBindUtil;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.GameMenu.GameSettingsData;
-import pama1234.gdx.game.state.state0001.Settings;
+import pama1234.gdx.game.state.state0001.setting.Settings;
 import pama1234.gdx.game.state.state0001.State0001Util;
 import pama1234.gdx.game.state.state0001.State0001Util.StateCenter0001;
-import pama1234.gdx.game.state.state0001.State0001Util.StateChanger0001;
 import pama1234.gdx.game.state.state0001.State0001Util.StateEntity0001;
-import pama1234.gdx.game.state.state0001.game.KryoUtil;
-import pama1234.gdx.game.state.state0001.game.player.ControlBindUtil;
 import pama1234.gdx.game.ui.generator.InfoUtil.InfoData;
 import pama1234.gdx.game.ui.generator.InfoUtil.InfoSource;
+import pama1234.gdx.game.ui.element.TextButton;
 import pama1234.gdx.game.ui.generator.UiGenerator;
-import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.game.util.SettingsData;
 import pama1234.gdx.launcher.MainApp;
-import pama1234.gdx.util.app.ScreenCore2D;
+import pama1234.gdx.util.app.ScreenCoreState2D;
 import pama1234.gdx.util.info.MouseInfo;
-import pama1234.math.Tools;
 import pama1234.math.UtilMath;
 import pama1234.math.vec.Vec3f;
 import pama1234.util.net.NetAddressInfo;
 
-public class Screen0011 extends ScreenCore2D implements StateChanger0001{
+public class Screen0011 extends ScreenCoreState2D<StateCenter0001,StateEntity0001>{
   public static final PrintStream stderr=System.err;
   public static final PrintStream stdout=System.out;
   public static final Logger logger=LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
@@ -54,7 +53,6 @@ public class Screen0011 extends ScreenCore2D implements StateChanger0001{
       public StringBuffer builder=new StringBuffer();
       @Override
       public void write(int b) throws IOException {
-        // stderr.write(b);
         char a=(char)b;
         if(a=='\n') {
           logger.error(builder.toString());
@@ -74,8 +72,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger0001{
         }else builder.append(a);
       }
     }));
-    //---
-    // kryo.setDefaultSerializer(TaggedFieldSerializer.class);
+
     kryo.register(SettingsData.class);
     kryo.register(NetAddressInfo.class);
     kryo.register(InfoSource.class);
@@ -85,26 +82,24 @@ public class Screen0011 extends ScreenCore2D implements StateChanger0001{
     kryo.register(GameSettingsData.class);
     kryo.register(int[][].class);
   }
-  public StateCenter0001 stateCenter;
-  //---
+
   public ControlBindUtil controlBind;
   public SettingsData settings;
   public FileHandle settingsFile=Gdx.files.local("data/settings.bin");
-  public StateEntity0001 state;
   public boolean firstRun;
-  public boolean pixelPerfectCache;
-  //---
+  public int pixelPerfectCache;
+
   public GLProfiler profiler;
   public long renderTime,updateTime;
   public float debugTextX,debugTextY,debugTextH,debugTextCountY;
-  //---
+
   public TextButton<?>[] buttons;
-  //---
+
   public boolean gyroscopeAvailable,accelerometerAvailable,compassAvailable;
   public Vec3f gVel;
-  //---
+
   public InetAddress localHost;
-  //---
+
   public PrintStream logOut;
   public boolean logUpdate;
   public String logText;
@@ -120,7 +115,6 @@ public class Screen0011 extends ScreenCore2D implements StateChanger0001{
         logUpdate=true;
       }
     });
-    // checkNeedLog();
   }
   public void checkNeedLog() {
     if(settings.showLog) {
@@ -166,7 +160,8 @@ public class Screen0011 extends ScreenCore2D implements StateChanger0001{
     stateCenter=new StateCenter0001(this);
     State0001Util.loadState0001(this,stateCenter);
     postSettings();
-    firstRun=!Gdx.files.local("data/firstRun.txt").exists();
+    FileHandle firstRunFile=Gdx.files.local("data/firstRun.txt");
+    firstRun=!firstRunFile.exists();
     if(MainApp.type!=MainApp.taptap) {
       gyroscopeAvailable=Gdx.input.isPeripheralAvailable(Peripheral.Gyroscope);
       accelerometerAvailable=Gdx.input.isPeripheralAvailable(Peripheral.Accelerometer);
@@ -177,7 +172,7 @@ public class Screen0011 extends ScreenCore2D implements StateChanger0001{
     if(firstRun) {
       MusicAsset.load_init();
       state(stateCenter.firstRun);
-      Gdx.files.local("data/firstRun.txt").writeString("1234",false);
+      firstRunFile.writeString("1234",false);
     }else state(stateCenter.loading);
   }
   public void enterGame() {
@@ -192,7 +187,6 @@ public class Screen0011 extends ScreenCore2D implements StateChanger0001{
     if(settings.debugInfo) game.createDebugDisplay();
     refreshLocalHost();
     debugInfoChange(settings.debugInfo);
-    // if(settings.pixelPerfectGlobal)
     cam2d.pixelPerfect=settings.pixelPerfectGlobal;
   }
   public void refreshLocalHost() {
@@ -205,34 +199,14 @@ public class Screen0011 extends ScreenCore2D implements StateChanger0001{
   public void loadSettings() {
     settings=KryoUtil.load(kryo,settingsFile,SettingsData.class);
     if(settings==null) initSettings();
-    // if(settings.serverInfo==null) settings.serverInfo=new ServerInfo("127.0.0.1",12347);
   }
   public void initSettings() {
     settings=new SettingsData();
     settings.langType="zh_CN";
-    // settings.serverInfo=new ServerInfo("127.0.0.1",12347);
     settings.isAndroid=Gdx.app.getType()==ApplicationType.Android;
   }
   public void saveSettings() {
     KryoUtil.save(kryo,settingsFile,settings);
-  }
-  @Override
-  public StateEntity0001 state(StateEntity0001 in) {
-    StateEntity0001 out=state;
-    state=in;
-    if(out!=null) {
-      centerScreen.remove.add(out);
-      centerCam.remove.add(out.displayCam);
-      out.to(in);
-      out.pause();
-    }
-    if(in!=null) {
-      in.resume();
-      in.from(state);
-      centerScreen.add.add(in);
-      centerCam.add.add(in.displayCam);
-    }
-    return out;
   }
   public StateEntity0001 stateNull() {
     StateEntity0001 out=state;
@@ -250,7 +224,6 @@ public class Screen0011 extends ScreenCore2D implements StateChanger0001{
     if(settings.useGyroscope&&cam2d.activeDrag) {
       cam.point.des.x-=Gdx.input.getGyroscopeX()*settings.gyroscopeSensitivity;
       cam.point.des.y+=Gdx.input.getGyroscopeY()*settings.gyroscopeSensitivity;
-      // cam.point.des.z-=Gdx.input.getGyroscopeZ();
     }
     if(compassAvailable) {
       float tx=Gdx.input.getPitch(),
@@ -260,17 +233,15 @@ public class Screen0011 extends ScreenCore2D implements StateChanger0001{
       gVel.rotateX(UtilMath.rad(tx));
       gVel.rotateY(UtilMath.rad(ty));
       gVel.rotateZ(UtilMath.rad(tz));
-      // gVel.rotateZ(UtilMath.rad(tz)+UtilMath.HALF_PI);
     }
     if(settings.useAccelerometer&&cam2d.active()) {
-      //---
+
       cam.point.des.x-=Gdx.input.getAccelerometerX()*settings.accelerometerSensitivity-gVel.x;
       cam.point.des.y+=Gdx.input.getAccelerometerY()*settings.accelerometerSensitivity-gVel.y;
-      // cam.point.des.z-=Gdx.input.getAccelerometerZ();
       cam2d.scale.des+=Gdx.input.getAccelerometerZ()*settings.accelerometerSensitivity-gVel.z;
       cam2d.testScale();
     }
-    //---
+
     if(logUpdate) {
       logUpdate=false;
       int length=logBuffer.length();
@@ -322,13 +293,13 @@ public class Screen0011 extends ScreenCore2D implements StateChanger0001{
       textScale(pus);
       profiler.reset();
     }
-    if(cam.grabCursor) {
+    if(grabCursor) {
       withCam();
       drawCursor();
     }
   }
   public void initDebugText() {
-    debugTextH=font.scale*font.defaultSize;
+    debugTextH=font.styleFast.scale*font.styleFast.defaultSize;
     debugTextX=debugTextH;
     debugTextY=bu*1.5f;
     debugTextCountY=0;

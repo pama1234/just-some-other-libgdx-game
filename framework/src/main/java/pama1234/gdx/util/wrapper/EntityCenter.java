@@ -127,4 +127,17 @@ public class EntityCenter<T extends UtilScreen,E extends EntityListener>extends 
   // public <O extends E> void doRemove(O e) {//TODO
   //   if(e instanceof E ie) remove.add(ie);
   // }
+
+  @Override
+  public void focusGained() {
+    for(E e:list) e.focusGained();
+  }
+  @Override
+  public void focusLost() {
+    for(E e:list) e.focusLost();
+  }
+  //---------------------------------------------------------------------------
+  public void addAll(E[] list) {
+    for(E e:list) add.add(e);
+  }
 }

@@ -3,6 +3,8 @@ package pama1234.math.physics;
 import java.nio.ByteBuffer;
 
 import pama1234.data.nio.ByteBufferData;
+import pama1234.math.UtilMath;
+import pama1234.math.geometry.RectI;
 import pama1234.math.vec.Vec2f;
 
 /**
@@ -91,6 +93,29 @@ public class MassPoint extends Point implements ByteBufferData{
       pos.sub(tx,ty);
     }
     pos.add(x1,y1);
+  }
+  public void setOutBox(RectI rect) {
+    setOutBox(rect.x(),rect.y(),rect.w(),rect.h());
+  }
+  public void setOutBox(float x,float y,float w,float h) {
+    float leftDistance=UtilMath.abs(x-pos.x);
+    float rightDistance=UtilMath.abs(pos.x-(x+w));
+    float topDistance=UtilMath.abs(y-pos.y);
+    float bottomDistance=UtilMath.abs(pos.y-(y+h));
+    float minDistance=Math.min(Math.min(leftDistance,rightDistance),Math.min(topDistance,bottomDistance));
+    if(minDistance==leftDistance) {
+      pos.x=x;
+      vel.x*=-f;
+    }else if(minDistance==rightDistance) {
+      pos.x=x+w;
+      vel.x*=-f;
+    }else if(minDistance==topDistance) {
+      pos.y=y;
+      vel.y*=-f;
+    }else {
+      pos.y=y+h;
+      vel.y*=-f;
+    }
   }
   public void cloneFrom(MassPoint in) {
     pos.set(in.pos);

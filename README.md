@@ -1,21 +1,78 @@
-# just-some-other-libgdx-game
+# Libgdx游戏合集
 
-## 如何使用此合集使用的框架
+[![Sonatype Nexus (Releases)](https://img.shields.io/badge/Jit_version-bf0a359313-blue)](https://jitpack.io/#pama1234/just-some-other-libgdx-game/bf0a359313)
+
+## 使用Protobuf
+
+应当先从<https://github.com/protocolbuffers/protobuf/releases/latest>下载protoc并加入path环境变量，否则gradle运行build和generateProto的任务时会报错
+
+## 如何上手
+
+### 创建新的草图
+
+1. 阅读[游戏合集](#游戏合集)
+2. 打开对应项目（例如game0001）的`pama1234.gdx.launcher.MainApp`
+3. 创建新的`Screen0xxx`
+4. 将你的`Screen0xxx`继承`ScreenCore2D`或`ScreenCore3D`
+
+## 配置`settings.gradle`
+
+众所周知，gradle很慢，这个托管内有至少40个子项目，这会产生9000多个甚至更多的tasks，因此，我们开发时会将一部分用不上的项目在`settings.gradle`文件内注释掉，如果需要使用，取消注释即可
+
+## 创建新项目
+
+如果各位开发者想要创建新的项目，则需要在项目的根目录下的`build.gradle`的（目前）第35行的`configure(subprojects.findAll {`位置添加
+
+```gradle
+|| it.name == '项目名-android'
+```
+
+用于排除这个以及其他不能使用gradle的java plugin的子项目
+
+## 如何使用我们的的框架
+
+我们的框架通过jit进行打包
+
+<https://jitpack.io/#pama1234/just-some-other-libgdx-game/>
+
+注意，菱形依赖的问题并没有解决，因此在其他项目内使用framework0001和其他内容时可能会需要配置一大堆exclude规则，尤其是在打包安卓的时候，推荐只使用以下两个基础框架
+
+### Gradle
 
 ```gradle
 implementation "com.github.pama1234.just-some-other-libgdx-game:server-framework:$pama1234Version"
 implementation "com.github.pama1234.just-some-other-libgdx-game:framework:$pama1234Version"
 ```
 
+或直接标明版本
+
+```gradle
+implementation 'com.github.pama1234.just-some-other-libgdx-game:server-framework:bf0a359313'
+implementation 'com.github.pama1234.just-some-other-libgdx-game:framework:bf0a359313'
+```
+
+### Maven
+
+```maven
+ <dependency>
+     <groupId>com.github.pama1234.just-some-other-libgdx-game</groupId>
+     <artifactId>framework</artifactId>
+     <version>bf0a359313</version>
+ </dependency>
+```
+
 ## 游戏合集
 
 0001. 空想世界1
 0002. 粒子系统
-0003. 几何决斗【已迁移】【因为Android和菱形依赖的问题又搬回来了】
+0003. 几何决斗【从FAL的学生作品移植过来，已火】
 0004. 高维塔防
-0005. 杂项【已迁移】【搬回来了】
-
-<!-- 0003和0005已迁移到另一个github托管：<https://github.com/pama1234/just-some-other-libgdx-game-0001> -->
+0005. 杂项
+0006. 中心IDE
+0007. 填满正方形
+0008. 粒子生命：升天（魔改版2D processing粒子系统）
+0009. 异星征途
+0010. 聊天室
 
 [中文](#空想世界) | [English](#game-with-java)
 
@@ -70,6 +127,8 @@ QQ群：589219461
 安卓版改native依赖项的时候记得手动删除`android\libs\`内的文件和文件夹
 
 ## Game-With-Java
+
+Please note that the English version README is outdated
 
 The git repo of the open-source game project series of Game-With-Java (the english name is to be determined)
 

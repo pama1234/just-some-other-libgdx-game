@@ -16,12 +16,12 @@ public final class ClientPlayerActor extends ServerPlayerActor{
   }
   @Override
   public void display() {
-    p.stroke(p.skin.stroke);
+    p.stroke(p.theme().stroke);
     p.strokeWeight(3);
     p.doFill();
     p.fill(fillColor);
     p.pushMatrix();
-    p.translate(xPosition,yPosition);
+    p.translate(pos.x,pos.y);
     p.pushMatrix();
     p.rotate(rotationAngle);
     p.rect(-16,-16,32,32);

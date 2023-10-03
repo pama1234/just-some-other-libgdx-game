@@ -1,30 +1,29 @@
 package pama1234.app.game.server.duel.util;
 
 import pama1234.math.UtilMath;
+import pama1234.math.vec.Vec2f;
 
 public abstract class Body{
-  public float xPosition,yPosition;
-  public float xVelocity,yVelocity;
+  public Vec2f pos=new Vec2f();
+  public Vec2f vel=new Vec2f();
   public float directionAngle;
   public float speed;
   public void update() {
-    xPosition+=xVelocity;
-    yPosition+=yVelocity;
+    pos.add(vel);
   }
   public abstract void display();
-  public void setVelocity(float dir,float spd) {
+  public void vel(float dir,float spd) {
     directionAngle=dir;
     speed=spd;
-    xVelocity=speed*UtilMath.cos(dir);
-    yVelocity=speed*UtilMath.sin(dir);
+    vel.set(speed*UtilMath.cos(dir),speed*UtilMath.sin(dir));
   }
-  public float getDistance(Body other) {
-    return UtilMath.dist(this.xPosition,this.yPosition,other.xPosition,other.yPosition);
+  public float dist(Body other) {
+    return UtilMath.dist(this.pos.x,this.pos.y,other.pos.x,other.pos.y);
   }
-  public float getDistancePow2(Body other) {
-    return UtilMath.sq(other.xPosition-this.xPosition)+UtilMath.sq(other.yPosition-this.yPosition);
+  public float distPow2(Body other) {
+    return UtilMath.sq(other.pos.x-this.pos.x)+UtilMath.sq(other.pos.y-this.pos.y);
   }
-  public float getAngle(Body other) {
-    return UtilMath.atan2(other.yPosition-this.yPosition,other.xPosition-this.xPosition);
+  public float angle(Body other) {
+    return UtilMath.atan2(other.pos.y-this.pos.y,other.pos.x-this.pos.x);
   }
 }

@@ -10,23 +10,18 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.g3d.decals.Decal;
 
 import pama1234.game.app.server.server0001.game.ServerPlayer3D;
-import pama1234.game.app.server.server0001.game.particle.CellGroup3D;
-import pama1234.game.app.server.server0001.game.particle.CellGroupGenerator3D;
+import pama1234.game.app.server.server0001.game.particle.aparapi.CellGroupGenerator3D;
 import pama1234.game.app.server.server0001.particle.Var;
-import pama1234.gdx.game.app.app0001.Screen0001;
-import pama1234.gdx.game.app.app0001.Screen0001.DecalData;
-import pama1234.gdx.game.app.app0001.Screen0001.GraphicsData;
 import pama1234.gdx.game.util.ClientPlayerCenter3D;
 import pama1234.gdx.game.util.ControlBindUtil;
 import pama1234.gdx.game.util.ControllerClientPlayer3D;
+import pama1234.gdx.game.util.ParticleScreen3D;
 import pama1234.gdx.util.element.Graphics;
-import pama1234.gdx.util.entity.Entity;
 import pama1234.gdx.util.listener.DisplayEntityListener;
 import pama1234.math.UtilMath;
 import pama1234.math.vec.Vec3f;
 
-public class World0001 extends Entity<Screen0001> implements DisplayEntityListener{
-  public CellGroup3D group;
+public class World0001 extends ParticleWorldBase3D implements DisplayEntityListener{
   @Deprecated
   public ClientPlayerCenter3D playerCenter;//TODO
   public ControllerClientPlayer3D yourself;
@@ -40,12 +35,12 @@ public class World0001 extends Entity<Screen0001> implements DisplayEntityListen
   public float[][] tesselatedMat= {
     {0,0,0},{1,0,0},
     {0,1,0},{1,1,0},
-    //---
+    
     {0,0,1},{1,0,1},
     {0,1,1},{1,1,1},
   };
   public Vec3f size;
-  public World0001(Screen0001 p) {
+  public World0001(ParticleScreen3D p) {
     super(p);
   }
   @Override
@@ -64,6 +59,15 @@ public class World0001 extends Entity<Screen0001> implements DisplayEntityListen
     yourself=new ControllerClientPlayer3D(p,new ServerPlayer3D(
       "pama"+String.format("%04d",(int)(p.random(0,10000))),
       0,0,0));
+    
+    createTextureLayer();
+    updateCell=createUpdateThread();
+    updateCell.start();
+    
+    p.centerCam.add.add(playerCenter);
+    p.centerCam.add.add(yourself);//TODO
+  }
+  public void createTextureLayer() {
     p.noStroke();
     graphicsList=new ArrayList<ArrayList<GraphicsData>>(layerSize);
     decals=new ArrayList[tesselatedMat.length];
@@ -104,11 +108,6 @@ public class World0001 extends Entity<Screen0001> implements DisplayEntityListen
         graphicsList.get(k).add(i,new GraphicsData(tg,tr));
       }
     }
-    updateCell=createUpdateThread();
-    updateCell.start();
-    //---
-    p.centerCam.add.add(playerCenter);
-    p.centerCam.add.add(yourself);//TODO
   }
   public Thread createUpdateThread() {
     return new Thread("UpdateThread") {

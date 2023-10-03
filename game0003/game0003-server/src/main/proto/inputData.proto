@@ -18,4 +18,5 @@ message InputData {
   bool isRightPressed = 6;
   bool isZPressed = 7;
   bool isXPressed = 8;
+  bool isCPressed = 9;
 }

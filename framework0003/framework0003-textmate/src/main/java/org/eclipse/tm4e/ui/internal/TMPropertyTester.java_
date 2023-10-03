@@ -1,0 +1,21 @@
+package org.eclipse.tm4e.ui.internal;
+
+import org.eclipse.core.expressions.PropertyTester;
+import org.eclipse.jdt.annotation.Nullable;
+import org.eclipse.tm4e.ui.text.TMPresentationReconciler;
+import org.eclipse.ui.IEditorPart;
+
+public final class TMPropertyTester extends PropertyTester{
+  private static final String CAN_SUPPORT_TEXT_MATE="canSupportTextMate";
+  @Override
+  public boolean test(@Nullable final Object receiver,@Nullable final String property,
+    final Object @Nullable [] args,@Nullable final Object expectedValue) {
+    if(CAN_SUPPORT_TEXT_MATE.equals(property)) {
+      if(receiver instanceof final IEditorPart editorPart) {
+        final var reconciler=TMPresentationReconciler.getTMPresentationReconciler(editorPart);
+        return reconciler!=null&&reconciler.isEnabled();
+      }
+    }
+    return false;
+  }
+}

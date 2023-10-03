@@ -1,24 +1,24 @@
 package pama1234.gdx.game.state.state0001;
 
-import static pama1234.gdx.game.state.state0001.Settings.ld;
+import static pama1234.gdx.game.state.state0001.setting.Settings.ld;
 
 import com.badlogic.gdx.assets.AssetManager;
 import com.badlogic.gdx.graphics.Texture;
 
+import pama1234.Tools;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.GifAsset;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.asset.TvgAsset;
 import pama1234.gdx.game.state.state0001.State0001Util.StateEntity0001;
-import pama1234.gdx.game.ui.util.ProgressBar;
-import pama1234.math.Tools;
+import pama1234.gdx.game.ui.element.ProgressBar;
 
 public class Loading extends StateEntity0001{
   public int frame;
   public AssetManager manager;
   public ProgressBar<Screen0011> progress;
-  //---
+
   public String text;
   public float textWidth;
   public Loading(Screen0011 p,int id) {
@@ -42,7 +42,7 @@ public class Loading extends StateEntity0001{
     TvgAsset.load_0001(manager);
     MusicAsset.load_0001(manager);
     ImageAsset.load_0001(manager);
-    //---
+
     // updateTextAndTextWidth();
   }
   public void updateTextAndTextWidth() {

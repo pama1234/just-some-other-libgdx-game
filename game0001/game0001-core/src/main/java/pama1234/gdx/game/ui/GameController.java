@@ -13,7 +13,7 @@ public abstract class GameController extends Entity<Screen0011>{
   // public float mag;
   public float dx,dy;
   public ScreenCamInfo data;
-  //---
+
   public boolean left,right,up,down;
   public GameController(Screen0011 p) {
     super(p);
@@ -27,19 +27,19 @@ public abstract class GameController extends Entity<Screen0011>{
     p.noFill();
     p.stroke(127,127);
     p.strokeWeight(p.u/32f);
-    //---
+
     // p.rect(data.osx-mx,data.osy-my,mx*2,my*2);
     p.line(data.osx-mx,data.osy-my*2,data.osx-mx,data.osy+my*2);
     p.line(data.osx-mx*2,data.osy-my,data.osx+mx*2,data.osy-my);
     p.line(data.osx+mx,data.osy-my*2,data.osx+mx,data.osy+my*2);
     p.line(data.osx-mx*2,data.osy+my,data.osx+mx*2,data.osy+my);
-    //---
+
     p.circle(data.osx,data.osy,p.u);
     // p.cross(data.osx,data.osy,p.u,p.u);
     p.line(data.osx,data.osy,data.ox,data.oy);
     p.circle(data.ox,data.oy,p.u/4f);
     // p.cross(data.ox,data.oy,p.u/2f,p.u/2f);
-    //---
+
     // float deg=UtilMath.deg(UtilMath.atan2(dx,dy));
     // p.arc(data.osx,data.osy,mag,45-deg,90);
     p.noStroke();

@@ -12,7 +12,7 @@ dependencies {
 }
 
 jar {
-  archiveBaseName.set(appName)
+  archiveBaseName.set(eclipse.project.name)
   // the duplicatesStrategy matters starting in Gradle 7.0; this setting works.
   duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
   dependsOn configurations.runtimeClasspath
@@ -37,8 +37,7 @@ jar {
 }
 
 // Equivalent to the jar task; here for compatibility with gdx-setup.
-task dist(dependsOn: [jar]) {
-}
+task dist(dependsOn: [jar]) { }
 
 publishing {
   publications {

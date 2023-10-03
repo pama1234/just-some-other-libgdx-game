@@ -15,7 +15,6 @@ public class Point3DEntity<T extends Point3D>extends Entity<UtilScreen>{
   @Override
   public void update() {
     point.update();
-    //    update2();
   }
   public float x() {
     return point.x();
@@ -36,29 +35,15 @@ public class Point3DEntity<T extends Point3D>extends Entity<UtilScreen>{
     return (int)Math.floor(point.pos.z);
   }
   /**
-   * 无意义的语法糖
-   * 
    * @return 鼠标位置减去此坐标的值
    */
-  @Deprecated
   public float mouseX() {
     return p.mouse.x-x();
   }
   /**
-   * 无意义的语法糖
-   * 
    * @return 鼠标位置减去此坐标的值
    */
-  @Deprecated
   public float mouseY() {
     return p.mouse.y-y();
-  }
-  //  abstract public void update2();
-  /**
-   * 此特性未在空想世界中使用
-   */
-  @Deprecated
-  public String getName() {
-    return getClass().getSimpleName();
   }
 }

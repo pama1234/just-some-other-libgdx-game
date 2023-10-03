@@ -1,0 +1,302 @@
+package org.eclipse.tm4e.languageconfiguration.internal.wizards;
+
+import static org.eclipse.tm4e.languageconfiguration.internal.LanguageConfigurationMessages.SelectLanguageConfigurationWizardPage_browse_fileSystem;
+import static org.eclipse.tm4e.languageconfiguration.internal.LanguageConfigurationMessages.SelectLanguageConfigurationWizardPage_browse_workspace;
+import static org.eclipse.tm4e.languageconfiguration.internal.LanguageConfigurationMessages.SelectLanguageConfigurationWizardPage_contentType;
+import static org.eclipse.tm4e.languageconfiguration.internal.LanguageConfigurationMessages.SelectLanguageConfigurationWizardPage_contentTypeError_invalid;
+import static org.eclipse.tm4e.languageconfiguration.internal.LanguageConfigurationMessages.SelectLanguageConfigurationWizardPage_contentTypeError_noSelection;
+import static org.eclipse.tm4e.languageconfiguration.internal.LanguageConfigurationMessages.SelectLanguageConfigurationWizardPage_contentTypeWarning_duplicate;
+import static org.eclipse.tm4e.languageconfiguration.internal.LanguageConfigurationMessages.SelectLanguageConfigurationWizardPage_file;
+import static org.eclipse.tm4e.languageconfiguration.internal.LanguageConfigurationMessages.SelectLanguageConfigurationWizardPage_fileError_error;
+import static org.eclipse.tm4e.languageconfiguration.internal.LanguageConfigurationMessages.SelectLanguageConfigurationWizardPage_fileError_invalid;
+import static org.eclipse.tm4e.languageconfiguration.internal.LanguageConfigurationMessages.SelectLanguageConfigurationWizardPage_fileError_noSelection;
+import static org.eclipse.tm4e.languageconfiguration.internal.LanguageConfigurationMessages.SelectLanguageConfigurationWizardPage_page_description;
+import static org.eclipse.tm4e.languageconfiguration.internal.LanguageConfigurationMessages.SelectLanguageConfigurationWizardPage_page_title;
+import static org.eclipse.tm4e.languageconfiguration.internal.LanguageConfigurationMessages.SelectLanguageConfigurationWizardPage_workspace_description;
+import static org.eclipse.tm4e.languageconfiguration.internal.LanguageConfigurationMessages.SelectLanguageConfigurationWizardPage_workspace_title;
+
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Objects;
+
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IPath;
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Path;
+import org.eclipse.core.runtime.Platform;
+import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.content.IContentType;
+import org.eclipse.core.runtime.content.IContentTypeManager;
+import org.eclipse.jdt.annotation.Nullable;
+import org.eclipse.jface.dialogs.DialogPage;
+import org.eclipse.jface.dialogs.IMessageProvider;
+import org.eclipse.jface.viewers.ITreeContentProvider;
+import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.jface.viewers.TreeViewer;
+import org.eclipse.jface.viewers.Viewer;
+import org.eclipse.jface.viewers.ViewerComparator;
+import org.eclipse.jface.wizard.WizardPage;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.FileDialog;
+import org.eclipse.swt.widgets.Label;
+import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Text;
+import org.eclipse.tm4e.languageconfiguration.LanguageConfigurationPlugin;
+import org.eclipse.tm4e.languageconfiguration.internal.model.LanguageConfiguration;
+import org.eclipse.tm4e.languageconfiguration.internal.registry.ILanguageConfigurationDefinition;
+import org.eclipse.tm4e.languageconfiguration.internal.registry.ILanguageConfigurationRegistryManager;
+import org.eclipse.tm4e.languageconfiguration.internal.registry.LanguageConfigurationDefinition;
+import org.eclipse.tm4e.languageconfiguration.internal.widgets.LanguageConfigurationInfoWidget;
+import org.eclipse.tm4e.ui.internal.utils.ContentTypeHelper;
+import org.eclipse.ui.dialogs.ResourceSelectionDialog;
+
+import pama1234.gdx.textmate.DeprecatedSwt;
+
+@DeprecatedSwt
+@Deprecated
+final class SelectLanguageConfigurationWizardPage extends WizardPage implements Listener{
+  private static final String PAGE_NAME=SelectLanguageConfigurationWizardPage.class.getName();
+  private static final String[] TEXTMATE_EXTENSIONS= {"*language-configuration.json"}; //$NON-NLS-1$
+  @Nullable
+  private Text fileText;
+  @Nullable
+  private Text contentTypeText;
+  @Nullable
+  private LanguageConfigurationInfoWidget infoWidget;
+  private final ILanguageConfigurationRegistryManager registryManager;
+  SelectLanguageConfigurationWizardPage(final ILanguageConfigurationRegistryManager registryManager) {
+    super(PAGE_NAME);
+    this.registryManager=registryManager;
+    super.setTitle(SelectLanguageConfigurationWizardPage_page_title);
+    super.setDescription(SelectLanguageConfigurationWizardPage_page_description);
+  }
+  @Override
+  public void createControl(@Nullable final Composite parent) {
+    assert parent!=null;
+    initializeDialogUnits(parent);
+    final var topLevel=new Composite(parent,SWT.NONE);
+    topLevel.setLayout(new GridLayout());
+    topLevel.setLayoutData(new GridData(GridData.VERTICAL_ALIGN_FILL|GridData.HORIZONTAL_ALIGN_FILL));
+    topLevel.setFont(parent.getFont());
+    createBody(topLevel);
+    setPageComplete(false);
+    setControl(topLevel);
+  }
+  @Override
+  public void handleEvent(@Nullable final Event event) {
+    validateAndUpdateStatus();
+  }
+  private void validateAndUpdateStatus() {
+    final IStatus status=validatePage();
+    statusChanged(status==null?Status.OK_STATUS:status);
+  }
+  private void statusChanged(final IStatus status) {
+    setPageComplete(!status.matches(IStatus.ERROR));
+    applyToStatusLine(this,status);
+  }
+  private static void applyToStatusLine(final DialogPage page,final IStatus status) {
+    final var message=Status.OK_STATUS.equals(status)?null:status.getMessage();
+    switch(status.getSeverity()) {
+      case IStatus.OK:
+        page.setMessage(message,IMessageProvider.NONE);
+        page.setErrorMessage(null);
+        break;
+      case IStatus.WARNING:
+        page.setMessage(message,IMessageProvider.WARNING);
+        page.setErrorMessage(null);
+        break;
+      case IStatus.INFO:
+        page.setMessage(message,IMessageProvider.INFORMATION);
+        page.setErrorMessage(null);
+        break;
+      default:
+        page.setMessage(null);
+        page.setErrorMessage(message!=null&&message.isEmpty()?null:message);
+        break;
+    }
+  }
+  private void createBody(final Composite ancestor) {
+    final var parent=new Composite(ancestor,SWT.NONE);
+    parent.setFont(parent.getFont());
+    parent.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+    parent.setLayout(new GridLayout(2,false));
+    final var fileText=createText(parent,SelectLanguageConfigurationWizardPage_file);
+    this.fileText=fileText;
+    fileText.addListener(SWT.Modify,this);
+    final var buttons=new Composite(parent,SWT.NONE);
+    buttons.setLayout(new GridLayout(2,false));
+    final var gd=new GridData(GridData.FILL_HORIZONTAL);
+    gd.horizontalSpan=2;
+    gd.horizontalAlignment=SWT.RIGHT;
+    buttons.setLayoutData(gd);
+    final var infoWidget=new LanguageConfigurationInfoWidget(parent,SWT.NONE);
+    this.infoWidget=infoWidget;
+    final var data=new GridData(GridData.FILL_HORIZONTAL);
+    data.horizontalSpan=2;
+    infoWidget.setLayoutData(data);
+    final var browseFileSystemButton=new Button(buttons,SWT.NONE);
+    browseFileSystemButton.setText(SelectLanguageConfigurationWizardPage_browse_fileSystem);
+    browseFileSystemButton.addSelectionListener(new SelectionAdapter() {
+      @Override
+      public void widgetSelected(@Nullable final SelectionEvent e) {
+        final var dialog=new FileDialog(parent.getShell());
+        dialog.setFilterExtensions(TEXTMATE_EXTENSIONS);
+        dialog.setFilterPath(fileText.getText());
+        final String result=dialog.open();
+        if(result!=null&&!result.isEmpty()) {
+          fileText.setText(result);
+        }
+      }
+    });
+    final var browseWorkspaceButton=new Button(buttons,SWT.NONE);
+    browseWorkspaceButton.setText(SelectLanguageConfigurationWizardPage_browse_workspace);
+    browseWorkspaceButton.addSelectionListener(new SelectionAdapter() {
+      @Override
+      public void widgetSelected(@Nullable final SelectionEvent e) {
+        final var dialog=new ResourceSelectionDialog(browseWorkspaceButton.getShell(),
+          ResourcesPlugin.getWorkspace().getRoot(),
+          SelectLanguageConfigurationWizardPage_workspace_description);
+        dialog.setTitle(SelectLanguageConfigurationWizardPage_workspace_title);
+        final int returnCode=dialog.open();
+        final Object[] results=dialog.getResult();
+        if(returnCode==0&&results.length>0) {
+          fileText.setText(((IResource)results[0]).getFullPath().makeRelative().toString());
+        }
+      }
+    });
+    contentTypeText=createText(parent,
+      SelectLanguageConfigurationWizardPage_contentType);
+    contentTypeText.addListener(SWT.Modify,this);
+    createContentTypeTreeViewer(parent);
+  }
+  private void createContentTypeTreeViewer(final Composite composite) {
+    final var contentTypesViewer=new TreeViewer(composite,
+      SWT.SINGLE|SWT.H_SCROLL|SWT.V_SCROLL|SWT.BORDER);
+    contentTypesViewer.getControl().setFont(composite.getFont());
+    contentTypesViewer.setContentProvider(new ContentTypesContentProvider());
+    contentTypesViewer.setLabelProvider(new ContentTypesLabelProvider());
+    contentTypesViewer.setComparator(new ViewerComparator());
+    contentTypesViewer.setInput(Platform.getContentTypeManager());
+    final var data=new GridData(GridData.FILL_HORIZONTAL);
+    data.horizontalSpan=2;
+    contentTypesViewer.getControl().setLayoutData(data);
+    contentTypesViewer.addSelectionChangedListener(event-> {
+      final var contentTypeText=this.contentTypeText;
+      if(contentTypeText!=null) {
+        contentTypeText.setText(((IContentType)event.getStructuredSelection().getFirstElement()).toString());
+      }
+    });
+  }
+  private static final class ContentTypesLabelProvider extends LabelProvider{
+    @Override
+    public String getText(@Nullable final Object element) {
+      if(element==null) return "";
+      final IContentType contentType=(IContentType)element;
+      return contentType.getName();
+    }
+  }
+  private static final class ContentTypesContentProvider implements ITreeContentProvider{
+    private IContentTypeManager manager=Platform.getContentTypeManager();
+    @Override
+    public Object[] getChildren(@Nullable final Object parentElement) {
+      final var elements=new ArrayList<>();
+      final var baseType=(IContentType)parentElement;
+      for(final var contentType:manager.getAllContentTypes()) {
+        if(Objects.equals(baseType,contentType)) {
+          elements.add(contentType);
+        }
+      }
+      return elements.toArray();
+    }
+    @Nullable
+    @Override
+    public Object getParent(@Nullable final Object element) {
+      if(element==null) return null;
+      final IContentType contentType=(IContentType)element;
+      return contentType.getBaseType();
+    }
+    @Override
+    public boolean hasChildren(@Nullable final Object element) {
+      return getChildren(element).length>0;
+    }
+    @Override
+    public Object[] getElements(@Nullable final Object inputElement) {
+      return getChildren(null);
+    }
+    @Override
+    public void inputChanged(@Nullable final Viewer viewer,@Nullable final Object oldInput,
+      @Nullable final Object newInput) {
+      manager=newInput==null?Platform.getContentTypeManager():(IContentTypeManager)newInput;
+    }
+  }
+  private Text createText(final Composite parent,final String s) {
+    final var label=new Label(parent,SWT.NONE);
+    label.setLayoutData(new GridData(SWT.RIGHT,SWT.CENTER,false,false));
+    label.setText(s);
+    final var text=new Text(parent,SWT.BORDER);
+    text.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+    return text;
+  }
+  @Nullable
+  private IStatus validatePage() {
+    final var infoWidget=this.infoWidget;
+    assert infoWidget!=null;
+    infoWidget.refresh(null);
+    final var fileText=this.fileText;
+    assert fileText!=null;
+    final String path=fileText.getText();
+    if(path.length()==0) {
+      return new Status(IStatus.ERROR,LanguageConfigurationPlugin.PLUGIN_ID,
+        SelectLanguageConfigurationWizardPage_fileError_noSelection);
+    }
+    IPath p=new Path(path);
+    if(!p.isAbsolute()) {
+      p=ResourcesPlugin.getWorkspace().getRoot().getFile(p).getLocation();
+    }
+    try(var file=new FileReader(p.toFile())) {
+      final var configuration=LanguageConfiguration.load(file);
+      if(configuration==null) {
+        return new Status(IStatus.ERROR,LanguageConfigurationPlugin.PLUGIN_ID,
+          SelectLanguageConfigurationWizardPage_fileError_invalid);
+      }
+      infoWidget.refresh(configuration);
+    }catch(final Exception e) {
+      return new Status(IStatus.ERROR,LanguageConfigurationPlugin.PLUGIN_ID,
+        SelectLanguageConfigurationWizardPage_fileError_error+e.getLocalizedMessage());
+    }
+    final var contentTypeText=this.contentTypeText;
+    if(contentTypeText==null||contentTypeText.getText().isEmpty()) {
+      return new Status(IStatus.ERROR,LanguageConfigurationPlugin.PLUGIN_ID,
+        SelectLanguageConfigurationWizardPage_contentTypeError_noSelection);
+    }
+    final var contentType=ContentTypeHelper.getContentTypeById(contentTypeText.getText());
+    if(contentType==null) {
+      return new Status(IStatus.ERROR,LanguageConfigurationPlugin.PLUGIN_ID,
+        SelectLanguageConfigurationWizardPage_contentTypeError_invalid);
+    }
+    if(registryManager.getLanguageConfigurationFor(contentType)!=null) {
+      return new Status(IStatus.WARNING,LanguageConfigurationPlugin.PLUGIN_ID,
+        SelectLanguageConfigurationWizardPage_contentTypeWarning_duplicate);
+    }
+    return null;
+  }
+  ILanguageConfigurationDefinition getDefinition() {
+    assert fileText!=null;
+    IPath path=new Path(fileText.getText());
+    if(!path.isAbsolute()) {
+      path=ResourcesPlugin.getWorkspace().getRoot().getFile(path).getLocation();
+    }
+    assert contentTypeText!=null;
+    final var contentType=ContentTypeHelper.getContentTypeById(contentTypeText.getText());
+    assert contentType!=null;
+    return new LanguageConfigurationDefinition(contentType,path.toString());
+  }
+}

@@ -2,7 +2,7 @@ apply plugin: 'com.android.application'
 
 android {
   namespace 'pama1234'
-  compileSdkVersion 32
+  compileSdkVersion project.properties.compileSdkVersion.toInteger()
   signingConfigs {
     release {
       // storeFile file('sign.jks')
@@ -52,8 +52,8 @@ android {
   }
   defaultConfig {
     applicationId 'pama1234.gdx.game.app.game0001.pico4'
-    minSdkVersion 26
-    targetSdkVersion 32
+    minSdkVersion project.properties.minSdkVersion.toInteger()
+    targetSdkVersion project.properties.targetSdkVersion.toInteger()
     versionCode 1
     versionName "1.0"
     multiDexEnabled true
@@ -64,16 +64,16 @@ android {
     targetCompatibility "17"
     coreLibraryDesugaringEnabled true
   }
-  
+
   buildTypes {
     release {
       minifyEnabled false
       proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-      
+
       signingConfig signingConfigs.release
     }
   }
-  
+
   externalNativeBuild {
     cmake {
       // Provides a relative path to your CMake build script.
@@ -83,23 +83,23 @@ android {
 }
 
 def Properties props = new Properties()
-  def propFile = file('./signing.properties')
-  if (propFile.canRead()){
-    props.load(new FileInputStream(propFile))
+def propFile = rootProject.file('/doc/signing/signing.properties')
+if (propFile.canRead()){
+  props.load(new FileInputStream(propFile))
 
-    if (props!=null && props.containsKey('STORE_FILE') && props.containsKey('STORE_PASSWORD') &&
-        props.containsKey('KEY_ALIAS') && props.containsKey('KEY_PASSWORD')) {
+  if (props!=null && props.containsKey('STORE_FILE') && props.containsKey('STORE_PASSWORD') &&
+      props.containsKey('KEY_ALIAS') && props.containsKey('KEY_PASSWORD')) {
 
-      android.signingConfigs.release.storeFile = file(props['STORE_FILE'])
-      android.signingConfigs.release.storePassword = props['STORE_PASSWORD']
-      android.signingConfigs.release.keyAlias = props['KEY_ALIAS']
-      android.signingConfigs.release.keyPassword = props['KEY_PASSWORD']
-    } else {
-      android.buildTypes.release.signingConfig = null
-    }
-  }else {
+    android.signingConfigs.release.storeFile = file(props['STORE_FILE'])
+    android.signingConfigs.release.storePassword = props['STORE_PASSWORD']
+    android.signingConfigs.release.keyAlias = props['KEY_ALIAS']
+    android.signingConfigs.release.keyPassword = props['KEY_PASSWORD']
+  } else {
     android.buildTypes.release.signingConfig = null
   }
+}else {
+  android.buildTypes.release.signingConfig = null
+}
 
 repositories {
   // needed for AAPT2, may be needed for other tools
@@ -113,28 +113,18 @@ configurations { natives }
 dependencies {
   coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:$androidDesugarVersion"
 
-  implementation "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
+  implementation ("$gdxModule:gdx-backend-android:$gdxVersion") {
+    exclude group: "com.badlogicgames.gdx"
+  }
   implementation "com.github.simplepeng.SpiderMan:spiderman:$spidermanVersion"  //如果程序异常闪退提供log
   implementation project(':game0001:game0001-core')
 
-  natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-arm64-v8a"
-  natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
-  natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86"
-  natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-x86_64"
+  natives "$gdxModule:gdx-platform:$gdxVersion:natives-arm64-v8a"
+  natives "$gdxModule:gdx-platform:$gdxVersion:natives-armeabi-v7a"
+  natives "$gdxModule:gdx-platform:$gdxVersion:natives-x86"
+  natives "$gdxModule:gdx-platform:$gdxVersion:natives-x86_64"
 
   natives 'org.khronos.openxr:openxr_loader_for_android:1.0.27'
-
-
-  // This follows advice from https://blog.gradle.org/log4j-vulnerability
-  constraints {
-    implementation("org.apache.logging.log4j:log4j-core") {
-      version {
-        strictly("[2.17, 3[")
-        prefer("2.17.0")
-      }
-      because("CVE-2021-44228, CVE-2021-45046, CVE-2021-45105: Log4j vulnerable to remote code execution and other critical security vulnerabilities")
-    }
-  }
 }
 
 // Called every time gradle gets executed, takes the native dependencies of
@@ -187,18 +177,6 @@ tasks.whenTaskAdded { packageTask ->
   }
 }
 
-// tasks.whenTaskAdded { cleanTask ->
-//   if (cleanTask.name.equals("clean")) {
-//     println(cleanTask)
-//     cleanTask.dependsOn 'cleanAndroidNatives'
-//   }
-// }
-
-// task cleanAndroidNatives() {
-//   delete file('libs').listFiles()
-//   println("cleanAndroidNatives")
-// }
-
 task run(type: Exec) {
   def path
   def localProperties = project.file("../local.properties")
@@ -227,4 +205,4 @@ tasks.whenTaskAdded { task ->
   }
 }
 
-eclipse.project.name = appName + '-game0001-pico4'
+eclipse.project.name = appName + '0001-pico4'

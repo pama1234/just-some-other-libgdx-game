@@ -3,15 +3,17 @@ package pama1234.gdx.launcher;
 import com.badlogic.gdx.Game;
 
 import pama1234.gdx.game.app.app0001.Screen0001;
+import pama1234.gdx.util.SharedResources;
 
 public class DebugApp extends Game{
   @Override
   public void create() {
-    setScreen(new Screen0001(null));
+    setScreen(new Screen0001());
   }
   @Override
   public void dispose() {
     super.dispose();
     screen.dispose();
+    SharedResources.instance.dispose();
   }
 }

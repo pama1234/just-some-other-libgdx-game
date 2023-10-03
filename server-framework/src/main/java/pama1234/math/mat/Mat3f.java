@@ -5,6 +5,9 @@ import pama1234.math.gdx.temp.ServerAffine2;
 import pama1234.math.vec.Vec2f;
 import pama1234.math.vec.Vec3f;
 
+/**
+ * 直接从libgdx复制过来的
+ */
 public class Mat3f{
   public static final int M00=0;
   public static final int M01=3;

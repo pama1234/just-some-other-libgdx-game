@@ -1,55 +1,56 @@
 package pama1234.gdx.game.duel.util.state;
 
 import pama1234.gdx.game.duel.Duel;
+import pama1234.app.game.server.duel.ServerGameSystem;
 import pama1234.app.game.server.duel.util.Const;
 import pama1234.gdx.game.duel.ClientGameSystem;
 import pama1234.gdx.game.duel.TextUtil;
 import pama1234.gdx.game.duel.TextUtil.TextWithWidth;
+import pama1234.gdx.game.state.state0002.Game;
 import pama1234.math.UtilMath;
 
 public final class ClientGameResultState extends ClientGameSystemState{
   public final TextWithWidth resultMessage;
   public final int durationFrameCount=UtilMath.floor(Const.IDEAL_FRAME_RATE);
-  //---
+
   public int winGroupe;
   public ClientGameResultState(Duel duel,ClientGameSystem system,int winGroupe,TextWithWidth msg) {
     super(duel,system);
-    system.stateIndex=ClientGameSystem.result;
+    system.stateIndex=ServerGameSystem.result;
     this.winGroupe=winGroupe;
     resultMessage=msg;
   }
   @Override
   public void updateSystem() {
-    system.myGroup.update();
-    system.otherGroup.update();
+    for(var group:system.groupCenter.list) group.update();
     system.commonParticleSet.update();
   }
   @Override
   public void displaySystem() {
-    duel.beginBlend();
-    system.myGroup.displayPlayer();
-    system.otherGroup.displayPlayer();
+    p.beginBlend();
+    for(var group:system.groupCenter.list) group.displayPlayer();
     system.commonParticleSet.display();
-    duel.endBlend();
+    p.endBlend();
   }
   @Override
   public void displayMessage() {
     if(system.demoPlay) return;
-    duel.setTextColor(0);
-    duel.setTextScale(duel.pus);
-    duel.fullText(resultMessage.text,(duel.width-resultMessage.width*duel.pus)/2f,(duel.height-duel.pu*2f)/2f);
-    if(properFrameCount>durationFrameCount) duel.fullText(
+    p.setTextColor(p.theme().text);
+    p.setTextScale(p.pus);
+    p.fullText(resultMessage.text,(p.width-resultMessage.width*p.pus)/2f,(p.height-p.pu*2f)/2f);
+    if(properFrameCount>durationFrameCount) p.fullText(
       TextUtil.used.restart.text,
-      (duel.width-TextUtil.used.restart.width*duel.pus)/2f,
-      (duel.height+duel.pu*1f)/2f);
+      (p.width-TextUtil.used.restart.width*p.pus)/2f,
+      (p.height+p.pu*1f)/2f);
   }
   @Override
   public void checkStateTransition() {
+    Game game=p.game();
     if(system.demoPlay) {
-      if(properFrameCount>durationFrameCount*3) duel.stateCenter.game.newGame(true,system.showsInstructionWindow);
+      if(properFrameCount>durationFrameCount*3) game.newGame(true,system.showsInstructionWindow);
     }else {
       if(properFrameCount>durationFrameCount&&
-        duel.stateCenter.game.currentInput.isXPressed) duel.stateCenter.game.newGame(true,true); // back to demoplay with instruction window
+        game.currentInput.isXPressed) game.newGame(true,true); // back to demoplay with instruction window
     }
   }
   @Override

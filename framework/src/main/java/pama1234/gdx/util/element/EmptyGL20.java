@@ -6,8 +6,8 @@ import java.nio.IntBuffer;
 
 import com.badlogic.gdx.graphics.GL20;
 
+@Deprecated
 public class EmptyGL20 implements GL20{
-  // throw new UnsupportedOperationException\("Unimplemented method '\w+'"\);
   @Override
   public void glActiveTexture(int texture) {}
   @Override

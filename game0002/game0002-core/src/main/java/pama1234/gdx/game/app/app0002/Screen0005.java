@@ -4,8 +4,11 @@ import pama1234.gdx.game.app.app0001.Screen0002;
 import pama1234.gdx.game.util.input.AndroidCtrl;
 import pama1234.gdx.game.util.player.Player;
 import pama1234.math.physics.MassPoint;
+import pama1234.util.Annotations.ScreenDescription;
 import pama1234.util.function.ExecuteFunction;
 
+@Deprecated
+@ScreenDescription("贪吃蛇游戏本体 重制版 有bug请勿打开")
 public class Screen0005 extends Screen0002{
   public Player player;
   public AndroidCtrl actrl;
