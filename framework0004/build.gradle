@@ -1,3 +1,0 @@
-subprojects {
-  ext.appName = 'framework0004'
-}

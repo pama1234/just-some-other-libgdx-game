@@ -14,7 +14,7 @@ public class Screen0002 extends ScreenCore2D{
   public boolean zoomIn,zoomOut;
   public boolean paused;
   public InputData currentInput;
-  
+
   public World0002 world0002;
   @Override
   public void setup() {

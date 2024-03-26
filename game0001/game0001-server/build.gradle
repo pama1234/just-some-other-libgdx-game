@@ -5,12 +5,21 @@ mainClassName = 'pama1234.gdx.game.app.server.ServerLauncher'
 eclipse.project.name = appName + '0001-server'
 
 dependencies {
-  implementation project(':server-framework')
+  api("$pama1234RepoLocation:server-framework:$pama1234PublishVersion") {
+    // exclude group: "com.esotericsoftware", module: "reflectasm"
+  }
 
-  api project(':framework0001:framework0001-yaml')
+  // api project(':framework0001:framework0001-yaml')
 
-  api "javax.vecmath:vecmath:$vecmathVersion"
-  api "com.esotericsoftware:kryo:$kryoVersion"
+  // api "javax.vecmath:vecmath:$vecmathVersion"
+  // api "com.esotericsoftware:kryo:$kryoVersion"
+
+  api("$pama1234RepoLocation:framework-neat:$pama1234PublishVersion") {
+    // exclude group: "$pama1234RepoLocation", module: "server-framework"
+    // exclude group: "com.esotericsoftware", module: "reflectasm"
+  }
+
+  api "org.yaml:snakeyaml:$snakeYamlVersion"
 }
 
 jar {
@@ -24,9 +33,9 @@ jar {
     }
   }
   // these "exclude" lines remove some unnecessary duplicate files in the output JAR.
-  exclude('META-INF/INDEX.LIST', 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.RSA')
+  exclude('META-INF/INDEX.LIST' , 'META-INF/*.SF' , 'META-INF/*.DSA' , 'META-INF/*.RSA')
   dependencies {
-    exclude('META-INF/INDEX.LIST', 'META-INF/maven/**')
+    exclude('META-INF/INDEX.LIST' , 'META-INF/maven/**')
   }
   // setting the manifest makes the JAR runnable.
   manifest {
@@ -34,12 +43,12 @@ jar {
   }
   // this last step may help on some OSes that need extra instruction to make runnable JARs.
   doLast {
-    file(archiveFile).setExecutable(true, false)
+    file(archiveFile).setExecutable(true , false)
   }
 }
 
 // Equivalent to the jar task; here for compatibility with gdx-setup.
-task dist(dependsOn: [jar]) { }
+tasks.register('dist') { dependsOn[jar] }
 
 tasks.getByName('distTar') { duplicatesStrategy = DuplicatesStrategy.EXCLUDE }
 tasks.getByName('distZip') { duplicatesStrategy = DuplicatesStrategy.EXCLUDE }

@@ -10,7 +10,7 @@ import org.yaml.snakeyaml.constructor.Constructor;
 import org.yaml.snakeyaml.error.YAMLException;
 import org.yaml.snakeyaml.representer.Representer;
 
-import pama1234.gdx.game.ui.util.TextButtonCam;
+import pama1234.gdx.game.ui.element.TextButtonCam;
 import pama1234.gdx.util.cam.CameraController2D;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.gdx.util.launcher.ScreenMenu;
@@ -25,7 +25,7 @@ public class Screen0043 extends ScreenMenu{
     noStroke();
     backgroundColor(243);
     drawCursorWhenGrab=true;
-    
+
     createAndAddMenuButtons();
     // PropertyUtils propUtils=new PropertyUtils();
     // propUtils.setBeanAccess(BeanAccess.PROPERTY);

@@ -2,7 +2,7 @@ package pama1234.gdx.game.sandbox.platformer.metainfo.wrapper;
 
 import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
-import pama1234.game.app.server.server0002.game.metainfo.MetaInfoBase;
+import pama1234.server.game.app.server0002.game.metainfo.MetaInfoBase;
 
 /**
  * 用于序列化

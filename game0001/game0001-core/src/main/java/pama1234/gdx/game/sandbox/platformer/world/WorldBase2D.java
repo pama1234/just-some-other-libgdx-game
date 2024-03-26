@@ -19,11 +19,12 @@ import pama1234.gdx.game.sandbox.platformer.world.background.Sky;
 import pama1234.gdx.game.sandbox.platformer.world.world0001.WorldType0001Base;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.State0001Util.StateEntityListener0001;
-import pama1234.gdx.game.util.Mutex;
+import pama1234.util.Mutex;
 import pama1234.math.UtilMath;
 
 // WorldBase2D<M extends MetaWorld<?,?,?,?>>
-public abstract class WorldBase2D<M extends WorldType0001Base<?>>extends World<Screen0011,Game> implements StateEntityListener0001{
+public abstract class WorldBase2D<M extends WorldType0001Base<?>>extends World<Screen0011,Game>
+  implements StateEntityListener0001{
   public TreeNode<WorldBase2D<?>> node;
 
   public int typeId;
@@ -34,7 +35,7 @@ public abstract class WorldBase2D<M extends WorldType0001Base<?>>extends World<S
 
   public MetaBlockCenter0001<?> metaBlocks;//方块
   public MetaItemCenter0001<?> metaItems;//物品
-  public MetaCreatureCenter0001<?> metaEntitys;//生物
+  public MetaCreatureCenter0001<?> metaEntities;//生物
 
   public MultiGameEntityCenter0001 entities;//实体
   public RegionCenter regions;//地图系统

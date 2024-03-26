@@ -16,6 +16,7 @@ public final class ClientPlayerActor extends ServerPlayerActor{
   }
   @Override
   public void display() {
+    p.doStroke();
     p.stroke(p.theme().stroke);
     p.strokeWeight(3);
     p.doFill();

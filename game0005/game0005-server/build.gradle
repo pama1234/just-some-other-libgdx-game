@@ -5,7 +5,9 @@ mainClassName = 'pama1234.game.app.server.launcher.ServerLauncher'
 eclipse.project.name = appName + '0005-server'
 
 dependencies {
-  implementation project(':server-framework')
+  implementation("$pama1234RepoLocation:server-framework:$pama1234PublishVersion") {
+    // exclude group: "com.esotericsoftware", module: "reflectasm"
+  }
 
   api project(':framework0001:framework0001-neat')
 

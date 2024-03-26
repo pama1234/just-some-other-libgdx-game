@@ -6,7 +6,7 @@ import pama1234.gdx.game.duel.util.input.UiGenerator;
 import pama1234.gdx.game.ui.element.TextButton;
 import pama1234.gdx.game.ui.element.TextButtonCam;
 import pama1234.gdx.util.cam.CameraController2D;
-import pama1234.gdx.util.editor.TextEditor;
+import pama1234.gdx.util.ui.editor.TextEditor;
 
 public class Settings extends StateEntity0002{
   public TextEditor<?>[] textEditors;

@@ -39,7 +39,7 @@ public class MobEntityCenter extends GameEntityCenter<Screen0011,MobEntity>{
   }
   public void testCreatureSpawnWithPlayer(Player player) {
     World0001 world=pc.pw;
-    for(MetaCreature<?> e:world.metaEntitys.list) {
+    for(MetaCreature<?> e:world.metaEntities.list) {
       if(e.rttr.spawnDatas==null) continue;
       if(e.attr.count>=e.attr.naturalMaxCount*(1+pc.players.list.size())) continue;
       float rdeg=world.random(UtilMath.PI2);

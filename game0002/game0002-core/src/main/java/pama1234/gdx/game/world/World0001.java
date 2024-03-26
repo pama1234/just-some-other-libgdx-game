@@ -35,7 +35,7 @@ public class World0001 extends ParticleWorldBase3D implements DisplayEntityListe
   public float[][] tesselatedMat= {
     {0,0,0},{1,0,0},
     {0,1,0},{1,1,0},
-    
+
     {0,0,1},{1,0,1},
     {0,1,1},{1,1,1},
   };
@@ -59,11 +59,11 @@ public class World0001 extends ParticleWorldBase3D implements DisplayEntityListe
     yourself=new ControllerClientPlayer3D(p,new ServerPlayer3D(
       "pama"+String.format("%04d",(int)(p.random(0,10000))),
       0,0,0));
-    
+
     createTextureLayer();
     updateCell=createUpdateThread();
     updateCell.start();
-    
+
     p.centerCam.add.add(playerCenter);
     p.centerCam.add.add(yourself);//TODO
   }

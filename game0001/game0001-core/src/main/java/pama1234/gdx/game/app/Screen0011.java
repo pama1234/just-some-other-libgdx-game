@@ -9,9 +9,7 @@ import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
+import java.util.Collections;
 
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
@@ -22,18 +20,19 @@ import com.badlogic.gdx.graphics.profiling.GLProfiler;
 import com.esotericsoftware.kryo.Kryo;
 
 import pama1234.Tools;
+import pama1234.gdx.SystemSetting;
 import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.sandbox.platformer.KryoUtil;
 import pama1234.gdx.game.sandbox.platformer.player.ctrl.ControlBindUtil;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.GameMenu.GameSettingsData;
-import pama1234.gdx.game.state.state0001.setting.Settings;
 import pama1234.gdx.game.state.state0001.State0001Util;
 import pama1234.gdx.game.state.state0001.State0001Util.StateCenter0001;
 import pama1234.gdx.game.state.state0001.State0001Util.StateEntity0001;
+import pama1234.gdx.game.state.state0001.setting.Settings;
+import pama1234.gdx.game.ui.element.TextButton;
 import pama1234.gdx.game.ui.generator.InfoUtil.InfoData;
 import pama1234.gdx.game.ui.generator.InfoUtil.InfoSource;
-import pama1234.gdx.game.ui.element.TextButton;
 import pama1234.gdx.game.ui.generator.UiGenerator;
 import pama1234.gdx.game.util.SettingsData;
 import pama1234.gdx.launcher.MainApp;
@@ -41,33 +40,38 @@ import pama1234.gdx.util.app.ScreenCoreState2D;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.math.UtilMath;
 import pama1234.math.vec.Vec3f;
+import pama1234.util.Annotations.ScreenDescription;
 import pama1234.util.net.NetAddressInfo;
 
+@ScreenDescription("空想世界1")
 public class Screen0011 extends ScreenCoreState2D<StateCenter0001,StateEntity0001>{
   public static final PrintStream stderr=System.err;
   public static final PrintStream stdout=System.out;
-  public static final Logger logger=LogManager.getLogger(LogManager.ROOT_LOGGER_NAME);
+  //  public static final Logger logger=LogManager.getLogger(Screen0011.class);
   public static final Kryo kryo=new Kryo();
   static {
+    //TODO move to android-framework
+    if(Gdx.app.getType()==ApplicationType.Android) SystemSetting.load();
+
     System.setErr(new PrintStream(new OutputStream() {
-      public StringBuffer builder=new StringBuffer();
+      public final StringBuffer builder=new StringBuffer();
       @Override
       public void write(int b) throws IOException {
         char a=(char)b;
         if(a=='\n') {
-          logger.error(builder.toString());
+          stderr.println(builder.toString());
           builder.setLength(0);
         }else builder.append(a);
       }
     }));
     System.setOut(new PrintStream(new OutputStream() {
-      public StringBuffer builder=new StringBuffer();
+      public final StringBuffer builder=new StringBuffer();
       @Override
       public void write(int b) throws IOException {
         stdout.write(b);
         char a=(char)b;
         if(a=='\n') {
-          logger.info(builder.toString());
+          stdout.println(builder.toString());
           builder.setLength(0);
         }else builder.append(a);
       }
@@ -128,8 +132,10 @@ public class Screen0011 extends ScreenCoreState2D<StateCenter0001,StateEntity000
   }
   public Screen0011() {
     loadSettings();
+    // settings.frameRateFix=false;
+    // doUpdateThread=settings.frameRateFix;
     checkNeedLog();
-    if(settings.overridePlatform) isAndroid=settings.isAndroid;
+    if(SystemSetting.data.overridePlatform) isAndroid=SystemSetting.data.isAndroid;
   }
   public void debugInfoChange() {
     debugInfoChange(settings.debugInfo||settings.showLog);
@@ -138,11 +144,8 @@ public class Screen0011 extends ScreenCoreState2D<StateCenter0001,StateEntity000
     if(in) {
       if(profiler==null) {
         profiler=new GLProfiler(Gdx.graphics);
-        profiler.setListener(new GLErrorListener() {
-          @Override
-          public void onError(int error) {
-            throw new UnsupportedOperationException("error="+error);
-          }
+        profiler.setListener(error-> {
+          throw new UnsupportedOperationException("error="+error);
         });
       }
       profiler.enable();
@@ -156,7 +159,7 @@ public class Screen0011 extends ScreenCoreState2D<StateCenter0001,StateEntity000
     Settings.initLocalization(this);
     noStroke();
     buttons=UiGenerator.genButtons_0008(this);
-    if(settings.zoomButton) for(TextButton<?> e:buttons) centerScreen.add.add(e);
+    if(settings.zoomButton) Collections.addAll(centerScreen.add,buttons);
     stateCenter=new StateCenter0001(this);
     State0001Util.loadState0001(this,stateCenter);
     postSettings();
@@ -203,21 +206,11 @@ public class Screen0011 extends ScreenCoreState2D<StateCenter0001,StateEntity000
   public void initSettings() {
     settings=new SettingsData();
     settings.langType="zh_CN";
-    settings.isAndroid=Gdx.app.getType()==ApplicationType.Android;
+    SystemSetting.data.isAndroid=Gdx.app.getType()==ApplicationType.Android;
   }
   public void saveSettings() {
     KryoUtil.save(kryo,settingsFile,settings);
-  }
-  public StateEntity0001 stateNull() {
-    StateEntity0001 out=state;
-    state=null;
-    if(out!=null) {
-      centerScreen.list.remove(out);
-      centerCam.list.remove(out.displayCam);
-      out.to(null);
-      out.pause();
-    }
-    return out;
+    SystemSetting.save();
   }
   @Override
   public void update() {

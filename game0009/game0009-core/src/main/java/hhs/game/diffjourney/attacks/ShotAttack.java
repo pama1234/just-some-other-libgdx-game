@@ -1,11 +1,11 @@
 package hhs.game.diffjourney.attacks;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
 import com.dongbat.jbump.CollisionFilter;
@@ -25,7 +25,7 @@ import hhs.gdx.hsgame.util.Rect;
 import java.util.HashSet;
 
 public class ShotAttack extends BasicAttack{
-  public Pool<Bullet> pool=new Pool<Bullet>() {
+  public Pool<Bullet> pool=new Pool<>() {
     public Bullet newObject() {
       return new Bullet();
     }
@@ -39,14 +39,15 @@ public class ShotAttack extends BasicAttack{
       }
       if(other.userData instanceof Character c) {
         hurt(c);
-        EasyLabel el=EasyLabel.pool.obtain().set(Resource.font.newFont(32,Color.RED),5+"");
-        el.setPosition(b.pos).add(b.size.x/2,b.size.y/2);
-        el.size.set(b.size.y/2,b.size.y/2);
+        EasyLabel el=EasyLabel.newNumLabel(5,c.pos);
+        el.pos.add(c.size.x/2,c.size.y/2);
         screen.addEntity(el);
         b.collided=true;
         b.time=0;
       }
       if(other.userData instanceof Block) {
+        com.dongbat.jbump.Rect r=world.getRect(other);
+        if(tmp.set(r.x,r.y).sub(pos).len2()<2500) return null;
         b.collided=true;
         b.time=0;
       }
@@ -83,8 +84,7 @@ public class ShotAttack extends BasicAttack{
   @Override
   public void hurt(Character entity) {
     if(entity instanceof Character.CanBeHurt h) {
-      Character c=h.getHurt();
-      c.pos.add(tmp.set(c.pos).sub(pos).nor().scl(10));
+      Character c=h.getHurt(5,this);
     }
   }
   @Override
@@ -102,6 +102,15 @@ public class ShotAttack extends BasicAttack{
       b.render(batch);
     }
   }
+  @Override
+  public void debugDraw(ShapeRenderer sr) {
+    super.debugDraw(sr);
+    for(Bullet b:list) {
+      b.debugDraw(sr);
+    }
+    // TODO: Implement this method
+  }
+
   class Bullet extends BasicEntity implements Character.Attachable,Pool.Poolable{
     public Sprite texture=new Sprite(Resource.asset.get("bullet.png",Texture.class));
     float time=0;
@@ -111,16 +120,16 @@ public class ShotAttack extends BasicAttack{
     Item<Rect> item;
     boolean collided=false;
     public Bullet() {
-      size.set(18,48);
+      size.set(18,18);
       set();
     }
     public void set() {
       flag=false;
       collided=false;
-      if(item==null) item=world.add(new Item<Rect>(this),pos.x,pos.y,6,16);
+      if(item==null) item=world.add(new Item<>(this),pos.x,pos.y,6,16);
       pos.set(ShotAttack.this.pos).add(10,10);
       direction.set(ShotAttack.this.direction);
-      world.update(item,pos.x,pos.y,6,16);
+      world.update(item,pos.x,pos.y,6,6);
     }
     @Override
     public void reset() {

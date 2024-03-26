@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g3d.decals.Decal;
 import pama1234.gdx.game.dimensional.tower.defense.util.math.physics.HighMassPoint;
 import pama1234.gdx.game.dimensional.tower.defense.util.math.vec.Vec12f;
 import pama1234.gdx.game.dimensional.tower.defense.util.player.HighPlayer;
-import pama1234.gdx.game.ui.util.Button;
+import pama1234.gdx.game.ui.element.Button;
 import pama1234.gdx.util.FileUtil;
 import pama1234.gdx.util.app.ScreenCore3D;
 import pama1234.gdx.util.element.Graphics;
@@ -40,7 +40,7 @@ public class DemonDefense extends ScreenCore3D{
     playerImage=FileUtil.toTextureRegion(g.texture);
     yourself=new HighPlayer(this,new HighMassPoint(new Vec12f()),createPlayerDecal());
     centerCam.add.add(yourself);
-    
+
     textPose=new Pose3D(
       20,20,20,
       UtilMath.PI,UtilMath.PI,UtilMath.PI,

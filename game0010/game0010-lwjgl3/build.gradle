@@ -29,6 +29,7 @@ dependencies {
   implementation "$gdxModule:gdx-backend-lwjgl3:$gdxVersion"
   implementation "$gdxModule:gdx-platform:$gdxVersion:natives-desktop"
 
+  implementation "$pama1234RepoLocation:lwjgl-framework:$pama1234PublishVersion"
   implementation project(':game0010:game0010-core')
 }
 

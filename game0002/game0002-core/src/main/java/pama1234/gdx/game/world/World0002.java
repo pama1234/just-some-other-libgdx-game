@@ -14,7 +14,7 @@ import pama1234.util.function.ExecuteFunction;
 
 public class World0002 extends Entity<UtilScreen2D> implements DisplayEntityListener{
   ControlBindUtil controlBind;
-  
+
   public int maxParticle;
   public int particleCount;
   public CellGroup2D group;

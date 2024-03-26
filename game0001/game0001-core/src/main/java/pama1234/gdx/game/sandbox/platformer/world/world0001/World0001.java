@@ -4,12 +4,16 @@ import java.util.Arrays;
 
 import com.badlogic.gdx.Gdx;
 
+import pama1234.gdx.SystemSetting;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.sandbox.platformer.entity.center.MultiGameEntityCenter0001;
 import pama1234.gdx.game.sandbox.platformer.metainfo.MetaBlock;
 import pama1234.gdx.game.sandbox.platformer.metainfo.MetaCreature;
 import pama1234.gdx.game.sandbox.platformer.metainfo.MetaItem;
+import pama1234.gdx.game.sandbox.platformer.metainfo.info0001.center.MetaBlockCenter0001;
+import pama1234.gdx.game.sandbox.platformer.metainfo.info0001.center.MetaCreatureCenter0001;
+import pama1234.gdx.game.sandbox.platformer.metainfo.info0001.center.MetaItemCenter0001;
 import pama1234.gdx.game.sandbox.platformer.net.NetMode;
 import pama1234.gdx.game.sandbox.platformer.player.MainPlayer;
 import pama1234.gdx.game.sandbox.platformer.region.LoopThread;
@@ -24,7 +28,7 @@ import pama1234.gdx.game.sandbox.platformer.world.background.Sky;
 import pama1234.gdx.game.sandbox.platformer.world.background.TextureBackground;
 import pama1234.gdx.game.state.state0001.Game;
 import pama1234.gdx.game.state.state0001.State0001Util.StateEntity0001;
-import pama1234.gdx.game.util.Mutex;
+import pama1234.util.Mutex;
 
 public class World0001 extends WorldBase2D<WorldType0001>{
   public World0001(Screen0011 p,Game pg,WorldType0001 type) {
@@ -37,7 +41,7 @@ public class World0001 extends WorldBase2D<WorldType0001>{
     }else data=new WorldData();
     metaBlocks=type.metaBlocks;
     metaItems=type.metaItems;
-    metaEntitys=type.metaEntitys;
+    metaEntities=type.metaEntitys;
     initCenter();
     regionGeneratorFix();
     r=new RegionWrapper(this);
@@ -73,9 +77,14 @@ public class World0001 extends WorldBase2D<WorldType0001>{
   public void init() {
     super.init();
     sky.init();
+
+    WorldMetaInfoGenerator.loadBlockC(type,(MetaBlockCenter0001<WorldType0001Base<?>>)metaBlocks);
+    WorldMetaInfoGenerator.loadItemC(type,(MetaItemCenter0001<WorldType0001Base<?>>)metaItems);
+    WorldMetaInfoGenerator.loadCreatureC(type,(MetaCreatureCenter0001<? super WorldType0001>)metaEntities);
+
     for(MetaBlock<?,?> e:metaBlocks.list) e.init();
     for(MetaItem e:metaItems.list) e.init();
-    for(MetaCreature<?> e:metaEntitys.list) e.init();
+    for(MetaCreature<?> e:metaEntities.list) e.init();
     for(int i=0;i<background.background0001.list.size();i++) background.background0001.list.get(i).setTexture(ImageAsset.backgroundList[4-i]);
     // regionGeneratorFix();
     if(netMode()!=NetMode.Client) {
@@ -98,6 +107,7 @@ public class World0001 extends WorldBase2D<WorldType0001>{
     // p.cam2d.minScale=0.25f;
     p.cam2d.minScale=p.isAndroid?0.25f:0.5f;
     p.cam2d.testScale();
+
     p.cam.point.pos.set(yourself.cx(),yourself.cy());
     p.cam.point.des.set(p.cam.point.pos);
     p.centerCam.add.add(yourself);
@@ -108,6 +118,7 @@ public class World0001 extends WorldBase2D<WorldType0001>{
     p.cam2d.active(true);
     p.cam2d.minScale=1;
     p.cam2d.testScale();
+
     yourself.camScale=p.cam2d.scale.des;
     p.centerCam.remove.add(yourself);
   }
@@ -119,7 +130,7 @@ public class World0001 extends WorldBase2D<WorldType0001>{
   @Override
   public void resumeLoad() {
     for(LoopThread e:regions.loops) e.doFinished=LoopThread.doNothing;
-    if(p.settings.printLog) System.out.println("World0001.resumeLoad()");
+    if(SystemSetting.data.printLog) System.out.println("World0001.resumeLoad()");
     saving.step();
     yourself.load();
     regions.load();
@@ -138,7 +149,7 @@ public class World0001 extends WorldBase2D<WorldType0001>{
   @Override
   public void pauseSave() {
     saving.lock();
-    if(p.settings.printLog) System.out.println("World0001.pauseSave()");
+    if(SystemSetting.data.printLog) System.out.println("World0001.pauseSave()");
     WorldData.save(worldDataDir,data);
     regions.innerSave();
     yourself.save();
@@ -160,6 +171,15 @@ public class World0001 extends WorldBase2D<WorldType0001>{
     sky.updateColor();
   }
   @Override
+  public void display() {
+    super.display();
+  }
+  @Override
+  public void displayScreen() {
+    super.displayScreen();
+    yourself.displayScreen();
+  }
+  @Override
   public void dispose() {
     super.dispose();
     if(pg.netMode!=NetMode.Client) disposeSave();
@@ -168,14 +188,22 @@ public class World0001 extends WorldBase2D<WorldType0001>{
    * 在不处于多人游戏客户端模式时进行保存
    */
   public void disposeSave() {
-    if(p.settings.printLog) System.out.println("World0001.disposeSave()");
+    if(SystemSetting.data.printLog) System.out.println("World0001.disposeSave()");
     WorldData.save(worldDataDir,data);
     yourself.save();
     regions.stop=true;
     regions.save();
     regions.dispose();
 
-    WorldMetaInfoUtil.saveBlockC(metaBlocks);
+    //    var e=metaBlocks.dirt;
+    //    String ts=MetaPropertiesCenter.YAML.save(e);
+    //    Gdx.files.local("data/saved/definition/block/"+e.name+".yaml").writeString(ts,false);
+
+    boolean onlyWriteChangedFile=true;
+
+    WorldMetaInfoGenerator.saveBlockC(metaBlocks,onlyWriteChangedFile);
+    WorldMetaInfoGenerator.saveItemC(metaItems,onlyWriteChangedFile);
+    WorldMetaInfoGenerator.saveCreatureC(metaEntities,onlyWriteChangedFile);
   }
   @Deprecated
   public void updateRectLighting(int x,int y) {

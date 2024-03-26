@@ -1,8 +1,8 @@
 package pama1234.gdx.game.util.input;
 
 import pama1234.gdx.game.app.app0002.Screen0005;
+import pama1234.gdx.game.ui.element.TextButton;
 import pama1234.gdx.game.ui.generator.UiGenerator;
-import pama1234.gdx.game.ui.util.TextButton;
 import pama1234.gdx.util.entity.Entity;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.math.UtilMath;

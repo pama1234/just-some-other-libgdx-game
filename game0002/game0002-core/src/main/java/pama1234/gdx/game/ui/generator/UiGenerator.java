@@ -2,7 +2,7 @@ package pama1234.gdx.game.ui.generator;
 
 import com.badlogic.gdx.Input;
 
-import pama1234.gdx.game.ui.util.TextButton;
+import pama1234.gdx.game.ui.element.TextButton;
 import pama1234.gdx.util.app.ScreenCore2D;
 import pama1234.gdx.util.ui.UiGeneratorBase;
 

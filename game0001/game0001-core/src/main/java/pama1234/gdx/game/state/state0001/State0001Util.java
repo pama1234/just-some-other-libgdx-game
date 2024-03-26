@@ -16,8 +16,9 @@ public class State0001Util{
     center.list.add(center.game=new Game(in,4));
     center.list.add(center.settings=new Settings(in,5));
     center.list.add(center.announcement=new Announcement(in,6));
-    center.list.add(center.exception=new ExceptionState(in,7));
-    center.list.add(center.debug=new Debug(in,8));
+    center.list.add(center.editor=new Editor(in,7));
+    center.list.add(center.exception=new ExceptionState(in,8));
+    center.list.add(center.debug=new Debug(in,9));
   }
   public static abstract class StateEntity0001 extends StateEntityBase<Screen0011,StateEntityListener0001,StateEntity0001> implements StateEntityListener0001{
     public StateEntity0001(Screen0011 p,int id) {
@@ -31,13 +32,18 @@ public class State0001Util{
   public static class StateCenter0001 extends StateCenter<Screen0011,StateEntity0001>{
     public FirstRun firstRun;
     public Loading loading;
+
     public StartMenu startMenu;
     public GameMenu gameMenu;
+
     public Game game;
     public Settings settings;
     public Announcement announcement;
+    public Editor editor;
+
     public ExceptionState exception;
     public Debug debug;
+
     public StateCenter0001(Screen0011 p) {
       super(p);
     }

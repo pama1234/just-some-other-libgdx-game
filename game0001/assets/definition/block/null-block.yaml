@@ -1,0 +1,50 @@
+!<StoredInfo>
+attr: !<MetaBlockAttribute>
+  blockType: 3
+  buildTime: 2147483647
+  defaultDisplayType: 0
+  destroyTime: 2147483647
+  display: true
+  displayNames: null
+  displayTypeSize: 1
+  empty: false
+  fullBlock: true
+  fullBlockType: 0
+  hardness: 1.0
+  height: 1
+  intData: null
+  light: false
+  lightIntensity: 0.0
+  rectSolid: null
+  width: 1
+  workStation: false
+id: 15
+name: null-block
+sttr: !<MetaBlockStoredAttribute>
+  displayUpdater: null
+  displayer: null
+  from: null
+  itemDrop: null
+  tiles:
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 40, y: 200}
+  - null
+  - null
+  - null
+  - null
+  - null
+  - null
+  - null
+  - null
+  - null
+  - null
+  - null
+  - null
+  - null
+  - null
+  - null
+  - null
+  - null
+  - null
+  - null
+  to: null
+  updater: null

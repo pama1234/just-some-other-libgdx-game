@@ -11,7 +11,7 @@ public class Server0001Core{
   public Center<SocketData0001> socketCenter;
   public Center<ServerRead> serverReadPool;
   public Center<ServerWrite> serverWritePool;
-  
+
   public CellGroup3D group;
   public ServerPlayerCenter3D playerCenter;
   public Server0001Core(Center<SocketData0001> socketCenter,Center<ServerRead> serverReadPool,Center<ServerWrite> serverWritePool,CellGroup3D group,ServerPlayerCenter3D playerCenter) {

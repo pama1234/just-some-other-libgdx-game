@@ -2,11 +2,18 @@
 eclipse.project.name = appName + '0007-core'
 
 dependencies {
-  api "$gdxCustomModule:gdx:$gdxCustomVersion"
+  // api "$gdxCustomModule:gdx:$gdxCustomVersion"
 
-  api project(":framework")
+  api "$pama1234RepoLocation:server-framework:$pama1234PublishVersion"
+  api "$pama1234RepoLocation:framework:$pama1234PublishVersion"
 
-  api project(":framework0001:framework0001-box2d")
+  api ("$pama1234RepoLocation:framework-box2d:$pama1234PublishVersion") {
+    // exclude group: "$pama1234RepoLocation", module: "server-framework"
+    // exclude group: "$pama1234RepoLocation", module: "framework"
+    // exclude group: "com.esotericsoftware", module: "reflectasm"
+    // exclude group: "space.earlygrey", module: "shapedrawer"
+    // exclude group: "org.jbox2d", module: "jbox2d-library"
+  }
 
   api project(':game0007:game0007-server')
 }

@@ -9,6 +9,7 @@ import pama1234.math.UtilMath;
 public class DisplaySlot{
   public ItemSlot data;
   public float cx,cy,x1,y1,x2,y2,w1,h1,w2,h2;
+
   public DisplaySlot(ItemSlot pos) {
     this.data=pos;
   }
@@ -60,10 +61,31 @@ public class DisplaySlot{
       h2=tr.getRegionHeight()/3f*2;
     }
   }
+  public void setDisplaySizeScreen(int bu) {
+    setDisplaySizeScreen(data.item,bu);
+  }
+  public void setDisplaySizeScreen(Item in,int bu) {
+    if(in==null) {
+      w1=h1=bu*0.5f;
+      w2=h2=0;
+    }else {
+      // TextureRegion tr=in.type.rttr.tiles[in.displayType()];
+      w1=bu*0.5f;
+      h1=bu*0.5f;
+      w2=bu/3f;
+      h2=bu/3f;
+    }
+  }
   public float w3() {
     return (w1-w2)/2f;
   }
   public float h3() {
     return (h1-h2)/2f;
+  }
+  public void gridUpdateScreen(float x,float y,int bu) {
+    cx=x;
+    cy=y;
+    setDisplaySizeScreen(data.item,bu);
+    updatePosition();
   }
 }

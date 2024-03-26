@@ -7,16 +7,18 @@ import com.badlogic.gdx.input.GestureDetector;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Pool;
-import com.badlogic.gdx.utils.Pools;
 import hhs.game.diffjourney.attacks.ShotAttack;
 import hhs.game.diffjourney.entities.Enemy1;
+import hhs.game.diffjourney.entities.Mushroom;
 import hhs.game.diffjourney.entities.Protagonist;
+import hhs.game.diffjourney.entities.enemies.MultipleEnemyGenerator;
 import hhs.game.diffjourney.map.Map;
+import hhs.game.diffjourney.map.MiniMap;
 import hhs.game.diffjourney.map.Region;
 import hhs.game.diffjourney.screens.GameScreen;
 import hhs.gdx.hsgame.tools.CameraControlGesturer;
-import hhs.gdx.hsgame.tools.CameraTool;
 import hhs.gdx.hsgame.tools.ColorTool;
+import hhs.gdx.hsgame.tools.EntityTool;
 import hhs.gdx.hsgame.tools.PixmapBuilder;
 import hhs.gdx.hsgame.tools.Resource;
 import hhs.gdx.hsgame.tools.TextureTool;
@@ -35,11 +37,12 @@ public class TestSence extends GameScreen{
   // Music play = Resource.asset.get("music/play.mp3");
   RNG rseed=new RNG(MathUtils.random(21000000));
   AStarSearch map;
-  Pool<Enemy1> pool;
+  Pool<Mushroom> pool;
   public TestSence() {
+    // setDebug(true);
     // play.setLooping(true);
     input.addProcessor(new GestureDetector(new CameraControlGesturer(camera)));
-    FlowingCaveGenerator dg=new FlowingCaveGenerator(500,500);
+    FlowingCaveGenerator dg=new FlowingCaveGenerator(100,100);
     //dg.addGrass(SectionDungeonGenerator.CORRIDOR);
     //dg.addWater(SectionDungeonGenerator.CAVE);
     addEntity(m=new Map(dg.generate(),1,camera));
@@ -51,12 +54,10 @@ public class TestSence extends GameScreen{
     // camera));
     c.setCurr(m);
     //map=new AStarSearch(m.map,AStarSearch.SearchType.DIJKSTRA);
-    pool=Pools.get(Enemy1.class);
     for(int i=0;i<50;i++) {
-      Enemy1 e=pool.obtain();
+      Enemy1 e=MultipleEnemyGenerator.getEnemy1();
       e.set(m,c);
       randomPos(rseed,e.pos,m.map,100,100);
-      e.size.set(c.size).scl(2);
       addEntity(e);
       e.zindex=1;
       e.setInfo();
@@ -98,6 +99,23 @@ public class TestSence extends GameScreen{
     nf.setPosition(0,Resource.height);
     nf.add(()->"血量："+c.data.hp,()->c.data.hp/100f,Resource.font.newFont(64,Color.BLUE));
     stage.addActor(nf);
+
+    final MiniMap map=new MiniMap(m);
+    addEntity(map);
+    d.addTrace(()->camera.position.toString());
+    d.addTrace(()->"sr:"+map.tmp.toString());
+
+    addEntity(
+      EntityTool.createUpdater(
+        (d)-> {
+          if(layers.middle.sons.size<200) {
+            Enemy1 e=MultipleEnemyGenerator.getEnemy1();
+            e.set(m,c);
+            randomPos(rseed,e.pos,m.map,100,100);
+            addEntity(e);
+            e.setInfo();
+          }
+        }));
   }
   public static void randomPos(RNG rseed,Vector2 pos,char[][] map,int w,int h) {
     int a=rseed.between(0,w),b=rseed.between(0,h);
@@ -122,19 +140,5 @@ public class TestSence extends GameScreen{
     super.hide();
     // play.stop();
     // TODO: Implement this method
-  }
-  @Override
-  public void render(float arg0) {
-    while(entities.size<200) {
-      Enemy1 e=pool.obtain();
-      e.set(m,c);
-      randomPos(rseed,e.pos,m.map,100,100);
-      e.size.set(c.size).scl(2);
-      addEntity(e);
-      e.zindex=1;
-      e.setInfo();
-    }
-    CameraTool.smoothMove(camera,c.pos.x+c.size.x/2,c.pos.y+c.size.y/2);
-    super.render(arg0);
   }
 }

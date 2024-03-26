@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import hhs.game.diffjourney.map.Collision;
-import hhs.game.diffjourney.util.JsonAnimationLoader;
+import hhs.game.diffjourney.util.XmlAnimationLoader;
 import hhs.gdx.hsgame.tools.EntityTool;
 import squidpony.squidmath.AStarSearch;
 import squidpony.squidmath.Coord;
@@ -23,7 +23,7 @@ public class Enemy extends Character<Enemy.EnemyState,Enemy>
   public Enemy(Collision c,Protagonist pro,AStarSearch map) {
     super(c,pro);
     search=map;
-    animation=JsonAnimationLoader.getAnimationSet("Mushroom.xml");
+    animation=XmlAnimationLoader.getAnimationSet("Mushroom.xml");
     machine.set(EnemyState.find,(d,e,p)-> {
       victroy.set(0,0);
       ftime+=d;
@@ -80,16 +80,14 @@ public class Enemy extends Character<Enemy.EnemyState,Enemy>
       if(rect.overlaps(Rectangle.tmp.set(pro.pos.x,pro.pos.y,pro.size.x,pro.size.y))) {
         state=State.attack;
         move=false;
-        if(pro.autoFilp) pro.hit(this);
-        pro.data.hp--;
-        pro.newNumLabel(1);
+        pro.getHurt(1,this);
       }else {
         move=true;
-        if(state!=State.stop&&state!=State.walk) state=State.stop;
+        if(state!=State.idle&&state!=State.walk) state=State.idle;
       }
     }
   }
-  public Enemy getHurt() {
+  public Enemy getHurt(float damage,Attachable attack) {
     animation.state(State.hurt);
     return this;
   }

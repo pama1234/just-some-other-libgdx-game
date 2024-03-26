@@ -2,6 +2,7 @@ package pama1234.gdx.game.sandbox.platformer.region;
 
 import com.badlogic.gdx.Gdx;
 
+import pama1234.gdx.SystemSetting;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.sandbox.platformer.entity.GamePointEntity;
 import pama1234.gdx.game.sandbox.platformer.entity.LivingEntity;
@@ -79,11 +80,11 @@ public class RegionGenerator{
       }
     }
     if(region.entities!=null) {
-      if(p.settings.printLog) {
+      if(SystemSetting.data.printLog) {
         System.out.println("gen region "+region.x+" "+region.y+" entities="+region.entities.length);
         for(GamePointEntity<?> e:region.entities) System.out.println(e.getClass().getSimpleName()+" "+e.point.pos);
       }
-      MetaCreature<?>[] mcreature=world.metaEntitys.array();
+      MetaCreature<?>[] mcreature=world.metaEntities.array();
       for(GamePointEntity<?> e:region.entities) if(e instanceof LivingEntity a) a.deserializationInit(p,world,mcreature[a.typeId]);
       pe.acceptAll(region.entities);
       region.entities=null;

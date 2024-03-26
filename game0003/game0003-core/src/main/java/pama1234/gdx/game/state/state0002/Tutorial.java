@@ -19,7 +19,7 @@ public class Tutorial extends Game{
   public TextButton<?> skipButton;
   public Tutorial(Duel p,int id) {
     super(p,id);
-    skipButton=new TextButton<Duel>(p,self->self.text="跳过",()->true,true).allTextButtonEvent(self-> {},self-> {},self-> {
+    skipButton=new TextButton<>(p,self->self.text="跳过",()->true,true).allTextButtonEvent(self-> {},self-> {},self-> {
       p.state(p.stateCenter.startMenu);
       p.config.data.firstPlay=false;
     }).rectAutoWidth(()->(int)(p.width-p.bu*2.5f),()->(int)(p.bu*1.5f),()->p.bu-p.pus).mouseLimit(true);

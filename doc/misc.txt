@@ -1,1 +1,10 @@
 匹配所有注释的正则表达式：//.*|/\*[\s\S\n]*?\*/
+
+如何迁移项目：
+
+1. `git clone`
+2. 复制`local.properties`
+3. 复制`doc/signing`中的内容
+4. 复制`.vscode/`文件夹
+
+pseudo=假的

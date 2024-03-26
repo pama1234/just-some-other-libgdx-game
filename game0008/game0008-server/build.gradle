@@ -5,13 +5,23 @@ mainClassName = 'pama1234.gdx.game.app.server.ServerLauncher'
 eclipse.project.name = appName + '0008-server'
 
 dependencies {
-  implementation project(':server-framework')
+  implementation("$pama1234RepoLocation:server-framework:$pama1234PublishVersion")
 
-  api project(":framework0001:framework0001-yaml")
-
+  api 'com.lmax:disruptor:4.0.0'
+  api ("$pama1234RepoLocation:framework-netty:$pama1234PublishVersion")
+  // api 'com.github.l42111996:kcp-base:1.6'
+  api 'org.lz4:lz4-java:1.8.0'
+  
   api "javax.vecmath:vecmath:$vecmathVersion"
   api "com.esotericsoftware:kryo:$kryoVersion"
+
+  api 'org.slf4j:slf4j-api:2.0.11'
+  implementation 'org.slf4j:slf4j-simple:2.0.9'
 }
+
+// repositories {
+//   maven { url '	https://repo1.maven.org/maven2/' }
+// }
 
 jar {
   archiveBaseName.set(eclipse.project.name)

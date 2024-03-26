@@ -1,22 +1,20 @@
 apply plugin: 'application'
 
-apply plugin: 'com.google.protobuf'
-
 sourceCompatibility = 17
 mainClassName = 'pama1234.gdx.game.app.server.ServerLauncher'
 eclipse.project.name = appName + '0007-server'
 
 dependencies {
-  implementation project(":server-framework")
+  api("$pama1234RepoLocation:server-framework:$pama1234PublishVersion") {
+    // exclude group: "com.esotericsoftware", module: "reflectasm"
+  }
 
-  api project(":framework0001:framework0001-yaml")
-  api project(":framework0001:framework0001-protobuf")
-  api project(":framework0001:framework0001-neat")
+  // api ("$pama1234RepoLocation:framework-neat:$pama1234PublishVersion")
 
-  api "javax.vecmath:vecmath:$vecmathVersion"
-  api "com.esotericsoftware:kryo:$kryoVersion"
+  // api "javax.vecmath:vecmath:$vecmathVersion"
+  // api "com.esotericsoftware:kryo:$kryoVersion"
 
-  // api "org.jbox2d:jbox2d-library:$jbox2dVersion"
+  api "org.jbox2d:jbox2d-library:$jbox2dVersion"
 }
 
 jar {

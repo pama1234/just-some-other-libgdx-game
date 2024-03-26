@@ -1,7 +1,5 @@
 package pama1234.gdx.game.sandbox.platformer.region.block.workstation;
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-
 import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.sandbox.platformer.entity.entity0001.DroppedItem;
 import pama1234.gdx.game.sandbox.platformer.item.DisplaySlot;
@@ -14,6 +12,8 @@ import pama1234.gdx.game.sandbox.platformer.region.block.Block.BlockUi;
 import pama1234.gdx.game.sandbox.platformer.world.WorldBase2D;
 import pama1234.gdx.game.sandbox.platformer.world.world0001.WorldType0001Base;
 import pama1234.gdx.game.ui.element.TextButtonCam;
+
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class Chest extends MetaBlock<WorldType0001Base<?>,MetaBlockCenter0001<WorldType0001Base<?>>>{
   public int sloatSize=9,sloatDisplayWidth=3;

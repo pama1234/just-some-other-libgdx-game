@@ -1,7 +1,7 @@
 package pama1234.gdx.game.state.state0005;
 
 import pama1234.gdx.game.state.state0005.State0005Util.StateEntity0005;
-import pama1234.gdx.game.ui.util.TextButtonCam;
+import pama1234.gdx.game.ui.element.TextButtonCam;
 import pama1234.gdx.game.util.ParticleScreen3D;
 import pama1234.gdx.util.wrapper.DisplayEntity;
 

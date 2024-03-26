@@ -7,7 +7,17 @@ import pama1234.gdx.util.entity.Entity;
 import pama1234.gdx.util.info.ScreenCamInfo;
 import pama1234.gdx.util.info.TouchInfo;
 
+/**
+ * 根据方框范围和玩家触碰开始位置生效的摇杆
+ * 
+ * @see GameController#display()
+ * @see GameController#update{}
+ * @see GameController#frameResized{}
+ * @see GameController#touchStarted{}
+ * @see GameController#touchEnded{}
+ */
 public abstract class GameController extends Entity<Screen0011>{
+  public boolean active=true;
   public float maxDist;
   public float mx,my;
   // public float mag;
@@ -48,6 +58,7 @@ public abstract class GameController extends Entity<Screen0011>{
   }
   @Override
   public void update() {
+    if(!active) return;
     if(data==null) return;
     dx=data.ox-data.osx;
     dy=data.oy-data.osy;
@@ -121,6 +132,7 @@ public abstract class GameController extends Entity<Screen0011>{
   }
   @Override
   public void touchStarted(TouchInfo info) {
+    if(!active) return;
     dataStart(info);
   }
   @Override

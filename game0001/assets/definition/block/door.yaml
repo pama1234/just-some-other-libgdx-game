@@ -1,0 +1,36 @@
+!<StoredInfo>
+attr: !<MetaBlockAttribute>
+  blockType: 4
+  buildTime: 60
+  defaultDisplayType: 0
+  destroyTime: 120
+  display: true
+  displayNames: null
+  displayTypeSize: 1
+  empty: false
+  fullBlock: false
+  fullBlockType: 0
+  hardness: 1.0
+  height: 3
+  intData: null
+  light: false
+  lightIntensity: 0.0
+  rectSolid: null
+  width: 2
+  workStation: false
+id: 18
+name: door
+sttr: !<MetaBlockStoredAttribute>
+  displayUpdater: null
+  displayer: null
+  from: null
+  itemDrop: null
+  tiles:
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 120, y: 200}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 120, y: 220}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 160, y: 240}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 138, y: 200}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 138, y: 220}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 178, y: 240}
+  to: null
+  updater: null

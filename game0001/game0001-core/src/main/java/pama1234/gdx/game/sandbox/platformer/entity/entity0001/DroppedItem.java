@@ -91,7 +91,7 @@ public class DroppedItem extends LivingEntity{
       x,y,
       world.random(-randomConst,randomConst)*world.settings.blockWidth,
       world.random(-randomConst/2,-randomConst)*world.settings.blockHeight,
-      world.metaEntitys.droppedItem,e);
+      world.metaEntities.droppedItem,e);
     out.owner(pe);
     world.entities.items.add.add(out);
   }
@@ -103,7 +103,7 @@ public class DroppedItem extends LivingEntity{
         // 0,0,
         world.random(-randomConst,randomConst)*world.settings.blockWidth,
         world.random(randomConst/2,randomConst)*world.settings.blockHeight*(ceilingEmpty?-1:1),
-        world.metaEntitys.droppedItem,e));
+        world.metaEntities.droppedItem,e));
   }
   public static class DroppedItemType extends MetaCreature<DroppedItem>{
     {

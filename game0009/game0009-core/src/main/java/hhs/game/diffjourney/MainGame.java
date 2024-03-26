@@ -14,6 +14,7 @@ import hhs.gdx.hsgame.screens.BasicScreen;
 import hhs.gdx.hsgame.tools.BasicLoader;
 import hhs.gdx.hsgame.tools.FontManager;
 import hhs.gdx.hsgame.tools.Resource;
+import hhs.gdx.hsgame.util.GameAssetManager;
 
 public class MainGame extends Game{
   Resource res;
@@ -23,6 +24,8 @@ public class MainGame extends Game{
   @Override
   public void create() {
     res=new Resource(this);
+    res.asset=new GameAssetManager();
+    res.init();
     asset=res.asset;
     load();
     setScreen(basicLoader=new BasicLoader(asset,MainScreen.class));
@@ -41,7 +44,10 @@ public class MainGame extends Game{
     asset.load("font.ttf",FreeTypeFontGenerator.class);
     asset.load("music/start.mp3",Music.class);
     asset.load("music/play.mp3",Music.class);
+    asset.load("map/map.atlas",TextureAtlas.class);
+    asset.load("textures/character.atlas",TextureAtlas.class);
     loadTexture("anim/blink.png");
+    loadTexture("null.png");
     loadTexture("ele.png");
     loadTexture("dian.png");
     loadTexture("pao.png");
@@ -51,7 +57,6 @@ public class MainGame extends Game{
     loadTexture("Mushroom/Hit.png");
     loadTexture("Mushroom/Attack.png");
     loadTexture("Mushroom/Death.png");
-    asset.load("map/map.atlas",TextureAtlas.class);
     loadTexture("praticle/praticle1.png");
     loadTexture("praticle/praticle2.png");
   }

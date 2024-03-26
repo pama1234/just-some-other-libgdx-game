@@ -18,7 +18,7 @@ import pama1234.util.Annotations.ScreenDescription;
 @ScreenDescription("3D 粒子系统 单机模式")
 public class Screen0001 extends ParticleScreen3D{
   // public MainMenu mainMenu;
-  
+
   public boolean displayHint;
   public Decal infoD;
   public Decal logo;
@@ -32,7 +32,7 @@ public class Screen0001 extends ParticleScreen3D{
     setupCamera();
     backgroundColor(0);
     textColor(255);
-    
+
     stateCenter=new StateCenter0005(this);
     State0005Util.loadState0005(this,stateCenter);
     // state(stateCenter.game);
@@ -67,7 +67,7 @@ public class Screen0001 extends ParticleScreen3D{
   public void update() {}
   @Override
   public void displayWithCam() {
-    
+
     // Gdx.gl.glEnable(GL20.GL_DEPTH_TEST);
     // Gdx.gl20.glDepthMask(false);
     // world.displayCam();

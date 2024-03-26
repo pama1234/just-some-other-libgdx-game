@@ -1,6 +1,5 @@
 package hhs.game.diffjourney.entities;
 
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
@@ -8,18 +7,18 @@ import com.dongbat.jbump.Item;
 import com.dongbat.jbump.Response;
 import com.dongbat.jbump.World;
 import hhs.game.diffjourney.map.Collision;
-import hhs.game.diffjourney.util.JsonAnimationLoader;
+import hhs.game.diffjourney.util.XmlAnimationLoader;
 import hhs.gdx.hsgame.entityUi.EasyLabel;
+import hhs.gdx.hsgame.tools.CameraTool;
 import hhs.gdx.hsgame.tools.ImpactBox;
-import hhs.gdx.hsgame.tools.Resource;
 import hhs.gdx.hsgame.ui.Controller.Controlable;
 import hhs.gdx.hsgame.util.Rect;
 import squidpony.squidgrid.FOV;
 import squidpony.squidgrid.Radius;
 import squidpony.squidgrid.mapping.DungeonUtility;
 
-public class Protagonist extends Character<Character.State,Protagonist> implements Controlable{
-  int speed=200;
+public class Protagonist extends Character<Character.State,Protagonist> implements Controlable,Character.CanBeHurt<Protagonist>{
+  public int speed=200;
   boolean direct=true;
   Collision curr=null;
   public Item<Rect> info;
@@ -35,10 +34,10 @@ public class Protagonist extends Character<Character.State,Protagonist> implemen
     super(null,null);
     data.hp=100;
     data.maxHp=100;
-    animation.put(JsonAnimationLoader.getAnimationSet("Mushroom.xml"));
+    animation.put(XmlAnimationLoader.getAnimationSet("Mushroom.xml"));
     size.set(20*1.5f,30*1.5f);
     pos.set(0,0);
-    animation.state(State.stop);
+    animation.state(State.idle);
   }
   @Override
   public void control(float delta,Vector2 knob) {
@@ -55,21 +54,21 @@ public class Protagonist extends Character<Character.State,Protagonist> implemen
       temp.set(pos).add(direction);
       Response.Result r=world.move(info,temp.x,temp.y,normal);
       pos.set(r.goalX,r.goalY);
+    }else {
+      pos.add(direction);
     }
   }
   @Override
   public void notControl(float delta) {
-    if(animation.curr!=State.hurt) animation.state(State.stop);
+    if(animation.curr!=State.hurt) animation.state(State.idle);
   }
   Vector2 tp=new Vector2();
-  public void hit(Character c) {
-    direct=tp.set(c.pos).scl(pos).x>0?false:true;
-    animation.state(State.hurt);
-  }
   @Override
   public void dispose() {}
   @Override
   public void update(float delta) {
+    CameraTool.smoothMove(cam,pos.x+size.x/2,pos.y+size.y/2);
+
     rect.set(pos.x,pos.y,size.x,size.y);
     machine.update(delta);
     animation.update(delta);
@@ -87,7 +86,7 @@ public class Protagonist extends Character<Character.State,Protagonist> implemen
       }
     }
     if(animation.curr==State.hurt&&animation.loop) {
-      animation.state(State.stop);
+      animation.state(State.idle);
     }
   }
   Vector2 quiver=new Vector2();
@@ -96,10 +95,8 @@ public class Protagonist extends Character<Character.State,Protagonist> implemen
     if(tr!=null) batch.draw(tr,pos.x-2*size.x,pos.y-size.y,size.x*5,size.x*5);
   }
   public void newNumLabel(int num) {
-    EasyLabel el=EasyLabel.pool.obtain().set(Resource.font.newFont(32,Color.RED),num+"");
-    el.setPosition(pos).add(size.x/2,size.y/2);
-    el.size.set(size.x/2,size.y/2);
-    el.screen=screen;
+    EasyLabel el=EasyLabel.newNumLabel(num,pos);
+    el.pos.add(size.x/2,size.y/2);
     screen.addEntity(el);
   }
   public Collision getCurr() {
@@ -107,7 +104,7 @@ public class Protagonist extends Character<Character.State,Protagonist> implemen
   }
   public void setCurr(Collision curr) {
     this.curr=curr;
-    info=curr.getCollisions().add(new Item<Rect>(this),pos.x,pos.y,size.x,size.y);
+    info=curr.getCollisions().add(new Item<>(this),pos.x,pos.y,size.x,size.y);
   }
   public char[][] getMap() {
     return this.map;
@@ -139,4 +136,14 @@ public class Protagonist extends Character<Character.State,Protagonist> implemen
       }
     }
   }
+
+  @Override
+  public Protagonist getHurt(float damage,Attachable attack) {
+    data.hp-=damage;
+    newNumLabel(1);
+    if(autoFilp&&attack instanceof Character c) direct=tp.set(c.pos).scl(pos).x>0?false:true;
+    animation.state(State.hurt);
+    return this;
+  }
+
 }

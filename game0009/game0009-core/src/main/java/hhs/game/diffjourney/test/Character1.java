@@ -3,7 +3,7 @@ package hhs.game.diffjourney.test;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import hhs.game.diffjourney.entities.Character;
-import hhs.game.diffjourney.util.JsonAnimationLoader;
+import hhs.game.diffjourney.util.XmlAnimationLoader;
 import hhs.gdx.hsgame.ui.Controller;
 
 public class Character1 extends Character<Character.State,Character1>
@@ -12,10 +12,10 @@ public class Character1 extends Character<Character.State,Character1>
   int speed=200;
   public Character1() {
     super(null,null);
-    animation.put(JsonAnimationLoader.getAnimationSet("Mushroom.xml"));
+    animation.put(XmlAnimationLoader.getAnimationSet("Mushroom.xml"));
     size.set(20*1.5f,30*1.5f);
     pos.set(0,0);
-    animation.state(State.stop);
+    animation.state(State.idle);
     autoFilp=false;
   }
   @Override
@@ -37,6 +37,6 @@ public class Character1 extends Character<Character.State,Character1>
   }
   @Override
   public void notControl(float delta) {
-    state=State.stop;
+    state=State.idle;
   }
 }

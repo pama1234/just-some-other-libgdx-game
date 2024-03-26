@@ -29,7 +29,7 @@ public class Loading extends StateEntity0001{
   @Override
   public void from(StateEntity0001 in) {
     manager.clear();//如果先前有残留的资源，先清除
-    p.centerScreen.add.add(progress=new ProgressBar<Screen0011>(p,manager));
+    p.centerScreen.add.add(progress=new ProgressBar<>(p,manager));
     p.stateCenter.game.firstInit=true;
     p.backgroundColor(0);
     p.textColor(255);

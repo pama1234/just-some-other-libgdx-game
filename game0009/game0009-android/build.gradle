@@ -1,9 +1,9 @@
 apply plugin: 'com.android.application'
 
 android {
-  namespace 'pama1234'
+  namespace 'hhs.game.diffjourney'
   compileSdk project.properties.compileSdkVersion.toInteger()
-  buildToolsVersion "33.0.1"
+//  buildToolsVersion "34.0.0"
   signingConfigs {
     release {
       // storeFile file('sign.jks')
@@ -39,8 +39,13 @@ android {
     exclude 'META-INF/DEPENDENCIES.txt'
     exclude 'META-INF/DEPENDENCIES'
     exclude 'META-INF/dependencies.txt'
+    exclude 'README.md'
+    exclude 'latestchanges.html'
+    exclude 'changelog.txt'
+    exclude 'AUTHORS'
   }
   defaultConfig {
+    compileSdk project.properties.compileSdkVersion.toInteger()
     applicationId 'hhs.game.diffjourney'
     minSdkVersion project.properties.minSdkVersion.toInteger()
     targetSdkVersion project.properties.targetSdkVersion.toInteger()
@@ -58,19 +63,20 @@ android {
   buildTypes {
     release {
       minifyEnabled true
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
-      signingConfig signingConfigs.release
+      proguardFiles getDefaultProguardFile('proguard-android.txt') , 'proguard-rules.pro'
+      signingConfig android.signingConfigs.release
+    }
+    debug {
+      signingConfig android.signingConfigs.release
     }
   }
 }
-
 def Properties props = new Properties()
-def propFile = rootProject.file('/doc/signing/signing.properties')
-if (propFile.canRead()){
+def propFile = new File(rootDir.getAbsoluteFile(),'/doc/signing/signing.properties')
+if(propFile.canRead()) {
   props.load(new FileInputStream(propFile))
 
-  if (props!=null && props.containsKey('STORE_FILE') && props.containsKey('STORE_PASSWORD') &&
+  if(props != null && props.containsKey('STORE_FILE') && props.containsKey('STORE_PASSWORD') &&
       props.containsKey('KEY_ALIAS') && props.containsKey('KEY_PASSWORD')) {
 
     android.signingConfigs.release.storeFile = file(props['STORE_FILE'])
@@ -78,14 +84,18 @@ if (propFile.canRead()){
     android.signingConfigs.release.keyAlias = props['KEY_ALIAS']
     android.signingConfigs.release.keyPassword = props['KEY_PASSWORD']
   } else {
+  
     android.buildTypes.release.signingConfig = null
   }
-}else {
+} else {
   android.buildTypes.release.signingConfig = null
 }
 
 repositories {
+  // flatDir { dirs 'libs' }
   // needed for AAPT2, may be needed for other tools
+  mavenCentral()
+  maven { url 'https://jitpack.io' }
   google()
 }
 
@@ -94,20 +104,24 @@ configurations { natives }
 dependencies {
   coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:$androidDesugarVersion"
 
-  implementation project(':game0009:game0009-core')
-
-  implementation ("$gdxModule:gdx-backend-android:$gdxVersion") {
-    exclude group: "com.badlogicgames.gdx"
+  implementation("$gdxModule:gdx-backend-android:$gdxVersion")
+  implementation "$pama1234RepoLocation:server-framework:$pama1234PublishVersion"
+  implementation("$pama1234RepoLocation:framework:$pama1234PublishVersion"){
+    exclude group: "hhs.gdx.hslib", module: "*"
   }
+  implementation "$pama1234RepoLocation:android-framework:$pama1234PublishVersion"
+  
+  implementation project(':game0009:game0009-core')
+  implementation project(':game0009:game0009-server')
+
   implementation "com.github.simplepeng.SpiderMan:spiderman:$spidermanVersion"//如果程序异常闪退提供log
 
+  // implementation "$gdxCustomModule:gdx:$gdxCustomVersion"
   natives "$gdxModule:gdx-platform:$gdxVersion:natives-armeabi-v7a"
   natives "$gdxModule:gdx-platform:$gdxVersion:natives-arm64-v8a"
   natives "$gdxModule:gdx-platform:$gdxVersion:natives-x86"
   natives "$gdxModule:gdx-platform:$gdxVersion:natives-x86_64"
-  natives ("$gdxModule:gdx-freetype-platform:$gdxVersion:natives-arm64-v8a") {
-    exclude group: "com.badlogicgames.gdx"
-  }
+  natives "$gdxModule:gdx-freetype-platform:$gdxVersion:natives-arm64-v8a"
 }
 
 // Called every time gradle gets executed, takes the native dependencies of
@@ -140,7 +154,7 @@ task copyAndroidNatives() {
 }
 
 tasks.whenTaskAdded { packageTask ->
-  if (packageTask.name.contains("package")) {
+  if(packageTask.name.contains("package")) {
     packageTask.dependsOn 'copyAndroidNatives'
   }
 }
@@ -148,13 +162,13 @@ tasks.whenTaskAdded { packageTask ->
 task run(type: Exec) {
   def path
   def localProperties = project.file("../local.properties")
-  if (localProperties.exists()) {
+  if(localProperties.exists()) {
     Properties properties = new Properties()
     localProperties.withInputStream { instr ->
       properties.load(instr)
     }
     def sdkDir = properties.getProperty('sdk.dir')
-    if (sdkDir) {
+    if(sdkDir) {
       path = sdkDir
     } else {
       path = "$System.env.ANDROID_HOME"
@@ -164,7 +178,7 @@ task run(type: Exec) {
   }
 
   def adb = path + "/platform-tools/adb"
-  commandLine "$adb", 'shell', 'am', 'start', '-n', 'hhs.game.diffjourney/hhs.game.diffjourney.AndroidLauncher'
+  commandLine "$adb" , 'shell' , 'am' , 'start' , '-n' , 'hhs.game.diffjourney/hhs.game.diffjourney.AndroidLauncher'
 }
 
 eclipse.project.name = "DifferentJourney" + "-android"

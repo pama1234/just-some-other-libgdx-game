@@ -1,0 +1,23 @@
+package pama1234.gdx.launcher
+
+import pama1234.gdx.game.app.*
+import pama1234.gdx.util.launcher.MainAppBase
+
+
+class MainApp : MainAppBase() {
+  init {
+    screenType=1
+  }
+
+  init {
+    val classArray=arrayOf(null,
+      Screen0011::class.java,// 1 游戏本体            <---------# √
+      Screen0048::class.java,// 2 地球
+      Screen0049::class.java,// 3 测试
+    )
+    screenClassList=ArrayList(classArray.size)
+    for(i in classArray.indices) {
+      screenClassList.add(i,classArray[i])
+    }
+  }
+}

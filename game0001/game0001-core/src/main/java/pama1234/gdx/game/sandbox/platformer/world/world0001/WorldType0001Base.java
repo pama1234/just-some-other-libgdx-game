@@ -12,9 +12,13 @@ public abstract class WorldType0001Base<W extends WorldBase2D<?>>extends MetaWor
   public WorldType0001Base(MetaWorldCenter0001 pc,String name,int id) {
     super(pc,name,id);
 
-    metaBlocks=WorldMetaInfoUtil.loadBlockC(this);
-    metaItems=WorldMetaInfoUtil.loadItemC(this);
+    //    var blockC=WorldMetaInfoGenerator.createBlockC(this);
+    metaBlocks=WorldMetaInfoGenerator.createBlockC(this);
+    //        WorldMetaInfoGenerator.loadBlockC(this,blockC);
+
+    metaItems=WorldMetaInfoGenerator.createItemC(this);
     for(MetaBlock<?,?> e:metaBlocks.list) e.initItemDrop();
-    metaEntitys=WorldMetaInfoUtil.loadCreatureC(this);
+
+    metaEntitys=WorldMetaInfoGenerator.createCreatureC(this);
   }
 }

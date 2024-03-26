@@ -2,7 +2,6 @@ package hhs.game.diffjourney.screens;
 
 import com.badlogic.gdx.Application.ApplicationType;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -13,6 +12,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import hhs.game.diffjourney.game.TeachSence;
 import hhs.game.diffjourney.game.TestSence;
+import hhs.game.diffjourney.game.UnLimitMapTestSence;
 import hhs.game.diffjourney.ui.MyDialogBox;
 import hhs.game.diffjourney.ui.PixelFontButton;
 import hhs.gdx.hsgame.entities.Entity;
@@ -48,14 +48,10 @@ public class MainScreen extends BasicScreen{
     table.row().padTop(50);
     table.add(b3);
     table.add(b2);
-    addButton("清理垃圾",()-> {
-      for(Screen bs:Resource.screens.values()) {
-        if(bs!=this) {
-          bs.dispose();
-        }
-      }
-      Resource.screens.clear();
-    });
+    var b4=new PixelFontButton("无限制大小地图测试");
+    b4.setScale(8);
+    b4.addListener(ListenerBuilder.touch(()->Resource.setScreen(new UnLimitMapTestSence())));
+    table.add(b4);
     stage.addActor(table);
     table.validate();
     titleLable=new TitleLable(c1.getActorY()+c1.getActorHeight());
@@ -83,6 +79,12 @@ public class MainScreen extends BasicScreen{
         Viewport viewport=stage.getViewport();
         return "viewport: "+viewport.getScreenWidth()+" "+viewport.getScreenHeight()+" "+viewport.getWorldWidth()+" "+viewport.getWorldHeight();
       });
+
+    //    Preferences pre=Gdx.app.getPreferences("backpack");
+    //    pre.putInteger(TestItem.class.getName(),1);
+    //    pre.putInteger(MedicalKit.class.getName(),1);
+    //    pre.flush();
+    //    stage.addActor(new Backpack(pre));
   }
   Cell<PixelFontButton> addButton(String str,Runnable run) {
     PixelFontButton b1=new PixelFontButton(str);

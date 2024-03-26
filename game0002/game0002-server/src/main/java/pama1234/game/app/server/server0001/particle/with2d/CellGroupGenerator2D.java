@@ -43,7 +43,7 @@ public class CellGroupGenerator2D{
     for(int i=0;i<group.size;i++) {
       group.posX[i]=random(-randR,randR);
       group.posY[i]=random(-randR,randR);
-      
+
       //      group.velX[i]=random(-32,32);
       //      group.velY[i]=random(-32,32);
     }
@@ -87,7 +87,7 @@ public class CellGroupGenerator2D{
     for(int i=0;i<group.size;i++) {
       group.posX[i]=random(-randR,randR);
       group.posY[i]=random(-randR,randR);
-      
+
       //      group.velX[i]=random(-32,32);
       //      group.velY[i]=random(-32,32);
     }

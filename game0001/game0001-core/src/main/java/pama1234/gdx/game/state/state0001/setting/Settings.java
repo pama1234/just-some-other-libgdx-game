@@ -15,9 +15,10 @@ import pama1234.gdx.game.ui.element.TextButtonCam;
 import pama1234.gdx.game.ui.element.TextField;
 import pama1234.gdx.game.util.LocalizationData;
 import pama1234.gdx.launcher.MainApp;
-import pama1234.util.yaml.LocalBundleCenter;
-import pama1234.util.yaml.Serialization;
+import pama1234.yaml.LocalBundleCenter;
+import pama1234.yaml.UtilYaml;
 
+/** 设置页面 */
 public class Settings extends StateEntity0001{
   public static void initLocalization(Screen0011 p) {
     FileHandle langYaml=Gdx.files.internal("lang/human/"+p.settings.langType+".yaml");
@@ -34,14 +35,14 @@ public class Settings extends StateEntity0001{
     }
   }
 
-  public static final Serialization localization=new Serialization();
+  public static final UtilYaml localization=new UtilYaml();
   public static LocalBundleCenter bundleCenter;
   public static LocalizationData ld;
   public Array<Button<?>> buttons=new Array<>();
   public Array<TextButtonCam<?>> buttonsCam=new Array<>();
   public Array<TextField> camTextFields=new Array<>();
 
-  public SectorCenter sec=new SectorCenter(this);
+  public SectorCenter0011 sec=new SectorCenter0011(this);
 
   public void clearUiComp() {
     buttons.clear();
@@ -78,14 +79,13 @@ public class Settings extends StateEntity0001{
     text(p.accelerometerAvailable
       ?ld.canUseAccelerometer
       :ld.canNotUseAccelerometer);
-    // if(sec.curr==sec.legacy) p.text(ld.needRestart,needRestartTextPosX,280);
     if(p.localHost!=null) p.text(ld.thisIsIpAddr+p.localHost.toString(),0,-60);
     p.text(ld.releaseVersion+typeName[MainApp.type],0,-80);
     if(p.settings.debugInfo) debugText();
     if(p.settings.showLog) {
       tx=-512;
       drawLogText(p,p.logText,tx,ty);
-      line();
+      newLine();
     }
     p.beginBlend();
     p.fill(255,204);
@@ -127,9 +127,9 @@ public class Settings extends StateEntity0001{
   }
   public void text(String in) {
     p.text(in,tx,ty);
-    line();
+    newLine();
   }
-  public void line() {
+  public void newLine() {
     ty+=18;
   }
   @Override
@@ -139,23 +139,23 @@ public class Settings extends StateEntity0001{
   public void debugText() {
     tx=-256;
     if(p.gyroscopeAvailable) {
-      line();
+      newLine();
       text(ld.gyroscopeX+Gdx.input.getGyroscopeX());
       text(ld.gyroscopeY+Gdx.input.getGyroscopeY());
       text(ld.gyroscopeZ+Gdx.input.getGyroscopeZ());
     }
     if(p.compassAvailable) {
-      line();
+      newLine();
       text(ld.compassX+Gdx.input.getPitch());
       text(ld.compassY+Gdx.input.getRoll());
       text(ld.compassZ+Gdx.input.getAzimuth());
-      line();
+      newLine();
       text(ld.gravityX+p.gVel.x);
       text(ld.gravityY+p.gVel.y);
       text(ld.gravityZ+p.gVel.z);
     }
     if(p.accelerometerAvailable) {
-      line();
+      newLine();
       text(ld.accelerometerX+Gdx.input.getAccelerometerX());
       text(ld.accelerometerY+Gdx.input.getAccelerometerY());
       text(ld.accelerometerZ+Gdx.input.getAccelerometerZ());

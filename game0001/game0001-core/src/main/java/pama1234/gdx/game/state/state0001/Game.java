@@ -7,6 +7,7 @@ import static pama1234.gdx.game.sandbox.platformer.GameCtrlUtil.genButtons_0012;
 import static pama1234.gdx.game.sandbox.platformer.GameDisplayUtil.debugText;
 
 import java.net.ConnectException;
+import java.util.Collections;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Net.Protocol;
@@ -14,21 +15,23 @@ import com.badlogic.gdx.net.SocketHints;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 
 import pama1234.Tools;
+import pama1234.gdx.SystemSetting;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.asset.MusicAsset;
 import pama1234.gdx.game.sandbox.platformer.GameDisplayUtil;
-import pama1234.gdx.game.state.state0001.State0001Util.StateEntity0001;
 import pama1234.gdx.game.sandbox.platformer.metainfo.info0001.center.MetaWorldCenter0001;
 import pama1234.gdx.game.sandbox.platformer.net.ClientCore;
 import pama1234.gdx.game.sandbox.platformer.net.NetMode;
 import pama1234.gdx.game.sandbox.platformer.net.ServerCore;
 import pama1234.gdx.game.sandbox.platformer.player.MainPlayer;
+import pama1234.gdx.game.sandbox.platformer.player.ctrl.PlayerControllerFull;
 import pama1234.gdx.game.sandbox.platformer.world.MetaWorldGenerator;
 import pama1234.gdx.game.sandbox.platformer.world.World;
 import pama1234.gdx.game.sandbox.platformer.world.WorldBase2D;
 import pama1234.gdx.game.sandbox.platformer.world.WorldCenter;
 import pama1234.gdx.game.sandbox.platformer.world.world0001.World0001;
 import pama1234.gdx.game.sandbox.platformer.world.world0002.World0002;
+import pama1234.gdx.game.state.state0001.State0001Util.StateEntity0001;
 import pama1234.gdx.game.ui.GameController;
 import pama1234.gdx.game.ui.element.Button;
 import pama1234.gdx.game.ui.element.TextButton;
@@ -41,7 +44,8 @@ import pama1234.util.net.SocketData;
 
 public class Game extends StateEntity0001{
   public Button<?>[] menuButtons;
-  public GameController ctrlVertex;
+  //  /** 范围摇杆 */
+  //  public GameController ctrlVertex;
   public TextButton<?>[] ctrlButtons;
   public float time;
 
@@ -50,6 +54,7 @@ public class Game extends StateEntity0001{
   public WorldCenter<Screen0011,Game,WorldBase2D<?>> worldCenter;
   public World0001 world_0001;
   public World0002 world_0002;
+  /** @see PlayerControllerFull#getTouchInfoButton(int) */
   public boolean androidRightMouseButton;
   public EntityListener displayCamTop;
   public boolean firstInit=true;//TODO
@@ -59,17 +64,18 @@ public class Game extends StateEntity0001{
   public NetAddressInfo selfAddr;
   public ServerCore server;
   public ClientCore client;
+
   public Game(Screen0011 p,int id) {
     super(p,id);
     menuButtons=genButtons_0005(p);
     if(p.isAndroid) {
       ctrlButtons=p.settings.ctrlButton?Tools.concat(genButtons_0011(p,this),genButtons_0012(p,this)):genButtons_0011(p,this);
-      if(!p.settings.ctrlButton) ctrlVertex=new GameController(p) {
-        @Override
-        public boolean inActiveRect(float x,float y) {
-          return Tools.inRect(x,y,0,p.u*2,p.width/3f,p.height);
-        }
-      };
+      //      if(!p.settings.ctrlButton) ctrlVertex=new GameController(p) {
+      //        @Override
+      //        public boolean inActiveRect(float x,float y) {
+      //          return Tools.inRect(x,y,0,p.u*2,p.width/3f,p.height);
+      //        }
+      //      };
     }
 
     worlds=MetaWorldGenerator.createWorldC(this);
@@ -96,8 +102,9 @@ public class Game extends StateEntity0001{
     p.cam.point.des.set(tp.cx(),tp.cy(),0);
     p.cam.point.pos.set(p.cam.point.des);
     // p.cam2d.activeDrag=false;
-    for(Button<?> e:menuButtons) p.centerScreen.add.add(e);
-    if(ctrlButtons!=null) for(Button<?> e:ctrlButtons) p.centerScreen.add.add(e);
+    Collections.addAll(p.centerScreen.add,menuButtons);
+    if(ctrlButtons!=null) Collections.addAll(p.centerScreen.add,ctrlButtons);
+    var ctrlVertex=world_0001.yourself.ctrl.ctrlVertex;
     if(ctrlVertex!=null) p.centerScreen.add.add(ctrlVertex);
     if(firstInit) {
       firstInit=false;
@@ -121,7 +128,7 @@ public class Game extends StateEntity0001{
         client.start();
       }catch(GdxRuntimeException e) {
         Throwable cause=e.getCause();
-        if(cause instanceof ConnectException ce) if(p.settings.printLog) System.out.println(ce);
+        if(cause instanceof ConnectException ce) if(SystemSetting.data.printLog) System.out.println(ce);
         netMode=NetMode.Error;
         p.state(p.stateCenter.startMenu);
       }catch(RuntimeException e) {
@@ -138,8 +145,9 @@ public class Game extends StateEntity0001{
   @Override
   public void to(StateEntity0001 in) {
     WorldBase2D<?> tw=world();
-    for(Button<?> e:menuButtons) p.centerScreen.remove.add(e);
-    if(ctrlButtons!=null) for(Button<?> e:ctrlButtons) p.centerScreen.remove.add(e);
+    Collections.addAll(p.centerScreen.remove,menuButtons);
+    if(ctrlButtons!=null) Collections.addAll(p.centerScreen.remove,ctrlButtons);
+    var ctrlVertex=world_0001.yourself.ctrl.ctrlVertex;
     if(ctrlVertex!=null) p.centerScreen.remove.add(ctrlVertex);
     p.centerCam.remove.add(worldCenter);
     worldCenter.pause();
@@ -154,10 +162,12 @@ public class Game extends StateEntity0001{
   }
   @Override
   public void displayCam() {
-    worldCenter.displayCam();
+    super.displayCam();
+    // worldCenter.displayCam();
   }
   @Override
   public void display() {
+    worldCenter.displayScreen();
     if(p.settings.debugGraphics) {
       p.beginBlend();
       p.fill(94,203,234,127);

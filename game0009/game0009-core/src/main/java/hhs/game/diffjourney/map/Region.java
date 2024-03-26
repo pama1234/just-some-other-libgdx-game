@@ -60,7 +60,7 @@ public class Region extends BasicEntity implements Collision{
     for(int i=0;i<blocks.length;i++) {
       Block.pool.freeAll(Array.with(blocks[i]));
     }
-    Arrays.setAll(blocks,b->null);
+    Arrays.fill(blocks,null);
   }
   public static short[] fmove= {0,1,1,1,1,0,1,-1,0,-1,-1,-1,-1,0,-1,1};
   public char getChar(int x,int y) {
@@ -89,11 +89,11 @@ public class Region extends BasicEntity implements Collision{
               if(check(map,i-1,j)!='#'
                 ||check(map,i+1,j)!='#'
                 ||check(map,i,j+1)!='#') {
-                world.add(new Item<Rect>(b),i*50,j*50,b.getWidth(),b.getHeight());
+                world.add(new Item<>(b),i*50,j*50,b.getWidth(),b.getHeight());
               }
             }else {
               b.setT(wall);
-              world.add(new Item<Rect>(b),i*50,j*50+30,50,20);
+              world.add(new Item<>(b),i*50,j*50+30,50,20);
             }
             break;
           case '~':

@@ -4,37 +4,34 @@ import java.io.File;
 import java.io.IOException;
 import java.net.SocketException;
 
+import org.yaml.snakeyaml.Yaml;
+
+import com.esotericsoftware.kryo.Kryo;
+
 import pama1234.app.game.server.duel.NetUtil.GameServer;
-import pama1234.app.game.server.duel.util.actor.ActorGroup;
+import pama1234.app.game.server.duel.net.InputData;
+import pama1234.app.game.server.duel.net.OutputData;
 import pama1234.app.game.server.duel.util.ai.neat.ServerFisheyeVision;
-import pama1234.app.game.server.duel.util.arrow.AbstractArrowActor;
-import pama1234.app.game.server.duel.util.arrow.ServerLongbowArrowHead;
-import pama1234.app.game.server.duel.util.arrow.ServerLongbowArrowShaft;
 import pama1234.app.game.server.duel.util.input.ServerInputOutput;
 import pama1234.util.UtilServer;
 import pama1234.util.net.SocketData;
 import pama1234.util.net.SocketWrapper;
-import pama1234.util.protobuf.InputDataProto;
-import pama1234.util.protobuf.InputDataProto.InputData;
-import pama1234.util.protobuf.OutputDataProto;
-import pama1234.util.protobuf.OutputDataProto.GroupData;
-import pama1234.util.protobuf.OutputDataProto.OutputData;
-import pama1234.util.protobuf.OutputDataProto.OutputDataElement;
 import pama1234.util.wrapper.Center;
-import pama1234.util.yaml.Serialization;
 
 public class DuelServer extends UtilServer{
-  public static final Serialization localization=new Serialization();
+  public Yaml yaml;
+  public Kryo kryo;
+
   public File mainDir=new File(System.getProperty("user.dir")+"/data/server/duel");
   public File configFile;
 
   public GameServer server;
   public Thread acceptThread;
 
-  public OutputData.Builder outputDataBuilder;
-  public GroupData.Builder groupBuilder;
-  public OutputDataElement.Builder elementBuilder;
-  public InputData.Builder inputDataBuilder;
+  // public OutputData.Builder outputDataBuilder;
+  // public GroupData.Builder groupBuilder;
+  // public OutputDataElement.Builder elementBuilder;
+  // public InputData.Builder inputDataBuilder;
 
   public boolean paused;
   public Center<ServerInputOutput> inputCenter;
@@ -47,6 +44,13 @@ public class DuelServer extends UtilServer{
   public int time,timeLimit=timeLimitConst;
   @Override
   public void init() {
+    yaml=new Yaml();
+    kryo=new Kryo();
+    kryo.register(InputData.class);
+    kryo.register(OutputData.class);
+    kryo.register(OutputData.GroupData.class);
+    kryo.register(OutputData.OutputDataElement.class);
+
     config=loadConfig();
 
     server=new GameServer(config.server);
@@ -74,14 +78,14 @@ public class DuelServer extends UtilServer{
       }
     },"AcceptSocket");
     acceptThread.start();
-    outputDataBuilder=OutputDataProto.OutputData.newBuilder();
-    groupBuilder=OutputDataProto.GroupData.newBuilder();
-    elementBuilder=OutputDataProto.OutputDataElement.newBuilder();
-    inputDataBuilder=InputDataProto.InputData.newBuilder();
+    // outputDataBuilder=OutputDataProto.OutputData.newBuilder();
+    // groupBuilder=OutputDataProto.GroupData.newBuilder();
+    // elementBuilder=OutputDataProto.OutputDataElement.newBuilder();
+    // inputDataBuilder=InputDataProto.InputData.newBuilder();
 
     inputCenter=new Center<>();
-    input_a=new ServerInputOutput(inputDataBuilder);
-    input_b=new ServerInputOutput(inputDataBuilder);
+    // input_a=new ServerInputOutput(inputDataBuilder);
+    // input_b=new ServerInputOutput(inputDataBuilder);
     inputCenter.add.add(input_a);
     inputCenter.add.add(input_b);
 
@@ -100,47 +104,47 @@ public class DuelServer extends UtilServer{
     inputCenter.refresh();
     for(var i:inputCenter.list) {
       if(i.socket!=null) {
-        try {
-          i.protoInput=InputData.parseDelimitedFrom(i.socket.i);
-          i.inputData.copyFromProto(i.protoInput);
+        // try {
+        //   i.protoInput=InputData.parseDelimitedFrom(i.socket.i);
+        //   i.inputData.copyFromProto(i.protoInput);
 
-          outputDataBuilder.clear();
-          groupBuilder.clear();
-          ActorGroup a=core.myGroup();
-          ActorGroup b=core.otherGroup();
-          copyGroupToProto(groupBuilder,a);
-          outputDataBuilder.addElements(0,groupBuilder.build());
-          groupBuilder.clear();
-          copyGroupToProto(groupBuilder,b);
-          outputDataBuilder.addElements(1,groupBuilder.build());
-          groupBuilder.clear();
-          i.protoOutput=outputDataBuilder.build();
-          i.protoOutput.writeDelimitedTo(i.socket.o);
-        }catch(IOException e) {
-          // e.printStackTrace();
-          System.out.println(e+" with "+i.socket.s.getRemoteAddress());
-          System.out.flush();
-          i.socket.dispose();
-          i.socket=null;
-        }
+        //   outputDataBuilder.clear();
+        //   groupBuilder.clear();
+        //   ActorGroup a=core.myGroup();
+        //   ActorGroup b=core.otherGroup();
+        //   copyGroupToProto(groupBuilder,a);
+        //   outputDataBuilder.addElements(0,groupBuilder.build());
+        //   groupBuilder.clear();
+        //   copyGroupToProto(groupBuilder,b);
+        //   outputDataBuilder.addElements(1,groupBuilder.build());
+        //   groupBuilder.clear();
+        //   i.protoOutput=outputDataBuilder.build();
+        //   i.protoOutput.writeDelimitedTo(i.socket.o);
+        // }catch(IOException e) {
+        //   // e.printStackTrace();
+        //   System.out.println(e+" with "+i.socket.s.getRemoteAddress());
+        //   System.out.flush();
+        //   i.socket.dispose();
+        //   i.socket=null;
+        // }
       }
     }
   }
-  public void copyGroupToProto(GroupData.Builder proto,ActorGroup group) {
-    for(AbstractArrowActor e:group.arrowCenter.list) {
-      elementBuilder.clear();
-      e.copyToProto(elementBuilder);
-      if(e.isLethal()) {
-        if(e instanceof ServerLongbowArrowHead) proto.addLongArrowHead(elementBuilder.build());
-        else if(e instanceof ServerLongbowArrowShaft) proto.addLongArrowShaft(elementBuilder.build());
-      }else proto.addShortArrow(elementBuilder.build());
-    }
-    elementBuilder.clear();
-    if(group.playerCenter.list.size()>0) {
-      group.playerCenter.list.getFirst().copyToProto(elementBuilder);
-      proto.addPlayer(0,elementBuilder.build());
-    }
-  }
+  // public void copyGroupToProto(GroupData.Builder proto,ActorGroup group) {
+  //   for(AbstractArrowActor e:group.arrowCenter.list) {
+  //     elementBuilder.clear();
+  //     e.copyToProto(elementBuilder);
+  //     if(e.isLethal()) {
+  //       if(e instanceof ServerLongbowArrowHead) proto.addLongArrowHead(elementBuilder.build());
+  //       else if(e instanceof ServerLongbowArrowShaft) proto.addLongArrowShaft(elementBuilder.build());
+  //     }else proto.addShortArrow(elementBuilder.build());
+  //   }
+  //   elementBuilder.clear();
+  //   if(group.playerCenter.list.size()>0) {
+  //     group.playerCenter.list.getFirst().copyToProto(elementBuilder);
+  //     proto.addPlayer(0,elementBuilder.build());
+  //   }
+  // }
   public void neatUpdate() {
     if(core.stateIndex==ServerGameSystem.play) {
       time++;
@@ -178,7 +182,7 @@ public class DuelServer extends UtilServer{
   public ServerConfigData loadConfig() {
     configFile=new File(mainDir,"config.yaml");
     if(configFile.exists()) {
-      return localization.yaml.loadAs(loadString(configFile),ServerConfigData.class);
+      return yaml.loadAs(loadString(configFile),ServerConfigData.class);
     }else {
       mainDir.mkdirs();
       var out=new ServerConfigData();
@@ -188,6 +192,6 @@ public class DuelServer extends UtilServer{
     }
   }
   public void saveConfig(ServerConfigData config) {
-    saveString(configFile,localization.yaml.dumpAsMap(config));
+    saveString(configFile,yaml.dumpAsMap(config));
   }
 }

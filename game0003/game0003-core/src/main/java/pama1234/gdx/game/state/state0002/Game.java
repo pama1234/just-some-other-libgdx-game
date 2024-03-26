@@ -3,32 +3,18 @@ package pama1234.gdx.game.state.state0002;
 import static pama1234.app.game.server.duel.ServerConfigData.game;
 import static pama1234.app.game.server.duel.ServerConfigData.neat;
 
-import java.io.IOException;
-import java.util.List;
-
 import com.badlogic.gdx.Input.Buttons;
 
 import pama1234.app.game.server.duel.ServerConfigData.GameMode;
-import pama1234.app.game.server.duel.util.actor.ActorGroup;
-import pama1234.app.game.server.duel.util.arrow.AbstractArrowActor;
 import pama1234.gdx.game.duel.ClientGameSystem;
 import pama1234.gdx.game.duel.Duel;
 import pama1234.gdx.game.duel.State0002Util.StateEntity0002;
-import pama1234.gdx.game.duel.util.arrow.ClientLongbowArrowHead;
-import pama1234.gdx.game.duel.util.arrow.ClientLongbowArrowShaft;
-import pama1234.gdx.game.duel.util.arrow.ClientShortbowArrow;
 import pama1234.gdx.game.duel.util.input.ClientInputData;
 import pama1234.gdx.game.duel.util.input.DuelAndroidCtrl;
 import pama1234.gdx.game.duel.util.input.UiGenerator;
 import pama1234.gdx.game.ui.element.TextButton;
 import pama1234.gdx.util.android.AndroidCtrlBase;
 import pama1234.gdx.util.info.MouseInfo;
-import pama1234.util.protobuf.InputDataProto;
-import pama1234.util.protobuf.InputDataProto.InputData;
-import pama1234.util.protobuf.OutputDataProto.GroupData;
-import pama1234.util.protobuf.OutputDataProto.OutputData;
-import pama1234.util.protobuf.OutputDataProto.OutputDataElement;
-import pama1234.util.wrapper.Center;
 
 public class Game extends StateEntity0002{
   public TextButton<?>[] buttons;
@@ -37,7 +23,7 @@ public class Game extends StateEntity0002{
   public boolean paused;
   public DuelAndroidCtrl actrl;
 
-  public InputDataProto.InputData.Builder inputDataBuilder;
+  // public InputDataProto.InputData.Builder inputDataBuilder;
   public Game(Duel p,int id,boolean doInit) {
     super(p,id);
     if(doInit) init();
@@ -63,7 +49,9 @@ public class Game extends StateEntity0002{
   }
   @Override
   public void display() {
+    p.doStroke();
     core.displayScreen();
+    p.noStroke();
   }
   @Override
   public void update() {
@@ -86,58 +74,58 @@ public class Game extends StateEntity0002{
     return p.config.data.gameMode==GameMode.OnLine;
   }
   public void onlineGameSetup() {
-    inputDataBuilder=InputDataProto.InputData.newBuilder();
+    // inputDataBuilder=InputDataProto.InputData.newBuilder();
   }
   public void onlineGameUpdate() {
-    try {
-      inputDataBuilder.clear();
-      currentInput.copyToProto(inputDataBuilder);
-      InputData inputData=inputDataBuilder.build();
-      inputData.writeDelimitedTo(p.gameClient.socketData.o);
-      p.gameClient.socketData.o.flush();
+    // try {
+    // inputDataBuilder.clear();
+    // currentInput.copyToProto(inputDataBuilder);
+    // InputData inputData=inputDataBuilder.build();
+    // inputData.writeDelimitedTo(p.gameClient.socketData.o);
+    // p.gameClient.socketData.o.flush();
 
-      OutputData outputData=OutputData.parseDelimitedFrom(p.gameClient.socketData.i);
-      GroupData a=outputData.getElements(0);
-      ActorGroup ag=core.myGroup();
-      copyGroupFromProto(a,ag);
-      GroupData b=outputData.getElements(1);
-      ActorGroup bg=core.otherGroup();
-      copyGroupFromProto(b,bg);
-    }catch(IOException e) {
-      e.printStackTrace();
-      p.config.data.gameMode=GameMode.OffLine;
-    }
+    // OutputData outputData=OutputData.parseDelimitedFrom(p.gameClient.socketData.i);
+    // GroupData a=outputData.getElements(0);
+    // ActorGroup ag=core.myGroup();
+    // copyGroupFromProto(a,ag);
+    // GroupData b=outputData.getElements(1);
+    // ActorGroup bg=core.otherGroup();
+    // copyGroupFromProto(b,bg);
+    // }catch(IOException e) {
+    //   e.printStackTrace();
+    //   p.config.data.gameMode=GameMode.OffLine;
+    // }
   }
-  public void copyGroupFromProto(GroupData proto,ActorGroup group) {
-    List<OutputDataElement> longArrowHeadList=proto.getLongArrowHeadList();
-    List<OutputDataElement> longArrowShaftList=proto.getLongArrowHeadList();
-    List<OutputDataElement> shortArrowList=proto.getShortArrowList();
-    Center<AbstractArrowActor> arrowCenter=group.arrowCenter;
-    arrowCenter.add.addAll(arrowCenter.list);
-    arrowCenter.list.clear();
-    var itlongHead=longArrowHeadList.iterator();
-    var itlongShaft=longArrowShaftList.iterator();
-    var itshort=shortArrowList.iterator();
-    for(var i:arrowCenter.add) {
-      if(i.isLethal()) {
-        if(i instanceof ClientLongbowArrowHead) {
-          if(itlongHead.hasNext()) i.copyFromProto(itlongHead.next());
-          else arrowCenter.remove.add(i);
-        }else if(i instanceof ClientLongbowArrowShaft) {
-          if(itlongShaft.hasNext()) i.copyFromProto(itlongShaft.next());
-          else arrowCenter.remove.add(i);
-        }
-      }else {
-        if(itshort.hasNext()) i.copyFromProto(itshort.next());
-        else arrowCenter.remove.add(i);
-      }
-    }
-    while(itlongHead.hasNext()) group.addArrow(new ClientLongbowArrowHead(p,itlongHead.next()));
-    while(itlongShaft.hasNext()) group.addArrow(new ClientLongbowArrowShaft(p,itlongShaft.next()));
-    while(itshort.hasNext()) group.addArrow(new ClientShortbowArrow(p,itshort.next()));
+  // public void copyGroupFromProto(GroupData proto,ActorGroup group) {
+  //   List<OutputDataElement> longArrowHeadList=proto.getLongArrowHeadList();
+  //   List<OutputDataElement> longArrowShaftList=proto.getLongArrowHeadList();
+  //   List<OutputDataElement> shortArrowList=proto.getShortArrowList();
+  //   Center<AbstractArrowActor> arrowCenter=group.arrowCenter;
+  //   arrowCenter.add.addAll(arrowCenter.list);
+  //   arrowCenter.list.clear();
+  //   var itlongHead=longArrowHeadList.iterator();
+  //   var itlongShaft=longArrowShaftList.iterator();
+  //   var itshort=shortArrowList.iterator();
+  //   for(var i:arrowCenter.add) {
+  //     if(i.isLethal()) {
+  //       if(i instanceof ClientLongbowArrowHead) {
+  //         if(itlongHead.hasNext()) i.copyFromProto(itlongHead.next());
+  //         else arrowCenter.remove.add(i);
+  //       }else if(i instanceof ClientLongbowArrowShaft) {
+  //         if(itlongShaft.hasNext()) i.copyFromProto(itlongShaft.next());
+  //         else arrowCenter.remove.add(i);
+  //       }
+  //     }else {
+  //       if(itshort.hasNext()) i.copyFromProto(itshort.next());
+  //       else arrowCenter.remove.add(i);
+  //     }
+  //   }
+  //   while(itlongHead.hasNext()) group.addArrow(new ClientLongbowArrowHead(p,itlongHead.next()));
+  //   while(itlongShaft.hasNext()) group.addArrow(new ClientLongbowArrowShaft(p,itlongShaft.next()));
+  //   while(itshort.hasNext()) group.addArrow(new ClientShortbowArrow(p,itshort.next()));
 
-    if(group.playerCenter.list.size()>0&&proto.getPlayerCount()>0) group.playerCenter.list.getFirst().copyFromProto(proto.getPlayer(0));
-  }
+  //   if(group.playerCenter.list.size()>0&&proto.getPlayerCount()>0) group.playerCenter.list.getFirst().copyFromProto(proto.getPlayer(0));
+  // }
   public void newGame(boolean demo,boolean instruction) {
     core=new ClientGameSystem(p,this,demo,instruction);
   }

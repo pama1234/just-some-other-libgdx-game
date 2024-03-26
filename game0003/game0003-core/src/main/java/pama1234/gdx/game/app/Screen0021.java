@@ -26,7 +26,7 @@ public class Screen0021 extends ScreenCore2D{
       Gdx.files.internal("shader/main0005/vision-polar.frag").readString());
     // shader.bind();
     System.out.println(shader.getLog());
-    font.load(0);
+    //    font.load(0);
     // String[] ts=shader.getLog().split("\n");
     centerCam.add.add(new EntityListener() {
       @Override

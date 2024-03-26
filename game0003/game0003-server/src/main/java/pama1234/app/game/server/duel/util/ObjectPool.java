@@ -11,8 +11,8 @@ public final class ObjectPool<T extends Poolable<?>>{
   public int allocationCount=0;
   public ObjectPool(int pSize) {
     poolSize=pSize;
-    pool=new ArrayList<T>(pSize);
-    temporalInstanceList=new ArrayList<T>(pSize);
+    pool=new ArrayList<>(pSize);
+    temporalInstanceList=new ArrayList<>(pSize);
   }
   public ObjectPool() {
     this(256);

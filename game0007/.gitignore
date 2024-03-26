@@ -92,6 +92,7 @@ www-test/
 .classpath
 .project
 .metadata/
+bin/
 /game*-android/bin/
 /game*-taptap/bin/
 /game*-pico4/bin/

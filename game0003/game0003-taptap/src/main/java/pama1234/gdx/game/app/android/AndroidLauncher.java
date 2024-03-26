@@ -12,7 +12,7 @@ import pama1234.gdx.android.UtilAndroidApplication;
 import pama1234.gdx.launcher.MainApp;
 
 /** Launches the Android application. */
-public class AndroidLauncher extends UtilAndroidApplication {
+public class AndroidLauncher extends UtilAndroidApplication{
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);

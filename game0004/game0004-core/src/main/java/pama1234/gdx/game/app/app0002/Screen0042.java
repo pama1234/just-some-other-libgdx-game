@@ -15,7 +15,7 @@ public class Screen0042 extends ScreenMenu{
     noStroke();
     backgroundColor(243);
     drawCursorWhenGrab=true;
-    
+
     createAndAddMenuButtons();
   }
   @Override

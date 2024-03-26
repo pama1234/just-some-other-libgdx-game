@@ -9,6 +9,8 @@ import pama1234.gdx.game.duel.util.graphics.GameBackground;
 import pama1234.gdx.game.duel.util.input.UiGenerator;
 import pama1234.gdx.game.ui.element.TextButton;
 
+import java.util.Collections;
+
 public class StartMenu extends StateEntity0002{
   public String title="几何决斗";
   public TextButton<?>[] buttons;
@@ -40,6 +42,7 @@ public class StartMenu extends StateEntity0002{
   public void displayCam() {
     p.doStroke();
     background.display();
+    p.noStroke();
   }
   @Override
   public void display() {
@@ -63,7 +66,7 @@ public class StartMenu extends StateEntity0002{
     p.cam.point.pos.set(p.cam.point.des);
     p.cam2d.scale.pos=p.cam2d.scale.des=p.isAndroid?0.25f:1;
     // p.cam2d.pixelPerfect=CameraController2D.SMOOTH;
-    for(TextButton<?> i:buttons) p.centerScreen.add.add(i);
+    Collections.addAll(p.centerScreen.add,buttons);
     MusicAsset.load_0001(manager);
   }
   @Override
@@ -71,6 +74,6 @@ public class StartMenu extends StateEntity0002{
     p.cam2d.activeDrag=true;
     p.cam2d.activeScrollZoom=p.cam2d.activeTouchZoom=true;
     // p.cam2d.pixelPerfect=CameraController2D.NONE;
-    for(TextButton<?> i:buttons) p.centerScreen.remove.add(i);
+    Collections.addAll(p.centerScreen.remove,buttons);
   }
 }

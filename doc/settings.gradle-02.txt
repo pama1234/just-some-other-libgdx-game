@@ -1,0 +1,35 @@
+// 02版本
+
+include 'doclet'
+
+include 'framework','server-framework'
+include 'android-framework'
+include 'lwjgl-framework'
+
+include 'framework0001:framework0001-neat'
+// include 'framework0001:framework0001-yaml'
+include 'framework0001:framework0001-protobuf'
+include 'framework0001:framework0001-box2d'
+include 'framework0001:framework0001-processing'
+
+include 'framework0002:xr4j-lwjgl3'
+include 'framework0002:xr4j-android'
+
+include 'framework0003:framework0003-androidDex'
+include 'framework0003:framework0003-bytecode'
+include 'framework0003:framework0003-textmate'
+
+include 'framework0004:framework0004-terminal'
+include 'framework0004:framework0004-terminal-android'
+
+// include 'game0001:game0001-android', 'game0001:game0001-lwjgl3', 'game0001:game0001-core', 'game0001:game0001-server', 'game0001:game0001-headless', 'game0001:game0001-pico4', 'game0001:game0001-taptap'
+include 'game0002:game0002-android', 'game0002:game0002-lwjgl3', 'game0002:game0002-core', 'game0002:game0002-server', 'game0002:game0002-taptap'
+// include 'game0003:game0003-android', 'game0003:game0003-lwjgl3', 'game0003:game0003-core', 'game0003:game0003-server', 'game0003:game0003-taptap'
+include 'game0004:game0004-android', 'game0004:game0004-lwjgl3', 'game0004:game0004-core', 'game0004:game0004-server'
+include 'game0005:game0005-android', 'game0005:game0005-lwjgl3', 'game0005:game0005-core', 'game0005:game0005-server'
+include 'game0006:game0006-android', 'game0006:game0006-lwjgl3', 'game0006:game0006-core', 'game0006:game0006-server'
+include 'game0007:game0007-android', 'game0007:game0007-lwjgl3', 'game0007:game0007-core', 'game0007:game0007-server', 'game0007:game0007-taptap'
+include 'game0008:game0008-android', 'game0008:game0008-lwjgl3', 'game0008:game0008-core', 'game0008:game0008-server', 'game0008:game0008-taptap'
+// include 'game0009:game0009-android', 'game0009:game0009-lwjgl3', 'game0009:game0009-core'
+include 'game0010:game0010-android', 'game0010:game0010-lwjgl3', 'game0010:game0010-core', 'game0010:game0010-server'
+// include 'game0011:game0011-android', 'game0011:game0011-lwjgl3', 'game0011:game0011-core', 'game0011:game0011-server', 'game0011:game0011-taptap'

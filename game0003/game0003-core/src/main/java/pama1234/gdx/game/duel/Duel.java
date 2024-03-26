@@ -3,12 +3,6 @@ package pama1234.gdx.game.duel;
 import static pama1234.app.game.server.duel.ServerConfigData.neat;
 import static pama1234.app.game.server.duel.util.Const.CANVAS_SIZE;
 
-import java.util.function.Supplier;
-
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Net.Protocol;
-import com.badlogic.gdx.net.SocketHints;
-
 import pama1234.app.game.server.duel.NetUtil.LoginInfo;
 import pama1234.app.game.server.duel.ServerConfigData.GameMode;
 import pama1234.app.game.server.duel.ServerConfigData.ServerAttr;
@@ -27,12 +21,18 @@ import pama1234.gdx.util.app.ScreenCoreState2D;
 import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.gdx.util.net.SocketWrapperGDX;
-import pama1234.util.yaml.Serialization;
+import pama1234.yaml.Serialization;
+
+import java.util.function.Supplier;
+
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Net.Protocol;
+import com.badlogic.gdx.net.SocketHints;
 
 /**
  * Title: Duel
  * </p>
- * Author: FAL ( https://www.fal-works.com/ )
+ * Original author: FAL ( https://www.fal-works.com/ )
  * </p>
  * Made with Processing 3.3.6
  * </p>
@@ -44,7 +44,7 @@ import pama1234.util.yaml.Serialization;
  * </p>
  * Modified by: Pama1234 ( https://space.bilibili.com/646050693 )
  * </p>
- * Altered with self-made framework
+ * Altered with self-made Processing framework
  * </p>
  * Altered with Processing-Libgdx
  * </p>
@@ -103,7 +103,7 @@ public class Duel extends ScreenCoreState2D<StateCenter0002,StateEntity0002>{
       }
     }
     debug=config.data.debug;
-    if(config.data.fpsFix) doUpdateThread=true;
+    if(config.data.fpsFix) threadedUpdate=true;
   }
   public void initConfig() {
     config.initConfig();

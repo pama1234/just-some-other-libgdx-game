@@ -14,13 +14,17 @@ buildscript {
     classpath "com.android.tools.build:gradle:$androidPluginVersion"
     classpath "com.diffplug.spotless:spotless-plugin-gradle:$spotlessPluginVersion"
     classpath "com.google.protobuf:protobuf-gradle-plugin:$protobufGradleVersion"
+    classpath "com.github.johnrengelman.shadow:com.github.johnrengelman.shadow.gradle.plugin:$shadowPluginVersion"
+    classpath "io.freefair.gradle:lombok-plugin:$lombokPluginVersion"
+
+    // classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinPluginVersion"
 
     // This follows advice from https://blog.gradle.org/log4j-vulnerability
     constraints {
       classpath("org.apache.logging.log4j:log4j-core") {
         version {
           strictly("[2.17, 3[")
-          prefer("2.17.0")
+          prefer("2.22.1")
         }
         because("CVE-2021-44228, CVE-2021-45046, CVE-2021-45105: Log4j vulnerable to remote code execution and other critical security vulnerabilities")
       }
@@ -28,46 +32,90 @@ buildscript {
   }
 }
 
-allprojects{
-  // apply plugin: 'idea'
-  // apply plugin: 'eclipse'
+plugins {
+  id "com.diffplug.spotless" version "$spotlessPluginVersion"
+  id "org.openrewrite.rewrite" version "6.4.0"
+
+  // id 'idea'
+  // id 'eclipse'
 }
 
+repositories {
+  // 和publishToMavenLocal配套使用，用于替代jitpack进行纯本地新版本测试
+  mavenLocal()
+
+  maven { url 'https://maven.google.com/public' }
+  maven { url 'https://maven.google.com/google' }
+  // maven { url 'https://maven.aliyun.com/repository/public' }
+  // maven { url 'https://maven.aliyun.com/repository/google' }
+  mavenCentral()
+  // maven { url '	https://repo1.maven.org/maven2/' }
+  maven { url 'https://s01.oss.sonatype.org' }
+  gradlePluginPortal()
+  maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+  maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
+  maven { url 'https://maven.scijava.org/content/repositories/public/' }
+  maven { url 'https://jitpack.io' }
+  maven { url 'https://jogamp.org/deployment/maven/' }
+}
+
+spotless {
+  lineEndings 'UNIX'
+
+  java {
+    target '**/*.java'
+    removeUnusedImports()
+    eclipse().configFile new File(rootProject.projectDir.absolutePath, 'doc/eclipse.formatter.xml')
+  }
+  groovyGradle {
+    target '*.gradle'
+    greclipse().configFile new File(rootProject.projectDir.absolutePath, 'doc/eclipse.formatter.xml')
+  }
+}
+
+allprojects{
+}
+
+// 所有的java性质项目
 configure(subprojects.findAll {
   !(
-    it.name == 'android-framework' ||
-    it.name == 'framework0001' || it.name == 'framework0002' || 
-    it.name == 'framework0003' || it.name == 'framework0004' ||
-    it.name == 'xr4j-android' ||
-    it.name == 'framework0003-androidDex' ||
-    it.name == 'framework0004-terminal-android' ||
-    it.name == 'game0001' ||
-    it.name == 'game0002' ||
-    it.name == 'game0003' ||
-    it.name == 'game0004' ||
-    it.name == 'game0005' ||
-    it.name == 'game0006' ||
-    it.name == 'game0007' ||
-    it.name == 'game0008' ||
-		it.name == 'game0009' ||
-		it.name == 'game0010' ||
-    it.name == 'game0001-android' ||
-    it.name == 'game0001-pico4' || it.name == 'game0001-taptap' ||
-    it.name == 'game0002-android' || it.name == 'game0002-taptap' ||
-    it.name == 'game0002-android-cgj' ||
-    it.name == 'game0003-android' || it.name == 'game0003-taptap' ||
-    it.name == 'game0004-android' ||
-    it.name == 'game0005-android' ||
-    it.name == 'game0006-android' ||
-    it.name == 'game0007-android' || it.name == 'game0007-taptap' ||
-    it.name == 'game0008-android' || it.name == 'game0008-taptap' ||
-		it.name == 'game0009-android' ||
-		it.name == 'game0010-android'
-  )
+      it.name == 'games-collection' ||
+      it.name == 'framework0005-net-android' ||
+      it.name == 'taptap-framework' ||
+      it.name == 'game0001' ||
+      it.name == 'game0002' ||
+      it.name == 'game0003' ||
+      it.name == 'game0004' ||
+      it.name == 'game0005' ||
+      it.name == 'game0006' ||
+      it.name == 'game0007' ||
+      it.name == 'game0008' ||
+      it.name == 'game0009' ||
+      it.name == 'game0010' ||
+      it.name == 'game0011' ||
+      it.name == 'game0001-android' ||
+      it.name == 'game0001-pico4' || it.name == 'game0001-taptap' ||
+      it.name == 'game0002-android' || it.name == 'game0002-taptap' ||
+      it.name == 'game0002-android-cgj' ||
+      it.name == 'game0003-android' || it.name == 'game0003-taptap' ||
+      it.name == 'game0004-android' ||
+      it.name == 'game0005-android' ||
+      it.name == 'game0006-android' ||
+      it.name == 'game0007-android' || it.name == 'game0007-taptap' ||
+      it.name == 'game0008-android' || it.name == 'game0008-taptap' ||
+      it.name == 'game0009-android' ||
+      it.name == 'game0010-android' ||
+      it.name == 'game0011-android' || it.name == 'game0011-taptap' ||
+      it.name == 'game0013-android' || it.name == 'game0013-taptap' ||
+      it.name == 'game0015-android' || it.name == 'game0015-taptap'
+      )
 }) {
 
   apply plugin: "java"
   apply plugin: 'java-library'
+
+  // apply plugin: "org.jetbrains.kotlin.jvm"
+
   sourceCompatibility = 17
   compileJava {
     options.incremental = true
@@ -80,18 +128,40 @@ configure(subprojects.findAll {
       implementation("org.apache.logging.log4j:log4j-core") {
         version {
           strictly("[2.17, 3[")
-          prefer("2.17.0")
+          prefer("2.22.1")
         }
         because("CVE-2021-44228, CVE-2021-45046, CVE-2021-45105: Log4j vulnerable to remote code execution and other critical security vulnerabilities")
       }
     }
   }
-  
 }
 
-subprojects {
+// 所有的java性质和Android性质项目
+configure(subprojects.findAll {
+  !(
+      it.name == 'framework0001' ||
+      it.name == 'framework0002' ||
+      it.name == 'framework0003' ||
+      it.name == 'framework0004' ||
+      it.name == 'framework0005' ||
+      it.name == 'game0001' ||
+      it.name == 'game0002' ||
+      it.name == 'game0003' ||
+      it.name == 'game0004' ||
+      it.name == 'game0005' ||
+      it.name == 'game0006' ||
+      it.name == 'game0007' ||
+      it.name == 'game0008' ||
+      it.name == 'game0009' ||
+      it.name == 'game0010' ||
+      it.name == 'game0011'
+      )
+}) {
   apply plugin: 'idea'
   apply plugin: 'eclipse'
+
+  apply plugin: "com.github.johnrengelman.shadow"
+  apply plugin: "io.freefair.lombok"
 
   version = '0.0.1'
   ext.appName = 'game'
@@ -109,21 +179,5 @@ subprojects {
     maven { url 'https://maven.scijava.org/content/repositories/public/' }
     maven { url 'https://jitpack.io' }
     maven { url 'https://jogamp.org/deployment/maven/' }
-  }
-  
-  apply plugin: "com.diffplug.spotless"
-
-  spotless {
-    lineEndings 'UNIX'
-
-    java {
-      target '**/*.java'
-      removeUnusedImports()
-      eclipse().configFile new File(rootProject.projectDir.absolutePath, 'doc/eclipse.formatter.xml')
-    }
-    groovyGradle {
-      target '*.gradle'
-      greclipse().configFile new File(rootProject.projectDir.absolutePath, 'doc/eclipse.formatter.xml')
-    }
   }
 }

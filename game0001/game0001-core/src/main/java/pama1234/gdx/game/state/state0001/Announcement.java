@@ -9,6 +9,8 @@ import pama1234.gdx.game.ui.element.Button;
 import pama1234.gdx.game.ui.generator.InfoUtil;
 import pama1234.gdx.game.ui.generator.UiGenerator;
 
+import java.util.Collections;
+
 public class Announcement extends StateEntity0001{
   public Button<?>[] buttons;
   public Announcement(Screen0011 p,int id) {
@@ -25,11 +27,11 @@ public class Announcement extends StateEntity0001{
     p.cam.point.pos.set(p.cam.point.des);
     p.cam2d.minScale=p.isAndroid?0.5f:1f;
     p.cam2d.testScale();
-    for(Button<?> e:buttons) p.centerScreen.add.add(e);
+    Collections.addAll(p.centerScreen.add,buttons);
   }
   @Override
   public void to(StateEntity0001 in) {
-    for(Button<?> e:buttons) p.centerScreen.remove.add(e);
+    Collections.addAll(p.centerScreen.remove,buttons);
     p.cam2d.minScale=1;
     p.cam2d.testScale();
   }

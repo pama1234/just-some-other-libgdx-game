@@ -71,7 +71,7 @@ public class ImageAsset{
       int ty=i/16;
       tr[i]=new TextureRegion(ta,x+tx*(w+gapX),y+ty*(h+gapY),w,h);
     }
-    bigEarth=new Animation<TextureRegion>(.04f,tr);
+    bigEarth=new Animation<>(.04f,tr);
     bigEarth.setPlayMode(Animation.PlayMode.LOOP);
   }
   //----------------------------------------------------

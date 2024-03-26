@@ -1,13 +1,7 @@
 package pama1234.gdx.game.sandbox.platformer.metainfo;
 
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-
-import pama1234.game.app.server.server0002.game.metainfo.MetaInfoBase;
-import pama1234.game.app.server.server0002.game.metainfo.io.PlainAttribute;
-import pama1234.game.app.server.server0002.game.metainfo.io.RuntimeAttribute;
-import pama1234.game.app.server.server0002.game.metainfo.io.StoredAttribute;
-import pama1234.game.app.server.server0002.game.metainfo.io.TextureRegionInfo;
 import pama1234.gdx.game.app.Screen0011;
+import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.sandbox.platformer.metainfo.MetaBlock.MetaBlockAttribute;
 import pama1234.gdx.game.sandbox.platformer.metainfo.MetaBlock.MetaBlockRuntimeAttribute;
 import pama1234.gdx.game.sandbox.platformer.metainfo.MetaBlock.MetaBlockStoredAttribute;
@@ -17,12 +11,20 @@ import pama1234.gdx.game.sandbox.platformer.region.block.Block;
 import pama1234.gdx.game.sandbox.platformer.world.WorldBase2D;
 import pama1234.gdx.game.sandbox.platformer.world.world0001.World0001;
 import pama1234.math.UtilMath;
+import pama1234.server.game.app.server0002.game.metainfo.MetaInfoBase;
+import pama1234.server.game.app.server0002.game.metainfo.io.PlainAttribute;
+import pama1234.server.game.app.server0002.game.metainfo.io.RuntimeAttribute;
+import pama1234.server.game.app.server0002.game.metainfo.io.StoredAttribute;
+import pama1234.server.game.app.server0002.game.metainfo.io.TextureRegionInfo;
+
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public class MetaBlock<M extends MetaWorld<?,?,?,?>,C extends MetaBlockCenter<M>>
   extends MetaInfoBase<MetaBlockAttribute,MetaBlockStoredAttribute,MetaBlockRuntimeAttribute>{
   public static class FullBlockType{
     public static final int stoneType=0,leafType=1,plankType=2,platformType=3;//,oreType=4;
   }
+  /** 方块的种类，影响破坏方块需要的工具种类 */
   public static final int noType=0,everyType=1,dirtType=2,stoneType=3,woodType=4;//blockType
   public C pc;
   {
@@ -39,6 +41,7 @@ public class MetaBlock<M extends MetaWorld<?,?,?,?>,C extends MetaBlockCenter<M>
     public int fullBlockType;
     public boolean workStation;
     public int width=1,height=1;
+    /** 如果方块占用多个格子（例如熔炉），而定义的方框区域中有些格子并不属于这个方块，那么数组的对应位置就设置为false，数组为null表示所有格子都被方块占用 */
     public boolean[][] rectSolid;
     public int displayTypeSize;
     public int defaultDisplayType;
@@ -62,6 +65,23 @@ public class MetaBlock<M extends MetaWorld<?,?,?,?>,C extends MetaBlockCenter<M>
 
   @Override
   public void loadRuntimeAttribute() {
+    if(sttr.tiles!=null) {
+      rttr.tiles=new TextureRegion[sttr.tiles.length];
+      for(int i=0;i<sttr.tiles.length;i++) {
+        if(sttr.tiles[i]!=null) {
+          rttr.tiles[i]=MetaPropertiesCenter.newTextureRegion(ImageAsset.tilesTexture,sttr.tiles[i]);
+        }
+      }
+    }
+
+    //    if(sttr.itemDrop!=null) {
+    //      rttr.itemDrop=new ItemDropAttr[sttr.itemDrop.length];
+    //      for(int i=0;i<sttr.itemDrop.length;i++) {
+    //        if(sttr.itemDrop[i]!=null) {
+    //          rttr.itemDrop[i]=sttr.itemDrop[i].toItemDropAttr();
+    //        }
+    //      }
+    //    }
 
   }
   @Override
@@ -70,15 +90,16 @@ public class MetaBlock<M extends MetaWorld<?,?,?,?>,C extends MetaBlockCenter<M>
       sttr.tiles=new TextureRegionInfo[rttr.tiles.length];
       for(int i=0;i<rttr.tiles.length;i++) {
         if(rttr.tiles[i]!=null) sttr.tiles[i]=MetaPropertiesCenter.newTextureRegionInfo("image/tiles.png",rttr.tiles[i]);
+        //        System.out.println(i);
       }
     }
   }
 
-  public static int getLighting(int in) {
-    in<<=4;
-    if(in>255) return 255;
-    return in&0xff;
-  }
+  //  public static int getLighting(int in) {
+  //    in<<=4;
+  //    if(in>255) return 255;
+  //    return in&0xff;
+  //  }
   public static int getLighting(float in) {
     return UtilMath.constrain(UtilMath.floor(in*16),0,255);
   }

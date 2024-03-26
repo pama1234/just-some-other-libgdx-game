@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="wrap_content"
+	android:layout_width="match_parent"
+	android:orientation="horizontal">
+
+	<ImageView
+		android:layout_height="match_parent"
+		android:layout_width="wrap_content"
+		android:id="@+id/itemImageView"
+		android:paddingRight="10dp"/>
+
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:orientation="vertical">
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:textAppearance="?android:attr/textAppearanceLarge"
+			android:id="@+id/itemTextView"
+			android:text="Large Text"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceSmall"
+			android:id="@+id/description"
+			android:text="测试描述"/>
+
+		<View
+			android:layout_height="1dp"
+			android:layout_width="match_parent"
+			android:background="?android:attr/dividerVertical"/>
+
+	</LinearLayout>
+
+</LinearLayout>
+

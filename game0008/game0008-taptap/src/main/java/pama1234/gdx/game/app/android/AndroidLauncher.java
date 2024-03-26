@@ -9,7 +9,7 @@ import com.badlogic.gdx.backends.android.AndroidApplicationConfiguration;
 import com.badlogic.gdx.backends.android.AndroidInput;
 import com.badlogic.gdx.backends.android.DefaultAndroidInput;
 
-import pama1234.gdx.game.cgj.life.particle.element.Welcome;
+import pama1234.gdx.game.life.particle.life.particle.element.Welcome;
 import pama1234.gdx.launcher.MainApp;
 
 /** Launches the Android application. */

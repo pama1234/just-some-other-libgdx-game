@@ -32,9 +32,10 @@ dependencies {
   implementation "$gdxModule:gdx-platform:$gdxVersion:natives-desktop"
   // implementation "com.badlogicgames.gdx:gdx-freetype-platform:$gdxVersion:natives-desktop"
   implementation ("$gdxModule:gdx-freetype-platform:$gdxVersion:natives-desktop") {
-    exclude group: "com.badlogicgames.gdx"
+    // exclude group: "com.badlogicgames.gdx"
   }
 
+  implementation "$pama1234RepoLocation:lwjgl-framework:$pama1234PublishVersion"
   implementation project(':game0009:game0009-core')
 
   // implementation "com.mazatech.amanithsvg:amanithsvg-gdx:$amanithsvgVersion:natives-desktop"

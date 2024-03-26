@@ -4,7 +4,6 @@ import pama1234.app.game.server.duel.util.arrow.ServerShortbowArrow;
 import pama1234.gdx.game.duel.Duel;
 import pama1234.gdx.game.duel.util.graphics.Particle;
 import pama1234.math.UtilMath;
-import pama1234.util.protobuf.OutputDataProto.OutputDataElement;
 
 public class ClientShortbowArrow extends ServerShortbowArrow{
   public final Duel p;
@@ -12,10 +11,10 @@ public class ClientShortbowArrow extends ServerShortbowArrow{
     super();
     this.p=duel;
   }
-  public ClientShortbowArrow(Duel p,OutputDataElement proto) {
-    this(p);
-    copyFromProto(proto);
-  }
+  // public ClientShortbowArrow(Duel p,OutputDataElement proto) {
+  //   this(p);
+  //   copyFromProto(proto);
+  // }
   @Override
   public void act() {
     if((p.random(1)>=0.5f)) return;

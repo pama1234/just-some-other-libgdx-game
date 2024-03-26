@@ -33,7 +33,7 @@ public class DuelAndroidCtrl extends AndroidCtrlBase<Duel>{
   public <X extends UtilScreen> TextButton<?>[] genButtons_0001(X p) {
     if(pg.p.debug) return Tools.concat(super.genButtons_0001(p),
       new TextButton[] {
-        new TextButton<X>(p,self->self.text=" C")
+        new TextButton<>(p,self->self.text=" C")
           .allTextButtonEvent(self-> {},self-> {
             p.inputProcessor.keyDown(Input.Keys.C);
           },self-> {

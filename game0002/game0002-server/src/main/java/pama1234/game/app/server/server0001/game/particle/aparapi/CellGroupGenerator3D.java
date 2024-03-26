@@ -8,7 +8,7 @@ public class CellGroupGenerator3D{
   public Random2f rng;
   public float seed;
   public float count;
-  
+
   public int celltypeOut,amountOut,arraySizeOut;//TODO
   public CellGroupGenerator3D(float seed1,float seed2) {
     this.seed=seed1;
@@ -56,7 +56,7 @@ public class CellGroupGenerator3D{
       group.posX[i]=random(-randR,randR);
       group.posY[i]=random(-randR,randR);
       group.posZ[i]=random(-randR,randR);
-      
+
       //      group.velX[i]=random(-32,32);
       //      group.velY[i]=random(-32,32);
     }

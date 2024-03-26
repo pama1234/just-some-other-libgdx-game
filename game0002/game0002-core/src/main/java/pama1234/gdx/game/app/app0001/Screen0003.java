@@ -22,8 +22,8 @@ import pama1234.game.app.server.server0001.game.net.io.ClientRead;
 import pama1234.game.app.server.server0001.game.net.io.ClientWrite;
 import pama1234.game.app.server.server0001.particle.Var;
 import pama1234.gdx.game.ui.ConfigInfo;
+import pama1234.gdx.game.ui.element.Button;
 import pama1234.gdx.game.ui.generator.UiGenerator;
-import pama1234.gdx.game.ui.util.Button;
 import pama1234.gdx.game.util.ClientPlayerCenter3D;
 import pama1234.gdx.game.util.ControllerClientPlayer3D;
 import pama1234.gdx.game.util.ParticleScreen3D;
@@ -36,13 +36,13 @@ import pama1234.util.net.NetAddressInfo;
 @ScreenDescription("3D 粒子系统 联机 客户端")
 public class Screen0003 extends ParticleScreen3D{
   public NetAddressInfo dataServerInfo;
-  
+
   public SocketData0001 clientSocket;
   public Client0001Core clientCore;
-  
+
   public ClientRead clientRead;
   public ClientWrite clientWrite;
-  
+
   @Deprecated
   public ClientPlayerCenter3D playerCenter;//TODO
   public ControllerClientPlayer3D yourself;
@@ -87,9 +87,9 @@ public class Screen0003 extends ParticleScreen3D{
     clientCore=new Client0001Core(tempSize,"pama"+String.format("%04d",(int)(random(0,10000))));
     playerCenter=new ClientPlayerCenter3D(this);
     yourself=new ControllerClientPlayer3D(this,clientCore.yourself);
-    
+
     dataServerInfo=new NetAddressInfo("192.168.2.105",12347);
-    
+
     SocketHints tsh=new SocketHints();
     tsh.connectTimeout=10000;
     tsh.socketTimeout=5000;
@@ -97,7 +97,7 @@ public class Screen0003 extends ParticleScreen3D{
     tsh.performancePrefConnectionTime=0;
     tsh.performancePrefLatency=2;
     tsh.performancePrefBandwidth=1;
-    
+
     clientSocket=new SocketData0001(new Token(yourself.data.name()),new SocketWrapperGDX(Gdx.net.newClientSocket(Protocol.TCP,dataServerInfo.addr,dataServerInfo.port,tsh)));
     new Thread("SocketConnect") {
       public void run() {

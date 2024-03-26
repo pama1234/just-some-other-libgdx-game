@@ -10,6 +10,7 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 import hhs.game.diffjourney.attacks.ShotAttack;
 import hhs.game.diffjourney.entities.Enemy1;
+import hhs.game.diffjourney.entities.Mushroom;
 import hhs.game.diffjourney.entities.Protagonist;
 import hhs.game.diffjourney.map.EasyMap;
 import hhs.game.diffjourney.map.Region;
@@ -35,7 +36,7 @@ public class TestEasyMap extends GameScreen{
   // Music play = Resource.asset.get("music/play.mp3");
   RNG rseed=new RNG(MathUtils.random(21000000));
   AStarSearch map;
-  Pool<Enemy1> pool;
+  Pool<Mushroom> pool;
   public TestEasyMap() {
     // play.setLooping(true);
     input.addProcessor(new GestureDetector(new CameraControlGesturer(camera)));
@@ -51,7 +52,7 @@ public class TestEasyMap extends GameScreen{
     // camera));
     c.setCurr(m);
     //map=new AStarSearch(m.map,AStarSearch.SearchType.DIJKSTRA);
-    pool=Pools.get(Enemy1.class);
+    pool=Pools.get(Mushroom.class);
     for(int i=0;i<50;i++) {
       Enemy1 e=pool.obtain();
       e.set(m,c);
@@ -120,7 +121,7 @@ public class TestEasyMap extends GameScreen{
   @Override
   public void hide() {
     super.hide();
-    // play.stop();
+    // play.idle();
     // TODO: Implement this method
   }
   @Override

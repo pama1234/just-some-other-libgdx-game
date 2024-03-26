@@ -1,5 +1,15 @@
 apply plugin: 'com.android.application'
 
+configurations {
+  all {
+    // exclude group: "$pama1234RepoLocation", module: "server-framework"
+    // exclude group: "javax.vecmath", module: "*"
+    // exclude group: "com.esotericsoftware", module: "*"
+    // exclude group: "com.google.code.gson", module: "*"
+    // exclude group: "org.yaml", module: "*"
+    // exclude group: "io.netty", module: "*"
+  }
+}
 
 android {
   namespace 'pama1234'
@@ -65,7 +75,7 @@ android {
   }
 }
 
-def Properties props = new Properties()
+Properties props = new Properties()
 def propFile = rootProject.file('/doc/signing/signing.properties')
 if (propFile.canRead()){
   props.load(new FileInputStream(propFile))
@@ -98,9 +108,13 @@ dependencies {
   coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:$androidDesugarVersion"
 
   implementation ("$gdxModule:gdx-backend-android:$gdxVersion") {
-    exclude group: "com.badlogicgames.gdx"
+    // exclude group: "com.badlogicgames.gdx"
   }
   implementation "com.github.simplepeng.SpiderMan:spiderman:$spidermanVersion"//如果程序异常闪退提供log
+
+  implementation "$pama1234RepoLocation:server-framework:$pama1234PublishVersion"
+  implementation("$pama1234RepoLocation:framework:$pama1234PublishVersion")
+  implementation ("$pama1234RepoLocation:android-framework:$pama1234PublishVersion")
 
   implementation project(':game0005:game0005-core')
 

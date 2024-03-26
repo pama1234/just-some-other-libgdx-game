@@ -1,0 +1,21 @@
+!<StoredInfo>
+attr: !<MetaItemAttribute>
+  countType: INT
+  damage: 0.0
+  defaultDisplayType: 0
+  displayNames: null
+  displayTypeSize: 0
+  genericSpeed: 0.0
+  intData: null
+  lightIntensity: 0.0
+  maxCount: -1
+  toolType: 0
+  weaponType: 0
+id: 10
+name: sapling
+sttr: !<MetaItemStoredAttribute>
+  blockTypeId: 7
+  initerProgram: null
+  tiles:
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 20, y: 60}
+  useEventProgram: null

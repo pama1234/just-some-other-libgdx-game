@@ -1,6 +1,6 @@
 package pama1234.gdx.game.sandbox.platformer.metainfo;
 
-import pama1234.game.app.server.server0002.game.metainfo.IDGenerator;
+import pama1234.server.game.app.server0002.game.metainfo.IDGenerator;
 import pama1234.util.wrapper.Center;
 
 public class MetaInfoCenters{

@@ -1,0 +1,50 @@
+!<StoredInfo>
+attr: !<MetaBlockAttribute>
+  blockType: 3
+  buildTime: 15
+  defaultDisplayType: 0
+  destroyTime: 60
+  display: true
+  displayNames: null
+  displayTypeSize: 2
+  empty: false
+  fullBlock: true
+  fullBlockType: 0
+  hardness: 1.0
+  height: 1
+  intData: null
+  light: false
+  lightIntensity: 0.0
+  rectSolid: null
+  width: 1
+  workStation: false
+id: 2
+name: stone
+sttr: !<MetaBlockStoredAttribute>
+  displayUpdater: null
+  displayer: null
+  from: null
+  itemDrop: null
+  tiles:
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 40, y: 200}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 40, y: 180}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 40, y: 220}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 40, y: 160}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 20, y: 200}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 20, y: 180}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 20, y: 220}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 20, y: 160}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 60, y: 200}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 60, y: 180}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 60, y: 220}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 60, y: 160}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 0, y: 200}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 0, y: 180}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 0, y: 220}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 0, y: 160}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 80, y: 160}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 100, y: 160}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 80, y: 180}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 100, y: 180}
+  to: null
+  updater: null

@@ -9,7 +9,9 @@ import com.badlogic.gdx.utils.Pool;
 import com.badlogic.gdx.utils.Pools;
 import hhs.game.diffjourney.attacks.ShotAttack;
 import hhs.game.diffjourney.entities.Enemy1;
+import hhs.game.diffjourney.entities.Mushroom;
 import hhs.game.diffjourney.entities.Protagonist;
+import hhs.game.diffjourney.entities.enemies.MultipleEnemyGenerator;
 import hhs.game.diffjourney.map.Map;
 import hhs.game.diffjourney.screens.GameScreen;
 import hhs.game.diffjourney.ui.MyDialogBox;
@@ -36,7 +38,7 @@ public class TeachSence extends GameScreen{
   MyDialogBox move=null;
   ToDoList todo;
   RNG rseed=new RNG(1);
-  Pool<Enemy1> pool=Pools.get(Enemy1.class,5);
+  Pool<Mushroom> pool=Pools.get(Mushroom.class,5);
   public TeachSence() {
     input.addProcessor(new GestureDetector(new CameraControlGesturer(camera)));
     pro=new Protagonist() {
@@ -58,11 +60,9 @@ public class TeachSence extends GameScreen{
         // TODO: Implement this method
       }
     };
-    pro.zindex=999;
     addEntity(pro);
     FlowingCaveGenerator gen=new FlowingCaveGenerator(50,200);
     addEntity(map=new Map(gen.generate(),1,camera));
-    map.zindex=-1;
     pro.setMap(map.map);
     pro.setCurr(map);
     if(Gdx.app.getType()==ApplicationType.Desktop) {
@@ -109,11 +109,10 @@ public class TeachSence extends GameScreen{
           control.setX(Resource.width/3*2);
           stage.addActor(control);
         }
-        pool=Pools.get(Enemy1.class,5);
         d.addTrace(()->pool.getFree()+" "+pool.peak);
         rseed=new RNG(1);
         for(int i=0;i<5;i++) {
-          Enemy1 e=pool.obtain();
+          Enemy1 e=MultipleEnemyGenerator.getEnemy1();
           e.set(map,pro);
           TestSence.randomPos(rseed,e.pos,map.map,50,25);
           e.size.set(pro.size).scl(2);
@@ -124,7 +123,6 @@ public class TeachSence extends GameScreen{
         }
       });
     addEntity(todo);
-    sortEntity();
     NumericalFrame nf=new NumericalFrame();
     nf.setSize(400,200);
     nf.setPosition(0,Resource.height);
@@ -143,6 +141,5 @@ public class TeachSence extends GameScreen{
   public void render(float delta) {
     CameraTool.smoothMove(camera,pro.pos.x+pro.size.x/2,pro.pos.y+pro.size.y/2);
     super.render(delta);
-    // TODO: Implement this method
   }
 }

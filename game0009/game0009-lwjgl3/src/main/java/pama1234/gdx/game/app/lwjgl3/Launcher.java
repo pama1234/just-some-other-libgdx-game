@@ -4,9 +4,10 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application;
 import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 
 import hhs.game.diffjourney.MainGame;
+import pama1234.util.gdx.lwjgl.UtilLauncher;
 
 /** Launches the desktop (LWJGL3) application. */
-public class Launcher{
+public class Launcher extends UtilLauncher{
   public static void main(String[] args) {
     // try {
     createApplication();
@@ -15,9 +16,9 @@ public class Launcher{
     // }
   }
   public static Lwjgl3Application createApplication() {
-    return new Lwjgl3Application(new MainGame(),getDefaultConfiguration());
+    return new Lwjgl3Application(new MainGame(),getConfiguration());
   }
-  public static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
+  public static Lwjgl3ApplicationConfiguration getConfiguration() {
     Lwjgl3ApplicationConfiguration configuration=new Lwjgl3ApplicationConfiguration();
     configuration.setTitle("异星征途");
     configuration.useVsync(true);

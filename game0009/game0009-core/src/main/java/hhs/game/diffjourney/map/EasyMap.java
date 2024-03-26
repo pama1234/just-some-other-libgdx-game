@@ -31,7 +31,7 @@ public class EasyMap extends BasicEntity implements Collision{
     for(i=0;i<map.length;i++) {
       for(j=0;j<map[i].length;j++) {
         if(map[i][j]=='#') {
-          world.add(new Item<Rect>(b),i*50,j*50,50,50);
+          world.add(new Item<>(b),i*50,j*50,50,50);
         }
       }
     }

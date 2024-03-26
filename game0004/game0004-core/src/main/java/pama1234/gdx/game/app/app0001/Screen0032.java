@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 
-import pama1234.gdx.game.ui.util.TextButtonCam;
+import pama1234.gdx.game.ui.element.TextButtonCam;
 import pama1234.gdx.util.app.ScreenCore3D;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.util.Annotations.ScreenDescription;
@@ -26,7 +26,7 @@ public class Screen0032 extends ScreenCore3D{
     if(isAndroid) {
       addAndroidCam3DButtons();
     }
-    
+
     cam3d.point.des.set(0,0,-40);
     buttons=new TextButtonCam[] {
       new TextButtonCam<Screen0032>(this,true,()->true,self-> {},self-> {},self-> {

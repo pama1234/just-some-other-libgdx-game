@@ -6,9 +6,10 @@ import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration;
 import pama1234.gdx.MobileUtil.EmptyMobileUtil;
 import pama1234.gdx.Pama;
 import pama1234.gdx.launcher.MainApp;
+import pama1234.util.gdx.lwjgl.UtilLauncher;
 
 /** Launches the desktop (LWJGL3) application. */
-public class Launcher{
+public class Launcher extends UtilLauncher{
   public static void main(String[] args) {
     Pama.mobile=new EmptyMobileUtil();
     // try {
@@ -18,17 +19,16 @@ public class Launcher{
     // }
   }
   public static Lwjgl3Application createApplication() {
-    return new Lwjgl3Application(new MainApp(),getDefaultConfiguration());
+    MainApp app=new MainApp();
+    return new Lwjgl3Application(app,getConfiguration(app));
   }
-  public static Lwjgl3ApplicationConfiguration getDefaultConfiguration() {
-    Lwjgl3ApplicationConfiguration configuration=new Lwjgl3ApplicationConfiguration();
+  public static Lwjgl3ApplicationConfiguration getConfiguration(MainApp app) {
+    Lwjgl3ApplicationConfiguration configuration=getDefaultConfiguration(app);
+    configuration.setWindowIcon("icon0002/icon128.png","icon0002/icon64.png","icon0002/icon32.png","icon0002/icon16.png");
     configuration.setTitle("几何决斗");
-    configuration.useVsync(true);
     configuration.setForegroundFPS(60);
     // configuration.setForegroundFPS(Lwjgl3ApplicationConfiguration.getDisplayMode().refreshRate);
-    // configuration.setWindowedMode(640,480);
     // configuration.setFullscreenMode(Lwjgl3ApplicationConfiguration.getDisplayMode());
-    configuration.setWindowIcon("icon/icon128.png","icon/icon64.png","icon/icon32.png","icon/icon16.png");
     return configuration;
   }
 }

@@ -3,86 +3,83 @@ package pama1234.gdx.game.sandbox.platformer.metainfo.io;
 import org.yaml.snakeyaml.DumperOptions;
 import org.yaml.snakeyaml.LoaderOptions;
 import org.yaml.snakeyaml.Yaml;
-import org.yaml.snakeyaml.constructor.Constructor;
-import org.yaml.snakeyaml.representer.Representer;
 
-import com.badlogic.gdx.files.FileHandle;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.esotericsoftware.kryo.Kryo;
-import com.esotericsoftware.kryo.io.Input;
-import com.esotericsoftware.kryo.io.Output;
 
-import pama1234.game.app.server.server0002.game.metainfo.MetaInfoBase;
-import pama1234.game.app.server.server0002.game.metainfo.MetaInfoBase.StoredInfo;
-import pama1234.game.app.server.server0002.game.metainfo.io.TextureRegionInfo;
+import pama1234.gdx.game.sandbox.platformer.metainfo.MetaBlock;
+import pama1234.gdx.game.sandbox.platformer.metainfo.MetaCreature;
 import pama1234.gdx.game.sandbox.platformer.metainfo.MetaItem;
 import pama1234.gdx.game.sandbox.platformer.region.block.block0001.Dirt;
-import pama1234.util.yaml.UtilYaml;
+import pama1234.gdx.game.sandbox.platformer.world.world0001.WorldType0001Base;
+import pama1234.gdx.util.FileUtil;
+import pama1234.server.game.app.server0002.game.metainfo.MetaInfoBase;
+import pama1234.server.game.app.server0002.game.metainfo.MetaInfoBase.StoredInfo;
+import pama1234.server.game.app.server0002.game.metainfo.io.TextureRegionInfo;
+import pama1234.yaml.UtilYaml;
 
 public class MetaPropertiesCenter{
 
-  public static class MPD{
-
-    public static <T extends MetaInfoBase<?,?,?>> T load(Kryo kryo,FileHandle file,Class<T> clas) {
-      return kryo.readObject(new Input(file.read()),clas);
-    }
-    public static <T extends MetaInfoBase<?,?,?>> void save(Kryo kryo,FileHandle file,T in) {
-      kryo.writeObject(new Output(file.write(false)),in);
-    }
-
-    public static <T extends MetaItem> T loadItem(Kryo kryo,FileHandle file,Class<T> clas) {
-      T out=kryo.readObject(new Input(file.read()),clas);
-      out.loadRuntimeAttribute();
-      return out;
-    }
-    public static <T extends MetaItem> void saveItem(Kryo kryo,FileHandle file,T in) {
-      in.saveRuntimeAttribute();
-      in.rttr.saveTo(in.sttr);
-      kryo.writeObject(new Output(file.write(false)),in);
-    }
-  }
-
   public static class YAML{
 
+    public static AttributeConstructor attributeConstructor;
     public static UtilYaml u;
 
     static {
-      Representer representer=new Representer(new DumperOptions());
 
-      // TypeDescription typed;
+      DumperOptions dumperOptions=new DumperOptions();
+      //      options.setDefaultFlowStyle(FlowStyle.BLOCK);
+      LoaderOptions loaderOptions=new LoaderOptions();
+      Yaml yaml=new Yaml(attributeConstructor=new AttributeConstructor(loaderOptions),new AttributeRepresenter(dumperOptions));
 
-      // typed=new TypeDescription(MetaInfoBase.class);
-      // // typed.setExcludes("*");
-      // typed.setIncludes("name","id","attr","sttr");
-      // representer.addTypeDescription(typed);
-
-      // typed=new TypeDescription(MetaBlock.class);
-      // // typed.setExcludes("*");
-      // typed.setIncludes();
-      // representer.addTypeDescription(typed);
-
-      var yaml=new Yaml(new Constructor(new LoaderOptions()),representer);
       u=new UtilYaml(yaml);
+
     }
 
-    public static <T extends MetaInfoBase<?,?,?>> T load(String in) {
-      // TODO
-      T out=u.yaml.load(in);
-      out.loadRuntimeAttribute();
-      return out;
+    //    public static <T extends MetaInfoBase<?,?,?>> T load(String in) {
+    //      // TODO
+    //      T out=u.yaml.load(in);
+    //      out.loadRuntimeAttribute();
+    //      return out;
+    //    }
+    public static MetaBlock<WorldType0001Base<?>,?> loadBlock(String in,MetaBlock<WorldType0001Base<?>,?> block) {
+      StoredInfo storedInfo=u.yaml.load(in);
+      block.attr=(MetaBlock.MetaBlockAttribute)storedInfo.attr;
+      block.sttr=(MetaBlock.MetaBlockStoredAttribute)storedInfo.sttr;
+      block.loadRuntimeAttribute();
+      return block;
+    }
+    public static void loadItem(String in,MetaItem item) {
+      StoredInfo storedInfo=u.yaml.load(in);
+      item.attr=(MetaItem.MetaItemAttribute)storedInfo.attr;
+      item.sttr=(MetaItem.MetaItemStoredAttribute)storedInfo.sttr;
+      item.loadRuntimeAttribute();
+    }
+    public static void loadCreature(String in,MetaCreature<?> creature) {
+      StoredInfo storedInfo=u.yaml.load(in);
+      creature.attr=(MetaCreature.MetaCreatureAttribute)storedInfo.attr;
+      creature.sttr=(MetaCreature.MetaCreatureStoredAttribute)storedInfo.sttr;
+      creature.loadRuntimeAttribute();
     }
     public static <T extends MetaInfoBase<?,?,?>> String save(T in) {
       in.saveRuntimeAttribute();
-      return u.yaml.dumpAsMap(new StoredInfo(in));
+      return u.yaml.dump(new StoredInfo(in));
     }
+
   }
 
   public static TextureRegionInfo newTextureRegionInfo(String name,TextureRegion tr) {
-    var out=new TextureRegionInfo(name,
+    // TODO y上-18是暂时修复，需要确定原因
+    return new TextureRegionInfo(name,
       tr.getRegionX(),
-      tr.getRegionY(),
+      tr.getRegionY()-18,
       tr.getRegionWidth(),
       tr.getRegionHeight());
+  }
+
+  public static TextureRegion newTextureRegion(Texture texture,TextureRegionInfo tr) {
+    //    var out=new TextureRegion(texture,tr.x,tr.y,tr.w,tr.h);
+    var out=FileUtil.toTextureRegion(texture,tr.x,tr.y,tr.w,tr.h);
     return out;
   }
 
@@ -91,4 +88,5 @@ public class MetaPropertiesCenter{
     var dirt=new Dirt(null,0);
     System.out.println(YAML.save(dirt));
   }
+
 }

@@ -2,17 +2,18 @@ package pama1234.app.game.server.duel.util.actor;
 
 import pama1234.app.game.server.duel.util.arrow.AbstractArrowActor;
 import pama1234.util.wrapper.Center;
+import pama1234.util.wrapper.CenterConcurrent;
 
 public final class ActorGroup{
   public Center<ActorGroup> enemyGroup=new Center<>();
-  public Center<AbstractPlayerActor> playerCenter;
-  public Center<AbstractArrowActor> arrowCenter=new Center<>();
+  public CenterConcurrent<AbstractPlayerActor> playerCenter;
+  public CenterConcurrent<AbstractArrowActor> arrowCenter=new CenterConcurrent<>();
   public int id;
   // TODO shit
   public int damageCount;
   public ActorGroup(int id) {
     this.id=id;
-    playerCenter=new Center<>();
+    playerCenter=new CenterConcurrent<>();
   }
   public void update() {
     playerCenter.refresh();

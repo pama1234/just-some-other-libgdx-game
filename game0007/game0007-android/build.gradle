@@ -1,5 +1,22 @@
 apply plugin: 'com.android.application'
 
+configurations {
+  all {
+    // exclude group: "$pama1234RepoLocation", module: "server-framework"
+    // exclude group: "$pama1234RepoLocation", module: "framework"
+    // // exclude group: "$pama1234RepoLocation", module: "framework-neat"
+    // exclude group: "com.badlogicgames.gdx", module: "gdx"
+    // exclude group: "javax.vecmath", module: "*"
+    // exclude group: "com.esotericsoftware", module: "*"
+    // exclude group: "com.google.code.gson", module: "*"
+    // exclude group: "org.yaml", module: "*"
+    // exclude group: "io.netty", module: "*"
+    // exclude group: "space.earlygrey", module: "*"
+    // // exclude group: "space.earlygrey", module: "*"
+    // exclude group: "org.jbox2d", module: "*"
+  }
+}
+
 android {
   namespace 'pama1234'
   compileSdk project.properties.compileSdkVersion.toInteger()
@@ -77,7 +94,7 @@ android {
   }
 }
 
-def Properties props = new Properties()
+Properties props = new Properties()
 def propFile = rootProject.file('/doc/signing/signing.properties')
 if (propFile.canRead()){
   props.load(new FileInputStream(propFile))
@@ -107,29 +124,35 @@ configurations { natives }
 
 dependencies {
   coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:$androidDesugarVersion"
-  // implementation "androidx.multidex:multidex:2.0.1"
 
-  implementation ("$gdxModule:gdx-backend-android:$gdxVersion") {
-    exclude group: "com.badlogicgames.gdx"
-  }
+  implementation ("$gdxModule:gdx-backend-android:$gdxVersion")
+
   implementation "com.github.simplepeng.SpiderMan:spiderman:$spidermanVersion"//如果程序异常闪退提供log
 
-  implementation project(':game0007:game0007-core')
-  // implementation "com.github.lyze237:gdx-TinyVG:$gdxTinyVGVersion"
+  implementation "$pama1234RepoLocation:server-framework:$pama1234PublishVersion"
+  implementation "$pama1234RepoLocation:framework:$pama1234PublishVersion"
+  implementation "$pama1234RepoLocation:android-framework:$pama1234PublishVersion"
 
-  // natives "$gdxCustomModule:gdx-bullet-platform:$gdxCustomVersion:natives-arm64-v8a"
-  // natives "$gdxCustomModule:gdx-bullet-platform:$gdxCustomVersion:natives-armeabi-v7a"
-  // natives "$gdxCustomModule:gdx-bullet-platform:$gdxCustomVersion:natives-x86"
-  // natives "$gdxCustomModule:gdx-bullet-platform:$gdxCustomVersion:natives-x86_64"
+  api ("$pama1234RepoLocation:framework-box2d:$pama1234PublishVersion") {
+    // exclude group: "$pama1234RepoLocation", module: "server-framework"
+    // exclude group: "$pama1234RepoLocation", module: "framework"
+    // exclude group: "com.esotericsoftware", module: "reflectasm"
+    // exclude group: "space.earlygrey", module: "shapedrawer"
+    // exclude group: "org.jbox2d", module: "jbox2d-library"
+  }
+
+  api "javax.vecmath:vecmath:$vecmathVersion"
+  api "com.esotericsoftware:kryo:$kryoVersion"
+  
+  // api "org.jbox2d:jbox2d-library:$jbox2dVersion"
+
+  implementation project(':game0007:game0007-core')
+  implementation project(':game0007:game0007-server')
+
   natives "$gdxModule:gdx-platform:$gdxVersion:natives-arm64-v8a"
   natives "$gdxModule:gdx-platform:$gdxVersion:natives-armeabi-v7a"
   natives "$gdxModule:gdx-platform:$gdxVersion:natives-x86"
   natives "$gdxModule:gdx-platform:$gdxVersion:natives-x86_64"
-
-  // natives "com.mazatech.amanithsvg:amanithsvg-gdx:$amanithsvgVersion:natives-armeabi-v7a"
-  // natives "com.mazatech.amanithsvg:amanithsvg-gdx:$amanithsvgVersion:natives-arm64-v8a"
-  // natives "com.mazatech.amanithsvg:amanithsvg-gdx:$amanithsvgVersion:natives-x86"
-  // natives "com.mazatech.amanithsvg:amanithsvg-gdx:$amanithsvgVersion:natives-x86_64"
 }
 
 // Called every time gradle gets executed, takes the native dependencies of

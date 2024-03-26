@@ -18,7 +18,7 @@ public class Screen0041 extends ScreenCore2D{
     cam2d.pixelPerfect=CameraController2D.SMOOTH;
     noStroke();
     backgroundColor(243);
-    
+
     fileTextEditor=new FileTextEditor<>(this,UtilScreen.color(0),0,0,rootPath.child("test/test0001.txt"));
     fileTextEditor.loadFile();
     centerCam.add.add(fileTextEditor);

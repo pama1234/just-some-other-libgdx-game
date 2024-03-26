@@ -16,7 +16,7 @@ import com.badlogic.gdx.Input.Buttons;
 
 import pama1234.Tools;
 import pama1234.gdx.game.ui.UiGenerator;
-import pama1234.gdx.game.ui.util.TextButton;
+import pama1234.gdx.game.ui.element.TextButton;
 import pama1234.gdx.util.UITools;
 import pama1234.gdx.util.app.ScreenCore2D;
 import pama1234.gdx.util.app.UtilScreen;
@@ -26,7 +26,9 @@ import pama1234.gdx.util.info.MouseInfo;
 import pama1234.gdx.util.wrapper.EntityCenter;
 import pama1234.math.UtilMath;
 import pama1234.math.vec.Vec2f;
+import pama1234.util.Annotations.ScreenDescription;
 
+@ScreenDescription("填满正方形")
 public class Screen0037 extends ScreenCore2D{
   public World world;
   public BoxEntityCenter<Screen0037> bodyCenter;
@@ -54,7 +56,7 @@ public class Screen0037 extends ScreenCore2D{
   @Override
   public void setup() {
     color(TextButton.fillColor,191,191);
-    // cam2d.pixelPerfect=CameraController2D.SMOOTH;
+    if(!isAndroid) cam2d.pixelPerfect=CameraController2D.SMOOTH;
     if(isAndroid) {
       cam2d.active(false);
       camStrokeWeight=()->cam2d.pixelPerfect==CameraController2D.SMOOTH?cam2d.scale.pos/4f:u/128*cam2d.scale.pos;
@@ -62,7 +64,7 @@ public class Screen0037 extends ScreenCore2D{
       camStrokeWeight=()->cam2d.pixelPerfect==CameraController2D.SMOOTH?cam2d.scale.pos/8f:u/512f*cam2d.scale.pos;
     }
     if(cam2d.pixelPerfect==CameraController2D.SMOOTH) {
-      cam2d.maxScale=32f;
+      cam2d.maxScale=96f;
       cam2d.minScale=1/4f;
       // cam2d.scaleUnit=1/16f;
       cam2d.scale.des=isAndroid?8f:18f;
@@ -74,11 +76,11 @@ public class Screen0037 extends ScreenCore2D{
     }
     cam2d.testScale();
     backgroundColor(127);
-    
+
     world=new World(new Vec2(0,9.81f));
-    bodyCenter=new BoxEntityCenter<Screen0037>(this);
+    bodyCenter=new BoxEntityCenter<>(this);
     serverCenter.add.add(bodyCenter);
-    
+
     boxBodyDef=new BodyDef();
     boxBodyDef.type=BodyType.DYNAMIC;
     boxFixtureDef=new FixtureDef();
@@ -86,7 +88,7 @@ public class Screen0037 extends ScreenCore2D{
     // boxFixtureDef.restitution=0.1f;
     boxFixtureDef.restitution=0f;
     boxFixtureDef.friction=0.1f;
-    
+
     edgeBodyDef=new BodyDef();
     edgeBodyDef.type=BodyType.KINEMATIC;
     edgeBodyDef.angularVelocity=1/4f;
@@ -98,7 +100,7 @@ public class Screen0037 extends ScreenCore2D{
     createEdge(tb,0,0,edgeBoxSize,-edgeBoxSize,edgeBoxSize,edgeBoxSize);
     createEdge(tb,0,0,edgeBoxSize,-edgeBoxSize,-edgeBoxSize,-edgeBoxSize);
     createEdge(tb,0,0,-edgeBoxSize,edgeBoxSize,-edgeBoxSize,-edgeBoxSize);
-    edgeBody=new BodyEntity<Screen0037>(this,tb);
+    edgeBody=new BodyEntity<>(this,tb);
     bodyCenter.add.add(edgeBody);
     buttons=UiGenerator.genButtons_0005(this);
     for(var i:buttons) centerScreen.add.add(i);
@@ -123,7 +125,7 @@ public class Screen0037 extends ScreenCore2D{
     dynamicBox.setAsBox(1,1);
     boxFixtureDef.shape=dynamicBox;
     body.createFixture(boxFixtureDef);
-    BodyEntity<Screen0037> out=new BodyEntity<Screen0037>(this,body);
+    BodyEntity<Screen0037> out=new BodyEntity<>(this,body);
     bodyCenter.addBox(out);
     return out;
   }

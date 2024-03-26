@@ -1,8 +1,19 @@
 apply plugin: 'com.android.application'
 
+configurations {
+  all {
+    // exclude group: "$pama1234RepoLocation", module: "server-framework"
+    // exclude group: "javax.vecmath", module: "*"
+    // exclude group: "com.esotericsoftware", module: "*"
+    // exclude group: "com.google.code.gson", module: "*"
+    // exclude group: "org.yaml", module: "*"
+    // exclude group: "io.netty", module: "*"
+  }
+}
+
 android {
   namespace 'pama1234'
-  compileSdkVersion project.properties.compileSdkVersion.toInteger()
+//  compileSdkVersion project.properties.compileSdkVersion.toInteger()
   signingConfigs {
     release {
       // storeFile file('sign.jks')
@@ -40,6 +51,7 @@ android {
     exclude 'META-INF/dependencies.txt'
   }
   defaultConfig {
+    compileSdk project.properties.compileSdkVersion.toInteger()
     applicationId 'pama1234.gdx.game.app.game0001.android'
     minSdkVersion project.properties.minSdkVersion.toInteger()
     targetSdkVersion project.properties.targetSdkVersion.toInteger()
@@ -57,34 +69,19 @@ android {
   buildTypes {
     release {
       minifyEnabled false
-      proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+      proguardFiles getDefaultProguardFile('proguard-android.txt') , 'proguard-rules.pro'
 
       signingConfig signingConfigs.release
     }
   }
-
-  // applicationVariants.all { variant ->
-  //   variant.getCompileConfiguration().resolutionStrategy {
-  //     // preferProjectModules()
-  //     // failOnVersionConflict()
-  //     // eachDependency { DependencyResolveDetails details ->
-  //     //   def requested = details.requested
-  //     //   details.useTarget(details.requested)
-  //     // }
-  //   }
-  //   // // Return runtime configuration objects of a variant.
-  //   // variant.getRuntimeConfiguration().resolutionStrategy { }
-  //   // // Return annotation processor configuration of a variant.
-  //   // variant.getAnnotationProcessorConfiguration().resolutionStrategy { }
-  // }
 }
 
-def Properties props = new Properties()
+Properties props = new Properties()
 def propFile = rootProject.file('/doc/signing/signing.properties')
-if (propFile.canRead()){
+if(propFile.canRead()) {
   props.load(new FileInputStream(propFile))
 
-  if (props!=null && props.containsKey('STORE_FILE') && props.containsKey('STORE_PASSWORD') &&
+  if(props != null && props.containsKey('STORE_FILE') && props.containsKey('STORE_PASSWORD') &&
       props.containsKey('KEY_ALIAS') && props.containsKey('KEY_PASSWORD')) {
 
     android.signingConfigs.release.storeFile = file(props['STORE_FILE'])
@@ -94,7 +91,7 @@ if (propFile.canRead()){
   } else {
     android.buildTypes.release.signingConfig = null
   }
-}else {
+} else {
   android.buildTypes.release.signingConfig = null
 }
 
@@ -110,27 +107,20 @@ configurations { natives }
 dependencies {
   coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:$androidDesugarVersion"
 
-  implementation ("$gdxModule:gdx-backend-android:$gdxVersion") {
-    exclude group: "com.badlogicgames.gdx"
-  }
+  implementation("$gdxModule:gdx-backend-android:$gdxVersion")
+
   implementation "com.github.simplepeng.SpiderMan:spiderman:$spidermanVersion"//如果程序异常闪退提供log
 
-  implementation project(':game0001:game0001-core')
-  // implementation "com.github.lyze237:gdx-TinyVG:$gdxTinyVGVersion"
+  implementation "$pama1234RepoLocation:server-framework:$pama1234PublishVersion"
+  implementation("$pama1234RepoLocation:framework:$pama1234PublishVersion")
+  implementation("$pama1234RepoLocation:android-framework:$pama1234PublishVersion")
 
-  // natives "$gdxCustomModule:gdx-bullet-platform:$gdxCustomVersion:natives-arm64-v8a"
-  // natives "$gdxCustomModule:gdx-bullet-platform:$gdxCustomVersion:natives-armeabi-v7a"
-  // natives "$gdxCustomModule:gdx-bullet-platform:$gdxCustomVersion:natives-x86"
-  // natives "$gdxCustomModule:gdx-bullet-platform:$gdxCustomVersion:natives-x86_64"
+  implementation(project(':game0001:game0001-core'))
+
   natives "$gdxModule:gdx-platform:$gdxVersion:natives-arm64-v8a"
   natives "$gdxModule:gdx-platform:$gdxVersion:natives-armeabi-v7a"
   natives "$gdxModule:gdx-platform:$gdxVersion:natives-x86"
   natives "$gdxModule:gdx-platform:$gdxVersion:natives-x86_64"
-
-  // natives "com.mazatech.amanithsvg:amanithsvg-gdx:$amanithsvgVersion:natives-armeabi-v7a"
-  // natives "com.mazatech.amanithsvg:amanithsvg-gdx:$amanithsvgVersion:natives-arm64-v8a"
-  // natives "com.mazatech.amanithsvg:amanithsvg-gdx:$amanithsvgVersion:natives-x86"
-  // natives "com.mazatech.amanithsvg:amanithsvg-gdx:$amanithsvgVersion:natives-x86_64"
 }
 
 // Called every time gradle gets executed, takes the native dependencies of
@@ -161,7 +151,7 @@ task copyAndroidNatives() {
 }
 
 tasks.whenTaskAdded { packageTask ->
-  if (packageTask.name.contains("package")) {
+  if(packageTask.name.contains("package")) {
     packageTask.dependsOn 'copyAndroidNatives'
   }
 }
@@ -169,13 +159,13 @@ tasks.whenTaskAdded { packageTask ->
 task run(type: Exec) {
   def path
   def localProperties = project.file("../local.properties")
-  if (localProperties.exists()) {
+  if(localProperties.exists()) {
     Properties properties = new Properties()
     localProperties.withInputStream { instr ->
       properties.load(instr)
     }
     def sdkDir = properties.getProperty('sdk.dir')
-    if (sdkDir) {
+    if(sdkDir) {
       path = sdkDir
     } else {
       path = "$System.env.ANDROID_SDK_ROOT"
@@ -185,13 +175,7 @@ task run(type: Exec) {
   }
 
   def adb = path + "/platform-tools/adb"
-  commandLine "$adb", 'shell', 'am', 'start', '-n', 'pama1234.gdx.game.app/pama1234.gdx.game.app.android.AndroidLauncher'
+  commandLine "$adb" , 'shell' , 'am' , 'start' , '-n' , 'pama1234.gdx.game.app/pama1234.gdx.game.app.android.AndroidLauncher'
 }
-
-// tasks.whenTaskAdded { task ->
-//   if (task.name == 'checkDebugDuplicateClasses') {
-//     task.enabled = false
-//   }
-// }
 
 eclipse.project.name = appName + '0001-android'

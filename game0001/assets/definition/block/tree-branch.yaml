@@ -1,0 +1,36 @@
+!<StoredInfo>
+attr: !<MetaBlockAttribute>
+  blockType: 0
+  buildTime: 5
+  defaultDisplayType: 0
+  destroyTime: 10
+  display: true
+  displayNames: null
+  displayTypeSize: 1
+  empty: false
+  fullBlock: false
+  fullBlockType: 0
+  hardness: 1.0
+  height: 1
+  intData: null
+  light: false
+  lightIntensity: 0.0
+  rectSolid: null
+  width: 1
+  workStation: false
+id: 4
+name: tree-branch
+sttr: !<MetaBlockStoredAttribute>
+  displayUpdater: null
+  displayer: null
+  from: null
+  itemDrop: null
+  tiles:
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 380, y: 100}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 380, y: 80}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 360, y: 100}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 360, y: 80}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 380, y: 120}
+  - null
+  to: null
+  updater: null

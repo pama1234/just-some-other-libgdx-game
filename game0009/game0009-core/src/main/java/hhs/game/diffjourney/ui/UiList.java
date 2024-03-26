@@ -4,7 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.utils.Pools;
-import hhs.game.diffjourney.entities.Enemy1;
+import hhs.game.diffjourney.entities.Mushroom;
 import hhs.game.diffjourney.map.Block;
 import hhs.game.diffjourney.screens.MainScreen;
 import hhs.gdx.hsgame.screens.BasicScreen;
@@ -33,7 +33,7 @@ public class UiList{
     exit=new PixelFontButton("返回");
     exit.addListener(ListenerBuilder.touch(()-> {
       Block.pool.clear();
-      Pools.get(Enemy1.class).clear();
+      Pools.get(Mushroom.class).clear();
       Resource.setScreen(MainScreen.class);
     }));
     exit.setScale(8);

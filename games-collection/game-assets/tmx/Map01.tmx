@@ -1,0 +1,15 @@
+<?xml version='1.0' encoding='UTF-8' standalone='yes' ?>
+<map version="1.2" orientation="isometric" renderorder="right-down" width="45" height="30" tilewidth="36" tileheight="18" nextobjectid="18">
+  <tileset firstgid="1" name="packer" columns="27" tilecount="2365" tileheight="18" tilewidth="36">
+    <image source="packer.png" width="1000" height="1575" />
+  </tileset>
+  <layer name="Tile 1" width="45" height="30">
+    <data encoding="base64" compression="gzip">
+   H4sIAAAAAAAAAOXVOxKAIAwEUArvX3MNbmjrOIJsNhuIFlQM5JGP1qOUGrDaZUXE8/RmcD95v2pe/U4kfu+N0e7Z2G9eTzOaO2uOvcyW/KE1UeW4dzcae5WZqfHOZsscZjSrZpB1ZzA34K4ZR5TZu5d2NrM1WeFWvFVpVtZodY5HvaI2sjEjelvxrc1oRvsLjRf9X0PiZzSzboWXdY/OKr1Mj1jn4a9mtjdVM2w993bXfe8EIDZysBgVAAA=
+  </data>
+  </layer>
+  <objectgroup name="body" />
+  <objectgroup name="biology">
+    <object name="" type="" id="16" x="0" y="0" width="72" height="72" />
+  </objectgroup>
+</map>

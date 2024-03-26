@@ -10,7 +10,7 @@ import org.yaml.snakeyaml.constructor.Constructor;
 import org.yaml.snakeyaml.error.YAMLException;
 import org.yaml.snakeyaml.representer.Representer;
 
-import pama1234.gdx.game.ui.util.TextButtonCam;
+import pama1234.gdx.game.ui.element.TextButtonCam;
 import pama1234.gdx.util.app.UtilScreen2D;
 import pama1234.gdx.util.cam.CameraController2D;
 import pama1234.gdx.util.entity.Entity;
@@ -27,7 +27,7 @@ public class Screen0044 extends ScreenMenu{
     noStroke();
     backgroundColor(243);
     drawCursorWhenGrab=true;
-    
+
     createAndAddMenuButtons();
     DumperOptions dumperOptions=new DumperOptions();
     Representer repr=new Representer(dumperOptions);

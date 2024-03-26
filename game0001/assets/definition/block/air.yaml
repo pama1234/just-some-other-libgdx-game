@@ -1,0 +1,30 @@
+!<StoredInfo>
+attr: !<MetaBlockAttribute>
+  blockType: 0
+  buildTime: 1
+  defaultDisplayType: 0
+  destroyTime: 1
+  display: false
+  displayNames: null
+  displayTypeSize: 0
+  empty: true
+  fullBlock: true
+  fullBlockType: 0
+  hardness: 1.0
+  height: 1
+  intData: null
+  light: false
+  lightIntensity: 0.0
+  rectSolid: null
+  width: 1
+  workStation: false
+id: 0
+name: air
+sttr: !<MetaBlockStoredAttribute>
+  displayUpdater: null
+  displayer: null
+  from: null
+  itemDrop: null
+  tiles: null
+  to: null
+  updater: null

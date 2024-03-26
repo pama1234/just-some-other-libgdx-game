@@ -8,9 +8,11 @@ import pama1234.gdx.game.sandbox.platformer.entity.GamePointEntity;
 import pama1234.gdx.game.sandbox.platformer.entity.LivingEntity;
 import pama1234.gdx.game.sandbox.platformer.item.DisplaySlot;
 import pama1234.gdx.game.sandbox.platformer.item.Inventory;
+import pama1234.gdx.game.sandbox.platformer.item.InventoryCore;
 import pama1234.gdx.game.sandbox.platformer.item.Item;
 import pama1234.gdx.game.sandbox.platformer.item.Item.ItemSlot;
 import pama1234.gdx.game.sandbox.platformer.metainfo.MetaBlock;
+import pama1234.gdx.game.sandbox.platformer.metainfo.MetaItem;
 import pama1234.gdx.game.sandbox.platformer.player.BlockPointer;
 import pama1234.gdx.game.sandbox.platformer.player.GameMode;
 import pama1234.gdx.game.sandbox.platformer.player.MainPlayer;
@@ -18,7 +20,9 @@ import pama1234.gdx.game.sandbox.platformer.player.ctrl.ControllerUtil.Controlle
 import pama1234.gdx.game.sandbox.platformer.region.block.Block;
 import pama1234.gdx.game.sandbox.platformer.region.block.Block.BlockUi;
 import pama1234.gdx.game.sandbox.platformer.world.WorldSettings;
+import pama1234.gdx.game.ui.GameController;
 import pama1234.gdx.game.ui.element.TextButtonCam;
+import pama1234.gdx.util.AbstractControlBindUtil;
 import pama1234.gdx.util.AbstractControlBindUtil.GetKeyPressedBoolean;
 import pama1234.gdx.util.info.TouchInfo;
 import pama1234.gdx.util.wrapper.EntityCenter;
@@ -26,28 +30,45 @@ import pama1234.math.UtilMath;
 import pama1234.math.geometry.RectF;
 
 /**
+ * <pre>
  * 术语：
- * </p>
  * 1. 物品栏 按下E键后第一行物品格子
- * </p>
  * 2. 背包 按下E键后第一行以下的格子
- * </p>
  * 3. 物品格子 灰色正方形，缺四个角，中间可以存放物品
+ * </pre>
+ * 
+ * @see Inventory 背包和物品栏
+ * @see AbstractControlBindUtil 键位系统
  * 
  */
 public class PlayerControllerFull extends PlayerControllerCore{
+
   public MainPlayer player;
   public RectF[] cullRects;
   // public float camScale=2;
   public ControllerBlockPointer selectBlock;
   public float zoomSpeed=0.0625f;
   public boolean zoomIn,zoomOut;
+
+  /** 范围摇杆 */
+  public GameController ctrlVertex;
+
   public PlayerControllerFull(Screen0011 p,MainPlayer player) {
     super(p,player,true);
     this.player=player;
     cullRects=ControlUiUtil.createRectF(p);
     coreSelectBlock=selectBlock=new ControllerBlockPointer(player.pw,()->player.inventory.selectSlot().data);
+
+    if(p.isAndroid) {
+      if(!p.settings.ctrlButton) ctrlVertex=new GameController(p) {
+        @Override
+        public boolean inActiveRect(float x,float y) {
+          return Tools.inRect(x,y,0,p.u*2,p.width/3f,p.height);
+        }
+      };
+    }
   }
+  /** 绘制生物和方块选择框 */
   @Override
   public void display() {
     if(selectEntity.entity!=null) ControllerDisplayUtil.drawSelectEntity(p,selectEntity.entity);
@@ -97,9 +118,7 @@ public class PlayerControllerFull extends PlayerControllerCore{
     Block block=player.getBlock(tx,ty);
     selectBlock.update(block,tx,ty);
   }
-  /**
-   * 根据键位设置刷新玩家的按键，具体来说是上下左右移动状态
-   */
+  /** 根据键位设置刷新玩家的按键，具体来说是上下左右移动状态 */
   public void updateKeyInfo() {
     GetKeyPressedBoolean f=p::isKeyPressed;
     left=p.controlBind.isKeyPressed(ControlBindUtil.moveLeft,f);
@@ -110,11 +129,18 @@ public class PlayerControllerFull extends PlayerControllerCore{
   @Override
   public void keyPressed(char key,int keyCode) {
     if(p.controlBind.isKey(ControlBindUtil.shift,keyCode)) shift(true);
-    else if(p.controlBind.isKey(ControlBindUtil.openInventory,keyCode)) player.inventory.displayStateChange();
+    else if(p.controlBind.isKey(ControlBindUtil.openInventory,keyCode)) inventoryDisplayStateChange();
     else if(p.controlBind.isKey(ControlBindUtil.camZoomIn,keyCode)) zoomIn=true;
     else if(p.controlBind.isKey(ControlBindUtil.camZoomOut,keyCode)) zoomOut=true;
     else if(testIsHotSlotKey(keyCode,true)) player.inventory.selectSlotWithKeyEvent();
   }
+
+  public void inventoryDisplayStateChange() {
+    player.inventory.displayStateChange();
+    if(ctrlVertex!=null) ctrlVertex.active=player.inventory.displayState!=InventoryCore.displayFullInventory;
+    //    System.out.println(ctrlVertex.active);
+  }
+
   @Override
   public void keyReleased(char key,int keyCode) {
     if(p.controlBind.isKey(ControlBindUtil.shift,keyCode)) shift(false);
@@ -144,6 +170,7 @@ public class PlayerControllerFull extends PlayerControllerCore{
     p.cam2d.scaleAdd(in);
     player.camScale=p.cam2d.scale.des;
   }
+  /** 当鼠标按下或触碰发生时，就会调用这个方法 */
   @Override
   public void touchStarted(TouchInfo info) {
     if(info.state!=0) return;
@@ -155,10 +182,12 @@ public class PlayerControllerFull extends PlayerControllerCore{
 
     int tx=player.xToBlockCordInt(info.x),
       ty=player.xToBlockCordInt(info.y);
-    if(updateAndTestInventorySlot(info.x,info.y,info.button)) return;
+    if(p.isAndroid
+      ?updateAndTestInventorySlot(info.ox,info.oy,info.button)
+      :updateAndTestInventorySlot(info.x,info.y,info.button)) return;
     if(updateAndTestWorkStationUi(info)) return;
     if(p.isAndroid&&inDisplayInventoryButton(info.x,info.y)) {
-      player.inventory.displayStateChange();
+      inventoryDisplayStateChange();
       return;
     }
     if(updateAndTestSelectEntity(tx,ty,info.button)) return;
@@ -174,18 +203,48 @@ public class PlayerControllerFull extends PlayerControllerCore{
     selectBlock.active=true;
     selectBlock.update(block,tx,ty);
     selectBlock.info(info);
-    selectBlock.startTaskButtonInfo(getTouchInfoButton(info.button));
+    selectBlock.startTaskButtonInfo(getBlockTaskButton(block,selectBlock.slot.get().item,info.button));
+  }
+  /**
+   * <pre>
+   * 兼容电脑端和手机端的物品使用操作，手机端的判断逻辑如下：
+   * 1. 如果手中持有工具，则优先左键使用工具
+   * 2. 如果手中没有工具，并且目标方块是空的，优先右键放置物品
+   * 3. 如果方块是工作站，那么优先右键选中工作站
+   * </pre>
+   * 
+   * @param block 方块
+   * @param item  手持物品
+   * @param in    传入的按键
+   * @return 传出的按键
+   */
+  @Deprecated
+  public int getBlockTaskButton(Block block,Item item,int in) {
+    if(p.isAndroid) {
+      // return player.pw.pg.androidRightMouseButton?Buttons.RIGHT:Buttons.LEFT;
+      boolean toolItem=item!=null&&(item.type.attr.toolType!=MetaItem.notTool);
+      boolean blockEmpty=Block.isEmpty(block);
+      boolean workStation=block.type.attr.workStation;
+      return toolItem?Buttons.LEFT:(blockEmpty?Buttons.RIGHT:(workStation?Buttons.RIGHT:Buttons.LEFT));
+    }else {
+      return in;
+    }
   }
   /**
    * 鼠标是否在玩家角色的中心圆圈范围内（这里用来判断是否会显示或隐藏玩家的物品栏）
    * 
-   * @param tx
-   * @param ty
-   * @return
+   * @param tx 鼠标x
+   * @param ty 鼠标y
+   * @return 是否在范围内
    */
   public boolean inDisplayInventoryButton(float tx,float ty) {
     return UtilMath.dist(tx,ty,player.cx(),player.cy())<player.circleSize()/2f;
   }
+  /**
+   * 对所有触碰信息进行刷新事件
+   * 
+   * @param info
+   */
   public void touchUpdate(TouchInfo info) {
     if(!player.pw.p.isAndroid) return;
     if(info.state!=0) return;
@@ -340,7 +399,7 @@ public class PlayerControllerFull extends PlayerControllerCore{
     return false;
   }
   /**
-   * 测试鼠标是否在物品栏的单个物品格子上，如果是则选中此物品格子，被选中的物品格子里的东西可以被玩家放置到世界或进行使用
+   * 测试鼠标是否在物品栏的单个物品格子上，如果是，则选中此物品格子，被选中的物品格子里的东西，可以被玩家放置到世界或进行使用
    * 
    * @param x
    * @param y
@@ -351,6 +410,7 @@ public class PlayerControllerFull extends PlayerControllerCore{
    */
   public boolean testAndSelectSlot(float x,float y,int button,DisplaySlot[] slots,int i) {
     DisplaySlot e=slots[i];
+    //    p.println(x,y,e.x1,e.y1,e.w1,e.h1);
     if(Tools.inBox(x,y,e.x1,e.y1,e.w1,e.h1)) {
       switch(getTouchInfoButton(button)) {
         case Buttons.LEFT: {

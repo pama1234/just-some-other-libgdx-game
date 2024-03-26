@@ -29,12 +29,12 @@ public class CellGroup3D extends ServerEntity{
   public CellGroup3D(float f,float boxR,int size,int[] type,float[][][] core,int[] colors) {
     KernelManager kernelManager=KernelManager.instance();
     Device bestDevice=kernelManager.bestDevice();
-    
+
     this.size=size;
     this.type=type;
     this.forceMatrix=core;
     this.colors=colors;
-    
+
     posX=new float[size];
     posY=new float[size];
     posZ=new float[size];
@@ -42,10 +42,10 @@ public class CellGroup3D extends ServerEntity{
     velX=new float[size];
     velY=new float[size];
     velZ=new float[size];
-    
+
     r=Range.create(size);
     rSquare=Range.create(size*size);
-    
+
     updater=new CellUpdater3D(
       posX,posY,posZ,
       velX,velY,velZ,
@@ -58,7 +58,7 @@ public class CellGroup3D extends ServerEntity{
       DIST,DIST/3,//TODO
       size,type,core,
       boxR/2,boxR/2,boxR/2);
-    
+
     try {
       updater.compile(bestDevice);
       squareUpdater.compile(bestDevice);
@@ -83,7 +83,7 @@ public class CellGroup3D extends ServerEntity{
   public void pause() {}
   @Override
   public void resume() {}
-  
+
   public float x(int p) {
     return posX[p];
   }

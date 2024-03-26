@@ -3,10 +3,11 @@ package pama1234.gdx.game.sandbox.platformer.net;
 import java.io.IOException;
 import java.net.SocketException;
 
-import pama1234.game.app.server.server0002.net.SocketData;
-import pama1234.gdx.game.state.state0001.Game;
+import pama1234.gdx.SystemSetting;
 import pama1234.gdx.game.sandbox.platformer.player.Player;
 import pama1234.gdx.game.sandbox.platformer.world.WorldBase2D;
+import pama1234.gdx.game.state.state0001.Game;
+import pama1234.server.game.app.server0002.net.SocketData;
 import pama1234.util.net.ServerSocketData;
 import pama1234.util.net.SocketWrapper;
 import pama1234.util.wrapper.Center;
@@ -45,7 +46,7 @@ public class ServerCore{
           serverRead.start();
           serverReadPool.add.add(serverRead);
         }catch(SocketException e) {
-          if(game.p.settings.printLog) System.out.println(e);
+          if(SystemSetting.data.printLog) System.out.println(e);
           stop=true;
         }catch(IOException e) {
           e.printStackTrace();
@@ -77,7 +78,7 @@ public class ServerCore{
       this.socketData=socketData;
     }
     public void init() {
-      player=new Player(p.game.p,p.world,0,0,p.world.metaEntitys.player);
+      player=new Player(p.game.p,p.world,0,0,p.world.metaEntities.player);
       player.init();
       player.innerInit();
     }

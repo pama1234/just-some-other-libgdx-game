@@ -1,29 +1,37 @@
-include 'framework','server-framework'
-include 'android-framework'
+// lpp 01版本
+// 预计task数：4791
 
-include 'framework0001:framework0001-neat'
-include 'framework0001:framework0001-yaml'
-include 'framework0001:framework0001-protobuf'
-include 'framework0001:framework0001-box2d'
-include 'framework0001:framework0001-processing'
+// 以下内容用于关于编号含义的提示
 
-// include 'framework0002:xr4j-lwjgl3'
-// include 'framework0002:xr4j-android'
+// 0001. 空想世界1
+// 0002. 粒子系统【暂停维护】
+// 0003. 几何决斗【从FAL的学生时期作品移植过来，已火】
+// 0004. 高维塔防【3D游戏模板】
+// 0005. 杂项
+// 0006. 中心IDE【ce4kotlin】
+// 0007. 填满正方形
+// 0008. 粒子生命：升天（魔改版2D processing粒子系统）
+// 0009. 异星征途
+// 0010. 聊天室
+// 0011. 数值膨胀，以及矢量天空，以及TRPG系统【移动到ce4kotlin】
+// 0012. 光遇2，流浪遇球，别太荒谬了【ce4kotlin】
+// 0013. galgame
 
-include 'framework0003:framework0003-androidDex'
-include 'framework0003:framework0003-bytecode'
-include 'framework0003:framework0003-textmate'
+include 'framework0005:framework0005-net', 'framework0005:framework0005-net-android', 'framework0005:framework0005-net-relay'
 
-// include 'framework0004:framework0004-terminal'
-// include 'framework0004:framework0004-terminal-android'
+// include 'taptap-framework'
+// include 'taptap-framework:taptap-sdk-aar'
 
 include 'game0001:game0001-android', 'game0001:game0001-lwjgl3', 'game0001:game0001-core', 'game0001:game0001-server', 'game0001:game0001-headless', 'game0001:game0001-pico4', 'game0001:game0001-taptap'
 // include 'game0002:game0002-android', 'game0002:game0002-lwjgl3', 'game0002:game0002-core', 'game0002:game0002-server', 'game0002:game0002-taptap'
 include 'game0003:game0003-android', 'game0003:game0003-lwjgl3', 'game0003:game0003-core', 'game0003:game0003-server', 'game0003:game0003-taptap'
-// include 'game0004:game0004-android', 'game0004:game0004-lwjgl3', 'game0004:game0004-core', 'game0004:game0004-server'
-include 'game0005:game0005-android', 'game0005:game0005-lwjgl3', 'game0005:game0005-core', 'game0005:game0005-server'
-// include 'game0006:game0006-android', 'game0006:game0006-lwjgl3', 'game0006:game0006-core', 'game0006:game0006-server'
-// include 'game0007:game0007-android', 'game0007:game0007-lwjgl3', 'game0007:game0007-core', 'game0007:game0007-server', 'game0007:game0007-taptap'
+
+include 'game0007:game0007-android', 'game0007:game0007-lwjgl3', 'game0007:game0007-core', 'game0007:game0007-server'
 include 'game0008:game0008-android', 'game0008:game0008-lwjgl3', 'game0008:game0008-core', 'game0008:game0008-server', 'game0008:game0008-taptap'
-include 'game0009:game0009-android', 'game0009:game0009-lwjgl3', 'game0009:game0009-core'
-// include 'game0010:game0010-android', 'game0010:game0010-lwjgl3', 'game0010:game0010-core', 'game0010:game0010-server'
+include 'game0009:game0009-android', 'game0009:game0009-lwjgl3', 'game0009:game0009-core', 'game0009:game0009-server'
+//include 'game0010:game0010-android', 'game0010:game0010-lwjgl3', 'game0010:game0010-core', 'game0010:game0010-server'
+include 'game0013:game0013-android', 'game0013:game0013-lwjgl3', 'game0013:game0013-core', 'game0013:game0013-server', 'game0013:game0013-taptap'
+include 'game0015:game0015-android', 'game0015:game0015-lwjgl3', 'game0015:game0015-core', 'game0015:game0015-server'
+
+include 'games-collection'
+// include 'game0007:game0007-core','game0007:game0007-server'

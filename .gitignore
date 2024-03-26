@@ -2,6 +2,7 @@
 .gradle/
 gradle-app.setting
 /build/
+/doclet/build/
 /framework/build/
 /server-framework/build/
 /game*/build/
@@ -17,8 +18,8 @@ gradle-app.setting
 /game*/game*-headless/build/
 /game*/game*-server/build/
 /game*/game*-shared/build/
-
 /framework*/framework*-*/build/
+/framework0002/xr4j-*/build/
 
 ## Java:
 *.class
@@ -96,6 +97,7 @@ www-test/
 .classpath
 .project
 .metadata/
+/doclet/bin/
 /framework/bin/
 /server-framework/bin/
 /game*/game*-android/bin/
@@ -120,9 +122,11 @@ www-test/
 *.launch
 
 /framework*/framework*-*/bin/
+/framework0002/xr4j-*/bin/
 
 ## NetBeans:
 
+/doclet/private/
 /nbproject/private/
 /framework/nbproject/private/
 /server-framework/nbproject/private/
@@ -141,7 +145,9 @@ www-test/
 /game*/game*-shared/nbproject/private/
 
 /framework*/framework*-*/nbproject/private/
+/framework0002/xr4j-*/nbproject/private/
 
+/doclet/nbbuild/
 /game*/nbbuild/
 /framework/nbbuild/
 /server-framework/nbbuild/
@@ -159,8 +165,10 @@ www-test/
 /game*/game*-shared/nbbuild/
 
 /framework*/framework*-*/nbbuild/
+/framework0002/xr4j-*/nbbuild/
 
 /dist/
+/doclet/dist/
 /framework/dist/
 /server-framework/dist/
 /game*/dist/
@@ -177,9 +185,12 @@ www-test/
 /game*/game*-server/dist/
 /game*/game*-shared/dist/
 
+/taptap-framework/build/
 /framework*/framework*-*/dist/
+/framework0002/xr4j-*/dist/
 
 /nbdist/
+/doclet/nbdist/
 /framework/nbdist/
 /server-framework/nbdist/
 /game*/nbdist/
@@ -197,6 +208,7 @@ www-test/
 /game*/game*-shared/nbdist/
 
 /framework*/framework*-*/nbdist/
+/framework0002/xr4j-*/nbdist/
 
 nbactions.xml
 nb-configuration.xml
@@ -233,3 +245,8 @@ game0006/assets/music/midi/
 .androidide
 
 framework0004/framework0004-terminal-android/src/main/cpp/*.zip
+
+games-collection/build/
+games-collection/libs/
+
+.lwjgl/

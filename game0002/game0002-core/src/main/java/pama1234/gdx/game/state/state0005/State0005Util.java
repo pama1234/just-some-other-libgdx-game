@@ -26,7 +26,7 @@ public class State0005Util{
   }
   public static class StateCenter0005 extends StateCenter<ParticleScreen3D,StateEntity0005>{
     public DebugStateEntitys debug;
-    
+
     public StartMenu startMenu;
     public Game game;
     public Settings settings;

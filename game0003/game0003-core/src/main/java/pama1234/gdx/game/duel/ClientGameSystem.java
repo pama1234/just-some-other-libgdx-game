@@ -101,6 +101,7 @@ public final class ClientGameSystem extends ServerGameSystem{
   }
   @Override
   public void display() {
+//    p.doStroke();
     p.pushMatrix();
     if(screenShakeValue>0) {
       p.translate(p.random(screenShakeValue,screenShakeValue),p.random(-screenShakeValue,screenShakeValue));
@@ -109,11 +110,14 @@ public final class ClientGameSystem extends ServerGameSystem{
     currentBackground.display();
     currentState.display();
     p.popMatrix();
+//    p.noStroke();
   }
   @Override
   public void displayScreen() {
+//    p.doStroke();
     currentState.displayScreen();
     if(demoPlay&&showsInstructionWindow) DemoInfo.displayDemo(p);
+//    p.noStroke();
   }
   @Override
   public void addSquareParticles(float x,float y,int particleCount,float particleSize,float minSpeed,float maxSpeed,float lifespanSecondValue) {

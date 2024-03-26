@@ -42,13 +42,12 @@ public class Player extends TextureLivingEntity{
   @Override
   public void init() {
     if(inventory==null) createInventory();
-    // System.out.println(id);
-    // initAtServer();
   }
   public void createInventory() {
     inventory=new Inventory(this,52,9);
     inventory.data[4].item=pw.type.metaItems.worldRoot.createItem(2);
     inventory.data[5].item=pw.type.metaItems.workbench.createItem(16);
+    inventory.data[6].item=pw.type.metaItems.stone.createItem(160);
   }
   @Override
   public void display() {

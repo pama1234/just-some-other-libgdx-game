@@ -1,0 +1,11 @@
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+eclipse.project.name = appName + '0015-core'
+
+dependencies {
+  api "$gdxCustomModule:gdx:$gdxCustomVersion"
+
+  api "$pama1234RepoLocation:server-framework:$pama1234PublishVersion"
+  api "$pama1234RepoLocation:framework:$pama1234PublishVersion"
+
+  api ("$pama1234RepoLocation:framework-box2d:$pama1234PublishVersion")
+}

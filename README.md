@@ -1,6 +1,10 @@
 # Libgdx游戏合集
 
-[![Sonatype Nexus (Releases)](https://img.shields.io/badge/Jit_version-bf0a359313-blue)](https://jitpack.io/#pama1234/just-some-other-libgdx-game/bf0a359313)
+<!-- <p align="center"><img src="https://github.com/Libgdx-Processing-Plus/Libgdx-Processing-Plus/tree/public/doc/image/logo.png"></p> -->
+
+![logo](doc/image/logo.png)
+
+[![jitpack-badge](https://jitpack.io/v/Java-Game-Engine-Merger/Libgdx-Processing-Plus.svg)](https://jitpack.io/#Java-Game-Engine-Merger/Libgdx-Processing-Plus)
 
 ## 使用Protobuf
 
@@ -17,7 +21,7 @@
 
 ## 配置`settings.gradle`
 
-众所周知，gradle很慢，这个托管内有至少40个子项目，这会产生9000多个甚至更多的tasks，因此，我们开发时会将一部分用不上的项目在`settings.gradle`文件内注释掉，如果需要使用，取消注释即可
+众所周知，gradle很慢，这个托管内有至少40个子项目，这会产生9000多个甚至更多的tasks，因此，我们开发时会将一部分用不上的项目在`settings.gradle`文件内注释掉，如果需要使用请取消注释
 
 ## 创建新项目
 
@@ -28,6 +32,10 @@
 ```
 
 用于排除这个以及其他不能使用gradle的java plugin的子项目
+
+## 教程和文档
+
+（未完善，整理中）<https://github.com/Java-Game-Engine-Merger/libgdx-processing-website>
 
 ## 如何使用我们的的框架
 
@@ -64,15 +72,20 @@ implementation 'com.github.pama1234.just-some-other-libgdx-game:framework:bf0a35
 ## 游戏合集
 
 0001. 空想世界1
-0002. 粒子系统
-0003. 几何决斗【从FAL的学生作品移植过来，已火】
-0004. 高维塔防
+0002. 粒子系统【暂停维护】
+0003. 几何决斗【从FAL的学生时期作品移植过来，已火】
+0004. 高维塔防【3D游戏模板】
 0005. 杂项
 0006. 中心IDE
 0007. 填满正方形
 0008. 粒子生命：升天（魔改版2D processing粒子系统）
 0009. 异星征途
 0010. 聊天室
+0011. 数值膨胀，以及矢量天空，以及TRPG系统【移动到ce4kotlin】
+0012. 光遇2，流浪遇球，别太荒谬了【ce4kotlin】
+0013. 物品管理和其他同类游戏【galgame】
+0014. 天顶语言
+0015. MBTI模拟器
 
 [中文](#空想世界) | [English](#game-with-java)
 

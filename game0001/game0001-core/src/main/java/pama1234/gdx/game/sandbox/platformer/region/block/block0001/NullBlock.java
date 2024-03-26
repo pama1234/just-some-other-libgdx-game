@@ -28,10 +28,9 @@ public class NullBlock extends MetaBlock<WorldType0001Base<?>,MetaBlockCenter000
   }
   @Override
   public void init() {
-    // if(rttr.tiles[0]!=null) return;
-    TextureRegion[][] tsrc=ImageAsset.tiles;
-    int tx=0,ty=8;
-    rttr.tiles[0]=tsrc[tx+2][ty+2];
+    //    TextureRegion[][] tsrc=ImageAsset.tiles;
+    //    int tx=0,ty=8;
+    //    rttr.tiles[0]=tsrc[tx+2][ty+2];
     //-----------------------------------------------------
     // rttr.tiles[15]=tsrc[tx][ty];
     // rttr.tiles[7]=tsrc[tx+1][ty];

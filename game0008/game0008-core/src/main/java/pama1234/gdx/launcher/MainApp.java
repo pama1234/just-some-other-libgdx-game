@@ -4,7 +4,7 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
-import pama1234.gdx.game.cgj.app.app0002.Screen0045;
+import pama1234.gdx.game.life.particle.app.Screen0045;
 import pama1234.gdx.util.app.UtilScreen;
 import pama1234.gdx.util.launcher.MainAppBase;
 

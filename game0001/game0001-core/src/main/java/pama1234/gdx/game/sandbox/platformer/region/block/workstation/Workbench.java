@@ -33,15 +33,12 @@ public class Workbench extends MetaBlock<WorldType0001Base<?>,MetaBlockCenter000
       in.intData[4]=x;
       in.intData[5]=y;
     },(world,in,type,x,y)-> {//change from workbench
-      // World0001 world=pc.pw;
-      // int x=in.intData[4],y=in.intData[5];
       boolean flag=Block.isEmpty(world.getBlock(x,y-1));
       float randomConst=0.8f;
       for(ItemSlot e:in.itemData) if(e.item!=null) DroppedItem.dropItem(world.p,x,y,world,flag,randomConst,e.item);
       in.intData=null;
       in.itemData=null;
       in.ui=null;
-      // in.ui.displaySlot=null;
     });
     attr.blockType=woodType;
     attr.workStation=true;
@@ -55,10 +52,6 @@ public class Workbench extends MetaBlock<WorldType0001Base<?>,MetaBlockCenter000
       lightUpdater.update(world,in,x,y);
       int tw=world.settings.blockWidth,
         th=world.settings.blockHeight;
-      // int tx=(in.ui.displaySlot.length-1)/2*tw;
-      // in.intData[2]=(x-tx)*tw;
-      // in.intData[4]=x;
-      // in.intData[5]=y;
       in.intData[2]=(x-2)*tw;
       in.intData[3]=(y-3)*th;
       if(in.intData[1]==stopMod) return;
@@ -81,7 +74,6 @@ public class Workbench extends MetaBlock<WorldType0001Base<?>,MetaBlockCenter000
       p.textScale(0.5f);
       for(DisplaySlot e:in.ui.displaySlot) Inventory.displaySlot(p,e);
       p.textScale(1);
-      // p.text(Integer.toString(in.intData[0]),x,y-tw*2);
       int ti=in.intData[0];
       String ts=Integer.toString(ti);
       p.text(ts+")",x-tw*(1.5f+ts.length()/2f),y-th*2);
@@ -154,8 +146,6 @@ public class Workbench extends MetaBlock<WorldType0001Base<?>,MetaBlockCenter000
   public void initBlock(WorldBase2D<?> world,Block in) {
     if(in.intData==null) in.intData=new int[6];
     else if(in.intData.length<6) in.intData=new int[6];
-    // in.intData[0]=0;
-    // else if(in.intData[0]>=recipeList.length) in.intData[0]=recipeList.length-1;
     if(in.itemData==null) {
       in.itemData=new ItemSlot[sloatSize];
       for(int i=0;i<in.itemData.length;i++) in.itemData[i]=new ItemSlot();

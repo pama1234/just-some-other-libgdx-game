@@ -1,0 +1,11 @@
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+sourceCompatibility = 17
+
+eclipse.project.name = appName + '0009-server'
+
+dependencies {
+  api "$gdxCustomModule:gdx-freetype:$gdxCustomVersion"
+
+  api "$pama1234RepoLocation:server-framework:$pama1234PublishVersion"
+  api "$pama1234RepoLocation:framework:$pama1234PublishVersion"
+}

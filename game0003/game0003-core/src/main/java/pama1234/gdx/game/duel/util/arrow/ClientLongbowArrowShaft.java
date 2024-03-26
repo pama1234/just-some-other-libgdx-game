@@ -1,16 +1,15 @@
 package pama1234.gdx.game.duel.util.arrow;
 
 import pama1234.gdx.game.duel.Duel;
-import pama1234.util.protobuf.OutputDataProto.OutputDataElement;
 
 public final class ClientLongbowArrowShaft extends ClientLongbowArrowComponent{
   public ClientLongbowArrowShaft(Duel duel) {
     super(duel);
   }
-  public ClientLongbowArrowShaft(Duel p,OutputDataElement proto) {
-    this(p);
-    copyFromProto(proto);
-  }
+  // public ClientLongbowArrowShaft(Duel p,OutputDataElement proto) {
+  //   this(p);
+  //   copyFromProto(proto);
+  // }
   @Override
   public void display() {
     p.strokeWeight(5);

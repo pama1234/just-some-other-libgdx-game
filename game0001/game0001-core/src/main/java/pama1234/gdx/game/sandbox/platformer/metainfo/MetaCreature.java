@@ -2,16 +2,16 @@ package pama1234.gdx.game.sandbox.platformer.metainfo;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import pama1234.game.app.server.server0002.game.metainfo.MetaInfoBase;
-import pama1234.game.app.server.server0002.game.metainfo.io.PlainAttribute;
-import pama1234.game.app.server.server0002.game.metainfo.io.RuntimeAttribute;
-import pama1234.game.app.server.server0002.game.metainfo.io.StoredAttribute;
 import pama1234.gdx.game.sandbox.platformer.entity.LivingEntity;
 import pama1234.gdx.game.sandbox.platformer.metainfo.MetaCreature.MetaCreatureAttribute;
 import pama1234.gdx.game.sandbox.platformer.metainfo.MetaCreature.MetaCreatureRuntimeAttribute;
 import pama1234.gdx.game.sandbox.platformer.metainfo.MetaCreature.MetaCreatureStoredAttribute;
 import pama1234.gdx.game.sandbox.platformer.metainfo.info0001.center.MetaCreatureCenter0001;
 import pama1234.gdx.game.sandbox.platformer.world.world0001.World0001;
+import pama1234.server.game.app.server0002.game.metainfo.MetaInfoBase;
+import pama1234.server.game.app.server0002.game.metainfo.io.PlainAttribute;
+import pama1234.server.game.app.server0002.game.metainfo.io.RuntimeAttribute;
+import pama1234.server.game.app.server0002.game.metainfo.io.StoredAttribute;
 
 public class MetaCreature<T extends LivingEntity>
   extends MetaInfoBase<MetaCreatureAttribute,MetaCreatureStoredAttribute,MetaCreatureRuntimeAttribute>{

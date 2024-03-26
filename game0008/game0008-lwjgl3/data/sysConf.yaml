@@ -1,0 +1,11 @@
+dataPath: data/
+dataPathType: Local
+width: 640
+height: 480
+fullScreen: false
+targetFps: 60
+mute: false
+volume: 1.0
+overridePlatform: false
+isAndroid: false
+printLog: false

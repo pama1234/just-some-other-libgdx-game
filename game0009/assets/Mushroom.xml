@@ -3,7 +3,7 @@
     texture="Mushroom/Run.png"
     time="0.2"
     columns="8"></walk>
-  <stop
+  <idle
     texture="Mushroom/Idle.png"
     time="0.4"
     columns="4"></stop>

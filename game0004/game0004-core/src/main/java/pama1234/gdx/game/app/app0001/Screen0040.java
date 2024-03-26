@@ -14,7 +14,7 @@ import pama1234.math.hash.PerlinNoise.ImprovedNoise4D;
 public class Screen0040 extends ScreenCore3D{
   public boolean test;
   public String log="";
-  
+
   public Decal[] decals;
   public Color colorCache=new Color();
   public float maxDist=120;
@@ -30,7 +30,7 @@ public class Screen0040 extends ScreenCore3D{
     if(isAndroid) {
       addAndroidCam3DButtons();
     }
-    
+
     cam3d.point.des.set(0,0,-40);
     // buttons=new TextButtonCam[] {
     //   new TextButtonCam<Screen0040>(this,true,()->true,self-> {},self-> {},self-> {
@@ -40,7 +40,7 @@ public class Screen0040 extends ScreenCore3D{
     //   },self->self.text="测试按钮",()->18,()->40,()->0),
     // };
     // centerCamAddAll(buttons);
-    
+
     // PerlinNoise3f noise=new PerlinNoise3f(new HashNoise3f(0));
     // int rSize=256,gSize=256,bSize=256;
     int rSize,gSize,bSize;

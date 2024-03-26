@@ -15,7 +15,7 @@ public class Screen0046 extends ScreenCore2D{
     noStroke();
     backgroundColor(243);
     drawCursorWhenGrab=true;
-    
+
   }
   @Override
   public void update() {}

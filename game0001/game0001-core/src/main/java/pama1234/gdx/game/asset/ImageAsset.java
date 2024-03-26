@@ -17,6 +17,7 @@ public class ImageAsset{
   exit,
     background,sky,select;
   public static TextureRegion[] backgroundList=new TextureRegion[5];
+  public static Texture tilesTexture,itemsTexture;
   public static TextureRegion[][] tiles,items,creature,player;
   public static Animation<TextureRegion> bigEarth;
   public static void load_0001(AssetManager manager) {
@@ -39,8 +40,8 @@ public class ImageAsset{
     exit=loadFromTexture(manager.get("image/exit.png"));
     background=loadFromTexture(manager.get("image/background/background.png"));
     for(int i=0;i<5;i++) backgroundList[i]=loadFromTexture(manager.get("image/background/"+(i+1)+".png",Texture.class));
-    tiles=loadFromTexture_0001(manager.get("image/tiles.png"),18,18,2,2);
-    items=loadFromTexture_0001(manager.get("image/items.png"),18,18,2,2);
+    tiles=loadFromTexture_0001(tilesTexture=manager.get("image/tiles.png"),18,18,2,2);
+    items=loadFromTexture_0001(itemsTexture=manager.get("image/items.png"),18,18,2,2);
     player=loadFromTexture_0001(manager.get("image/player04.png"),2,2,33,52,3,2);
     creature=loadFromTexture_0001(manager.get("image/characters.png"),24,24,2,2);
     sky=loadFromTexture(manager.get("image/sky.png"));
@@ -64,7 +65,7 @@ public class ImageAsset{
       int ty=i/16;
       tr[i]=new TextureRegion(ta,x+tx*(w+gapX),y+ty*(h+gapY),w,h);
     }
-    bigEarth=new Animation<TextureRegion>(.04f,tr);
+    bigEarth=new Animation<>(.04f,tr);
     bigEarth.setPlayMode(Animation.PlayMode.LOOP);
   }
 }

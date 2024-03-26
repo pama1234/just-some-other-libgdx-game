@@ -5,7 +5,8 @@ import static pama1234.gdx.game.sandbox.platformer.world.WorldKryoUtil.kryo;
 import com.badlogic.gdx.files.FileHandle;
 import com.esotericsoftware.kryo.serializers.TaggedFieldSerializer.Tag;
 
-import hhs.gdx.hsgame.util.Rect;
+import hhs.gdx.hslib.util.Rect;
+import pama1234.gdx.SystemSetting;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.sandbox.platformer.KryoUtil;
 import pama1234.gdx.game.sandbox.platformer.entity.GamePointEntity;
@@ -43,21 +44,21 @@ public class Region extends Entity<Screen0011> implements LoadAndSave,Rect{
   }
   @Override
   public void load() {//TODO
-    if(p.settings.printLog) System.out.println("inner load region "+x+" "+y);
+    if(SystemSetting.data.printLog) System.out.println("inner load region "+x+" "+y);
     WorldKryoUtil.regionInstance=this;
     KryoUtil.load(kryo,dataLocation,Region.class);
     WorldKryoUtil.regionInstance=null;
   }
   @Override
   public void save() {//TODO
-    if(p.settings.printLog) System.out.println("inner save region "+x+" "+y);
+    if(SystemSetting.data.printLog) System.out.println("inner save region "+x+" "+y);
     boolean needSaveChunk=removeUnchanged();
     if(!needSaveChunk) data=null;
     float w=pr.data.chunkWidth*pr.data.regionWidth*pr.pw.settings.blockWidth;
     float h=pr.data.chunkHeight*pr.data.regionHeight*pr.pw.settings.blockHeight;
     // System.out.println(w+" "+h);
     entities=pr.pw.entities.getAllInRect(x*w,y*h,w,h,true);
-    if(p.settings.printLog) {
+    if(SystemSetting.data.printLog) {
       System.out.println("entities="+entities.length);
       for(GamePointEntity<?> e:entities) System.out.println(e.getClass().getSimpleName()+" "+e.point.pos);
     }

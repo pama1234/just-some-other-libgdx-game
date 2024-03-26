@@ -5,7 +5,9 @@ mainClassName = 'pama1234.gdx.game.app.server.ServerLauncher'
 eclipse.project.name = appName + '0002-server'
 
 dependencies {
-  api project(':server-framework')
+  api("$pama1234RepoLocation:server-framework:$pama1234PublishVersion") {
+    // exclude group: "com.esotericsoftware", module: "reflectasm"
+  }
 
   api 'com.aparapi:aparapi:3.0.0'
   api 'org.jocl:jocl:2.0.5'

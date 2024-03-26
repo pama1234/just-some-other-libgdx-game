@@ -4,7 +4,8 @@ eclipse.project.name = appName + '0005-core'
 dependencies {
   api "$gdxCustomModule:gdx:$gdxCustomVersion"
 
-  api project(":framework")
+  api "$pama1234RepoLocation:server-framework:$pama1234PublishVersion"
+  api "$pama1234RepoLocation:framework:$pama1234PublishVersion"
 
   api project(':game0005:game0005-server')
 

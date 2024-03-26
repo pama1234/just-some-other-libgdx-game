@@ -8,7 +8,7 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 
-import hhs.gdx.hsgame.util.QuadTree;
+import hhs.gdx.hslib.util.QuadTree;
 import pama1234.Tools;
 import pama1234.gdx.game.app.Screen0011;
 import pama1234.gdx.game.sandbox.platformer.metainfo.MetaBlock;
@@ -83,7 +83,7 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
       blockData[i][j]=fakeBlockData;
     }
     if(enableQuadTree) {
-      quadTree=new QuadTree<Region>(Float.MIN_VALUE,Float.MIN_VALUE,Float.MAX_VALUE,Float.MAX_VALUE);
+      quadTree=new QuadTree<>(Float.MIN_VALUE,Float.MIN_VALUE,Float.MAX_VALUE,Float.MAX_VALUE);
     }
   }
   @Override
@@ -171,12 +171,14 @@ public class RegionCenter extends EntityCenter<Screen0011,Region> implements Loa
       for(int i=0;i<e.data.length;i++) {
         for(int j=0;j<e.data[i].length;j++) {
           Chunk chunk=e.data[i][j];
-          float tx_2=((e.x*data.regionWidth+(i+0.5f))*data.chunkWidth),
-            ty_2=((e.y*data.regionHeight+(j+0.5f))*data.chunkHeight);
-          float dist=UtilMath.dist(tx_2,ty_2,tcx,tcy);
-          if(chunk.priority<dist) chunk.priority=dist;
-          boolean tb_2=dist<data.chunkRemoveDist;
-          if(tb_2) chunk.update=true;
+          if(chunk!=null) {
+            float tx_2=((e.x*data.regionWidth+(i+0.5f))*data.chunkWidth),
+              ty_2=((e.y*data.regionHeight+(j+0.5f))*data.chunkHeight);
+            float dist=UtilMath.dist(tx_2,ty_2,tcx,tcy);
+            if(chunk.priority<dist) chunk.priority=dist;
+            boolean tb_2=dist<data.chunkRemoveDist;
+            if(tb_2) chunk.update=true;
+          }
         }
       }
     }

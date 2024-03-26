@@ -1,1 +1,0 @@
-# openxr-libgdx-android

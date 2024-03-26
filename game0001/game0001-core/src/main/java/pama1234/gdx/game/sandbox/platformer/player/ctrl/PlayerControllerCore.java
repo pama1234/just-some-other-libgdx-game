@@ -13,16 +13,21 @@ import pama1234.math.UtilMath;
 public class PlayerControllerCore extends Entity<Screen0011>{
   public Player corePlayer;
   public MovementLimitBox limitBox;
+
   public float speed=1f,shiftSpeedMult=2f;
   public float slowDownSpeed=1/4f;
   public float jumpForceMult=1.5f,jumpHeight=0;
+
   public boolean walking,walkingStateChange;
   public boolean pInAir;
   public boolean left,right,jump,shift,jumpDown;
+
   public int walkCool,jumpCool;
   public float itemPickDist=18,itemPickMoveDist=72;
+
   public EntityPointer selectEntity;
   public BlockPointer coreSelectBlock;
+
   public PlayerControllerCore(Screen0011 p,Player corePlayer,boolean mainPlayer) {
     super(p);
     this.corePlayer=corePlayer;

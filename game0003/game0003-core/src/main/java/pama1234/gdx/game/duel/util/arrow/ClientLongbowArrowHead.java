@@ -1,7 +1,6 @@
 package pama1234.gdx.game.duel.util.arrow;
 
 import pama1234.gdx.game.duel.Duel;
-import pama1234.util.protobuf.OutputDataProto.OutputDataElement;
 
 public final class ClientLongbowArrowHead extends ClientLongbowArrowComponent{
   public final float halfHeadLength=24;
@@ -9,10 +8,10 @@ public final class ClientLongbowArrowHead extends ClientLongbowArrowComponent{
   public ClientLongbowArrowHead(Duel duel) {
     super(duel);
   }
-  public ClientLongbowArrowHead(Duel p,OutputDataElement proto) {
-    this(p);
-    copyFromProto(proto);
-  }
+  // public ClientLongbowArrowHead(Duel p,OutputDataElement proto) {
+  //   this(p);
+  //   copyFromProto(proto);
+  // }
   @Override
   public void display() {
     p.strokeWeight(5);

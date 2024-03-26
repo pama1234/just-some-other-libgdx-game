@@ -21,6 +21,14 @@ public class ControllerDisplayUtil{
     p.image(ImageAsset.select,tcx+tl,tcy+tl,-tl,-tl);
     p.noTint();
   }
+  /**
+   * 根据方块选择器的状态进行不同形式的绘制
+   * 
+   * @param p
+   * @param selectBlock
+   * @param tw
+   * @param th
+   */
   public static void drawSelectBlock(Screen0011 p,ControllerBlockPointer selectBlock,float tw,float th) {
     MetaBlock<?,?> type=selectBlock.block==null?null:selectBlock.block.type;
     switch(selectBlock.task) {
@@ -67,14 +75,25 @@ public class ControllerDisplayUtil{
     else GameDisplayUtil.boxOutline(p,1,selectBlock.x*tw,selectBlock.y*th,tw,th);
     p.endBlend();
   }
-  public static void boxTwoLine(Screen0011 p,float r,float tx1,float ty1,float tw1,float th1,boolean a) {
+  /**
+   * 根据方块位置绘制两条平行线
+   * 
+   * @param p
+   * @param r
+   * @param tx1
+   * @param ty1
+   * @param tw1
+   * @param th1
+   * @param direction true表示横向，false表示竖向
+   */
+  public static void boxTwoLine(Screen0011 p,float r,float tx1,float ty1,float tw1,float th1,boolean direction) {
     float tx2=tx1+tw1+r;
     float ty2=ty1+th1+r;
     tx1-=r;
     ty1-=r;
     tw1+=r*2;
     th1+=r*2;
-    if(a) {
+    if(direction) {
       p.rect(tx1,ty1,tw1,r);
       p.rect(tx1,ty2-r,tw1,r);
     }else {
@@ -82,6 +101,7 @@ public class ControllerDisplayUtil{
       p.rect(tx2-r,ty1,r,th1);
     }
   }
+  /** 绘制手机端的方块选择器 */
   public static void drawSelectBlockTouchScreen(Screen0011 p,ControllerBlockPointer selectBlock,float tw,float th,float scale) {
     MetaBlock<?,?> type=selectBlock.block==null?null:selectBlock.block.type;
     float tr=scale<1?2:2/scale;
@@ -119,6 +139,17 @@ public class ControllerDisplayUtil{
     }
     p.noTint();
   }
+  /**
+   * 绘制方块选择器的辅助线
+   * 
+   * @param p
+   * @param selectBlock
+   * @param tw
+   * @param th
+   * @param type
+   * @param tr
+   * @param tf
+   */
   public static void drawBlockLine(Screen0011 p,ControllerBlockPointer selectBlock,float tw,float th,MetaBlock<?,?> type,float tr,float tf) {
     p.beginBlend();
     if(type!=null) {

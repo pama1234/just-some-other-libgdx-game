@@ -32,7 +32,8 @@ public class LocalizationData{
     showLog,printLog,
     androidPlayerControlUi,button,joystick;
   public String loading,tick;
-  public String startGame,announcement,settings;
+  /** 开始界面的按钮上的文字 */
+  public String startGame,announcement,settings,editor=" 编辑器 ";
   public String serverAddress,deviceAddress,userName,
     singlePlayer,createServer,joinServer,returnTo;
 }

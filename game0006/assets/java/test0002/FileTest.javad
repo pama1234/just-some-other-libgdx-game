@@ -1,6 +1,0 @@
-
-public class FileTest{
-  public static void hello() {
-    System.out.println("2344");
-  }
-}

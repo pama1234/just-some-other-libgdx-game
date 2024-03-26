@@ -1,11 +1,11 @@
 package pama1234.gdx.game.sandbox.platformer.metainfo;
 
-import pama1234.game.app.server.server0002.game.metainfo.MetaInfoBase;
 import pama1234.gdx.game.sandbox.platformer.metainfo.MetaInfoCenters.MetaBlockCenter;
 import pama1234.gdx.game.sandbox.platformer.metainfo.MetaInfoCenters.MetaCreatureCenter;
 import pama1234.gdx.game.sandbox.platformer.metainfo.MetaInfoCenters.MetaItemCenter;
 import pama1234.gdx.game.sandbox.platformer.metainfo.info0001.center.MetaWorldCenter0001;
 import pama1234.gdx.game.sandbox.platformer.world.WorldBase2D;
+import pama1234.server.game.app.server0002.game.metainfo.MetaInfoBase;
 
 public abstract class MetaWorld<W extends WorldBase2D<?>,B extends MetaBlockCenter<?>,I extends MetaItemCenter<?>,E extends MetaCreatureCenter<?>>extends MetaInfoBase{
   public MetaWorldCenter0001 pc;

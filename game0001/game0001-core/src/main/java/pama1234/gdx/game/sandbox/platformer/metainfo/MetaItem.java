@@ -2,18 +2,20 @@ package pama1234.gdx.game.sandbox.platformer.metainfo;
 
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
-import pama1234.game.app.server.server0002.game.metainfo.MetaInfoBase;
-import pama1234.game.app.server.server0002.game.metainfo.io.PlainAttribute;
-import pama1234.game.app.server.server0002.game.metainfo.io.RuntimeAttribute;
-import pama1234.game.app.server.server0002.game.metainfo.io.StoredAttribute;
+import pama1234.gdx.game.asset.ImageAsset;
 import pama1234.gdx.game.sandbox.platformer.entity.LivingEntity;
 import pama1234.gdx.game.sandbox.platformer.item.Item;
 import pama1234.gdx.game.sandbox.platformer.metainfo.MetaInfoCenters.MetaItemCenter;
 import pama1234.gdx.game.sandbox.platformer.metainfo.MetaItem.MetaItemAttribute;
 import pama1234.gdx.game.sandbox.platformer.metainfo.MetaItem.MetaItemRuntimeAttribute;
 import pama1234.gdx.game.sandbox.platformer.metainfo.MetaItem.MetaItemStoredAttribute;
+import pama1234.gdx.game.sandbox.platformer.metainfo.io.MetaPropertiesCenter;
 import pama1234.gdx.game.sandbox.platformer.world.world0001.World0001;
-import pama1234.gdx.util.FileUtil;
+import pama1234.server.game.app.server0002.game.metainfo.MetaInfoBase;
+import pama1234.server.game.app.server0002.game.metainfo.io.PlainAttribute;
+import pama1234.server.game.app.server0002.game.metainfo.io.RuntimeAttribute;
+import pama1234.server.game.app.server0002.game.metainfo.io.StoredAttribute;
+import pama1234.server.game.app.server0002.game.metainfo.io.TextureRegionInfo;
 
 public class MetaItem extends MetaInfoBase<MetaItemAttribute,MetaItemStoredAttribute,MetaItemRuntimeAttribute>{
   public static final int notTool=0,allTool=1,shovel=2,pickaxe=3,axe=4,chisel=5;//工具类型
@@ -38,7 +40,7 @@ public class MetaItem extends MetaInfoBase<MetaItemAttribute,MetaItemStoredAttri
   }
   public static class MetaItemStoredAttribute extends StoredAttribute{
     public int blockTypeId;
-    public byte[][] tilesPngs;
+    public TextureRegionInfo[] tiles;
 
     public ProgramUnit initerProgram,useEventProgram;
   }
@@ -74,14 +76,30 @@ public class MetaItem extends MetaInfoBase<MetaItemAttribute,MetaItemStoredAttri
 
   @Override
   public void loadRuntimeAttribute() {
-    MetaBlock<?,?>[] mblock=pc.pw.metaBlocks.array();
-    rttr.blockType=mblock[sttr.blockTypeId];
+    if(sttr.blockTypeId!=-1) {
+      MetaBlock<?,?>[] mblock=pc.pw.metaBlocks.array();
+      rttr.blockType=mblock[sttr.blockTypeId];
+    }
+
+    if(sttr.tiles!=null) {
+      rttr.tiles=new TextureRegion[sttr.tiles.length];
+      for(int i=0;i<sttr.tiles.length;i++) {
+        if(sttr.tiles[i]!=null) {
+          rttr.tiles[i]=MetaPropertiesCenter.newTextureRegion(ImageAsset.itemsTexture,sttr.tiles[i]);
+        }
+      }
+    }
   }
   @Override
   public void saveRuntimeAttribute() {
-    sttr.blockTypeId=rttr.blockType.id;
-    for(int i=0;i<rttr.tiles.length;i++) {
-      sttr.tilesPngs[i]=FileUtil.saveTexture(rttr.tiles[i]);
+    if(rttr.blockType!=null) sttr.blockTypeId=rttr.blockType.id;
+    else sttr.blockTypeId=-1;
+
+    if(rttr.tiles!=null) {
+      sttr.tiles=new TextureRegionInfo[rttr.tiles.length];
+      for(int i=0;i<rttr.tiles.length;i++) {
+        if(rttr.tiles[i]!=null) sttr.tiles[i]=MetaPropertiesCenter.newTextureRegionInfo("image/items.png",rttr.tiles[i]);
+      }
     }
   }
 

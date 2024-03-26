@@ -30,7 +30,9 @@ dependencies {
   implementation "$gdxModule:gdx-backend-lwjgl3:$gdxVersion"
   // implementation "$gdxCustomModule:gdx-bullet-platform:$gdxCustomVersion:natives-desktop"
   implementation "$gdxModule:gdx-platform:$gdxVersion:natives-desktop"
+  implementation "$gdxModule:gdx-freetype-platform:$gdxVersion:natives-desktop"
 
+  implementation "$pama1234RepoLocation:lwjgl-framework:$pama1234PublishVersion"
   implementation project(':game0008:game0008-core')
 
   // implementation "com.mazatech.amanithsvg:amanithsvg-gdx:$amanithsvgVersion:natives-desktop"

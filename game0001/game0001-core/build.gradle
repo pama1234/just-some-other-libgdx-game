@@ -1,11 +1,33 @@
+// apply plugin: 'maven-publish'
+
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
 eclipse.project.name = appName + '0001-core'
 
 dependencies {
-  api "$gdxCustomModule:gdx:$gdxCustomVersion"
+  // api "$gdxCustomModule:gdx:$gdxCustomVersion"
 
-  api project(':framework')
-  api project(':server-framework')
+  api "$pama1234RepoLocation:server-framework:$pama1234PublishVersion"
+  api "$pama1234RepoLocation:framework:$pama1234PublishVersion"
 
   api project(':game0001:game0001-server')
 }
+
+// publishing {
+//   publications {
+//     maven(MavenPublication) {
+//       groupId = 'pama1234'
+//       artifactId = 'g0001-core'
+//       version = "$pama1234PublishVersion"
+//       from components.java
+
+//       pom {
+//         name = 'pama1234-g0001-core'
+//         description = 'game0001 core'
+//         url = 'https://github.com/pama1234/just-some-other-libgdx-game'
+//         scm {
+//           url = 'https://github.com/pama1234/just-some-other-libgdx-game'
+//         }
+//       }
+//     }
+//   }
+// }

@@ -1,6 +1,6 @@
 package pama1234.gdx.game.sandbox.platformer.region;
 
-import pama1234.gdx.game.util.Mutex;
+import pama1234.util.Mutex;
 import pama1234.util.function.GetBoolean;
 
 public class LoopThread extends Thread{

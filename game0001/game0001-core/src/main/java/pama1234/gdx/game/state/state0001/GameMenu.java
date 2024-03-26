@@ -24,6 +24,8 @@ import pama1234.math.geometry.RectI;
 import pama1234.util.function.GetFloat;
 import pama1234.util.net.NetAddressInfo;
 
+import java.util.Collections;
+
 public class GameMenu extends StateEntity0001{
   public static class GameSettingsData{
     public NetAddressInfo serverAddr;
@@ -71,7 +73,7 @@ public class GameMenu extends StateEntity0001{
     screenTextFields[1].setText(settings.selfAddr.toString());
     screenTextFields[2].setText(settings.playerName);
     p.backgroundColor(0);
-    for(Button<?> e:buttons) p.centerScreen.add.add(e);
+    Collections.addAll(p.centerScreen.add,buttons);
     for(TextField e:screenTextFields) p.screenStage.addActor(e);
     p.cam2d.active(false);
     p.cam2d.scale.pos=p.cam2d.scale.des=p.isAndroid&&!p.settings.showEarth?1:3;
@@ -81,7 +83,7 @@ public class GameMenu extends StateEntity0001{
   }
   @Override
   public void to(StateEntity0001 in) {
-    for(Button<?> e:buttons) p.centerScreen.remove.add(e);
+    Collections.addAll(p.centerScreen.remove,buttons);
     for(TextField e:screenTextFields) e.remove();
     p.cam2d.active(true);
     p.cam2d.scale.pos=p.cam2d.scale.des=1;
@@ -143,23 +145,30 @@ public class GameMenu extends StateEntity0001{
   }
   public static <T extends Screen0011> Button<?>[] genButtons_0010(T p) {
     GetFloat getX=()->p.width/4f*3-p.pu*3.5f;
+    GetFloat[] getY=new GetFloat[] {
+      ()->p.height/2f+p.bu*(-0.5f-1.8f),
+      ()->p.height/2f+p.bu*(-0.5f-0.6f),
+      ()->p.height/2f+p.bu*(-0.5f+0.6f),
+      ()->p.height/2f+p.bu*(-0.5f+1.8f),
+    };
     TextButtonEvent<T> nop=self-> {};
     return new Button[] {
-      new TextButton<T>(p,self->self.text=ld.singlePlayer).allTextButtonEvent(nop,nop,self-> {
+      new TextButton<>(p,self->self.text=ld.singlePlayer).allTextButtonEvent(nop,nop,self-> {
         p.stateCenter.game.netMode=NetMode.SinglePlayer;
         p.state(p.stateCenter.game);
-      }).rectAuto(getX,()->p.height/5f-p.bu/2f),
-      new TextButton<T>(p,self->self.text=ld.createServer).allTextButtonEvent(nop,nop,self-> {
+      }).rectAuto(getX,getY[0]),
+      new TextButton<>(p,self->self.text=ld.createServer).allTextButtonEvent(nop,nop,self-> {
         p.stateCenter.game.netMode=NetMode.IntegratedServer;
         p.state(p.stateCenter.game);
-      }).rectAuto(getX,()->p.height/5*2f-p.bu/2f),
-      new TextButton<T>(p,self->self.text=ld.joinServer).allTextButtonEvent(nop,nop,self-> {
+      }).rectAuto(getX,getY[1]),
+      new TextButton<>(p,self->self.text=ld.joinServer).allTextButtonEvent(nop,nop,self-> {
         p.stateCenter.game.netMode=NetMode.Client;
         p.state(p.stateCenter.game);
-      }).rectAuto(getX,()->p.height/5f*3-p.bu/2f),
-      new TextButton<T>(p,self->self.text=ld.returnTo).allTextButtonEvent(nop,nop,self-> {
+      }).rectAuto(getX,getY[2]),
+      new TextButton<>(p,self->self.text=ld.returnTo).allTextButtonEvent(nop,nop,self-> {
         p.state(p.stateCenter.startMenu);
-      }).rectAuto(getX,()->p.height/5f*4-p.bu/2f),
+      }).rectAuto(getX,getY[3]),
     };
   }
+
 }

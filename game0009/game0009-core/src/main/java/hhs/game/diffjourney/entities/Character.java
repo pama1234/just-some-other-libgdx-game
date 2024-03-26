@@ -11,11 +11,15 @@ import hhs.game.diffjourney.map.Block;
 import hhs.game.diffjourney.map.Collision;
 import hhs.gdx.hsgame.entities.BasicEntity;
 import hhs.gdx.hsgame.entities.Entity;
+import hhs.gdx.hsgame.entities.EntityLayers;
 import hhs.gdx.hsgame.tools.AnimationSet;
 import hhs.gdx.hsgame.tools.EntityTool;
 import hhs.gdx.hsgame.util.StateMchine;
 
-public class Character<S,T extends Entity>extends BasicEntity{
+/*
+ * Attack Attachable.hurt(Character)->Character CanBeHurt.getHurt(hurt)
+ */
+public class Character<S,T extends Entity>extends BasicEntity implements EntityLayers.Stackable{
   public static CollisionFilter normal=new CollisionFilter() {
     @Override
     public Response filter(Item item,Item other) {
@@ -25,6 +29,8 @@ public class Character<S,T extends Entity>extends BasicEntity{
       return Response.cross;
     }
   };
+  public static Transformer defaultTransformer=(p,s)-> {};
+  protected Vector2 dpos=new Vector2(),dsize=new Vector2();
   public CharacterInfo data=new CharacterInfo();
   public StateMchine<S,T,Protagonist> machine;
   public AnimationSet<State,TextureRegion> animation;
@@ -32,7 +38,7 @@ public class Character<S,T extends Entity>extends BasicEntity{
   public boolean direct=false,autoFilp=true;
   public Rectangle rect=new Rectangle();
   public TextureRegion tr;
-  public State state=State.stop;
+  public State state=State.idle;
   Collision c;
   Protagonist pro;
   public Character() {
@@ -42,12 +48,12 @@ public class Character<S,T extends Entity>extends BasicEntity{
     this();
     this.c=c;
     this.pro=pro;
-    machine=new StateMchine<S,T,Protagonist>(((T)this),pro);
+    machine=new StateMchine<>(((T)this),pro);
   }
   public void set(Collision c,Protagonist pro) {
     this.c=c;
     this.pro=pro;
-    if(machine==null) machine=new StateMchine<S,T,Protagonist>(((T)this),pro);
+    if(machine==null) machine=new StateMchine<>(((T)this),pro);
   }
   @Override
   public void dispose() {}
@@ -63,7 +69,7 @@ public class Character<S,T extends Entity>extends BasicEntity{
     if(autoFilp) {
       if(!victroy.isZero()) {
         state=State.walk;
-      }else state=State.stop;
+      }else state=State.idle;
       if(victroy.x<0) {
         direct=false;
       }else {
@@ -80,24 +86,34 @@ public class Character<S,T extends Entity>extends BasicEntity{
       }
     }
     pos.add(victroy);
+
+    dpos.set(pos);
+    dsize.set(size);
   }
+  public void remove() {}
   @Override
   public void render(SpriteBatch batch) {
-    if(EntityTool.testBoundInCamera(this,cam)) batch.draw(tr,pos.x,pos.y,size.x,size.y);
+    if(EntityTool.testBoundInCamera(this,cam)) {
+      defaultTransformer.transform(dpos,dsize);
+      batch.draw(tr,dpos.x,dpos.y,dsize.x,dsize.y);
+    }
   }
   public static enum State{
-    walk,stop,attack,hurt,death
+    walk,idle,attack,hurt,death
   }
   public interface Attachable{
     public void hurt(Character entity);
   }
   public interface CanBeHurt<E extends Character>{
-    public E getHurt();
+    public E getHurt(float damage,Attachable attack);
   }
   public State getState() {
     return this.state;
   }
   public void setState(State state) {
     this.state=state;
+  }
+  public static interface Transformer{
+    public void transform(Vector2 pos,Vector2 size);
   }
 }
