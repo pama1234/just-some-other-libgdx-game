@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.GdxRuntimeException;
 import com.badlogic.gdx.utils.StringBuilder;
 
+import pama1234.gdx.util.font.BetterBitmapFont;
 import pama1234.gdx.util.font.MultiChunkFont;
 
 public class DialogBox extends Actor{
@@ -22,7 +23,7 @@ public class DialogBox extends Actor{
   public boolean isRemoved;
   int apc=0;
   float appearTime=.02f,time=0;
-  protected MultiChunkFont font;
+  protected BetterBitmapFont font;
   boolean ok=false;
   boolean autoRemove=true;
   public DialogBox(Texture background) {
@@ -95,10 +96,10 @@ public class DialogBox extends Actor{
       (int)getWidth(),
       (int)font.styleFast.size/2,true);
   }
-  public MultiChunkFont getFont() {
+  public BetterBitmapFont getFont() {
     return this.font;
   }
-  public void setFont(MultiChunkFont font) {
+  public void setFont(BetterBitmapFont font) {
     this.font=font;
   }
   public LinkedList<String> getSequence() {

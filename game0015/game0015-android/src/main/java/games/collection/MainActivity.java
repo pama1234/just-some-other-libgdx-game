@@ -1,4 +1,4 @@
-package com.games.collection;
+package games.collection;
 
 import android.content.Intent;
 import android.content.res.AssetManager;

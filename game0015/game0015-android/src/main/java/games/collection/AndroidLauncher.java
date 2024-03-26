@@ -1,4 +1,4 @@
-package com.games.collection;
+package games.collection;
 
 import android.app.Activity;
 import android.content.pm.ActivityInfo;

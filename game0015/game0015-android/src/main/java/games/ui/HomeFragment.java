@@ -1,10 +1,10 @@
-package com.games.ui;
+package games.ui;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import com.games.collection.AndroidLauncher;
-import com.games.collection.R;
+import games.collection.R;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +16,7 @@ import android.widget.TextView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import com.games.ui.ItemData;
 import hhs.game.Mountain3d.ShaderTest;
 import hhs.game.doomlibgdx.MainGame;
 import hhs.game.hanoi.HanoiLauncher;

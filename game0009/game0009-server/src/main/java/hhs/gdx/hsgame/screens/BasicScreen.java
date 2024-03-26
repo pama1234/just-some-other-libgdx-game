@@ -123,7 +123,7 @@ public abstract class BasicScreen extends UtilScreen2D{
   public void dispose() {
     // super.dispose();
     stop=true;
-    if(fontBatch!=null) fontBatch.dispose();
+//    if(imageBatch!=null) imageBatch.dispose();
     if(font!=null) font.dispose();
     if(center!=null) center.dispose();
     if(serverCenter!=null) serverCenter.dispose();
