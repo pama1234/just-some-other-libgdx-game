@@ -32,4 +32,7 @@ public class Screen0055 extends ScreenCoreState3D<StateCenter0055,StateEntity005
   @Override
   public void frameResized() {}
 
+  public int randomInt(int a) {
+    return (int)random(a);
+  }
 }

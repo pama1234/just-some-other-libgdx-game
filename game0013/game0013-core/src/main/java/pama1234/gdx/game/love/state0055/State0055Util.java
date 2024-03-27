@@ -14,7 +14,7 @@ public class State0055Util {
     center.list.add(center.mainMenu=new MainMenu(in));
     center.list.add(center.settings=new Settings(in));
 
-    center.list.add(center.bulletTest =new BulletTest(in));
+//    center.list.add(center.bulletTest =new BulletTest(in));
 //    center.list.add(center.bulletTest =new BulletTest3D(in));
   }
   public static abstract class StateEntity0055 extends StateEntityBase<Screen0055,StateEntityListener0055,StateEntity0055> implements StateEntityListener0055{
@@ -32,7 +32,7 @@ public class State0055Util {
     public MainMenu mainMenu;
     public Settings settings;
 
-    public BulletTest bulletTest;
+//    public BulletTest bulletTest;
     public StateCenter0055(Screen0055 p) {
       super(p);
     }

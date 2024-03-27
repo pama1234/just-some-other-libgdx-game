@@ -12,6 +12,9 @@ public interface ColorUtil{
   Color clas=color("FB6104");
   /** we all know this means interface */
   Color interfase=color("6D5CB4");
+  Color enume=color("A77554");
+  Color generic = color("644632");
+
   Color keyword=color("248888");
 
   Color data=color("D53569");
