@@ -9,6 +9,9 @@ import pama1234.util.function.ExecuteWith;
 import pama1234.util.listener.ServerEntityListener;
 
 public class GameScript extends Entity<Screen0055>{
+
+  Level_1 level1;
+
   public GameScript(Screen0055 p) {
     super(p);
 
@@ -29,10 +32,8 @@ public class GameScript extends Entity<Screen0055>{
         sb.append(",");
       }
 
-      System.out.println("Method called: "+clas+"."+name+"("+sb+") -> "+returnType.getSimpleName());
+      System.out.println("Method called: "+clas.getSimpleName()+"."+name+"("+sb+") -> "+returnType.getSimpleName());
     };
-
-    Level_1 level1;
 
     try {
       level1=GameByteBuddy.load(Level_1.class,new String[] {"say"});
@@ -41,8 +42,13 @@ public class GameScript extends Entity<Screen0055>{
     }catch(IllegalAccessException e) {
       throw new RuntimeException(e);
     }
+    run();
+  }
 
-    level1.run();
+  public void run() {
+    new Thread(()-> {
+      level1.run();
+    },"GameScript Level_1").start();
   }
 
   @Override
