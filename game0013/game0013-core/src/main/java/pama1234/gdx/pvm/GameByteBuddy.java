@@ -9,6 +9,7 @@ import net.bytebuddy.implementation.bind.annotation.Origin;
 import net.bytebuddy.implementation.bind.annotation.RuntimeType;
 import net.bytebuddy.implementation.bind.annotation.SuperCall;
 import net.bytebuddy.matcher.ElementMatchers;
+import pama1234.util.function.ExecuteWith;
 
 public class GameByteBuddy{
   public static ExecuteWith<Method> methodListener=m-> {
@@ -40,6 +41,30 @@ public class GameByteBuddy{
     System.out.println(instance.toString());
   }
 
+  public static <T> T load(Class<T> in,String[] excludedMethods) throws InstantiationException,IllegalAccessException {
+    Class<?> dynamicType=new ByteBuddy()
+      .subclass(in) // 指定要动态创建的类的父类
+      //      .method(any()) // 选择所有方法
+      .method(ElementMatchers.not(target-> {
+        var name=target.getName();
+
+        if(name.equals("hashCode")||name.equals("clone")) return true;
+        for(int i=0;i<excludedMethods.length;i++) if(excludedMethods[i].equals(name)) return true;
+
+        return false;
+      })) // 选择所有方法
+      //      .intercept(FixedValue.value("Hello World!")) // 拦截方法，并返回固定值
+      // 下面的代码是关键，它将会在每个方法调用前打印方法名
+      .intercept(MethodDelegation.to(GameMethodInterceptor.class))
+      .make()
+      .load(GameByteBuddy.class.getClassLoader()) // 加载这个动态创建的类
+      .getLoaded();
+
+    // 创建这个动态类型的实例
+    T instance=(T)dynamicType.newInstance();
+    return instance;
+  }
+
   // 这个类用来作为方法拦截器
   public static class GameMethodInterceptor{
     // 这个方法会在任何被拦截的方法调用时执行
@@ -56,10 +81,5 @@ public class GameByteBuddy{
     public String testMethod() {
       return "original method return";
     }
-  }
-
-  @FunctionalInterface
-  public static interface ExecuteWith<T>{
-    public void execute(T in);
   }
 }

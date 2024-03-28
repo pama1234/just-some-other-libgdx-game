@@ -6,6 +6,7 @@ import com.badlogic.gdx.utils.Pool;
 
 import pama1234.gdx.game.app.app0002.Screen0055;
 import pama1234.gdx.game.element.GameCenter;
+import pama1234.gdx.game.element.GameScript;
 import pama1234.gdx.game.element.Telescope;
 import pama1234.gdx.game.element.bullet.BulletEntity;
 import pama1234.gdx.game.love.state0055.State0055Util.StateEntity0055;
@@ -52,6 +53,7 @@ public class BulletTest3DModel extends StateEntity0055{
 
   public Vec3f bulletTarget;
   public GameCenter gameCenter;
+  public GameScript gameScript;
   public BulletPool bulletPool;
 
   @Override
@@ -78,6 +80,8 @@ public class BulletTest3DModel extends StateEntity0055{
     gameCenter.camPos=p.cam3d.point.pos;
 
     bulletPool=new BulletPool(p,gameCenter);
+
+    gameScript=new GameScript(p);
   }
 
   @Override
