@@ -10,7 +10,11 @@ import net.bytebuddy.implementation.bind.annotation.RuntimeType;
 import net.bytebuddy.implementation.bind.annotation.SuperCall;
 import net.bytebuddy.matcher.ElementMatchers;
 
-public class ByteBuddyExample{
+public class GameByteBuddy{
+  public static ExecuteWith<Method> methodListener=m-> {
+    System.out.println("Method called: "+m.getDeclaringClass()+"."+m.getName());
+  };
+
   public static void main(String[] args) throws IllegalAccessException,InstantiationException {
     // 假设我们有一个简单的类SampleClass，我们想要修改它的行为
     Class<?> dynamicType=new ByteBuddy()
@@ -25,7 +29,7 @@ public class ByteBuddyExample{
       // 下面的代码是关键，它将会在每个方法调用前打印方法名
       .intercept(MethodDelegation.to(GameMethodInterceptor.class))
       .make()
-      .load(ByteBuddyExample.class.getClassLoader()) // 加载这个动态创建的类
+      .load(GameByteBuddy.class.getClassLoader()) // 加载这个动态创建的类
       .getLoaded();
 
     // 创建这个动态类型的实例
@@ -41,7 +45,8 @@ public class ByteBuddyExample{
     // 这个方法会在任何被拦截的方法调用时执行
     @RuntimeType
     public static Object intercept(@Origin Method method,@SuperCall Callable<?> callable) throws Exception {
-      System.out.println("Method called: "+method.getName());
+      //      System.out.println("Method called: "+method.getName());
+      methodListener.execute(method);
       return callable.call(); // 继续执行原方法
     }
   }
@@ -51,5 +56,10 @@ public class ByteBuddyExample{
     public String testMethod() {
       return "original method return";
     }
+  }
+
+  @FunctionalInterface
+  public static interface ExecuteWith<T>{
+    public void execute(T in);
   }
 }
