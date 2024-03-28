@@ -77,7 +77,7 @@ public class BulletEntity extends OrientedEntity3D{
     p.stroke(ColorUtil.keyword);
     float lineLen=point.pos.dist(point.px,point.py,point.pz);
     p.translate(0,0,1/16f);
-    p.sline(0,0,-lineLen*2,0);
+    p.sline(-lineLen,0,-lineLen*2,0);
     p.translate(0,0,-1/16f);
 
     p.noStroke();

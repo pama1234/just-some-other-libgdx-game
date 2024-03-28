@@ -10,4 +10,6 @@ dependencies {
   // api project(':framework0001:framework0001-netty')
 
   api project(':game0013:game0013-server')
+
+//  api("org.javassist:javassist:3.30.2-GA")
 }
