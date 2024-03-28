@@ -4,12 +4,10 @@ import java.lang.reflect.Method;
 import java.util.concurrent.Callable;
 
 import net.bytebuddy.ByteBuddy;
-import net.bytebuddy.description.method.MethodDescription;
 import net.bytebuddy.implementation.MethodDelegation;
 import net.bytebuddy.implementation.bind.annotation.Origin;
 import net.bytebuddy.implementation.bind.annotation.RuntimeType;
 import net.bytebuddy.implementation.bind.annotation.SuperCall;
-import net.bytebuddy.matcher.ElementMatcher;
 import net.bytebuddy.matcher.ElementMatchers;
 
 public class ByteBuddyExample{
@@ -18,18 +16,14 @@ public class ByteBuddyExample{
     Class<?> dynamicType=new ByteBuddy()
       .subclass(SampleClass.class) // 指定要动态创建的类的父类
       //      .method(any()) // 选择所有方法
-      .method(ElementMatchers.not(new ElementMatcher<MethodDescription>() {
-        @Override
-        public boolean matches(MethodDescription target) {
-          var name=target.getName();
-          //          System.out.println(target.getName());
-          if(name.equals("hashCode")||name.equals("clone")) return true;
-          return false;
-        }
+      .method(ElementMatchers.not(target-> {
+        var name=target.getName();
+        if(name.equals("hashCode")||name.equals("clone")) return true;
+        return false;
       })) // 选择所有方法
       //      .intercept(FixedValue.value("Hello World!")) // 拦截方法，并返回固定值
       // 下面的代码是关键，它将会在每个方法调用前打印方法名
-      .intercept(MethodDelegation.to(new GameMethodInterceptor()))
+      .intercept(MethodDelegation.to(GameMethodInterceptor.class))
       .make()
       .load(ByteBuddyExample.class.getClassLoader()) // 加载这个动态创建的类
       .getLoaded();
@@ -37,7 +31,9 @@ public class ByteBuddyExample{
     // 创建这个动态类型的实例
     SampleClass instance=(SampleClass)dynamicType.newInstance();
     // 你可以在这里调用这个实例的方法，查看效果
+    System.out.println(instance.getClass().getName());
     System.out.println(instance.testMethod());
+    System.out.println(instance.toString());
   }
 
   // 这个类用来作为方法拦截器

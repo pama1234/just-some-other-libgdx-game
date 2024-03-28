@@ -20,6 +20,12 @@ public class TestMain{
     System.out.println(dynamicType.newInstance().toString());
   }
 
+  public static class GreetingInterceptor{
+    public Object greet(Object argument) {
+      return "Hello from "+argument;
+    }
+  }
+
   public void run() throws InstantiationException,IllegalAccessException {
     Class<? extends java.util.function.Function> dynamicType=new ByteBuddy()
       .subclass(java.util.function.Function.class)
@@ -33,8 +39,7 @@ public class TestMain{
     //    assertThat((String) dynamicType.newInstance().apply("Byte Buddy"), is("Hello from Byte Buddy"));
   }
 
-  public void run1() {
-  }
+  public void run1() {}
 
   public static void main(String[] args) {
     try {
