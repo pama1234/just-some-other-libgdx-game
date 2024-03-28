@@ -12,4 +12,6 @@ dependencies {
   api project(':game0013:game0013-server')
 
 //  api("org.javassist:javassist:3.30.2-GA")
+//  api("net.bytebuddy:byte-buddy-parent:1.14.12")
+  api("net.bytebuddy:byte-buddy:1.14.12")
 }
