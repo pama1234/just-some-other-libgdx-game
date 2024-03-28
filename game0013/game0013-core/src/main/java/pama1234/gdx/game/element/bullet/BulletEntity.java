@@ -51,6 +51,15 @@ public class BulletEntity extends OrientedEntity3D{
     this.text=text;
   }
 
+  public void reset() {
+//    point.reset();
+
+    contentType=ContentType.clas;
+    noseType=NoseType.data;
+
+    text="null";
+  }
+
   public Vec3f yAixs=new Vec3f(0,1,0);
   @Override
   public void update() {

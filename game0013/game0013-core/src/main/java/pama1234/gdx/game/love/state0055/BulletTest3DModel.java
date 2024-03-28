@@ -1,5 +1,9 @@
 package pama1234.gdx.game.love.state0055;
 
+import static pama1234.math.UtilMath.abs;
+
+import com.badlogic.gdx.utils.Pool;
+
 import pama1234.gdx.game.app.app0002.Screen0055;
 import pama1234.gdx.game.element.GameCenter;
 import pama1234.gdx.game.element.Telescope;
@@ -12,9 +16,29 @@ import pama1234.math.vec.Vec3f;
 import pama1234.util.wrapper.Center;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
-import static pama1234.math.UtilMath.abs;
-
 public class BulletTest3DModel extends StateEntity0055{
+  public static class BulletPool extends Pool<BulletEntity>{
+    public Screen0055 p;
+    public GameCenter pg;
+
+    public BulletPool(Screen0055 p,GameCenter pg) {
+      this.p=p;
+      this.pg=pg;
+    }
+
+    @Override
+    protected BulletEntity newObject() {
+      return new BulletEntity(p,pg,new ReversedPathPoint3D(),"null");
+    }
+
+    @Override
+    public BulletEntity obtain() {
+      BulletEntity o=super.obtain();
+      o.reset();
+      return o;
+    }
+  }
+
   public static ShapeDrawer customShapeDrawer;
   public static SpriteBatch3D batch3d;
 
@@ -28,6 +52,7 @@ public class BulletTest3DModel extends StateEntity0055{
 
   public Vec3f bulletTarget;
   public GameCenter gameCenter;
+  public BulletPool bulletPool;
 
   @Override
   public void from(StateEntity0055 in) {
@@ -51,6 +76,8 @@ public class BulletTest3DModel extends StateEntity0055{
     bulletTarget=p.cam3d.point.pos;
     gameCenter=new GameCenter();
     gameCenter.camPos=p.cam3d.point.pos;
+
+    bulletPool=new BulletPool(p,gameCenter);
   }
 
   @Override
