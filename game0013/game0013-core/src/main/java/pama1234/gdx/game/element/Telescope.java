@@ -12,13 +12,19 @@ public class Telescope extends Entity<UtilScreen3D>{
   public PathVar scale=new PathVar(1);
   public int fov=60;
 
+  public int usedKey=Keys.C;
+  public boolean keyPressed;
+
+  public boolean activeMoveSpeedChange;
+
   public Telescope(UtilScreen3D p) {
     super(p);
   }
 
   @Override
   public void update() {
-    if(p.isKeyPressed(Keys.C)) {
+    if(keyPressed) {
+      //    if(p.isKeyPressed(usedKey)) {
       scale.des=min;
       //      System.out.println();
     }else {
@@ -29,11 +35,32 @@ public class Telescope extends Entity<UtilScreen3D>{
   }
 
   @Override
+  public void keyPressed(char key,int keyCode) {
+    if(keyCode==usedKey) {
+      keyPressed=true;
+      activeMoveSpeedChange=p.cam3d.activeMoveSpeedChange;
+      p.cam3d.activeMoveSpeedChange=false;
+    }
+  }
+
+  @Override
+  public void keyReleased(char key,int keyCode) {
+    if(keyCode==usedKey) {
+      keyPressed=false;
+      p.cam3d.activeMoveSpeedChange=activeMoveSpeedChange;
+    }
+  }
+
+  @Override
+  public void mouseWheel(float x,float y) {
+    if(keyPressed) {
+      min+=y/8f;
+    }
+  }
+
+  @Override
   public void display() {
     PerspectiveCamera cam=p.cam3d.pcam;
-    //    cam.viewportWidth=p.width*scale.pos;
-    //    cam.viewportHeight=p.height*scale.pos;
-    //    cam.update();
     cam.fieldOfView=fov*scale.pos;
     cam.update();
     p.setCamera(cam);

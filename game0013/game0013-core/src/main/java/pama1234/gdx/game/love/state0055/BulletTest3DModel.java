@@ -12,6 +12,8 @@ import pama1234.math.vec.Vec3f;
 import pama1234.util.wrapper.Center;
 import space.earlygrey.shapedrawer.ShapeDrawer;
 
+import static pama1234.math.UtilMath.abs;
+
 public class BulletTest3DModel extends StateEntity0055{
   public static ShapeDrawer customShapeDrawer;
   public static SpriteBatch3D batch3d;
@@ -30,6 +32,8 @@ public class BulletTest3DModel extends StateEntity0055{
   @Override
   public void from(StateEntity0055 in) {
     p.cam3d.moveSpeedMax=128;
+    p.cam3d.moveSpeed=128;
+
     p.doFill();
     p.noStroke();
 
@@ -37,6 +41,9 @@ public class BulletTest3DModel extends StateEntity0055{
     p.stroke(ColorUtil.keyword);
 
     telescope=new Telescope(p);
+    telescope.min=1/32f;
+
+    p.centerCamAddAll(telescope);
 
     //    p.cam3d.point.des.set(0,0,-1024);
     customShapeDrawer=new ShapeDrawer(batch3d=new SpriteBatch3D(p.cam3d.camera));
@@ -65,7 +72,7 @@ public class BulletTest3DModel extends StateEntity0055{
         reset(test);
       }
     });
-    telescope.update();
+    //    telescope.update();
   }
 
   public void reset(BulletEntity bullet) {
@@ -78,16 +85,21 @@ public class BulletTest3DModel extends StateEntity0055{
     //    test.set(
     //      p.random(-20,20),p.random(-20,20),p.random(-20,20),
     //      p.random(-range,range),p.random(-range,range),p.random(-range,range));
+    int startRange=50;
+    int shiftRange=50;
+    int desRange=50+abs((p.frameCount/10)%(shiftRange*2)-shiftRange);
+    //    int desRange=10;
     test.set(
-      p.random(-20,20),p.random(-20,20),p.random(-20,20),
+      p.random(-startRange,startRange),p.random(-startRange,startRange),p.random(-startRange,startRange),
       //      bulletTarget.x,bulletTarget.y+40,bulletTarget.z);
-      bulletTarget.x+p.random(-10,10),bulletTarget.y+p.random(-10,10),bulletTarget.z+p.random(-10,10));
+      p.random(-desRange,desRange)-2000,p.random(-desRange,desRange),p.random(-desRange,desRange));
+    //      bulletTarget.x+p.random(-10,10),bulletTarget.y+p.random(-10,10),bulletTarget.z+p.random(-10,10));
     test.reset();
   }
 
   @Override
   public void displayCam() {
-    telescope.display();
+    //    telescope.display();
 
     var tsd=p.shapeDrawer;
     var tb=p.imageBatch;

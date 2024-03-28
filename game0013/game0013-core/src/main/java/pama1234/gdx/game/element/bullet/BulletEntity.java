@@ -85,8 +85,10 @@ public class BulletEntity extends OrientedEntity3D{
     p.sstrokeWeight(2);
     p.stroke(ColorUtil.keyword);
     float lineLen=point.pos.dist(point.px,point.py,point.pz);
+    float tx1=-lineLen;
+    float tx2=lineLen;
     p.translate(0,0,1/16f);
-    p.sline(-lineLen,0,-lineLen*2,0);
+    p.sline(tx1,0,tx1-tx2,0);
     //    p.stroke(ColorUtil.unused,16);
     //    p.sline(0,0,-dist()*4,0);
     p.translate(0,0,-1/16f);
@@ -98,7 +100,7 @@ public class BulletEntity extends OrientedEntity3D{
 
     p.textColor(contentType.color);
     p.textScale(1/8f);
-    p.text(getClass().getSimpleName(),lineLen*2+2,-1);
+    p.text(getClass().getSimpleName(),tx2+2,-1);
 
     int a=pg.nearCam(this)?64:255;
     p.fill(noseType.color,a);
