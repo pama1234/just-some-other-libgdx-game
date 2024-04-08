@@ -1,0 +1,114 @@
+apply plugin: "com.android.library"
+apply plugin: 'maven-publish'
+
+android {
+  namespace 'pama1234.android.net'
+
+//  compileSdkVersion project.properties.compileSdkVersion.toInteger()
+  signingConfigs {
+    release {
+      // storeFile file('sign.jks')
+      // storePassword ''
+      // keyAlias 'xxx'
+      // keyPassword ''
+    }
+  }
+  sourceSets {
+    main {
+      manifest.srcFile 'AndroidManifest.xml'
+      java.srcDirs = ['src/main/java']
+      aidl.srcDirs = ['src/main/java']
+      renderscript.srcDirs = ['src/main/java']
+      res.srcDirs = ['res']
+      assets.srcDirs = ['../../assets' , '../assets']
+      jniLibs.srcDirs = ['libs']
+    }
+  }
+  defaultConfig {
+    compileSdk project.properties.compileSdkVersion.toInteger()
+    minSdkVersion project.properties.minSdkVersion.toInteger()
+    targetSdkVersion project.properties.targetSdkVersion.toInteger()
+    versionCode 1
+    versionName "1.0"
+    multiDexEnabled true
+  }
+  compileOptions {
+    encoding = 'UTF-8'
+    sourceCompatibility "17"
+    targetCompatibility "17"
+    coreLibraryDesugaringEnabled true
+  }
+
+  buildTypes {
+    release {
+      minifyEnabled false
+      proguardFiles getDefaultProguardFile('proguard-android.txt') , 'proguard-rules.pro'
+
+      signingConfig signingConfigs.release
+    }
+  }
+  publishing {
+    singleVariant('release') {
+      // withSourcesJar()
+    }
+  }
+}
+
+repositories {
+  // needed for AAPT2, may be needed for other tools
+  mavenCentral()
+  maven { url 'https://jitpack.io' }
+  google()
+}
+
+dependencies {
+  coreLibraryDesugaring "com.android.tools:desugar_jdk_libs:$androidDesugarVersion"
+
+  implementation("$gdxModule:gdx-backend-android:$gdxVersion") {
+    // exclude group: "com.badlogicgames.gdx"
+  }
+
+  // implementation project(':framework')
+  api "$pama1234RepoLocation:framework:$pama1234PublishVersion"
+
+  // implementation 'net.java.dev.jna:jna:5.13.0'
+}
+
+eclipse.project.name = appName + '-net-android-framework'
+
+// Because the components are created only during the afterEvaluate phase, you must
+// configure your publications using the afterEvaluate() lifecycle method.
+afterEvaluate {
+  publishing {
+    publications {
+      // Creates a Maven publication called "release".
+      release(MavenPublication) {
+
+        // You can then customize attributes of the publication as shown below.
+        groupId = 'pama1234'
+        artifactId = 'net-android-framework'
+        version = "$pama1234PublishVersion"
+        // Applies the component for the release build variant.
+        from components.release
+
+        pom {
+          name = 'pama1234-net-android-framework'
+          description = 'some android side network framework'
+          url = 'https://github.com/pama1234/just-some-other-libgdx-game'
+          scm {
+            url = 'https://github.com/pama1234/just-some-other-libgdx-game'
+          }
+        }
+      }
+      // // Creates a Maven publication called “debug”.
+      // debug(MavenPublication) {
+      //   // Applies the component for the debug build variant.
+      //   from components.debug
+
+      //   groupId = 'com.example.MyLibrary'
+      //   artifactId = 'final-debug'
+      //   version = '1.0'
+      // }
+    }
+  }
+}

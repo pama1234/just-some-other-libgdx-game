@@ -1,0 +1,11 @@
+// 粘贴以下内容至.vscode/settings.json
+{
+  "protoc": {
+    "path": "你的protoc的存放位置，例子：E:/used-exe/protoc-23.1-win64/bin/protoc.exe",
+    "compile_on_save": false,
+    "options": [
+      "--proto_path=${workspaceRoot}/framework0001/framework0001-protobuf/src/main/protobuf",
+      "--java_out=${workspaceRoot}/framework0001/framework0001-protobuf/src/main/java/"
+    ]
+  }
+}

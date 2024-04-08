@@ -1,0 +1,18 @@
+!<StoredInfo>
+attr: !<MetaCreatureAttribute>
+  count: 0
+  displayNames: null
+  dx: -16.5
+  dy: -52.0
+  h: 52
+  immortal: false
+  intData: null
+  maxLife: 32.0
+  moveSpeed: 1.0
+  naturalMaxCount: 0
+  w: 33
+id: 0
+name: player
+sttr: !<MetaCreatureStoredAttribute>
+  spawnDatas: null
+  tilesPngs: null

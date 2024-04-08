@@ -1,0 +1,10 @@
+start cmd /c "gradlew game0001:game0001-lwjgl3:jar"
+start cmd /c "gradlew game0002:game0002-lwjgl3:jar"
+start cmd /c "gradlew game0003:game0003-lwjgl3:jar"
+start cmd /c "gradlew game0004:game0004-lwjgl3:jar"
+start cmd /c "gradlew game0005:game0005-lwjgl3:jar"
+start cmd /c "gradlew game0006:game0006-lwjgl3:jar"
+start cmd /c "gradlew game0007:game0007-lwjgl3:jar"
+start cmd /c "gradlew game0008:game0008-lwjgl3:jar"
+start cmd /c "gradlew game0009:game0009-lwjgl3:jar"
+pause

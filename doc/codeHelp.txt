@@ -1,0 +1,233 @@
+/*
+ * Writer:hhshaohao
+ * UpdateTime:2023-1-30
+ */
+为贡献代码的人的一些帮助，这个大概是这个项目的文档。
+我也还没完全看懂，我会慢慢写上注释的，将就看吧。
+
+core/
+├── build.gradle
+└── src
+    └── main
+        └── java
+            └── pama1234
+                └── gdx
+                    ├── game      //场景和一些实体 场景通过改变 "state" 的方式来实现一些效果 如FirstRunLoading
+                    │   ├── DrawableEntity.java
+                    │   ├── StageEntity.java
+                    │   ├── StageUtil.java
+                    │   ├── app     //Screen的注释来自 MainApp.java
+                    │   │   ├── Screen0011.java//游戏本体            <---------# √
+                    │   │   ├── Screen0012.java//空白游戏框架
+                    │   │   ├── Screen0016.java//测试 联机游戏 客户端
+                    │   │   ├── app0001
+                    │   │   │   ├── Screen0002.java//2D 粒子系统
+                    │   │   │   └── Screen0007.java//粒子系统libgdx服务器
+                    │   │   ├── app0002
+                    │   │   │   ├── Screen0004.java//测试 3D渲染 文本框UI
+                    │   │   │   ├── Screen0005.java//空白
+                    │   │   │   ├── Screen0006.java//测试 按钮UI
+                    │   │   │   ├── Screen0010.java//测试 天空着色器
+                    │   │   │   ├── Screen0014.java//测试 贴图渲染优化
+                    │   │   │   └── Screen0015.java//测试 贴图渲染优化
+                    │   │   ├── app0003
+                    │   │   │   ├── Screen0008.java//测试 TextArea
+                    │   │   │   ├── Screen0009.java//测试 GIF加载
+                    │   │   │   └── Screen0013.java//测试 透明渲染模式
+                    │   │   └── app0004
+                    │   │       ├── Screen0001.java//3D 粒子系统 单机
+                    │   │       └── Screen0003.java//3D 粒子系统 联机 客户端
+                    │   ├── asset      //储存游戏的资源
+                    │   │   ├── GifAsset.java
+                    │   │   ├── ImageAsset.java
+                    │   │   ├── MusicAsset.java
+                    │   │   └── TvgAsset.java
+                    │   ├── net
+                    │   │   └── SocketWrapperGDX.java
+                    │   ├── state     //这里就是实现具体功能的state
+                    │   │   ├── state0001
+                    │   │   │   ├── Announcement.java
+                    │   │   │   ├── ExceptionState.java
+                    │   │   │   ├── FirstRun.java
+                    │   │   │   ├── Game.java
+                    │   │   │   ├── Loading.java
+                    │   │   │   ├── Settings.java
+                    │   │   │   ├── StartMenu.java
+                    │   │   │   ├── State0001.java
+                    │   │   │   ├── StateGenerator0001.java
+                    │   │   │   └── game
+                    │   │   │       ├── entity     //ECS系统【构建你自己的ECS系统 1-什么是ECS-哔哩哔哩】 https://b23.tv/GjYufAh
+                    │   │   │       │   ├── GameEntity.java
+                    │   │   │       │   ├── GamePointEntity.java
+                    │   │   │       │   ├── LivingEntity.java
+                    │   │   │       │   ├── MultiGameEntityCenter.java
+                    │   │   │       │   ├── TextureLivingEntity.java
+                    │   │   │       │   ├── entity0001
+                    │   │   │       │   │   ├── DroppedItem.java
+                    │   │   │       │   │   ├── Fly.java
+                    │   │   │       │   │   ├── MobEntity.java
+                    │   │   │       │   │   └── Sword.java
+                    │   │   │       │   └── util
+                    │   │   │       │       ├── MovementLimitBox.java
+                    │   │   │       │       └── OuterBox.java
+                    │   │   │       ├── item
+                    │   │   │       │   ├── Inventory.java
+                    │   │   │       │   └── Item.java
+                    │   │   │       ├── metainfo    //方块材质
+                    │   │   │       │   ├── MetaBlock.java
+                    │   │   │       │   ├── MetaCreature.java
+                    │   │   │       │   ├── MetaInfoBase.java
+                    │   │   │       │   ├── MetaInfoUtil.java
+                    │   │   │       │   ├── MetaItem.java
+                    │   │   │       │   └── info0001
+                    │   │   │       │       └── center
+                    │   │   │       │           ├── MetaBlockCenter0001.java
+                    │   │   │       │           ├── MetaCreatureCenter0001.java
+                    │   │   │       │           └── MetaItemCenter0001.java
+                    │   │   │       ├── player
+                    │   │   │       │   ├── BlockPointer.java
+                    │   │   │       │   ├── EntityPointer.java
+                    │   │   │       │   ├── GameMode.java
+                    │   │   │       │   ├── MainPlayer.java
+                    │   │   │       │   ├── Player.java
+                    │   │   │       │   └── PlayerController.java
+                    │   │   │       ├── region
+                    │   │   │       │   ├── Chunk.java
+                    │   │   │       │   ├── LoadAndSave.java
+                    │   │   │       │   ├── PathVarLighting.java
+                    │   │   │       │   ├── Region.java
+                    │   │   │       │   ├── RegionCenter.java
+                    │   │   │       │   ├── RegionGenerator.java
+                    │   │   │       │   ├── RegionPool.java
+                    │   │   │       │   ├── TilemapRenderer0001.java
+                    │   │   │       │   ├── TilemapRenderer0002.java
+                    │   │   │       │   └── block
+                    │   │   │       │       ├── Block.java
+                    │   │   │       │       └── block0001    //具体的方块类型
+                    │   │   │       │           ├── Dirt.java
+                    │   │   │       │           ├── Sapling.java
+                    │   │   │       │           ├── Stone.java
+                    │   │   │       │           ├── TreeBranch.java
+                    │   │   │       │           ├── TreeLeaf.java
+                    │   │   │       │           ├── TreeLog.java
+                    │   │   │       │           └── Workbench.java
+                    │   │   │       └── world
+                    │   │   │           ├── IDGenerator.java
+                    │   │   │           ├── Sky.java
+                    │   │   │           ├── World.java
+                    │   │   │           ├── World0001.java
+                    │   │   │           ├── World0001Generator.java
+                    │   │   │           ├── World0002.java
+                    │   │   │           ├── WorldBase2D.java
+                    │   │   │           ├── WorldCenter.java
+                    │   │   │           └── WorldSettings.java
+                    │   │   ├── state0002
+                    │   │   │   ├── Announcement.java
+                    │   │   │   ├── ExceptionState.java
+                    │   │   │   ├── FirstRun.java
+                    │   │   │   ├── Game.java
+                    │   │   │   ├── Loading.java
+                    │   │   │   ├── Settings.java
+                    │   │   │   ├── StartMenu.java
+                    │   │   │   ├── State0002.java
+                    │   │   │   ├── StateGenerator0002.java
+                    │   │   │   └── game
+                    │   │   │       ├── MainPlayer.java
+                    │   │   │       ├── Player.java
+                    │   │   │       └── World.java
+                    │   │   └── state0003
+                    │   │       ├── Announcement.java
+                    │   │       ├── ExceptionState.java
+                    │   │       ├── FirstRun.java
+                    │   │       ├── Game.java
+                    │   │       ├── Loading.java
+                    │   │       ├── Settings.java
+                    │   │       ├── StartMenu.java
+                    │   │       ├── State0003.java
+                    │   │       ├── StateGenerator0003.java
+                    │   │       └── game
+                    │   │           ├── MainPlayer.java
+                    │   │           ├── Player.java
+                    │   │           └── World.java
+                    │   ├── ui
+                    │   │   ├── CodeTextFieldStyle.java
+                    │   │   ├── ConfigInfo.java
+                    │   │   ├── generator      //这里储存这游戏的ui的对象
+                    │   │   │   ├── ButtonGenerator0002.java
+                    │   │   │   ├── InfoGenerator.java
+                    │   │   │   ├── UiGenerator.java
+                    │   │   │   └── UiGenerator0003.java
+                    │   │   └── util
+                    │   │       ├── Button.java
+                    │   │       ├── NormalOnscreenKeyboard.java
+                    │   │       ├── Slider.java
+                    │   │       ├── TextArea.java
+                    │   │       ├── TextButton.java
+                    │   │       ├── TextButtonCam.java
+                    │   │       ├── TextField.java
+                    │   │       └── TextureButton.java
+                    │   └── util
+                    │       ├── ClientPlayer3D.java
+                    │       ├── ClientPlayerCenter3D.java
+                    │       ├── ControllerClientPlayer3D.java
+                    │       ├── DisplayEntity.java
+                    │       ├── Mutex.java
+                    │       ├── RectF.java
+                    │       ├── function
+                    │       │   ├── ExecuteF.java
+                    │       │   ├── GetBoolean.java
+                    │       │   ├── GetColor.java
+                    │       │   ├── GetFloat.java
+                    │       │   └── GetInt.java
+                    │       └── gif
+                    │           ├── Gif.java
+                    │           ├── GifDecoder.java
+                    │           ├── GifLoader.java
+                    │           └── GifParameter.java
+                    ├── launcher
+                    │   ├── DebugApp.java
+                    │   ├── MainApp.java  //游戏开始的地方
+                    │   └── ServerApp.java
+                    └── util
+                        ├── FileUtil.java
+                        ├── app
+                        │   ├── ScreenCore2D.java
+                        │   ├── ScreenCore3D.java
+                        │   ├── UtilScreen.java
+                        │   ├── UtilScreen2D.java
+                        │   ├── UtilScreen3D.java
+                        │   └── UtilScreenCore.java
+                        ├── element
+                        │   ├── CameraController.java
+                        │   ├── CameraController2D.java
+                        │   ├── CameraController3D.java
+                        │   ├── Component.java
+                        │   ├── Graphics.java
+                        │   ├── MultiChunkFont.java
+                        │   ├── MultiChunkFontData.java
+                        │   └── RangeChar.java
+                        ├── entity
+                        │   ├── Entity.java
+                        │   ├── Point3DEntity.java
+                        │   ├── PointEntity.java
+                        │   ├── SpriteArrayEntity.java
+                        │   └── SpriteEntity.java
+                        ├── info
+                        │   ├── MouseInfo.java
+                        │   └── TouchInfo.java
+                        ├── input
+                        │   └── UtilInputProcesser.java
+                        ├── listener
+                        │   ├── EntityListener.java
+                        │   └── InputListener.java
+                        └── wrapper
+                            ├── ArrayEntityCenter.java
+                            ├── EntityCenter.java
+                            ├── EntityHashMap.java
+                            ├── EntityWrapper.java
+                            ├── LayeredEntityCenter.java
+                            ├── MultiEntityCenter.java
+                            ├── PointCenter.java
+                            └── StateCenter.java
+
+107 directories, 428 files

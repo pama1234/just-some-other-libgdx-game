@@ -1,0 +1,34 @@
+!<StoredInfo>
+attr: !<MetaBlockAttribute>
+  blockType: 4
+  buildTime: 5
+  defaultDisplayType: 0
+  destroyTime: 10
+  display: true
+  displayNames: null
+  displayTypeSize: 2
+  empty: false
+  fullBlock: false
+  fullBlockType: 3
+  hardness: 1.0
+  height: 1
+  intData: null
+  light: false
+  lightIntensity: 0.0
+  rectSolid: null
+  width: 1
+  workStation: false
+id: 10
+name: wood-platform
+sttr: !<MetaBlockStoredAttribute>
+  displayUpdater: null
+  displayer: null
+  from: null
+  itemDrop: null
+  tiles:
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 220, y: 180}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 240, y: 180}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 280, y: 180}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 260, y: 180}
+  to: null
+  updater: null

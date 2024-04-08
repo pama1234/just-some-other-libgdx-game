@@ -1,0 +1,31 @@
+!<StoredInfo>
+attr: !<MetaBlockAttribute>
+  blockType: 3
+  buildTime: 30
+  defaultDisplayType: 0
+  destroyTime: 120
+  display: true
+  displayNames: null
+  displayTypeSize: 1
+  empty: false
+  fullBlock: false
+  fullBlockType: 0
+  hardness: 1.0
+  height: 1
+  intData: null
+  light: false
+  lightIntensity: 0.0
+  rectSolid: null
+  width: 1
+  workStation: true
+id: 19
+name: world-debugger
+sttr: !<MetaBlockStoredAttribute>
+  displayUpdater: null
+  displayer: null
+  from: null
+  itemDrop: null
+  tiles:
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 140, y: 140}
+  to: null
+  updater: null

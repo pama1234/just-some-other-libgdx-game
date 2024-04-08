@@ -1,0 +1,19 @@
+gameMode: OffLine
+mode: 0
+theme:
+  data:
+    background: '0xffffffff'
+    backgroundLine: '0xe0e0e0ff'
+    longbowArrow: '0x404040ff'
+    longbowEffect: '0xc04040ff'
+    longbowLine: '0xc04040ff'
+    neatVoidBackground: '0xbfbfbfff'
+    particleDefault: '0xff'
+    playerDamaged: '0xc04040ff'
+    player_a: '0xffffffff'
+    player_b: '0xff'
+    ring: '0xff'
+    shortbowArrow: '0xc0c0c0ff'
+    squareParticles: '0xff'
+    stroke: '0xff'
+    text: '0xff'

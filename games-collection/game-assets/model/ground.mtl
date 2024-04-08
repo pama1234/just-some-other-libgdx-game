@@ -1,0 +1,74 @@
+# Wavefront .mtl file  -  created by SpaceDraw
+
+# File created: 22-12-24, 17:55
+
+newmtl standard
+Ns 20.0
+d 1.0
+Tr 0.0
+illum 2
+Ka 0.50189996 0.50189996 0.50189996 
+Kd 0.50189996 0.50189996 0.50189996 
+Ks 0.50189996 0.50189996 0.50189996 
+Ke 0.0 0.0 0.0 
+
+newmtl brick2
+Ns 10.0
+d 1.0
+Tr 0.0
+illum 2
+Ka 1.0 1.0 1.0 
+Kd 1.0 1.0 1.0 
+Ks 0.0 0.0 0.0 
+Ke 0.0 0.0 0.0 
+map_Ka brick2.jpg
+map_Kd brick2.jpg
+
+newmtl solar-panel
+Ns 100.0
+d 1.0
+Tr 0.0
+illum 2
+Ka 1.0 1.0 1.0 
+Kd 1.0 1.0 1.0 
+Ks 0.59999996 0.59999996 0.59999996 
+Ke 0.0 0.0 0.0 
+map_Ka solar-panel.jpg
+map_Kd solar-panel.jpg
+
+newmtl bark4
+Ns 10.0
+d 1.0
+Tr 0.0
+illum 2
+Ka 1.0 1.0 1.0 
+Kd 1.0 1.0 1.0 
+Ks 0.0 0.0 0.0 
+Ke 0.0 0.0 0.0 
+map_Ka bark4.jpg
+map_Kd bark4.jpg
+
+newmtl water1
+Ns 10.0
+d 1.0
+Tr 0.0
+illum 2
+Ka 1.0 1.0 1.0 
+Kd 1.0 1.0 1.0 
+Ks 0.39999998 0.39999998 0.39999998 
+Ke 0.0 0.0 0.0 
+map_Ka water1.jpg
+map_Kd water1.jpg
+
+newmtl hedge1
+Ns 10.0
+d 1.0
+Tr 0.0
+illum 2
+Ka 1.0 1.0 1.0 
+Kd 1.0 1.0 1.0 
+Ks 0.0 0.0 0.0 
+Ke 0.0 0.0 0.0 
+map_Ka hedge1.jpg
+map_Kd hedge1.jpg
+

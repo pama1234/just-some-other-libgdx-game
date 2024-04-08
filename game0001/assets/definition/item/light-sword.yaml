@@ -1,0 +1,21 @@
+!<StoredInfo>
+attr: !<MetaItemAttribute>
+  countType: INT
+  damage: 0.08
+  defaultDisplayType: 0
+  displayNames: null
+  displayTypeSize: 0
+  genericSpeed: 4.0
+  intData: null
+  lightIntensity: 0.0
+  maxCount: -1
+  toolType: 0
+  weaponType: 3
+id: 22
+name: light-sword
+sttr: !<MetaItemStoredAttribute>
+  blockTypeId: -1
+  initerProgram: null
+  tiles:
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 140, y: 100}
+  useEventProgram: null

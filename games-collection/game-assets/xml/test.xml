@@ -1,0 +1,6 @@
+<Attack
+texture="attack.png"
+type="1"
+wait="0"
+hurt="100"
+></Attack>

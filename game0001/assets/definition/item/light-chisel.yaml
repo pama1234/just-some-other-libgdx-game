@@ -1,0 +1,21 @@
+!<StoredInfo>
+attr: !<MetaItemAttribute>
+  countType: INT
+  damage: 0.0
+  defaultDisplayType: 0
+  displayNames: null
+  displayTypeSize: 0
+  genericSpeed: 4.0
+  intData: null
+  lightIntensity: 0.0
+  maxCount: -1
+  toolType: 5
+  weaponType: 0
+id: 21
+name: light-chisel
+sttr: !<MetaItemStoredAttribute>
+  blockTypeId: -1
+  initerProgram: null
+  tiles:
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 140, y: 80}
+  useEventProgram: null

@@ -1,0 +1,21 @@
+!<StoredInfo>
+attr: !<MetaItemAttribute>
+  countType: INT
+  damage: 0.0
+  defaultDisplayType: 0
+  displayNames: null
+  displayTypeSize: 0
+  genericSpeed: 2.0
+  intData: null
+  lightIntensity: 0.0
+  maxCount: -1
+  toolType: 3
+  weaponType: 0
+id: 6
+name: stone-pickaxe
+sttr: !<MetaItemStoredAttribute>
+  blockTypeId: -1
+  initerProgram: null
+  tiles:
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 40, y: 20}
+  useEventProgram: null

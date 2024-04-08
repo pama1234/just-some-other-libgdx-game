@@ -1,0 +1,54 @@
+!<StoredInfo>
+attr: !<MetaBlockAttribute>
+  blockType: 3
+  buildTime: 15
+  defaultDisplayType: 0
+  destroyTime: 60
+  display: true
+  displayNames: null
+  displayTypeSize: 4
+  empty: false
+  fullBlock: true
+  fullBlockType: 0
+  hardness: 1.0
+  height: 1
+  intData: null
+  light: true
+  lightIntensity: 4.0
+  rectSolid: null
+  width: 1
+  workStation: false
+id: 14
+name: light-ore
+sttr: !<MetaBlockStoredAttribute>
+  displayUpdater: null
+  displayer: null
+  from: null
+  itemDrop: null
+  tiles:
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 220, y: 240}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 220, y: 220}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 220, y: 260}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 220, y: 200}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 200, y: 240}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 200, y: 220}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 200, y: 260}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 200, y: 200}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 240, y: 240}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 240, y: 220}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 240, y: 260}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 240, y: 200}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 180, y: 240}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 180, y: 220}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 180, y: 260}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 180, y: 200}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 180, y: 280}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 200, y: 280}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 180, y: 300}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 200, y: 300}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 220, y: 280}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 240, y: 280}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 220, y: 300}
+  - {assetId: image/tiles.png, h: 18, w: 18, x: 240, y: 300}
+  to: null
+  updater: null
