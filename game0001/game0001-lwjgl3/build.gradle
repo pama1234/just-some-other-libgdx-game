@@ -1,6 +1,8 @@
 buildscript {
+  ext.kotlin_version = '1.9.22'
   repositories {
     gradlePluginPortal()
+    mavenCentral()
   }
   dependencies {
     // 使用jpackage只有在JDK版本为14或更高时才有效。
@@ -11,13 +13,19 @@ buildscript {
   }
 }
 
+apply plugin: "org.jetbrains.kotlin.plugin.compose"
 apply plugin: "org.jetbrains.compose"
+apply plugin: 'org.jetbrains.kotlin.jvm'
+apply plugin: 'kotlin'
+
+kotlin {
+  jvmToolchain(21)
+}
 
 if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_14)) {
-  apply plugin: 'org.beryx.runtime'
-}
-else {
-  apply plugin: 'application'
+//  apply plugin: 'org.beryx.runtime'
+} else {
+//  apply plugin: 'application'
 }
 
 sourceSets.main.resources.srcDirs += [
@@ -27,7 +35,6 @@ sourceSets.main.resources.srcDirs += [
 ]
 //mainClassName = 'pama1234.gdx.game.app.lwjgl3.Launcher'
 eclipse.project.name = appName + '0001-lwjgl3'
-sourceCompatibility = 21
 
 dependencies {
   implementation "$gdxModule:gdx-backend-lwjgl3:$gdxVersion"
@@ -40,7 +47,8 @@ dependencies {
   // implementation "com.mazatech.amanithsvg:amanithsvg-gdx:$amanithsvgVersion:natives-desktop"
 
   // Compose for desktop
-  implementation("org.jetbrains.compose.desktop:desktop:1.4.0") // 使用适合的Compose版本
+  implementation("org.jetbrains.compose.desktop:desktop:1.4.0")
+  implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version" // 使用适合的Compose版本
 }
 
 compose.desktop {
@@ -50,19 +58,6 @@ compose.desktop {
 }
 
 def os = System.properties['os.name'].toLowerCase()
-
-run {
-  // workingDir = [ '../assets' ]
-  workingDir = rootProject.file('../assets').path
-  // workingDir = rootProject.file('game0001/assets').path
-  setIgnoreExitValue(true)
-
-  if (os.contains('mac')) {
-    // 在MacOS上运行LWJGL3 Java应用程序所需
-    jvmArgs += "-XstartOnFirstThread"
-  }
-  // jvmArgs+="-Dcom.amd.aparapi.enableShowGeneratedOpenCL=true"//TODO
-}
 
 jar {
   // 将生成的.jar文件的名称设置为游戏或应用程序的名称。
@@ -84,7 +79,7 @@ jar {
   }
   // 设置manifest使JAR可运行。
   manifest {
-    attributes 'Main-Class': project.mainClassName
+    attributes 'Main-Class': 'pama1234.gdx.game.app.lwjgl3.Launcher'
   }
   // 这最后一步可能有助于在一些需要额外指令来制作可运行JAR的操作系统上。
   doLast {
@@ -92,49 +87,12 @@ jar {
   }
 }
 
-distTar {duplicatesStrategy(DuplicatesStrategy.EXCLUDE)}
-distZip {duplicatesStrategy(DuplicatesStrategy.EXCLUDE)}
-
-if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_14)) {
-  jpackageImage.dependsOn jar
-
-  runtime {
-    options.set([
-      '--strip-debug',
-      '--compress',
-      '2',
-      '--no-header-files',
-      '--no-man-pages',
-      '--strip-native-commands',
-      '--vm',
-      'server'
-    ])
-    // 你可能需要比这个更多的模块。
-    // 使用lwjgl3:suggestModules任务来查看可能需要哪些模块。
-    modules.set(['jdk.unsupported'])
-    distDir.set(file(buildDir))
-    jpackage {
-      imageName = appName
-      // 如果你想构建安装程序，可以将此设置为false，或保持为true以仅构建应用程序。
-      skipInstaller = true
-      // 如果你的JAVA_HOME指向低版本JDK，可能需要将此设置为不同的路径。
-      jpackageHome = javaHome.getOrElse("")
-      mainJar = jar.archiveFileName.get()
-      if (os.contains('win')) {
-        imageOptions = ["--icon", "icons/logo.ico"]
-      } else if (os.contains('nix') || os.contains('nux') || os.contains('bsd')) {
-        imageOptions = ["--icon", "icons/logo.png"]
-      } else if (os.contains('mac')) {
-        imageOptions = [
-          "--icon",
-          "icons/logo.icns",
-          " --java-options",
-          "\"XstartOnFirstThread\""
-        ]
-      }
-    }
-  }
-}
-
 // 等同于jar任务；这里是为了与gdx-setup兼容。
 task dist(dependsOn: [jar]) { }
+
+// 添加以下任务依赖关系来解决报错
+tasks.named('processResources') {
+  dependsOn 'prepareComposeResourcesTaskForMain'
+  dependsOn 'copyNonXmlValueResourcesForMain'
+  dependsOn 'convertXmlValueResourcesForMain'
+}

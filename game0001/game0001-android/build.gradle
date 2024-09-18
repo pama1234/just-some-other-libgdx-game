@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.jetbrains.kotlin.android'
+apply plugin: "org.jetbrains.kotlin.plugin.compose"
 apply plugin: 'org.jetbrains.compose'
 
 configurations {
@@ -125,9 +126,9 @@ dependencies {
   natives "$gdxModule:gdx-platform:$gdxVersion:natives-x86_64"
 
   // Compose UI dependencies for Android
-  implementation("androidx.compose.ui:ui:1.6.11")
-  implementation("androidx.compose.material:material:1.6.11")
-  implementation("androidx.compose.ui:ui-tooling-preview:1.6.11")
+  implementation("androidx.compose.ui:ui:$androidxComposeVersion")
+  implementation("androidx.compose.material:material:$androidxComposeVersion")
+  implementation("androidx.compose.ui:ui-tooling-preview:$androidxComposeVersion")
   implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.5")
 
   implementation("io.github.Rosemoe.sora-editor:editor:0.23.4")

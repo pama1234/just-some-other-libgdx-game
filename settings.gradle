@@ -1,4 +1,11 @@
-// lpp 01版本
+pluginManagement {
+  plugins {
+    id 'org.jetbrains.kotlin.jvm' version '1.9.22'
+  }
+}
+plugins {
+  id 'org.gradle.toolchains.foojay-resolver-convention' version '0.8.0'
+}// lpp 01版本
 // 预计task数：4791
 
 // 以下内容用于关于编号含义的提示
@@ -26,12 +33,12 @@ include 'game0001:game0001-android', 'game0001:game0001-lwjgl3', 'game0001:game0
 // include 'game0002:game0002-android', 'game0002:game0002-lwjgl3', 'game0002:game0002-core', 'game0002:game0002-server', 'game0002:game0002-taptap'
 include 'game0003:game0003-android', 'game0003:game0003-lwjgl3', 'game0003:game0003-core', 'game0003:game0003-server', 'game0003:game0003-taptap'
 
-include 'game0007:game0007-android', 'game0007:game0007-lwjgl3', 'game0007:game0007-core', 'game0007:game0007-server'
-include 'game0008:game0008-android', 'game0008:game0008-lwjgl3', 'game0008:game0008-core', 'game0008:game0008-server', 'game0008:game0008-taptap'
-include 'game0009:game0009-android', 'game0009:game0009-lwjgl3', 'game0009:game0009-core', 'game0009:game0009-server'
+//include 'game0007:game0007-android', 'game0007:game0007-lwjgl3', 'game0007:game0007-core', 'game0007:game0007-server'
+//include 'game0008:game0008-android', 'game0008:game0008-lwjgl3', 'game0008:game0008-core', 'game0008:game0008-server', 'game0008:game0008-taptap'
+//include 'game0009:game0009-android', 'game0009:game0009-lwjgl3', 'game0009:game0009-core', 'game0009:game0009-server'
 //include 'game0010:game0010-android', 'game0010:game0010-lwjgl3', 'game0010:game0010-core', 'game0010:game0010-server'
-include 'game0013:game0013-android', 'game0013:game0013-lwjgl3', 'game0013:game0013-core', 'game0013:game0013-server', 'game0013:game0013-taptap'
-include 'game0015:game0015-android', 'game0015:game0015-lwjgl3', 'game0015:game0015-core', 'game0015:game0015-server'
+//include 'game0013:game0013-android', 'game0013:game0013-lwjgl3', 'game0013:game0013-core', 'game0013:game0013-server', 'game0013:game0013-taptap'
+//include 'game0015:game0015-android', 'game0015:game0015-lwjgl3', 'game0015:game0015-core', 'game0015:game0015-server'
 
 include 'games-collection'
 // include 'game0007:game0007-core','game0007:game0007-server'

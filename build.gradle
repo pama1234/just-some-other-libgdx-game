@@ -19,8 +19,8 @@ buildscript {
 
     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
     classpath "org.jetbrains.compose:compose-gradle-plugin:$composeVersion"
-
-    // classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinPluginVersion"
+    classpath("org.jetbrains.kotlin:compose-compiler-gradle-plugin:$composeVersion")
+    classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion")
 
     // This follows advice from https://blog.gradle.org/log4j-vulnerability
     constraints {
