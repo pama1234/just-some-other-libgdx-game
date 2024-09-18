@@ -93,7 +93,7 @@ public class SettingsUtil{
       },self->self.text=ld.reloadAssets,()->18,()->0,()->80),
       new TextButtonCam<>(p,true,()->true,self-> {},self-> {},self-> {
         System.gc();
-        Runtime.getRuntime().runFinalization();
+        // System.runFinalization();
       },self->self.text=ld.systemGc,()->18,()->0,()->100),
       new TextButtonCam<>(p,true,()->true,self-> {},self-> {},self-> {
         p.state(p.stateCenter.debug);

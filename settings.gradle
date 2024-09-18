@@ -1,11 +1,13 @@
 pluginManagement {
   plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.9.22'
+    id 'org.jetbrains.kotlin.jvm' version "$kotlinPluginVersion"
   }
 }
 plugins {
   id 'org.gradle.toolchains.foojay-resolver-convention' version '0.8.0'
-}// lpp 01版本
+}
+
+// lpp 01版本
 // 预计task数：4791
 
 // 以下内容用于关于编号含义的提示
@@ -40,5 +42,6 @@ include 'game0003:game0003-android', 'game0003:game0003-lwjgl3', 'game0003:game0
 //include 'game0013:game0013-android', 'game0013:game0013-lwjgl3', 'game0013:game0013-core', 'game0013:game0013-server', 'game0013:game0013-taptap'
 //include 'game0015:game0015-android', 'game0015:game0015-lwjgl3', 'game0015:game0015-core', 'game0015:game0015-server'
 
-include 'games-collection'
+// games-collection依赖于g07和g09
+//include 'games-collection'
 // include 'game0007:game0007-core','game0007:game0007-server'
