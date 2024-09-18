@@ -3,13 +3,16 @@ buildscript {
     gradlePluginPortal()
   }
   dependencies {
-    // using jpackage only works if the JDK version is 14 or higher.
-    // your JAVA_HOME environment variable may also need to be a JDK with version 14 or higher.
+    // 使用jpackage只有在JDK版本为14或更高时才有效。
+    // 你的JAVA_HOME环境变量可能也需要指向版本为14或更高的JDK。
     if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_14)) {
       classpath "org.beryx:badass-runtime-plugin:1.12.7"
     }
   }
 }
+
+apply plugin: "org.jetbrains.compose"
+
 if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_14)) {
   apply plugin: 'org.beryx.runtime'
 }
@@ -22,9 +25,9 @@ sourceSets.main.resources.srcDirs += [
   '../../assets',
   '../assets'
 ]
-mainClassName = 'pama1234.gdx.game.app.lwjgl3.Launcher'
+//mainClassName = 'pama1234.gdx.game.app.lwjgl3.Launcher'
 eclipse.project.name = appName + '0001-lwjgl3'
-sourceCompatibility = 17
+sourceCompatibility = 21
 
 dependencies {
   implementation "$gdxModule:gdx-backend-lwjgl3:$gdxVersion"
@@ -35,6 +38,15 @@ dependencies {
   implementation project(':game0001:game0001-core')
 
   // implementation "com.mazatech.amanithsvg:amanithsvg-gdx:$amanithsvgVersion:natives-desktop"
+
+  // Compose for desktop
+  implementation("org.jetbrains.compose.desktop:desktop:1.4.0") // 使用适合的Compose版本
+}
+
+compose.desktop {
+  application {
+    mainClass = "pama1234.gdx.game.app.lwjgl3.Launcher" // 你应用程序的入口类
+  }
 }
 
 def os = System.properties['os.name'].toLowerCase()
@@ -46,18 +58,18 @@ run {
   setIgnoreExitValue(true)
 
   if (os.contains('mac')) {
-    // Required to run LWJGL3 Java apps on MacOS
+    // 在MacOS上运行LWJGL3 Java应用程序所需
     jvmArgs += "-XstartOnFirstThread"
   }
   // jvmArgs+="-Dcom.amd.aparapi.enableShowGeneratedOpenCL=true"//TODO
 }
 
 jar {
-  // sets the name of the .jar file this produces to the name of the game or app.
+  // 将生成的.jar文件的名称设置为游戏或应用程序的名称。
   archiveBaseName.set(eclipse.project.name)
-  // using 'lib' instead of the default 'libs' appears to be needed by jpackageimage.
+  // 使用'lib'而不是默认的'libs'似乎是jpackageimage所需要的。
   destinationDirectory = file("$project.buildDir/lib")
-  // the duplicatesStrategy matters starting in Gradle 7.0; this setting works.
+  // 从Gradle 7.0开始，duplicatesStrategy变得重要；这个设置是有效的。
   duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
   dependsOn configurations.runtimeClasspath
   from {
@@ -65,16 +77,16 @@ jar {
       it.isDirectory() ? it : zipTree(it)
     }
   }
-  // these "exclude" lines remove some unnecessary duplicate files in the output JAR.
+  // 这些"exclude"行删除了输出JAR中一些不必要的重复文件。
   exclude('META-INF/INDEX.LIST', 'META-INF/*.SF', 'META-INF/*.DSA', 'META-INF/*.RSA')
   dependencies {
     exclude('META-INF/INDEX.LIST', 'META-INF/maven/**')
   }
-  // setting the manifest makes the JAR runnable.
+  // 设置manifest使JAR可运行。
   manifest {
     attributes 'Main-Class': project.mainClassName
   }
-  // this last step may help on some OSes that need extra instruction to make runnable JARs.
+  // 这最后一步可能有助于在一些需要额外指令来制作可运行JAR的操作系统上。
   doLast {
     file(archiveFile).setExecutable(true, false)
   }
@@ -97,15 +109,15 @@ if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_14)) {
       '--vm',
       'server'
     ])
-    // you could very easily need more modules than this one.
-    // use the lwjgl3:suggestModules task to see which modules may be needed.
+    // 你可能需要比这个更多的模块。
+    // 使用lwjgl3:suggestModules任务来查看可能需要哪些模块。
     modules.set(['jdk.unsupported'])
     distDir.set(file(buildDir))
     jpackage {
       imageName = appName
-      // you can set this to false if you want to build an installer, or keep it as true to build just an app.
+      // 如果你想构建安装程序，可以将此设置为false，或保持为true以仅构建应用程序。
       skipInstaller = true
-      // this may need to be set to a different path if your JAVA_HOME points to a low JDK version.
+      // 如果你的JAVA_HOME指向低版本JDK，可能需要将此设置为不同的路径。
       jpackageHome = javaHome.getOrElse("")
       mainJar = jar.archiveFileName.get()
       if (os.contains('win')) {
@@ -124,5 +136,5 @@ if (JavaVersion.current().isCompatibleWith(JavaVersion.VERSION_14)) {
   }
 }
 
-// Equivalent to the jar task; here for compatibility with gdx-setup.
+// 等同于jar任务；这里是为了与gdx-setup兼容。
 task dist(dependsOn: [jar]) { }

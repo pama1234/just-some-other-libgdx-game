@@ -35,9 +35,14 @@ android {
   }
   packagingOptions {
 
+    resources {
+      excludes += ['assets/image/src/*' , 'META-INF/robovm/ios/robovm.xml' , 'META-INF/DEPENDENCIES.txt' , 'META-INF/DEPENDENCIES' , 'META-INF/dependencies.txt']
+    }
+    jniLibs {
+      excludes += ['assets/image/src/*']
+    }
     resources.pickFirsts += "**/*"
 
-    exclude 'assets/image/src/*'
     // //无法理解的屎山+1
     // pickFirst "win/libgcc_s_seh_x86_64.dll"
     // pickFirst "win/libstdc++-6_x86.dll"
@@ -58,10 +63,6 @@ android {
     // pickFirst 'META-INF/NOTICE'
     // pickFirst 'META-INF/notice.txt'
     // Excluding unnecessary meta-data:
-    exclude 'META-INF/robovm/ios/robovm.xml'
-    exclude 'META-INF/DEPENDENCIES.txt'
-    exclude 'META-INF/DEPENDENCIES'
-    exclude 'META-INF/dependencies.txt'
   }
   defaultConfig {
     compileSdk project.properties.compileSdkVersion.toInteger()
@@ -75,8 +76,8 @@ android {
   }
   compileOptions {
     encoding = 'UTF-8'
-    sourceCompatibility "17"
-    targetCompatibility "17"
+    sourceCompatibility "21"
+    targetCompatibility "21"
     coreLibraryDesugaringEnabled true
   }
 
@@ -88,10 +89,10 @@ android {
       signingConfig signingConfigs.release
     }
   }
-
-  lintOptions {
+  lint {
     abortOnError false
   }
+
 }
 
 Properties props = new Properties()

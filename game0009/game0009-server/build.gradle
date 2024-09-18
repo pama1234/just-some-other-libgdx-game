@@ -1,5 +1,5 @@
 [compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
-sourceCompatibility = 17
+sourceCompatibility = 21
 
 eclipse.project.name = appName + '0009-server'
 

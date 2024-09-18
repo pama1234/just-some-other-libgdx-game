@@ -34,26 +34,19 @@ android {
     }
   }
   packagingOptions {
-    resources.pickFirsts += "**/*"
-    // pickFirst "javax/vecmath/ExceptionStrings.properties"
+    resources {
+      pickFirsts += ['**/*' , 'META-INF/LICENSE.txt' , 'META-INF/LICENSE' , 'META-INF/license.txt' , 'META-INF/LGPL2.1' , 'META-INF/NOTICE.txt' , 'META-INF/NOTICE' , 'META-INF/notice.txt' , 'license/*' , 'about_files/LICENSE-2.0.txt']
+      excludes += ['META-INF/robovm/ios/robovm.xml' , 'META-INF/DEPENDENCIES.txt' , 'META-INF/DEPENDENCIES' , 'META-INF/dependencies.txt']
+    }
+    jniLibs {
+      pickFirsts += ['license/*']
+    }
+// pickFirst "javax/vecmath/ExceptionStrings.properties"
     // Preventing from license violations (more or less):
-    pickFirst 'META-INF/LICENSE.txt'
-    pickFirst 'META-INF/LICENSE'
-    pickFirst 'META-INF/license.txt'
-    pickFirst 'META-INF/LGPL2.1'
-    pickFirst 'META-INF/NOTICE.txt'
-    pickFirst 'META-INF/NOTICE'
-    pickFirst 'META-INF/notice.txt'
     // pickFirst 'license/README.dom.txt'
     // pickFirst 'license/LICENSE.sac.html'
     // pickFirst 'license/LICENSE.dom-documentation.txt'
-    pickFirst 'license/*'
-    pickFirst 'about_files/LICENSE-2.0.txt'
     // Excluding unnecessary meta-data:
-    exclude 'META-INF/robovm/ios/robovm.xml'
-    exclude 'META-INF/DEPENDENCIES.txt'
-    exclude 'META-INF/DEPENDENCIES'
-    exclude 'META-INF/dependencies.txt'
   }
   defaultConfig {
     applicationId 'pama1234.gdx.game.app.ide.center'
@@ -64,8 +57,8 @@ android {
     multiDexEnabled true
   }
   compileOptions {
-    sourceCompatibility "17"
-    targetCompatibility "17"
+    sourceCompatibility "21"
+    targetCompatibility "21"
     coreLibraryDesugaringEnabled true
   }
 

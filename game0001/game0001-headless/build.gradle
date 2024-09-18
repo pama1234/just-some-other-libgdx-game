@@ -1,6 +1,6 @@
 apply plugin: 'application'
 
-sourceCompatibility = 17
+sourceCompatibility = 21
 mainClassName = 'pama1234.gdx.game.app.headless.HeadlessLauncher'
 eclipse.project.name = appName + '0001-headless'
 

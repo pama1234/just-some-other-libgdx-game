@@ -24,7 +24,7 @@ sourceSets.main.resources.srcDirs += [
 ]
 mainClassName = 'pama1234.gdx.game.app.lwjgl3.Launcher'
 eclipse.project.name = appName + '0002-lwjgl3'
-sourceCompatibility = 17
+sourceCompatibility = 21
 
 dependencies {
   implementation "$gdxModule:gdx-backend-lwjgl3:$gdxVersion"

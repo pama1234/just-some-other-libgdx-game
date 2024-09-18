@@ -11,11 +11,14 @@ buildscript {
     maven { url 'https://s01.oss.sonatype.org/content/repositories/snapshots/' }
   }
   dependencies {
-    classpath "com.android.tools.build:gradle:$androidPluginVersion"
+    classpath 'com.android.tools.build:gradle:8.5.2'
     classpath "com.diffplug.spotless:spotless-plugin-gradle:$spotlessPluginVersion"
     classpath "com.google.protobuf:protobuf-gradle-plugin:$protobufGradleVersion"
     classpath "com.github.johnrengelman.shadow:com.github.johnrengelman.shadow.gradle.plugin:$shadowPluginVersion"
     classpath "io.freefair.gradle:lombok-plugin:$lombokPluginVersion"
+
+    classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+    classpath "org.jetbrains.compose:compose-gradle-plugin:$composeVersion"
 
     // classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinPluginVersion"
 
@@ -89,7 +92,7 @@ configure(subprojects.findAll { subproject ->
   apply plugin: 'java-library'
 
   // 设置Java的源码兼容性版本为17
-  sourceCompatibility = 17
+  sourceCompatibility = 21
 
   compileJava {
     // 启用增量编译

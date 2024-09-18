@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'org.jetbrains.kotlin.android'
+apply plugin: 'org.jetbrains.compose'
 
 configurations {
   all {
@@ -34,21 +36,13 @@ android {
     }
   }
   packagingOptions {
-    resources.pickFirsts += "**/*"
+    // 防止许可证违规（或多或少）：
+    // 排除不必要的元数据：
+    resources {
+      pickFirsts += ['**/*' , 'META-INF/LICENSE.txt' , 'META-INF/LICENSE' , 'META-INF/license.txt' , 'META-INF/LGPL2.1' , 'META-INF/NOTICE.txt' , 'META-INF/NOTICE' , 'META-INF/notice.txt']
+      excludes += ['META-INF/robovm/ios/robovm.xml' , 'META-INF/DEPENDENCIES.txt' , 'META-INF/DEPENDENCIES' , 'META-INF/dependencies.txt']
+    }
     // exclude 'assets/image/src/*'
-    // Preventing from license violations (more or less):
-    pickFirst 'META-INF/LICENSE.txt'
-    pickFirst 'META-INF/LICENSE'
-    pickFirst 'META-INF/license.txt'
-    pickFirst 'META-INF/LGPL2.1'
-    pickFirst 'META-INF/NOTICE.txt'
-    pickFirst 'META-INF/NOTICE'
-    pickFirst 'META-INF/notice.txt'
-    // Excluding unnecessary meta-data:
-    exclude 'META-INF/robovm/ios/robovm.xml'
-    exclude 'META-INF/DEPENDENCIES.txt'
-    exclude 'META-INF/DEPENDENCIES'
-    exclude 'META-INF/dependencies.txt'
   }
   defaultConfig {
     compileSdk project.properties.compileSdkVersion.toInteger()
@@ -61,8 +55,8 @@ android {
   }
   compileOptions {
     encoding = 'UTF-8'
-    sourceCompatibility "17"
-    targetCompatibility "17"
+    sourceCompatibility "21"
+    targetCompatibility "21"
     coreLibraryDesugaringEnabled true
   }
 
@@ -73,6 +67,14 @@ android {
 
       signingConfig signingConfigs.release
     }
+  }
+
+  buildFeatures {
+    compose true
+  }
+
+  composeOptions {
+    kotlinCompilerExtensionVersion = "1.4.0"
   }
 }
 
@@ -96,7 +98,7 @@ if(propFile.canRead()) {
 }
 
 repositories {
-  // needed for AAPT2, may be needed for other tools
+  // 需要AAPT2，可能需要其他工具
   mavenCentral()
   maven { url 'https://jitpack.io' }
   google()
@@ -121,11 +123,18 @@ dependencies {
   natives "$gdxModule:gdx-platform:$gdxVersion:natives-armeabi-v7a"
   natives "$gdxModule:gdx-platform:$gdxVersion:natives-x86"
   natives "$gdxModule:gdx-platform:$gdxVersion:natives-x86_64"
+
+  // Compose UI dependencies for Android
+  implementation("androidx.compose.ui:ui:1.6.11")
+  implementation("androidx.compose.material:material:1.6.11")
+  implementation("androidx.compose.ui:ui-tooling-preview:1.6.11")
+  implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.5")
+
+  implementation("io.github.Rosemoe.sora-editor:editor:0.23.4")
 }
 
-// Called every time gradle gets executed, takes the native dependencies of
-// the natives configuration, and extracts them to the proper libs/ folders
-// so they get packed with the APK.
+// 每次gradle执行时调用，获取natives配置的本地依赖项，
+// 并将它们提取到适当的libs/文件夹中，以便它们与APK一起打包。
 task copyAndroidNatives() {
   doFirst {
     file("libs/armeabi-v7a/").mkdirs()

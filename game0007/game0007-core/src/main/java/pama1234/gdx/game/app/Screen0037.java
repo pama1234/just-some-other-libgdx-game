@@ -184,7 +184,7 @@ public class Screen0037 extends ScreenCore2D{
   public void display() {
     // doStroke();
     textSize(UtilMath.max(UtilMath.floor(pus/2f),1)*16);
-    fullText("用时："+
+    text("用时："+
       Tools.cutToLastDigit(time/60f)+
       "s\n正方形数量："+
       boxCount+

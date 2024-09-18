@@ -2,7 +2,7 @@ apply plugin: 'application'
 
 // apply plugin: 'com.google.protobuf'
 
-sourceCompatibility = 17
+sourceCompatibility = 21
 mainClassName = 'pama1234.gdx.game.app.server.ServerLauncher'
 eclipse.project.name = appName + '0003-server'
 
@@ -47,4 +47,4 @@ tasks.distTar { duplicatesStrategy = DuplicatesStrategy.EXCLUDE }
 tasks.distZip { duplicatesStrategy = DuplicatesStrategy.EXCLUDE }
 tasks.jar { duplicatesStrategy = DuplicatesStrategy.EXCLUDE }
 
-// java.targetCompatibility = JavaVersion.VERSION_17
+// java.targetCompatibility = JavaVersion.VERSION_21

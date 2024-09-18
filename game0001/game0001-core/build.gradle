@@ -9,6 +9,8 @@ dependencies {
   api "$pama1234RepoLocation:server-framework:$pama1234PublishVersion"
   api "$pama1234RepoLocation:framework:$pama1234PublishVersion"
 
+  implementation("org.jetbrains.compose.runtime:runtime:1.6.11") // 使用适合的Compose版本
+
   api project(':game0001:game0001-server')
 }
 

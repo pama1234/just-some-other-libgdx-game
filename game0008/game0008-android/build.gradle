@@ -34,33 +34,15 @@ android {
     }
   }
   packagingOptions {
-    resources.pickFirsts += "**/*"
+    resources {
+      pickFirsts += ['**/*' , 'win/libgcc_s_seh_x86_64.dll' , 'win/libstdc++-6_x86.dll' , 'win/libgcc_s_sjlj_x86.dll' , 'win/libstdc++-6_x86_64.dll' , 'win/libaparapi_x86_64.dll' , 'win/libaparapi_x86.dll' , 'osx/libaparapi_x86_64.dylib' , 'javax/vecmath/ExceptionStrings.properties' , 'library.properties' , 'rootdoc.txt' , 'META-INF/LICENSE.txt' , 'META-INF/LICENSE' , 'META-INF/license.txt' , 'META-INF/LGPL2.1' , 'META-INF/NOTICE.txt' , 'META-INF/NOTICE' , 'META-INF/notice.txt']
+      excludes += ['META-INF/robovm/ios/robovm.xml' , 'META-INF/DEPENDENCIES.txt' , 'META-INF/DEPENDENCIES' , 'META-INF/dependencies.txt']
+    }
 
     // exclude 'assets/image/src/*'
     //无法理解的屎山+1
-    pickFirst "win/libgcc_s_seh_x86_64.dll"
-    pickFirst "win/libstdc++-6_x86.dll"
-    pickFirst "win/libgcc_s_sjlj_x86.dll"
-    pickFirst "win/libstdc++-6_x86_64.dll"
-    pickFirst "win/libaparapi_x86_64.dll"
-    pickFirst "win/libaparapi_x86.dll"
-    pickFirst "osx/libaparapi_x86_64.dylib"
-    pickFirst "javax/vecmath/ExceptionStrings.properties"
-    pickFirst "library.properties"
-    pickFirst "rootdoc.txt"
     // Preventing from license violations (more or less):
-    pickFirst 'META-INF/LICENSE.txt'
-    pickFirst 'META-INF/LICENSE'
-    pickFirst 'META-INF/license.txt'
-    pickFirst 'META-INF/LGPL2.1'
-    pickFirst 'META-INF/NOTICE.txt'
-    pickFirst 'META-INF/NOTICE'
-    pickFirst 'META-INF/notice.txt'
     // Excluding unnecessary meta-data:
-    exclude 'META-INF/robovm/ios/robovm.xml'
-    exclude 'META-INF/DEPENDENCIES.txt'
-    exclude 'META-INF/DEPENDENCIES'
-    exclude 'META-INF/dependencies.txt'
   }
   defaultConfig {
     compileSdk project.properties.compileSdkVersion.toInteger()
@@ -73,8 +55,8 @@ android {
   }
   compileOptions {
     encoding = 'UTF-8'
-    sourceCompatibility "17"
-    targetCompatibility "17"
+    sourceCompatibility "21"
+    targetCompatibility "21"
     coreLibraryDesugaringEnabled true
   }
 

@@ -24,25 +24,13 @@ android {
     }
   }
   packagingOptions {
-    resources.pickFirsts += "**/*"
-    // exclude 'assets/image/src/*'
+    resources {
+      pickFirsts += ['**/*' , 'META-INF/LICENSE.txt' , 'META-INF/LICENSE' , 'META-INF/license.txt' , 'META-INF/LGPL2.1' , 'META-INF/NOTICE.txt' , 'META-INF/NOTICE' , 'META-INF/notice.txt']
+      excludes += ['META-INF/robovm/ios/robovm.xml' , 'META-INF/DEPENDENCIES.txt' , 'META-INF/DEPENDENCIES' , 'META-INF/dependencies.txt' , 'README.md' , 'latestchanges.html' , 'changelog.txt' , 'AUTHORS']
+    }
+// exclude 'assets/image/src/*'
     // Preventing from license violations (more or less):
-    pickFirst 'META-INF/LICENSE.txt'
-    pickFirst 'META-INF/LICENSE'
-    pickFirst 'META-INF/license.txt'
-    pickFirst 'META-INF/LGPL2.1'
-    pickFirst 'META-INF/NOTICE.txt'
-    pickFirst 'META-INF/NOTICE'
-    pickFirst 'META-INF/notice.txt'
     // Excluding unnecessary meta-data:
-    exclude 'META-INF/robovm/ios/robovm.xml'
-    exclude 'META-INF/DEPENDENCIES.txt'
-    exclude 'META-INF/DEPENDENCIES'
-    exclude 'META-INF/dependencies.txt'
-    exclude 'README.md'
-    exclude 'latestchanges.html'
-    exclude 'changelog.txt'
-    exclude 'AUTHORS'
   }
   defaultConfig {
     compileSdk project.properties.compileSdkVersion.toInteger()
@@ -55,8 +43,8 @@ android {
   }
   compileOptions {
     encoding = 'UTF-8'
-    sourceCompatibility "17"
-    targetCompatibility "17"
+    sourceCompatibility "21"
+    targetCompatibility "21"
     coreLibraryDesugaringEnabled true
   }
 

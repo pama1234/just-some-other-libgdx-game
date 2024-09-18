@@ -23,7 +23,7 @@ sourceSets.main.resources.srcDirs += [
 ]
 mainClassName = 'pama1234.gdx.game.app.lwjgl3.Launcher'
 eclipse.project.name = appName + '0005-lwjgl3'
-sourceCompatibility = 17
+sourceCompatibility = 21
 
 dependencies {
   implementation "$gdxModule:gdx-backend-lwjgl3:$gdxVersion"
@@ -121,4 +121,4 @@ tasks.distTar { duplicatesStrategy = DuplicatesStrategy.EXCLUDE }
 tasks.distZip { duplicatesStrategy = DuplicatesStrategy.EXCLUDE }
 tasks.jar { duplicatesStrategy = DuplicatesStrategy.EXCLUDE }
 
-// java.targetCompatibility = JavaVersion.VERSION_17
+// java.targetCompatibility = JavaVersion.VERSION_21
