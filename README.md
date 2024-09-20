@@ -4,7 +4,7 @@
 
 [中文](README.md) | [English](README.en.md)
 
-[![Jitpack Badge](https://jitpack.io/v/Java-Game-Engine-Merger/Libgdx-Processing-Plus.svg)](https://jitpack.io/#Java-Game-Engine-Merger/Libgdx-Processing-Plus)
+[![Jitpack Badge](https://jitpack.io/v/pama1234/just-some-other-libgdx-game.svg)](https://jitpack.io/#Java-Game-Engine-Merger/Libgdx-Processing-Plus)
 
 ## 使用 Protobuf
 

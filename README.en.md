@@ -4,7 +4,7 @@ Here's the English version of the document:
 
 <p align="center"><img src="doc/image/logo.png" alt="logo"></p>
 
-[![Jitpack Badge](https://jitpack.io/v/Java-Game-Engine-Merger/Libgdx-Processing-Plus.svg)](https://jitpack.io/#Java-Game-Engine-Merger/Libgdx-Processing-Plus)
+[![Jitpack Badge](https://jitpack.io/v/pama1234/just-some-other-libgdx-game.svg)](https://jitpack.io/#Java-Game-Engine-Merger/Libgdx-Processing-Plus)
 
 ## Using Protobuf
 
